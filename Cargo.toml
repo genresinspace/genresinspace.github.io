@@ -1,0 +1,11 @@
+[package]
+name = "graphgenre"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.95"
+bzip2 = "0.5.0"
+quick-xml = "0.37.2"
+serde = { version = "1.0.217", features = ["derive"] }
+toml = "0.8.19"
