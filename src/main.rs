@@ -2,7 +2,8 @@ use anyhow::Context;
 use quick_xml::events::Event;
 use serde::Deserialize;
 use std::{
-    io::Write,
+    collections::{HashMap, HashSet},
+    io::{BufRead, Write},
     path::{Path, PathBuf},
 };
 
@@ -24,7 +25,7 @@ fn main() -> anyhow::Result<()> {
 
     let start = std::time::Instant::now();
 
-    // Extract genres
+    // Stage 1: Extract genres
     if !genres.is_dir() {
         let now = std::time::Instant::now();
         std::fs::create_dir_all(&genres).context("Failed to create genres directory")?;
@@ -53,14 +54,14 @@ fn main() -> anyhow::Result<()> {
         println!("Genres directory already exists, skipping reading Wikipedia dump");
     }
 
-    // Extract all redirects, so that we can find redirects to genres.
+    // Stage 2: Extract all redirects, so that we can find redirects to genres.
     if !redirects.is_file() {
         let now = std::time::Instant::now();
         let mut count = 0;
         // Using a TOML table and updating it is probably slightly excessive, but we want to make sure values are sanitised correctly
         let mut table = toml::value::Table::with_capacity(1);
 
-        let mut redirects_output = std::fs::File::create(redirects)?;
+        let mut redirects_output = std::fs::File::create(&redirects)?;
         process_wikipedia_dump(
             &config.wikipedia_dump_path,
             false,
@@ -86,6 +87,65 @@ fn main() -> anyhow::Result<()> {
     } else {
         println!("Redirects file already exists, skipping reading Wikipedia dump");
     }
+
+    // Stage 3: Find redirects to genres, looping until we can no longer find any new redirects.
+    // This has to be repeated as you could have degree>1 redirects (i.e. redirects to redirects)
+    let mut redirect_targets = std::fs::read_dir(&genres)?
+        .filter_map(Result::ok)
+        .filter_map(|entry| {
+            entry
+                .path()
+                .file_stem()?
+                .to_str()
+                .map(unsanitize_title_reversible)
+        })
+        .collect::<HashSet<_>>();
+
+    let mut all_redirects = HashMap::<String, String>::default();
+    {
+        let file = std::fs::File::open(redirects)?;
+        let reader = std::io::BufReader::new(file);
+        // We do a line-by-line read to avoid loading the entire file into memory
+        // Also to implicitly ignore an issue with duplicates of redirects (we don't really care)
+        for line in reader.lines() {
+            let line = line?;
+            let table: HashMap<String, String> = toml::from_str(&line)?;
+            all_redirects.extend(table);
+        }
+    }
+    println!(
+        "{:.2}s: loaded {} redirects",
+        start.elapsed().as_secs_f32(),
+        all_redirects.len()
+    );
+
+    let mut genre_redirects: HashMap<String, String> = HashMap::default();
+
+    let mut round = 1;
+    loop {
+        let mut added = false;
+        for (title, redirect) in &all_redirects {
+            if redirect_targets.contains(redirect) && !genre_redirects.contains_key(title) {
+                redirect_targets.insert(title.clone());
+                genre_redirects.insert(title.clone(), redirect.clone());
+                added = true;
+            }
+        }
+        println!(
+            "{:.2}s: round {round}, {} redirects",
+            start.elapsed().as_secs_f32(),
+            genre_redirects.len()
+        );
+        if !added {
+            break;
+        }
+        round += 1;
+    }
+    println!(
+        "{:.2}s: {} redirects fully resolved",
+        start.elapsed().as_secs_f32(),
+        genre_redirects.len()
+    );
 
     Ok(())
 }
