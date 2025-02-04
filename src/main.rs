@@ -47,18 +47,20 @@ fn stage1_genre_and_all_redirects(
     // Already exists, just load from file
     if genres_path.is_dir() && redirects_path.is_file() {
         for entry in std::fs::read_dir(&genres_path)? {
-            let entry = entry?;
-            let text = std::fs::read_to_string(entry.path())?;
+            let path = entry?.path();
+            let Some(file_stem) = path.file_stem() else {
+                continue;
+            };
+            let text = std::fs::read_to_string(&path)?;
             genres.insert(
-                unsanitize_title_reversible(&entry.file_name().to_string_lossy()),
+                unsanitize_title_reversible(&file_stem.to_string_lossy()),
                 text,
             );
         }
-        println!("{:.2}s: loaded all genres", start.elapsed().as_secs_f32());
-        all_redirects = toml::from_str(&std::fs::read_to_string(redirects_path)?)?;
         println!(
-            "{:.2}s: loaded all redirects",
-            start.elapsed().as_secs_f32()
+            "{:.2}s: loaded all {} genres",
+            start.elapsed().as_secs_f32(),
+            genres.len()
         );
 
         return Ok((genres, all_redirects));
