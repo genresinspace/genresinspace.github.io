@@ -19,7 +19,7 @@ fn main() -> anyhow::Result<()> {
 
     let output_path = Path::new("output");
     let genres_path = output_path.join("genres");
-    let redirects_path = output_path.join("redirects.toml");
+    let redirects_path = output_path.join("all_redirects.toml");
     let genre_redirects_path = output_path.join("genre_redirects.toml");
 
     let start = std::time::Instant::now();
@@ -30,9 +30,29 @@ fn main() -> anyhow::Result<()> {
 
     // Stage 2: Find redirects to genres, looping until we can no longer find any new redirects.
     let _genre_redirects =
-        stage2_resolve_genre_redirects(start, &genre_redirects_path, &genres, &all_redirects)?;
+        stage2_resolve_genre_redirects(start, &genre_redirects_path, &genres, all_redirects)?;
 
     Ok(())
+}
+enum AllRedirects {
+    InMemory(HashMap<String, String>),
+    LazyLoad(PathBuf, std::time::Instant),
+}
+impl TryFrom<AllRedirects> for HashMap<String, String> {
+    type Error = anyhow::Error;
+    fn try_from(value: AllRedirects) -> Result<Self, Self::Error> {
+        match value {
+            AllRedirects::InMemory(value) => Ok(value),
+            AllRedirects::LazyLoad(path, start) => {
+                let value = toml::from_str(&std::fs::read_to_string(path)?)?;
+                println!(
+                    "{:.2}s: loaded all redirects",
+                    start.elapsed().as_secs_f32()
+                );
+                Ok(value)
+            }
+        }
+    }
 }
 
 fn stage1_genre_and_all_redirects(
@@ -40,7 +60,7 @@ fn stage1_genre_and_all_redirects(
     start: std::time::Instant,
     genres_path: PathBuf,
     redirects_path: PathBuf,
-) -> anyhow::Result<(HashMap<String, String>, HashMap<String, String>)> {
+) -> anyhow::Result<(HashMap<String, String>, AllRedirects)> {
     let mut genres = HashMap::<String, String>::default();
     let mut all_redirects = HashMap::<String, String>::default();
 
@@ -63,7 +83,7 @@ fn stage1_genre_and_all_redirects(
             genres.len()
         );
 
-        return Ok((genres, all_redirects));
+        return Ok((genres, AllRedirects::LazyLoad(redirects_path, start)));
     }
 
     println!("Genres directory or redirects file does not exist, extracting from Wikipedia dump");
@@ -161,14 +181,14 @@ fn stage1_genre_and_all_redirects(
     .context("Failed to write redirects")?;
     println!("Extracted genres and redirects in {:?}", now.elapsed());
 
-    Ok((genres, all_redirects))
+    Ok((genres, AllRedirects::InMemory(all_redirects)))
 }
 
 fn stage2_resolve_genre_redirects(
     start: std::time::Instant,
     genre_redirects_path: &Path,
     genres: &HashMap<String, String>,
-    all_redirects: &HashMap<String, String>,
+    all_redirects: AllRedirects,
 ) -> anyhow::Result<HashMap<String, String>> {
     if genre_redirects_path.is_file() {
         let genre_redirects: HashMap<String, String> =
@@ -181,6 +201,8 @@ fn stage2_resolve_genre_redirects(
         return Ok(genre_redirects);
     }
 
+    let all_redirects: HashMap<_, _> = all_redirects.try_into()?;
+
     let now = std::time::Instant::now();
 
     let mut genre_redirects: HashMap<String, String> = HashMap::default();
@@ -189,7 +211,7 @@ fn stage2_resolve_genre_redirects(
     let mut round = 1;
     loop {
         let mut added = false;
-        for (title, redirect) in all_redirects {
+        for (title, redirect) in &all_redirects {
             if redirect_targets.contains(redirect) && !genre_redirects.contains_key(title) {
                 redirect_targets.insert(title.clone());
                 genre_redirects.insert(title.clone(), redirect.clone());
