@@ -11,7 +11,6 @@ use std::{
 struct Config {
     wikipedia_dump_path: PathBuf,
 }
-
 fn main() -> anyhow::Result<()> {
     let config: Config = {
         let config_str =
@@ -19,16 +18,17 @@ fn main() -> anyhow::Result<()> {
         toml::from_str(&config_str).context("Failed to parse config.toml")?
     };
 
-    let output = Path::new("output");
-    let genres = output.join("genres");
-    let redirects = output.join("redirects.toml");
+    let output_path = Path::new("output");
+    let genres_path = output_path.join("genres");
+    let redirects_path = output_path.join("redirects.toml");
+    let genre_redirects_path = output_path.join("genre_redirects.toml");
 
     let start = std::time::Instant::now();
 
     // Stage 1: Extract genres
-    if !genres.is_dir() {
+    if !genres_path.is_dir() {
         let now = std::time::Instant::now();
-        std::fs::create_dir_all(&genres).context("Failed to create genres directory")?;
+        std::fs::create_dir_all(&genres_path).context("Failed to create genres directory")?;
 
         process_wikipedia_dump(
             &config.wikipedia_dump_path,
@@ -40,7 +40,7 @@ fn main() -> anyhow::Result<()> {
                         return Ok(());
                     }
                     std::fs::write(
-                        genres.join(format!("{}.wikitext", sanitize_title_reversible(title))),
+                        genres_path.join(format!("{}.wikitext", sanitize_title_reversible(title))),
                         text,
                     )
                     .with_context(|| format!("Failed to write genre {title}"))?;
@@ -55,13 +55,13 @@ fn main() -> anyhow::Result<()> {
     }
 
     // Stage 2: Extract all redirects, so that we can find redirects to genres.
-    if !redirects.is_file() {
+    if !redirects_path.is_file() {
         let now = std::time::Instant::now();
         let mut count = 0;
         // Using a TOML table and updating it is probably slightly excessive, but we want to make sure values are sanitised correctly
         let mut table = toml::value::Table::with_capacity(1);
 
-        let mut redirects_output = std::fs::File::create(&redirects)?;
+        let mut redirects_output = std::fs::File::create(&redirects_path)?;
         process_wikipedia_dump(
             &config.wikipedia_dump_path,
             false,
@@ -89,63 +89,75 @@ fn main() -> anyhow::Result<()> {
     }
 
     // Stage 3: Find redirects to genres, looping until we can no longer find any new redirects.
-    // This has to be repeated as you could have degree>1 redirects (i.e. redirects to redirects)
-    let mut redirect_targets = std::fs::read_dir(&genres)?
-        .filter_map(Result::ok)
-        .filter_map(|entry| {
-            entry
-                .path()
-                .file_stem()?
-                .to_str()
-                .map(unsanitize_title_reversible)
-        })
-        .collect::<HashSet<_>>();
+    if !genre_redirects_path.is_file() {
+        let now = std::time::Instant::now();
+        let mut genre_redirects: HashMap<String, String> = HashMap::default();
 
-    let mut all_redirects = HashMap::<String, String>::default();
-    {
-        let file = std::fs::File::open(redirects)?;
-        let reader = std::io::BufReader::new(file);
-        // We do a line-by-line read to avoid loading the entire file into memory
-        // Also to implicitly ignore an issue with duplicates of redirects (we don't really care)
-        for line in reader.lines() {
-            let line = line?;
-            let table: HashMap<String, String> = toml::from_str(&line)?;
-            all_redirects.extend(table);
-        }
-    }
-    println!(
-        "{:.2}s: loaded {} redirects",
-        start.elapsed().as_secs_f32(),
-        all_redirects.len()
-    );
+        let mut redirect_targets = std::fs::read_dir(&genres_path)?
+            .filter_map(Result::ok)
+            .filter_map(|entry| {
+                entry
+                    .path()
+                    .file_stem()?
+                    .to_str()
+                    .map(unsanitize_title_reversible)
+            })
+            .collect::<HashSet<_>>();
 
-    let mut genre_redirects: HashMap<String, String> = HashMap::default();
-
-    let mut round = 1;
-    loop {
-        let mut added = false;
-        for (title, redirect) in &all_redirects {
-            if redirect_targets.contains(redirect) && !genre_redirects.contains_key(title) {
-                redirect_targets.insert(title.clone());
-                genre_redirects.insert(title.clone(), redirect.clone());
-                added = true;
+        let mut all_redirects = HashMap::<String, String>::default();
+        {
+            let file = std::fs::File::open(redirects_path)?;
+            let reader = std::io::BufReader::new(file);
+            // We do a line-by-line read to avoid loading the entire file into memory
+            // Also to implicitly ignore an issue with duplicates of redirects (we don't really care)
+            for line in reader.lines() {
+                let line = line?;
+                let table: HashMap<String, String> = toml::from_str(&line)?;
+                all_redirects.extend(table);
             }
         }
         println!(
-            "{:.2}s: round {round}, {} redirects",
+            "{:.2}s: loaded {} redirects",
+            start.elapsed().as_secs_f32(),
+            all_redirects.len()
+        );
+
+        let mut round = 1;
+        loop {
+            let mut added = false;
+            for (title, redirect) in &all_redirects {
+                if redirect_targets.contains(redirect) && !genre_redirects.contains_key(title) {
+                    redirect_targets.insert(title.clone());
+                    genre_redirects.insert(title.clone(), redirect.clone());
+                    added = true;
+                }
+            }
+            println!(
+                "{:.2}s: round {round}, {} redirects",
+                start.elapsed().as_secs_f32(),
+                genre_redirects.len()
+            );
+            if !added {
+                break;
+            }
+            round += 1;
+        }
+        println!(
+            "{:.2}s: {} redirects fully resolved",
             start.elapsed().as_secs_f32(),
             genre_redirects.len()
         );
-        if !added {
-            break;
-        }
-        round += 1;
+
+        // Save genre redirects to file
+        std::fs::write(
+            &genre_redirects_path,
+            toml::to_string_pretty(&genre_redirects)?.as_bytes(),
+        )
+        .context("Failed to write genre redirects")?;
+        println!("Saved genre redirects in {:?}", now.elapsed());
+    } else {
+        println!("Genre redirects file already exists, skipping resolution");
     }
-    println!(
-        "{:.2}s: {} redirects fully resolved",
-        start.elapsed().as_secs_f32(),
-        genre_redirects.len()
-    );
 
     Ok(())
 }
@@ -153,7 +165,6 @@ fn main() -> anyhow::Result<()> {
 fn sanitize_title_reversible(title: &str) -> String {
     title.replace("/", "#")
 }
-#[allow(dead_code)]
 fn unsanitize_title_reversible(title: &str) -> String {
     title.replace("#", "/")
 }
