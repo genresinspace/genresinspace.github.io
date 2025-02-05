@@ -34,6 +34,15 @@ fn main() -> anyhow::Result<()> {
 
     Ok(())
 }
+
+#[derive(Clone, Default)]
+struct Genres(pub HashMap<String, PathBuf>);
+impl Genres {
+    pub fn all<'a>(&'a self) -> impl Iterator<Item = &'a String> {
+        self.0.keys()
+    }
+}
+
 enum AllRedirects {
     InMemory(HashMap<String, String>),
     LazyLoad(PathBuf, std::time::Instant),
@@ -60,8 +69,8 @@ fn stage1_genre_and_all_redirects(
     start: std::time::Instant,
     genres_path: PathBuf,
     redirects_path: PathBuf,
-) -> anyhow::Result<(HashMap<String, String>, AllRedirects)> {
-    let mut genres = HashMap::<String, String>::default();
+) -> anyhow::Result<(Genres, AllRedirects)> {
+    let mut genres = HashMap::default();
     let mut all_redirects = HashMap::<String, String>::default();
 
     // Already exists, just load from file
@@ -71,10 +80,9 @@ fn stage1_genre_and_all_redirects(
             let Some(file_stem) = path.file_stem() else {
                 continue;
             };
-            let text = std::fs::read_to_string(&path)?;
             genres.insert(
                 unsanitize_title_reversible(&file_stem.to_string_lossy()),
-                text,
+                path,
             );
         }
         println!(
@@ -83,7 +91,10 @@ fn stage1_genre_and_all_redirects(
             genres.len()
         );
 
-        return Ok((genres, AllRedirects::LazyLoad(redirects_path, start)));
+        return Ok((
+            Genres(genres),
+            AllRedirects::LazyLoad(redirects_path, start),
+        ));
     }
 
     println!("Genres directory or redirects file does not exist, extracting from Wikipedia dump");
@@ -155,14 +166,12 @@ fn stage1_genre_and_all_redirects(
                             continue;
                         }
 
-                        std::fs::write(
-                            genres_path
-                                .join(format!("{}.wikitext", sanitize_title_reversible(&title))),
-                            &text,
-                        )
-                        .with_context(|| format!("Failed to write genre {title}"))?;
+                        let path = genres_path
+                            .join(format!("{}.wikitext", sanitize_title_reversible(&title)));
+                        std::fs::write(&path, &text)
+                            .with_context(|| format!("Failed to write genre {title}"))?;
 
-                        genres.insert(title.clone(), text.to_string());
+                        genres.insert(title.clone(), path);
                         println!("{:.2}s: {title}", start.elapsed().as_secs_f32());
                     }
 
@@ -181,13 +190,13 @@ fn stage1_genre_and_all_redirects(
     .context("Failed to write redirects")?;
     println!("Extracted genres and redirects in {:?}", now.elapsed());
 
-    Ok((genres, AllRedirects::InMemory(all_redirects)))
+    Ok((Genres(genres), AllRedirects::InMemory(all_redirects)))
 }
 
 fn stage2_resolve_genre_redirects(
     start: std::time::Instant,
     genre_redirects_path: &Path,
-    genres: &HashMap<String, String>,
+    genres: &Genres,
     all_redirects: AllRedirects,
 ) -> anyhow::Result<HashMap<String, String>> {
     if genre_redirects_path.is_file() {
@@ -206,7 +215,7 @@ fn stage2_resolve_genre_redirects(
     let now = std::time::Instant::now();
 
     let mut genre_redirects: HashMap<String, String> = HashMap::default();
-    let mut redirect_targets = genres.keys().cloned().collect::<HashSet<_>>();
+    let mut redirect_targets = genres.all().cloned().collect::<HashSet<_>>();
 
     let mut round = 1;
     loop {
