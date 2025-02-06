@@ -26,10 +26,10 @@ fn main() -> anyhow::Result<()> {
 
     // Stage 1: Extract genres and all redirects
     let (genres, all_redirects) =
-        stage1_genre_and_all_redirects(&config, start, genres_path, redirects_path)?;
+        stage1_genre_and_all_redirects(&config, start, &genres_path, &redirects_path)?;
 
     // Stage 2: Find redirects to genres, looping until we can no longer find any new redirects.
-    let _genre_redirects =
+    let genre_redirects =
         stage2_resolve_genre_redirects(start, &genre_redirects_path, &genres, all_redirects)?;
 
     Ok(())
@@ -67,8 +67,8 @@ impl TryFrom<AllRedirects> for HashMap<String, String> {
 fn stage1_genre_and_all_redirects(
     config: &Config,
     start: std::time::Instant,
-    genres_path: PathBuf,
-    redirects_path: PathBuf,
+    genres_path: &Path,
+    redirects_path: &Path,
 ) -> anyhow::Result<(Genres, AllRedirects)> {
     let mut genres = HashMap::default();
     let mut all_redirects = HashMap::<String, String>::default();
@@ -93,7 +93,7 @@ fn stage1_genre_and_all_redirects(
 
         return Ok((
             Genres(genres),
-            AllRedirects::LazyLoad(redirects_path, start),
+            AllRedirects::LazyLoad(redirects_path.to_owned(), start),
         ));
     }
 
@@ -193,12 +193,31 @@ fn stage1_genre_and_all_redirects(
     Ok((Genres(genres), AllRedirects::InMemory(all_redirects)))
 }
 
+pub struct GenreRedirects(pub HashMap<String, String>);
+impl GenreRedirects {
+    pub fn find_original<'a>(&'a self, mut page_title: &'a str) -> Option<&'a str> {
+        // Only resolve up to n=5 redirects; any more is probably a bug
+        const MAX_DEPTH: usize = 5;
+        for _ in 0..MAX_DEPTH {
+            let new_page_title = self.0.get(page_title);
+            match new_page_title {
+                Some(new_page_title) => {
+                    page_title = new_page_title.as_str();
+                }
+                None => {
+                    return Some(page_title);
+                }
+            }
+        }
+        panic!("Exceeded {MAX_DEPTH} resolutions: redirect cycle for '{page_title}'?");
+    }
+}
 fn stage2_resolve_genre_redirects(
     start: std::time::Instant,
     genre_redirects_path: &Path,
     genres: &Genres,
     all_redirects: AllRedirects,
-) -> anyhow::Result<HashMap<String, String>> {
+) -> anyhow::Result<GenreRedirects> {
     if genre_redirects_path.is_file() {
         let genre_redirects: HashMap<String, String> =
             toml::from_str(&std::fs::read_to_string(genre_redirects_path)?)?;
@@ -207,7 +226,7 @@ fn stage2_resolve_genre_redirects(
             start.elapsed().as_secs_f32(),
             genre_redirects.len()
         );
-        return Ok(genre_redirects);
+        return Ok(GenreRedirects(genre_redirects));
     }
 
     let all_redirects: HashMap<_, _> = all_redirects.try_into()?;
@@ -251,7 +270,8 @@ fn stage2_resolve_genre_redirects(
     .context("Failed to write genre redirects")?;
     println!("Saved genre redirects in {:?}", now.elapsed());
 
-    Ok(genre_redirects)
+    Ok(GenreRedirects(genre_redirects))
+}
 }
 
 fn sanitize_title_reversible(title: &str) -> String {
