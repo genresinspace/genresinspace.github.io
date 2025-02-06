@@ -216,7 +216,7 @@ impl GenreRedirects {
                 }
             }
         }
-        panic!("Exceeded {MAX_DEPTH} resolutions: redirect cycle for '{page_title}'?");
+        None
     }
 }
 fn stage2_resolve_genre_redirects(
@@ -295,7 +295,7 @@ struct ProcessedGenre {
 fn stage3_process_genres(
     start: std::time::Instant,
     genres: &Genres,
-    _genre_redirects: &GenreRedirects,
+    genre_redirects: &GenreRedirects,
     processed_genres_path: &Path,
 ) -> anyhow::Result<()> {
     if processed_genres_path.is_dir() {
@@ -322,13 +322,25 @@ fn stage3_process_genres(
                         continue;
                     };
                     let name = nodes_inner_text(name);
+
+                    let map_to_redirects = |links: Vec<String>| -> Vec<String> {
+                        links
+                            .into_iter()
+                            .filter_map(|link| {
+                                genre_redirects.find_original(&link).map(|s| s.to_owned())
+                            })
+                            .collect()
+                    };
+
                     let stylistic_origins = parameters
                         .get("stylistic_origins")
                         .map(|ns| get_links_from_nodes(*ns))
+                        .map(map_to_redirects)
                         .unwrap_or_default();
                     let derivatives = parameters
                         .get("derivatives")
                         .map(|ns| get_links_from_nodes(*ns))
+                        .map(map_to_redirects)
                         .unwrap_or_default();
 
                     genre_count += 1;
