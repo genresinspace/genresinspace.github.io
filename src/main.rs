@@ -241,15 +241,21 @@ fn stage2_resolve_genre_redirects(
     let now = std::time::Instant::now();
 
     let mut genre_redirects: HashMap<String, String> = HashMap::default();
-    let mut redirect_targets = genres.all().cloned().collect::<HashSet<_>>();
+    let mut redirect_targets = genres
+        .all()
+        .map(|s| s.to_lowercase())
+        .collect::<HashSet<_>>();
 
     let mut round = 1;
     loop {
         let mut added = false;
         for (title, redirect) in &all_redirects {
-            if redirect_targets.contains(redirect) && !genre_redirects.contains_key(title) {
+            let title = title.to_lowercase();
+            if redirect_targets.contains(&redirect.to_lowercase())
+                && !genre_redirects.contains_key(&title)
+            {
                 redirect_targets.insert(title.clone());
-                genre_redirects.insert(title.clone(), redirect.clone());
+                genre_redirects.insert(title, redirect.clone());
                 added = true;
             }
         }
