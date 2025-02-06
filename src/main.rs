@@ -6,6 +6,8 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use parse_wiki_text_2 as pwt;
+
 #[derive(Debug, Deserialize)]
 struct Config {
     wikipedia_dump_path: PathBuf,
@@ -293,9 +295,11 @@ fn stage3_process_genres(
     let pwt_configuration = pwt_configuration();
     for (genre, path) in genres.iter() {
         let wikitext = std::fs::read_to_string(path)?;
-        let wikitext = pwt_configuration.parse(&wikitext)?;
+        let wikitext = pwt_configuration
+            .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
+            .unwrap_or_else(|e| panic!("failed to parse wikitext ({genre}): {e:?}"));
         for node in &wikitext.nodes {
-            if let parse_wiki_text::Node::Template { parameters, .. } = node {
+            if let pwt::Node::Template { parameters, .. } = node {
                 let parameters = parameters_to_map(parameters);
                 let Some(name) = parameters.get("name") else {
                     continue;
@@ -352,10 +356,10 @@ fn stage3_process_genres(
     Ok(())
 }
 
-fn get_links_from_nodes(nodes: &[parse_wiki_text::Node]) -> Vec<String> {
+fn get_links_from_nodes(nodes: &[pwt::Node]) -> Vec<String> {
     let mut output = vec![];
     nodes_recurse(nodes, &mut output, |output, node| {
-        if let parse_wiki_text::Node::Link { target, .. } = node {
+        if let pwt::Node::Link { target, .. } = node {
             output.push(target.to_string());
             false
         } else {
@@ -366,9 +370,9 @@ fn get_links_from_nodes(nodes: &[parse_wiki_text::Node]) -> Vec<String> {
 }
 
 fn nodes_recurse<R>(
-    nodes: &[parse_wiki_text::Node],
+    nodes: &[pwt::Node],
     result: &mut R,
-    operator: impl Fn(&mut R, &parse_wiki_text::Node) -> bool + Copy,
+    operator: impl Fn(&mut R, &pwt::Node) -> bool + Copy,
 ) {
     for node in nodes {
         node_recurse(node, result, operator);
@@ -376,11 +380,11 @@ fn nodes_recurse<R>(
 }
 
 fn node_recurse<R>(
-    node: &parse_wiki_text::Node,
+    node: &pwt::Node,
     result: &mut R,
-    operator: impl Fn(&mut R, &parse_wiki_text::Node) -> bool + Copy,
+    operator: impl Fn(&mut R, &pwt::Node) -> bool + Copy,
 ) {
-    use parse_wiki_text::Node;
+    use pwt::Node;
     if !operator(result, node) {
         return;
     }
@@ -448,8 +452,8 @@ fn node_recurse<R>(
 }
 
 fn parameters_to_map<'a>(
-    parameters: &'a [parse_wiki_text::Parameter<'a>],
-) -> HashMap<String, &'a [parse_wiki_text::Node<'a>]> {
+    parameters: &'a [pwt::Parameter<'a>],
+) -> HashMap<String, &'a [pwt::Node<'a>]> {
     parameters
         .iter()
         .filter_map(|p| Some((nodes_inner_text(p.name.as_deref()?), p.value.as_slice())))
@@ -457,7 +461,7 @@ fn parameters_to_map<'a>(
 }
 
 /// Joins nodes together with a " ", which is not always the correct behaviour
-fn nodes_inner_text(nodes: &[parse_wiki_text::Node]) -> String {
+fn nodes_inner_text(nodes: &[pwt::Node]) -> String {
     nodes
         .iter()
         .map(node_inner_text)
@@ -466,8 +470,8 @@ fn nodes_inner_text(nodes: &[parse_wiki_text::Node]) -> String {
 }
 
 /// Just gets the inner text without any formatting, which is not always the correct behaviour
-fn node_inner_text(node: &parse_wiki_text::Node) -> String {
-    use parse_wiki_text::Node;
+fn node_inner_text(node: &pwt::Node) -> String {
+    use pwt::Node;
     match node {
         Node::CharacterEntity { character, .. } => character.to_string(),
         // Node::DefinitionList { end, items, start } => nodes_inner_text(items),
@@ -489,8 +493,8 @@ fn unsanitize_title_reversible(title: &str) -> String {
     title.replace("#", "/")
 }
 
-pub fn pwt_configuration() -> parse_wiki_text::Configuration {
-    parse_wiki_text::Configuration::new(&parse_wiki_text::ConfigurationSource {
+pub fn pwt_configuration() -> pwt::Configuration {
+    pwt::Configuration::new(&pwt::ConfigurationSource {
         category_namespaces: &["category"],
         extension_tags: &[
             "categorytree",
@@ -574,6 +578,5 @@ pub fn pwt_configuration() -> parse_wiki_text::Configuration {
             "xmpp:",
         ],
         redirect_magic_words: &["redirect"],
-        limit: std::time::Duration::from_secs(1),
     })
 }
