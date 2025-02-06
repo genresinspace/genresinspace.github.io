@@ -2,7 +2,7 @@ use anyhow::Context;
 use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
-    collections::{HashMap, HashSet},
+    collections::HashMap,
     path::{Path, PathBuf},
 };
 
@@ -20,7 +20,7 @@ fn main() -> anyhow::Result<()> {
     let output_path = Path::new("output");
     let genres_path = output_path.join("genres");
     let redirects_path = output_path.join("all_redirects.toml");
-    let genre_redirects_path = output_path.join("genre_redirects.toml");
+    let links_to_articles_path = output_path.join("links_to_articles.toml");
     let processed_genres_path = output_path.join("processed");
 
     let start = std::time::Instant::now();
@@ -30,11 +30,11 @@ fn main() -> anyhow::Result<()> {
         stage1_genre_and_all_redirects(&config, start, &genres_path, &redirects_path)?;
 
     // Stage 2: Find redirects to genres, looping until we can no longer find any new redirects.
-    let genre_redirects =
-        stage2_resolve_genre_redirects(start, &genre_redirects_path, &genres, all_redirects)?;
+    let links_to_articles =
+        stage2_resolve_links_to_articles(start, &links_to_articles_path, &genres, all_redirects)?;
 
     // Stage 3: Load in all genres and process them to find their edges
-    stage3_process_genres(start, &genres, &genre_redirects, &processed_genres_path)?;
+    stage3_process_genres(start, &genres, &links_to_articles, &processed_genres_path)?;
 
     Ok(())
 }
@@ -200,69 +200,49 @@ fn stage1_genre_and_all_redirects(
     Ok((Genres(genres), AllRedirects::InMemory(all_redirects)))
 }
 
-pub struct GenreRedirects(pub HashMap<String, String>);
-impl GenreRedirects {
-    pub fn find_original<'a>(&'a self, mut page_title: &'a str) -> Option<&'a str> {
-        // Only resolve up to n=5 redirects; any more is probably a bug
-        const MAX_DEPTH: usize = 5;
-        for _ in 0..MAX_DEPTH {
-            let new_page_title = self.0.get(page_title);
-            match new_page_title {
-                Some(new_page_title) => {
-                    page_title = new_page_title.as_str();
-                }
-                None => {
-                    return Some(page_title);
-                }
-            }
-        }
-        None
-    }
-}
-fn stage2_resolve_genre_redirects(
+pub struct LinksToArticles(pub HashMap<String, String>);
+fn stage2_resolve_links_to_articles(
     start: std::time::Instant,
-    genre_redirects_path: &Path,
+    links_to_articles_path: &Path,
     genres: &Genres,
     all_redirects: AllRedirects,
-) -> anyhow::Result<GenreRedirects> {
-    if genre_redirects_path.is_file() {
-        let genre_redirects: HashMap<String, String> =
-            toml::from_str(&std::fs::read_to_string(genre_redirects_path)?)?;
+) -> anyhow::Result<LinksToArticles> {
+    if links_to_articles_path.is_file() {
+        let links_to_articles: HashMap<String, String> =
+            toml::from_str(&std::fs::read_to_string(links_to_articles_path)?)?;
         println!(
-            "{:.2}s: loaded all {} genre redirects",
+            "{:.2}s: loaded all {} links to articles",
             start.elapsed().as_secs_f32(),
-            genre_redirects.len()
+            links_to_articles.len()
         );
-        return Ok(GenreRedirects(genre_redirects));
+        return Ok(LinksToArticles(links_to_articles));
     }
 
     let all_redirects: HashMap<_, _> = all_redirects.try_into()?;
 
     let now = std::time::Instant::now();
 
-    let mut genre_redirects: HashMap<String, String> = HashMap::default();
-    let mut redirect_targets = genres
+    let mut links_to_articles: HashMap<String, String> = genres
         .all()
-        .map(|s| s.to_lowercase())
-        .collect::<HashSet<_>>();
+        .map(|s| (s.to_lowercase(), s.clone()))
+        .collect();
 
     let mut round = 1;
     loop {
         let mut added = false;
         for (title, redirect) in &all_redirects {
             let title = title.to_lowercase();
-            if redirect_targets.contains(&redirect.to_lowercase())
-                && !genre_redirects.contains_key(&title)
-            {
-                redirect_targets.insert(title.clone());
-                genre_redirects.insert(title, redirect.clone());
-                added = true;
+            let redirect = redirect.to_lowercase();
+
+            if let Some(target) = links_to_articles.get(&redirect) {
+                let newly_added = links_to_articles.insert(title, target.clone()).is_none();
+                added |= newly_added;
             }
         }
         println!(
-            "{:.2}s: round {round}, {} redirects",
+            "{:.2}s: round {round}, {} links",
             start.elapsed().as_secs_f32(),
-            genre_redirects.len()
+            links_to_articles.len()
         );
         if !added {
             break;
@@ -270,20 +250,20 @@ fn stage2_resolve_genre_redirects(
         round += 1;
     }
     println!(
-        "{:.2}s: {} redirects fully resolved",
+        "{:.2}s: {} links fully resolved",
         start.elapsed().as_secs_f32(),
-        genre_redirects.len()
+        links_to_articles.len()
     );
 
-    // Save genre redirects to file
+    // Save links to articles to file
     std::fs::write(
-        &genre_redirects_path,
-        toml::to_string_pretty(&genre_redirects)?.as_bytes(),
+        &links_to_articles_path,
+        toml::to_string_pretty(&links_to_articles)?.as_bytes(),
     )
-    .context("Failed to write genre redirects")?;
-    println!("Saved genre redirects in {:?}", now.elapsed());
+    .context("Failed to write links to articles")?;
+    println!("Saved links to articles in {:?}", now.elapsed());
 
-    Ok(GenreRedirects(genre_redirects))
+    Ok(LinksToArticles(links_to_articles))
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -295,7 +275,7 @@ struct ProcessedGenre {
 fn stage3_process_genres(
     start: std::time::Instant,
     genres: &Genres,
-    genre_redirects: &GenreRedirects,
+    links_to_articles: &LinksToArticles,
     processed_genres_path: &Path,
 ) -> anyhow::Result<()> {
     if processed_genres_path.is_dir() {
@@ -323,11 +303,14 @@ fn stage3_process_genres(
                     };
                     let name = nodes_inner_text(name);
 
-                    let map_to_redirects = |links: Vec<String>| -> Vec<String> {
+                    let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
                         links
                             .into_iter()
                             .filter_map(|link| {
-                                genre_redirects.find_original(&link).map(|s| s.to_owned())
+                                links_to_articles
+                                    .0
+                                    .get(&link.to_lowercase())
+                                    .map(|s| s.to_owned())
                             })
                             .collect()
                     };
@@ -335,12 +318,12 @@ fn stage3_process_genres(
                     let stylistic_origins = parameters
                         .get("stylistic_origins")
                         .map(|ns| get_links_from_nodes(*ns))
-                        .map(map_to_redirects)
+                        .map(map_links_to_articles)
                         .unwrap_or_default();
                     let derivatives = parameters
                         .get("derivatives")
                         .map(|ns| get_links_from_nodes(*ns))
-                        .map(map_to_redirects)
+                        .map(map_links_to_articles)
                         .unwrap_or_default();
 
                     genre_count += 1;
