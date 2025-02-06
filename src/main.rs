@@ -300,6 +300,10 @@ fn stage3_process_genres(
 
     std::fs::create_dir_all(processed_genres_path)?;
 
+    let mut genre_count = 0usize;
+    let mut stylistic_origin_count = 0usize;
+    let mut derivative_count = 0usize;
+
     let pwt_configuration = pwt_configuration();
     for (genre, path) in genres.iter() {
         let wikitext = std::fs::read_to_string(path)?;
@@ -320,6 +324,11 @@ fn stage3_process_genres(
                         .get("derivatives")
                         .map(|ns| get_links_from_nodes(*ns))
                         .unwrap_or_default();
+
+                    genre_count += 1;
+                    stylistic_origin_count += stylistic_origins.len();
+                    derivative_count += derivatives.len();
+
                     let processed_genre = ProcessedGenre {
                         name,
                         stylistic_origins,
@@ -338,7 +347,7 @@ fn stage3_process_genres(
     }
 
     println!(
-        "{:.2}s: Processed all genres",
+        "{:.2}s: Processed all {genre_count} genres, {stylistic_origin_count} stylistic origins, {derivative_count} derivatives",
         start.elapsed().as_secs_f32()
     );
 
