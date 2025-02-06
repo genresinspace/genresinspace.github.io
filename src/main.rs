@@ -1,6 +1,6 @@
 use anyhow::Context;
 use quick_xml::events::Event;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::{
     collections::{HashMap, HashSet},
     path::{Path, PathBuf},
@@ -21,6 +21,7 @@ fn main() -> anyhow::Result<()> {
     let genres_path = output_path.join("genres");
     let redirects_path = output_path.join("all_redirects.toml");
     let genre_redirects_path = output_path.join("genre_redirects.toml");
+    let processed_genres_path = output_path.join("processed");
 
     let start = std::time::Instant::now();
 
@@ -32,6 +33,9 @@ fn main() -> anyhow::Result<()> {
     let genre_redirects =
         stage2_resolve_genre_redirects(start, &genre_redirects_path, &genres, all_redirects)?;
 
+    // Stage 3: Load in all genres and process them to find their edges
+    stage3_process_genres(start, &genres, &genre_redirects, &processed_genres_path)?;
+
     Ok(())
 }
 
@@ -40,6 +44,9 @@ struct Genres(pub HashMap<String, PathBuf>);
 impl Genres {
     pub fn all<'a>(&'a self) -> impl Iterator<Item = &'a String> {
         self.0.keys()
+    }
+    pub fn iter<'a>(&'a self) -> impl Iterator<Item = (&'a String, &'a PathBuf)> {
+        self.0.iter()
     }
 }
 
@@ -272,6 +279,200 @@ fn stage2_resolve_genre_redirects(
 
     Ok(GenreRedirects(genre_redirects))
 }
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+struct ProcessedGenre {
+    name: String,
+    stylistic_origins: Vec<String>,
+    derivatives: Vec<String>,
+}
+fn stage3_process_genres(
+    start: std::time::Instant,
+    genres: &Genres,
+    _genre_redirects: &GenreRedirects,
+    processed_genres_path: &Path,
+) -> anyhow::Result<()> {
+    if processed_genres_path.is_dir() {
+        return Ok(());
+    }
+
+    println!("Processed genres do not exist, generating from raw genres");
+
+    std::fs::create_dir_all(processed_genres_path)?;
+
+    let pwt_configuration = pwt_configuration();
+    for (genre, path) in genres.iter() {
+        let wikitext = std::fs::read_to_string(path)?;
+        let wikitext = pwt_configuration.parse(&wikitext)?;
+        for node in &wikitext.nodes {
+            match node {
+                parse_wiki_text::Node::Template { parameters, .. } => {
+                    let parameters = parameters_to_map(&parameters);
+                    let Some(name) = parameters.get("name") else {
+                        continue;
+                    };
+                    let name = nodes_inner_text(name);
+                    let stylistic_origins = parameters
+                        .get("stylistic_origins")
+                        .map(|ns| get_links_from_nodes(*ns))
+                        .unwrap_or_default();
+                    let derivatives = parameters
+                        .get("derivatives")
+                        .map(|ns| get_links_from_nodes(*ns))
+                        .unwrap_or_default();
+                    let processed_genre = ProcessedGenre {
+                        name,
+                        stylistic_origins,
+                        derivatives,
+                    };
+
+                    std::fs::write(
+                        processed_genres_path
+                            .join(format!("{}.toml", sanitize_title_reversible(genre))),
+                        toml::to_string_pretty(&processed_genre)?,
+                    )?;
+                }
+                _ => {}
+            }
+        }
+    }
+
+    println!(
+        "{:.2}s: Processed all genres",
+        start.elapsed().as_secs_f32()
+    );
+
+    Ok(())
+}
+
+fn get_links_from_nodes(nodes: &[parse_wiki_text::Node]) -> Vec<String> {
+    let mut output = vec![];
+    nodes_recurse(nodes, &mut output, |output, node| {
+        if let parse_wiki_text::Node::Link { target, .. } = node {
+            output.push(target.to_string());
+            false
+        } else {
+            true
+        }
+    });
+    output
+}
+
+fn nodes_recurse<R>(
+    nodes: &[parse_wiki_text::Node],
+    result: &mut R,
+    operator: impl Fn(&mut R, &parse_wiki_text::Node) -> bool + Copy,
+) {
+    for node in nodes {
+        node_recurse(node, result, operator);
+    }
+}
+
+fn node_recurse<R>(
+    node: &parse_wiki_text::Node,
+    result: &mut R,
+    operator: impl Fn(&mut R, &parse_wiki_text::Node) -> bool + Copy,
+) {
+    use parse_wiki_text::Node;
+    if !operator(result, node) {
+        return;
+    }
+    match node {
+        Node::Category { ordinal, .. } => nodes_recurse(ordinal, result, operator),
+        Node::DefinitionList { items, .. } => {
+            for item in items {
+                nodes_recurse(&item.nodes, result, operator);
+            }
+        }
+        Node::ExternalLink { nodes, .. } => nodes_recurse(nodes, result, operator),
+        Node::Heading { nodes, .. } => nodes_recurse(nodes, result, operator),
+        Node::Link { text, .. } => nodes_recurse(text, result, operator),
+        Node::OrderedList { items, .. } | Node::UnorderedList { items, .. } => {
+            for item in items {
+                nodes_recurse(&item.nodes, result, operator);
+            }
+        }
+        Node::Parameter { default, name, .. } => {
+            if let Some(default) = &default {
+                nodes_recurse(default, result, operator);
+            }
+            nodes_recurse(name, result, operator);
+        }
+        Node::Preformatted { nodes, .. } => nodes_recurse(nodes, result, operator),
+        Node::Table {
+            attributes,
+            captions,
+            rows,
+            ..
+        } => {
+            nodes_recurse(&attributes, result, operator);
+            for caption in captions {
+                if let Some(attributes) = &caption.attributes {
+                    nodes_recurse(attributes, result, operator);
+                }
+                nodes_recurse(&caption.content, result, operator);
+            }
+            for row in rows {
+                nodes_recurse(&row.attributes, result, operator);
+                for cell in &row.cells {
+                    if let Some(attributes) = &cell.attributes {
+                        nodes_recurse(attributes, result, operator);
+                    }
+                    nodes_recurse(&cell.content, result, operator);
+                }
+            }
+        }
+        Node::Tag { nodes, .. } => {
+            nodes_recurse(&nodes, result, operator);
+        }
+        Node::Template {
+            name, parameters, ..
+        } => {
+            nodes_recurse(name, result, operator);
+            for parameter in parameters {
+                if let Some(name) = &parameter.name {
+                    nodes_recurse(name, result, operator);
+                }
+                nodes_recurse(&parameter.value, result, operator);
+            }
+        }
+        _ => {}
+    }
+}
+
+fn parameters_to_map<'a>(
+    parameters: &'a [parse_wiki_text::Parameter<'a>],
+) -> HashMap<String, &'a [parse_wiki_text::Node<'a>]> {
+    parameters
+        .iter()
+        .filter_map(|p| Some((nodes_inner_text(p.name.as_deref()?), p.value.as_slice())))
+        .collect()
+}
+
+/// Joins nodes together with a " ", which is not always the correct behaviour
+fn nodes_inner_text(nodes: &[parse_wiki_text::Node]) -> String {
+    nodes
+        .iter()
+        .map(node_inner_text)
+        .collect::<Vec<_>>()
+        .join(" ")
+}
+
+/// Just gets the inner text without any formatting, which is not always the correct behaviour
+fn node_inner_text(node: &parse_wiki_text::Node) -> String {
+    use parse_wiki_text::Node;
+    match node {
+        Node::CharacterEntity { character, .. } => character.to_string(),
+        // Node::DefinitionList { end, items, start } => nodes_inner_text(items),
+        Node::Heading { nodes, .. } => nodes_inner_text(nodes),
+        Node::Image { text, .. } => nodes_inner_text(text),
+        Node::Link { text, .. } => nodes_inner_text(text),
+        // Node::OrderedList { end, items, start } => nodes_inner_text(items),
+        Node::Preformatted { nodes, .. } => nodes_inner_text(nodes),
+        Node::Text { value, .. } => value.to_string(),
+        // Node::UnorderedList { end, items, start } => nodes_inner_text(items),
+        _ => "".to_string(),
+    }
 }
 
 fn sanitize_title_reversible(title: &str) -> String {
@@ -279,4 +480,93 @@ fn sanitize_title_reversible(title: &str) -> String {
 }
 fn unsanitize_title_reversible(title: &str) -> String {
     title.replace("#", "/")
+}
+
+pub fn pwt_configuration() -> parse_wiki_text::Configuration {
+    parse_wiki_text::Configuration::new(&parse_wiki_text::ConfigurationSource {
+        category_namespaces: &["category"],
+        extension_tags: &[
+            "categorytree",
+            "ce",
+            "charinsert",
+            "chem",
+            "gallery",
+            "graph",
+            "hiero",
+            "imagemap",
+            "indicator",
+            "inputbox",
+            "langconvert",
+            "mapframe",
+            "maplink",
+            "math",
+            "nowiki",
+            "poem",
+            "pre",
+            "ref",
+            "references",
+            "score",
+            "section",
+            "source",
+            "syntaxhighlight",
+            "templatedata",
+            "templatestyles",
+            "timeline",
+        ],
+        file_namespaces: &["file", "image"],
+        link_trail: "abcdefghijklmnopqrstuvwxyz",
+        magic_words: &[
+            "disambig",
+            "expected_unconnected_page",
+            "expectunusedcategory",
+            "forcetoc",
+            "hiddencat",
+            "index",
+            "newsectionlink",
+            "nocc",
+            "nocontentconvert",
+            "noeditsection",
+            "nogallery",
+            "noglobal",
+            "noindex",
+            "nonewsectionlink",
+            "notc",
+            "notitleconvert",
+            "notoc",
+            "staticredirect",
+            "toc",
+        ],
+        protocols: &[
+            "//",
+            "bitcoin:",
+            "ftp://",
+            "ftps://",
+            "geo:",
+            "git://",
+            "gopher://",
+            "http://",
+            "https://",
+            "irc://",
+            "ircs://",
+            "magnet:",
+            "mailto:",
+            "mms://",
+            "news:",
+            "nntp://",
+            "redis://",
+            "sftp://",
+            "sip:",
+            "sips:",
+            "sms:",
+            "ssh://",
+            "svn://",
+            "tel:",
+            "telnet://",
+            "urn:",
+            "worldwind://",
+            "xmpp:",
+        ],
+        redirect_magic_words: &["redirect"],
+        limit: std::time::Duration::from_secs(1),
+    })
 }
