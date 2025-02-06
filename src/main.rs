@@ -42,10 +42,10 @@ fn main() -> anyhow::Result<()> {
 #[derive(Clone, Default)]
 struct Genres(pub HashMap<String, PathBuf>);
 impl Genres {
-    pub fn all<'a>(&'a self) -> impl Iterator<Item = &'a String> {
+    pub fn all(&self) -> impl Iterator<Item = &String> {
         self.0.keys()
     }
-    pub fn iter<'a>(&'a self) -> impl Iterator<Item = (&'a String, &'a PathBuf)> {
+    pub fn iter(&self) -> impl Iterator<Item = (&String, &PathBuf)> {
         self.0.iter()
     }
 }
@@ -82,7 +82,7 @@ fn stage1_genre_and_all_redirects(
 
     // Already exists, just load from file
     if genres_path.is_dir() && redirects_path.is_file() {
-        for entry in std::fs::read_dir(&genres_path)? {
+        for entry in std::fs::read_dir(genres_path)? {
             let path = entry?.path();
             let Some(file_stem) = path.file_stem() else {
                 continue;
@@ -108,7 +108,7 @@ fn stage1_genre_and_all_redirects(
 
     let now = std::time::Instant::now();
     let mut count = 0;
-    std::fs::create_dir_all(&genres_path).context("Failed to create genres directory")?;
+    std::fs::create_dir_all(genres_path).context("Failed to create genres directory")?;
 
     // This could be made much faster by loading the file into memory and using the index to attack
     // the streams in parallel, but this will only run once every month, so it's not worth optimising.
@@ -141,9 +141,9 @@ fn stage1_genre_and_all_redirects(
             }
             Ok(Event::Text(e)) => {
                 if recording_title {
-                    title.push_str(&e.unescape().unwrap().into_owned());
+                    title.push_str(&e.unescape().unwrap());
                 } else if recording_text {
-                    text.push_str(&e.unescape().unwrap().into_owned());
+                    text.push_str(&e.unescape().unwrap());
                 }
             }
             Ok(Event::Empty(e)) => {
@@ -257,7 +257,7 @@ fn stage2_resolve_links_to_articles(
 
     // Save links to articles to file
     std::fs::write(
-        &links_to_articles_path,
+        links_to_articles_path,
         toml::to_string_pretty(&links_to_articles)?.as_bytes(),
     )
     .context("Failed to write links to articles")?;
@@ -295,54 +295,51 @@ fn stage3_process_genres(
         let wikitext = std::fs::read_to_string(path)?;
         let wikitext = pwt_configuration.parse(&wikitext)?;
         for node in &wikitext.nodes {
-            match node {
-                parse_wiki_text::Node::Template { parameters, .. } => {
-                    let parameters = parameters_to_map(&parameters);
-                    let Some(name) = parameters.get("name") else {
-                        continue;
-                    };
-                    let name = nodes_inner_text(name);
+            if let parse_wiki_text::Node::Template { parameters, .. } = node {
+                let parameters = parameters_to_map(parameters);
+                let Some(name) = parameters.get("name") else {
+                    continue;
+                };
+                let name = nodes_inner_text(name);
 
-                    let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
-                        links
-                            .into_iter()
-                            .filter_map(|link| {
-                                links_to_articles
-                                    .0
-                                    .get(&link.to_lowercase())
-                                    .map(|s| s.to_owned())
-                            })
-                            .collect()
-                    };
+                let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
+                    links
+                        .into_iter()
+                        .filter_map(|link| {
+                            links_to_articles
+                                .0
+                                .get(&link.to_lowercase())
+                                .map(|s| s.to_owned())
+                        })
+                        .collect()
+                };
 
-                    let stylistic_origins = parameters
-                        .get("stylistic_origins")
-                        .map(|ns| get_links_from_nodes(*ns))
-                        .map(map_links_to_articles)
-                        .unwrap_or_default();
-                    let derivatives = parameters
-                        .get("derivatives")
-                        .map(|ns| get_links_from_nodes(*ns))
-                        .map(map_links_to_articles)
-                        .unwrap_or_default();
+                let stylistic_origins = parameters
+                    .get("stylistic_origins")
+                    .map(|ns| get_links_from_nodes(ns))
+                    .map(map_links_to_articles)
+                    .unwrap_or_default();
+                let derivatives = parameters
+                    .get("derivatives")
+                    .map(|ns| get_links_from_nodes(ns))
+                    .map(map_links_to_articles)
+                    .unwrap_or_default();
 
-                    genre_count += 1;
-                    stylistic_origin_count += stylistic_origins.len();
-                    derivative_count += derivatives.len();
+                genre_count += 1;
+                stylistic_origin_count += stylistic_origins.len();
+                derivative_count += derivatives.len();
 
-                    let processed_genre = ProcessedGenre {
-                        name,
-                        stylistic_origins,
-                        derivatives,
-                    };
+                let processed_genre = ProcessedGenre {
+                    name,
+                    stylistic_origins,
+                    derivatives,
+                };
 
-                    std::fs::write(
-                        processed_genres_path
-                            .join(format!("{}.toml", sanitize_title_reversible(genre))),
-                        toml::to_string_pretty(&processed_genre)?,
-                    )?;
-                }
-                _ => {}
+                std::fs::write(
+                    processed_genres_path
+                        .join(format!("{}.toml", sanitize_title_reversible(genre))),
+                    toml::to_string_pretty(&processed_genre)?,
+                )?;
             }
         }
     }
@@ -415,7 +412,7 @@ fn node_recurse<R>(
             rows,
             ..
         } => {
-            nodes_recurse(&attributes, result, operator);
+            nodes_recurse(attributes, result, operator);
             for caption in captions {
                 if let Some(attributes) = &caption.attributes {
                     nodes_recurse(attributes, result, operator);
@@ -433,7 +430,7 @@ fn node_recurse<R>(
             }
         }
         Node::Tag { nodes, .. } => {
-            nodes_recurse(&nodes, result, operator);
+            nodes_recurse(nodes, result, operator);
         }
         Node::Template {
             name, parameters, ..
