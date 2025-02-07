@@ -369,6 +369,12 @@ fn process_genres(
                     name = "Cajun fiddle".to_string();
                 }
 
+                // HACK: "Western music (North America)" had a space in its genre name.
+                // Fixed (2025-02-07): https://en.wikipedia.org/w/index.php?title=Western_music_(North_America)&oldid=1274523831
+                if page == "Western music (North America)" {
+                    name = "Western music".to_string();
+                }
+
                 let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
                     links
                         .into_iter()
