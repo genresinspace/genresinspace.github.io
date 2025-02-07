@@ -9,6 +9,7 @@ import {
 type NodeData = {
   id: string;
   label: string;
+  degree: number;
 };
 
 type LinkData = {
@@ -17,11 +18,23 @@ type LinkData = {
   ty: "Derivative" | "Subgenre" | "FusionGenre";
 };
 
+type Data = {
+  nodes: NodeData[];
+  links: LinkData[];
+  max_degree: number;
+};
+
 const DERIVATIVE_COLOUR = "hsl(0, 70%, 60%)";
 const SUBGENRE_COLOUR = "hsl(120, 70%, 60%)";
 const FUSION_GENRE_COLOUR = "hsl(240, 70%, 60%)";
 
-function Graph({ params }: { params: SimulationParams }) {
+function Graph({
+  params,
+  maxDegree,
+}: {
+  params: SimulationParams;
+  maxDegree: number;
+}) {
   return (
     <div className="graph">
       <Cosmograph
@@ -41,7 +54,9 @@ function Graph({ params }: { params: SimulationParams }) {
             ? SUBGENRE_COLOUR
             : FUSION_GENRE_COLOUR;
         }}
-        nodeSize={0.5}
+        nodeSize={(d: NodeData) => {
+          return 4.0 * (0.25 + (d.degree / maxDegree) * 0.75);
+        }}
         linkArrowsSizeScale={2}
         nodeLabelColor="#CCC"
         hoveredNodeLabelColor="#FFF"
@@ -142,9 +157,10 @@ function Sidebar({
 }
 
 function App() {
-  const [data, setData] = useState<{ nodes: NodeData[]; links: LinkData[] }>({
+  const [data, setData] = useState<Data>({
     nodes: [],
     links: [],
+    max_degree: 0,
   });
   useEffect(() => {
     async function fetchData() {
@@ -162,7 +178,7 @@ function App() {
   return (
     <div>
       <CosmographProvider nodes={data.nodes} links={data.links}>
-        <Graph params={params} />
+        <Graph params={params} maxDegree={data.max_degree} />
         <Sidebar params={params} setParams={setParams} />
       </CosmographProvider>
     </div>

@@ -452,11 +452,13 @@ fn remove_ignored_pages_and_detect_duplicates(processed_genres: &mut ProcessedGe
 struct Graph {
     nodes: Vec<NodeData>,
     links: BTreeSet<LinkData>,
+    max_degree: usize,
 }
 #[derive(Debug, Serialize, Deserialize)]
 struct NodeData {
     id: String,
     label: String,
+    degree: usize,
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 enum LinkType {
@@ -480,19 +482,25 @@ fn produce_data_json(
     let mut graph = Graph {
         nodes: vec![],
         links: BTreeSet::new(),
+        max_degree: 0,
     };
 
     let mut node_order = processed_genres.0.keys().cloned().collect::<Vec<_>>();
     node_order.sort();
+
+    let mut id_to_index = HashMap::new();
 
     for genre in node_order {
         let processed_genre = &processed_genres.0[&genre];
         let node = NodeData {
             id: genre.clone(),
             label: processed_genre.name.clone(),
+            degree: 0,
         };
 
         graph.nodes.push(node);
+        id_to_index.insert(genre.clone(), graph.nodes.len() - 1);
+
         for stylistic_origin in &processed_genre.stylistic_origins {
             graph.links.insert(LinkData {
                 source: stylistic_origin.clone(),
@@ -522,6 +530,13 @@ fn produce_data_json(
             });
         }
     }
+
+    for link in &graph.links {
+        graph.nodes[id_to_index[&link.source]].degree += 1;
+        graph.nodes[id_to_index[&link.target]].degree += 1;
+    }
+
+    graph.max_degree = graph.nodes.iter().map(|n| n.degree).max().unwrap_or(0);
 
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
     println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());

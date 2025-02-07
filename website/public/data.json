@@ -2,4779 +2,5973 @@
   "nodes": [
     {
       "id": "2-step garage",
-      "label": "2-step garage"
+      "label": "2-step garage",
+      "degree": 15
     },
     {
       "id": "A cappella",
-      "label": "A cappella"
+      "label": "A cappella",
+      "degree": 3
     },
     {
       "id": "Acid (electronic music)",
-      "label": "Acid"
+      "label": "Acid",
+      "degree": 7
     },
     {
       "id": "Acid house",
-      "label": "Acid house"
+      "label": "Acid house",
+      "degree": 32
     },
     {
       "id": "Acid jazz",
-      "label": "Acid jazz"
+      "label": "Acid jazz",
+      "degree": 13
     },
     {
       "id": "Acid rock",
-      "label": "Acid rock"
+      "label": "Acid rock",
+      "degree": 18
     },
     {
       "id": "Acid techno",
-      "label": "Acid techno"
+      "label": "Acid techno",
+      "degree": 6
     },
     {
       "id": "Acid trance",
-      "label": "Acid trance"
+      "label": "Acid trance",
+      "degree": 7
     },
     {
       "id": "Adult album alternative",
-      "label": "Adult alternative"
+      "label": "Adult alternative",
+      "degree": 7
     },
     {
       "id": "Adult contemporary music",
-      "label": "Adult contemporary"
+      "label": "Adult contemporary",
+      "degree": 11
     },
     {
       "id": "African blues",
-      "label": "African blues"
+      "label": "African blues",
+      "degree": 4
     },
     {
       "id": "African heavy metal",
-      "label": "African heavy metal"
+      "label": "African heavy metal",
+      "degree": 1
     },
     {
       "id": "African hip-hop",
-      "label": "Street hop"
+      "label": "Street hop",
+      "degree": 3
     },
     {
       "id": "Afro (genre)",
-      "label": "Afro"
+      "label": "Afro",
+      "degree": 1
     },
     {
       "id": "Afro fusion",
-      "label": "Afro fusion"
+      "label": "Afro fusion",
+      "degree": 3
     },
     {
       "id": "Afro house",
-      "label": "Afro house"
+      "label": "Afro house",
+      "degree": 10
     },
     {
       "id": "Afro tech",
-      "label": "Afro tech"
+      "label": "Afro tech",
+      "degree": 5
     },
     {
       "id": "Afro-Caribbean music",
-      "label": "Afro-Caribbean music"
+      "label": "Afro-Caribbean music",
+      "degree": 0
     },
     {
       "id": "Afro-Cuban jazz",
-      "label": "Afro-Cuban jazz"
+      "label": "Afro-Cuban jazz",
+      "degree": 5
     },
     {
       "id": "Afro-punk",
-      "label": "Afro-punk"
+      "label": "Afro-punk",
+      "degree": 2
     },
     {
       "id": "Afro-soul",
-      "label": "Afro-soul"
+      "label": "Afro-soul",
+      "degree": 5
     },
     {
       "id": "Afro/cosmic music",
-      "label": "Afro/cosmic"
+      "label": "Afro/cosmic",
+      "degree": 8
     },
     {
       "id": "Afrobeat",
-      "label": "Afrobeat"
+      "label": "Afrobeat",
+      "degree": 9
     },
     {
       "id": "Afrobeats",
-      "label": "Afrobeats"
+      "label": "Afrobeats",
+      "degree": 16
     },
     {
       "id": "Afroswing",
-      "label": "Afroswing"
+      "label": "Afroswing",
+      "degree": 8
     },
     {
       "id": "Ahidus",
-      "label": "Ahidus, Ahidous or Haidous"
+      "label": "Ahidus, Ahidous or Haidous",
+      "degree": 0
     },
     {
       "id": "Ahwash",
-      "label": "Aḥwash"
+      "label": "Aḥwash",
+      "degree": 0
     },
     {
       "id": "Aita (Morocco)",
-      "label": "Aita"
+      "label": "Aita",
+      "degree": 0
     },
     {
       "id": "Akishibu-kei",
-      "label": "Akishibu-kei"
+      "label": "Akishibu-kei",
+      "degree": 3
     },
     {
       "id": "Al Jeel",
-      "label": "Al Jeel"
+      "label": "Al Jeel",
+      "degree": 5
     },
     {
       "id": "Alaskan hip-hop",
-      "label": "Alaskan Hip Hop"
+      "label": "Alaskan Hip Hop",
+      "degree": 6
     },
     {
       "id": "Alpine folk music",
-      "label": "Alpine folk music"
+      "label": "Alpine folk music",
+      "degree": 4
     },
     {
       "id": "Alternative R&B",
-      "label": "Alternative R&B"
+      "label": "Alternative R&B",
+      "degree": 10
     },
     {
       "id": "Alternative country",
-      "label": "Alternative country"
+      "label": "Alternative country",
+      "degree": 15
     },
     {
       "id": "Alternative dance",
-      "label": "Alternative dance"
+      "label": "Alternative dance",
+      "degree": 17
     },
     {
       "id": "Alternative hip-hop",
-      "label": "Alternative hip hop"
+      "label": "Alternative hip hop",
+      "degree": 16
     },
     {
       "id": "Alternative metal",
-      "label": "Alternative metal"
+      "label": "Alternative metal",
+      "degree": 12
     },
     {
       "id": "Alternative reggaeton",
-      "label": "Alternative reggaeton"
+      "label": "Alternative reggaeton",
+      "degree": 4
     },
     {
       "id": "Alternative rock",
-      "label": "Alternative pop"
+      "label": "Alternative pop",
+      "degree": 54
     },
     {
       "id": "Alté",
-      "label": "Alté"
+      "label": "Alté",
+      "degree": 6
     },
     {
       "id": "Amapiano",
-      "label": "Amapiano"
+      "label": "Amapiano",
+      "degree": 8
     },
     {
       "id": "Ambasse bey",
-      "label": "Ambasse-bey"
+      "label": "Ambasse-bey",
+      "degree": 4
     },
     {
       "id": "Ambient house",
-      "label": "Ambient house"
+      "label": "Ambient house",
+      "degree": 14
     },
     {
       "id": "Ambient music",
-      "label": "Ambient music"
+      "label": "Ambient music",
+      "degree": 45
     },
     {
       "id": "Ambient techno",
-      "label": "Ambient techno"
+      "label": "Ambient techno",
+      "degree": 9
     },
     {
       "id": "American primitive guitar",
-      "label": "American primitive guitar"
+      "label": "American primitive guitar",
+      "degree": 3
     },
     {
       "id": "Americana music",
-      "label": "Americana"
+      "label": "Americana",
+      "degree": 16
     },
     {
       "id": "Anarcho-punk",
-      "label": "Anarcho-punk"
+      "label": "Anarcho-punk",
+      "degree": 10
     },
     {
       "id": "Anatolian blues",
-      "label": "Anatolian blues"
+      "label": "Anatolian blues",
+      "degree": 1
     },
     {
       "id": "Anatolian rock",
-      "label": "Anatolian rock"
+      "label": "Anatolian rock",
+      "degree": 4
     },
     {
       "id": "Anime song",
-      "label": "Anime song"
+      "label": "Anime song",
+      "degree": 4
     },
     {
       "id": "Anti-folk",
-      "label": "Antifolk"
+      "label": "Antifolk",
+      "degree": 4
     },
     {
       "id": "Apala",
-      "label": "Apala"
+      "label": "Apala",
+      "degree": 0
     },
     {
       "id": "Appalachian music",
-      "label": "Appalachian music"
+      "label": "Appalachian music",
+      "degree": 9
     },
     {
       "id": "Arabesque (Turkish music)",
-      "label": "Arabesque music"
+      "label": "Arabesque music",
+      "degree": 3
     },
     {
       "id": "Arabic pop",
-      "label": "Arabic pop music"
+      "label": "Arabic pop music",
+      "degree": 3
     },
     {
       "id": "Arena rock",
-      "label": "Arena rock"
+      "label": "Arena rock",
+      "degree": 9
     },
     {
       "id": "Armenian rock",
-      "label": "Armenian Rock"
+      "label": "Armenian Rock",
+      "degree": 5
     },
     {
       "id": "Art pop",
-      "label": "Art pop"
+      "label": "Art pop",
+      "degree": 8
     },
     {
       "id": "Art punk",
-      "label": "Art punk"
+      "label": "Art punk",
+      "degree": 5
     },
     {
       "id": "Art rock",
-      "label": "Art rock"
+      "label": "Art rock",
+      "degree": 15
     },
     {
       "id": "Ashiqs of Azerbaijan",
-      "label": "Azerbaijani Ashiq music"
+      "label": "Azerbaijani Ashiq music",
+      "degree": 1
     },
     {
       "id": "Asian American hip-hop",
-      "label": "Asian American hip hop"
+      "label": "Asian American hip hop",
+      "degree": 1
     },
     {
       "id": "Asian hip-hop",
-      "label": "Asian hip hop"
+      "label": "Asian hip hop",
+      "degree": 1
     },
     {
       "id": "Athabaskan fiddle",
-      "label": "Athabaskan fiddle"
+      "label": "Athabaskan fiddle",
+      "degree": 0
     },
     {
       "id": "Atlanta blues",
-      "label": "Atlanta blues"
+      "label": "Atlanta blues",
+      "degree": 2
     },
     {
       "id": "Australian hip-hop",
-      "label": "Australian hip-hop"
+      "label": "Australian hip-hop",
+      "degree": 10
     },
     {
       "id": "Austropop",
-      "label": "Austropop"
+      "label": "Austropop",
+      "degree": 2
     },
     {
       "id": "Avant-funk",
-      "label": "Avant-funk"
+      "label": "Avant-funk",
+      "degree": 15
     },
     {
       "id": "Avant-garde jazz",
-      "label": "Avant-garde jazz"
+      "label": "Avant-garde jazz",
+      "degree": 8
     },
     {
       "id": "Avant-garde metal",
-      "label": "Avant-garde metal"
+      "label": "Avant-garde metal",
+      "degree": 9
     },
     {
       "id": "Avant-garde music",
-      "label": "Avant-garde"
+      "label": "Avant-garde",
+      "degree": 25
     },
     {
       "id": "Avant-prog",
-      "label": "Avant-prog"
+      "label": "Avant-prog",
+      "degree": 3
     },
     {
       "id": "Avant-punk",
-      "label": "Avant-punk"
+      "label": "Avant-punk",
+      "degree": 3
     },
     {
       "id": "Axé",
-      "label": "Axé"
+      "label": "Axé",
+      "degree": 7
     },
     {
       "id": "Azerbaijani pop music",
-      "label": "Azerbaijani pop music"
+      "label": "Azerbaijani pop music",
+      "degree": 3
     },
     {
       "id": "Bachata (music)",
-      "label": "Bachata"
+      "label": "Bachata",
+      "degree": 4
     },
     {
       "id": "Bachatón",
-      "label": "Bachatón"
+      "label": "Bachatón",
+      "degree": 5
     },
     {
       "id": "Bagad",
-      "label": "Bagad"
+      "label": "Bagad",
+      "degree": 0
     },
     {
       "id": "Baggy",
-      "label": "Baggy"
+      "label": "Baggy",
+      "degree": 6
     },
     {
       "id": "Bahamian Rhyming Spiritual",
-      "label": "Bahamian Rhyming Spiritual"
+      "label": "Bahamian Rhyming Spiritual",
+      "degree": 2
     },
     {
       "id": "Bakersfield sound",
-      "label": "Bakersfield sound"
+      "label": "Bakersfield sound",
+      "degree": 7
     },
     {
       "id": "Balearic beat",
-      "label": "Balearic beat"
+      "label": "Balearic beat",
+      "degree": 10
     },
     {
       "id": "Balearic trance",
-      "label": "Balearic trance"
+      "label": "Balearic trance",
+      "degree": 4
     },
     {
       "id": "Balkan brass",
-      "label": "Balkan brass music"
+      "label": "Balkan brass music",
+      "degree": 3
     },
     {
       "id": "Ball culture",
-      "label": "Ballroom music"
+      "label": "Ballroom music",
+      "degree": 5
     },
     {
       "id": "Baltimore club",
-      "label": "Baltimore club"
+      "label": "Baltimore club",
+      "degree": 8
     },
     {
       "id": "Bambuco",
-      "label": "Danza Del Bambuco"
+      "label": "Danza Del Bambuco",
+      "degree": 1
     },
     {
       "id": "Banda music",
-      "label": "Banda music"
+      "label": "Banda music",
+      "degree": 5
     },
     {
       "id": "Bandana thrash",
-      "label": "Bandana thrash"
+      "label": "Bandana thrash",
+      "degree": 4
     },
     {
       "id": "Bangladeshi heavy metal",
-      "label": "Bangladeshi heavy metal"
+      "label": "Bangladeshi heavy metal",
+      "degree": 7
     },
     {
       "id": "Bangladeshi hip-hop",
-      "label": "Bangladeshi hip hop"
+      "label": "Bangladeshi hip hop",
+      "degree": 3
     },
     {
       "id": "Bangladeshi rock",
-      "label": "Bangladeshi rock music"
+      "label": "Bangladeshi rock music",
+      "degree": 9
     },
     {
       "id": "Banjo music",
-      "label": "Banjo music"
+      "label": "Banjo music",
+      "degree": 7
     },
     {
       "id": "Bantowbol",
-      "label": "Bantowbol"
+      "label": "Bantowbol",
+      "degree": 0
     },
     {
       "id": "Barbershop music",
-      "label": "Barbershop music"
+      "label": "Barbershop music",
+      "degree": 1
     },
     {
       "id": "Bard (Soviet Union)",
-      "label": "Author song"
+      "label": "Author song",
+      "degree": 2
     },
     {
       "id": "Bardcore",
-      "label": "Bardcore"
+      "label": "Bardcore",
+      "degree": 3
     },
     {
       "id": "Baroque pop",
-      "label": "Baroque pop"
+      "label": "Baroque pop",
+      "degree": 10
     },
     {
       "id": "Bassline (music genre)",
-      "label": "Bassline"
+      "label": "Bassline",
+      "degree": 6
     },
     {
       "id": "Batrelaky",
-      "label": "Batrelaky"
+      "label": "Batrelaky",
+      "degree": 0
     },
     {
       "id": "Battle rap",
-      "label": "Battle rap"
+      "label": "Battle rap",
+      "degree": 0
     },
     {
       "id": "Batuque (Cape Verde)",
-      "label": "Batuque"
+      "label": "Batuque",
+      "degree": 1
     },
     {
       "id": "Bay Area thrash metal",
-      "label": "Bay Area thrash metal"
+      "label": "Bay Area thrash metal",
+      "degree": 5
     },
     {
       "id": "Beach music",
-      "label": "Beach"
+      "label": "Beach",
+      "degree": 5
     },
     {
       "id": "Beat music",
-      "label": "Beat"
+      "label": "Beat",
+      "degree": 24
     },
     {
       "id": "Beatdown hardcore",
-      "label": "Beatdown hardcore"
+      "label": "Beatdown hardcore",
+      "degree": 8
     },
     {
       "id": "Bebop",
-      "label": "Bebop"
+      "label": "Bebop",
+      "degree": 9
     },
     {
       "id": "Belgian hardcore techno",
-      "label": "Belgian hardcore techno"
+      "label": "Belgian hardcore techno",
+      "degree": 9
     },
     {
       "id": "Benga music",
-      "label": "Benga"
+      "label": "Benga",
+      "degree": 3
     },
     {
       "id": "Bengali Rock music (India)",
-      "label": "Bengali Rock music"
+      "label": "Bengali Rock music",
+      "degree": 10
     },
     {
       "id": "Bertitik",
-      "label": "Bertitik"
+      "label": "Bertitik",
+      "degree": 0
     },
     {
       "id": "Bećarac",
-      "label": "Bećarac"
+      "label": "Bećarac",
+      "degree": 0
     },
     {
       "id": "Bhangra (music)",
-      "label": "Bhangra"
+      "label": "Bhangra",
+      "degree": 5
     },
     {
       "id": "Big band",
-      "label": "Big band"
+      "label": "Big band",
+      "degree": 11
     },
     {
       "id": "Big beat",
-      "label": "Big beat"
+      "label": "Big beat",
+      "degree": 15
     },
     {
       "id": "Big room house",
-      "label": "Big room house"
+      "label": "Big room house",
+      "degree": 15
     },
     {
       "id": "Biguine",
-      "label": "Biguine"
+      "label": "Biguine",
+      "degree": 5
     },
     {
       "id": "Biker metal",
-      "label": "Biker metal"
+      "label": "Biker metal",
+      "degree": 9
     },
     {
       "id": "Bikutsi",
-      "label": "Bikutsi"
+      "label": "Bikutsi",
+      "degree": 1
     },
     {
       "id": "Birmingham sound",
-      "label": "Birmingham sound"
+      "label": "Birmingham sound",
+      "degree": 2
     },
     {
       "id": "Bisrock",
-      "label": "BisRock"
+      "label": "BisRock",
+      "degree": 2
     },
     {
       "id": "Bitpop",
-      "label": "Bitpop"
+      "label": "Bitpop",
+      "degree": 7
     },
     {
       "id": "Black Gospel music",
-      "label": "Black gospel music"
+      "label": "Black gospel music",
+      "degree": 5
     },
     {
       "id": "Black MIDI",
-      "label": "Black MIDI"
+      "label": "Black MIDI",
+      "degree": 0
     },
     {
       "id": "Black metal",
-      "label": "Black metal"
+      "label": "Black metal",
+      "degree": 26
     },
     {
       "id": "Blackened death metal",
-      "label": "War metal"
+      "label": "War metal",
+      "degree": 8
     },
     {
       "id": "Blackgaze",
-      "label": "Blackgaze"
+      "label": "Blackgaze",
+      "degree": 8
     },
     {
       "id": "Bleep techno",
-      "label": "Bleep techno"
+      "label": "Bleep techno",
+      "degree": 13
     },
     {
       "id": "Bluegrass music",
-      "label": "Bluegrass"
+      "label": "Bluegrass",
+      "degree": 18
     },
     {
       "id": "Blues",
-      "label": "Blues"
+      "label": "Blues",
+      "degree": 91
     },
     {
       "id": "Blues rock",
-      "label": "Blues rock"
+      "label": "Blues rock",
+      "degree": 21
     },
     {
       "id": "Bolero",
-      "label": "Bolero"
+      "label": "Bolero",
+      "degree": 12
     },
     {
       "id": "Bolojo",
-      "label": "Bolojo"
+      "label": "Bolojo",
+      "degree": 0
     },
     {
       "id": "Bomba (Puerto Rico)",
-      "label": "Bomba"
+      "label": "Bomba",
+      "degree": 2
     },
     {
       "id": "Bongai",
-      "label": "Bongai"
+      "label": "Bongai",
+      "degree": 0
     },
     {
       "id": "Bongo Flava",
-      "label": "Bongo Flava"
+      "label": "Bongo Flava",
+      "degree": 6
     },
     {
       "id": "Boogaloo",
-      "label": "Boogaloo"
+      "label": "Boogaloo",
+      "degree": 5
     },
     {
       "id": "Boogie (genre)",
-      "label": "Boogie"
+      "label": "Boogie",
+      "degree": 13
     },
     {
       "id": "Boogie rock",
-      "label": "Boogie rock"
+      "label": "Boogie rock",
+      "degree": 4
     },
     {
       "id": "Boogie-woogie",
-      "label": "Boogie-woogie"
+      "label": "Boogie-woogie",
+      "degree": 11
     },
     {
       "id": "Boom bap",
-      "label": "Boom bap"
+      "label": "Boom bap",
+      "degree": 7
     },
     {
       "id": "Boomba music",
-      "label": "Boomba music"
+      "label": "Boomba music",
+      "degree": 5
     },
     {
       "id": "Borgeet",
-      "label": "Borgeet"
+      "label": "Borgeet",
+      "degree": 0
     },
     {
       "id": "Boria (theatre)",
-      "label": "Boria"
+      "label": "Boria",
+      "degree": 0
     },
     {
       "id": "Bossa nova",
-      "label": "Bossa nova"
+      "label": "Bossa nova",
+      "degree": 17
     },
     {
       "id": "Bounce music",
-      "label": "Bounce"
+      "label": "Bounce",
+      "degree": 10
     },
     {
       "id": "Bouncy techno",
-      "label": "Bouncy techno"
+      "label": "Bouncy techno",
+      "degree": 10
     },
     {
       "id": "Bouyon music",
-      "label": "Bouyon"
+      "label": "Bouyon",
+      "degree": 9
     },
     {
       "id": "Bouyon soca",
-      "label": "Bouyon Music"
+      "label": "Bouyon Music",
+      "degree": 3
     },
     {
       "id": "Brazilian gaucho music",
-      "label": "Brazilian gaucho music"
+      "label": "Brazilian gaucho music",
+      "degree": 0
     },
     {
       "id": "Brazilian phonk",
-      "label": "Brazilian phonk"
+      "label": "Brazilian phonk",
+      "degree": 2
     },
     {
       "id": "Brazilian rock",
-      "label": "Brazilian rock"
+      "label": "Brazilian rock",
+      "degree": 7
     },
     {
       "id": "Breakbeat",
-      "label": "Breakbeat"
+      "label": "Breakbeat",
+      "degree": 32
     },
     {
       "id": "Breakbeat hardcore",
-      "label": "Breakbeat hardcore"
+      "label": "Breakbeat hardcore",
+      "degree": 20
     },
     {
       "id": "Breakcore",
-      "label": "Breakcore"
+      "label": "Breakcore",
+      "degree": 14
     },
     {
       "id": "Breakstep",
-      "label": "Breakstep"
+      "label": "Breakstep",
+      "degree": 5
     },
     {
       "id": "Brega pop",
-      "label": "Brega-pop"
+      "label": "Brega-pop",
+      "degree": 3
     },
     {
       "id": "Brill Building (genre)",
-      "label": "Brill Building"
+      "label": "Brill Building",
+      "degree": 12
     },
     {
       "id": "Brisbane punk rock",
-      "label": "Brisbane punk rock"
+      "label": "Brisbane punk rock",
+      "degree": 5
     },
     {
       "id": "Brit funk",
-      "label": "Brit funk"
+      "label": "Brit funk",
+      "degree": 7
     },
     {
       "id": "British blues",
-      "label": "British blues"
+      "label": "British blues",
+      "degree": 5
     },
     {
       "id": "British folk rock",
-      "label": "British folk rock"
+      "label": "British folk rock",
+      "degree": 11
     },
     {
       "id": "British rhythm and blues",
-      "label": "British rhythm and blues"
+      "label": "British rhythm and blues",
+      "degree": 9
     },
     {
       "id": "British rock and roll",
-      "label": "British rock and roll"
+      "label": "British rock and roll",
+      "degree": 4
     },
     {
       "id": "British soul",
-      "label": "British soul"
+      "label": "British soul",
+      "degree": 6
     },
     {
       "id": "Britpop",
-      "label": "Britpop"
+      "label": "Britpop",
+      "degree": 13
     },
     {
       "id": "Bro-country",
-      "label": "Bro-country"
+      "label": "Bro-country",
+      "degree": 6
     },
     {
       "id": "Broken beat",
-      "label": "Broken beat"
+      "label": "Broken beat",
+      "degree": 11
     },
     {
       "id": "Brooklyn drill",
-      "label": "Bronx drill"
+      "label": "Bronx drill",
+      "degree": 7
     },
     {
       "id": "Brostep",
-      "label": "Brostep"
+      "label": "Brostep",
+      "degree": 12
     },
     {
       "id": "Brukdown",
-      "label": "Brukdown"
+      "label": "Brukdown",
+      "degree": 1
     },
     {
       "id": "Brutal death metal",
-      "label": "Brutal death metal"
+      "label": "Brutal death metal",
+      "degree": 6
     },
     {
       "id": "Bubblegum music",
-      "label": "Bubblegum"
+      "label": "Bubblegum",
+      "degree": 19
     },
     {
       "id": "Budots",
-      "label": "Budots"
+      "label": "Budots",
+      "degree": 5
     },
     {
       "id": "Bulgarian hip-hop",
-      "label": "Bulgarian hip hop"
+      "label": "Bulgarian hip hop",
+      "degree": 1
     },
     {
       "id": "Bullerengue",
-      "label": "Bullerengue"
+      "label": "Bullerengue",
+      "degree": 1
     },
     {
       "id": "Burban",
-      "label": "Burban"
+      "label": "Burban",
+      "degree": 5
     },
     {
       "id": "Bélé",
-      "label": "Bélé"
+      "label": "Bélé",
+      "degree": 10
     },
     {
       "id": "Cachaca (musical genre)",
-      "label": "Cachaca"
+      "label": "Cachaca",
+      "degree": 0
     },
     {
       "id": "Cadence rampa",
-      "label": "Cadence rampa"
+      "label": "Cadence rampa",
+      "degree": 4
     },
     {
       "id": "Cadence-lypso",
-      "label": "Cadence-lypso"
+      "label": "Cadence-lypso",
+      "degree": 14
     },
     {
       "id": "Cajun fiddle",
-      "label": "Cajun fiddle"
+      "label": "Cajun fiddle",
+      "degree": 3
     },
     {
       "id": "Cajun music",
-      "label": "Cajun music"
+      "label": "Cajun music",
+      "degree": 8
     },
     {
       "id": "Cakewalk",
-      "label": "Cakewalk"
+      "label": "Cakewalk",
+      "degree": 1
     },
     {
       "id": "Calypso music",
-      "label": "Calypso"
+      "label": "Calypso",
+      "degree": 24
     },
     {
       "id": "Cambodian rock (1960s–1970s)",
-      "label": "Cambodian rock (1960s–1970s)"
+      "label": "Cambodian rock (1960s–1970s)",
+      "degree": 7
     },
     {
       "id": "Campus folk song",
-      "label": "Taiwanese campus folk song"
+      "label": "Taiwanese campus folk song",
+      "degree": 3
     },
     {
       "id": "Canadian blues",
-      "label": "Canadian blues"
+      "label": "Canadian blues",
+      "degree": 5
     },
     {
       "id": "Canadian heavy metal",
-      "label": "Canadian heavy metal"
+      "label": "Canadian heavy metal",
+      "degree": 1
     },
     {
       "id": "Canción melódica",
-      "label": "Canción melódica"
+      "label": "Canción melódica",
+      "degree": 4
     },
     {
       "id": "Candombe",
-      "label": "Candombe"
+      "label": "Candombe",
+      "degree": 2
     },
     {
       "id": "Cante Alentejano",
-      "label": "Cante Alentejano"
+      "label": "Cante Alentejano",
+      "degree": 0
     },
     {
       "id": "Canterbury scene",
-      "label": "Canterbury scene"
+      "label": "Canterbury scene",
+      "degree": 5
     },
     {
       "id": "Cantu a tenore",
-      "label": "Cantu a tenòre"
+      "label": "Cantu a tenòre",
+      "degree": 0
     },
     {
       "id": "Cape Breton fiddling",
-      "label": "Cape Breton fiddling"
+      "label": "Cape Breton fiddling",
+      "degree": 0
     },
     {
       "id": "Cape jazz",
-      "label": "Cape jazz"
+      "label": "Cape jazz",
+      "degree": 1
     },
     {
       "id": "Capoeira music",
-      "label": "Capoeira music"
+      "label": "Capoeira music",
+      "degree": 1
     },
     {
       "id": "Car song",
-      "label": "Car song"
+      "label": "Car song",
+      "degree": 10
     },
     {
       "id": "Cello rock",
-      "label": "Cello rock"
+      "label": "Cello rock",
+      "degree": 5
     },
     {
       "id": "Celtic fusion",
-      "label": "Celtic fusion"
+      "label": "Celtic fusion",
+      "degree": 5
     },
     {
       "id": "Celtic metal",
-      "label": "Celtic metal"
+      "label": "Celtic metal",
+      "degree": 7
     },
     {
       "id": "Celtic rock",
-      "label": "Celtic rock"
+      "label": "Celtic rock",
+      "degree": 8
     },
     {
       "id": "Chaabi (Algeria)",
-      "label": "Chaabi"
+      "label": "Chaabi",
+      "degree": 1
     },
     {
       "id": "Chalga",
-      "label": "Chalga"
+      "label": "Chalga",
+      "degree": 4
     },
     {
       "id": "Chamamé",
-      "label": "Chamamé"
+      "label": "Chamamé",
+      "degree": 2
     },
     {
       "id": "Chamber jazz",
-      "label": "Chamber jazz"
+      "label": "Chamber jazz",
+      "degree": 5
     },
     {
       "id": "Chamber pop",
-      "label": "Chamber pop"
+      "label": "Chamber pop",
+      "degree": 6
     },
     {
       "id": "Champeta",
-      "label": "Champeta"
+      "label": "Champeta",
+      "degree": 8
     },
     {
       "id": "Chanson",
-      "label": "Chanson"
+      "label": "Chanson",
+      "degree": 3
     },
     {
       "id": "Chanté mas",
-      "label": "Chanté mas"
+      "label": "Chanté mas",
+      "degree": 2
     },
     {
       "id": "Chap hop",
-      "label": "Chap hop"
+      "label": "Chap hop",
+      "degree": 4
     },
     {
       "id": "Chicago blues",
-      "label": "Chicago blues"
+      "label": "Chicago blues",
+      "degree": 3
     },
     {
       "id": "Chicago house",
-      "label": "Chicago house"
+      "label": "Chicago house",
+      "degree": 17
     },
     {
       "id": "Chicago soul",
-      "label": "Chicago soul"
+      "label": "Chicago soul",
+      "degree": 5
     },
     {
       "id": "Children's music",
-      "label": "Children's music"
+      "label": "Children's music",
+      "degree": 1
     },
     {
       "id": "Chilean rock",
-      "label": "Rock music in Chile"
+      "label": "Rock music in Chile",
+      "degree": 4
     },
     {
       "id": "Chillwave",
-      "label": "Chillwave"
+      "label": "Chillwave",
+      "degree": 17
     },
     {
       "id": "Chimurenga music",
-      "label": "Chimurenga"
+      "label": "Chimurenga",
+      "degree": 2
     },
     {
       "id": "Chiptune",
-      "label": "Chiptune"
+      "label": "Chiptune",
+      "degree": 21
     },
     {
       "id": "Chopped and screwed",
-      "label": "Slowed and reverb"
+      "label": "Slowed and reverb",
+      "degree": 10
     },
     {
       "id": "Chopper (rap)",
-      "label": "Chopper"
+      "label": "Chopper",
+      "degree": 2
     },
     {
       "id": "Chorale motet",
-      "label": "Chorale motet"
+      "label": "Chorale motet",
+      "degree": 0
     },
     {
       "id": "Choro",
-      "label": "Choro"
+      "label": "Choro",
+      "degree": 7
     },
     {
       "id": "Chouval bwa",
-      "label": "Chouval bwa"
+      "label": "Chouval bwa",
+      "degree": 2
     },
     {
       "id": "Christian R&B",
-      "label": "Christian rhythm and blues"
+      "label": "Christian rhythm and blues",
+      "degree": 8
     },
     {
       "id": "Christian adult contemporary",
-      "label": "Christian adult contemporary"
+      "label": "Christian adult contemporary",
+      "degree": 10
     },
     {
       "id": "Christian alternative rock",
-      "label": "Christian alternative music"
+      "label": "Christian alternative music",
+      "degree": 7
     },
     {
       "id": "Christian country music",
-      "label": "Christian country music"
+      "label": "Christian country music",
+      "degree": 9
     },
     {
       "id": "Christian death metal",
-      "label": "Christian death metal"
+      "label": "Christian death metal",
+      "degree": 3
     },
     {
       "id": "Christian electronic dance music",
-      "label": "CEDM"
+      "label": "CEDM",
+      "degree": 12
     },
     {
       "id": "Christian hardcore",
-      "label": "Christian hardcore"
+      "label": "Christian hardcore",
+      "degree": 6
     },
     {
       "id": "Christian hip-hop",
-      "label": "Christian Hip Hop"
+      "label": "Christian Hip Hop",
+      "degree": 6
     },
     {
       "id": "Christian metal",
-      "label": "Christian metal"
+      "label": "Christian metal",
+      "degree": 8
     },
     {
       "id": "Christian punk",
-      "label": "Christian punk"
+      "label": "Christian punk",
+      "degree": 7
     },
     {
       "id": "Christian rock",
-      "label": "Christian rock"
+      "label": "Christian rock",
+      "degree": 11
     },
     {
       "id": "Christian ska",
-      "label": "Christian ska"
+      "label": "Christian ska",
+      "degree": 6
     },
     {
       "id": "Chutney music",
-      "label": "Chutney"
+      "label": "Chutney",
+      "degree": 9
     },
     {
       "id": "Chutney parang",
-      "label": "Chutney parang"
+      "label": "Chutney parang",
+      "degree": 8
     },
     {
       "id": "Chutney soca",
-      "label": "Chutney soca"
+      "label": "Chutney soca",
+      "degree": 6
     },
     {
       "id": "Cinematic soul",
-      "label": "Cinematic soul"
+      "label": "Cinematic soul",
+      "degree": 3
     },
     {
       "id": "City pop",
-      "label": "City pop"
+      "label": "City pop",
+      "degree": 16
     },
     {
       "id": "Classic female blues",
-      "label": "Classic female blues"
+      "label": "Classic female blues",
+      "degree": 2
     },
     {
       "id": "Classical music in hip-hop",
-      "label": "Classical music in hip-hop"
+      "label": "Classical music in hip-hop",
+      "degree": 2
     },
     {
       "id": "Cloud rap",
-      "label": "Cloud rap"
+      "label": "Cloud rap",
+      "degree": 9
     },
     {
       "id": "Coladeira",
-      "label": "Coladeira"
+      "label": "Coladeira",
+      "degree": 4
     },
     {
       "id": "Cold wave (music)",
-      "label": "Cold wave"
+      "label": "Cold wave",
+      "degree": 8
     },
     {
       "id": "College rock",
-      "label": "College rock"
+      "label": "College rock",
+      "degree": 8
     },
     {
       "id": "Collegiate a cappella",
-      "label": "Collegiate a cappella"
+      "label": "Collegiate a cappella",
+      "degree": 2
     },
     {
       "id": "Colá",
-      "label": "Colá"
+      "label": "Colá",
+      "degree": 0
     },
     {
       "id": "Comedy hip-hop",
-      "label": "Comedic hip-hop"
+      "label": "Comedic hip-hop",
+      "degree": 7
     },
     {
       "id": "Comedy music",
-      "label": "Comedy music"
+      "label": "Comedy music",
+      "degree": 8
     },
     {
       "id": "Comedy rock",
-      "label": "Comedy rock"
+      "label": "Comedy rock",
+      "degree": 5
     },
     {
       "id": "Compas",
-      "label": "Compas"
+      "label": "Compas",
+      "degree": 13
     },
     {
       "id": "Conga (music)",
-      "label": "Conga"
+      "label": "Conga",
+      "degree": 2
     },
     {
       "id": "Congolese rumba",
-      "label": "Congolese rumba"
+      "label": "Congolese rumba",
+      "degree": 7
     },
     {
       "id": "Contemporary Christian music",
-      "label": "Contemporary Christian music"
+      "label": "Contemporary Christian music",
+      "degree": 22
     },
     {
       "id": "Contemporary R&B",
-      "label": "Contemporary R&B"
+      "label": "Contemporary R&B",
+      "degree": 62
     },
     {
       "id": "Contemporary folk music",
-      "label": "Country folk"
+      "label": "Country folk",
+      "degree": 26
     },
     {
       "id": "Contemporary worship music",
-      "label": "Contemporary worship music"
+      "label": "Contemporary worship music",
+      "degree": 4
     },
     {
       "id": "Cool Cymru",
-      "label": "Cool Cymru"
+      "label": "Cool Cymru",
+      "degree": 3
     },
     {
       "id": "Cool jazz",
-      "label": "Cool jazz"
+      "label": "Cool jazz",
+      "degree": 7
     },
     {
       "id": "Coon song",
-      "label": "Coon song"
+      "label": "Coon song",
+      "degree": 0
     },
     {
       "id": "Copy thachin",
-      "label": "Copy thachin"
+      "label": "Copy thachin",
+      "degree": 1
     },
     {
       "id": "Corridos tumbados",
-      "label": "Corridos tumbados"
+      "label": "Corridos tumbados",
+      "degree": 6
     },
     {
       "id": "Country Funk 1969–1975",
-      "label": "Country funk"
+      "label": "Country funk",
+      "degree": 4
     },
     {
       "id": "Country and Irish",
-      "label": "Country and Irish"
+      "label": "Country and Irish",
+      "degree": 1
     },
     {
       "id": "Country blues",
-      "label": "Country blues"
+      "label": "Country blues",
+      "degree": 14
     },
     {
       "id": "Country music",
-      "label": "Country"
+      "label": "Country",
+      "degree": 77
     },
     {
       "id": "Country pop",
-      "label": "Country pop"
+      "label": "Country pop",
+      "degree": 10
     },
     {
       "id": "Country rap",
-      "label": "Country rap"
+      "label": "Country rap",
+      "degree": 5
     },
     {
       "id": "Country rock",
-      "label": "Country metal"
+      "label": "Country metal",
+      "degree": 9
     },
     {
       "id": "Coupé-décalé",
-      "label": "Coupé-décalé"
+      "label": "Coupé-décalé",
+      "degree": 7
     },
     {
       "id": "Cowboy pop",
-      "label": "Cowboy pop"
+      "label": "Cowboy pop",
+      "degree": 9
     },
     {
       "id": "Cowpunk",
-      "label": "Cowpunk"
+      "label": "Cowpunk",
+      "degree": 10
     },
     {
       "id": "Creole music",
-      "label": "Creole music of Louisiana"
+      "label": "Creole music of Louisiana",
+      "degree": 6
     },
     {
       "id": "Cringe pop",
-      "label": "Cringe pop"
+      "label": "Cringe pop",
+      "degree": 1
     },
     {
       "id": "Croatian hip-hop",
-      "label": "Croatian hip hop"
+      "label": "Croatian hip hop",
+      "degree": 9
     },
     {
       "id": "Crossover thrash",
-      "label": "Crossover thrash"
+      "label": "Crossover thrash",
+      "degree": 7
     },
     {
       "id": "Crunk",
-      "label": "Crunk"
+      "label": "Crunk",
+      "degree": 17
     },
     {
       "id": "Crunkcore",
-      "label": "Crunkcore"
+      "label": "Crunkcore",
+      "degree": 11
     },
     {
       "id": "Crust punk",
-      "label": "Crust punk"
+      "label": "Crust punk",
+      "degree": 15
     },
     {
       "id": "Cuarteto",
-      "label": "Cuarteto"
+      "label": "Cuarteto",
+      "degree": 1
     },
     {
       "id": "Cuban rumba",
-      "label": "Rumba"
+      "label": "Rumba",
+      "degree": 6
     },
     {
       "id": "Cumbia (Colombia)",
-      "label": "Cumbia"
+      "label": "Cumbia",
+      "degree": 4
     },
     {
       "id": "Cumbia (Panama)",
-      "label": "Cumbia (Panama)"
+      "label": "Cumbia (Panama)",
+      "degree": 0
     },
     {
       "id": "Cumbia pop",
-      "label": "Cumbia pop"
+      "label": "Cumbia pop",
+      "degree": 2
     },
     {
       "id": "Cumbia santafesina",
-      "label": "Cumbia santafesina"
+      "label": "Cumbia santafesina",
+      "degree": 1
     },
     {
       "id": "Cumbia villera",
-      "label": "Cumbia villera"
+      "label": "Cumbia villera",
+      "degree": 3
     },
     {
       "id": "D-beat",
-      "label": "D-beat"
+      "label": "D-beat",
+      "degree": 6
     },
     {
       "id": "Dance music",
-      "label": "Dance music"
+      "label": "Dance music",
+      "degree": 18
     },
     {
       "id": "Dance-pop",
-      "label": "Dance-pop"
+      "label": "Dance-pop",
+      "degree": 28
     },
     {
       "id": "Dance-punk",
-      "label": "Dance-punk"
+      "label": "Dance-punk",
+      "degree": 15
     },
     {
       "id": "Dance-rock",
-      "label": "Dance-rock"
+      "label": "Dance-rock",
+      "degree": 12
     },
     {
       "id": "Dancehall",
-      "label": "Dancehall"
+      "label": "Dancehall",
+      "degree": 33
     },
     {
       "id": "Dancehall pop",
-      "label": "Dancehall pop"
+      "label": "Dancehall pop",
+      "degree": 8
     },
     {
       "id": "Dangdut",
-      "label": "Dangdut"
+      "label": "Dangdut",
+      "degree": 6
     },
     {
       "id": "Danger music",
-      "label": "Danger music"
+      "label": "Danger music",
+      "degree": 2
     },
     {
       "id": "Dansband",
-      "label": "Dansbandsmusik"
+      "label": "Dansbandsmusik",
+      "degree": 8
     },
     {
       "id": "Dappankuthu",
-      "label": "Dappan Kuthu"
+      "label": "Dappan Kuthu",
+      "degree": 0
     },
     {
       "id": "Dark ambient",
-      "label": "Isolationism"
+      "label": "Isolationism",
+      "degree": 12
     },
     {
       "id": "Dark cabaret",
-      "label": "Dark cabaret"
+      "label": "Dark cabaret",
+      "degree": 6
     },
     {
       "id": "Dark wave",
-      "label": "Dark wave"
+      "label": "Dark wave",
+      "degree": 15
     },
     {
       "id": "Darkcore",
-      "label": "Darkcore"
+      "label": "Darkcore",
+      "degree": 5
     },
     {
       "id": "Death 'n' roll",
-      "label": "Death 'n' roll"
+      "label": "Death 'n' roll",
+      "degree": 6
     },
     {
       "id": "Death metal",
-      "label": "Death metal"
+      "label": "Death metal",
+      "degree": 33
     },
     {
       "id": "Death-doom",
-      "label": "Death-doom"
+      "label": "Death-doom",
+      "degree": 8
     },
     {
       "id": "Deathcore",
-      "label": "Deathcore"
+      "label": "Deathcore",
+      "degree": 8
     },
     {
       "id": "Deathrock",
-      "label": "Deathrock"
+      "label": "Deathrock",
+      "degree": 6
     },
     {
       "id": "Deconstructed club",
-      "label": "Deconstructed club"
+      "label": "Deconstructed club",
+      "degree": 5
     },
     {
       "id": "Deep funk",
-      "label": "Deep funk"
+      "label": "Deep funk",
+      "degree": 3
     },
     {
       "id": "Deep house",
-      "label": "Deep house"
+      "label": "Deep house",
+      "degree": 17
     },
     {
       "id": "Delta blues",
-      "label": "Delta blues"
+      "label": "Delta blues",
+      "degree": 7
     },
     {
       "id": "Denpa song",
-      "label": "Denpa song"
+      "label": "Denpa song",
+      "degree": 6
     },
     {
       "id": "Descarga",
-      "label": "Descarga"
+      "label": "Descarga",
+      "degree": 3
     },
     {
       "id": "Desert blues",
-      "label": "Desert blues"
+      "label": "Desert blues",
+      "degree": 3
     },
     {
       "id": "Desgarrada",
-      "label": "Desgarrada"
+      "label": "Desgarrada",
+      "degree": 0
     },
     {
       "id": "Desi hip-hop",
-      "label": "Desi hip hop (DHH)"
+      "label": "Desi hip hop (DHH)",
+      "degree": 6
     },
     {
       "id": "Detroit drill",
-      "label": "Detroit drill"
+      "label": "Detroit drill",
+      "degree": 5
     },
     {
       "id": "Detroit techno",
-      "label": "Detroit techno"
+      "label": "Detroit techno",
+      "degree": 12
     },
     {
       "id": "Deuda (genre)",
-      "label": "Deuda"
+      "label": "Deuda",
+      "degree": 1
     },
     {
       "id": "Digital hardcore",
-      "label": "Digital hardcore"
+      "label": "Digital hardcore",
+      "degree": 15
     },
     {
       "id": "Dirty rap",
-      "label": "Dirty rap"
+      "label": "Dirty rap",
+      "degree": 6
     },
     {
       "id": "Disco",
-      "label": "Disco"
+      "label": "Disco",
+      "degree": 60
     },
     {
       "id": "Disco polo",
-      "label": "Disco polo"
+      "label": "Disco polo",
+      "degree": 4
     },
     {
       "id": "Diva house",
-      "label": "Diva house"
+      "label": "Diva house",
+      "degree": 12
     },
     {
       "id": "Dixieland jazz",
-      "label": "Dixieland"
+      "label": "Dixieland",
+      "degree": 8
     },
     {
       "id": "Djent",
-      "label": "Djent"
+      "label": "Djent",
+      "degree": 7
     },
     {
       "id": "Dolewave",
-      "label": "Dolewave"
+      "label": "Dolewave",
+      "degree": 6
     },
     {
       "id": "Dominican dembow",
-      "label": "Dominican dembow"
+      "label": "Dominican dembow",
+      "degree": 6
     },
     {
       "id": "Doo-wop",
-      "label": "Doo-wop"
+      "label": "Doo-wop",
+      "degree": 14
     },
     {
       "id": "Doom metal",
-      "label": "Doom metal"
+      "label": "Doom metal",
+      "degree": 22
     },
     {
       "id": "Downtempo",
-      "label": "Downtempo"
+      "label": "Downtempo",
+      "degree": 10
     },
     {
       "id": "Dream pop",
-      "label": "Dream pop"
+      "label": "Dream pop",
+      "degree": 11
     },
     {
       "id": "Dream trance",
-      "label": "Dream trance"
+      "label": "Dream trance",
+      "degree": 8
     },
     {
       "id": "Dreampunk",
-      "label": "Dreampunk"
+      "label": "Dreampunk",
+      "degree": 14
     },
     {
       "id": "Drill 'n' bass",
-      "label": "Drill 'n' bass"
+      "label": "Drill 'n' bass",
+      "degree": 8
     },
     {
       "id": "Drill music",
-      "label": "Drill"
+      "label": "Drill",
+      "degree": 18
     },
     {
       "id": "Drone metal",
-      "label": "Drone metal"
+      "label": "Drone metal",
+      "degree": 6
     },
     {
       "id": "Drone music",
-      "label": "Drone music"
+      "label": "Drone music",
+      "degree": 13
     },
     {
       "id": "Drum and bass",
-      "label": "Drum and bass"
+      "label": "Drum and bass",
+      "degree": 40
     },
     {
       "id": "Dub music",
-      "label": "Dub"
+      "label": "Dub",
+      "degree": 37
     },
     {
       "id": "Dub poetry",
-      "label": "Dub poetry"
+      "label": "Dub poetry",
+      "degree": 2
     },
     {
       "id": "Dub techno",
-      "label": "Dub techno"
+      "label": "Dub techno",
+      "degree": 6
     },
     {
       "id": "Dubstep",
-      "label": "Dubstep"
+      "label": "Dubstep",
+      "degree": 23
     },
     {
       "id": "Dubtronica",
-      "label": "Dubtronica"
+      "label": "Dubtronica",
+      "degree": 4
     },
     {
       "id": "Dunedin sound",
-      "label": "Dunedin sound"
+      "label": "Dunedin sound",
+      "degree": 10
     },
     {
       "id": "Dungeon synth",
-      "label": "Dungeon synth"
+      "label": "Dungeon synth",
+      "degree": 3
     },
     {
       "id": "Duranguense",
-      "label": "Duranguense"
+      "label": "Duranguense",
+      "degree": 3
     },
     {
       "id": "Dwijendrageeti",
-      "label": "Dwijendrageeti"
+      "label": "Dwijendrageeti",
+      "degree": 0
     },
     {
       "id": "EDM trap music",
-      "label": "EDM trap"
+      "label": "EDM trap",
+      "degree": 18
     },
     {
       "id": "Early Norwegian black metal scene",
-      "label": "Norwegian black metal"
+      "label": "Norwegian black metal",
+      "degree": 5
     },
     {
       "id": "East Coast hip-hop",
-      "label": "East Coast hip-hop"
+      "label": "East Coast hip-hop",
+      "degree": 23
     },
     {
       "id": "Easy listening",
-      "label": "Easy listening"
+      "label": "Easy listening",
+      "degree": 15
     },
     {
       "id": "Edo Funk",
-      "label": "Edo Funk"
+      "label": "Edo Funk",
+      "degree": 1
     },
     {
       "id": "Egg punk",
-      "label": "Egg punk"
+      "label": "Egg punk",
+      "degree": 5
     },
     {
       "id": "Ekpili",
-      "label": "Ekpili"
+      "label": "Ekpili",
+      "degree": 0
     },
     {
       "id": "Electric blues",
-      "label": "Electric blues"
+      "label": "Electric blues",
+      "degree": 14
     },
     {
       "id": "Electro (music)",
-      "label": "Electro-soul"
+      "label": "Electro-soul",
+      "degree": 29
     },
     {
       "id": "Electro house",
-      "label": "Melbourne bounce"
+      "label": "Melbourne bounce",
+      "degree": 20
     },
     {
       "id": "Electro swing",
-      "label": "Electro swing"
+      "label": "Electro swing",
+      "degree": 5
     },
     {
       "id": "Electro-industrial",
-      "label": "Electro-industrial"
+      "label": "Electro-industrial",
+      "degree": 9
     },
     {
       "id": "Electroclash",
-      "label": "Electroclash"
+      "label": "Electroclash",
+      "degree": 14
     },
     {
       "id": "Electronic body music",
-      "label": "EBM"
+      "label": "EBM",
+      "degree": 23
     },
     {
       "id": "Electronic music",
-      "label": "Electronic music"
+      "label": "Electronic music",
+      "degree": 64
     },
     {
       "id": "Electronic rock",
-      "label": "Synth-metal"
+      "label": "Synth-metal",
+      "degree": 7
     },
     {
       "id": "Electronica",
-      "label": "Electronica"
+      "label": "Electronica",
+      "degree": 22
     },
     {
       "id": "Electronicore",
-      "label": "Electronicore"
+      "label": "Electronicore",
+      "degree": 5
     },
     {
       "id": "Electropop",
-      "label": "Electropop"
+      "label": "Electropop",
+      "degree": 13
     },
     {
       "id": "Emo",
-      "label": "Emo"
+      "label": "Emo",
+      "degree": 15
     },
     {
       "id": "Emo pop",
-      "label": "Emo pop"
+      "label": "Emo pop",
+      "degree": 6
     },
     {
       "id": "Emo rap",
-      "label": "Emo rap"
+      "label": "Emo rap",
+      "degree": 12
     },
     {
       "id": "Emo revival",
-      "label": "Emo revival"
+      "label": "Emo revival",
+      "degree": 8
     },
     {
       "id": "Enka",
-      "label": "Enka"
+      "label": "Enka",
+      "degree": 6
     },
     {
       "id": "Eshuva",
-      "label": "Eshuva"
+      "label": "Eshuva",
+      "degree": 0
     },
     {
       "id": "Ethereal wave",
-      "label": "Ethereal wave"
+      "label": "Ethereal wave",
+      "degree": 10
     },
     {
       "id": "Ethio-jazz",
-      "label": "Ethio-jazz"
+      "label": "Ethio-jazz",
+      "degree": 6
     },
     {
       "id": "Ethiopian chant",
-      "label": "Ethiopian liturgical chant"
+      "label": "Ethiopian liturgical chant",
+      "degree": 2
     },
     {
       "id": "Ethiopian hip-hop music",
-      "label": "Ethiopian hip hop music"
+      "label": "Ethiopian hip hop music",
+      "degree": 6
     },
     {
       "id": "Ethnic electronica",
-      "label": "Ethnic electronica"
+      "label": "Ethnic electronica",
+      "degree": 3
     },
     {
       "id": "Eurobeat",
-      "label": "Eurobeat"
+      "label": "Eurobeat",
+      "degree": 7
     },
     {
       "id": "Eurodance",
-      "label": "Eurodance"
+      "label": "Eurodance",
+      "degree": 27
     },
     {
       "id": "Eurodisco",
-      "label": "Eurodisco"
+      "label": "Eurodisco",
+      "degree": 19
     },
     {
       "id": "Europop",
-      "label": "Europop"
+      "label": "Europop",
+      "degree": 15
     },
     {
       "id": "Exotica",
-      "label": "Exotica"
+      "label": "Exotica",
+      "degree": 8
     },
     {
       "id": "Experimental pop",
-      "label": "Experimental pop"
+      "label": "Experimental pop",
+      "degree": 4
     },
     {
       "id": "Experimental rock",
-      "label": "Experimental rock"
+      "label": "Experimental rock",
+      "degree": 17
     },
     {
       "id": "Extreme metal",
-      "label": "Extreme metal"
+      "label": "Extreme metal",
+      "degree": 69
     },
     {
       "id": "Fado",
-      "label": "Fado"
+      "label": "Fado",
+      "degree": 1
     },
     {
       "id": "Festejo",
-      "label": "Festejo"
+      "label": "Festejo",
+      "degree": 2
     },
     {
       "id": "Fijiri",
-      "label": "Fidjeri / fijri / fidjeri"
+      "label": "Fidjeri / fijri / fidjeri",
+      "degree": 0
     },
     {
       "id": "Filk music",
-      "label": "Filk music"
+      "label": "Filk music",
+      "degree": 2
     },
     {
       "id": "First-wave black metal",
-      "label": "First-wave black metal"
+      "label": "First-wave black metal",
+      "degree": 8
     },
     {
       "id": "Flamenco",
-      "label": "Flamenco"
+      "label": "Flamenco",
+      "degree": 5
     },
     {
       "id": "Flamenco rock",
-      "label": "Flamenco rock"
+      "label": "Flamenco rock",
+      "degree": 3
     },
     {
       "id": "Florida breaks",
-      "label": "Florida breaks"
+      "label": "Florida breaks",
+      "degree": 7
     },
     {
       "id": "Florida death metal",
-      "label": "Florida death metal"
+      "label": "Florida death metal",
+      "degree": 3
     },
     {
       "id": "Folk baroque",
-      "label": "Folk baroque"
+      "label": "Folk baroque",
+      "degree": 5
     },
     {
       "id": "Folk jazz",
-      "label": "Folk jazz"
+      "label": "Folk jazz",
+      "degree": 5
     },
     {
       "id": "Folk metal",
-      "label": "Folk metal"
+      "label": "Folk metal",
+      "degree": 16
     },
     {
       "id": "Folk music",
-      "label": "Traditional folk music"
+      "label": "Traditional folk music",
+      "degree": 70
     },
     {
       "id": "Folk punk",
-      "label": "Folk punk"
+      "label": "Folk punk",
+      "degree": 9
     },
     {
       "id": "Folk rock",
-      "label": "Folk rock"
+      "label": "Folk rock",
+      "degree": 35
     },
     {
       "id": "Folk-pop",
-      "label": "Folk-pop"
+      "label": "Folk-pop",
+      "degree": 8
     },
     {
       "id": "Folkhop",
-      "label": "Folkhop"
+      "label": "Folkhop",
+      "degree": 0
     },
     {
       "id": "Folktronica",
-      "label": "Folktronica"
+      "label": "Folktronica",
+      "degree": 4
     },
     {
       "id": "Footwork (genre)",
-      "label": "Japanese juke and footwork"
+      "label": "Japanese juke and footwork",
+      "degree": 13
     },
     {
       "id": "Forró",
-      "label": "Forró"
+      "label": "Forró",
+      "degree": 5
     },
     {
       "id": "Freakbeat",
-      "label": "Freakbeat"
+      "label": "Freakbeat",
+      "degree": 5
     },
     {
       "id": "Free funk",
-      "label": "Free funk"
+      "label": "Free funk",
+      "degree": 10
     },
     {
       "id": "Free improvisation",
-      "label": "Free improvisation"
+      "label": "Free improvisation",
+      "degree": 5
     },
     {
       "id": "Free jazz",
-      "label": "Free jazz"
+      "label": "Free jazz",
+      "degree": 12
     },
     {
       "id": "Freestyle music",
-      "label": "Freestyle"
+      "label": "Freestyle",
+      "degree": 14
     },
     {
       "id": "French house",
-      "label": "French house"
+      "label": "French house",
+      "degree": 10
     },
     {
       "id": "French pop music",
-      "label": "French pop"
+      "label": "French pop",
+      "degree": 5
     },
     {
       "id": "Frenchcore",
-      "label": "Frenchcore"
+      "label": "Frenchcore",
+      "degree": 4
     },
     {
       "id": "Fuji music",
-      "label": "Fuji"
+      "label": "Fuji",
+      "degree": 4
     },
     {
       "id": "Funaná",
-      "label": "Funaná"
+      "label": "Funaná",
+      "degree": 0
     },
     {
       "id": "Funeral doom",
-      "label": "Funeral doom"
+      "label": "Funeral doom",
+      "degree": 1
     },
     {
       "id": "Funk",
-      "label": "Funk"
+      "label": "Funk",
+      "degree": 97
     },
     {
       "id": "Funk automotivo",
-      "label": "Funk automotivo"
+      "label": "Funk automotivo",
+      "degree": 1
     },
     {
       "id": "Funk carioca",
-      "label": "Funk carioca"
+      "label": "Funk carioca",
+      "degree": 17
     },
     {
       "id": "Funk melody",
-      "label": "Funk melody"
+      "label": "Funk melody",
+      "degree": 6
     },
     {
       "id": "Funk metal",
-      "label": "Funk metal"
+      "label": "Funk metal",
+      "degree": 12
     },
     {
       "id": "Funk ostentação",
-      "label": "Funk ostentação"
+      "label": "Funk ostentação",
+      "degree": 5
     },
     {
       "id": "Funk ousadia",
-      "label": "Funk ousadia"
+      "label": "Funk ousadia",
+      "degree": 4
     },
     {
       "id": "Funk rock",
-      "label": "Funk rock"
+      "label": "Funk rock",
+      "degree": 10
     },
     {
       "id": "Funkot",
-      "label": "Funkot"
+      "label": "Funkot",
+      "degree": 5
     },
     {
       "id": "Funkstep",
-      "label": "Funkstep"
+      "label": "Funkstep",
+      "degree": 3
     },
     {
       "id": "Future bass",
-      "label": "J-future core"
+      "label": "J-future core",
+      "degree": 5
     },
     {
       "id": "Future garage",
-      "label": "Future garage"
+      "label": "Future garage",
+      "degree": 13
     },
     {
       "id": "Future house",
-      "label": "Future house"
+      "label": "Future house",
+      "degree": 6
     },
     {
       "id": "Future rave",
-      "label": "Future rave"
+      "label": "Future rave",
+      "degree": 6
     },
     {
       "id": "Future soul",
-      "label": "Future soul"
+      "label": "Future soul",
+      "degree": 5
     },
     {
       "id": "Futurepop",
-      "label": "Futurepop"
+      "label": "Futurepop",
+      "degree": 5
     },
     {
       "id": "G-funk",
-      "label": "G-funk"
+      "label": "G-funk",
+      "degree": 10
     },
     {
       "id": "Gaana",
-      "label": "Gaana"
+      "label": "Gaana",
+      "degree": 0
     },
     {
       "id": "Gabber",
-      "label": "Gabber"
+      "label": "Gabber",
+      "degree": 15
     },
     {
       "id": "Gaelic folk music",
-      "label": "Gaelic folk music"
+      "label": "Gaelic folk music",
+      "degree": 0
     },
     {
       "id": "Galerón",
-      "label": "Galerón"
+      "label": "Galerón",
+      "degree": 0
     },
     {
       "id": "Gamelan",
-      "label": "Gamelan ensemble"
+      "label": "Gamelan ensemble",
+      "degree": 0
     },
     {
       "id": "Gangsta rap",
-      "label": "Gangsta rap"
+      "label": "Gangsta rap",
+      "degree": 18
     },
     {
       "id": "Garage house",
-      "label": "Garage house"
+      "label": "Garage house",
+      "degree": 15
     },
     {
       "id": "Garage punk (fusion genre)",
-      "label": "Garage punk"
+      "label": "Garage punk",
+      "degree": 7
     },
     {
       "id": "Garage rock",
-      "label": "Garage rock"
+      "label": "Garage rock",
+      "degree": 38
     },
     {
       "id": "Garifuna music",
-      "label": "Garifuna music"
+      "label": "Garifuna music",
+      "degree": 1
     },
     {
       "id": "Geek rock",
-      "label": "Geek rock"
+      "label": "Geek rock",
+      "degree": 7
     },
     {
       "id": "Genge",
-      "label": "Genge"
+      "label": "Genge",
+      "degree": 7
     },
     {
       "id": "Gh hip-hop",
-      "label": "Gh hiphop"
+      "label": "Gh hiphop",
+      "degree": 2
     },
     {
       "id": "Gharnati music",
-      "label": "Gharnati"
+      "label": "Gharnati",
+      "degree": 0
     },
     {
       "id": "Ghetto house",
-      "label": "Ghetto house"
+      "label": "Ghetto house",
+      "degree": 7
     },
     {
       "id": "Ghettotech",
-      "label": "Ghettotech"
+      "label": "Ghettotech",
+      "degree": 9
     },
     {
       "id": "Glam metal",
-      "label": "Glam metal"
+      "label": "Glam metal",
+      "degree": 12
     },
     {
       "id": "Glam punk",
-      "label": "Glam punk"
+      "label": "Glam punk",
+      "degree": 9
     },
     {
       "id": "Glam rock",
-      "label": "Glam rock"
+      "label": "Glam rock",
+      "degree": 27
     },
     {
       "id": "Glitch (music)",
-      "label": "Glitch"
+      "label": "Glitch",
+      "degree": 15
     },
     {
       "id": "Gnawa music",
-      "label": "Gnawa music"
+      "label": "Gnawa music",
+      "degree": 0
     },
     {
       "id": "Go-go",
-      "label": "Go-go"
+      "label": "Go-go",
+      "degree": 5
     },
     {
       "id": "Goa trance",
-      "label": "Goa trance"
+      "label": "Goa trance",
+      "degree": 10
     },
     {
       "id": "Golden age hip-hop",
-      "label": "Golden age hip hop"
+      "label": "Golden age hip hop",
+      "degree": 7
     },
     {
       "id": "Gombhira",
-      "label": "Gombhira"
+      "label": "Gombhira",
+      "degree": 0
     },
     {
       "id": "Goregrind",
-      "label": "Goregrind"
+      "label": "Goregrind",
+      "degree": 6
     },
     {
       "id": "Gospel blues",
-      "label": "Gospel blues"
+      "label": "Gospel blues",
+      "degree": 3
     },
     {
       "id": "Gospel music",
-      "label": "Gospel music"
+      "label": "Gospel music",
+      "degree": 36
     },
     {
       "id": "Gospel trap",
-      "label": "Gospel trap"
+      "label": "Gospel trap",
+      "degree": 3
     },
     {
       "id": "Gothabilly",
-      "label": "Gothabilly"
+      "label": "Gothabilly",
+      "degree": 5
     },
     {
       "id": "Gothic country",
-      "label": "Gothic country"
+      "label": "Gothic country",
+      "degree": 8
     },
     {
       "id": "Gothic metal",
-      "label": "Gothic metal"
+      "label": "Gothic metal",
+      "degree": 8
     },
     {
       "id": "Gothic rock",
-      "label": "Gothic rock"
+      "label": "Gothic rock",
+      "degree": 20
     },
     {
       "id": "Gqom",
-      "label": "Gqom"
+      "label": "Gqom",
+      "degree": 10
     },
     {
       "id": "Grebo (music)",
-      "label": "Grebo"
+      "label": "Grebo",
+      "degree": 10
     },
     {
       "id": "Greek punk",
-      "label": "Greek punk"
+      "label": "Greek punk",
+      "degree": 4
     },
     {
       "id": "Grime music",
-      "label": "Grime"
+      "label": "Grime",
+      "degree": 21
     },
     {
       "id": "Grindcore",
-      "label": "Grindcore"
+      "label": "Grindcore",
+      "degree": 23
     },
     {
       "id": "Grindie",
-      "label": "Grindie"
+      "label": "Grindie",
+      "degree": 10
     },
     {
       "id": "Groove metal",
-      "label": "Groove metal"
+      "label": "Groove metal",
+      "degree": 11
     },
     {
       "id": "Group sounds",
-      "label": "Group sounds"
+      "label": "Group sounds",
+      "degree": 6
     },
     {
       "id": "Grunge",
-      "label": "Grunge"
+      "label": "Grunge",
+      "degree": 15
     },
     {
       "id": "Grupera",
-      "label": "Grupera"
+      "label": "Grupera",
+      "degree": 7
     },
     {
       "id": "Guitarrada",
-      "label": "Guitarrada"
+      "label": "Guitarrada",
+      "degree": 7
     },
     {
       "id": "Gumbe",
-      "label": "Gumbe"
+      "label": "Gumbe",
+      "degree": 1
     },
     {
       "id": "Gwo ka",
-      "label": "Gwo ka"
+      "label": "Gwo ka",
+      "degree": 4
     },
     {
       "id": "Gypsy jazz",
-      "label": "Gypsy jazz"
+      "label": "Gypsy jazz",
+      "degree": 2
     },
     {
       "id": "Gypsy punk",
-      "label": "Gypsy punk"
+      "label": "Gypsy punk",
+      "degree": 6
     },
     {
       "id": "Halloween music",
-      "label": "Halloween music"
+      "label": "Halloween music",
+      "degree": 1
     },
     {
       "id": "Hapa haole music",
-      "label": "Hapa haole music"
+      "label": "Hapa haole music",
+      "degree": 1
     },
     {
       "id": "Happy hardcore",
-      "label": "Happy hardcore"
+      "label": "Happy hardcore",
+      "degree": 12
     },
     {
       "id": "Hard NRG",
-      "label": "Hard NRG"
+      "label": "Hard NRG",
+      "degree": 4
     },
     {
       "id": "Hard bop",
-      "label": "Hard bop"
+      "label": "Hard bop",
+      "degree": 9
     },
     {
       "id": "Hard rock",
-      "label": "Hard rock"
+      "label": "Hard rock",
+      "degree": 41
     },
     {
       "id": "Hard trance",
-      "label": "Hard trance"
+      "label": "Hard trance",
+      "degree": 15
     },
     {
       "id": "Hardbag",
-      "label": "Hardbag"
+      "label": "Hardbag",
+      "degree": 7
     },
     {
       "id": "Hardbass",
-      "label": "Hardbass"
+      "label": "Hardbass",
+      "degree": 4
     },
     {
       "id": "Hardcore (electronic dance music genre)",
-      "label": "Hard dance"
+      "label": "Hard dance",
+      "degree": 25
     },
     {
       "id": "Hardcore hip-hop",
-      "label": "Hardcore hip hop"
+      "label": "Hardcore hip hop",
+      "degree": 11
     },
     {
       "id": "Hardcore punk",
-      "label": "Hardcore punk"
+      "label": "Hardcore punk",
+      "degree": 63
     },
     {
       "id": "Hardstep",
-      "label": "Hardstep"
+      "label": "Hardstep",
+      "degree": 5
     },
     {
       "id": "Hardstyle",
-      "label": "Hardstyle"
+      "label": "Hardstyle",
+      "degree": 17
     },
     {
       "id": "Hardvapour",
-      "label": "Hardvapour"
+      "label": "Hardvapour",
+      "degree": 18
     },
     {
       "id": "Harsh noise wall",
-      "label": "Harsh noise wall"
+      "label": "Harsh noise wall",
+      "degree": 2
     },
     {
       "id": "Hawfi",
-      "label": "Hawfi"
+      "label": "Hawfi",
+      "degree": 0
     },
     {
       "id": "Heartland rock",
-      "label": "Heartland rock"
+      "label": "Heartland rock",
+      "degree": 8
     },
     {
       "id": "Heavy metal music",
-      "label": "Heavy metal"
+      "label": "Heavy metal",
+      "degree": 90
     },
     {
       "id": "Hi-NRG",
-      "label": "Hi-NRG"
+      "label": "Hi-NRG",
+      "degree": 20
     },
     {
       "id": "Highlife",
-      "label": "Highlife"
+      "label": "Highlife",
+      "degree": 10
     },
     {
       "id": "Hill country blues",
-      "label": "Hill country blues"
+      "label": "Hill country blues",
+      "degree": 2
     },
     {
       "id": "Hip house",
-      "label": "Hip house"
+      "label": "Hip house",
+      "degree": 8
     },
     {
       "id": "Hip-hop",
-      "label": "Hip-hop"
+      "label": "Hip-hop",
+      "degree": 219
     },
     {
       "id": "Hip-hop in the Pacific Northwest",
-      "label": "Hip hop music in the Pacific Northwest"
+      "label": "Hip hop music in the Pacific Northwest",
+      "degree": 2
     },
     {
       "id": "Hip-hop soul",
-      "label": "Hip hop soul"
+      "label": "Hip hop soul",
+      "degree": 9
     },
     {
       "id": "Hip-hop tuga",
-      "label": "Hip hop tuga"
+      "label": "Hip hop tuga",
+      "degree": 7
     },
     {
       "id": "Hipco",
-      "label": "Hipco"
+      "label": "Hipco",
+      "degree": 2
     },
     {
       "id": "Hiplife",
-      "label": "Hiplife"
+      "label": "Hiplife",
+      "degree": 7
     },
     {
       "id": "Hipster hop",
-      "label": "Hipster hop"
+      "label": "Hipster hop",
+      "degree": 4
     },
     {
       "id": "Hokkien pop",
-      "label": "Hokkien pop / Taiwanese Hokkien pop / Taiwanese pop"
+      "label": "Hokkien pop / Taiwanese Hokkien pop / Taiwanese pop",
+      "degree": 0
     },
     {
       "id": "Hookah rap",
-      "label": "Hookah rap"
+      "label": "Hookah rap",
+      "degree": 5
     },
     {
       "id": "Hori (music)",
-      "label": "Hori"
+      "label": "Hori",
+      "degree": 0
     },
     {
       "id": "Horror punk",
-      "label": "Horror punk"
+      "label": "Horror punk",
+      "degree": 5
     },
     {
       "id": "Horrorcore",
-      "label": "Horrorcore"
+      "label": "Horrorcore",
+      "degree": 4
     },
     {
       "id": "House music",
-      "label": "House music"
+      "label": "House music",
+      "degree": 86
     },
     {
       "id": "Huayno",
-      "label": "Huayno"
+      "label": "Huayno",
+      "degree": 2
     },
     {
       "id": "Hyperpop",
-      "label": "Hyperpop"
+      "label": "Hyperpop",
+      "degree": 20
     },
     {
       "id": "Hyphy",
-      "label": "Hyphy"
+      "label": "Hyphy",
+      "degree": 17
     },
     {
       "id": "Hypnagogic pop",
-      "label": "Hypnagogic pop"
+      "label": "Hypnagogic pop",
+      "degree": 13
     },
     {
       "id": "Igbo Christian music",
-      "label": "Igbo Christian music"
+      "label": "Igbo Christian music",
+      "degree": 3
     },
     {
       "id": "Igbo highlife",
-      "label": "Igbo highlife"
+      "label": "Igbo highlife",
+      "degree": 8
     },
     {
       "id": "Igbo rap",
-      "label": "Igbo rap"
+      "label": "Igbo rap",
+      "degree": 4
     },
     {
       "id": "Ikorodo",
-      "label": "Ikorodo"
+      "label": "Ikorodo",
+      "degree": 0
     },
     {
       "id": "Ikwokirikwo",
-      "label": "Ikwokirikwo"
+      "label": "Ikwokirikwo",
+      "degree": 2
     },
     {
       "id": "Illbient",
-      "label": "Illbient"
+      "label": "Illbient",
+      "degree": 10
     },
     {
       "id": "Indian hip-hop",
-      "label": "Indian hip hop"
+      "label": "Indian hip hop",
+      "degree": 5
     },
     {
       "id": "Indian pop",
-      "label": "Indian pop"
+      "label": "Indian pop",
+      "degree": 2
     },
     {
       "id": "Indian rock",
-      "label": "Indian rock"
+      "label": "Indian rock",
+      "degree": 4
     },
     {
       "id": "Indie folk",
-      "label": "Indie folk"
+      "label": "Indie folk",
+      "degree": 6
     },
     {
       "id": "Indie pop",
-      "label": "Indie pop"
+      "label": "Indie pop",
+      "degree": 19
     },
     {
       "id": "Indie rock",
-      "label": "Indie rock"
+      "label": "Indie rock",
+      "degree": 50
     },
     {
       "id": "Indigenous metal music",
-      "label": "Indigenous metal"
+      "label": "Indigenous metal",
+      "degree": 10
     },
     {
       "id": "Indigenous music of North America",
-      "label": "Indigenous music of North America"
+      "label": "Indigenous music of North America",
+      "degree": 4
     },
     {
       "id": "Indo jazz",
-      "label": "Indo jazz"
+      "label": "Indo jazz",
+      "degree": 2
     },
     {
       "id": "Indo pop",
-      "label": "Indonesian pop"
+      "label": "Indonesian pop",
+      "degree": 6
     },
     {
       "id": "Indonesian heavy metal",
-      "label": "Indonesian heavy metal"
+      "label": "Indonesian heavy metal",
+      "degree": 11
     },
     {
       "id": "Indonesian rock",
-      "label": "Indonesian Rock"
+      "label": "Indonesian Rock",
+      "degree": 8
     },
     {
       "id": "Indorock",
-      "label": "Indorock"
+      "label": "Indorock",
+      "degree": 8
     },
     {
       "id": "Industrial folk music",
-      "label": "Industrial folk music"
+      "label": "Industrial folk music",
+      "degree": 1
     },
     {
       "id": "Industrial hip-hop",
-      "label": "Industrial hip hop"
+      "label": "Industrial hip hop",
+      "degree": 8
     },
     {
       "id": "Industrial metal",
-      "label": "Cyber metal"
+      "label": "Cyber metal",
+      "degree": 13
     },
     {
       "id": "Industrial music",
-      "label": "Industrial"
+      "label": "Industrial",
+      "degree": 51
     },
     {
       "id": "Industrial rock",
-      "label": "Industrial rock"
+      "label": "Industrial rock",
+      "degree": 10
     },
     {
       "id": "Industrial techno",
-      "label": "Industrial techno"
+      "label": "Industrial techno",
+      "degree": 7
     },
     {
       "id": "Instrumental rock",
-      "label": "Instrumental rock"
+      "label": "Instrumental rock",
+      "degree": 6
     },
     {
       "id": "Intelligent dance music",
-      "label": "Intelligent dance music"
+      "label": "Intelligent dance music",
+      "degree": 21
     },
     {
       "id": "Iranian alternative rock",
-      "label": "Iranian alternative rock"
+      "label": "Iranian alternative rock",
+      "degree": 3
     },
     {
       "id": "Iranian rock",
-      "label": "Iranian rock"
+      "label": "Iranian rock",
+      "degree": 6
     },
     {
       "id": "Iraqi maqam",
-      "label": "Iraqi Maqam"
+      "label": "Iraqi Maqam",
+      "degree": 0
     },
     {
       "id": "Irish showband",
-      "label": "Irish showband"
+      "label": "Irish showband",
+      "degree": 4
     },
     {
       "id": "Isicathamiya",
-      "label": "Isicathamiya"
+      "label": "Isicathamiya",
+      "degree": 2
     },
     {
       "id": "Iso-Polyphony",
-      "label": "Iso-Polyphony"
+      "label": "Iso-Polyphony",
+      "degree": 0
     },
     {
       "id": "Israeli hip-hop",
-      "label": "Israeli hip hop"
+      "label": "Israeli hip hop",
+      "degree": 2
     },
     {
       "id": "Israeli rock",
-      "label": "Israeli rock"
+      "label": "Israeli rock",
+      "degree": 4
     },
     {
       "id": "Istrian scale",
-      "label": "Istrian scale"
+      "label": "Istrian scale",
+      "degree": 0
     },
     {
       "id": "Italian occult psychedelia",
-      "label": "Italian occult psychedelia"
+      "label": "Italian occult psychedelia",
+      "degree": 2
     },
     {
       "id": "Italo dance",
-      "label": "Italo dance"
+      "label": "Italo dance",
+      "degree": 4
     },
     {
       "id": "Italo disco",
-      "label": "Space disco"
+      "label": "Space disco",
+      "degree": 19
     },
     {
       "id": "Italo house",
-      "label": "Italo house"
+      "label": "Italo house",
+      "degree": 13
     },
     {
       "id": "J-core",
-      "label": "J-core"
+      "label": "J-core",
+      "degree": 4
     },
     {
       "id": "J-pop",
-      "label": "J-pop"
+      "label": "J-pop",
+      "degree": 13
     },
     {
       "id": "Jaiva",
-      "label": "Jaiva"
+      "label": "Jaiva",
+      "degree": 3
     },
     {
       "id": "Jam band",
-      "label": "Jam band"
+      "label": "Jam band",
+      "degree": 13
     },
     {
       "id": "Jangle pop",
-      "label": "Jangle pop"
+      "label": "Jangle pop",
+      "degree": 15
     },
     {
       "id": "Japanese hip-hop",
-      "label": "Japanese hip hop"
+      "label": "Japanese hip hop",
+      "degree": 2
     },
     {
       "id": "Japanese reggae",
-      "label": "J-reggae"
+      "label": "J-reggae",
+      "degree": 3
     },
     {
       "id": "Japanoise",
-      "label": "Japanoise"
+      "label": "Japanoise",
+      "degree": 6
     },
     {
       "id": "Jazz",
-      "label": "Jazz"
+      "label": "Jazz",
+      "degree": 139
     },
     {
       "id": "Jazz fusion",
-      "label": "Jazz-pop"
+      "label": "Jazz-pop",
+      "degree": 30
     },
     {
       "id": "Jazz rap",
-      "label": "Jazz rap"
+      "label": "Jazz rap",
+      "degree": 14
     },
     {
       "id": "Jazz-funk",
-      "label": "Jazz-funk"
+      "label": "Jazz-funk",
+      "degree": 11
     },
     {
       "id": "Jerkin'",
-      "label": "Jerk"
+      "label": "Jerk",
+      "degree": 4
     },
     {
       "id": "Jersey club",
-      "label": "Jersey club rap"
+      "label": "Jersey club rap",
+      "degree": 7
     },
     {
       "id": "Jesus music",
-      "label": "Jesus music"
+      "label": "Jesus music",
+      "degree": 9
     },
     {
       "id": "Jewish hip-hop",
-      "label": "Jewish hip hop"
+      "label": "Jewish hip hop",
+      "degree": 5
     },
     {
       "id": "Jewish rock",
-      "label": "Jewish rock"
+      "label": "Jewish rock",
+      "degree": 4
     },
     {
       "id": "Jing ping",
-      "label": "Jing ping"
+      "label": "Jing ping",
+      "degree": 3
     },
     {
       "id": "Jinku",
-      "label": "Jinku"
+      "label": "Jinku",
+      "degree": 1
     },
     {
       "id": "Jit",
-      "label": "Jit"
+      "label": "Jit",
+      "degree": 4
     },
     {
       "id": "Jor (music)",
-      "label": "Jor"
+      "label": "Jor",
+      "degree": 0
     },
     {
       "id": "Joropo",
-      "label": "Joropo"
+      "label": "Joropo",
+      "degree": 4
     },
     {
       "id": "Jovem Guarda",
-      "label": "Jovem Guarda"
+      "label": "Jovem Guarda",
+      "degree": 4
     },
     {
       "id": "Jump blues",
-      "label": "Jump blues"
+      "label": "Jump blues",
+      "degree": 14
     },
     {
       "id": "Jumpstyle",
-      "label": "Jumpstyle"
+      "label": "Jumpstyle",
+      "degree": 9
     },
     {
       "id": "Jungle music",
-      "label": "Jungle"
+      "label": "Jungle",
+      "degree": 24
     },
     {
       "id": "Jùjú music",
-      "label": "Jùjú"
+      "label": "Jùjú",
+      "degree": 1
     },
     {
       "id": "K-pop",
-      "label": "K-pop"
+      "label": "K-pop",
+      "degree": 17
     },
     {
       "id": "Kadongo Kamu",
-      "label": "Kadongo Kamu"
+      "label": "Kadongo Kamu",
+      "degree": 1
     },
     {
       "id": "Kaiso",
-      "label": "Kaiso"
+      "label": "Kaiso",
+      "degree": 12
     },
     {
       "id": "Kansas City jazz",
-      "label": "Kansas City jazz"
+      "label": "Kansas City jazz",
+      "degree": 7
     },
     {
       "id": "Kanto (music)",
-      "label": "Kanto"
+      "label": "Kanto",
+      "degree": 0
     },
     {
       "id": "Kaseko",
-      "label": "Kaseko"
+      "label": "Kaseko",
+      "degree": 5
     },
     {
       "id": "Kasékò",
-      "label": "Kasékò"
+      "label": "Kasékò",
+      "degree": 0
     },
     {
       "id": "Kavigan",
-      "label": "Kobi Gaan"
+      "label": "Kobi Gaan",
+      "degree": 0
     },
     {
       "id": "Kavishari",
-      "label": "Kavishari"
+      "label": "Kavishari",
+      "degree": 0
     },
     {
       "id": "Kawaii metal",
-      "label": "Kawaii metal"
+      "label": "Kawaii metal",
+      "degree": 7
     },
     {
       "id": "Kawina (music)",
-      "label": "Kawina"
+      "label": "Kawina",
+      "degree": 1
     },
     {
       "id": "Kayōkyoku",
-      "label": "Kayōkyoku"
+      "label": "Kayōkyoku",
+      "degree": 10
     },
     {
       "id": "Kenyan hip-hop",
-      "label": "Kenyan hip hop"
+      "label": "Kenyan hip hop",
+      "degree": 10
     },
     {
       "id": "Kidandali",
-      "label": "Kidandali"
+      "label": "Kidandali",
+      "degree": 3
     },
     {
       "id": "Kizomba",
-      "label": "Kizomba"
+      "label": "Kizomba",
+      "degree": 3
     },
     {
       "id": "Klapa",
-      "label": "Klapa"
+      "label": "Klapa",
+      "degree": 0
     },
     {
       "id": "Klezmer",
-      "label": "Klezmer"
+      "label": "Klezmer",
+      "degree": 5
     },
     {
       "id": "Koli Geet",
-      "label": "Koli Geet"
+      "label": "Koli Geet",
+      "degree": 1
     },
     {
       "id": "Koothu",
-      "label": "Koothu"
+      "label": "Koothu",
+      "degree": 0
     },
     {
       "id": "Koplo",
-      "label": "Koplo"
+      "label": "Koplo",
+      "degree": 2
     },
     {
       "id": "Korean ballad",
-      "label": "Ballad (Korean music)"
+      "label": "Ballad (Korean music)",
+      "degree": 3
     },
     {
       "id": "Korean court music",
-      "label": "Korean court music"
+      "label": "Korean court music",
+      "degree": 0
     },
     {
       "id": "Korean hip-hop",
-      "label": "Korean hip hop"
+      "label": "Korean hip hop",
+      "degree": 2
     },
     {
       "id": "Krautrock",
-      "label": "Kosmische Musik"
+      "label": "Kosmische Musik",
+      "degree": 20
     },
     {
       "id": "Kroncong",
-      "label": "Kroncong"
+      "label": "Kroncong",
+      "degree": 3
     },
     {
       "id": "Kuduro",
-      "label": "Kuduro"
+      "label": "Kuduro",
+      "degree": 8
     },
     {
       "id": "Kulintang",
-      "label": "Kulintang ensemble"
+      "label": "Kulintang ensemble",
+      "degree": 0
     },
     {
       "id": "Kundiman",
-      "label": "Kundiman"
+      "label": "Kundiman",
+      "degree": 2
     },
     {
       "id": "Kwaito",
-      "label": "Kwaito"
+      "label": "Kwaito",
+      "degree": 15
     },
     {
       "id": "Könsrock",
-      "label": "Könsrock"
+      "label": "Könsrock",
+      "degree": 4
     },
     {
       "id": "LGBTQ music",
-      "label": "LGBTQ+ music"
+      "label": "LGBTQ+ music",
+      "degree": 10
     },
     {
       "id": "LGBTQ representation in hip-hop",
-      "label": "LGBTQ hip-hop"
+      "label": "LGBTQ hip-hop",
+      "degree": 5
     },
     {
       "id": "Ladishah",
-      "label": "Ladishah"
+      "label": "Ladishah",
+      "degree": 2
     },
     {
       "id": "Lambadão cuiabano",
-      "label": "Lambadão cuiabano"
+      "label": "Lambadão cuiabano",
+      "degree": 0
     },
     {
       "id": "Lao pop",
-      "label": "Lao pop"
+      "label": "Lao pop",
+      "degree": 3
     },
     {
       "id": "Latin Christian music",
-      "label": "Latin Christian music"
+      "label": "Latin Christian music",
+      "degree": 7
     },
     {
       "id": "Latin R&B",
-      "label": "Latin R&B"
+      "label": "Latin R&B",
+      "degree": 7
     },
     {
       "id": "Latin ballad",
-      "label": "Latin ballad"
+      "label": "Latin ballad",
+      "degree": 4
     },
     {
       "id": "Latin hip-hop",
-      "label": "Latin hip hop"
+      "label": "Latin hip hop",
+      "degree": 7
     },
     {
       "id": "Latin jazz",
-      "label": "Latin jazz"
+      "label": "Latin jazz",
+      "degree": 7
     },
     {
       "id": "Latin metal",
-      "label": "Latin metal"
+      "label": "Latin metal",
+      "degree": 7
     },
     {
       "id": "Latin music",
-      "label": "Latin music"
+      "label": "Latin music",
+      "degree": 23
     },
     {
       "id": "Latin pop",
-      "label": "Latin pop"
+      "label": "Latin pop",
+      "degree": 13
     },
     {
       "id": "Latin rock",
-      "label": "Latin rock"
+      "label": "Latin rock",
+      "degree": 13
     },
     {
       "id": "Latin soul",
-      "label": "Latin soul"
+      "label": "Latin soul",
+      "degree": 5
     },
     {
       "id": "Latin trap",
-      "label": "Latin trap"
+      "label": "Latin trap",
+      "degree": 8
     },
     {
       "id": "Lavani",
-      "label": "Lavani"
+      "label": "Lavani",
+      "degree": 0
     },
     {
       "id": "Laïko",
-      "label": "Laïko"
+      "label": "Laïko",
+      "degree": 4
     },
     {
       "id": "Lento violento",
-      "label": "Lento violento"
+      "label": "Lento violento",
+      "degree": 7
     },
     {
       "id": "Levenslied",
-      "label": "Levenslied"
+      "label": "Levenslied",
+      "degree": 8
     },
     {
       "id": "Light music",
-      "label": "Light music"
+      "label": "Light music",
+      "degree": 5
     },
     {
       "id": "Liquid funk",
-      "label": "Liquid funk"
+      "label": "Liquid funk",
+      "degree": 11
     },
     {
       "id": "Lofi hip-hop",
-      "label": "Lofi hip hop"
+      "label": "Lofi hip hop",
+      "degree": 6
     },
     {
       "id": "Long song",
-      "label": "Long song"
+      "label": "Long song",
+      "degree": 0
     },
     {
       "id": "Louisiana blues",
-      "label": "Louisiana blues"
+      "label": "Louisiana blues",
+      "degree": 7
     },
     {
       "id": "Lounge music",
-      "label": "Lounge music"
+      "label": "Lounge music",
+      "degree": 20
     },
     {
       "id": "Lovers rock",
-      "label": "Lovers rock"
+      "label": "Lovers rock",
+      "degree": 7
     },
     {
       "id": "Low bap",
-      "label": "Low bap"
+      "label": "Low bap",
+      "degree": 2
     },
     {
       "id": "Lowend",
-      "label": "Lowend"
+      "label": "Lowend",
+      "degree": 3
     },
     {
       "id": "Lowercase (music)",
-      "label": "Lowercase"
+      "label": "Lowercase",
+      "degree": 5
     },
     {
       "id": "Luk thung",
-      "label": "Luk thung"
+      "label": "Luk thung",
+      "degree": 1
     },
     {
       "id": "Mahraganat",
-      "label": "Mahraganat"
+      "label": "Mahraganat",
+      "degree": 5
     },
     {
       "id": "Mahāgīta",
-      "label": "Mahāgīta"
+      "label": "Mahāgīta",
+      "degree": 0
     },
     {
       "id": "Mainstream hardcore",
-      "label": "Mainstream hardcore"
+      "label": "Mainstream hardcore",
+      "degree": 6
     },
     {
       "id": "Makossa",
-      "label": "Makossa"
+      "label": "Makossa",
+      "degree": 10
     },
     {
       "id": "Malaysian hip-hop",
-      "label": "Malaysian hip hop"
+      "label": "Malaysian hip hop",
+      "degree": 1
     },
     {
       "id": "Malaysian popular music",
-      "label": "Malaysian popular music"
+      "label": "Malaysian popular music",
+      "degree": 7
     },
     {
       "id": "Malhun",
-      "label": "Malhun"
+      "label": "Malhun",
+      "degree": 1
     },
     {
       "id": "Malipenga",
-      "label": "Malipenga"
+      "label": "Malipenga",
+      "degree": 0
     },
     {
       "id": "Mallsoft",
-      "label": "Mallsoft"
+      "label": "Mallsoft",
+      "degree": 3
     },
     {
       "id": "Maloya",
-      "label": "Maloya"
+      "label": "Maloya",
+      "degree": 0
     },
     {
       "id": "Mambo (music)",
-      "label": "Mambo"
+      "label": "Mambo",
+      "degree": 15
     },
     {
       "id": "Mandopop",
-      "label": "Mandopop"
+      "label": "Mandopop",
+      "degree": 6
     },
     {
       "id": "Manele",
-      "label": "Manele"
+      "label": "Manele",
+      "degree": 2
     },
     {
       "id": "Mangue bit",
-      "label": "Mangue bit"
+      "label": "Mangue bit",
+      "degree": 8
     },
     {
       "id": "Manila sound",
-      "label": "Manila sound"
+      "label": "Manila sound",
+      "degree": 10
     },
     {
       "id": "Marabi",
-      "label": "Marabi"
+      "label": "Marabi",
+      "degree": 7
     },
     {
       "id": "Mariachi",
-      "label": "Mariachi"
+      "label": "Mariachi",
+      "degree": 7
     },
     {
       "id": "Marinera",
-      "label": "Marinera"
+      "label": "Marinera",
+      "degree": 4
     },
     {
       "id": "Marrabenta",
-      "label": "Marrabenta"
+      "label": "Marrabenta",
+      "degree": 0
     },
     {
       "id": "Martial industrial",
-      "label": "Martial industrial"
+      "label": "Martial industrial",
+      "degree": 5
     },
     {
       "id": "Mashup (music)",
-      "label": "Mashup"
+      "label": "Mashup",
+      "degree": 5
     },
     {
       "id": "Maskandi",
-      "label": "Maskandi"
+      "label": "Maskandi",
+      "degree": 2
     },
     {
       "id": "Mata-kantiga",
-      "label": "Mata-Kantiga"
+      "label": "Mata-Kantiga",
+      "degree": 0
     },
     {
       "id": "Math rock",
-      "label": "Math rock"
+      "label": "Math rock",
+      "degree": 10
     },
     {
       "id": "Mathcore",
-      "label": "Mathcore"
+      "label": "Mathcore",
+      "degree": 12
     },
     {
       "id": "Matrouz (music)",
-      "label": "Matrouz"
+      "label": "Matrouz",
+      "degree": 0
     },
     {
       "id": "Mbalax",
-      "label": "Mbalax, Senegalese urban dance music"
+      "label": "Mbalax, Senegalese urban dance music",
+      "degree": 1
     },
     {
       "id": "Mbaqanga",
-      "label": "Mbaqanga"
+      "label": "Mbaqanga",
+      "degree": 6
     },
     {
       "id": "Mbube (genre)",
-      "label": "Mbube"
+      "label": "Mbube",
+      "degree": 2
     },
     {
       "id": "Medieval folk rock",
-      "label": "Medieval folk rock"
+      "label": "Medieval folk rock",
+      "degree": 9
     },
     {
       "id": "Medieval metal",
-      "label": "Medieval metal"
+      "label": "Medieval metal",
+      "degree": 4
     },
     {
       "id": "Megamix",
-      "label": "Megamix"
+      "label": "Megamix",
+      "degree": 5
     },
     {
       "id": "Mele (Hawaiian term)",
-      "label": "Mele"
+      "label": "Mele",
+      "degree": 0
     },
     {
       "id": "Melodic death metal",
-      "label": "Melodic death metal"
+      "label": "Melodic death metal",
+      "degree": 9
     },
     {
       "id": "Melodic hardcore",
-      "label": "Melodic hardcore"
+      "label": "Melodic hardcore",
+      "degree": 6
     },
     {
       "id": "Melodic metalcore",
-      "label": "Melodic metalcore"
+      "label": "Melodic metalcore",
+      "degree": 6
     },
     {
       "id": "Memphis blues",
-      "label": "Memphis blues"
+      "label": "Memphis blues",
+      "degree": 3
     },
     {
       "id": "Memphis rap",
-      "label": "Memphis rap"
+      "label": "Memphis rap",
+      "degree": 7
     },
     {
       "id": "Memphis soul",
-      "label": "Memphis soul"
+      "label": "Memphis soul",
+      "degree": 7
     },
     {
       "id": "Mento",
-      "label": "Mento"
+      "label": "Mento",
+      "degree": 6
     },
     {
       "id": "Merengue music",
-      "label": "Merengue"
+      "label": "Merengue",
+      "degree": 11
     },
     {
       "id": "Merenhouse",
-      "label": "Merenhouse"
+      "label": "Merenhouse",
+      "degree": 5
     },
     {
       "id": "Metalcore",
-      "label": "Metalcore"
+      "label": "Metalcore",
+      "degree": 27
     },
     {
       "id": "Mexican pop music",
-      "label": "Mexican pop"
+      "label": "Mexican pop",
+      "degree": 20
     },
     {
       "id": "Međimurska popevka",
-      "label": "Međimurska popevka"
+      "label": "Međimurska popevka",
+      "degree": 0
     },
     {
       "id": "Miami bass",
-      "label": "Miami bass"
+      "label": "Miami bass",
+      "degree": 14
     },
     {
       "id": "Microhouse",
-      "label": "Microhouse"
+      "label": "Microhouse",
+      "degree": 10
     },
     {
       "id": "Midwest emo",
-      "label": "Midwest emo"
+      "label": "Midwest emo",
+      "degree": 5
     },
     {
       "id": "Mini-jazz",
-      "label": "Mini-jazz"
+      "label": "Mini-jazz",
+      "degree": 4
     },
     {
       "id": "Minimal music",
-      "label": "Minimal music"
+      "label": "Minimal music",
+      "degree": 14
     },
     {
       "id": "Minimal techno",
-      "label": "Minimal techno"
+      "label": "Minimal techno",
+      "degree": 13
     },
     {
       "id": "Minimal wave",
-      "label": "Minimal wave"
+      "label": "Minimal wave",
+      "degree": 5
     },
     {
       "id": "Minneapolis sound",
-      "label": "Minneapolis Sound"
+      "label": "Minneapolis Sound",
+      "degree": 6
     },
     {
       "id": "Mizrahi music",
-      "label": "Mizrahi music"
+      "label": "Mizrahi music",
+      "degree": 1
     },
     {
       "id": "Mod revival",
-      "label": "Mod revival"
+      "label": "Mod revival",
+      "degree": 14
     },
     {
       "id": "Modal jazz",
-      "label": "Modal jazz"
+      "label": "Modal jazz",
+      "degree": 3
     },
     {
       "id": "Moombahton",
-      "label": "Moombahton"
+      "label": "Moombahton",
+      "degree": 14
     },
     {
       "id": "Morenada",
-      "label": "Morenada"
+      "label": "Morenada",
+      "degree": 0
     },
     {
       "id": "Morna (music)",
-      "label": "Morna"
+      "label": "Morna",
+      "degree": 1
     },
     {
       "id": "Moroccan pop",
-      "label": "Moroccan pop"
+      "label": "Moroccan pop",
+      "degree": 1
     },
     {
       "id": "Motown",
-      "label": "Motown sound"
+      "label": "Motown sound",
+      "degree": 5
     },
     {
       "id": "Motswako",
-      "label": "Motswako"
+      "label": "Motswako",
+      "degree": 5
     },
     {
       "id": "Mugham",
-      "label": "Mugham"
+      "label": "Mugham",
+      "degree": 2
     },
     {
       "id": "Muliza",
-      "label": "Muliza"
+      "label": "Muliza",
+      "degree": 1
     },
     {
       "id": "Mumble rap",
-      "label": "Mumble rap"
+      "label": "Mumble rap",
+      "degree": 7
     },
     {
       "id": "Murder ballad",
-      "label": "Murder ballad"
+      "label": "Murder ballad",
+      "degree": 0
     },
     {
       "id": "Music hall",
-      "label": "Music hall"
+      "label": "Music hall",
+      "degree": 3
     },
     {
       "id": "Music of Eritrea",
-      "label": "Eritrean music"
+      "label": "Eritrean music",
+      "degree": 1
     },
     {
       "id": "Music of Ethiopia",
-      "label": "Ethiopian music"
+      "label": "Ethiopian music",
+      "degree": 5
     },
     {
       "id": "Music of Latin America",
-      "label": "Music of Latin America"
+      "label": "Music of Latin America",
+      "degree": 61
     },
     {
       "id": "Music of North Korea",
-      "label": "DPRK-pop"
+      "label": "DPRK-pop",
+      "degree": 5
     },
     {
       "id": "Mustard (record producer)",
-      "label": "Ratchet music"
+      "label": "Ratchet music",
+      "degree": 6
     },
     {
       "id": "Muziki wa dansi",
-      "label": "Muziki wa Dansi"
+      "label": "Muziki wa Dansi",
+      "degree": 6
     },
     {
       "id": "Mákina",
-      "label": "Mákina"
+      "label": "Mákina",
+      "degree": 5
     },
     {
       "id": "Méringue",
-      "label": "Méringue"
+      "label": "Méringue",
+      "degree": 8
     },
     {
       "id": "Métis fiddle",
-      "label": "Métis fiddle"
+      "label": "Métis fiddle",
+      "degree": 0
     },
     {
       "id": "Música criolla",
-      "label": "Criolla music"
+      "label": "Criolla music",
+      "degree": 5
     },
     {
       "id": "Música popular brasileira",
-      "label": "Brazilian popular music"
+      "label": "Brazilian popular music",
+      "degree": 9
     },
     {
       "id": "Naattupurapaattu",
-      "label": "Naattupurapaattu"
+      "label": "Naattupurapaattu",
+      "degree": 0
     },
     {
       "id": "Nagoya kei",
-      "label": "Nagoya kei"
+      "label": "Nagoya kei",
+      "degree": 2
     },
     {
       "id": "Narcocorrido",
-      "label": "Narcocorrido"
+      "label": "Narcocorrido",
+      "degree": 6
     },
     {
       "id": "Nashville sound",
-      "label": "Nashville sound"
+      "label": "Nashville sound",
+      "degree": 5
     },
     {
       "id": "National Socialist black metal",
-      "label": "National Socialist black metal"
+      "label": "National Socialist black metal",
+      "degree": 5
     },
     {
       "id": "Nazi punk",
-      "label": "Nazi punk"
+      "label": "Nazi punk",
+      "degree": 5
     },
     {
       "id": "Nazrul Geeti",
-      "label": "Nazrul Sangeet"
+      "label": "Nazrul Sangeet",
+      "degree": 0
     },
     {
       "id": "Ndombolo",
-      "label": "Ndombolo"
+      "label": "Ndombolo",
+      "degree": 5
     },
     {
       "id": "Nederbeat",
-      "label": "Nederbeat"
+      "label": "Nederbeat",
+      "degree": 5
     },
     {
       "id": "Nederpop",
-      "label": "Nederpop"
+      "label": "Nederpop",
+      "degree": 8
     },
     {
       "id": "Neo soul",
-      "label": "Neo soul"
+      "label": "Neo soul",
+      "degree": 16
     },
     {
       "id": "Neo-bop",
-      "label": "Neo-bop jazz"
+      "label": "Neo-bop jazz",
+      "degree": 5
     },
     {
       "id": "Neo-prog",
-      "label": "Neo-prog"
+      "label": "Neo-prog",
+      "degree": 6
     },
     {
       "id": "Neo-psychedelia",
-      "label": "Neo-psychedelia"
+      "label": "Neo-psychedelia",
+      "degree": 14
     },
     {
       "id": "Neoclassical metal",
-      "label": "Neoclassical metal"
+      "label": "Neoclassical metal",
+      "degree": 8
     },
     {
       "id": "Neofolk",
-      "label": "Neofolk"
+      "label": "Neofolk",
+      "degree": 10
     },
     {
       "id": "Neoperreo",
-      "label": "Neoperreo"
+      "label": "Neoperreo",
+      "degree": 8
     },
     {
       "id": "Neotraditional country",
-      "label": "Neotraditional country"
+      "label": "Neotraditional country",
+      "degree": 14
     },
     {
       "id": "Nerdcore",
-      "label": "Nerdcore"
+      "label": "Nerdcore",
+      "degree": 3
     },
     {
       "id": "Neue Deutsche Härte",
-      "label": "Neue Deutsche Härte"
+      "label": "Neue Deutsche Härte",
+      "degree": 6
     },
     {
       "id": "Neue Deutsche Todeskunst",
-      "label": "Neue Deutsche Todeskunst"
+      "label": "Neue Deutsche Todeskunst",
+      "degree": 3
     },
     {
       "id": "Neue Deutsche Welle",
-      "label": "Neue Deutsche Welle"
+      "label": "Neue Deutsche Welle",
+      "degree": 6
     },
     {
       "id": "Neue Volksmusik",
-      "label": "Neue Volksmusik"
+      "label": "Neue Volksmusik",
+      "degree": 7
     },
     {
       "id": "Neurofunk",
-      "label": "Neurofunk"
+      "label": "Neurofunk",
+      "degree": 10
     },
     {
       "id": "New Chilean cumbia",
-      "label": "New Chilean Cumbia"
+      "label": "New Chilean Cumbia",
+      "degree": 5
     },
     {
       "id": "New Jersey sound",
-      "label": "New Jersey sound"
+      "label": "New Jersey sound",
+      "degree": 6
     },
     {
       "id": "New Mexico music",
-      "label": "New Mexico music"
+      "label": "New Mexico music",
+      "degree": 15
     },
     {
       "id": "New Orleans Soul",
-      "label": "New Orleans Soul"
+      "label": "New Orleans Soul",
+      "degree": 5
     },
     {
       "id": "New Orleans blues",
-      "label": "New Orleans blues"
+      "label": "New Orleans blues",
+      "degree": 5
     },
     {
       "id": "New Orleans rhythm and blues",
-      "label": "New Orleans rhythm and blues"
+      "label": "New Orleans rhythm and blues",
+      "degree": 4
     },
     {
       "id": "New Weird America",
-      "label": "New Weird America"
+      "label": "New Weird America",
+      "degree": 4
     },
     {
       "id": "New York soul",
-      "label": "New York soul"
+      "label": "New York soul",
+      "degree": 2
     },
     {
       "id": "New beat",
-      "label": "New beat"
+      "label": "New beat",
+      "degree": 19
     },
     {
       "id": "New flamenco",
-      "label": "New flamenco"
+      "label": "New flamenco",
+      "degree": 7
     },
     {
       "id": "New jack swing",
-      "label": "New jack swing"
+      "label": "New jack swing",
+      "degree": 10
     },
     {
       "id": "New pop",
-      "label": "New pop"
+      "label": "New pop",
+      "degree": 6
     },
     {
       "id": "New rave",
-      "label": "New rave"
+      "label": "New rave",
+      "degree": 6
     },
     {
       "id": "New wave music",
-      "label": "New wave"
+      "label": "New wave",
+      "degree": 53
     },
     {
       "id": "New wave of American heavy metal",
-      "label": "New wave of American heavy metal"
+      "label": "New wave of American heavy metal",
+      "degree": 8
     },
     {
       "id": "New wave of British heavy metal",
-      "label": "New wave of British heavy metal"
+      "label": "New wave of British heavy metal",
+      "degree": 14
     },
     {
       "id": "New wave of classic rock",
-      "label": "New wave of classic rock"
+      "label": "New wave of classic rock",
+      "degree": 4
     },
     {
       "id": "New wave of new wave",
-      "label": "New wave of new wave"
+      "label": "New wave of new wave",
+      "degree": 6
     },
     {
       "id": "New wave of traditional heavy metal",
-      "label": "New wave of traditional heavy metal"
+      "label": "New wave of traditional heavy metal",
+      "degree": 4
     },
     {
       "id": "New-age music",
-      "label": "New-age"
+      "label": "New-age",
+      "degree": 22
     },
     {
       "id": "New-school hip-hop",
-      "label": "New-school hip hop"
+      "label": "New-school hip hop",
+      "degree": 4
     },
     {
       "id": "Nightcore",
-      "label": "Nightcore"
+      "label": "Nightcore",
+      "degree": 5
     },
     {
       "id": "Nintendocore",
-      "label": "Nintendocore"
+      "label": "Nintendocore",
+      "degree": 11
     },
     {
       "id": "Nitzhonot",
-      "label": "Nitzhonot"
+      "label": "Nitzhonot",
+      "degree": 7
     },
     {
       "id": "Njuup",
-      "label": "Njuup"
+      "label": "Njuup",
+      "degree": 1
     },
     {
       "id": "No wave",
-      "label": "No wave"
+      "label": "No wave",
+      "degree": 15
     },
     {
       "id": "Noise music",
-      "label": "Noise music"
+      "label": "Noise music",
+      "degree": 28
     },
     {
       "id": "Noise pop",
-      "label": "Noise pop"
+      "label": "Noise pop",
+      "degree": 9
     },
     {
       "id": "Noise rock",
-      "label": "Noise rock"
+      "label": "Noise rock",
+      "degree": 15
     },
     {
       "id": "Nortec",
-      "label": "Nortec"
+      "label": "Nortec",
+      "degree": 2
     },
     {
       "id": "Norteño (music)",
-      "label": "Norteño"
+      "label": "Norteño",
+      "degree": 13
     },
     {
       "id": "Norteño-sax",
-      "label": "Norteño-sax"
+      "label": "Norteño-sax",
+      "degree": 1
     },
     {
       "id": "Novelty song",
-      "label": "Novelty songs"
+      "label": "Novelty songs",
+      "degree": 7
     },
     {
       "id": "Nu gaze",
-      "label": "Nu gaze"
+      "label": "Nu gaze",
+      "degree": 2
     },
     {
       "id": "Nu jazz",
-      "label": "Nu Jazz"
+      "label": "Nu Jazz",
+      "degree": 14
     },
     {
       "id": "Nu metal",
-      "label": "Nu metal"
+      "label": "Nu metal",
+      "degree": 21
     },
     {
       "id": "Nu metalcore",
-      "label": "Nu metalcore"
+      "label": "Nu metalcore",
+      "degree": 5
     },
     {
       "id": "Nu-disco",
-      "label": "Nu-disco"
+      "label": "Nu-disco",
+      "degree": 7
     },
     {
       "id": "Nueva canción",
-      "label": "Nueva canción"
+      "label": "Nueva canción",
+      "degree": 2
     },
     {
       "id": "Nueva canción chilena",
-      "label": "Nueva canción chilena"
+      "label": "Nueva canción chilena",
+      "degree": 2
     },
     {
       "id": "Nueva ola",
-      "label": "Nueva ola"
+      "label": "Nueva ola",
+      "degree": 4
     },
     {
       "id": "Occult rock",
-      "label": "Occult rock"
+      "label": "Occult rock",
+      "degree": 10
     },
     {
       "id": "Odi Pop",
-      "label": "Odi pop"
+      "label": "Odi pop",
+      "degree": 4
     },
     {
       "id": "Odumodu music",
-      "label": "Odumodu"
+      "label": "Odumodu",
+      "degree": 0
     },
     {
       "id": "Oi!",
-      "label": "Oi!"
+      "label": "Oi!",
+      "degree": 13
     },
     {
       "id": "Ojkanje",
-      "label": "Ojkanje"
+      "label": "Ojkanje",
+      "degree": 0
     },
     {
       "id": "Old-school hip-hop",
-      "label": "Old-school hip hop"
+      "label": "Old-school hip hop",
+      "degree": 8
     },
     {
       "id": "Old-time music",
-      "label": "Old-time music"
+      "label": "Old-time music",
+      "degree": 11
     },
     {
       "id": "Onkyokei",
-      "label": "Onkyokei"
+      "label": "Onkyokei",
+      "degree": 5
     },
     {
       "id": "Operatic pop",
-      "label": "Operatic pop"
+      "label": "Operatic pop",
+      "degree": 2
     },
     {
       "id": "Orchestral pop",
-      "label": "Orchestral pop"
+      "label": "Orchestral pop",
+      "degree": 4
     },
     {
       "id": "Organic house",
-      "label": "Organic house"
+      "label": "Organic house",
+      "degree": 3
     },
     {
       "id": "Orthodox pop music",
-      "label": "Orthodox pop"
+      "label": "Orthodox pop",
+      "degree": 3
     },
     {
       "id": "Outlaw country",
-      "label": "Outlaw country"
+      "label": "Outlaw country",
+      "degree": 12
     },
     {
       "id": "Outsider house",
-      "label": "Outsider house"
+      "label": "Outsider house",
+      "degree": 5
     },
     {
       "id": "Owerri Bongo",
-      "label": "Owerri Bongo"
+      "label": "Owerri Bongo",
+      "degree": 2
     },
     {
       "id": "Pachanga",
-      "label": "Pachanga"
+      "label": "Pachanga",
+      "degree": 3
     },
     {
       "id": "Pagan metal",
-      "label": "Pagan metal"
+      "label": "Pagan metal",
+      "degree": 7
     },
     {
       "id": "Pagan rock",
-      "label": "Pagan rock"
+      "label": "Pagan rock",
+      "degree": 4
     },
     {
       "id": "Paisley Underground",
-      "label": "Paisley Underground"
+      "label": "Paisley Underground",
+      "degree": 9
     },
     {
       "id": "Pakistani hip-hop",
-      "label": "Pakistani hip hop"
+      "label": "Pakistani hip hop",
+      "degree": 1
     },
     {
       "id": "Palam (music)",
-      "label": "Palam"
+      "label": "Palam",
+      "degree": 1
     },
     {
       "id": "Palingsound",
-      "label": "Palingpop"
+      "label": "Palingpop",
+      "degree": 6
     },
     {
       "id": "Palm Desert Scene",
-      "label": "Palm Desert Scene"
+      "label": "Palm Desert Scene",
+      "degree": 9
     },
     {
       "id": "Palm-wine music",
-      "label": "Palm-wine music"
+      "label": "Palm-wine music",
+      "degree": 7
     },
     {
       "id": "Palo music",
-      "label": "Palo"
+      "label": "Palo",
+      "degree": 0
     },
     {
       "id": "Pambiche",
-      "label": "Pambiche"
+      "label": "Pambiche",
+      "degree": 2
     },
     {
       "id": "Paraguayan polka",
-      "label": "Paraguayan polka"
+      "label": "Paraguayan polka",
+      "degree": 2
     },
     {
       "id": "Paranda (music)",
-      "label": "Paranda"
+      "label": "Paranda",
+      "degree": 2
     },
     {
       "id": "Parang",
-      "label": "Parang"
+      "label": "Parang",
+      "degree": 5
     },
     {
       "id": "Parlour music",
-      "label": "Parlour music"
+      "label": "Parlour music",
+      "degree": 1
     },
     {
       "id": "Partido alto",
-      "label": "Partido alto"
+      "label": "Partido alto",
+      "degree": 3
     },
     {
       "id": "Patua Sangeet",
-      "label": "Patua Sangeet"
+      "label": "Patua Sangeet",
+      "degree": 0
     },
     {
       "id": "Peking opera",
-      "label": "Peking opera"
+      "label": "Peking opera",
+      "degree": 0
     },
     {
       "id": "Peruvian cumbia",
-      "label": "Peruvian cumbia"
+      "label": "Peruvian cumbia",
+      "degree": 6
     },
     {
       "id": "Philadelphia soul",
-      "label": "Philadelphia soul"
+      "label": "Philadelphia soul",
+      "degree": 7
     },
     {
       "id": "Philippine folk music",
-      "label": "Philippine folk music"
+      "label": "Philippine folk music",
+      "degree": 6
     },
     {
       "id": "Phleng phuea chiwit",
-      "label": "Phleng phuea chiwit"
+      "label": "Phleng phuea chiwit",
+      "degree": 7
     },
     {
       "id": "Phonk",
-      "label": "Phonk"
+      "label": "Phonk",
+      "degree": 11
     },
     {
       "id": "Piedmont blues",
-      "label": "Piedmont blues"
+      "label": "Piedmont blues",
+      "degree": 3
     },
     {
       "id": "Pinoy hip-hop",
-      "label": "Pinoy hip hop"
+      "label": "Pinoy hip hop",
+      "degree": 2
     },
     {
       "id": "Pinoy pop",
-      "label": "Pinoy pop"
+      "label": "Pinoy pop",
+      "degree": 5
     },
     {
       "id": "Pinoy reggae",
-      "label": "Pinoy reggae"
+      "label": "Pinoy reggae",
+      "degree": 3
     },
     {
       "id": "Pinoy rock",
-      "label": "Pinoy rock"
+      "label": "Pinoy rock",
+      "degree": 7
     },
     {
       "id": "Pirate metal",
-      "label": "Pirate metal"
+      "label": "Pirate metal",
+      "degree": 5
     },
     {
       "id": "Pirekua",
-      "label": "Pirekua"
+      "label": "Pirekua",
+      "degree": 0
     },
     {
       "id": "Pisadinha",
-      "label": "Pisadinha"
+      "label": "Pisadinha",
+      "degree": 0
     },
     {
       "id": "Plena",
-      "label": "Plena"
+      "label": "Plena",
+      "degree": 3
     },
     {
       "id": "Plugg music",
-      "label": "Plugg"
+      "label": "Plugg",
+      "degree": 8
     },
     {
       "id": "Plunderphonics",
-      "label": "Plunderphonics"
+      "label": "Plunderphonics",
+      "degree": 5
     },
     {
       "id": "Political hip-hop",
-      "label": "Political hip hop"
+      "label": "Political hip hop",
+      "degree": 6
     },
     {
       "id": "Polka",
-      "label": "Polka"
+      "label": "Polka",
+      "degree": 9
     },
     {
       "id": "Pop kreatif",
-      "label": "Creative Pop"
+      "label": "Creative Pop",
+      "degree": 10
     },
     {
       "id": "Pop melayu",
-      "label": "Pop melayu"
+      "label": "Pop melayu",
+      "degree": 6
     },
     {
       "id": "Pop metal",
-      "label": "Pop metal"
+      "label": "Pop metal",
+      "degree": 9
     },
     {
       "id": "Pop music",
-      "label": "Pop music"
+      "label": "Pop music",
+      "degree": 134
     },
     {
       "id": "Pop rap",
-      "label": "Pop rap"
+      "label": "Pop rap",
+      "degree": 9
     },
     {
       "id": "Pop rock",
-      "label": "Pop rock"
+      "label": "Pop rock",
+      "degree": 37
     },
     {
       "id": "Pop-punk",
-      "label": "Pop-punk"
+      "label": "Pop-punk",
+      "degree": 20
     },
     {
       "id": "Popcorn (Belgian music style)",
-      "label": "Popcorn"
+      "label": "Popcorn",
+      "degree": 0
     },
     {
       "id": "Pornogrind",
-      "label": "Pornogrind"
+      "label": "Pornogrind",
+      "degree": 5
     },
     {
       "id": "Porro",
-      "label": "Porro"
+      "label": "Porro",
+      "degree": 1
     },
     {
       "id": "Positive hardcore",
-      "label": "Positive hardcore"
+      "label": "Positive hardcore",
+      "degree": 3
     },
     {
       "id": "Post-Britpop",
-      "label": "Post-Britpop"
+      "label": "Post-Britpop",
+      "degree": 3
     },
     {
       "id": "Post-disco",
-      "label": "Post-disco"
+      "label": "Post-disco",
+      "degree": 28
     },
     {
       "id": "Post-grunge",
-      "label": "Post-grunge"
+      "label": "Post-grunge",
+      "degree": 3
     },
     {
       "id": "Post-hardcore",
-      "label": "Post-hardcore"
+      "label": "Post-hardcore",
+      "degree": 21
     },
     {
       "id": "Post-metal",
-      "label": "Post-metal"
+      "label": "Post-metal",
+      "degree": 8
     },
     {
       "id": "Post-no wave",
-      "label": "Post-no wave"
+      "label": "Post-no wave",
+      "degree": 4
     },
     {
       "id": "Post-progressive",
-      "label": "Post-progressive"
+      "label": "Post-progressive",
+      "degree": 12
     },
     {
       "id": "Post-punk",
-      "label": "Post-punk"
+      "label": "Post-punk",
+      "degree": 64
     },
     {
       "id": "Post-punk revival",
-      "label": "Post-punk revival"
+      "label": "Post-punk revival",
+      "degree": 14
     },
     {
       "id": "Post-rock",
-      "label": "Post-rock"
+      "label": "Post-rock",
+      "degree": 22
     },
     {
       "id": "Power electronics (music genre)",
-      "label": "Power electronics"
+      "label": "Power electronics",
+      "degree": 4
     },
     {
       "id": "Power metal",
-      "label": "Power metal"
+      "label": "Power metal",
+      "degree": 10
     },
     {
       "id": "Power noise",
-      "label": "Power noise"
+      "label": "Power noise",
+      "degree": 9
     },
     {
       "id": "Power pop",
-      "label": "Power pop"
+      "label": "Power pop",
+      "degree": 17
     },
     {
       "id": "Powerviolence",
-      "label": "Powerviolence"
+      "label": "Powerviolence",
+      "degree": 5
     },
     {
       "id": "Preaching chords",
-      "label": "Preaching Chords"
+      "label": "Preaching Chords",
+      "degree": 5
     },
     {
       "id": "Progressive country",
-      "label": "Progressive country"
+      "label": "Progressive country",
+      "degree": 14
     },
     {
       "id": "Progressive folk",
-      "label": "Progressive folk"
+      "label": "Progressive folk",
+      "degree": 6
     },
     {
       "id": "Progressive house",
-      "label": "Progressive house"
+      "label": "Progressive house",
+      "degree": 12
     },
     {
       "id": "Progressive metal",
-      "label": "Progressive metal"
+      "label": "Progressive metal",
+      "degree": 15
     },
     {
       "id": "Progressive metalcore",
-      "label": "Progressive metalcore"
+      "label": "Progressive metalcore",
+      "degree": 5
     },
     {
       "id": "Progressive pop",
-      "label": "Progressive pop"
+      "label": "Progressive pop",
+      "degree": 4
     },
     {
       "id": "Progressive rap",
-      "label": "Progressive rap"
+      "label": "Progressive rap",
+      "degree": 9
     },
     {
       "id": "Progressive rock",
-      "label": "Progressive rock"
+      "label": "Progressive rock",
+      "degree": 39
     },
     {
       "id": "Progressive soul",
-      "label": "Progressive soul"
+      "label": "Progressive soul",
+      "degree": 9
     },
     {
       "id": "Proibidão",
-      "label": "Funk proibidão"
+      "label": "Funk proibidão",
+      "degree": 5
     },
     {
       "id": "Proto-prog",
-      "label": "Proto-prog"
+      "label": "Proto-prog",
+      "degree": 2
     },
     {
       "id": "Proto-punk",
-      "label": "Proto-punk"
+      "label": "Proto-punk",
+      "degree": 12
     },
     {
       "id": "Psychedelic folk",
-      "label": "Freak folk"
+      "label": "Freak folk",
+      "degree": 3
     },
     {
       "id": "Psychedelic funk",
-      "label": "Psychedelic funk"
+      "label": "Psychedelic funk",
+      "degree": 9
     },
     {
       "id": "Psychedelic pop",
-      "label": "Psychedelic pop"
+      "label": "Psychedelic pop",
+      "degree": 6
     },
     {
       "id": "Psychedelic rap",
-      "label": "Psychedelic rap"
+      "label": "Psychedelic rap",
+      "degree": 6
     },
     {
       "id": "Psychedelic rock",
-      "label": "Psychedelic rock"
+      "label": "Psychedelic rock",
+      "degree": 57
     },
     {
       "id": "Psychedelic soul",
-      "label": "Psychedelic soul"
+      "label": "Psychedelic soul",
+      "degree": 12
     },
     {
       "id": "Psychedelic trance",
-      "label": "Psychedelic trance"
+      "label": "Psychedelic trance",
+      "degree": 23
     },
     {
       "id": "Psychobilly",
-      "label": "Psychobilly"
+      "label": "Psychobilly",
+      "degree": 6
     },
     {
       "id": "Psydub",
-      "label": "Psydub"
+      "label": "Psydub",
+      "degree": 7
     },
     {
       "id": "Pub rock (Australia)",
-      "label": "Australian pub rock"
+      "label": "Australian pub rock",
+      "degree": 2
     },
     {
       "id": "Pub rock (United Kingdom)",
-      "label": "Pub rock"
+      "label": "Pub rock",
+      "degree": 15
     },
     {
       "id": "Punk blues",
-      "label": "Punk blues"
+      "label": "Punk blues",
+      "degree": 7
     },
     {
       "id": "Punk funk",
-      "label": "Punk funk"
+      "label": "Punk funk",
+      "degree": 6
     },
     {
       "id": "Punk jazz",
-      "label": "Jazzcore"
+      "label": "Jazzcore",
+      "degree": 7
     },
     {
       "id": "Punk pathetique",
-      "label": "Punk pathetique"
+      "label": "Punk pathetique",
+      "degree": 7
     },
     {
       "id": "Punk rap",
-      "label": "Punk rap"
+      "label": "Punk rap",
+      "degree": 6
     },
     {
       "id": "Punk rock",
-      "label": "Punk rock"
+      "label": "Punk rock",
+      "degree": 108
     },
     {
       "id": "Punta",
-      "label": "Punta"
+      "label": "Punta",
+      "degree": 2
     },
     {
       "id": "Punta rock",
-      "label": "Punta rock"
+      "label": "Punta rock",
+      "degree": 4
     },
     {
       "id": "Punto (Venezuela)",
-      "label": "Punto"
+      "label": "Punto",
+      "degree": 0
     },
     {
       "id": "Q-pop",
-      "label": "Q-pop"
+      "label": "Q-pop",
+      "degree": 5
     },
     {
       "id": "Qudud Halabiya",
-      "label": "Qudud Al-Halabiya"
+      "label": "Qudud Al-Halabiya",
+      "degree": 0
     },
     {
       "id": "Queercore",
-      "label": "Queercore"
+      "label": "Queercore",
+      "degree": 5
     },
     {
       "id": "Quiet storm",
-      "label": "Quiet storm"
+      "label": "Quiet storm",
+      "degree": 11
     },
     {
       "id": "Rabiz (music genre)",
-      "label": "Rabiz"
+      "label": "Rabiz",
+      "degree": 4
     },
     {
       "id": "Rabòday",
-      "label": "Rabòday"
+      "label": "Rabòday",
+      "degree": 2
     },
     {
       "id": "Radif (music)",
-      "label": "Radif"
+      "label": "Radif",
+      "degree": 0
     },
     {
       "id": "Raga rock",
-      "label": "Raga rock"
+      "label": "Raga rock",
+      "degree": 7
     },
     {
       "id": "Rage (music genre)",
-      "label": "Rage"
+      "label": "Rage",
+      "degree": 10
     },
     {
       "id": "Ragga",
-      "label": "Ragga"
+      "label": "Ragga",
+      "degree": 13
     },
     {
       "id": "Raglife",
-      "label": "Raglife"
+      "label": "Raglife",
+      "degree": 7
     },
     {
       "id": "Ragtime",
-      "label": "Ragtime"
+      "label": "Ragtime",
+      "degree": 14
     },
     {
       "id": "Rake-and-scrape",
-      "label": "Rake-and-scrape"
+      "label": "Rake-and-scrape",
+      "degree": 0
     },
     {
       "id": "Ramprasadi",
-      "label": "Ramprasadi"
+      "label": "Ramprasadi",
+      "degree": 0
     },
     {
       "id": "Ranchera",
-      "label": "Ranchera"
+      "label": "Ranchera",
+      "degree": 8
     },
     {
       "id": "Rap metal",
-      "label": "Trap metal"
+      "label": "Trap metal",
+      "degree": 10
     },
     {
       "id": "Rap rock",
-      "label": "Rap rock"
+      "label": "Rap rock",
+      "degree": 8
     },
     {
       "id": "Rapso",
-      "label": "Rapso"
+      "label": "Rapso",
+      "degree": 5
     },
     {
       "id": "Raptor house",
-      "label": "Raptor house"
+      "label": "Raptor house",
+      "degree": 7
     },
     {
       "id": "Rara tech",
-      "label": "Rara tech"
+      "label": "Rara tech",
+      "degree": 1
     },
     {
       "id": "Rasin",
-      "label": "Rasin"
+      "label": "Rasin",
+      "degree": 4
     },
     {
       "id": "Rasiya",
-      "label": "Rasiya"
+      "label": "Rasiya",
+      "degree": 0
     },
     {
       "id": "Rasteirinha",
-      "label": "Rasteirinha"
+      "label": "Rasteirinha",
+      "degree": 4
     },
     {
       "id": "Raï",
-      "label": "Raï"
+      "label": "Raï",
+      "degree": 2
     },
     {
       "id": "Rebetiko",
-      "label": "Rebetiko rock"
+      "label": "Rebetiko rock",
+      "degree": 4
     },
     {
       "id": "Red dirt music",
-      "label": "Red dirt"
+      "label": "Red dirt",
+      "degree": 11
     },
     {
       "id": "Reggada",
-      "label": "Reggada"
+      "label": "Reggada",
+      "degree": 0
     },
     {
       "id": "Reggae",
-      "label": "Reggae"
+      "label": "Reggae",
+      "degree": 57
     },
     {
       "id": "Reggae en Español",
-      "label": "Reggae en Español"
+      "label": "Reggae en Español",
+      "degree": 7
     },
     {
       "id": "Reggae fusion",
-      "label": "Reggae fusion"
+      "label": "Reggae fusion",
+      "degree": 35
     },
     {
       "id": "Reggae punk",
-      "label": "Reggae punk"
+      "label": "Reggae punk",
+      "degree": 6
     },
     {
       "id": "Reggae rock",
-      "label": "Reggae rock"
+      "label": "Reggae rock",
+      "degree": 8
     },
     {
       "id": "Reggaestep",
-      "label": "Reggaestep"
+      "label": "Reggaestep",
+      "degree": 9
     },
     {
       "id": "Reggaeton",
-      "label": "Reggaeton"
+      "label": "Reggaeton",
+      "degree": 33
     },
     {
       "id": "Regional Mexican",
-      "label": "Regional Mexican"
+      "label": "Regional Mexican",
+      "degree": 3
     },
     {
       "id": "Retro-soul",
-      "label": "Retro soul"
+      "label": "Retro soul",
+      "degree": 6
     },
     {
       "id": "Rhumba",
-      "label": "Rhumba"
+      "label": "Rhumba",
+      "degree": 4
     },
     {
       "id": "Rhythm and blues",
-      "label": "Rhythm and blues"
+      "label": "Rhythm and blues",
+      "degree": 90
     },
     {
       "id": "Riddim (genre)",
-      "label": "Riddim"
+      "label": "Riddim",
+      "degree": 4
     },
     {
       "id": "Ringbang",
-      "label": "Ringbang"
+      "label": "Ringbang",
+      "degree": 4
     },
     {
       "id": "Riot grrrl",
-      "label": "Riot grrrl"
+      "label": "Riot grrrl",
+      "degree": 6
     },
     {
       "id": "RnBass",
-      "label": "RnBass"
+      "label": "RnBass",
+      "degree": 9
     },
     {
       "id": "Rock Against Communism",
-      "label": "Rock Against Communism"
+      "label": "Rock Against Communism",
+      "degree": 4
     },
     {
       "id": "Rock and roll",
-      "label": "Rock and roll"
+      "label": "Rock and roll",
+      "degree": 76
     },
     {
       "id": "Rock kapak",
-      "label": "Rock kapak"
+      "label": "Rock kapak",
+      "degree": 7
     },
     {
       "id": "Rock music",
-      "label": "Rock"
+      "label": "Rock",
+      "degree": 133
     },
     {
       "id": "Rock music in Australia",
-      "label": "Rock music in Australia"
+      "label": "Rock music in Australia",
+      "degree": 2
     },
     {
       "id": "Rock music in Greece",
-      "label": "Greek rock"
+      "label": "Greek rock",
+      "degree": 5
     },
     {
       "id": "Rock music in Ireland",
-      "label": "Rock music in Ireland"
+      "label": "Rock music in Ireland",
+      "degree": 2
     },
     {
       "id": "Rock music in New Zealand",
-      "label": "Rock music in New Zealand"
+      "label": "Rock music in New Zealand",
+      "degree": 2
     },
     {
       "id": "Rock music in Slovenia",
-      "label": "Rock music in Slovenia"
+      "label": "Rock music in Slovenia",
+      "degree": 2
     },
     {
       "id": "Rockabilly",
-      "label": "Rockabilly"
+      "label": "Rockabilly",
+      "degree": 33
     },
     {
       "id": "Rocksteady",
-      "label": "Rocksteady"
+      "label": "Rocksteady",
+      "degree": 12
     },
     {
       "id": "Romo",
-      "label": "Romo"
+      "label": "Romo",
+      "degree": 7
     },
     {
       "id": "Roots reggae",
-      "label": "Roots reggae"
+      "label": "Roots reggae",
+      "degree": 6
     },
     {
       "id": "Roots rock",
-      "label": "Roots rock"
+      "label": "Roots rock",
+      "degree": 12
     },
     {
       "id": "Rumba flamenca",
-      "label": "Rumba flamenca"
+      "label": "Rumba flamenca",
+      "degree": 4
     },
     {
       "id": "Russ music",
-      "label": "Russ music"
+      "label": "Russ music",
+      "degree": 6
     },
     {
       "id": "Russian chanson",
-      "label": "Russian chanson"
+      "label": "Russian chanson",
+      "degree": 3
     },
     {
       "id": "Russian pop",
-      "label": "Russian pop music"
+      "label": "Russian pop music",
+      "degree": 4
     },
     {
       "id": "Ryūkōka",
-      "label": "Ryūkōka"
+      "label": "Ryūkōka",
+      "degree": 6
     },
     {
       "id": "Sadra (music)",
-      "label": "Sadra"
+      "label": "Sadra",
+      "degree": 0
     },
     {
       "id": "Sakara music",
-      "label": "Sakara music"
+      "label": "Sakara music",
+      "degree": 1
     },
     {
       "id": "Salsa music",
-      "label": "Salsa"
+      "label": "Salsa",
+      "degree": 13
     },
     {
       "id": "Samba",
-      "label": "Samba"
+      "label": "Samba",
+      "degree": 27
     },
     {
       "id": "Samba de breque",
-      "label": "Samba de breque"
+      "label": "Samba de breque",
+      "degree": 2
     },
     {
       "id": "Samba funk",
-      "label": "Samba funk"
+      "label": "Samba funk",
+      "degree": 4
     },
     {
       "id": "Samba reggae",
-      "label": "Samba-reggae"
+      "label": "Samba-reggae",
+      "degree": 4
     },
     {
       "id": "Samba rock",
-      "label": "Samba rock"
+      "label": "Samba rock",
+      "degree": 12
     },
     {
       "id": "Samba-canção",
-      "label": "Samba-canção"
+      "label": "Samba-canção",
+      "degree": 3
     },
     {
       "id": "Samba-choro",
-      "label": "Samba-choro"
+      "label": "Samba-choro",
+      "degree": 3
     },
     {
       "id": "Samba-enredo",
-      "label": "Samba de enredo"
+      "label": "Samba de enredo",
+      "degree": 2
     },
     {
       "id": "Samba-jazz",
-      "label": "Samba-jazz"
+      "label": "Samba-jazz",
+      "degree": 4
     },
     {
       "id": "Samba-sincopado",
-      "label": "Samba-sincopado"
+      "label": "Samba-sincopado",
+      "degree": 1
     },
     {
       "id": "Sambass",
-      "label": "Sambass"
+      "label": "Sambass",
+      "degree": 4
     },
     {
       "id": "Sampledelia",
-      "label": "Sampledelia"
+      "label": "Sampledelia",
+      "degree": 8
     },
     {
       "id": "San Francisco sound",
-      "label": "San Francisco sound"
+      "label": "San Francisco sound",
+      "degree": 1
     },
     {
       "id": "Sanaa (music)",
-      "label": "Sanaa"
+      "label": "Sanaa",
+      "degree": 1
     },
     {
       "id": "Sanedo",
-      "label": "Sanedo"
+      "label": "Sanedo",
+      "degree": 0
     },
     {
       "id": "Sangeet Natak",
-      "label": "Sangeet Natak"
+      "label": "Sangeet Natak",
+      "degree": 0
     },
     {
       "id": "Santé engagé",
-      "label": "Santé engagé"
+      "label": "Santé engagé",
+      "degree": 2
     },
     {
       "id": "Sapphic pop",
-      "label": "Sapphic pop"
+      "label": "Sapphic pop",
+      "degree": 4
     },
     {
       "id": "Satirical music",
-      "label": "Satire in contemporary music"
+      "label": "Satire in contemporary music",
+      "degree": 2
     },
     {
       "id": "Scam rap",
-      "label": "Scam rap"
+      "label": "Scam rap",
+      "degree": 2
     },
     {
       "id": "Schaffel",
-      "label": "Schaffel"
+      "label": "Schaffel",
+      "degree": 3
     },
     {
       "id": "Schlager music",
-      "label": "Schlager"
+      "label": "Schlager",
+      "degree": 12
     },
     {
       "id": "Scottish Gaelic punk",
-      "label": "Scottish Gaelic punk"
+      "label": "Scottish Gaelic punk",
+      "degree": 4
     },
     {
       "id": "Scottish hip-hop",
-      "label": "Scottish hip hop"
+      "label": "Scottish hip hop",
+      "degree": 2
     },
     {
       "id": "Screamo",
-      "label": "Screamo"
+      "label": "Screamo",
+      "degree": 11
     },
     {
       "id": "Scrumpy and Western",
-      "label": "Scrumpy and Western"
+      "label": "Scrumpy and Western",
+      "degree": 3
     },
     {
       "id": "Sea shanty",
-      "label": "Sea shanty"
+      "label": "Sea shanty",
+      "degree": 3
     },
     {
       "id": "Sean-nós singing",
-      "label": "Sean-nós singing"
+      "label": "Sean-nós singing",
+      "degree": 0
     },
     {
       "id": "Seapunk",
-      "label": "Seapunk"
+      "label": "Seapunk",
+      "degree": 9
     },
     {
       "id": "Sega (genre)",
-      "label": "Sega"
+      "label": "Sega",
+      "degree": 4
     },
     {
       "id": "Sega tambour Chagos",
-      "label": "Sega tambour Chagos"
+      "label": "Sega tambour Chagos",
+      "degree": 1
     },
     {
       "id": "Sega tambour of Rodrigues Island",
-      "label": "Sega tambour"
+      "label": "Sega tambour",
+      "degree": 1
     },
     {
       "id": "Sentimental ballad",
-      "label": "Power ballad"
+      "label": "Power ballad",
+      "degree": 8
     },
     {
       "id": "Serbian hip-hop",
-      "label": "Serbian hip hop"
+      "label": "Serbian hip hop",
+      "degree": 1
     },
     {
       "id": "Seresta (music)",
-      "label": "Seresta"
+      "label": "Seresta",
+      "degree": 0
     },
     {
       "id": "Sertanejo music",
-      "label": "Sertanejo universitário"
+      "label": "Sertanejo universitário",
+      "degree": 5
     },
     {
       "id": "Seto leelo",
-      "label": "Seto leelo"
+      "label": "Seto leelo",
+      "degree": 0
     },
     {
       "id": "Shangaan electro",
-      "label": "Shangaan electro"
+      "label": "Shangaan electro",
+      "degree": 3
     },
     {
       "id": "Shashmaqam",
-      "label": "Shashmaqam"
+      "label": "Shashmaqam",
+      "degree": 0
     },
     {
       "id": "Shibuya-kei",
-      "label": "Shibuya-kei"
+      "label": "Shibuya-kei",
+      "degree": 16
     },
     {
       "id": "Shock rock",
-      "label": "Shock rock"
+      "label": "Shock rock",
+      "degree": 8
     },
     {
       "id": "Shoegaze",
-      "label": "Shoegaze"
+      "label": "Shoegaze",
+      "degree": 20
     },
     {
       "id": "Singeli",
-      "label": "Singeli"
+      "label": "Singeli",
+      "degree": 3
     },
     {
       "id": "Ska",
-      "label": "Ska"
+      "label": "Ska",
+      "degree": 27
     },
     {
       "id": "Ska punk",
-      "label": "Ska punk"
+      "label": "Ska punk",
+      "degree": 11
     },
     {
       "id": "Skate punk",
-      "label": "Skate punk"
+      "label": "Skate punk",
+      "degree": 6
     },
     {
       "id": "Skiffle",
-      "label": "Skiffle"
+      "label": "Skiffle",
+      "degree": 10
     },
     {
       "id": "Skiladiko",
-      "label": "Skiladiko"
+      "label": "Skiladiko",
+      "degree": 5
     },
     {
       "id": "Skweee",
-      "label": "Skweee"
+      "label": "Skweee",
+      "degree": 8
     },
     {
       "id": "Slab (car)",
-      "label": "Slab"
+      "label": "Slab",
+      "degree": 4
     },
     {
       "id": "Slacker rock",
-      "label": "Slacker rock"
+      "label": "Slacker rock",
+      "degree": 2
     },
     {
       "id": "Slowcore",
-      "label": "Slowcore"
+      "label": "Slowcore",
+      "degree": 3
     },
     {
       "id": "Sludge metal",
-      "label": "Sludge metal"
+      "label": "Sludge metal",
+      "degree": 8
     },
     {
       "id": "Smooth jazz",
-      "label": "Smooth jazz"
+      "label": "Smooth jazz",
+      "degree": 10
     },
     {
       "id": "Smooth soul",
-      "label": "Smooth soul"
+      "label": "Smooth soul",
+      "degree": 6
     },
     {
       "id": "Snap music",
-      "label": "Snap music"
+      "label": "Snap music",
+      "degree": 6
     },
     {
       "id": "Soca music",
-      "label": "Soca music"
+      "label": "Soca music",
+      "degree": 28
     },
     {
       "id": "Soft grunge",
-      "label": "Soft grunge"
+      "label": "Soft grunge",
+      "degree": 7
     },
     {
       "id": "Soft rock",
-      "label": "Soft rock"
+      "label": "Soft rock",
+      "degree": 16
     },
     {
       "id": "Son cubano",
-      "label": "Son cubano"
+      "label": "Son cubano",
+      "degree": 17
     },
     {
       "id": "Son huasteco",
-      "label": "Son huasteco"
+      "label": "Son huasteco",
+      "degree": 2
     },
     {
       "id": "Son jarocho",
-      "label": "Son jarocho"
+      "label": "Son jarocho",
+      "degree": 3
     },
     {
       "id": "Son montuno",
-      "label": "Son montuno"
+      "label": "Son montuno",
+      "degree": 8
     },
     {
       "id": "Sophisti-pop",
-      "label": "Sophisti-pop"
+      "label": "Sophisti-pop",
+      "degree": 6
     },
     {
       "id": "Soukous",
-      "label": "Soukous"
+      "label": "Soukous",
+      "degree": 9
     },
     {
       "id": "Soul blues",
-      "label": "Soul blues"
+      "label": "Soul blues",
+      "degree": 5
     },
     {
       "id": "Soul jazz",
-      "label": "Soul jazz"
+      "label": "Soul jazz",
+      "degree": 9
     },
     {
       "id": "Soul music",
-      "label": "Soul"
+      "label": "Soul",
+      "degree": 97
     },
     {
       "id": "Sound collage",
-      "label": "Sound collage"
+      "label": "Sound collage",
+      "degree": 4
     },
     {
       "id": "Southern gospel",
-      "label": "Southern gospel"
+      "label": "Southern gospel",
+      "degree": 6
     },
     {
       "id": "Southern hip-hop",
-      "label": "Southern hip hop"
+      "label": "Southern hip hop",
+      "degree": 25
     },
     {
       "id": "Southern rock",
-      "label": "Southern metal"
+      "label": "Southern metal",
+      "degree": 8
     },
     {
       "id": "Southern soul",
-      "label": "Southern soul"
+      "label": "Southern soul",
+      "degree": 8
     },
     {
       "id": "Sovietwave",
-      "label": "Sovietwave"
+      "label": "Sovietwave",
+      "degree": 5
     },
     {
       "id": "Space age pop",
-      "label": "Space age pop"
+      "label": "Space age pop",
+      "degree": 20
     },
     {
       "id": "Space music",
-      "label": "Space music"
+      "label": "Space music",
+      "degree": 12
     },
     {
       "id": "Space rock",
-      "label": "Space rock"
+      "label": "Space rock",
+      "degree": 7
     },
     {
       "id": "Spanish traditional Christian music",
-      "label": "Spanish traditional Christian music"
+      "label": "Spanish traditional Christian music",
+      "degree": 0
     },
     {
       "id": "Speed garage",
-      "label": "Speed garage"
+      "label": "Speed garage",
+      "degree": 6
     },
     {
       "id": "Speed metal",
-      "label": "Speed metal"
+      "label": "Speed metal",
+      "degree": 15
     },
     {
       "id": "Speedcore",
-      "label": "Speedcore"
+      "label": "Speedcore",
+      "degree": 5
     },
     {
       "id": "Spiritual jazz",
-      "label": "Spiritual jazz"
+      "label": "Spiritual jazz",
+      "degree": 4
     },
     {
       "id": "Spirituals",
-      "label": "Spiritual"
+      "label": "Spiritual",
+      "degree": 14
     },
     {
       "id": "Spouge",
-      "label": "Spouge"
+      "label": "Spouge",
+      "degree": 7
     },
     {
       "id": "Sri Lankan hip-hop",
-      "label": "Sri Lankan Hip Hop"
+      "label": "Sri Lankan Hip Hop",
+      "degree": 8
     },
     {
       "id": "Sri Metal",
-      "label": "Sri Metal"
+      "label": "Sri Metal",
+      "degree": 1
     },
     {
       "id": "Stadium house",
-      "label": "Stadium house"
+      "label": "Stadium house",
+      "degree": 0
     },
     {
       "id": "Starogradska muzika",
-      "label": "Starogradska muzika"
+      "label": "Starogradska muzika",
+      "degree": 2
     },
     {
       "id": "Stoner rock",
-      "label": "Stoner rock"
+      "label": "Stoner rock",
+      "degree": 12
     },
     {
       "id": "Straight-ahead jazz",
-      "label": "Straight-ahead jazz"
+      "label": "Straight-ahead jazz",
+      "degree": 7
     },
     {
       "id": "Street punk",
-      "label": "Street punk"
+      "label": "Street punk",
+      "degree": 8
     },
     {
       "id": "Stride (music)",
-      "label": "Stride"
+      "label": "Stride",
+      "degree": 3
     },
     {
       "id": "Stronda",
-      "label": "Stronda"
+      "label": "Stronda",
+      "degree": 5
     },
     {
       "id": "Styles of pop music",
-      "label": "Street pop"
+      "label": "Street pop",
+      "degree": 5
     },
     {
       "id": "Sufi rock",
-      "label": "Sufi rock"
+      "label": "Sufi rock",
+      "degree": 3
     },
     {
       "id": "Sunshine pop",
-      "label": "Sunshine pop"
+      "label": "Sunshine pop",
+      "degree": 9
     },
     {
       "id": "Suomisaundi",
-      "label": "Suomisaundi"
+      "label": "Suomisaundi",
+      "degree": 2
     },
     {
       "id": "Surf music",
-      "label": "Surf music"
+      "label": "Surf music",
+      "degree": 19
     },
     {
       "id": "Swamp blues",
-      "label": "Swamp blues"
+      "label": "Swamp blues",
+      "degree": 9
     },
     {
       "id": "Swamp pop",
-      "label": "Swamp pop"
+      "label": "Swamp pop",
+      "degree": 9
     },
     {
       "id": "Swamp rock",
-      "label": "Swamp rock"
+      "label": "Swamp rock",
+      "degree": 13
     },
     {
       "id": "Swing music",
-      "label": "Swing"
+      "label": "Swing",
+      "degree": 26
     },
     {
       "id": "Swing revival",
-      "label": "Swing revival"
+      "label": "Swing revival",
+      "degree": 10
     },
     {
       "id": "Symphonic black metal",
-      "label": "Symphonic black metal"
+      "label": "Symphonic black metal",
+      "degree": 5
     },
     {
       "id": "Symphonic metal",
-      "label": "Symphonic death metal"
+      "label": "Symphonic death metal",
+      "degree": 11
     },
     {
       "id": "Synth-pop",
-      "label": "Synth-pop"
+      "label": "Synth-pop",
+      "degree": 42
     },
     {
       "id": "Synthwave",
-      "label": "Synthwave"
+      "label": "Synthwave",
+      "degree": 10
     },
     {
       "id": "Tabanka",
-      "label": "Tabanka"
+      "label": "Tabanka",
+      "degree": 0
     },
     {
       "id": "Tahitian drumming",
-      "label": "Tahitian Drumming"
+      "label": "Tahitian Drumming",
+      "degree": 0
     },
     {
       "id": "Tahona",
-      "label": "Tahona"
+      "label": "Tahona",
+      "degree": 1
     },
     {
       "id": "Takamba",
-      "label": "Takamba"
+      "label": "Takamba",
+      "degree": 0
     },
     {
       "id": "Talempong",
-      "label": "Talempong ensemble"
+      "label": "Talempong ensemble",
+      "degree": 0
     },
     {
       "id": "Tallava",
-      "label": "Tallava"
+      "label": "Tallava",
+      "degree": 3
     },
     {
       "id": "Tamborera",
-      "label": "Tamborera"
+      "label": "Tamborera",
+      "degree": 0
     },
     {
       "id": "Tambu (music)",
-      "label": "Tambu"
+      "label": "Tambu",
+      "degree": 1
     },
     {
       "id": "Tango music",
-      "label": "Tango"
+      "label": "Tango",
+      "degree": 5
     },
     {
       "id": "Tanzanian hip-hop",
-      "label": "Tanzania Hip Hop Music"
+      "label": "Tanzania Hip Hop Music",
+      "degree": 2
     },
     {
       "id": "Taqwacore",
-      "label": "Taqwacore"
+      "label": "Taqwacore",
+      "degree": 2
     },
     {
       "id": "Tche music",
-      "label": "Tchê music"
+      "label": "Tchê music",
+      "degree": 3
     },
     {
       "id": "Tech house",
-      "label": "Tech house"
+      "label": "Tech house",
+      "degree": 15
     },
     {
       "id": "Tech trance",
-      "label": "Tech trance"
+      "label": "Tech trance",
+      "degree": 9
     },
     {
       "id": "Technical death metal",
-      "label": "Technical death metal"
+      "label": "Technical death metal",
+      "degree": 7
     },
     {
       "id": "Techno",
-      "label": "Techno"
+      "label": "Techno",
+      "degree": 92
     },
     {
       "id": "Techstep",
-      "label": "Techstep"
+      "label": "Techstep",
+      "degree": 14
     },
     {
       "id": "Tecno brega",
-      "label": "Tecno brega"
+      "label": "Tecno brega",
+      "degree": 3
     },
     {
       "id": "Tecnocumbia",
-      "label": "Tecnocumbia"
+      "label": "Tecnocumbia",
+      "degree": 5
     },
     {
       "id": "Teen pop",
-      "label": "Teen pop"
+      "label": "Teen pop",
+      "degree": 15
     },
     {
       "id": "Tejano music",
-      "label": "Tejano music"
+      "label": "Tejano music",
+      "degree": 14
     },
     {
       "id": "Teutonic thrash metal",
-      "label": "Teutonic thrash metal"
+      "label": "Teutonic thrash metal",
+      "degree": 2
     },
     {
       "id": "Texas blues",
-      "label": "Texas blues"
+      "label": "Texas blues",
+      "degree": 5
     },
     {
       "id": "Texas country music",
-      "label": "Texas country music"
+      "label": "Texas country music",
+      "degree": 6
     },
     {
       "id": "Thai hip-hop",
-      "label": "Thai hip hop"
+      "label": "Thai hip hop",
+      "degree": 2
     },
     {
       "id": "Thai pop music",
-      "label": "Thai pop"
+      "label": "Thai pop",
+      "degree": 11
     },
     {
       "id": "Thai rock",
-      "label": "Thai rock"
+      "label": "Thai rock",
+      "degree": 2
     },
     {
       "id": "Third stream",
-      "label": "Third stream"
+      "label": "Third stream",
+      "degree": 3
     },
     {
       "id": "Thrash metal",
-      "label": "Thrash metal"
+      "label": "Thrash metal",
+      "degree": 28
     },
     {
       "id": "Thrashcore",
-      "label": "Thrashcore"
+      "label": "Thrashcore",
+      "degree": 8
     },
     {
       "id": "Tierra Caliente music",
-      "label": "Tierra Caliente music"
+      "label": "Tierra Caliente music",
+      "degree": 1
     },
     {
       "id": "Timba",
-      "label": "Timba"
+      "label": "Timba",
+      "degree": 7
     },
     {
       "id": "Time Lord rock",
-      "label": "Time Lord rock"
+      "label": "Time Lord rock",
+      "degree": 3
     },
     {
       "id": "Toi music",
-      "label": "Toi"
+      "label": "Toi",
+      "degree": 2
     },
     {
       "id": "Tough guy hardcore",
-      "label": "Tough guy hardcore"
+      "label": "Tough guy hardcore",
+      "degree": 8
     },
     {
       "id": "Township music",
-      "label": "Township music"
+      "label": "Township music",
+      "degree": 2
     },
     {
       "id": "Toytown techno",
-      "label": "Toytown techno"
+      "label": "Toytown techno",
+      "degree": 5
     },
     {
       "id": "Trad jazz",
-      "label": "Trad jazz"
+      "label": "Trad jazz",
+      "degree": 1
     },
     {
       "id": "Traditional black gospel",
-      "label": "Traditional Black gospel"
+      "label": "Traditional Black gospel",
+      "degree": 7
     },
     {
       "id": "Traditional bluegrass",
-      "label": "Traditional bluegrass"
+      "label": "Traditional bluegrass",
+      "degree": 5
     },
     {
       "id": "Traditional pop",
-      "label": "Traditional pop"
+      "label": "Traditional pop",
+      "degree": 14
     },
     {
       "id": "Trallpunk",
-      "label": "Trallpunk"
+      "label": "Trallpunk",
+      "degree": 5
     },
     {
       "id": "Trance music",
-      "label": "Trance"
+      "label": "Trance",
+      "degree": 47
     },
     {
       "id": "Trap music",
-      "label": "Trap"
+      "label": "Trap",
+      "degree": 45
     },
     {
       "id": "Tribal guarachero",
-      "label": "Tribal guarachero"
+      "label": "Tribal guarachero",
+      "degree": 2
     },
     {
       "id": "Tribal house",
-      "label": "Tribal house"
+      "label": "Tribal house",
+      "degree": 7
     },
     {
       "id": "Trip hop",
-      "label": "Trip hop"
+      "label": "Trip hop",
+      "degree": 23
     },
     {
       "id": "Tropical house",
-      "label": "Tropical house"
+      "label": "Tropical house",
+      "degree": 8
     },
     {
       "id": "Tropicália",
-      "label": "Tropicália"
+      "label": "Tropicália",
+      "degree": 8
     },
     {
       "id": "Tropipop",
-      "label": "Tropipop"
+      "label": "Tropipop",
+      "degree": 6
     },
     {
       "id": "Trot (music)",
-      "label": "Trot"
+      "label": "Trot",
+      "degree": 5
     },
     {
       "id": "Truck-driving country",
-      "label": "Truck-driving country"
+      "label": "Truck-driving country",
+      "degree": 2
     },
     {
       "id": "Trønder rock",
-      "label": "Trønder rock"
+      "label": "Trønder rock",
+      "degree": 2
     },
     {
       "id": "Tsugaru-jamisen",
-      "label": "Tsugaru-jamisen"
+      "label": "Tsugaru-jamisen",
+      "degree": 0
     },
     {
       "id": "Tulsa sound",
-      "label": "Tulsa sound"
+      "label": "Tulsa sound",
+      "degree": 6
     },
     {
       "id": "Tumba francesa",
-      "label": "Tumba francesa"
+      "label": "Tumba francesa",
+      "degree": 1
     },
     {
       "id": "Turbo-folk",
-      "label": "Turbo-folk"
+      "label": "Turbo-folk",
+      "degree": 1
     },
     {
       "id": "Twee pop",
-      "label": "Twee pop"
+      "label": "Twee pop",
+      "degree": 7
     },
     {
       "id": "Two-tone (music genre)",
-      "label": "Two-tone"
+      "label": "Two-tone",
+      "degree": 12
     },
     {
       "id": "Twoubadou",
-      "label": "Twoubadou"
+      "label": "Twoubadou",
+      "degree": 2
     },
     {
       "id": "UK bass",
-      "label": "UK bass"
+      "label": "UK bass",
+      "degree": 10
     },
     {
       "id": "UK drill",
-      "label": "UK drill"
+      "label": "UK drill",
+      "degree": 8
     },
     {
       "id": "UK garage",
-      "label": "UK garage"
+      "label": "UK garage",
+      "degree": 25
     },
     {
       "id": "UK hard house",
-      "label": "Scouse house"
+      "label": "Scouse house",
+      "degree": 17
     },
     {
       "id": "UK rap",
-      "label": "UK rap"
+      "label": "UK rap",
+      "degree": 12
     },
     {
       "id": "Ukrainian metal",
-      "label": "Ukrainian metal"
+      "label": "Ukrainian metal",
+      "degree": 1
     },
     {
       "id": "Ultra (music)",
-      "label": "Ultra"
+      "label": "Ultra",
+      "degree": 5
     },
     {
       "id": "Unblack metal",
-      "label": "Unblack metal"
+      "label": "Unblack metal",
+      "degree": 4
     },
     {
       "id": "Uplifting trance",
-      "label": "Uplifting trance"
+      "label": "Uplifting trance",
+      "degree": 10
     },
     {
       "id": "Urban Pasifika",
-      "label": "Urban Pasifika"
+      "label": "Urban Pasifika",
+      "degree": 8
     },
     {
       "id": "Urban champeta",
-      "label": "Urban champeta"
+      "label": "Urban champeta",
+      "degree": 1
     },
     {
       "id": "Urban contemporary gospel",
-      "label": "Urban/contemporary gospel"
+      "label": "Urban/contemporary gospel",
+      "degree": 8
     },
     {
       "id": "Urbano music",
-      "label": "Urbano (Música urbana)"
+      "label": "Urbano (Música urbana)",
+      "degree": 12
     },
     {
       "id": "Uruguayan rock",
-      "label": "Uruguayan rock"
+      "label": "Uruguayan rock",
+      "degree": 3
     },
     {
       "id": "V-pop",
-      "label": "V-pop"
+      "label": "V-pop",
+      "degree": 4
     },
     {
       "id": "Vallenato",
-      "label": "Vallenato"
+      "label": "Vallenato",
+      "degree": 2
     },
     {
       "id": "Vaporwave",
-      "label": "Vaporwave"
+      "label": "Vaporwave",
+      "degree": 24
     },
     {
       "id": "Vaudeville in the Philippines",
-      "label": "Vaudeville in the Philippines"
+      "label": "Vaudeville in the Philippines",
+      "degree": 1
     },
     {
       "id": "Venezuelan rock",
-      "label": "Venezuelan rock"
+      "label": "Venezuelan rock",
+      "degree": 3
     },
     {
       "id": "Vigilante rap",
-      "label": "Vigilante rap"
+      "label": "Vigilante rap",
+      "degree": 1
     },
     {
       "id": "Viking metal",
-      "label": "Viking metal"
+      "label": "Viking metal",
+      "degree": 7
     },
     {
       "id": "Viking rock",
-      "label": "Viking rock"
+      "label": "Viking rock",
+      "degree": 6
     },
     {
       "id": "Visayan pop",
-      "label": "Visayan pop"
+      "label": "Visayan pop",
+      "degree": 4
     },
     {
       "id": "Vispop",
-      "label": "Vispop"
+      "label": "Vispop",
+      "degree": 2
     },
     {
       "id": "Visual kei",
-      "label": "Visual kei"
+      "label": "Visual kei",
+      "degree": 10
     },
     {
       "id": "Wangga",
-      "label": "Wangga"
+      "label": "Wangga",
+      "degree": 1
     },
     {
       "id": "Wave music",
-      "label": "Wave"
+      "label": "Wave",
+      "degree": 19
     },
     {
       "id": "Welsh hip-hop",
-      "label": "Welsh hip hop"
+      "label": "Welsh hip hop",
+      "degree": 1
     },
     {
       "id": "West Coast blues",
-      "label": "West Coast blues"
+      "label": "West Coast blues",
+      "degree": 3
     },
     {
       "id": "West Coast hip-hop",
-      "label": "West Coast hip-hop"
+      "label": "West Coast hip-hop",
+      "degree": 16
     },
     {
       "id": "West Coast jazz",
-      "label": "West Coast jazz"
+      "label": "West Coast jazz",
+      "degree": 2
     },
     {
       "id": "Western music (North America)",
-      "label": "Western music"
+      "label": "Western music",
+      "degree": 16
     },
     {
       "id": "Western swing",
-      "label": "Western swing"
+      "label": "Western swing",
+      "degree": 15
     },
     {
       "id": "Witch house (genre)",
-      "label": "Witch house"
+      "label": "Witch house",
+      "degree": 10
     },
     {
       "id": "Wizard rock",
-      "label": "Wizard rock"
+      "label": "Wizard rock",
+      "degree": 3
     },
     {
       "id": "Wong shadow",
-      "label": "Wong shadow"
+      "label": "Wong shadow",
+      "degree": 8
     },
     {
       "id": "Wonky (genre)",
-      "label": "Wonky"
+      "label": "Wonky",
+      "degree": 15
     },
     {
       "id": "Wonky pop",
-      "label": "Wonky pop"
+      "label": "Wonky pop",
+      "degree": 4
     },
     {
       "id": "Working on Dying",
-      "label": "Tread"
+      "label": "Tread",
+      "degree": 5
     },
     {
       "id": "World music",
-      "label": "World music"
+      "label": "World music",
+      "degree": 17
     },
     {
       "id": "Worldbeat",
-      "label": "Worldbeat"
+      "label": "Worldbeat",
+      "degree": 7
     },
     {
       "id": "Xi'an guyue",
-      "label": "Xi'an guyue"
+      "label": "Xi'an guyue",
+      "degree": 0
     },
     {
       "id": "Xoan singing",
-      "label": "Xoan singing"
+      "label": "Xoan singing",
+      "degree": 0
     },
     {
       "id": "Xuc",
-      "label": "Xuc"
+      "label": "Xuc",
+      "degree": 1
     },
     {
       "id": "Yacht rock",
-      "label": "Yacht rock"
+      "label": "Yacht rock",
+      "degree": 11
     },
     {
       "id": "Yellow music",
-      "label": "Yellow music"
+      "label": "Yellow music",
+      "degree": 2
     },
     {
       "id": "Youth crew",
-      "label": "Youth crew"
+      "label": "Youth crew",
+      "degree": 4
     },
     {
       "id": "Yuka (music)",
-      "label": "Yuka"
+      "label": "Yuka",
+      "degree": 1
     },
     {
       "id": "Yé-yé",
-      "label": "Yé-yé"
+      "label": "Yé-yé",
+      "degree": 12
     },
     {
       "id": "Zamrock",
-      "label": "Zamrock"
+      "label": "Zamrock",
+      "degree": 6
     },
     {
       "id": "Zeuhl",
-      "label": "Zeuhl"
+      "label": "Zeuhl",
+      "degree": 2
     },
     {
       "id": "Zhongguo feng",
-      "label": "Zhongguo feng"
+      "label": "Zhongguo feng",
+      "degree": 6
     },
     {
       "id": "Zimbabwean hip-hop",
-      "label": "Zimbabwean hip hop"
+      "label": "Zimbabwean hip hop",
+      "degree": 1
     },
     {
       "id": "Zoblazo",
-      "label": "Zoblazo"
+      "label": "Zoblazo",
+      "degree": 2
     },
     {
       "id": "Zouglou",
-      "label": "Zouglou"
+      "label": "Zouglou",
+      "degree": 3
     },
     {
       "id": "Zouk",
-      "label": "Zouk"
+      "label": "Zouk",
+      "degree": 18
     },
     {
       "id": "Zydeco",
-      "label": "Zydeco"
+      "label": "Zydeco",
+      "degree": 12
     },
     {
       "id": "Éntekhno",
-      "label": "Éntekhno"
+      "label": "Éntekhno",
+      "degree": 3
     }
   ],
   "links": [
@@ -32013,5 +33207,6 @@
       "target": "Swamp pop",
       "ty": "Derivative"
     }
-  ]
+  ],
+  "max_degree": 219
 }
