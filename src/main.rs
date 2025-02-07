@@ -2,7 +2,7 @@ use anyhow::Context;
 use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
-    collections::HashMap,
+    collections::{BTreeSet, HashMap},
     path::{Path, PathBuf},
 };
 
@@ -25,6 +25,9 @@ fn main() -> anyhow::Result<()> {
     let links_to_articles_path = output_path.join("links_to_articles.toml");
     let processed_genres_path = output_path.join("processed");
 
+    let website_path = Path::new("website");
+    let data_path = website_path.join("data.json");
+
     let start = std::time::Instant::now();
 
     // Stage 1: Extract genres and all redirects
@@ -36,7 +39,10 @@ fn main() -> anyhow::Result<()> {
         stage2_resolve_links_to_articles(start, &links_to_articles_path, &genres, all_redirects)?;
 
     // Stage 3: Load in all genres and process them to find their edges
-    stage3_process_genres(start, &genres, &links_to_articles, &processed_genres_path)?;
+    let processed_genres =
+        stage3_process_genres(start, &genres, &links_to_articles, &processed_genres_path)?;
+
+    stage4_produce_data_json(start, &data_path, &processed_genres)?;
 
     Ok(())
 }
@@ -276,20 +282,33 @@ struct ProcessedGenre {
     subgenres: Vec<String>,
     fusion_genres: Vec<String>,
 }
+struct ProcessedGenres(pub HashMap<String, ProcessedGenre>);
 fn stage3_process_genres(
     start: std::time::Instant,
     genres: &Genres,
     links_to_articles: &LinksToArticles,
     processed_genres_path: &Path,
-) -> anyhow::Result<()> {
+) -> anyhow::Result<ProcessedGenres> {
     if processed_genres_path.is_dir() {
-        return Ok(());
+        let mut processed_genres = HashMap::default();
+        for entry in std::fs::read_dir(processed_genres_path)? {
+            let path = entry?.path();
+            let Some(file_stem) = path.file_stem() else {
+                continue;
+            };
+            processed_genres.insert(
+                unsanitize_title_reversible(&file_stem.to_string_lossy()),
+                toml::from_str(&std::fs::read_to_string(path)?)?,
+            );
+        }
+        return Ok(ProcessedGenres(processed_genres));
     }
 
     println!("Processed genres do not exist, generating from raw genres");
 
     std::fs::create_dir_all(processed_genres_path)?;
 
+    let mut processed_genres = HashMap::default();
     let mut genre_count = 0usize;
     let mut stylistic_origin_count = 0usize;
     let mut derivative_count = 0usize;
@@ -346,12 +365,13 @@ fn stage3_process_genres(
                 derivative_count += derivatives.len();
 
                 let processed_genre = ProcessedGenre {
-                    name,
+                    name: name.clone(),
                     stylistic_origins,
                     derivatives,
                     subgenres,
                     fusion_genres,
                 };
+                processed_genres.insert(name, processed_genre.clone());
 
                 std::fs::write(
                     processed_genres_path
@@ -366,6 +386,91 @@ fn stage3_process_genres(
         "{:.2}s: Processed all {genre_count} genres, {stylistic_origin_count} stylistic origins, {derivative_count} derivatives",
         start.elapsed().as_secs_f32()
     );
+
+    Ok(ProcessedGenres(processed_genres))
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Graph {
+    nodes: Vec<Element<NodeData>>,
+    edges: BTreeSet<Element<EdgeData>>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
+struct Element<T> {
+    data: T,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct NodeData {
+    id: String,
+    label: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
+struct EdgeData {
+    source: String,
+    target: String,
+    label: String,
+}
+
+fn stage4_produce_data_json(
+    start: std::time::Instant,
+    data_path: &Path,
+    processed_genres: &ProcessedGenres,
+) -> anyhow::Result<()> {
+    let mut graph = Graph {
+        nodes: vec![],
+        edges: BTreeSet::new(),
+    };
+
+    let mut node_order = processed_genres.0.keys().cloned().collect::<Vec<_>>();
+    node_order.sort();
+
+    for genre in node_order {
+        let processed_genre = &processed_genres.0[&genre];
+        let node = Element {
+            data: NodeData {
+                id: genre.clone(),
+                label: processed_genre.name.clone(),
+            },
+        };
+
+        graph.nodes.push(node);
+        for stylistic_origin in &processed_genre.stylistic_origins {
+            let edge = Element {
+                data: EdgeData {
+                    source: stylistic_origin.clone(),
+                    target: genre.clone(),
+                    label: "stylistic origin".to_string(),
+                },
+            };
+            graph.edges.insert(edge);
+        }
+        for derivative in &processed_genre.derivatives {
+            let edge = Element {
+                data: EdgeData {
+                    source: genre.clone(),
+                    target: derivative.clone(),
+                    label: "derivative".to_string(),
+                },
+            };
+            graph.edges.insert(edge);
+        }
+        for subgenre in &processed_genre.subgenres {
+            let edge = Element {
+                data: EdgeData {
+                    source: genre.clone(),
+                    target: subgenre.clone(),
+                    label: "subgenre".to_string(),
+                },
+            };
+            graph.edges.insert(edge);
+        }
+    }
+
+    std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
+    println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());
 
     Ok(())
 }
