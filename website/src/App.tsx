@@ -46,7 +46,7 @@ const simulationControls: SimulationControl[] = [
     min: 0,
     max: 2,
     step: 0.1,
-    default: 0.1,
+    default: 2,
   },
   {
     name: "simulationRepulsionTheta",
@@ -56,7 +56,7 @@ const simulationControls: SimulationControl[] = [
     min: 0.3,
     max: 2,
     step: 0.1,
-    default: 1.7,
+    default: 0.3,
   },
   {
     name: "simulationLinkSpring",
@@ -66,7 +66,7 @@ const simulationControls: SimulationControl[] = [
     min: 0,
     max: 2,
     step: 0.1,
-    default: 1.0,
+    default: 0.3,
   },
   {
     name: "simulationLinkDistance",
@@ -76,7 +76,7 @@ const simulationControls: SimulationControl[] = [
     min: 1,
     max: 20,
     step: 1,
-    default: 2,
+    default: 8,
   },
   {
     name: "simulationGravity",
@@ -116,17 +116,7 @@ const simulationControls: SimulationControl[] = [
     min: 100,
     max: 10000,
     step: 100,
-    default: 1000,
-  },
-  {
-    name: "simulationRepulsionFromMouse",
-    label: "Mouse Repulsion",
-    description:
-      "Sets the repulsion force coefficient from the mouse cursor. Activates the repulsion force when the right mouse button is pressed. Increase for stronger repulsion from the cursor click, decrease for weaker repulsion.",
-    min: 0,
-    max: 5,
-    step: 0.1,
-    default: 2,
+    default: 100,
   },
 ];
 
