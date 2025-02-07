@@ -1,4 +1,8 @@
-import { Cosmograph, CosmographProvider } from "@cosmograph/react";
+import {
+  Cosmograph,
+  CosmographProvider,
+  useCosmograph,
+} from "@cosmograph/react";
 import { useEffect, useState } from "react";
 
 type NodeData = {
@@ -133,6 +137,8 @@ function SimulationControls({
   params: SimulationParams;
   setParams: (params: SimulationParams) => void;
 }) {
+  const cosmographContext = useCosmograph();
+
   return (
     <div className="simulation-controls">
       {simulationControls.map((control) => (
@@ -149,6 +155,9 @@ function SimulationControls({
                 ...params,
                 [control.name]: parseFloat(e.target.value),
               });
+              if (cosmographContext) {
+                cosmographContext.cosmograph?.start();
+              }
             }}
           />
           <span className="value">
@@ -161,43 +170,35 @@ function SimulationControls({
   );
 }
 
-function Graph({
-  data,
-  params,
-}: {
-  data: { nodes: NodeData[]; links: LinkData[] };
-  params: SimulationParams;
-}) {
+function Graph({ params }: { params: SimulationParams }) {
   return (
     <div className="graph">
-      <CosmographProvider nodes={data.nodes} links={data.links}>
-        <Cosmograph
-          disableSimulation={false}
-          nodeLabelAccessor={(d: NodeData) => d.label}
-          nodeColor={(d) => {
-            const hash = d.id
-              .split("")
-              .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
-            const hue = Math.abs(hash % 360);
-            return `hsl(${hue}, 70%, 60%)`;
-          }}
-          linkColor={(d) => {
-            return d.ty === "Derivative"
-              ? "hsl(0, 70%, 60%)"
-              : d.ty === "Subgenre"
-              ? "hsl(120, 70%, 60%)"
-              : "hsl(240, 70%, 60%)";
-          }}
-          nodeSize={0.5}
-          linkWidth={2}
-          linkArrowsSizeScale={2}
-          nodeLabelColor="#CCC"
-          hoveredNodeLabelColor="#FFF"
-          spaceSize={8192}
-          {...params}
-          randomSeed={"Where words fail, music speaks"}
-        />
-      </CosmographProvider>
+      <Cosmograph
+        disableSimulation={false}
+        nodeLabelAccessor={(d: NodeData) => d.label}
+        nodeColor={(d) => {
+          const hash = d.id
+            .split("")
+            .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
+          const hue = Math.abs(hash % 360);
+          return `hsl(${hue}, 70%, 60%)`;
+        }}
+        linkColor={(d: LinkData) => {
+          return d.ty === "Derivative"
+            ? "hsl(0, 70%, 60%)"
+            : d.ty === "Subgenre"
+            ? "hsl(120, 70%, 60%)"
+            : "hsl(240, 70%, 60%)";
+        }}
+        nodeSize={0.5}
+        linkWidth={2}
+        linkArrowsSizeScale={2}
+        nodeLabelColor="#CCC"
+        hoveredNodeLabelColor="#FFF"
+        spaceSize={8192}
+        {...params}
+        randomSeed={"Where words fail, music speaks"}
+      />
     </div>
   );
 }
@@ -238,8 +239,10 @@ function App() {
 
   return (
     <div>
-      <Graph data={data} params={params} />
-      <Sidebar params={params} setParams={setParams} />
+      <CosmographProvider nodes={data.nodes} links={data.links}>
+        <Graph params={params} />
+        <Sidebar params={params} setParams={setParams} />
+      </CosmographProvider>
     </div>
   );
 }
