@@ -601,6 +601,9 @@ fn nodes_inner_text(nodes: &[pwt::Node]) -> String {
 }
 
 /// Just gets the inner text without any formatting, which is not always the correct behaviour
+///
+/// This function is allocation-heavy; there's definitely room for optimisation here, but it's
+/// not a huge issue right now
 fn node_inner_text(node: &pwt::Node) -> String {
     use pwt::Node;
     match node {
@@ -615,7 +618,10 @@ fn node_inner_text(node: &pwt::Node) -> String {
         // Node::UnorderedList { end, items, start } => nodes_inner_text(items),
         Node::Template {
             name, parameters, ..
-        } if nodes_inner_text(name).to_ascii_lowercase() == "lang" => {
+        } => {
+            let name = nodes_inner_text(name).to_ascii_lowercase();
+
+            if name == "lang" {
             // hack: extract the text from the other-language template
             // the parameter is `|text=`, or the second paramter, so scan for both
             parameters
@@ -626,8 +632,25 @@ fn node_inner_text(node: &pwt::Node) -> String {
                         .is_some_and(|n| nodes_inner_text(&n) == "text")
                 })
                 .or_else(|| parameters.iter().filter(|p| p.name.is_none()).nth(1))
-                .map(|p| nodes_inner_text(p.value.as_slice()))
+                    .map(|p| nodes_inner_text(&p.value))
                 .unwrap_or_default()
+            } else if name == "transliteration" || name == "tlit" || name == "transl" {
+                // text is either the second or the third positional argument;
+                // in the case of the latter, the second argument is the transliteration scheme,
+                // so we want to select for the third first before the second
+
+                let positional_args = parameters
+                    .iter()
+                    .filter(|p| p.name.is_none())
+                    .collect::<Vec<_>>();
+                if positional_args.len() >= 3 {
+                    nodes_inner_text(&positional_args[2].value)
+                } else {
+                    nodes_inner_text(&positional_args[1].value)
+                }
+            } else {
+                "".to_string()
+            }
         }
         _ => "".to_string(),
     }
