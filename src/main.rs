@@ -273,6 +273,8 @@ struct ProcessedGenre {
     name: String,
     stylistic_origins: Vec<String>,
     derivatives: Vec<String>,
+    subgenres: Vec<String>,
+    fusion_genres: Vec<String>,
 }
 fn stage3_process_genres(
     start: std::time::Instant,
@@ -328,6 +330,16 @@ fn stage3_process_genres(
                     .map(|ns| get_links_from_nodes(ns))
                     .map(map_links_to_articles)
                     .unwrap_or_default();
+                let subgenres = parameters
+                    .get("subgenres")
+                    .map(|ns| get_links_from_nodes(ns))
+                    .map(map_links_to_articles)
+                    .unwrap_or_default();
+                let fusion_genres = parameters
+                    .get("fusiongenres")
+                    .map(|ns| get_links_from_nodes(ns))
+                    .map(map_links_to_articles)
+                    .unwrap_or_default();
 
                 genre_count += 1;
                 stylistic_origin_count += stylistic_origins.len();
@@ -337,6 +349,8 @@ fn stage3_process_genres(
                     name,
                     stylistic_origins,
                     derivatives,
+                    subgenres,
+                    fusion_genres,
                 };
 
                 std::fs::write(
