@@ -390,7 +390,7 @@ fn process_genres(
                     subgenres,
                     fusion_genres,
                 };
-                processed_genres.insert(name, processed_genre.clone());
+                processed_genres.insert(page.clone(), processed_genre.clone());
 
                 std::fs::write(
                     processed_genres_path.join(format!("{}.toml", sanitize_title_reversible(page))),
