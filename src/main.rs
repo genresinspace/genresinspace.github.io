@@ -591,13 +591,15 @@ fn parameters_to_map<'a>(
         .collect()
 }
 
-/// Joins nodes together with a " ", which is not always the correct behaviour
+/// Joins nodes together without any space between them and trims the result, which is not always the correct behaviour
 fn nodes_inner_text(nodes: &[pwt::Node]) -> String {
     nodes
         .iter()
         .map(node_inner_text)
         .collect::<Vec<_>>()
-        .join(" ")
+        .join("")
+        .trim()
+        .to_string()
 }
 
 /// Just gets the inner text without any formatting, which is not always the correct behaviour
