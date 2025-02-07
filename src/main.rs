@@ -357,7 +357,7 @@ fn process_genres(
                 name, parameters, ..
             } = node
             {
-                if nodes_inner_text(&name, &InnerTextConfig::default()).to_lowercase()
+                if nodes_inner_text(name, &InnerTextConfig::default()).to_lowercase()
                     != "infobox music genre"
                 {
                     continue;
@@ -367,8 +367,7 @@ fn process_genres(
 
                 // Extract name from parameters
                 let mut name = GenreName(match parameters.get("name") {
-                    None => page.0.clone(),
-                    Some(nodes) if nodes.is_empty() => page.0.clone(),
+                    None | Some([]) => page.0.clone(),
                     Some(nodes) => {
                         let name = nodes_inner_text(
                             nodes,
@@ -674,16 +673,10 @@ fn parameters_to_map<'a>(
         .collect()
 }
 
+#[derive(Default)]
 struct InnerTextConfig {
     /// Whether to stop after a `<br>` tag.
     stop_after_br: bool,
-}
-impl Default for InnerTextConfig {
-    fn default() -> Self {
-        Self {
-            stop_after_br: false,
-        }
-    }
 }
 
 /// Joins nodes together without any space between them and trims the result, which is not always the correct behaviour
@@ -728,7 +721,7 @@ fn node_inner_text(node: &pwt::Node, config: &InnerTextConfig) -> String {
                     .find(|p| {
                         p.name
                             .as_ref()
-                            .is_some_and(|n| nodes_inner_text(&n, config) == "text")
+                            .is_some_and(|n| nodes_inner_text(n, config) == "text")
                     })
                     .or_else(|| parameters.iter().filter(|p| p.name.is_none()).nth(1))
                     .map(|p| nodes_inner_text(&p.value, config))
