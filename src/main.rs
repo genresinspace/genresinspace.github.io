@@ -350,7 +350,7 @@ fn process_genres(
                 }
 
                 // HACK: The infobox for the page 'Sanedo' is wrong and uses 'Rasiya' as the genre name.
-                // I've fixed this (2025-02-07), but it won't show up until a dump after that.
+                // Fixed (2025-02-07): https://en.wikipedia.org/w/index.php?title=Sanedo&oldid=1274517946
                 // TODO: Consider some form of validation that ensures this edit only applies before that change.
                 if page == "Sanedo" {
                     name = "Sanedo".to_string();
@@ -364,13 +364,7 @@ fn process_genres(
                 }
 
                 // HACK: "Cajun music" and "Cajun fiddle" both use the same genre name of "Cajun music".
-                // It seems like there's some pretty substantial overlap there, but it's not my business to figure out how
-                // to reconcile them, or whether one should be discarded.
-                //
-                // I did consider discarding "Cajun music", because that seems to describe a more general sense of music
-                // played by Cajuns, but there's enough unique content there that it gives me pause.
-                //
-                // Given that, I'm electing to rename the page "Cajun fiddle" to the genre "Cajun fiddle".
+                // Fixed (2025-02-07): https://en.wikipedia.org/w/index.php?title=Cajun_fiddle&oldid=1274524250
                 if page == "Cajun fiddle" {
                     name = "Cajun fiddle".to_string();
                 }
