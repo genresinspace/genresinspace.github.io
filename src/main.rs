@@ -326,7 +326,14 @@ fn process_genres(
             .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
             .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
         for node in &wikitext.nodes {
-            if let pwt::Node::Template { parameters, .. } = node {
+            if let pwt::Node::Template {
+                name, parameters, ..
+            } = node
+            {
+                if nodes_inner_text(&name).to_lowercase() != "infobox music genre" {
+                    continue;
+                }
+
                 let parameters = parameters_to_map(parameters);
                 let Some(name) = parameters.get("name") else {
                     continue;
