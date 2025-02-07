@@ -9,7 +9,7 @@ type NodeData = {
 type LinkData = {
   source: string;
   target: string;
-  ty: "StylisticOrigin" | "Derivative" | "Subgenre" | "FusionGenre";
+  ty: "Derivative" | "Subgenre" | "FusionGenre";
 };
 
 function App() {
@@ -39,13 +39,11 @@ function App() {
         return `hsl(${hue}, 70%, 60%)`;
       }}
       linkColor={(d) => {
-        return d.ty === "StylisticOrigin"
+        return d.ty === "Derivative"
           ? "hsl(0, 70%, 60%)"
-          : d.ty === "Derivative"
-          ? "hsl(90, 70%, 60%)"
           : d.ty === "Subgenre"
-          ? "hsl(180, 70%, 60%)"
-          : "hsl(270, 70%, 60%)";
+          ? "hsl(120, 70%, 60%)"
+          : "hsl(240, 70%, 60%)";
       }}
       nodeSize={0.5}
       linkWidth={2}

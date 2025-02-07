@@ -405,7 +405,6 @@ struct NodeData {
 
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 enum LinkType {
-    StylisticOrigin,
     Derivative,
     Subgenre,
     FusionGenre,
@@ -443,7 +442,7 @@ fn stage4_produce_data_json(
             graph.links.insert(LinkData {
                 source: stylistic_origin.clone(),
                 target: genre.clone(),
-                ty: LinkType::StylisticOrigin,
+                ty: LinkType::Derivative,
             });
         }
         for derivative in &processed_genre.derivatives {
