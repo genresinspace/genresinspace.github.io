@@ -41,7 +41,21 @@ fn main() -> anyhow::Result<()> {
         toml::from_str(&config_str).context("Failed to parse config.toml")?
     };
 
-    let output_path = Path::new("output");
+    let dump_date = parse_wiki_dump_date(
+        &config
+            .wikipedia_dump_path
+            .file_stem()
+            .unwrap()
+            .to_string_lossy(),
+    )
+    .with_context(|| {
+        format!(
+            "Failed to parse Wikipedia dump date from {:?}",
+            config.wikipedia_dump_path
+        )
+    })?;
+
+    let output_path = Path::new("output").join(dump_date.to_string());
     let genres_path = output_path.join("genres");
     let redirects_path = output_path.join("all_redirects.toml");
     let links_to_articles_path = output_path.join("links_to_articles.toml");
@@ -64,9 +78,44 @@ fn main() -> anyhow::Result<()> {
 
     remove_ignored_pages_and_detect_duplicates(&mut processed_genres);
 
-    produce_data_json(start, &data_path, &processed_genres)?;
+    produce_data_json(start, dump_date, &data_path, &processed_genres)?;
 
     Ok(())
+}
+
+/// Parse a Wikipedia dump filename to extract the date as a Jiff civil date.
+///
+/// Takes a filename like "enwiki-20250123-pages-articles-multistream" and returns
+/// the Jiff civil date for (2025, 01, 23).
+/// Returns None if the filename doesn't match the expected format.
+fn parse_wiki_dump_date(filename: &str) -> Option<jiff::civil::Date> {
+    // Extract just the date portion (20250123)
+    let date_str = filename.strip_prefix("enwiki-")?.split('-').next()?;
+
+    if date_str.len() != 8 {
+        return None;
+    }
+
+    // Parse year, month, day
+    let year = date_str[0..4].parse().ok()?;
+    let month = date_str[4..6].parse().ok()?;
+    let day = date_str[6..8].parse().ok()?;
+
+    Some(jiff::civil::date(year, month, day))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parse_wiki_dump_date() {
+        assert_eq!(
+            parse_wiki_dump_date("enwiki-20250123-pages-articles-multistream"),
+            Some((2025, 1, 23))
+        );
+        assert_eq!(parse_wiki_dump_date("invalid"), None);
+    }
 }
 
 #[derive(Clone, Default)]
@@ -470,6 +519,7 @@ fn remove_ignored_pages_and_detect_duplicates(processed_genres: &mut ProcessedGe
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Graph {
+    dump_date: String,
     nodes: Vec<NodeData>,
     links: BTreeSet<LinkData>,
     max_degree: usize,
@@ -496,10 +546,12 @@ struct LinkData {
 /// Given processed genres, produce a graph and save it to file to be rendered by the website.
 fn produce_data_json(
     start: std::time::Instant,
+    dump_date: jiff::civil::Date,
     data_path: &Path,
     processed_genres: &ProcessedGenres,
 ) -> anyhow::Result<()> {
     let mut graph = Graph {
+        dump_date: dump_date.to_string(),
         nodes: vec![],
         links: BTreeSet::new(),
         max_degree: 0,
