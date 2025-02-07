@@ -340,7 +340,7 @@ fn process_genres(
                 let Some(name) = parameters.get("name") else {
                     continue;
                 };
-                let name = if name.is_empty() {
+                let mut name = if name.is_empty() {
                     page.clone()
                 } else {
                     nodes_inner_text(name)
@@ -348,6 +348,20 @@ fn process_genres(
                 if name.is_empty() {
                     panic!("Failed to extract name from {page}, params: {parameters:?}");
                 }
+
+                // HACK: The infobox for the page 'Sanedo' is wrong and uses 'Rasiya' as the genre name.
+                // I've fixed this (2025-02-07), but it won't show up until a dump after that.
+                // TODO: Consider some form of validation that ensures this edit only applies before that change.
+                if page == "Sanedo" {
+                    name = "Sanedo".to_string();
+                };
+
+                // HACK: "Calypso music" describes a genre, "Calypso", that originated in Trinidad and Tobago during the early to mid-19th century.
+                // "Brega pop" describes a genre, "Calypso", also known as "Brega Calypso" or "Brega-pop", that originated in Brazil in the 1990s.
+                // To work around this conflict, I'm renaming the latter to "Brega-pop".
+                if page == "Brega pop" {
+                    name = "Brega-pop".to_string();
+                };
 
                 let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
                     links
@@ -649,18 +663,18 @@ fn node_inner_text(node: &pwt::Node) -> String {
             let name = nodes_inner_text(name).to_ascii_lowercase();
 
             if name == "lang" {
-            // hack: extract the text from the other-language template
-            // the parameter is `|text=`, or the second paramter, so scan for both
-            parameters
-                .iter()
-                .find(|p| {
-                    p.name
-                        .as_ref()
-                        .is_some_and(|n| nodes_inner_text(&n) == "text")
-                })
-                .or_else(|| parameters.iter().filter(|p| p.name.is_none()).nth(1))
+                // hack: extract the text from the other-language template
+                // the parameter is `|text=`, or the second paramter, so scan for both
+                parameters
+                    .iter()
+                    .find(|p| {
+                        p.name
+                            .as_ref()
+                            .is_some_and(|n| nodes_inner_text(&n) == "text")
+                    })
+                    .or_else(|| parameters.iter().filter(|p| p.name.is_none()).nth(1))
                     .map(|p| nodes_inner_text(&p.value))
-                .unwrap_or_default()
+                    .unwrap_or_default()
             } else if name == "transliteration" || name == "tlit" || name == "transl" {
                 // text is either the second or the third positional argument;
                 // in the case of the latter, the second argument is the transliteration scheme,
