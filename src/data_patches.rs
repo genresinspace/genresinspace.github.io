@@ -15,22 +15,30 @@ pub const PAGES_TO_IGNORE: &[&str] = &[
 /// in the dump being processed.
 fn fixed_already() -> HashMap<String, (Option<Timestamp>, String)> {
     [
-        //  The infobox for the page 'Sanedo' is wrong and uses 'Rasiya' as the genre name.
-        // Fixed: https://en.wikipedia.org/w/index.php?title=Sanedo&oldid=1274517946
-        ("2025-02-07T20:02:00Z", "Sanedo", "Sanedo"),
+        // The infobox for the page 'Sanedo' is wrong and uses 'Rasiya' as the genre name.
+        (
+            "2025-02-07T20:02:00Z",
+            "Sanedo",
+            "Sanedo",
+            "https://en.wikipedia.org/w/index.php?title=Sanedo&oldid=1274517946",
+        ),
         // "Western music (North America)" had a space in its genre name.
-        // Fixed: https://en.wikipedia.org/w/index.php?title=Western_music_(North_America)&oldid=1274523831
         (
             "2025-02-07T20:42:00Z",
             "Western music (North America)",
             "Western music",
+            "https://en.wikipedia.org/w/index.php?title=Western_music_(North_America)&oldid=1274523831",
         ),
         // "Cajun music" and "Cajun fiddle" both use the same genre name of "Cajun music".
-        // Fixed: https://en.wikipedia.org/w/index.php?title=Cajun_fiddle&oldid=1274524250
-        ("2025-02-07T20:46:00Z", "Cajun fiddle", "Cajun fiddle"),
+        (
+            "2025-02-07T20:46:00Z",
+            "Cajun fiddle",
+            "Cajun fiddle",
+            "https://en.wikipedia.org/w/index.php?title=Cajun_fiddle&oldid=1274524250"
+        ),
     ]
     .into_iter()
-    .map(|(timestamp, page, name)| {
+    .map(|(timestamp, page, name, _link)| {
         (
             page.to_string(),
             (
