@@ -37,8 +37,10 @@ fn main() -> anyhow::Result<()> {
     let links_to_articles =
         resolve_links_to_articles(start, &links_to_articles_path, &genres, all_redirects)?;
 
-    let processed_genres =
+    let mut processed_genres =
         process_genres(start, &genres, &links_to_articles, &processed_genres_path)?;
+
+    remove_non_genre_pages(&mut processed_genres);
 
     produce_data_json(start, &data_path, &processed_genres)?;
 
@@ -404,6 +406,26 @@ fn process_genres(
     );
 
     Ok(ProcessedGenres(processed_genres))
+}
+
+fn remove_non_genre_pages(processed_genres: &mut ProcessedGenres) {
+    const NON_GENRE_PAGES: &[&str] = &["Outline of jazz"];
+
+    for page in NON_GENRE_PAGES {
+        processed_genres.0.remove(*page);
+    }
+
+    let mut previously_encountered_genres = HashMap::new();
+    for (page, processed_genre) in processed_genres.0.iter() {
+        if let Some(old_page) =
+            previously_encountered_genres.insert(processed_genre.name.clone(), page.clone())
+        {
+            panic!(
+                "Duplicate genre `{}` on pages `{old_page}` and `{page}`",
+                processed_genre.name
+            );
+        }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
