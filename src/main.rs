@@ -31,19 +31,16 @@ fn main() -> anyhow::Result<()> {
 
     let start = std::time::Instant::now();
 
-    // Stage 1: Extract genres and all redirects
     let (genres, all_redirects) =
-        stage1_genre_and_all_redirects(&config, start, &genres_path, &redirects_path)?;
+        extract_genre_and_all_redirects(&config, start, &genres_path, &redirects_path)?;
 
-    // Stage 2: Find redirects to genres, looping until we can no longer find any new redirects.
     let links_to_articles =
-        stage2_resolve_links_to_articles(start, &links_to_articles_path, &genres, all_redirects)?;
+        resolve_links_to_articles(start, &links_to_articles_path, &genres, all_redirects)?;
 
-    // Stage 3: Load in all genres and process them to find their edges
     let processed_genres =
-        stage3_process_genres(start, &genres, &links_to_articles, &processed_genres_path)?;
+        process_genres(start, &genres, &links_to_articles, &processed_genres_path)?;
 
-    stage4_produce_data_json(start, &data_path, &processed_genres)?;
+    produce_data_json(start, &data_path, &processed_genres)?;
 
     Ok(())
 }
@@ -80,7 +77,10 @@ impl TryFrom<AllRedirects> for HashMap<String, String> {
     }
 }
 
-fn stage1_genre_and_all_redirects(
+/// Given a Wikipedia dump, extract genres and all redirects.
+///
+/// We extract all redirects as we may need to resolve redirects to redirects.
+fn extract_genre_and_all_redirects(
     config: &Config,
     start: std::time::Instant,
     genres_path: &Path,
@@ -210,7 +210,11 @@ fn stage1_genre_and_all_redirects(
 }
 
 pub struct LinksToArticles(pub HashMap<String, String>);
-fn stage2_resolve_links_to_articles(
+/// Construct a map of links (lower-case titles and redirects) to genres.
+///
+/// This will loop over all redirects and find redirects to already-resolved genres, adding them to the map.
+/// It will continue to do this until no new links are found.
+fn resolve_links_to_articles(
     start: std::time::Instant,
     links_to_articles_path: &Path,
     genres: &Genres,
@@ -284,7 +288,8 @@ struct ProcessedGenre {
     fusion_genres: Vec<String>,
 }
 struct ProcessedGenres(pub HashMap<String, ProcessedGenre>);
-fn stage3_process_genres(
+/// Given raw genre wikitext, extract the relevant information and save it to file.
+fn process_genres(
     start: std::time::Instant,
     genres: &Genres,
     links_to_articles: &LinksToArticles,
@@ -396,20 +401,17 @@ struct Graph {
     nodes: Vec<NodeData>,
     links: BTreeSet<LinkData>,
 }
-
 #[derive(Debug, Serialize, Deserialize)]
 struct NodeData {
     id: String,
     label: String,
 }
-
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 enum LinkType {
     Derivative,
     Subgenre,
     FusionGenre,
 }
-
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 struct LinkData {
     source: String,
@@ -417,7 +419,8 @@ struct LinkData {
     ty: LinkType,
 }
 
-fn stage4_produce_data_json(
+/// Given processed genres, produce a graph and save it to file to be rendered by the website.
+fn produce_data_json(
     start: std::time::Instant,
     data_path: &Path,
     processed_genres: &ProcessedGenres,
