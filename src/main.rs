@@ -26,7 +26,8 @@ fn main() -> anyhow::Result<()> {
     let processed_genres_path = output_path.join("processed");
 
     let website_path = Path::new("website");
-    let data_path = website_path.join("data.json");
+    let website_public_path = website_path.join("public");
+    let data_path = website_public_path.join("data.json");
 
     let start = std::time::Instant::now();
 
@@ -392,13 +393,8 @@ fn stage3_process_genres(
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Graph {
-    nodes: Vec<Element<NodeData>>,
-    edges: BTreeSet<Element<EdgeData>>,
-}
-
-#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
-struct Element<T> {
-    data: T,
+    nodes: Vec<NodeData>,
+    links: BTreeSet<LinkData>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -408,10 +404,18 @@ struct NodeData {
 }
 
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
-struct EdgeData {
+enum LinkType {
+    StylisticOrigin,
+    Derivative,
+    Subgenre,
+    FusionGenre,
+}
+
+#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
+struct LinkData {
     source: String,
     target: String,
-    label: String,
+    ty: LinkType,
 }
 
 fn stage4_produce_data_json(
@@ -421,7 +425,7 @@ fn stage4_produce_data_json(
 ) -> anyhow::Result<()> {
     let mut graph = Graph {
         nodes: vec![],
-        edges: BTreeSet::new(),
+        links: BTreeSet::new(),
     };
 
     let mut node_order = processed_genres.0.keys().cloned().collect::<Vec<_>>();
@@ -429,43 +433,39 @@ fn stage4_produce_data_json(
 
     for genre in node_order {
         let processed_genre = &processed_genres.0[&genre];
-        let node = Element {
-            data: NodeData {
-                id: genre.clone(),
-                label: processed_genre.name.clone(),
-            },
+        let node = NodeData {
+            id: genre.clone(),
+            label: processed_genre.name.clone(),
         };
 
         graph.nodes.push(node);
         for stylistic_origin in &processed_genre.stylistic_origins {
-            let edge = Element {
-                data: EdgeData {
-                    source: stylistic_origin.clone(),
-                    target: genre.clone(),
-                    label: "stylistic origin".to_string(),
-                },
-            };
-            graph.edges.insert(edge);
+            graph.links.insert(LinkData {
+                source: stylistic_origin.clone(),
+                target: genre.clone(),
+                ty: LinkType::StylisticOrigin,
+            });
         }
         for derivative in &processed_genre.derivatives {
-            let edge = Element {
-                data: EdgeData {
-                    source: genre.clone(),
-                    target: derivative.clone(),
-                    label: "derivative".to_string(),
-                },
-            };
-            graph.edges.insert(edge);
+            graph.links.insert(LinkData {
+                source: genre.clone(),
+                target: derivative.clone(),
+                ty: LinkType::Derivative,
+            });
         }
         for subgenre in &processed_genre.subgenres {
-            let edge = Element {
-                data: EdgeData {
-                    source: genre.clone(),
-                    target: subgenre.clone(),
-                    label: "subgenre".to_string(),
-                },
-            };
-            graph.edges.insert(edge);
+            graph.links.insert(LinkData {
+                source: genre.clone(),
+                target: subgenre.clone(),
+                ty: LinkType::Subgenre,
+            });
+        }
+        for fusion_genre in &processed_genre.fusion_genres {
+            graph.links.insert(LinkData {
+                source: genre.clone(),
+                target: fusion_genre.clone(),
+                ty: LinkType::FusionGenre,
+            });
         }
     }
 

@@ -3,94 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cytoscape Graph</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+    <title>graphgenre</title>
     <style>
-      body,
-      html {
+      body {
         margin: 0;
         padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
       }
-      #cy {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: #f8f9fa;
+
+      #root {
+        width: 100vw;
+        height: 100vh;
       }
     </style>
   </head>
   <body>
-    <div id="cy"></div>
-    <script>
-      // Initialize Cytoscape
-      const cy = cytoscape({
-        container: document.getElementById("cy"),
-
-        elements: fetch("data.json").then((r) => r.json()),
-
-        // Graph style
-        style: [
-          {
-            selector: "node",
-            style: {
-              "background-color": "#6c757d",
-              label: "data(label)",
-              color: "#343a40",
-              "text-valign": "center",
-              "text-halign": "center",
-              width: 60,
-              height: 60,
-              "font-size": "12px",
-            },
-          },
-          {
-            selector: "edge",
-            style: {
-              width: 2,
-              "line-color": "#adb5bd",
-              "target-arrow-color": "#adb5bd",
-              "target-arrow-shape": "triangle",
-              "curve-style": "bezier",
-              label: "data(label)",
-              "font-size": "10px",
-              "text-rotation": "autorotate",
-              "text-margin-y": -10,
-            },
-          },
-        ],
-
-        // Layout configuration
-        layout: {
-          name: "cose", // Compound Spring Embedder layout
-          padding: 100,
-          animate: false,
-          nodeDimensionsIncludeLabels: true,
-          //   idealEdgeLength: 100,
-          //   nodeOverlap: 10,
-          //   gravity: 1,
-        },
-      });
-
-      // Add zoom controls
-      cy.on("mouseover", "node", function (e) {
-        e.target.style("background-color", "#495057");
-      });
-
-      cy.on("mouseout", "node", function (e) {
-        e.target.style("background-color", "#6c757d");
-      });
-
-      // Enable pan and zoom
-      cy.userZoomingEnabled(true);
-      cy.userPanningEnabled(true);
-
-      // Fit the graph to the viewport
-      cy.fit();
-    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
