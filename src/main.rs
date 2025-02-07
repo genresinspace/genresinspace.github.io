@@ -320,18 +320,22 @@ fn process_genres(
     let mut derivative_count = 0usize;
 
     let pwt_configuration = pwt_configuration();
-    for (genre, path) in genres.iter() {
+    for (page, path) in genres.iter() {
         let wikitext = std::fs::read_to_string(path)?;
         let wikitext = pwt_configuration
             .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
-            .unwrap_or_else(|e| panic!("failed to parse wikitext ({genre}): {e:?}"));
+            .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
         for node in &wikitext.nodes {
             if let pwt::Node::Template { parameters, .. } = node {
                 let parameters = parameters_to_map(parameters);
                 let Some(name) = parameters.get("name") else {
                     continue;
                 };
-                let name = nodes_inner_text(name);
+                let name = if name.is_empty() {
+                    page.clone()
+                } else {
+                    nodes_inner_text(name)
+                };
 
                 let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
                     links
@@ -380,8 +384,7 @@ fn process_genres(
                 processed_genres.insert(name, processed_genre.clone());
 
                 std::fs::write(
-                    processed_genres_path
-                        .join(format!("{}.toml", sanitize_title_reversible(genre))),
+                    processed_genres_path.join(format!("{}.toml", sanitize_title_reversible(page))),
                     toml::to_string_pretty(&processed_genre)?,
                 )?;
             }
