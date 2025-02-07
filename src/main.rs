@@ -337,7 +337,9 @@ fn process_genres(
                 name, parameters, ..
             } = node
             {
-                if nodes_inner_text(&name).to_lowercase() != "infobox music genre" {
+                if nodes_inner_text(&name, &InnerTextConfig::default()).to_lowercase()
+                    != "infobox music genre"
+                {
                     continue;
                 }
 
@@ -348,7 +350,14 @@ fn process_genres(
                 let mut name = if name.is_empty() {
                     page.clone()
                 } else {
-                    nodes_inner_text(name)
+                    nodes_inner_text(
+                        name,
+                        &InnerTextConfig {
+                            // Some genre headings have a `<br>` tag, followed by another name.
+                            // We only want the first name, so stop after the first `<br>`.
+                            stop_after_br: true,
+                        },
+                    )
                 };
                 if name.is_empty() {
                     panic!("Failed to extract name from {page}, params: {parameters:?}");
@@ -620,41 +629,60 @@ fn parameters_to_map<'a>(
 ) -> HashMap<String, &'a [pwt::Node<'a>]> {
     parameters
         .iter()
-        .filter_map(|p| Some((nodes_inner_text(p.name.as_deref()?), p.value.as_slice())))
+        .filter_map(|p| {
+            Some((
+                nodes_inner_text(p.name.as_deref()?, &InnerTextConfig::default()),
+                p.value.as_slice(),
+            ))
+        })
         .collect()
 }
 
+struct InnerTextConfig {
+    /// Whether to stop after a `<br>` tag.
+    stop_after_br: bool,
+}
+impl Default for InnerTextConfig {
+    fn default() -> Self {
+        Self {
+            stop_after_br: false,
+        }
+    }
+}
+
 /// Joins nodes together without any space between them and trims the result, which is not always the correct behaviour
-fn nodes_inner_text(nodes: &[pwt::Node]) -> String {
-    nodes
-        .iter()
-        .map(node_inner_text)
-        .collect::<Vec<_>>()
-        .join("")
-        .trim()
-        .to_string()
+fn nodes_inner_text(nodes: &[pwt::Node], config: &InnerTextConfig) -> String {
+    let mut result = String::new();
+    for node in nodes {
+        if config.stop_after_br && matches!(node, pwt::Node::StartTag { name, .. } if name == "br")
+        {
+            break;
+        }
+        result.push_str(&node_inner_text(node, config));
+    }
+    result.trim().to_string()
 }
 
 /// Just gets the inner text without any formatting, which is not always the correct behaviour
 ///
 /// This function is allocation-heavy; there's definitely room for optimisation here, but it's
 /// not a huge issue right now
-fn node_inner_text(node: &pwt::Node) -> String {
+fn node_inner_text(node: &pwt::Node, config: &InnerTextConfig) -> String {
     use pwt::Node;
     match node {
         Node::CharacterEntity { character, .. } => character.to_string(),
-        // Node::DefinitionList { end, items, start } => nodes_inner_text(items),
-        Node::Heading { nodes, .. } => nodes_inner_text(nodes),
-        Node::Image { text, .. } => nodes_inner_text(text),
-        Node::Link { text, .. } => nodes_inner_text(text),
-        // Node::OrderedList { end, items, start } => nodes_inner_text(items),
-        Node::Preformatted { nodes, .. } => nodes_inner_text(nodes),
+        // Node::DefinitionList { end, items, start } => nodes_inner_text(items, config),
+        Node::Heading { nodes, .. } => nodes_inner_text(nodes, config),
+        Node::Image { text, .. } => nodes_inner_text(text, config),
+        Node::Link { text, .. } => nodes_inner_text(text, config),
+        // Node::OrderedList { end, items, start } => nodes_inner_text(items, config),
+        Node::Preformatted { nodes, .. } => nodes_inner_text(nodes, config),
         Node::Text { value, .. } => value.to_string(),
-        // Node::UnorderedList { end, items, start } => nodes_inner_text(items),
+        // Node::UnorderedList { end, items, start } => nodes_inner_text(items, config),
         Node::Template {
             name, parameters, ..
         } => {
-            let name = nodes_inner_text(name).to_ascii_lowercase();
+            let name = nodes_inner_text(name, config).to_ascii_lowercase();
 
             if name == "lang" {
                 // hack: extract the text from the other-language template
@@ -664,10 +692,10 @@ fn node_inner_text(node: &pwt::Node) -> String {
                     .find(|p| {
                         p.name
                             .as_ref()
-                            .is_some_and(|n| nodes_inner_text(&n) == "text")
+                            .is_some_and(|n| nodes_inner_text(&n, config) == "text")
                     })
                     .or_else(|| parameters.iter().filter(|p| p.name.is_none()).nth(1))
-                    .map(|p| nodes_inner_text(&p.value))
+                    .map(|p| nodes_inner_text(&p.value, config))
                     .unwrap_or_default()
             } else if name == "transliteration" || name == "tlit" || name == "transl" {
                 // text is either the second or the third positional argument;
@@ -679,9 +707,9 @@ fn node_inner_text(node: &pwt::Node) -> String {
                     .filter(|p| p.name.is_none())
                     .collect::<Vec<_>>();
                 if positional_args.len() >= 3 {
-                    nodes_inner_text(&positional_args[2].value)
+                    nodes_inner_text(&positional_args[2].value, config)
                 } else {
-                    nodes_inner_text(&positional_args[1].value)
+                    nodes_inner_text(&positional_args[1].value, config)
                 }
             } else {
                 "".to_string()
