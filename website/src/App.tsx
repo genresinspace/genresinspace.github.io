@@ -17,6 +17,10 @@ type LinkData = {
   ty: "Derivative" | "Subgenre" | "FusionGenre";
 };
 
+const DERIVATIVE_COLOUR = "hsl(0, 70%, 60%)";
+const SUBGENRE_COLOUR = "hsl(120, 70%, 60%)";
+const FUSION_GENRE_COLOUR = "hsl(240, 70%, 60%)";
+
 function Graph({ params }: { params: SimulationParams }) {
   return (
     <div className="graph">
@@ -32,13 +36,12 @@ function Graph({ params }: { params: SimulationParams }) {
         }}
         linkColor={(d: LinkData) => {
           return d.ty === "Derivative"
-            ? "hsl(0, 70%, 60%)"
+            ? DERIVATIVE_COLOUR
             : d.ty === "Subgenre"
-            ? "hsl(120, 70%, 60%)"
-            : "hsl(240, 70%, 60%)";
+            ? SUBGENRE_COLOUR
+            : FUSION_GENRE_COLOUR;
         }}
         nodeSize={0.5}
-        linkWidth={2}
         linkArrowsSizeScale={2}
         nodeLabelColor="#CCC"
         hoveredNodeLabelColor="#FFF"
@@ -50,6 +53,45 @@ function Graph({ params }: { params: SimulationParams }) {
   );
 }
 
+function NodeSidebar() {
+  return (
+    <div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: DERIVATIVE_COLOUR,
+            }}
+          />
+          <span style={{ color: DERIVATIVE_COLOUR }}>Derivative</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: SUBGENRE_COLOUR,
+            }}
+          />
+          <span style={{ color: SUBGENRE_COLOUR }}>Subgenre</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: FUSION_GENRE_COLOUR,
+            }}
+          />
+          <span style={{ color: FUSION_GENRE_COLOUR }}>Fusion Genre</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Sidebar({
   params,
   setParams,
@@ -57,9 +99,44 @@ function Sidebar({
   params: SimulationParams;
   setParams: (params: SimulationParams) => void;
 }) {
+  const [activeTab, setActiveTab] = useState<"legend" | "controls">("legend");
+
   return (
     <div className="sidebar">
-      <SimulationControls params={params} setParams={setParams} />
+      <div style={{ display: "flex", marginBottom: "16px" }}>
+        <button
+          style={{
+            flex: 1,
+            padding: "8px",
+            background: activeTab === "legend" ? "#333" : "#222",
+            border: "none",
+            color: "#CCC",
+            cursor: "pointer",
+          }}
+          onClick={() => setActiveTab("legend")}
+        >
+          Legend
+        </button>
+        <button
+          style={{
+            flex: 1,
+            padding: "8px",
+            background: activeTab === "controls" ? "#333" : "#222",
+            border: "none",
+            color: "#CCC",
+            cursor: "pointer",
+          }}
+          onClick={() => setActiveTab("controls")}
+        >
+          Controls
+        </button>
+      </div>
+
+      {activeTab === "legend" ? (
+        <NodeSidebar />
+      ) : (
+        <SimulationControls params={params} setParams={setParams} />
+      )}
     </div>
   );
 }
