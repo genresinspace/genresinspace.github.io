@@ -112,7 +112,7 @@ mod tests {
     fn test_parse_wiki_dump_date() {
         assert_eq!(
             parse_wiki_dump_date("enwiki-20250123-pages-articles-multistream"),
-            Some((2025, 1, 23))
+            Some(jiff::civil::date(2025, 1, 23))
         );
         assert_eq!(parse_wiki_dump_date("invalid"), None);
     }
