@@ -1,4 +1,5 @@
 use anyhow::Context;
+use data_patches::PAGES_TO_IGNORE;
 use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
@@ -7,6 +8,8 @@ use std::{
 };
 
 use parse_wiki_text_2 as pwt;
+
+mod data_patches;
 
 #[derive(Debug, Deserialize)]
 struct Config {
@@ -40,7 +43,7 @@ fn main() -> anyhow::Result<()> {
     let mut processed_genres =
         process_genres(start, &genres, &links_to_articles, &processed_genres_path)?;
 
-    remove_non_genre_pages(&mut processed_genres);
+    remove_ignored_pages_and_detect_duplicates(&mut processed_genres);
 
     produce_data_json(start, &data_path, &processed_genres)?;
 
@@ -316,12 +319,14 @@ fn process_genres(
 
     std::fs::create_dir_all(processed_genres_path)?;
 
+    let pwt_configuration = pwt_configuration();
+    let all_patches = data_patches::all();
+
     let mut processed_genres = HashMap::default();
     let mut genre_count = 0usize;
     let mut stylistic_origin_count = 0usize;
     let mut derivative_count = 0usize;
 
-    let pwt_configuration = pwt_configuration();
     for (page, path) in genres.iter() {
         let wikitext = std::fs::read_to_string(path)?;
         let wikitext = pwt_configuration
@@ -349,30 +354,9 @@ fn process_genres(
                     panic!("Failed to extract name from {page}, params: {parameters:?}");
                 }
 
-                // HACK: The infobox for the page 'Sanedo' is wrong and uses 'Rasiya' as the genre name.
-                // Fixed (2025-02-07): https://en.wikipedia.org/w/index.php?title=Sanedo&oldid=1274517946
-                // TODO: Consider some form of validation that ensures this edit only applies before that change.
-                if page == "Sanedo" {
-                    name = "Sanedo".to_string();
-                }
-
-                // HACK: "Calypso music" describes a genre, "Calypso", that originated in Trinidad and Tobago during the early to mid-19th century.
-                // "Brega pop" describes a genre, "Calypso", also known as "Brega Calypso" or "Brega-pop", that originated in Brazil in the 1990s.
-                // To work around this conflict, I'm renaming the latter to "Brega-pop".
-                if page == "Brega pop" {
-                    name = "Brega-pop".to_string();
-                }
-
-                // HACK: "Cajun music" and "Cajun fiddle" both use the same genre name of "Cajun music".
-                // Fixed (2025-02-07): https://en.wikipedia.org/w/index.php?title=Cajun_fiddle&oldid=1274524250
-                if page == "Cajun fiddle" {
-                    name = "Cajun fiddle".to_string();
-                }
-
-                // HACK: "Western music (North America)" had a space in its genre name.
-                // Fixed (2025-02-07): https://en.wikipedia.org/w/index.php?title=Western_music_(North_America)&oldid=1274523831
-                if page == "Western music (North America)" {
-                    name = "Western music".to_string();
+                if let Some((_timestamp, new_name)) = all_patches.get(page) {
+                    // TODO: Check dump date before applying
+                    name = new_name.clone();
                 }
 
                 let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
@@ -437,10 +421,8 @@ fn process_genres(
     Ok(ProcessedGenres(processed_genres))
 }
 
-fn remove_non_genre_pages(processed_genres: &mut ProcessedGenres) {
-    const NON_GENRE_PAGES: &[&str] = &["Outline of jazz"];
-
-    for page in NON_GENRE_PAGES {
+fn remove_ignored_pages_and_detect_duplicates(processed_genres: &mut ProcessedGenres) {
+    for page in PAGES_TO_IGNORE {
         processed_genres.0.remove(*page);
     }
 
