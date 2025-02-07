@@ -345,6 +345,9 @@ fn process_genres(
                 } else {
                     nodes_inner_text(name)
                 };
+                if name.is_empty() {
+                    panic!("Failed to extract name from {page}, params: {parameters:?}");
+                }
 
                 let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
                     links
