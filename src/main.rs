@@ -613,6 +613,22 @@ fn node_inner_text(node: &pwt::Node) -> String {
         Node::Preformatted { nodes, .. } => nodes_inner_text(nodes),
         Node::Text { value, .. } => value.to_string(),
         // Node::UnorderedList { end, items, start } => nodes_inner_text(items),
+        Node::Template {
+            name, parameters, ..
+        } if nodes_inner_text(name).to_ascii_lowercase() == "lang" => {
+            // hack: extract the text from the other-language template
+            // the parameter is `|text=`, or the second paramter, so scan for both
+            parameters
+                .iter()
+                .find(|p| {
+                    p.name
+                        .as_ref()
+                        .is_some_and(|n| nodes_inner_text(&n) == "text")
+                })
+                .or_else(|| parameters.iter().filter(|p| p.name.is_none()).nth(1))
+                .map(|p| nodes_inner_text(p.value.as_slice()))
+                .unwrap_or_default()
+        }
         _ => "".to_string(),
     }
 }
