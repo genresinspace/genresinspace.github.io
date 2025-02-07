@@ -106,7 +106,7 @@
     },
     {
       "id": "Ahwash",
-      "label": " Aḥwash     "
+      "label": "Aḥwash ⴰⵃⵡⴰⵛ"
     },
     {
       "id": "Aita (Morocco)",
@@ -630,7 +630,7 @@
     },
     {
       "id": "Brega pop",
-      "label": "Calypso"
+      "label": "Brega-pop"
     },
     {
       "id": "Brill Building (genre)",
@@ -730,7 +730,7 @@
     },
     {
       "id": "Cajun fiddle",
-      "label": "Cajun music"
+      "label": "Cajun fiddle"
     },
     {
       "id": "Cajun music",
@@ -974,7 +974,7 @@
     },
     {
       "id": "Classical music in hip-hop",
-      "label": ""
+      "label": "Classical music in hip-hop"
     },
     {
       "id": "Cloud rap",
@@ -1142,7 +1142,7 @@
     },
     {
       "id": "Cumbia (Panama)",
-      "label": "\"the congos\""
+      "label": "Cumbia (Panama)"
     },
     {
       "id": "Cumbia pop",
@@ -1254,7 +1254,7 @@
     },
     {
       "id": "Denpa song",
-      "label": " Denpa   song"
+      "label": "Denpa song"
     },
     {
       "id": "Descarga",
@@ -1494,7 +1494,7 @@
     },
     {
       "id": "Enka",
-      "label": " Enka "
+      "label": "Enka"
     },
     {
       "id": "Eshuva",
@@ -1702,7 +1702,7 @@
     },
     {
       "id": "Funk ousadia",
-      "label": "\"Picante\""
+      "label": "Funk ousadia"
     },
     {
       "id": "Funk rock",
@@ -1938,7 +1938,7 @@
     },
     {
       "id": "Halloween music",
-      "label": ""
+      "label": "Halloween music"
     },
     {
       "id": "Hapa haole music",
@@ -2330,7 +2330,7 @@
     },
     {
       "id": "Jinku",
-      "label": "Japan Sumo Jinkukai  日本相撲甚句会"
+      "label": "Jinku甚句"
     },
     {
       "id": "Jit",
@@ -2454,7 +2454,7 @@
     },
     {
       "id": "Korean hip-hop",
-      "label": "  Korean hip hop"
+      "label": "Korean hip hop"
     },
     {
       "id": "Krautrock",
@@ -2606,7 +2606,7 @@
     },
     {
       "id": "Luk thung",
-      "label": " Luk thung "
+      "label": "Luk thung"
     },
     {
       "id": "Mahraganat",
@@ -2998,7 +2998,7 @@
     },
     {
       "id": "Neue Deutsche Härte",
-      "label": ""
+      "label": "Neue Deutsche Härte"
     },
     {
       "id": "Neue Deutsche Todeskunst",
@@ -3170,11 +3170,11 @@
     },
     {
       "id": "Nueva canción",
-      "label": ""
+      "label": "Nueva canción"
     },
     {
       "id": "Nueva canción chilena",
-      "label": ""
+      "label": "Nueva canción chilena"
     },
     {
       "id": "Nueva ola",
@@ -3231,10 +3231,6 @@
     {
       "id": "Outlaw country",
       "label": "Outlaw country"
-    },
-    {
-      "id": "Outline of jazz",
-      "label": "Jazz"
     },
     {
       "id": "Outsider house",
@@ -3310,7 +3306,7 @@
     },
     {
       "id": "Patua Sangeet",
-      "label": "Patua Sangeet  পটুয়া সঙ্গীত"
+      "label": "Patua Sangeetপটুয়া সঙ্গীত"
     },
     {
       "id": "Peking opera",
@@ -3454,7 +3450,7 @@
     },
     {
       "id": "Post-no wave",
-      "label": "New wave and post-punk"
+      "label": "Post-no wave"
     },
     {
       "id": "Post-progressive",
@@ -3522,7 +3518,7 @@
     },
     {
       "id": "Progressive rap",
-      "label": "fn"
+      "label": "Progressive rap"
     },
     {
       "id": "Progressive rock",
@@ -3530,7 +3526,7 @@
     },
     {
       "id": "Progressive soul",
-      "label": "fn"
+      "label": "Progressive soul"
     },
     {
       "id": "Proibidão",
@@ -3630,7 +3626,7 @@
     },
     {
       "id": "Qudud Halabiya",
-      "label": " Qudud Al-Halabiya "
+      "label": "Qudud Al-Halabiya"
     },
     {
       "id": "Queercore",
@@ -3866,7 +3862,7 @@
     },
     {
       "id": "Ryūkōka",
-      "label": " Ryūkōka "
+      "label": "Ryūkōka"
     },
     {
       "id": "Sadra (music)",
@@ -3938,7 +3934,7 @@
     },
     {
       "id": "Sanedo",
-      "label": "Rasiya"
+      "label": "Sanedo"
     },
     {
       "id": "Sangeet Natak",
@@ -4086,7 +4082,7 @@
     },
     {
       "id": "Slowcore",
-      "label": "Spelling differences"
+      "label": "Slowcore"
     },
     {
       "id": "Sludge metal",
@@ -4310,7 +4306,7 @@
     },
     {
       "id": "Tabanka",
-      "label": "Tabanka  Tabanca"
+      "label": "TabankaTabanca"
     },
     {
       "id": "Tahitian drumming",
@@ -4522,7 +4518,7 @@
     },
     {
       "id": "Tsugaru-jamisen",
-      "label": ""
+      "label": "Tsugaru-jamisen"
     },
     {
       "id": "Tulsa sound",
@@ -4598,7 +4594,7 @@
     },
     {
       "id": "Urbano music",
-      "label": "Urbano (  )"
+      "label": "Urbano (Música urbana)"
     },
     {
       "id": "Uruguayan rock",
@@ -4674,7 +4670,7 @@
     },
     {
       "id": "Western music (North America)",
-      "label": "Western  music"
+      "label": "Western music"
     },
     {
       "id": "Western swing",
@@ -6134,6 +6130,11 @@
     },
     {
       "source": "Avant-garde music",
+      "target": "Progressive rap",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Avant-garde music",
       "target": "Synth-pop",
       "ty": "Derivative"
     },
@@ -7000,11 +7001,6 @@
     {
       "source": "Blues",
       "target": "Outlaw country",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Blues",
-      "target": "Outline of jazz",
       "ty": "Derivative"
     },
     {
@@ -9260,6 +9256,11 @@
     {
       "source": "Contemporary folk music",
       "target": "Roots rock",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Contemporary folk music",
+      "target": "Slowcore",
       "ty": "Derivative"
     },
     {
@@ -12894,6 +12895,11 @@
     },
     {
       "source": "Experimental rock",
+      "target": "Post-no wave",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Experimental rock",
       "target": "Post-punk",
       "ty": "Derivative"
     },
@@ -13484,6 +13490,11 @@
     },
     {
       "source": "Folk music",
+      "target": "Jinku",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Folk music",
       "target": "Koli Geet",
       "ty": "Derivative"
     },
@@ -13545,11 +13556,6 @@
     {
       "source": "Folk music",
       "target": "Orthodox pop music",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Folk music",
-      "target": "Outline of jazz",
       "ty": "Derivative"
     },
     {
@@ -13915,6 +13921,11 @@
     {
       "source": "Free jazz",
       "target": "Nu jazz",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Free jazz",
+      "target": "Post-no wave",
       "ty": "Derivative"
     },
     {
@@ -14289,6 +14300,11 @@
     },
     {
       "source": "Funk",
+      "target": "Progressive soul",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Funk",
       "target": "Psychedelic funk",
       "ty": "Derivative"
     },
@@ -14454,6 +14470,11 @@
     },
     {
       "source": "Funk carioca",
+      "target": "Funk ousadia",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Funk carioca",
       "target": "Proibidão",
       "ty": "Derivative"
     },
@@ -14475,6 +14496,11 @@
     {
       "source": "Funk melody",
       "target": "Funk ostentação",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Funk melody",
+      "target": "Funk ousadia",
       "ty": "Derivative"
     },
     {
@@ -17565,6 +17591,11 @@
     {
       "source": "Hip-hop",
       "target": "Progressive rap",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Hip-hop",
+      "target": "Progressive rap",
       "ty": "Subgenre"
     },
     {
@@ -18596,6 +18627,11 @@
       "source": "Indie rock",
       "target": "Slacker rock",
       "ty": "Subgenre"
+    },
+    {
+      "source": "Indie rock",
+      "target": "Slowcore",
+      "ty": "Derivative"
     },
     {
       "source": "Indie rock",
@@ -19689,6 +19725,11 @@
     },
     {
       "source": "Jazz",
+      "target": "Progressive rap",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Jazz",
       "target": "Progressive rock",
       "ty": "Derivative"
     },
@@ -19940,6 +19981,11 @@
     {
       "source": "Jazz fusion",
       "target": "Pop kreatif",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Jazz fusion",
+      "target": "Progressive soul",
       "ty": "Derivative"
     },
     {
@@ -22629,6 +22675,11 @@
     },
     {
       "source": "No wave",
+      "target": "Post-no wave",
+      "ty": "Derivative"
+    },
+    {
+      "source": "No wave",
       "target": "Punk jazz",
       "ty": "Derivative"
     },
@@ -22725,6 +22776,11 @@
     {
       "source": "Noise music",
       "target": "Outsider house",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Noise music",
+      "target": "Post-no wave",
       "ty": "Derivative"
     },
     {
@@ -23036,206 +23092,6 @@
       "source": "Outlaw country",
       "target": "Texas country music",
       "ty": "Derivative"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Acid jazz",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Afrobeat",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Avant-garde jazz",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Bebop",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Big band",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Bluegrass music",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Chamber jazz",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Cool jazz",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Dansband",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Folk jazz",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Free funk",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Free jazz",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Funk",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Gypsy jazz",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Hard bop",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Hip-hop",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Indo jazz",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Jam band",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Jazz fusion",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Jazz rap",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Jazz-funk",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Jump blues",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Latin jazz",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Mambo (music)",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Manila sound",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Modal jazz",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Neo soul",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Neo-bop",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Nu jazz",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Punk jazz",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Reggae",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Shibuya-kei",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Ska",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Smooth jazz",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Soul jazz",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Swing music",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Swing revival",
-      "ty": "FusionGenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Third stream",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "Trad jazz",
-      "ty": "Subgenre"
-    },
-    {
-      "source": "Outline of jazz",
-      "target": "World music",
-      "ty": "FusionGenre"
     },
     {
       "source": "Pagan metal",
@@ -24978,6 +24834,16 @@
       "ty": "Derivative"
     },
     {
+      "source": "Progressive rap",
+      "target": "LGBTQ representation in hip-hop",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Progressive rap",
+      "target": "Political hip-hop",
+      "ty": "Derivative"
+    },
+    {
       "source": "Progressive rock",
       "target": "Anatolian rock",
       "ty": "Derivative"
@@ -25100,6 +24966,11 @@
     {
       "source": "Progressive rock",
       "target": "Progressive soul",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Progressive rock",
+      "target": "Progressive soul",
       "ty": "FusionGenre"
     },
     {
@@ -25135,6 +25006,11 @@
     {
       "source": "Progressive soul",
       "target": "Alternative R&B",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Progressive soul",
+      "target": "Neo soul",
       "ty": "Derivative"
     },
     {
@@ -25480,6 +25356,11 @@
     {
       "source": "Psychedelic soul",
       "target": "Neo-psychedelia",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Psychedelic soul",
+      "target": "Progressive soul",
       "ty": "Derivative"
     },
     {
@@ -26165,11 +26046,6 @@
     {
       "source": "Ragtime",
       "target": "Marabi",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Ragtime",
-      "target": "Outline of jazz",
       "ty": "Derivative"
     },
     {
@@ -27844,6 +27720,11 @@
     },
     {
       "source": "Rock music",
+      "target": "Progressive rap",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Rock music",
       "target": "Progressive rock",
       "ty": "Derivative"
     },
@@ -29390,6 +29271,16 @@
     {
       "source": "Soul music",
       "target": "Post-disco",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Soul music",
+      "target": "Progressive rap",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Soul music",
+      "target": "Progressive soul",
       "ty": "Derivative"
     },
     {
