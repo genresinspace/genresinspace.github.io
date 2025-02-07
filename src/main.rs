@@ -354,14 +354,26 @@ fn process_genres(
                 // TODO: Consider some form of validation that ensures this edit only applies before that change.
                 if page == "Sanedo" {
                     name = "Sanedo".to_string();
-                };
+                }
 
                 // HACK: "Calypso music" describes a genre, "Calypso", that originated in Trinidad and Tobago during the early to mid-19th century.
                 // "Brega pop" describes a genre, "Calypso", also known as "Brega Calypso" or "Brega-pop", that originated in Brazil in the 1990s.
                 // To work around this conflict, I'm renaming the latter to "Brega-pop".
                 if page == "Brega pop" {
                     name = "Brega-pop".to_string();
-                };
+                }
+
+                // HACK: "Cajun music" and "Cajun fiddle" both use the same genre name of "Cajun music".
+                // It seems like there's some pretty substantial overlap there, but it's not my business to figure out how
+                // to reconcile them, or whether one should be discarded.
+                //
+                // I did consider discarding "Cajun music", because that seems to describe a more general sense of music
+                // played by Cajuns, but there's enough unique content there that it gives me pause.
+                //
+                // Given that, I'm electing to rename the page "Cajun fiddle" to the genre "Cajun fiddle".
+                if page == "Cajun fiddle" {
+                    name = "Cajun fiddle".to_string();
+                }
 
                 let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
                     links
