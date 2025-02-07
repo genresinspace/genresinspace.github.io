@@ -30,6 +30,7 @@ function App() {
     <Cosmograph
       nodes={data.nodes}
       links={data.links}
+      nodeLabelAccessor={(d) => d.label}
       nodeColor={(d) => {
         const hash = d.id
           .split("")
