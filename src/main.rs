@@ -1,5 +1,4 @@
 use anyhow::Context;
-use data_patches::PAGES_TO_IGNORE;
 use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
@@ -10,6 +9,26 @@ use std::{
 use parse_wiki_text_2 as pwt;
 
 mod data_patches;
+
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[serde(transparent)]
+/// A newtype for a Wikipedia page name.
+pub struct PageName(pub String);
+impl std::fmt::Display for PageName {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "page:{}", self.0)
+    }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[serde(transparent)]
+/// A newtype for a genre name.
+pub struct GenreName(pub String);
+impl std::fmt::Display for GenreName {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "genre:{}", self.0)
+    }
+}
 
 #[derive(Debug, Deserialize)]
 struct Config {
@@ -51,21 +70,21 @@ fn main() -> anyhow::Result<()> {
 }
 
 #[derive(Clone, Default)]
-struct Genres(pub HashMap<String, PathBuf>);
-impl Genres {
-    pub fn all(&self) -> impl Iterator<Item = &String> {
+struct GenrePages(pub HashMap<PageName, PathBuf>);
+impl GenrePages {
+    pub fn all(&self) -> impl Iterator<Item = &PageName> {
         self.0.keys()
     }
-    pub fn iter(&self) -> impl Iterator<Item = (&String, &PathBuf)> {
+    pub fn iter(&self) -> impl Iterator<Item = (&PageName, &PathBuf)> {
         self.0.iter()
     }
 }
 
 enum AllRedirects {
-    InMemory(HashMap<String, String>),
+    InMemory(HashMap<PageName, PageName>),
     LazyLoad(PathBuf, std::time::Instant),
 }
-impl TryFrom<AllRedirects> for HashMap<String, String> {
+impl TryFrom<AllRedirects> for HashMap<PageName, PageName> {
     type Error = anyhow::Error;
     fn try_from(value: AllRedirects) -> Result<Self, Self::Error> {
         match value {
@@ -90,9 +109,9 @@ fn extract_genre_and_all_redirects(
     start: std::time::Instant,
     genres_path: &Path,
     redirects_path: &Path,
-) -> anyhow::Result<(Genres, AllRedirects)> {
-    let mut genres = HashMap::default();
-    let mut all_redirects = HashMap::<String, String>::default();
+) -> anyhow::Result<(GenrePages, AllRedirects)> {
+    let mut genre_pages = HashMap::default();
+    let mut all_redirects = HashMap::<PageName, PageName>::default();
 
     // Already exists, just load from file
     if genres_path.is_dir() && redirects_path.is_file() {
@@ -101,19 +120,16 @@ fn extract_genre_and_all_redirects(
             let Some(file_stem) = path.file_stem() else {
                 continue;
             };
-            genres.insert(
-                unsanitize_title_reversible(&file_stem.to_string_lossy()),
-                path,
-            );
+            genre_pages.insert(unsanitize_page_name(&file_stem.to_string_lossy()), path);
         }
         println!(
             "{:.2}s: loaded all {} genres",
             start.elapsed().as_secs_f32(),
-            genres.len()
+            genre_pages.len()
         );
 
         return Ok((
-            Genres(genres),
+            GenrePages(genre_pages),
             AllRedirects::LazyLoad(redirects_path.to_owned(), start),
         ));
     }
@@ -175,8 +191,9 @@ fn extract_genre_and_all_redirects(
                 } else if e.name().0 == b"text" {
                     recording_text = false;
                 } else if e.name().0 == b"page" {
+                    let page = PageName(title.clone());
                     if let Some(redirect) = redirect {
-                        all_redirects.insert(title.clone(), redirect);
+                        all_redirects.insert(page, PageName(redirect));
 
                         count += 1;
                         if count % 1000 == 0 {
@@ -187,13 +204,13 @@ fn extract_genre_and_all_redirects(
                             continue;
                         }
 
-                        let path = genres_path
-                            .join(format!("{}.wikitext", sanitize_title_reversible(&title)));
+                        let path =
+                            genres_path.join(format!("{}.wikitext", sanitize_page_name(&page)));
                         std::fs::write(&path, &text)
-                            .with_context(|| format!("Failed to write genre {title}"))?;
+                            .with_context(|| format!("Failed to write genre page {page}"))?;
 
-                        genres.insert(title.clone(), path);
-                        println!("{:.2}s: {title}", start.elapsed().as_secs_f32());
+                        genre_pages.insert(page.clone(), path);
+                        println!("{:.2}s: {page}", start.elapsed().as_secs_f32());
                     }
 
                     redirect = None;
@@ -211,22 +228,25 @@ fn extract_genre_and_all_redirects(
     .context("Failed to write redirects")?;
     println!("Extracted genres and redirects in {:?}", now.elapsed());
 
-    Ok((Genres(genres), AllRedirects::InMemory(all_redirects)))
+    Ok((
+        GenrePages(genre_pages),
+        AllRedirects::InMemory(all_redirects),
+    ))
 }
 
-pub struct LinksToArticles(pub HashMap<String, String>);
-/// Construct a map of links (lower-case titles and redirects) to genres.
+pub struct LinksToArticles(pub HashMap<String, PageName>);
+/// Construct a map of links (lower-case page names and redirects) to genres.
 ///
 /// This will loop over all redirects and find redirects to already-resolved genres, adding them to the map.
 /// It will continue to do this until no new links are found.
 fn resolve_links_to_articles(
     start: std::time::Instant,
     links_to_articles_path: &Path,
-    genres: &Genres,
+    genres: &GenrePages,
     all_redirects: AllRedirects,
 ) -> anyhow::Result<LinksToArticles> {
     if links_to_articles_path.is_file() {
-        let links_to_articles: HashMap<String, String> =
+        let links_to_articles: HashMap<String, PageName> =
             toml::from_str(&std::fs::read_to_string(links_to_articles_path)?)?;
         println!(
             "{:.2}s: loaded all {} links to articles",
@@ -240,20 +260,20 @@ fn resolve_links_to_articles(
 
     let now = std::time::Instant::now();
 
-    let mut links_to_articles: HashMap<String, String> = genres
+    let mut links_to_articles: HashMap<String, PageName> = genres
         .all()
-        .map(|s| (s.to_lowercase(), s.clone()))
+        .map(|s| (s.0.to_lowercase(), s.clone()))
         .collect();
 
     let mut round = 1;
     loop {
         let mut added = false;
-        for (title, redirect) in &all_redirects {
-            let title = title.to_lowercase();
-            let redirect = redirect.to_lowercase();
+        for (page, redirect) in &all_redirects {
+            let page = page.0.to_lowercase();
+            let redirect = redirect.0.to_lowercase();
 
             if let Some(target) = links_to_articles.get(&redirect) {
-                let newly_added = links_to_articles.insert(title, target.clone()).is_none();
+                let newly_added = links_to_articles.insert(page, target.clone()).is_none();
                 added |= newly_added;
             }
         }
@@ -286,17 +306,17 @@ fn resolve_links_to_articles(
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 struct ProcessedGenre {
-    name: String,
-    stylistic_origins: Vec<String>,
-    derivatives: Vec<String>,
-    subgenres: Vec<String>,
-    fusion_genres: Vec<String>,
+    name: GenreName,
+    stylistic_origins: Vec<PageName>,
+    derivatives: Vec<PageName>,
+    subgenres: Vec<PageName>,
+    fusion_genres: Vec<PageName>,
 }
-struct ProcessedGenres(pub HashMap<String, ProcessedGenre>);
+struct ProcessedGenres(pub HashMap<PageName, ProcessedGenre>);
 /// Given raw genre wikitext, extract the relevant information and save it to file.
 fn process_genres(
     start: std::time::Instant,
-    genres: &Genres,
+    genres: &GenrePages,
     links_to_articles: &LinksToArticles,
     processed_genres_path: &Path,
 ) -> anyhow::Result<ProcessedGenres> {
@@ -308,7 +328,7 @@ fn process_genres(
                 continue;
             };
             processed_genres.insert(
-                unsanitize_title_reversible(&file_stem.to_string_lossy()),
+                unsanitize_page_name(&file_stem.to_string_lossy()),
                 toml::from_str(&std::fs::read_to_string(path)?)?,
             );
         }
@@ -344,31 +364,32 @@ fn process_genres(
                 }
 
                 let parameters = parameters_to_map(parameters);
-                let Some(name) = parameters.get("name") else {
-                    continue;
-                };
-                let mut name = if name.is_empty() {
-                    page.clone()
-                } else {
-                    nodes_inner_text(
-                        name,
-                        &InnerTextConfig {
-                            // Some genre headings have a `<br>` tag, followed by another name.
-                            // We only want the first name, so stop after the first `<br>`.
-                            stop_after_br: true,
-                        },
-                    )
-                };
-                if name.is_empty() {
-                    panic!("Failed to extract name from {page}, params: {parameters:?}");
-                }
 
+                // Extract name from parameters
+                let mut name = GenreName(match parameters.get("name") {
+                    None => page.0.clone(),
+                    Some(nodes) if nodes.is_empty() => page.0.clone(),
+                    Some(nodes) => {
+                        let name = nodes_inner_text(
+                            nodes,
+                            &InnerTextConfig {
+                                // Some genre headings have a `<br>` tag, followed by another name.
+                                // We only want the first name, so stop after the first `<br>`.
+                                stop_after_br: true,
+                            },
+                        );
+                        if name.is_empty() {
+                            panic!("Failed to extract name from {page}, params: {parameters:?}");
+                        }
+                        name
+                    }
+                });
                 if let Some((_timestamp, new_name)) = all_patches.get(page) {
-                    // TODO: Check dump date before applying
+                    // TODO: Check article date before applying
                     name = new_name.clone();
                 }
 
-                let map_links_to_articles = |links: Vec<String>| -> Vec<String> {
+                let map_links_to_articles = |links: Vec<String>| -> Vec<PageName> {
                     links
                         .into_iter()
                         .filter_map(|link| {
@@ -415,7 +436,7 @@ fn process_genres(
                 processed_genres.insert(page.clone(), processed_genre.clone());
 
                 std::fs::write(
-                    processed_genres_path.join(format!("{}.toml", sanitize_title_reversible(page))),
+                    processed_genres_path.join(format!("{}.toml", sanitize_page_name(page))),
                     toml::to_string_pretty(&processed_genre)?,
                 )?;
             }
@@ -431,8 +452,8 @@ fn process_genres(
 }
 
 fn remove_ignored_pages_and_detect_duplicates(processed_genres: &mut ProcessedGenres) {
-    for page in PAGES_TO_IGNORE {
-        processed_genres.0.remove(*page);
+    for page in data_patches::pages_to_ignore() {
+        processed_genres.0.remove(&page);
     }
 
     let mut previously_encountered_genres = HashMap::new();
@@ -456,8 +477,8 @@ struct Graph {
 }
 #[derive(Debug, Serialize, Deserialize)]
 struct NodeData {
-    id: String,
-    label: String,
+    id: PageName,
+    label: GenreName,
     degree: usize,
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
@@ -468,8 +489,8 @@ enum LinkType {
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 struct LinkData {
-    source: String,
-    target: String,
+    source: PageName,
+    target: PageName,
     ty: LinkType,
 }
 
@@ -734,11 +755,14 @@ fn node_inner_text(node: &pwt::Node, config: &InnerTextConfig) -> String {
     }
 }
 
-fn sanitize_title_reversible(title: &str) -> String {
-    title.replace("/", "#")
+/// Makes a Wikipedia page name safe to store on disk.
+fn sanitize_page_name(title: &PageName) -> String {
+    title.0.replace("/", "#")
 }
-fn unsanitize_title_reversible(title: &str) -> String {
-    title.replace("#", "/")
+
+/// Reverses [`sanitize_page_name`].
+fn unsanitize_page_name(title: &str) -> PageName {
+    PageName(title.replace("#", "/"))
 }
 
 pub fn pwt_configuration() -> pwt::Configuration {

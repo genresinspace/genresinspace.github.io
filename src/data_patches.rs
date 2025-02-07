@@ -2,18 +2,25 @@ use std::{collections::HashMap, str::FromStr};
 
 use jiff::Timestamp;
 
-pub fn all() -> HashMap<String, (Option<Timestamp>, String)> {
+use crate::{GenreName, PageName};
+
+pub fn all() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
     fixed_already().into_iter().chain(unclear_fixes()).collect()
 }
 
-pub const PAGES_TO_IGNORE: &[&str] = &[
-    // Redefines jazz as a genre; redundant with the "Jazz" article
-    "Outline of jazz",
-];
+pub fn pages_to_ignore() -> Vec<PageName> {
+    [
+        // Redefines jazz as a genre; redundant with the "Jazz" article
+        "Outline of jazz",
+    ]
+    .into_iter()
+    .map(|page| PageName(page.to_string()))
+    .collect()
+}
 
 /// Patches that have already been applied to Wikipedia, but may not be
 /// in the dump being processed.
-fn fixed_already() -> HashMap<String, (Option<Timestamp>, String)> {
+fn fixed_already() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
     [
         // The infobox for the page 'Sanedo' is wrong and uses 'Rasiya' as the genre name.
         (
@@ -40,10 +47,10 @@ fn fixed_already() -> HashMap<String, (Option<Timestamp>, String)> {
     .into_iter()
     .map(|(timestamp, page, name, _link)| {
         (
-            page.to_string(),
+            PageName(page.to_string()),
             (
                 Some(Timestamp::from_str(timestamp).unwrap()),
-                name.to_string(),
+                GenreName(name.to_string()),
             ),
         )
     })
@@ -52,7 +59,7 @@ fn fixed_already() -> HashMap<String, (Option<Timestamp>, String)> {
 
 /// Patches to resolve ambiguity in the source data. I don't feel confident in making
 /// these changes myself, so I'm disambiguating them here.
-fn unclear_fixes() -> HashMap<String, (Option<Timestamp>, String)> {
+fn unclear_fixes() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
     [
         // HACK: "Calypso music" describes a genre, "Calypso", that originated in Trinidad and Tobago during the early to mid-19th century.
         // "Brega pop" describes a genre, "Calypso", also known as "Brega Calypso" or "Brega-pop", that originated in Brazil in the 1990s.
@@ -60,6 +67,11 @@ fn unclear_fixes() -> HashMap<String, (Option<Timestamp>, String)> {
         ("Brega pop", "Brega-pop"),
     ]
     .into_iter()
-    .map(|(page, name)| (page.to_string(), (None, name.to_string())))
+    .map(|(page, name)| {
+        (
+            PageName(page.to_string()),
+            (None, GenreName(name.to_string())),
+        )
+    })
     .collect()
 }

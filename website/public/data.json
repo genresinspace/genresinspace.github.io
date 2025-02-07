@@ -41,6 +41,11 @@
       "degree": 7
     },
     {
+      "id": "Acoustic music",
+      "label": "Acoustic music",
+      "degree": 1
+    },
+    {
       "id": "Adult album alternative",
       "label": "Adult alternative",
       "degree": 7
@@ -773,7 +778,7 @@
     {
       "id": "Breakbeat hardcore",
       "label": "Breakbeat hardcore",
-      "degree": 20
+      "degree": 19
     },
     {
       "id": "Breakcore",
@@ -1938,7 +1943,7 @@
     {
       "id": "Extreme metal",
       "label": "Extreme metal",
-      "degree": 69
+      "degree": 70
     },
     {
       "id": "Fado",
@@ -2003,7 +2008,7 @@
     {
       "id": "Folk music",
       "label": "Traditional folk music",
-      "degree": 70
+      "degree": 71
     },
     {
       "id": "Folk punk",
@@ -2338,7 +2343,7 @@
     {
       "id": "Gothic metal",
       "label": "Gothic metal",
-      "degree": 8
+      "degree": 9
     },
     {
       "id": "Gothic rock",
@@ -2433,7 +2438,7 @@
     {
       "id": "Happy hardcore",
       "label": "Happy hardcore",
-      "degree": 12
+      "degree": 14
     },
     {
       "id": "Hard NRG",
@@ -3813,7 +3818,7 @@
     {
       "id": "New beat",
       "label": "New beat",
-      "degree": 19
+      "degree": 17
     },
     {
       "id": "New flamenco",
@@ -5698,7 +5703,7 @@
     {
       "id": "UK hard house",
       "label": "Scouse house",
-      "degree": 17
+      "degree": 18
     },
     {
       "id": "UK rap",
@@ -8804,6 +8809,11 @@
     },
     {
       "source": "Breakbeat",
+      "target": "Happy hardcore",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Breakbeat",
       "target": "Intelligent dance music",
       "ty": "Derivative"
     },
@@ -8815,11 +8825,6 @@
     {
       "source": "Breakbeat",
       "target": "Miami bass",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Breakbeat",
-      "target": "New beat",
       "ty": "Derivative"
     },
     {
@@ -8875,11 +8880,6 @@
     {
       "source": "Breakbeat hardcore",
       "target": "Liquid funk",
-      "ty": "Derivative"
-    },
-    {
-      "source": "Breakbeat hardcore",
-      "target": "New beat",
       "ty": "Derivative"
     },
     {
@@ -14234,6 +14234,11 @@
     },
     {
       "source": "Extreme metal",
+      "target": "Gothic metal",
+      "ty": "FusionGenre"
+    },
+    {
+      "source": "Extreme metal",
       "target": "Grindcore",
       "ty": "Derivative"
     },
@@ -14520,6 +14525,11 @@
     {
       "source": "Folk metal",
       "target": "Viking metal",
+      "ty": "Derivative"
+    },
+    {
+      "source": "Folk music",
+      "target": "Acoustic music",
       "ty": "Derivative"
     },
     {
@@ -16716,6 +16726,11 @@
       "source": "Gwo ka",
       "target": "Zouk",
       "ty": "FusionGenre"
+    },
+    {
+      "source": "Happy hardcore",
+      "target": "Bouncy techno",
+      "ty": "Derivative"
     },
     {
       "source": "Happy hardcore",
@@ -30884,7 +30899,7 @@
     },
     {
       "source": "Speed garage",
-      "target": "Bouncy techno",
+      "target": "UK hard house",
       "ty": "Derivative"
     },
     {
