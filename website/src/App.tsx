@@ -121,7 +121,7 @@ function Graph({
   );
 }
 
-function NodeSidebar() {
+function ProjectInformation() {
   return (
     <div>
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -167,7 +167,9 @@ function Sidebar({
   params: SimulationParams;
   setParams: (params: SimulationParams) => void;
 }) {
-  const [activeTab, setActiveTab] = useState<"legend" | "controls">("legend");
+  const [activeTab, setActiveTab] = useState<"information" | "simulation">(
+    "information"
+  );
 
   return (
     <div className="sidebar">
@@ -176,32 +178,32 @@ function Sidebar({
           style={{
             flex: 1,
             padding: "8px",
-            background: activeTab === "legend" ? "#333" : "#222",
+            background: activeTab === "information" ? "#333" : "#222",
             border: "none",
             color: "#CCC",
             cursor: "pointer",
           }}
-          onClick={() => setActiveTab("legend")}
+          onClick={() => setActiveTab("information")}
         >
-          Legend
+          Information
         </button>
         <button
           style={{
             flex: 1,
             padding: "8px",
-            background: activeTab === "controls" ? "#333" : "#222",
+            background: activeTab === "simulation" ? "#333" : "#222",
             border: "none",
             color: "#CCC",
             cursor: "pointer",
           }}
-          onClick={() => setActiveTab("controls")}
+          onClick={() => setActiveTab("simulation")}
         >
-          Controls
+          Simulation
         </button>
       </div>
 
-      {activeTab === "legend" ? (
-        <NodeSidebar />
+      {activeTab === "information" ? (
+        <ProjectInformation />
       ) : (
         <SimulationControls params={params} setParams={setParams} />
       )}
