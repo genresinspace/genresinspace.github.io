@@ -630,7 +630,6 @@ fn produce_data_json(
     node_order.sort();
 
     let mut page_to_id = HashMap::new();
-    let mut id_to_page = HashMap::new();
 
     // First pass: create nodes
     for genre in &node_order {
@@ -647,7 +646,6 @@ fn produce_data_json(
 
         graph.nodes.push(node);
         page_to_id.insert(genre.clone(), id.clone());
-        id_to_page.insert(id.clone(), genre.clone());
     }
 
     // Second pass: create links
@@ -655,48 +653,43 @@ fn produce_data_json(
         let processed_genre = &processed_genres.0[genre];
         let genre_id = page_to_id[&genre];
         for stylistic_origin in &processed_genre.stylistic_origins {
-            let source = page_to_id[&stylistic_origin];
             graph.links.insert(LinkData {
-                source,
+                source: page_to_id[&stylistic_origin],
                 target: genre_id,
                 ty: LinkType::Derivative,
             });
-            graph.nodes[source.0].outbound.insert(genre_id);
-            graph.nodes[genre_id.0].inbound.insert(source);
         }
         for derivative in &processed_genre.derivatives {
-            let target = page_to_id[&derivative];
             graph.links.insert(LinkData {
                 source: genre_id,
-                target,
+                target: page_to_id[&derivative],
                 ty: LinkType::Derivative,
             });
-            graph.nodes[genre_id.0].outbound.insert(target);
-            graph.nodes[target.0].inbound.insert(genre_id);
         }
         for subgenre in &processed_genre.subgenres {
-            let target = page_to_id[&subgenre];
             graph.links.insert(LinkData {
                 source: genre_id,
-                target,
+                target: page_to_id[&subgenre],
                 ty: LinkType::Subgenre,
             });
-            graph.nodes[genre_id.0].outbound.insert(target);
-            graph.nodes[target.0].inbound.insert(genre_id);
         }
         for fusion_genre in &processed_genre.fusion_genres {
-            let source = page_to_id[&fusion_genre];
             graph.links.insert(LinkData {
-                source,
+                source: page_to_id[&fusion_genre],
                 target: genre_id,
                 ty: LinkType::FusionGenre,
             });
-            graph.nodes[source.0].outbound.insert(genre_id);
-            graph.nodes[genre_id.0].inbound.insert(source);
         }
     }
 
-    // Third pass: calculate degrees
+    // Third pass (over links): update inbound/outbound sets
+    for link in &graph.links {
+        graph.nodes[link.source.0].outbound.insert(link.target);
+        graph.nodes[link.target.0].inbound.insert(link.source);
+    }
+
+    // Fourth pass: calculate degrees. We could technically do this in the third pass, but it's
+    // cleaner to do it after all of the sets are no longer being modified.
     for node in &mut graph.nodes {
         node.degree = node.inbound.len() + node.outbound.len();
     }
