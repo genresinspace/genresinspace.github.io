@@ -83,7 +83,7 @@ function Graph({
             if (d.source === selectedId || d.target === selectedId) {
               return color;
             } else {
-              return "hsl(0, 0%, 20%)";
+              return "hsla(0, 0%, 20%, 0.1)";
             }
           } else {
             return color;
@@ -92,7 +92,7 @@ function Graph({
         nodeSize={(d: NodeData) => {
           return (
             8.0 * (0.2 + (d.degree / maxDegree) * 0.8) +
-            1.0 * (selectedId && highlightedNodes.has(d.id) ? 1 : 0)
+            1.0 * (selectedId && !highlightedNodes.has(d.id) ? -1 : 0)
           );
         }}
         linkArrowsSizeScale={2}
@@ -103,6 +103,7 @@ function Graph({
         randomSeed={"Where words fail, music speaks"}
         nodeGreyoutOpacity={1}
         linkGreyoutOpacity={1}
+        linkVisibilityMinTransparency={selectedId ? 0.75 : 0.25}
         onClick={(nodeData, _nodeIndex, _nodePosition) => {
           if (nodeData && selectedId !== nodeData.id) {
             cosmograph?.selectNode(nodeData, false);
