@@ -160,6 +160,26 @@ function ProjectInformation() {
             <p style={{ marginTop: "0.5em" }}>{description}</p>
           </div>
         ))}
+        <hr />
+        <p>
+          A graph of every music genre on English Wikipedia, inspired by{" "}
+          <a href="https://eightyeightthirty.one/">8831</a> and{" "}
+          <a href="https://musicmap.info/">musicmap</a>.
+        </p>
+        <p>
+          By <a href="https://philpax.me">Philpax</a>. Powered by{" "}
+          <a href="https://cosmograph.app/">Cosmograph</a>.
+        </p>
+        <p>
+          <a href="https://github.com/genregraph/genregraph.github.io">
+            Source code
+          </a>
+          .{" "}
+          <a href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
+            Blog post
+          </a>
+          , if you're curious.
+        </p>
       </div>
     </div>
   );
