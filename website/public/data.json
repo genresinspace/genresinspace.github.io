@@ -4,5976 +4,7171 @@
     {
       "id": "2-step garage",
       "label": "2-step garage",
+      "last_revision_date": "2024-08-18T02:48:17Z",
       "degree": 15
     },
     {
       "id": "A cappella",
       "label": "A cappella",
+      "last_revision_date": "2025-01-19T18:34:38Z",
       "degree": 3
     },
     {
       "id": "Acid (electronic music)",
       "label": "Acid",
+      "last_revision_date": "2025-01-07T04:12:21Z",
       "degree": 7
     },
     {
       "id": "Acid house",
       "label": "Acid house",
+      "last_revision_date": "2025-01-09T01:25:09Z",
       "degree": 32
     },
     {
       "id": "Acid jazz",
       "label": "Acid jazz",
+      "last_revision_date": "2024-10-11T14:18:42Z",
       "degree": 13
     },
     {
       "id": "Acid rock",
       "label": "Acid rock",
+      "last_revision_date": "2024-12-16T21:25:04Z",
       "degree": 18
     },
     {
       "id": "Acid techno",
       "label": "Acid techno",
+      "last_revision_date": "2024-12-29T01:04:51Z",
       "degree": 6
     },
     {
       "id": "Acid trance",
       "label": "Acid trance",
+      "last_revision_date": "2025-01-21T11:10:25Z",
       "degree": 7
     },
     {
       "id": "Acoustic music",
       "label": "Acoustic music",
+      "last_revision_date": "2024-08-25T21:41:16Z",
       "degree": 1
     },
     {
       "id": "Adult album alternative",
       "label": "Adult alternative",
+      "last_revision_date": "2024-12-21T19:55:11Z",
       "degree": 7
     },
     {
       "id": "Adult contemporary music",
       "label": "Adult contemporary",
+      "last_revision_date": "2025-01-12T03:36:42Z",
       "degree": 11
     },
     {
       "id": "African blues",
       "label": "African blues",
+      "last_revision_date": "2023-07-30T01:28:30Z",
       "degree": 4
     },
     {
       "id": "African heavy metal",
       "label": "African heavy metal",
+      "last_revision_date": "2024-12-02T23:45:28Z",
       "degree": 1
     },
     {
       "id": "African hip-hop",
       "label": "Street hop",
+      "last_revision_date": "2024-12-19T22:30:34Z",
       "degree": 3
     },
     {
       "id": "Afro (genre)",
       "label": "Afro",
+      "last_revision_date": "2024-02-05T14:31:34Z",
       "degree": 1
     },
     {
       "id": "Afro fusion",
       "label": "Afro fusion",
+      "last_revision_date": "2024-11-25T17:05:59Z",
       "degree": 3
     },
     {
       "id": "Afro house",
       "label": "Afro house",
+      "last_revision_date": "2024-12-24T04:27:16Z",
       "degree": 10
     },
     {
       "id": "Afro tech",
       "label": "Afro tech",
+      "last_revision_date": "2025-01-10T18:45:17Z",
       "degree": 5
     },
     {
       "id": "Afro-Caribbean music",
       "label": "Afro-Caribbean music",
+      "last_revision_date": "2025-01-16T06:38:13Z",
       "degree": 0
     },
     {
       "id": "Afro-Cuban jazz",
       "label": "Afro-Cuban jazz",
+      "last_revision_date": "2024-06-17T08:41:51Z",
       "degree": 5
     },
     {
       "id": "Afro-punk",
       "label": "Afro-punk",
+      "last_revision_date": "2025-01-23T19:05:06Z",
       "degree": 2
     },
     {
       "id": "Afro-soul",
       "label": "Afro-soul",
+      "last_revision_date": "2025-01-12T00:23:06Z",
       "degree": 5
     },
     {
       "id": "Afro/cosmic music",
       "label": "Afro/cosmic",
+      "last_revision_date": "2024-12-15T01:51:12Z",
       "degree": 8
     },
     {
       "id": "Afrobeat",
       "label": "Afrobeat",
+      "last_revision_date": "2025-01-22T04:04:26Z",
       "degree": 9
     },
     {
       "id": "Afrobeats",
       "label": "Afrobeats",
+      "last_revision_date": "2025-01-23T22:17:55Z",
       "degree": 16
     },
     {
       "id": "Afroswing",
       "label": "Afroswing",
+      "last_revision_date": "2024-12-22T21:16:48Z",
       "degree": 8
     },
     {
       "id": "Ahidus",
       "label": "Ahidus, Ahidous or Haidous",
+      "last_revision_date": "2024-12-28T01:08:44Z",
       "degree": 0
     },
     {
       "id": "Ahwash",
       "label": "Aḥwash",
+      "last_revision_date": "2024-03-26T18:59:44Z",
       "degree": 0
     },
     {
       "id": "Aita (Morocco)",
       "label": "Aita",
+      "last_revision_date": "2025-01-16T12:52:07Z",
       "degree": 0
     },
     {
       "id": "Akishibu-kei",
       "label": "Akishibu-kei",
+      "last_revision_date": "2024-07-26T03:01:07Z",
       "degree": 3
     },
     {
       "id": "Al Jeel",
       "label": "Al Jeel",
+      "last_revision_date": "2024-04-22T12:40:56Z",
       "degree": 5
     },
     {
       "id": "Alaskan hip-hop",
       "label": "Alaskan Hip Hop",
+      "last_revision_date": "2024-12-13T16:59:12Z",
       "degree": 6
     },
     {
       "id": "Alpine folk music",
       "label": "Alpine folk music",
+      "last_revision_date": "2024-10-21T00:42:26Z",
       "degree": 4
     },
     {
       "id": "Alternative R&B",
       "label": "Alternative R&B",
+      "last_revision_date": "2025-01-23T17:34:25Z",
       "degree": 10
     },
     {
       "id": "Alternative country",
       "label": "Alternative country",
+      "last_revision_date": "2025-01-21T16:41:43Z",
       "degree": 15
     },
     {
       "id": "Alternative dance",
       "label": "Alternative dance",
+      "last_revision_date": "2024-11-04T00:29:12Z",
       "degree": 17
     },
     {
       "id": "Alternative hip-hop",
       "label": "Alternative hip hop",
+      "last_revision_date": "2025-01-12T17:49:54Z",
       "degree": 16
     },
     {
       "id": "Alternative metal",
       "label": "Alternative metal",
+      "last_revision_date": "2024-12-24T01:41:42Z",
       "degree": 12
     },
     {
       "id": "Alternative reggaeton",
       "label": "Alternative reggaeton",
+      "last_revision_date": "2023-06-28T18:30:22Z",
       "degree": 4
     },
     {
       "id": "Alternative rock",
       "label": "Alternative pop",
+      "last_revision_date": "2025-01-20T03:42:09Z",
       "degree": 54
     },
     {
       "id": "Alté",
       "label": "Alté",
+      "last_revision_date": "2024-11-01T16:31:20Z",
       "degree": 6
     },
     {
       "id": "Amapiano",
       "label": "Amapiano",
+      "last_revision_date": "2025-01-15T14:03:20Z",
       "degree": 8
     },
     {
       "id": "Ambasse bey",
       "label": "Ambasse-bey",
+      "last_revision_date": "2024-12-12T10:58:51Z",
       "degree": 4
     },
     {
       "id": "Ambient house",
       "label": "Ambient house",
+      "last_revision_date": "2025-01-14T13:36:28Z",
       "degree": 14
     },
     {
       "id": "Ambient music",
       "label": "Ambient music",
+      "last_revision_date": "2025-01-12T03:05:14Z",
       "degree": 45
     },
     {
       "id": "Ambient techno",
       "label": "Ambient techno",
+      "last_revision_date": "2024-11-16T21:18:58Z",
       "degree": 9
     },
     {
       "id": "American primitive guitar",
       "label": "American primitive guitar",
+      "last_revision_date": "2025-01-15T13:26:31Z",
       "degree": 3
     },
     {
       "id": "Americana music",
       "label": "Americana",
+      "last_revision_date": "2024-10-28T08:47:26Z",
       "degree": 16
     },
     {
       "id": "Anarcho-punk",
       "label": "Anarcho-punk",
+      "last_revision_date": "2024-08-24T20:30:58Z",
       "degree": 10
     },
     {
       "id": "Anatolian blues",
       "label": "Anatolian blues",
+      "last_revision_date": "2024-04-18T20:59:13Z",
       "degree": 1
     },
     {
       "id": "Anatolian rock",
       "label": "Anatolian rock",
+      "last_revision_date": "2025-01-11T17:09:09Z",
       "degree": 4
     },
     {
       "id": "Anime song",
       "label": "Anime song",
+      "last_revision_date": "2024-12-28T20:11:10Z",
       "degree": 4
     },
     {
       "id": "Anti-folk",
       "label": "Antifolk",
+      "last_revision_date": "2024-09-18T03:02:06Z",
       "degree": 4
     },
     {
       "id": "Apala",
       "label": "Apala",
+      "last_revision_date": "2024-12-10T14:12:04Z",
       "degree": 0
     },
     {
       "id": "Appalachian music",
       "label": "Appalachian music",
+      "last_revision_date": "2025-01-09T05:33:32Z",
       "degree": 9
     },
     {
       "id": "Arabesque (Turkish music)",
       "label": "Arabesque music",
+      "last_revision_date": "2025-01-15T08:41:17Z",
       "degree": 3
     },
     {
       "id": "Arabic pop",
       "label": "Arabic pop music",
+      "last_revision_date": "2025-01-08T02:08:00Z",
       "degree": 3
     },
     {
       "id": "Arena rock",
       "label": "Arena rock",
+      "last_revision_date": "2025-01-23T19:10:03Z",
       "degree": 9
     },
     {
       "id": "Armenian rock",
       "label": "Armenian Rock",
+      "last_revision_date": "2024-09-29T05:35:26Z",
       "degree": 5
     },
     {
       "id": "Art pop",
       "label": "Art pop",
+      "last_revision_date": "2025-01-21T01:30:28Z",
       "degree": 8
     },
     {
       "id": "Art punk",
       "label": "Art punk",
+      "last_revision_date": "2024-12-16T21:46:40Z",
       "degree": 5
     },
     {
       "id": "Art rock",
       "label": "Art rock",
+      "last_revision_date": "2024-12-26T17:20:49Z",
       "degree": 15
     },
     {
       "id": "Ashiqs of Azerbaijan",
       "label": "Azerbaijani Ashiq music",
+      "last_revision_date": "2024-11-01T21:00:57Z",
       "degree": 1
     },
     {
       "id": "Asian American hip-hop",
       "label": "Asian American hip hop",
+      "last_revision_date": "2024-12-13T10:17:15Z",
       "degree": 1
     },
     {
       "id": "Asian hip-hop",
       "label": "Asian hip hop",
+      "last_revision_date": "2024-12-13T11:18:16Z",
       "degree": 1
     },
     {
       "id": "Athabaskan fiddle",
       "label": "Athabaskan fiddle",
+      "last_revision_date": "2024-01-12T17:26:33Z",
       "degree": 0
     },
     {
       "id": "Atlanta blues",
       "label": "Atlanta blues",
+      "last_revision_date": "2024-12-10T13:01:25Z",
       "degree": 2
     },
     {
       "id": "Australian hip-hop",
       "label": "Australian hip-hop",
+      "last_revision_date": "2025-01-22T08:49:35Z",
       "degree": 10
     },
     {
       "id": "Austropop",
       "label": "Austropop",
+      "last_revision_date": "2025-01-12T21:12:22Z",
       "degree": 2
     },
     {
       "id": "Avant-funk",
       "label": "Avant-funk",
+      "last_revision_date": "2024-12-25T22:48:04Z",
       "degree": 15
     },
     {
       "id": "Avant-garde jazz",
       "label": "Avant-garde jazz",
+      "last_revision_date": "2024-12-24T15:56:14Z",
       "degree": 8
     },
     {
       "id": "Avant-garde metal",
       "label": "Avant-garde metal",
+      "last_revision_date": "2024-10-22T04:46:31Z",
       "degree": 9
     },
     {
       "id": "Avant-garde music",
       "label": "Avant-garde",
+      "last_revision_date": "2025-01-21T20:57:34Z",
       "degree": 25
     },
     {
       "id": "Avant-prog",
       "label": "Avant-prog",
+      "last_revision_date": "2023-12-23T08:36:13Z",
       "degree": 3
     },
     {
       "id": "Avant-punk",
       "label": "Avant-punk",
+      "last_revision_date": "2024-01-23T22:02:00Z",
       "degree": 3
     },
     {
       "id": "Axé",
       "label": "Axé",
+      "last_revision_date": "2024-12-25T14:22:35Z",
       "degree": 7
     },
     {
       "id": "Azerbaijani pop music",
       "label": "Azerbaijani pop music",
+      "last_revision_date": "2024-11-07T08:20:54Z",
       "degree": 3
     },
     {
       "id": "Bachata (music)",
       "label": "Bachata",
+      "last_revision_date": "2025-01-19T02:00:20Z",
       "degree": 4
     },
     {
       "id": "Bachatón",
       "label": "Bachatón",
+      "last_revision_date": "2024-11-12T03:46:39Z",
       "degree": 5
     },
     {
       "id": "Bagad",
       "label": "Bagad",
+      "last_revision_date": "2025-01-16T15:57:26Z",
       "degree": 0
     },
     {
       "id": "Baggy",
       "label": "Baggy",
+      "last_revision_date": "2024-12-30T20:05:08Z",
       "degree": 6
     },
     {
       "id": "Bahamian Rhyming Spiritual",
       "label": "Bahamian Rhyming Spiritual",
+      "last_revision_date": "2022-05-25T13:08:28Z",
       "degree": 2
     },
     {
       "id": "Bakersfield sound",
       "label": "Bakersfield sound",
+      "last_revision_date": "2024-10-01T23:00:51Z",
       "degree": 7
     },
     {
       "id": "Balearic beat",
       "label": "Balearic beat",
+      "last_revision_date": "2024-12-31T22:07:42Z",
       "degree": 10
     },
     {
       "id": "Balearic trance",
       "label": "Balearic trance",
+      "last_revision_date": "2024-05-23T18:30:40Z",
       "degree": 4
     },
     {
       "id": "Balkan brass",
       "label": "Balkan brass music",
+      "last_revision_date": "2023-10-22T08:18:14Z",
       "degree": 3
     },
     {
       "id": "Ball culture",
       "label": "Ballroom music",
+      "last_revision_date": "2024-11-25T23:04:57Z",
       "degree": 5
     },
     {
       "id": "Baltimore club",
       "label": "Baltimore club",
+      "last_revision_date": "2024-12-16T03:37:13Z",
       "degree": 8
     },
     {
       "id": "Bambuco",
       "label": "Danza Del Bambuco",
+      "last_revision_date": "2025-01-16T10:50:05Z",
       "degree": 1
     },
     {
       "id": "Banda music",
       "label": "Banda music",
+      "last_revision_date": "2025-01-09T09:38:00Z",
       "degree": 5
     },
     {
       "id": "Bandana thrash",
       "label": "Bandana thrash",
+      "last_revision_date": "2024-08-21T13:57:27Z",
       "degree": 4
     },
     {
       "id": "Bangladeshi heavy metal",
       "label": "Bangladeshi heavy metal",
+      "last_revision_date": "2024-06-11T05:03:31Z",
       "degree": 7
     },
     {
       "id": "Bangladeshi hip-hop",
       "label": "Bangladeshi hip hop",
+      "last_revision_date": "2025-01-11T15:45:19Z",
       "degree": 3
     },
     {
       "id": "Bangladeshi rock",
       "label": "Bangladeshi rock music",
+      "last_revision_date": "2024-10-22T12:18:00Z",
       "degree": 9
     },
     {
       "id": "Banjo music",
       "label": "Banjo music",
+      "last_revision_date": "2023-11-03T22:29:51Z",
       "degree": 7
     },
     {
       "id": "Bantowbol",
       "label": "Bantowbol",
+      "last_revision_date": "2022-05-24T17:41:03Z",
       "degree": 0
     },
     {
       "id": "Barbershop music",
       "label": "Barbershop music",
+      "last_revision_date": "2025-01-21T13:20:22Z",
       "degree": 1
     },
     {
       "id": "Bard (Soviet Union)",
       "label": "Author song",
+      "last_revision_date": "2024-11-12T13:21:53Z",
       "degree": 2
     },
     {
       "id": "Bardcore",
       "label": "Bardcore",
+      "last_revision_date": "2024-11-30T16:44:47Z",
       "degree": 3
     },
     {
       "id": "Baroque pop",
       "label": "Baroque pop",
+      "last_revision_date": "2025-01-16T19:12:31Z",
       "degree": 10
     },
     {
       "id": "Bassline (music genre)",
       "label": "Bassline",
+      "last_revision_date": "2025-01-10T22:23:18Z",
       "degree": 6
     },
     {
       "id": "Batrelaky",
       "label": "Batrelaky",
+      "last_revision_date": "2024-11-26T01:43:05Z",
       "degree": 0
     },
     {
       "id": "Battle rap",
       "label": "Battle rap",
+      "last_revision_date": "2025-01-09T16:35:48Z",
       "degree": 0
     },
     {
       "id": "Batuque (Cape Verde)",
       "label": "Batuque",
+      "last_revision_date": "2024-04-21T20:50:10Z",
       "degree": 1
     },
     {
       "id": "Bay Area thrash metal",
       "label": "Bay Area thrash metal",
+      "last_revision_date": "2024-09-11T11:07:01Z",
       "degree": 5
     },
     {
       "id": "Beach music",
       "label": "Beach",
+      "last_revision_date": "2025-01-05T12:53:11Z",
       "degree": 5
     },
     {
       "id": "Beat music",
       "label": "Beat",
+      "last_revision_date": "2025-01-20T03:10:20Z",
       "degree": 24
     },
     {
       "id": "Beatdown hardcore",
       "label": "Beatdown hardcore",
+      "last_revision_date": "2025-01-17T09:52:48Z",
       "degree": 8
     },
     {
       "id": "Bebop",
       "label": "Bebop",
+      "last_revision_date": "2025-01-21T11:16:09Z",
       "degree": 9
     },
     {
       "id": "Belgian hardcore techno",
       "label": "Belgian hardcore techno",
+      "last_revision_date": "2024-08-17T05:02:07Z",
       "degree": 9
     },
     {
       "id": "Benga music",
       "label": "Benga",
+      "last_revision_date": "2024-09-13T13:59:49Z",
       "degree": 3
     },
     {
       "id": "Bengali Rock music (India)",
       "label": "Bengali Rock music",
+      "last_revision_date": "2025-01-17T10:38:48Z",
       "degree": 10
     },
     {
       "id": "Bertitik",
       "label": "Bertitik",
+      "last_revision_date": "2024-03-08T21:35:00Z",
       "degree": 0
     },
     {
       "id": "Bećarac",
       "label": "Bećarac",
+      "last_revision_date": "2024-11-01T05:09:05Z",
       "degree": 0
     },
     {
       "id": "Bhangra (music)",
       "label": "Bhangra",
+      "last_revision_date": "2025-01-16T18:48:39Z",
       "degree": 5
     },
     {
       "id": "Big band",
       "label": "Big band",
+      "last_revision_date": "2025-01-09T03:53:27Z",
       "degree": 11
     },
     {
       "id": "Big beat",
       "label": "Big beat",
+      "last_revision_date": "2024-12-13T08:57:10Z",
       "degree": 15
     },
     {
       "id": "Big room house",
       "label": "Big room house",
+      "last_revision_date": "2024-12-02T16:01:28Z",
       "degree": 15
     },
     {
       "id": "Biguine",
       "label": "Biguine",
+      "last_revision_date": "2024-11-09T06:40:38Z",
       "degree": 5
     },
     {
       "id": "Biker metal",
       "label": "Biker metal",
+      "last_revision_date": "2025-01-14T09:41:38Z",
       "degree": 9
     },
     {
       "id": "Bikutsi",
       "label": "Bikutsi",
+      "last_revision_date": "2024-04-19T05:00:54Z",
       "degree": 1
     },
     {
       "id": "Birmingham sound",
       "label": "Birmingham sound",
+      "last_revision_date": "2024-12-06T23:53:13Z",
       "degree": 2
     },
     {
       "id": "Bisrock",
       "label": "BisRock",
+      "last_revision_date": "2023-09-16T15:51:59Z",
       "degree": 2
     },
     {
       "id": "Bitpop",
       "label": "Bitpop",
+      "last_revision_date": "2025-01-18T01:47:23Z",
       "degree": 7
     },
     {
       "id": "Black Gospel music",
       "label": "Black gospel music",
+      "last_revision_date": "2025-01-04T15:32:19Z",
       "degree": 5
     },
     {
       "id": "Black MIDI",
       "label": "Black MIDI",
+      "last_revision_date": "2024-10-17T01:04:36Z",
       "degree": 0
     },
     {
       "id": "Black metal",
       "label": "Black metal",
+      "last_revision_date": "2025-01-23T00:45:21Z",
       "degree": 26
     },
     {
       "id": "Blackened death metal",
       "label": "War metal",
+      "last_revision_date": "2025-01-14T09:44:49Z",
       "degree": 8
     },
     {
       "id": "Blackgaze",
       "label": "Blackgaze",
+      "last_revision_date": "2024-09-05T17:43:34Z",
       "degree": 8
     },
     {
       "id": "Bleep techno",
       "label": "Bleep techno",
+      "last_revision_date": "2024-12-06T23:52:54Z",
       "degree": 13
     },
     {
       "id": "Bluegrass music",
       "label": "Bluegrass",
+      "last_revision_date": "2025-01-19T02:17:33Z",
       "degree": 18
     },
     {
       "id": "Blues",
       "label": "Blues",
+      "last_revision_date": "2025-01-23T17:07:10Z",
       "degree": 91
     },
     {
       "id": "Blues rock",
       "label": "Blues rock",
+      "last_revision_date": "2025-01-18T05:07:51Z",
       "degree": 21
     },
     {
       "id": "Bolero",
       "label": "Bolero",
+      "last_revision_date": "2024-12-31T02:22:07Z",
       "degree": 12
     },
     {
       "id": "Bolojo",
       "label": "Bolojo",
+      "last_revision_date": "2022-06-03T22:51:54Z",
       "degree": 0
     },
     {
       "id": "Bomba (Puerto Rico)",
       "label": "Bomba",
+      "last_revision_date": "2025-01-15T00:19:09Z",
       "degree": 2
     },
     {
       "id": "Bongai",
       "label": "Bongai",
+      "last_revision_date": "2024-04-22T12:22:00Z",
       "degree": 0
     },
     {
       "id": "Bongo Flava",
       "label": "Bongo Flava",
+      "last_revision_date": "2024-12-13T23:36:53Z",
       "degree": 6
     },
     {
       "id": "Boogaloo",
       "label": "Boogaloo",
+      "last_revision_date": "2024-12-16T21:26:59Z",
       "degree": 5
     },
     {
       "id": "Boogie (genre)",
       "label": "Boogie",
+      "last_revision_date": "2024-09-03T03:05:21Z",
       "degree": 13
     },
     {
       "id": "Boogie rock",
       "label": "Boogie rock",
+      "last_revision_date": "2024-05-30T17:38:31Z",
       "degree": 4
     },
     {
       "id": "Boogie-woogie",
       "label": "Boogie-woogie",
+      "last_revision_date": "2024-11-11T14:43:13Z",
       "degree": 11
     },
     {
       "id": "Boom bap",
       "label": "Boom bap",
+      "last_revision_date": "2024-12-15T06:19:05Z",
       "degree": 7
     },
     {
       "id": "Boomba music",
       "label": "Boomba music",
+      "last_revision_date": "2024-12-13T18:50:27Z",
       "degree": 5
     },
     {
       "id": "Borgeet",
       "label": "Borgeet",
+      "last_revision_date": "2024-12-14T00:04:47Z",
       "degree": 0
     },
     {
       "id": "Boria (theatre)",
       "label": "Boria",
+      "last_revision_date": "2024-04-25T21:33:37Z",
       "degree": 0
     },
     {
       "id": "Bossa nova",
       "label": "Bossa nova",
+      "last_revision_date": "2025-01-01T20:40:12Z",
       "degree": 17
     },
     {
       "id": "Bounce music",
       "label": "Bounce",
+      "last_revision_date": "2024-12-13T22:58:21Z",
       "degree": 10
     },
     {
       "id": "Bouncy techno",
       "label": "Bouncy techno",
-      "degree": 10
+      "last_revision_date": "2025-01-09T21:16:03Z",
+      "degree": 11
     },
     {
       "id": "Bouyon music",
       "label": "Bouyon",
+      "last_revision_date": "2024-12-07T21:40:17Z",
       "degree": 9
     },
     {
       "id": "Bouyon soca",
       "label": "Bouyon Music",
+      "last_revision_date": "2024-09-04T13:04:24Z",
       "degree": 3
     },
     {
       "id": "Brazilian gaucho music",
       "label": "Brazilian gaucho music",
+      "last_revision_date": "2024-04-16T22:20:22Z",
       "degree": 0
     },
     {
       "id": "Brazilian phonk",
       "label": "Brazilian phonk",
+      "last_revision_date": "2025-01-10T00:19:21Z",
       "degree": 2
     },
     {
       "id": "Brazilian rock",
       "label": "Brazilian rock",
+      "last_revision_date": "2024-12-31T04:45:44Z",
       "degree": 7
     },
     {
       "id": "Breakbeat",
       "label": "Breakbeat",
+      "last_revision_date": "2025-01-20T07:15:55Z",
       "degree": 32
     },
     {
       "id": "Breakbeat hardcore",
       "label": "Breakbeat hardcore",
+      "last_revision_date": "2024-12-31T09:12:10Z",
       "degree": 19
     },
     {
       "id": "Breakcore",
       "label": "Breakcore",
+      "last_revision_date": "2025-01-07T20:25:17Z",
       "degree": 14
     },
     {
       "id": "Breakstep",
       "label": "Breakstep",
+      "last_revision_date": "2024-09-23T15:12:55Z",
       "degree": 5
     },
     {
       "id": "Brega pop",
       "label": "Brega-pop",
+      "last_revision_date": "2024-12-19T17:33:56Z",
       "degree": 3
     },
     {
       "id": "Brill Building (genre)",
       "label": "Brill Building",
+      "last_revision_date": "2024-11-06T17:53:52Z",
       "degree": 12
     },
     {
       "id": "Brisbane punk rock",
       "label": "Brisbane punk rock",
+      "last_revision_date": "2024-12-09T04:23:01Z",
       "degree": 5
     },
     {
       "id": "Brit funk",
       "label": "Brit funk",
+      "last_revision_date": "2024-12-16T22:58:05Z",
       "degree": 7
     },
     {
       "id": "British blues",
       "label": "British blues",
+      "last_revision_date": "2024-12-25T14:59:17Z",
       "degree": 5
     },
     {
       "id": "British folk rock",
       "label": "British folk rock",
+      "last_revision_date": "2024-01-23T19:17:47Z",
       "degree": 11
     },
     {
       "id": "British rhythm and blues",
       "label": "British rhythm and blues",
+      "last_revision_date": "2024-11-22T11:47:22Z",
       "degree": 9
     },
     {
       "id": "British rock and roll",
       "label": "British rock and roll",
+      "last_revision_date": "2025-01-18T18:27:59Z",
       "degree": 4
     },
     {
       "id": "British soul",
       "label": "British soul",
+      "last_revision_date": "2024-09-26T20:56:18Z",
       "degree": 6
     },
     {
       "id": "Britpop",
       "label": "Britpop",
+      "last_revision_date": "2025-01-21T17:43:15Z",
       "degree": 13
     },
     {
       "id": "Bro-country",
       "label": "Bro-country",
+      "last_revision_date": "2024-12-25T23:39:12Z",
       "degree": 6
     },
     {
       "id": "Broken beat",
       "label": "Broken beat",
+      "last_revision_date": "2025-01-07T01:32:44Z",
       "degree": 11
     },
     {
       "id": "Brooklyn drill",
       "label": "Bronx drill",
+      "last_revision_date": "2025-01-15T19:14:45Z",
       "degree": 7
     },
     {
       "id": "Brostep",
       "label": "Brostep",
+      "last_revision_date": "2024-12-27T05:04:25Z",
       "degree": 12
     },
     {
       "id": "Brukdown",
       "label": "Brukdown",
+      "last_revision_date": "2024-04-04T20:27:16Z",
       "degree": 1
     },
     {
       "id": "Brutal death metal",
       "label": "Brutal death metal",
+      "last_revision_date": "2025-01-21T18:50:45Z",
       "degree": 6
     },
     {
       "id": "Bubblegum music",
       "label": "Bubblegum",
+      "last_revision_date": "2025-01-19T08:05:36Z",
       "degree": 19
     },
     {
       "id": "Budots",
       "label": "Budots",
+      "last_revision_date": "2025-01-21T03:38:29Z",
       "degree": 5
     },
     {
       "id": "Bulgarian hip-hop",
       "label": "Bulgarian hip hop",
+      "last_revision_date": "2025-01-02T22:49:50Z",
       "degree": 1
     },
     {
       "id": "Bullerengue",
       "label": "Bullerengue",
+      "last_revision_date": "2025-01-07T13:36:45Z",
       "degree": 1
     },
     {
       "id": "Burban",
       "label": "Burban",
+      "last_revision_date": "2024-10-27T12:34:40Z",
       "degree": 5
     },
     {
       "id": "Bélé",
       "label": "Bélé",
+      "last_revision_date": "2024-07-29T11:50:17Z",
       "degree": 10
     },
     {
       "id": "Cachaca (musical genre)",
       "label": "Cachaca",
+      "last_revision_date": "2025-01-23T05:49:25Z",
       "degree": 0
     },
     {
       "id": "Cadence rampa",
       "label": "Cadence rampa",
+      "last_revision_date": "2025-01-08T17:42:28Z",
       "degree": 4
     },
     {
       "id": "Cadence-lypso",
       "label": "Cadence-lypso",
+      "last_revision_date": "2024-12-14T23:25:31Z",
       "degree": 14
     },
     {
       "id": "Cajun fiddle",
       "label": "Cajun fiddle",
+      "last_revision_date": "2024-01-23T09:11:19Z",
       "degree": 3
     },
     {
       "id": "Cajun music",
       "label": "Cajun music",
+      "last_revision_date": "2024-11-24T18:01:06Z",
       "degree": 8
     },
     {
       "id": "Cakewalk",
       "label": "Cakewalk",
+      "last_revision_date": "2025-01-07T01:11:09Z",
       "degree": 1
     },
     {
       "id": "Calypso music",
       "label": "Calypso",
+      "last_revision_date": "2024-12-20T19:59:57Z",
       "degree": 24
     },
     {
       "id": "Cambodian rock (1960s–1970s)",
       "label": "Cambodian rock (1960s–1970s)",
+      "last_revision_date": "2025-01-23T23:57:57Z",
       "degree": 7
     },
     {
       "id": "Campus folk song",
       "label": "Taiwanese campus folk song",
+      "last_revision_date": "2024-10-01T03:51:31Z",
       "degree": 3
     },
     {
       "id": "Canadian blues",
       "label": "Canadian blues",
+      "last_revision_date": "2024-01-24T18:39:10Z",
       "degree": 5
     },
     {
       "id": "Canadian heavy metal",
       "label": "Canadian heavy metal",
+      "last_revision_date": "2024-09-12T21:11:20Z",
       "degree": 1
     },
     {
       "id": "Canción melódica",
       "label": "Canción melódica",
+      "last_revision_date": "2024-11-09T23:07:40Z",
       "degree": 4
     },
     {
       "id": "Candombe",
       "label": "Candombe",
+      "last_revision_date": "2025-01-23T01:07:02Z",
       "degree": 2
     },
     {
       "id": "Cante Alentejano",
       "label": "Cante Alentejano",
+      "last_revision_date": "2024-12-07T16:34:43Z",
       "degree": 0
     },
     {
       "id": "Canterbury scene",
       "label": "Canterbury scene",
+      "last_revision_date": "2024-11-29T22:12:56Z",
       "degree": 5
     },
     {
       "id": "Cantu a tenore",
       "label": "Cantu a tenòre",
+      "last_revision_date": "2024-12-07T16:40:18Z",
       "degree": 0
     },
     {
       "id": "Cape Breton fiddling",
       "label": "Cape Breton fiddling",
+      "last_revision_date": "2025-01-19T09:52:59Z",
       "degree": 0
     },
     {
       "id": "Cape jazz",
       "label": "Cape jazz",
+      "last_revision_date": "2024-05-03T03:43:45Z",
       "degree": 1
     },
     {
       "id": "Capoeira music",
       "label": "Capoeira music",
+      "last_revision_date": "2024-11-24T17:38:19Z",
       "degree": 1
     },
     {
       "id": "Car song",
       "label": "Car song",
+      "last_revision_date": "2024-05-30T20:44:30Z",
       "degree": 10
     },
     {
       "id": "Cello rock",
       "label": "Cello rock",
+      "last_revision_date": "2024-07-29T13:32:06Z",
       "degree": 5
     },
     {
       "id": "Celtic fusion",
       "label": "Celtic fusion",
+      "last_revision_date": "2024-12-16T15:46:44Z",
       "degree": 5
     },
     {
       "id": "Celtic metal",
       "label": "Celtic metal",
+      "last_revision_date": "2024-12-20T23:03:51Z",
       "degree": 7
     },
     {
       "id": "Celtic rock",
       "label": "Celtic rock",
+      "last_revision_date": "2025-01-02T21:32:42Z",
       "degree": 8
     },
     {
       "id": "Chaabi (Algeria)",
       "label": "Chaabi",
+      "last_revision_date": "2024-12-30T01:41:37Z",
       "degree": 1
     },
     {
       "id": "Chalga",
       "label": "Chalga",
+      "last_revision_date": "2025-01-10T15:53:40Z",
       "degree": 4
     },
     {
       "id": "Chamamé",
       "label": "Chamamé",
+      "last_revision_date": "2025-01-09T00:32:43Z",
       "degree": 2
     },
     {
       "id": "Chamber jazz",
       "label": "Chamber jazz",
+      "last_revision_date": "2024-10-20T23:33:36Z",
       "degree": 5
     },
     {
       "id": "Chamber pop",
       "label": "Chamber pop",
+      "last_revision_date": "2025-01-05T20:27:32Z",
       "degree": 6
     },
     {
       "id": "Champeta",
       "label": "Champeta",
+      "last_revision_date": "2023-12-07T21:15:19Z",
       "degree": 8
     },
     {
       "id": "Chanson",
       "label": "Chanson",
+      "last_revision_date": "2024-10-22T22:12:45Z",
       "degree": 3
     },
     {
       "id": "Chanté mas",
       "label": "Chanté mas",
+      "last_revision_date": "2024-04-22T12:37:59Z",
       "degree": 2
     },
     {
       "id": "Chap hop",
       "label": "Chap hop",
+      "last_revision_date": "2024-12-18T09:53:07Z",
       "degree": 4
     },
     {
       "id": "Chicago blues",
       "label": "Chicago blues",
+      "last_revision_date": "2025-01-08T22:23:48Z",
       "degree": 3
     },
     {
       "id": "Chicago house",
       "label": "Chicago house",
+      "last_revision_date": "2024-09-20T07:15:39Z",
       "degree": 17
     },
     {
       "id": "Chicago soul",
       "label": "Chicago soul",
+      "last_revision_date": "2022-10-27T04:08:01Z",
       "degree": 5
     },
     {
       "id": "Children's music",
       "label": "Children's music",
+      "last_revision_date": "2024-12-01T22:29:33Z",
       "degree": 1
     },
     {
       "id": "Chilean rock",
       "label": "Rock music in Chile",
+      "last_revision_date": "2024-11-07T13:08:17Z",
       "degree": 4
     },
     {
       "id": "Chillwave",
       "label": "Chillwave",
+      "last_revision_date": "2024-10-18T01:28:02Z",
       "degree": 17
     },
     {
       "id": "Chimurenga music",
       "label": "Chimurenga",
+      "last_revision_date": "2024-04-21T15:58:06Z",
       "degree": 2
     },
     {
       "id": "Chiptune",
       "label": "Chiptune",
+      "last_revision_date": "2025-01-10T12:08:21Z",
       "degree": 21
     },
     {
       "id": "Chopped and screwed",
       "label": "Slowed and reverb",
+      "last_revision_date": "2024-12-13T22:58:23Z",
       "degree": 10
     },
     {
       "id": "Chopper (rap)",
       "label": "Chopper",
+      "last_revision_date": "2024-12-13T16:59:37Z",
       "degree": 2
     },
     {
       "id": "Chorale motet",
       "label": "Chorale motet",
+      "last_revision_date": "2023-09-08T18:42:30Z",
       "degree": 0
     },
     {
       "id": "Choro",
       "label": "Choro",
+      "last_revision_date": "2024-12-04T19:35:48Z",
       "degree": 7
     },
     {
       "id": "Chouval bwa",
       "label": "Chouval bwa",
+      "last_revision_date": "2024-04-04T20:22:51Z",
       "degree": 2
     },
     {
       "id": "Christian R&B",
       "label": "Christian rhythm and blues",
+      "last_revision_date": "2024-12-19T00:23:05Z",
       "degree": 8
     },
     {
       "id": "Christian adult contemporary",
       "label": "Christian adult contemporary",
+      "last_revision_date": "2024-12-20T23:28:12Z",
       "degree": 10
     },
     {
       "id": "Christian alternative rock",
       "label": "Christian alternative music",
+      "last_revision_date": "2024-12-23T14:03:21Z",
       "degree": 7
     },
     {
       "id": "Christian country music",
       "label": "Christian country music",
+      "last_revision_date": "2025-01-18T05:47:40Z",
       "degree": 9
     },
     {
       "id": "Christian death metal",
       "label": "Christian death metal",
+      "last_revision_date": "2025-01-18T16:31:28Z",
       "degree": 3
     },
     {
       "id": "Christian electronic dance music",
       "label": "CEDM",
+      "last_revision_date": "2025-01-22T15:56:55Z",
       "degree": 12
     },
     {
       "id": "Christian hardcore",
       "label": "Christian hardcore",
+      "last_revision_date": "2024-09-08T02:00:57Z",
       "degree": 6
     },
     {
       "id": "Christian hip-hop",
       "label": "Christian Hip Hop",
+      "last_revision_date": "2025-01-12T06:09:37Z",
       "degree": 6
     },
     {
       "id": "Christian metal",
       "label": "Christian metal",
+      "last_revision_date": "2025-01-20T09:11:13Z",
       "degree": 8
     },
     {
       "id": "Christian punk",
       "label": "Christian punk",
+      "last_revision_date": "2024-10-22T22:16:19Z",
       "degree": 7
     },
     {
       "id": "Christian rock",
       "label": "Christian rock",
+      "last_revision_date": "2025-01-16T17:16:49Z",
       "degree": 11
     },
     {
       "id": "Christian ska",
       "label": "Christian ska",
+      "last_revision_date": "2024-06-22T03:35:40Z",
       "degree": 6
     },
     {
       "id": "Chutney music",
       "label": "Chutney",
+      "last_revision_date": "2025-01-02T20:22:48Z",
       "degree": 9
     },
     {
       "id": "Chutney parang",
       "label": "Chutney parang",
+      "last_revision_date": "2025-01-19T09:15:43Z",
       "degree": 8
     },
     {
       "id": "Chutney soca",
       "label": "Chutney soca",
+      "last_revision_date": "2024-09-11T17:40:47Z",
       "degree": 6
     },
     {
       "id": "Cinematic soul",
       "label": "Cinematic soul",
+      "last_revision_date": "2025-01-05T01:37:50Z",
       "degree": 3
     },
     {
       "id": "City pop",
       "label": "City pop",
+      "last_revision_date": "2025-01-22T10:30:00Z",
       "degree": 16
     },
     {
       "id": "Classic female blues",
       "label": "Classic female blues",
+      "last_revision_date": "2024-01-12T22:15:51Z",
       "degree": 2
     },
     {
       "id": "Classical music in hip-hop",
       "label": "Classical music in hip-hop",
+      "last_revision_date": "2024-12-13T07:34:39Z",
       "degree": 2
     },
     {
       "id": "Cloud rap",
       "label": "Cloud rap",
+      "last_revision_date": "2025-01-18T16:20:11Z",
       "degree": 9
     },
     {
       "id": "Coladeira",
       "label": "Coladeira",
+      "last_revision_date": "2024-08-27T14:35:21Z",
       "degree": 4
     },
     {
       "id": "Cold wave (music)",
       "label": "Cold wave",
+      "last_revision_date": "2024-10-20T05:41:38Z",
       "degree": 8
     },
     {
       "id": "College rock",
       "label": "College rock",
+      "last_revision_date": "2025-01-23T02:49:44Z",
       "degree": 8
     },
     {
       "id": "Collegiate a cappella",
       "label": "Collegiate a cappella",
+      "last_revision_date": "2024-12-24T12:03:59Z",
       "degree": 2
     },
     {
       "id": "Colá",
       "label": "Colá",
+      "last_revision_date": "2025-01-06T14:33:56Z",
       "degree": 0
     },
     {
       "id": "Comedy hip-hop",
       "label": "Comedic hip-hop",
+      "last_revision_date": "2025-01-15T13:24:48Z",
       "degree": 7
     },
     {
       "id": "Comedy music",
       "label": "Comedy music",
+      "last_revision_date": "2024-11-09T01:21:48Z",
       "degree": 8
     },
     {
       "id": "Comedy rock",
       "label": "Comedy rock",
+      "last_revision_date": "2024-11-24T17:33:06Z",
       "degree": 5
     },
     {
       "id": "Compas",
       "label": "Compas",
+      "last_revision_date": "2024-12-25T00:16:07Z",
       "degree": 13
     },
     {
       "id": "Conga (music)",
       "label": "Conga",
+      "last_revision_date": "2024-06-19T20:27:33Z",
       "degree": 2
     },
     {
       "id": "Congolese rumba",
       "label": "Congolese rumba",
+      "last_revision_date": "2025-01-05T03:01:02Z",
       "degree": 7
     },
     {
       "id": "Contemporary Christian music",
       "label": "Contemporary Christian music",
+      "last_revision_date": "2025-01-20T22:09:49Z",
       "degree": 22
     },
     {
       "id": "Contemporary R&B",
       "label": "Contemporary R&B",
+      "last_revision_date": "2025-01-19T18:23:37Z",
       "degree": 62
     },
     {
       "id": "Contemporary folk music",
       "label": "Country folk",
+      "last_revision_date": "2025-01-11T20:30:35Z",
       "degree": 26
     },
     {
       "id": "Contemporary worship music",
       "label": "Contemporary worship music",
+      "last_revision_date": "2025-01-05T13:29:33Z",
       "degree": 4
     },
     {
       "id": "Cool Cymru",
       "label": "Cool Cymru",
+      "last_revision_date": "2024-11-09T07:13:27Z",
       "degree": 3
     },
     {
       "id": "Cool jazz",
       "label": "Cool jazz",
+      "last_revision_date": "2024-11-25T15:14:15Z",
       "degree": 7
     },
     {
       "id": "Coon song",
       "label": "Coon song",
+      "last_revision_date": "2024-09-20T19:42:16Z",
       "degree": 0
     },
     {
       "id": "Copy thachin",
       "label": "Copy thachin",
+      "last_revision_date": "2024-09-18T16:48:10Z",
       "degree": 1
     },
     {
       "id": "Corridos tumbados",
       "label": "Corridos tumbados",
+      "last_revision_date": "2024-12-28T02:42:16Z",
       "degree": 6
     },
     {
       "id": "Country Funk 1969–1975",
       "label": "Country funk",
+      "last_revision_date": "2024-11-14T19:39:34Z",
       "degree": 4
     },
     {
       "id": "Country and Irish",
       "label": "Country and Irish",
+      "last_revision_date": "2023-07-31T21:24:22Z",
       "degree": 1
     },
     {
       "id": "Country blues",
       "label": "Country blues",
+      "last_revision_date": "2024-09-24T11:58:18Z",
       "degree": 14
     },
     {
       "id": "Country music",
       "label": "Country",
+      "last_revision_date": "2025-01-12T02:27:42Z",
       "degree": 77
     },
     {
       "id": "Country pop",
       "label": "Country pop",
+      "last_revision_date": "2024-12-08T04:24:15Z",
       "degree": 10
     },
     {
       "id": "Country rap",
       "label": "Country rap",
+      "last_revision_date": "2025-01-21T06:31:31Z",
       "degree": 5
     },
     {
       "id": "Country rock",
       "label": "Country metal",
+      "last_revision_date": "2024-12-24T17:55:46Z",
       "degree": 9
     },
     {
       "id": "Coupé-décalé",
       "label": "Coupé-décalé",
+      "last_revision_date": "2024-08-25T15:28:00Z",
       "degree": 7
     },
     {
       "id": "Cowboy pop",
       "label": "Cowboy pop",
+      "last_revision_date": "2024-12-10T23:36:16Z",
       "degree": 9
     },
     {
       "id": "Cowpunk",
       "label": "Cowpunk",
+      "last_revision_date": "2024-10-13T03:15:28Z",
       "degree": 10
     },
     {
       "id": "Creole music",
       "label": "Creole music of Louisiana",
+      "last_revision_date": "2024-10-22T23:56:48Z",
       "degree": 6
     },
     {
       "id": "Cringe pop",
       "label": "Cringe pop",
+      "last_revision_date": "2024-06-05T23:01:25Z",
       "degree": 1
     },
     {
       "id": "Croatian hip-hop",
       "label": "Croatian hip hop",
+      "last_revision_date": "2024-12-13T12:35:50Z",
       "degree": 9
     },
     {
       "id": "Crossover thrash",
       "label": "Crossover thrash",
+      "last_revision_date": "2024-10-29T04:33:30Z",
       "degree": 7
     },
     {
       "id": "Crunk",
       "label": "Crunk",
+      "last_revision_date": "2024-12-16T03:37:30Z",
       "degree": 17
     },
     {
       "id": "Crunkcore",
       "label": "Crunkcore",
+      "last_revision_date": "2024-12-24T02:04:54Z",
       "degree": 11
     },
     {
       "id": "Crust punk",
       "label": "Crust punk",
+      "last_revision_date": "2025-01-23T13:27:48Z",
       "degree": 15
     },
     {
       "id": "Cuarteto",
       "label": "Cuarteto",
+      "last_revision_date": "2025-01-09T16:14:44Z",
       "degree": 1
     },
     {
       "id": "Cuban rumba",
       "label": "Rumba",
+      "last_revision_date": "2024-08-03T01:18:52Z",
       "degree": 6
     },
     {
       "id": "Cumbia (Colombia)",
       "label": "Cumbia",
+      "last_revision_date": "2024-12-13T23:27:27Z",
       "degree": 4
     },
     {
       "id": "Cumbia (Panama)",
       "label": "Cumbia (Panama)",
+      "last_revision_date": "2024-11-21T18:36:57Z",
       "degree": 0
     },
     {
       "id": "Cumbia pop",
       "label": "Cumbia pop",
+      "last_revision_date": "2025-01-17T01:11:22Z",
       "degree": 2
     },
     {
       "id": "Cumbia santafesina",
       "label": "Cumbia santafesina",
+      "last_revision_date": "2025-01-15T03:14:06Z",
       "degree": 1
     },
     {
       "id": "Cumbia villera",
       "label": "Cumbia villera",
+      "last_revision_date": "2025-01-15T03:14:20Z",
       "degree": 3
     },
     {
       "id": "D-beat",
       "label": "D-beat",
+      "last_revision_date": "2024-12-14T10:00:35Z",
       "degree": 6
     },
     {
       "id": "Dance music",
       "label": "Dance music",
+      "last_revision_date": "2025-01-08T23:48:48Z",
       "degree": 18
     },
     {
       "id": "Dance-pop",
       "label": "Dance-pop",
+      "last_revision_date": "2025-01-23T23:24:41Z",
       "degree": 28
     },
     {
       "id": "Dance-punk",
       "label": "Dance-punk",
+      "last_revision_date": "2024-12-03T11:08:59Z",
       "degree": 15
     },
     {
       "id": "Dance-rock",
       "label": "Dance-rock",
+      "last_revision_date": "2025-01-02T01:09:46Z",
       "degree": 12
     },
     {
       "id": "Dancehall",
       "label": "Dancehall",
+      "last_revision_date": "2025-01-22T20:29:24Z",
       "degree": 33
     },
     {
       "id": "Dancehall pop",
       "label": "Dancehall pop",
+      "last_revision_date": "2024-06-01T13:37:05Z",
       "degree": 8
     },
     {
       "id": "Dangdut",
       "label": "Dangdut",
+      "last_revision_date": "2025-01-17T05:54:03Z",
       "degree": 6
     },
     {
       "id": "Danger music",
       "label": "Danger music",
+      "last_revision_date": "2025-01-13T00:06:49Z",
       "degree": 2
     },
     {
       "id": "Dansband",
       "label": "Dansbandsmusik",
+      "last_revision_date": "2024-12-15T18:00:45Z",
       "degree": 8
     },
     {
       "id": "Dappankuthu",
       "label": "Dappan Kuthu",
+      "last_revision_date": "2024-07-29T09:53:48Z",
       "degree": 0
     },
     {
       "id": "Dark ambient",
       "label": "Isolationism",
+      "last_revision_date": "2024-11-09T10:42:32Z",
       "degree": 12
     },
     {
       "id": "Dark cabaret",
       "label": "Dark cabaret",
+      "last_revision_date": "2024-10-01T16:24:31Z",
       "degree": 6
     },
     {
       "id": "Dark wave",
       "label": "Dark wave",
+      "last_revision_date": "2024-12-02T21:00:45Z",
       "degree": 15
     },
     {
       "id": "Darkcore",
       "label": "Darkcore",
+      "last_revision_date": "2024-09-06T20:06:14Z",
       "degree": 5
     },
     {
       "id": "Death 'n' roll",
       "label": "Death 'n' roll",
+      "last_revision_date": "2024-12-17T14:11:03Z",
       "degree": 6
     },
     {
       "id": "Death metal",
       "label": "Death metal",
+      "last_revision_date": "2025-01-22T03:04:35Z",
       "degree": 33
     },
     {
       "id": "Death-doom",
       "label": "Death-doom",
+      "last_revision_date": "2024-11-06T02:46:58Z",
       "degree": 8
     },
     {
       "id": "Deathcore",
       "label": "Deathcore",
+      "last_revision_date": "2025-01-11T11:45:20Z",
       "degree": 8
     },
     {
       "id": "Deathrock",
       "label": "Deathrock",
+      "last_revision_date": "2025-01-06T09:43:58Z",
       "degree": 6
     },
     {
       "id": "Deconstructed club",
       "label": "Deconstructed club",
+      "last_revision_date": "2025-01-23T21:36:52Z",
       "degree": 5
     },
     {
       "id": "Deep funk",
       "label": "Deep funk",
+      "last_revision_date": "2025-01-22T09:09:42Z",
       "degree": 3
     },
     {
       "id": "Deep house",
       "label": "Deep house",
+      "last_revision_date": "2024-10-31T05:49:59Z",
       "degree": 17
     },
     {
       "id": "Delta blues",
       "label": "Delta blues",
+      "last_revision_date": "2024-03-04T02:24:26Z",
       "degree": 7
     },
     {
       "id": "Denpa song",
       "label": "Denpa song",
+      "last_revision_date": "2024-12-29T21:29:19Z",
       "degree": 6
     },
     {
       "id": "Descarga",
       "label": "Descarga",
+      "last_revision_date": "2024-08-11T15:18:49Z",
       "degree": 3
     },
     {
       "id": "Desert blues",
       "label": "Desert blues",
+      "last_revision_date": "2024-09-29T06:39:43Z",
       "degree": 3
     },
     {
       "id": "Desgarrada",
       "label": "Desgarrada",
+      "last_revision_date": "2025-01-24T00:23:32Z",
       "degree": 0
     },
     {
       "id": "Desi hip-hop",
       "label": "Desi hip hop (DHH)",
+      "last_revision_date": "2024-12-13T11:18:20Z",
       "degree": 6
     },
     {
       "id": "Detroit drill",
       "label": "Detroit drill",
+      "last_revision_date": "2025-01-20T23:48:16Z",
       "degree": 5
     },
     {
       "id": "Detroit techno",
       "label": "Detroit techno",
+      "last_revision_date": "2025-01-19T16:16:06Z",
       "degree": 12
     },
     {
       "id": "Deuda (genre)",
       "label": "Deuda",
+      "last_revision_date": "2024-10-22T17:44:49Z",
       "degree": 1
     },
     {
       "id": "Digital hardcore",
       "label": "Digital hardcore",
+      "last_revision_date": "2024-08-16T20:55:28Z",
       "degree": 15
     },
     {
       "id": "Dirty rap",
       "label": "Dirty rap",
+      "last_revision_date": "2025-01-18T08:49:57Z",
       "degree": 6
     },
     {
       "id": "Disco",
       "label": "Disco",
+      "last_revision_date": "2025-01-23T15:39:20Z",
       "degree": 60
     },
     {
       "id": "Disco polo",
       "label": "Disco polo",
+      "last_revision_date": "2024-10-27T01:47:20Z",
       "degree": 4
     },
     {
       "id": "Diva house",
       "label": "Diva house",
+      "last_revision_date": "2025-01-20T14:59:47Z",
       "degree": 12
     },
     {
       "id": "Dixieland jazz",
       "label": "Dixieland",
+      "last_revision_date": "2025-01-05T03:01:40Z",
       "degree": 8
     },
     {
       "id": "Djent",
       "label": "Djent",
+      "last_revision_date": "2025-01-08T21:18:38Z",
       "degree": 7
     },
     {
       "id": "Dolewave",
       "label": "Dolewave",
+      "last_revision_date": "2024-12-28T20:00:31Z",
       "degree": 6
     },
     {
       "id": "Dominican dembow",
       "label": "Dominican dembow",
+      "last_revision_date": "2025-01-08T09:30:17Z",
       "degree": 6
     },
     {
       "id": "Doo-wop",
       "label": "Doo-wop",
+      "last_revision_date": "2025-01-20T04:18:43Z",
       "degree": 14
     },
     {
       "id": "Doom metal",
       "label": "Doom metal",
+      "last_revision_date": "2025-01-22T03:06:29Z",
       "degree": 22
     },
     {
       "id": "Downtempo",
       "label": "Downtempo",
+      "last_revision_date": "2024-03-09T19:13:45Z",
       "degree": 10
     },
     {
       "id": "Dream pop",
       "label": "Dream pop",
+      "last_revision_date": "2025-01-05T20:26:37Z",
       "degree": 11
     },
     {
       "id": "Dream trance",
       "label": "Dream trance",
+      "last_revision_date": "2024-12-02T16:49:15Z",
       "degree": 8
     },
     {
       "id": "Dreampunk",
       "label": "Dreampunk",
+      "last_revision_date": "2024-11-19T03:29:45Z",
       "degree": 14
     },
     {
       "id": "Drill 'n' bass",
       "label": "Drill 'n' bass",
+      "last_revision_date": "2024-12-29T15:56:59Z",
       "degree": 8
     },
     {
       "id": "Drill music",
       "label": "Drill",
+      "last_revision_date": "2025-01-21T06:20:16Z",
       "degree": 18
     },
     {
       "id": "Drone metal",
       "label": "Drone metal",
+      "last_revision_date": "2024-02-14T16:41:16Z",
       "degree": 6
     },
     {
       "id": "Drone music",
       "label": "Drone music",
+      "last_revision_date": "2024-11-05T06:33:51Z",
       "degree": 13
     },
     {
       "id": "Drum and bass",
       "label": "Drum and bass",
+      "last_revision_date": "2024-12-09T14:30:24Z",
       "degree": 40
     },
     {
       "id": "Dub music",
       "label": "Dub",
+      "last_revision_date": "2025-01-04T14:41:31Z",
       "degree": 37
     },
     {
       "id": "Dub poetry",
       "label": "Dub poetry",
+      "last_revision_date": "2024-10-16T00:26:28Z",
       "degree": 2
     },
     {
       "id": "Dub techno",
       "label": "Dub techno",
+      "last_revision_date": "2025-01-04T22:30:00Z",
       "degree": 6
     },
     {
       "id": "Dubstep",
       "label": "Dubstep",
+      "last_revision_date": "2024-11-17T04:55:25Z",
       "degree": 23
     },
     {
       "id": "Dubtronica",
       "label": "Dubtronica",
+      "last_revision_date": "2024-03-12T15:49:01Z",
       "degree": 4
     },
     {
       "id": "Dunedin sound",
       "label": "Dunedin sound",
+      "last_revision_date": "2024-08-28T10:33:57Z",
       "degree": 10
     },
     {
       "id": "Dungeon synth",
       "label": "Dungeon synth",
+      "last_revision_date": "2025-01-21T17:43:12Z",
       "degree": 3
     },
     {
       "id": "Duranguense",
       "label": "Duranguense",
+      "last_revision_date": "2025-01-04T06:58:44Z",
       "degree": 3
     },
     {
       "id": "Dwijendrageeti",
       "label": "Dwijendrageeti",
+      "last_revision_date": "2024-11-06T04:37:05Z",
       "degree": 0
     },
     {
       "id": "EDM trap music",
       "label": "EDM trap",
+      "last_revision_date": "2025-01-24T22:34:10Z",
       "degree": 18
     },
     {
       "id": "Early Norwegian black metal scene",
       "label": "Norwegian black metal",
+      "last_revision_date": "2025-01-21T06:25:27Z",
       "degree": 5
     },
     {
       "id": "East Coast hip-hop",
       "label": "East Coast hip-hop",
+      "last_revision_date": "2025-01-19T02:47:56Z",
       "degree": 23
     },
     {
       "id": "Easy listening",
       "label": "Easy listening",
+      "last_revision_date": "2024-11-17T02:32:40Z",
       "degree": 15
     },
     {
       "id": "Edo Funk",
       "label": "Edo Funk",
+      "last_revision_date": "2024-05-25T16:28:41Z",
       "degree": 1
     },
     {
       "id": "Egg punk",
       "label": "Egg punk",
+      "last_revision_date": "2024-12-27T15:51:03Z",
       "degree": 5
     },
     {
       "id": "Ekpili",
       "label": "Ekpili",
+      "last_revision_date": "2024-04-22T12:15:34Z",
       "degree": 0
     },
     {
       "id": "Electric blues",
       "label": "Electric blues",
+      "last_revision_date": "2025-01-19T02:24:10Z",
       "degree": 14
     },
     {
       "id": "Electro (music)",
       "label": "Electro-soul",
+      "last_revision_date": "2024-12-20T06:38:33Z",
       "degree": 29
     },
     {
       "id": "Electro house",
       "label": "Melbourne bounce",
+      "last_revision_date": "2024-12-26T04:04:16Z",
       "degree": 20
     },
     {
       "id": "Electro swing",
       "label": "Electro swing",
+      "last_revision_date": "2024-08-05T18:50:13Z",
       "degree": 5
     },
     {
       "id": "Electro-industrial",
       "label": "Electro-industrial",
+      "last_revision_date": "2024-12-09T05:13:45Z",
       "degree": 9
     },
     {
       "id": "Electroclash",
       "label": "Electroclash",
+      "last_revision_date": "2024-11-10T14:18:05Z",
       "degree": 14
     },
     {
       "id": "Electronic body music",
       "label": "EBM",
+      "last_revision_date": "2025-01-20T17:31:59Z",
       "degree": 23
     },
     {
       "id": "Electronic music",
       "label": "Electronic music",
+      "last_revision_date": "2025-01-14T14:25:29Z",
       "degree": 64
     },
     {
       "id": "Electronic rock",
       "label": "Synth-metal",
+      "last_revision_date": "2025-01-21T02:08:04Z",
       "degree": 7
     },
     {
       "id": "Electronica",
       "label": "Electronica",
+      "last_revision_date": "2025-01-17T05:29:16Z",
       "degree": 22
     },
     {
       "id": "Electronicore",
       "label": "Electronicore",
+      "last_revision_date": "2024-10-29T17:34:44Z",
       "degree": 5
     },
     {
       "id": "Electropop",
       "label": "Electropop",
+      "last_revision_date": "2025-01-12T10:34:04Z",
       "degree": 13
     },
     {
       "id": "Emo",
       "label": "Emo",
+      "last_revision_date": "2024-12-31T10:30:46Z",
       "degree": 15
     },
     {
       "id": "Emo pop",
       "label": "Emo pop",
+      "last_revision_date": "2024-09-29T17:00:59Z",
       "degree": 6
     },
     {
       "id": "Emo rap",
       "label": "Emo rap",
+      "last_revision_date": "2025-01-19T21:33:19Z",
       "degree": 12
     },
     {
       "id": "Emo revival",
       "label": "Emo revival",
+      "last_revision_date": "2025-01-08T03:40:34Z",
       "degree": 8
     },
     {
       "id": "Enka",
       "label": "Enka",
+      "last_revision_date": "2025-01-01T04:18:24Z",
       "degree": 6
     },
     {
       "id": "Eshuva",
       "label": "Eshuva",
+      "last_revision_date": "2024-08-17T18:27:39Z",
       "degree": 0
     },
     {
       "id": "Ethereal wave",
       "label": "Ethereal wave",
+      "last_revision_date": "2024-10-20T05:42:13Z",
       "degree": 10
     },
     {
       "id": "Ethio-jazz",
       "label": "Ethio-jazz",
+      "last_revision_date": "2024-10-30T04:11:13Z",
       "degree": 6
     },
     {
       "id": "Ethiopian chant",
       "label": "Ethiopian liturgical chant",
+      "last_revision_date": "2025-01-18T18:41:59Z",
       "degree": 2
     },
     {
       "id": "Ethiopian hip-hop music",
       "label": "Ethiopian hip hop music",
+      "last_revision_date": "2024-12-09T10:05:41Z",
       "degree": 6
     },
     {
       "id": "Ethnic electronica",
       "label": "Ethnic electronica",
+      "last_revision_date": "2024-06-09T16:34:57Z",
       "degree": 3
     },
     {
       "id": "Eurobeat",
       "label": "Eurobeat",
+      "last_revision_date": "2024-12-08T11:06:32Z",
       "degree": 7
     },
     {
       "id": "Eurodance",
       "label": "Eurodance",
+      "last_revision_date": "2025-01-21T19:11:52Z",
       "degree": 27
     },
     {
       "id": "Eurodisco",
       "label": "Eurodisco",
+      "last_revision_date": "2024-11-24T08:40:45Z",
       "degree": 19
     },
     {
       "id": "Europop",
       "label": "Europop",
+      "last_revision_date": "2025-01-22T17:01:09Z",
       "degree": 15
     },
     {
       "id": "Exotica",
       "label": "Exotica",
+      "last_revision_date": "2024-12-01T00:43:55Z",
       "degree": 8
     },
     {
       "id": "Experimental pop",
       "label": "Experimental pop",
+      "last_revision_date": "2024-04-24T19:48:50Z",
       "degree": 4
     },
     {
       "id": "Experimental rock",
       "label": "Experimental rock",
+      "last_revision_date": "2024-09-26T18:41:15Z",
       "degree": 17
     },
     {
       "id": "Extreme metal",
       "label": "Extreme metal",
-      "degree": 70
+      "last_revision_date": "2025-01-14T09:51:09Z",
+      "degree": 69
     },
     {
       "id": "Fado",
       "label": "Fado",
+      "last_revision_date": "2024-12-07T16:25:47Z",
       "degree": 1
     },
     {
       "id": "Festejo",
       "label": "Festejo",
+      "last_revision_date": "2024-09-08T19:39:40Z",
       "degree": 2
     },
     {
       "id": "Fijiri",
       "label": "Fidjeri / fijri / fidjeri",
+      "last_revision_date": "2024-10-28T02:44:17Z",
       "degree": 0
     },
     {
       "id": "Filk music",
       "label": "Filk music",
+      "last_revision_date": "2024-11-14T17:21:23Z",
       "degree": 2
     },
     {
       "id": "First-wave black metal",
       "label": "First-wave black metal",
+      "last_revision_date": "2025-01-21T03:17:31Z",
       "degree": 8
     },
     {
       "id": "Flamenco",
       "label": "Flamenco",
+      "last_revision_date": "2025-01-04T22:55:05Z",
       "degree": 5
     },
     {
       "id": "Flamenco rock",
       "label": "Flamenco rock",
+      "last_revision_date": "2024-09-29T05:47:25Z",
       "degree": 3
     },
     {
       "id": "Florida breaks",
       "label": "Florida breaks",
+      "last_revision_date": "2024-11-11T18:03:15Z",
       "degree": 7
     },
     {
       "id": "Florida death metal",
       "label": "Florida death metal",
+      "last_revision_date": "2025-01-15T21:08:41Z",
       "degree": 3
     },
     {
       "id": "Folk baroque",
       "label": "Folk baroque",
+      "last_revision_date": "2024-12-16T10:34:05Z",
       "degree": 5
     },
     {
       "id": "Folk jazz",
       "label": "Folk jazz",
+      "last_revision_date": "2024-04-12T21:22:27Z",
       "degree": 5
     },
     {
       "id": "Folk metal",
       "label": "Folk metal",
+      "last_revision_date": "2025-01-10T23:49:50Z",
       "degree": 16
     },
     {
       "id": "Folk music",
       "label": "Traditional folk music",
+      "last_revision_date": "2025-01-16T15:35:38Z",
       "degree": 71
     },
     {
       "id": "Folk punk",
       "label": "Folk punk",
+      "last_revision_date": "2024-12-10T00:01:15Z",
       "degree": 9
     },
     {
       "id": "Folk rock",
       "label": "Folk rock",
+      "last_revision_date": "2025-01-13T15:05:06Z",
       "degree": 35
     },
     {
       "id": "Folk-pop",
       "label": "Folk-pop",
+      "last_revision_date": "2024-12-04T03:55:49Z",
       "degree": 8
     },
     {
       "id": "Folkhop",
       "label": "Folkhop",
+      "last_revision_date": "2024-10-26T14:13:29Z",
       "degree": 0
     },
     {
       "id": "Folktronica",
       "label": "Folktronica",
+      "last_revision_date": "2025-01-17T19:23:01Z",
       "degree": 4
     },
     {
       "id": "Footwork (genre)",
       "label": "Japanese juke and footwork",
+      "last_revision_date": "2025-01-08T02:49:47Z",
       "degree": 13
     },
     {
       "id": "Forró",
       "label": "Forró",
+      "last_revision_date": "2024-11-17T14:45:42Z",
       "degree": 5
     },
     {
       "id": "Freakbeat",
       "label": "Freakbeat",
+      "last_revision_date": "2025-01-22T04:32:29Z",
       "degree": 5
     },
     {
       "id": "Free funk",
       "label": "Free funk",
+      "last_revision_date": "2024-05-11T02:38:30Z",
       "degree": 10
     },
     {
       "id": "Free improvisation",
       "label": "Free improvisation",
+      "last_revision_date": "2024-08-10T19:18:14Z",
       "degree": 5
     },
     {
       "id": "Free jazz",
       "label": "Free jazz",
+      "last_revision_date": "2024-12-24T15:57:37Z",
       "degree": 12
     },
     {
       "id": "Freestyle music",
       "label": "Freestyle",
+      "last_revision_date": "2025-01-11T08:28:25Z",
       "degree": 14
     },
     {
       "id": "French house",
       "label": "French house",
+      "last_revision_date": "2025-01-08T13:19:43Z",
       "degree": 10
     },
     {
       "id": "French pop music",
       "label": "French pop",
+      "last_revision_date": "2025-01-18T12:58:50Z",
       "degree": 5
     },
     {
       "id": "Frenchcore",
       "label": "Frenchcore",
+      "last_revision_date": "2024-08-27T11:16:15Z",
       "degree": 4
     },
     {
       "id": "Fuji music",
       "label": "Fuji",
+      "last_revision_date": "2025-01-09T03:01:01Z",
       "degree": 4
     },
     {
       "id": "Funaná",
       "label": "Funaná",
+      "last_revision_date": "2024-09-27T03:37:06Z",
       "degree": 0
     },
     {
       "id": "Funeral doom",
       "label": "Funeral doom",
+      "last_revision_date": "2024-12-25T13:00:08Z",
       "degree": 1
     },
     {
       "id": "Funk",
       "label": "Funk",
+      "last_revision_date": "2025-01-03T16:31:27Z",
       "degree": 97
     },
     {
       "id": "Funk automotivo",
       "label": "Funk automotivo",
+      "last_revision_date": "2024-12-02T18:40:10Z",
       "degree": 1
     },
     {
       "id": "Funk carioca",
       "label": "Funk carioca",
+      "last_revision_date": "2025-01-07T20:57:43Z",
       "degree": 17
     },
     {
       "id": "Funk melody",
       "label": "Funk melody",
+      "last_revision_date": "2025-01-24T12:42:45Z",
       "degree": 6
     },
     {
       "id": "Funk metal",
       "label": "Funk metal",
+      "last_revision_date": "2024-12-26T11:30:43Z",
       "degree": 12
     },
     {
       "id": "Funk ostentação",
       "label": "Funk ostentação",
+      "last_revision_date": "2024-12-09T09:01:38Z",
       "degree": 5
     },
     {
       "id": "Funk ousadia",
       "label": "Funk ousadia",
+      "last_revision_date": "2024-11-19T17:26:06Z",
       "degree": 4
     },
     {
       "id": "Funk rock",
       "label": "Funk rock",
+      "last_revision_date": "2024-12-26T11:30:43Z",
       "degree": 10
     },
     {
       "id": "Funkot",
       "label": "Funkot",
+      "last_revision_date": "2024-11-17T21:56:14Z",
       "degree": 5
     },
     {
       "id": "Funkstep",
       "label": "Funkstep",
+      "last_revision_date": "2022-07-11T10:16:50Z",
       "degree": 3
     },
     {
       "id": "Future bass",
       "label": "J-future core",
+      "last_revision_date": "2025-01-22T22:32:15Z",
       "degree": 5
     },
     {
       "id": "Future garage",
       "label": "Future garage",
+      "last_revision_date": "2024-12-10T23:36:19Z",
       "degree": 13
     },
     {
       "id": "Future house",
       "label": "Future house",
+      "last_revision_date": "2025-01-24T07:51:02Z",
       "degree": 6
     },
     {
       "id": "Future rave",
       "label": "Future rave",
+      "last_revision_date": "2024-12-20T16:48:39Z",
       "degree": 6
     },
     {
       "id": "Future soul",
       "label": "Future soul",
+      "last_revision_date": "2024-03-17T09:30:09Z",
       "degree": 5
     },
     {
       "id": "Futurepop",
       "label": "Futurepop",
+      "last_revision_date": "2024-11-21T00:33:35Z",
       "degree": 5
     },
     {
       "id": "G-funk",
       "label": "G-funk",
+      "last_revision_date": "2025-01-22T19:02:52Z",
       "degree": 10
     },
     {
       "id": "Gaana",
       "label": "Gaana",
+      "last_revision_date": "2024-02-23T13:10:58Z",
       "degree": 0
     },
     {
       "id": "Gabber",
       "label": "Gabber",
+      "last_revision_date": "2025-01-23T15:32:05Z",
       "degree": 15
     },
     {
       "id": "Gaelic folk music",
       "label": "Gaelic folk music",
+      "last_revision_date": "2024-07-31T01:29:15Z",
       "degree": 0
     },
     {
       "id": "Galerón",
       "label": "Galerón",
+      "last_revision_date": "2025-01-11T17:49:58Z",
       "degree": 0
     },
     {
       "id": "Gamelan",
       "label": "Gamelan ensemble",
+      "last_revision_date": "2025-01-23T09:33:11Z",
       "degree": 0
     },
     {
       "id": "Gangsta rap",
       "label": "Gangsta rap",
+      "last_revision_date": "2025-01-18T04:29:21Z",
       "degree": 18
     },
     {
       "id": "Garage house",
       "label": "Garage house",
+      "last_revision_date": "2024-12-31T16:07:09Z",
       "degree": 15
     },
     {
       "id": "Garage punk (fusion genre)",
       "label": "Garage punk",
+      "last_revision_date": "2024-05-19T22:41:51Z",
       "degree": 7
     },
     {
       "id": "Garage rock",
       "label": "Garage rock",
+      "last_revision_date": "2025-01-13T03:00:02Z",
       "degree": 38
     },
     {
       "id": "Garifuna music",
       "label": "Garifuna music",
+      "last_revision_date": "2024-12-08T00:27:57Z",
       "degree": 1
     },
     {
       "id": "Geek rock",
       "label": "Geek rock",
+      "last_revision_date": "2024-11-05T18:38:10Z",
       "degree": 7
     },
     {
       "id": "Genge",
       "label": "Genge",
+      "last_revision_date": "2024-12-13T18:50:29Z",
       "degree": 7
     },
     {
       "id": "Gh hip-hop",
       "label": "Gh hiphop",
+      "last_revision_date": "2024-12-31T08:06:02Z",
       "degree": 2
     },
     {
       "id": "Gharnati music",
       "label": "Gharnati",
+      "last_revision_date": "2024-04-21T20:53:37Z",
       "degree": 0
     },
     {
       "id": "Ghetto house",
       "label": "Ghetto house",
+      "last_revision_date": "2024-12-01T18:37:06Z",
       "degree": 7
     },
     {
       "id": "Ghettotech",
       "label": "Ghettotech",
+      "last_revision_date": "2025-01-12T03:18:47Z",
       "degree": 9
     },
     {
       "id": "Glam metal",
       "label": "Glam metal",
+      "last_revision_date": "2025-01-20T18:27:56Z",
       "degree": 12
     },
     {
       "id": "Glam punk",
       "label": "Glam punk",
+      "last_revision_date": "2024-09-24T10:03:29Z",
       "degree": 9
     },
     {
       "id": "Glam rock",
       "label": "Glam rock",
+      "last_revision_date": "2025-01-06T13:46:56Z",
       "degree": 27
     },
     {
       "id": "Glitch (music)",
       "label": "Glitch",
+      "last_revision_date": "2024-12-05T19:24:08Z",
       "degree": 15
     },
     {
       "id": "Gnawa music",
       "label": "Gnawa music",
+      "last_revision_date": "2025-01-01T23:20:41Z",
       "degree": 0
     },
     {
       "id": "Go-go",
       "label": "Go-go",
+      "last_revision_date": "2025-01-10T01:20:26Z",
       "degree": 5
     },
     {
       "id": "Goa trance",
       "label": "Goa trance",
+      "last_revision_date": "2024-11-30T18:13:37Z",
       "degree": 10
     },
     {
       "id": "Golden age hip-hop",
       "label": "Golden age hip hop",
+      "last_revision_date": "2025-01-10T02:01:44Z",
       "degree": 7
     },
     {
       "id": "Gombhira",
       "label": "Gombhira",
+      "last_revision_date": "2024-12-19T17:27:55Z",
       "degree": 0
     },
     {
       "id": "Goregrind",
       "label": "Goregrind",
+      "last_revision_date": "2025-01-06T13:17:08Z",
       "degree": 6
     },
     {
       "id": "Gospel blues",
       "label": "Gospel blues",
+      "last_revision_date": "2025-01-17T11:37:26Z",
       "degree": 3
     },
     {
       "id": "Gospel music",
       "label": "Gospel music",
+      "last_revision_date": "2025-01-20T08:30:11Z",
       "degree": 36
     },
     {
       "id": "Gospel trap",
       "label": "Gospel trap",
+      "last_revision_date": "2024-12-13T12:24:19Z",
       "degree": 3
     },
     {
       "id": "Gothabilly",
       "label": "Gothabilly",
+      "last_revision_date": "2024-06-14T17:55:35Z",
       "degree": 5
     },
     {
       "id": "Gothic country",
       "label": "Gothic country",
+      "last_revision_date": "2024-11-13T21:02:28Z",
       "degree": 8
     },
     {
       "id": "Gothic metal",
       "label": "Gothic metal",
-      "degree": 9
+      "last_revision_date": "2025-01-15T04:07:46Z",
+      "degree": 8
     },
     {
       "id": "Gothic rock",
       "label": "Gothic rock",
+      "last_revision_date": "2024-12-31T07:33:53Z",
       "degree": 20
     },
     {
       "id": "Gqom",
       "label": "Gqom",
+      "last_revision_date": "2025-01-09T19:53:55Z",
       "degree": 10
     },
     {
       "id": "Grebo (music)",
       "label": "Grebo",
+      "last_revision_date": "2025-01-05T20:24:58Z",
       "degree": 10
     },
     {
       "id": "Greek punk",
       "label": "Greek punk",
+      "last_revision_date": "2025-01-17T19:32:10Z",
       "degree": 4
     },
     {
       "id": "Grime music",
       "label": "Grime",
+      "last_revision_date": "2024-12-30T22:18:36Z",
       "degree": 21
     },
     {
       "id": "Grindcore",
       "label": "Grindcore",
+      "last_revision_date": "2024-11-21T16:08:12Z",
       "degree": 23
     },
     {
       "id": "Grindie",
       "label": "Grindie",
+      "last_revision_date": "2024-01-23T19:18:46Z",
       "degree": 10
     },
     {
       "id": "Groove metal",
       "label": "Groove metal",
+      "last_revision_date": "2025-01-12T17:02:23Z",
       "degree": 11
     },
     {
       "id": "Group sounds",
       "label": "Group sounds",
+      "last_revision_date": "2023-12-24T22:16:34Z",
       "degree": 6
     },
     {
       "id": "Grunge",
       "label": "Grunge",
+      "last_revision_date": "2025-01-18T01:00:44Z",
       "degree": 15
     },
     {
       "id": "Grupera",
       "label": "Grupera",
+      "last_revision_date": "2024-07-08T02:33:22Z",
       "degree": 7
     },
     {
       "id": "Guitarrada",
       "label": "Guitarrada",
+      "last_revision_date": "2025-01-18T05:40:56Z",
       "degree": 7
     },
     {
       "id": "Gumbe",
       "label": "Gumbe",
+      "last_revision_date": "2024-11-25T15:30:10Z",
       "degree": 1
     },
     {
       "id": "Gwo ka",
       "label": "Gwo ka",
+      "last_revision_date": "2024-11-20T19:12:05Z",
       "degree": 4
     },
     {
       "id": "Gypsy jazz",
       "label": "Gypsy jazz",
+      "last_revision_date": "2024-12-18T18:17:08Z",
       "degree": 2
     },
     {
       "id": "Gypsy punk",
       "label": "Gypsy punk",
+      "last_revision_date": "2024-10-04T03:10:53Z",
       "degree": 6
     },
     {
       "id": "Halloween music",
       "label": "Halloween music",
+      "last_revision_date": "2025-01-24T16:28:00Z",
       "degree": 1
     },
     {
       "id": "Hapa haole music",
       "label": "Hapa haole music",
+      "last_revision_date": "2025-01-24T00:53:53Z",
       "degree": 1
     },
     {
       "id": "Happy hardcore",
       "label": "Happy hardcore",
+      "last_revision_date": "2024-12-15T00:13:36Z",
       "degree": 14
     },
     {
       "id": "Hard NRG",
       "label": "Hard NRG",
+      "last_revision_date": "2024-07-09T00:51:21Z",
       "degree": 4
     },
     {
       "id": "Hard bop",
       "label": "Hard bop",
+      "last_revision_date": "2025-01-22T19:49:19Z",
       "degree": 9
     },
     {
       "id": "Hard rock",
       "label": "Hard rock",
+      "last_revision_date": "2025-01-20T18:26:52Z",
       "degree": 41
     },
     {
       "id": "Hard trance",
       "label": "Hard trance",
+      "last_revision_date": "2024-12-30T06:04:45Z",
       "degree": 15
     },
     {
       "id": "Hardbag",
       "label": "Hardbag",
+      "last_revision_date": "2022-10-10T17:12:44Z",
       "degree": 7
     },
     {
       "id": "Hardbass",
       "label": "Hardbass",
+      "last_revision_date": "2025-01-11T23:28:49Z",
       "degree": 4
     },
     {
       "id": "Hardcore (electronic dance music genre)",
       "label": "Hard dance",
+      "last_revision_date": "2024-12-22T21:33:04Z",
       "degree": 25
     },
     {
       "id": "Hardcore hip-hop",
       "label": "Hardcore hip hop",
+      "last_revision_date": "2025-01-17T08:32:38Z",
       "degree": 11
     },
     {
       "id": "Hardcore punk",
       "label": "Hardcore punk",
+      "last_revision_date": "2025-01-20T21:35:52Z",
       "degree": 63
     },
     {
       "id": "Hardstep",
       "label": "Hardstep",
+      "last_revision_date": "2024-04-12T21:22:57Z",
       "degree": 5
     },
     {
       "id": "Hardstyle",
       "label": "Hardstyle",
+      "last_revision_date": "2024-11-16T21:26:12Z",
       "degree": 17
     },
     {
       "id": "Hardvapour",
       "label": "Hardvapour",
+      "last_revision_date": "2024-11-16T23:11:47Z",
       "degree": 18
     },
     {
       "id": "Harsh noise wall",
       "label": "Harsh noise wall",
+      "last_revision_date": "2025-01-03T14:33:25Z",
       "degree": 2
     },
     {
       "id": "Hawfi",
       "label": "Hawfi",
+      "last_revision_date": "2024-04-28T07:04:27Z",
       "degree": 0
     },
     {
       "id": "Heartland rock",
       "label": "Heartland rock",
+      "last_revision_date": "2024-09-29T06:13:18Z",
       "degree": 8
     },
     {
       "id": "Heavy metal music",
       "label": "Heavy metal",
+      "last_revision_date": "2025-01-17T05:31:18Z",
       "degree": 90
     },
     {
       "id": "Hi-NRG",
       "label": "Hi-NRG",
+      "last_revision_date": "2024-11-13T19:43:01Z",
       "degree": 20
     },
     {
       "id": "Highlife",
       "label": "Highlife",
+      "last_revision_date": "2025-01-04T02:16:12Z",
       "degree": 10
     },
     {
       "id": "Hill country blues",
       "label": "Hill country blues",
+      "last_revision_date": "2024-08-08T22:36:58Z",
       "degree": 2
     },
     {
       "id": "Hip house",
       "label": "Hip house",
+      "last_revision_date": "2025-01-05T13:27:50Z",
       "degree": 8
     },
     {
       "id": "Hip-hop",
       "label": "Hip-hop",
+      "last_revision_date": "2025-01-21T09:41:59Z",
       "degree": 219
     },
     {
       "id": "Hip-hop in the Pacific Northwest",
       "label": "Hip hop music in the Pacific Northwest",
+      "last_revision_date": "2025-01-20T04:26:25Z",
       "degree": 2
     },
     {
       "id": "Hip-hop soul",
       "label": "Hip hop soul",
+      "last_revision_date": "2024-12-21T06:47:16Z",
       "degree": 9
     },
     {
       "id": "Hip-hop tuga",
       "label": "Hip hop tuga",
+      "last_revision_date": "2024-12-16T08:59:53Z",
       "degree": 7
     },
     {
       "id": "Hipco",
       "label": "Hipco",
+      "last_revision_date": "2024-12-13T17:00:27Z",
       "degree": 2
     },
     {
       "id": "Hiplife",
       "label": "Hiplife",
+      "last_revision_date": "2024-12-13T17:00:29Z",
       "degree": 7
     },
     {
       "id": "Hipster hop",
       "label": "Hipster hop",
+      "last_revision_date": "2024-12-26T11:30:40Z",
       "degree": 4
     },
     {
       "id": "Hokkien pop",
       "label": "Hokkien pop / Taiwanese Hokkien pop / Taiwanese pop",
+      "last_revision_date": "2025-01-23T14:36:37Z",
       "degree": 0
     },
     {
       "id": "Hookah rap",
       "label": "Hookah rap",
+      "last_revision_date": "2024-12-13T22:29:58Z",
       "degree": 5
     },
     {
       "id": "Hori (music)",
       "label": "Hori",
+      "last_revision_date": "2025-01-17T17:53:45Z",
       "degree": 0
     },
     {
       "id": "Horror punk",
       "label": "Horror punk",
+      "last_revision_date": "2024-10-13T22:08:24Z",
       "degree": 5
     },
     {
       "id": "Horrorcore",
       "label": "Horrorcore",
+      "last_revision_date": "2025-01-21T16:08:38Z",
       "degree": 4
     },
     {
       "id": "House music",
       "label": "House music",
+      "last_revision_date": "2025-01-18T19:52:55Z",
       "degree": 86
     },
     {
       "id": "Huayno",
       "label": "Huayno",
+      "last_revision_date": "2025-01-16T21:50:01Z",
       "degree": 2
     },
     {
       "id": "Hyperpop",
       "label": "Hyperpop",
+      "last_revision_date": "2025-01-09T00:28:31Z",
       "degree": 20
     },
     {
       "id": "Hyphy",
       "label": "Hyphy",
+      "last_revision_date": "2025-01-19T21:47:10Z",
       "degree": 17
     },
     {
       "id": "Hypnagogic pop",
       "label": "Hypnagogic pop",
+      "last_revision_date": "2025-01-02T06:09:25Z",
       "degree": 13
     },
     {
       "id": "Igbo Christian music",
       "label": "Igbo Christian music",
+      "last_revision_date": "2024-04-22T12:15:42Z",
       "degree": 3
     },
     {
       "id": "Igbo highlife",
       "label": "Igbo highlife",
+      "last_revision_date": "2025-01-21T12:41:03Z",
       "degree": 8
     },
     {
       "id": "Igbo rap",
       "label": "Igbo rap",
+      "last_revision_date": "2025-01-22T14:55:15Z",
       "degree": 4
     },
     {
       "id": "Ikorodo",
       "label": "Ikorodo",
+      "last_revision_date": "2024-04-22T12:15:46Z",
       "degree": 0
     },
     {
       "id": "Ikwokirikwo",
       "label": "Ikwokirikwo",
+      "last_revision_date": "2024-04-22T12:15:48Z",
       "degree": 2
     },
     {
       "id": "Illbient",
       "label": "Illbient",
+      "last_revision_date": "2023-05-16T00:49:23Z",
       "degree": 10
     },
     {
       "id": "Indian hip-hop",
       "label": "Indian hip hop",
+      "last_revision_date": "2025-01-22T07:08:36Z",
       "degree": 5
     },
     {
       "id": "Indian pop",
       "label": "Indian pop",
+      "last_revision_date": "2025-01-06T15:05:54Z",
       "degree": 2
     },
     {
       "id": "Indian rock",
       "label": "Indian rock",
+      "last_revision_date": "2025-01-01T15:36:50Z",
       "degree": 4
     },
     {
       "id": "Indie folk",
       "label": "Indie folk",
+      "last_revision_date": "2024-10-02T15:29:32Z",
       "degree": 6
     },
     {
       "id": "Indie pop",
       "label": "Indie pop",
+      "last_revision_date": "2025-01-16T15:17:21Z",
       "degree": 19
     },
     {
       "id": "Indie rock",
       "label": "Indie rock",
+      "last_revision_date": "2024-12-30T02:06:50Z",
       "degree": 50
     },
     {
       "id": "Indigenous metal music",
       "label": "Indigenous metal",
+      "last_revision_date": "2024-10-22T04:06:14Z",
       "degree": 10
     },
     {
       "id": "Indigenous music of North America",
       "label": "Indigenous music of North America",
+      "last_revision_date": "2024-09-05T22:15:58Z",
       "degree": 4
     },
     {
       "id": "Indo jazz",
       "label": "Indo jazz",
+      "last_revision_date": "2024-12-10T04:19:33Z",
       "degree": 2
     },
     {
       "id": "Indo pop",
       "label": "Indonesian pop",
+      "last_revision_date": "2025-01-16T08:37:08Z",
       "degree": 6
     },
     {
       "id": "Indonesian heavy metal",
       "label": "Indonesian heavy metal",
+      "last_revision_date": "2025-01-13T03:55:41Z",
       "degree": 11
     },
     {
       "id": "Indonesian rock",
       "label": "Indonesian Rock",
+      "last_revision_date": "2025-01-14T04:16:37Z",
       "degree": 8
     },
     {
       "id": "Indorock",
       "label": "Indorock",
+      "last_revision_date": "2024-10-21T13:33:49Z",
       "degree": 8
     },
     {
       "id": "Industrial folk music",
       "label": "Industrial folk music",
+      "last_revision_date": "2024-08-08T03:47:42Z",
       "degree": 1
     },
     {
       "id": "Industrial hip-hop",
       "label": "Industrial hip hop",
+      "last_revision_date": "2024-12-13T17:00:39Z",
       "degree": 8
     },
     {
       "id": "Industrial metal",
       "label": "Cyber metal",
+      "last_revision_date": "2025-01-22T02:18:05Z",
       "degree": 13
     },
     {
       "id": "Industrial music",
       "label": "Industrial",
+      "last_revision_date": "2025-01-17T13:35:54Z",
       "degree": 51
     },
     {
       "id": "Industrial rock",
       "label": "Industrial rock",
+      "last_revision_date": "2024-12-27T12:23:34Z",
       "degree": 10
     },
     {
       "id": "Industrial techno",
       "label": "Industrial techno",
+      "last_revision_date": "2024-08-31T09:00:37Z",
       "degree": 7
     },
     {
       "id": "Instrumental rock",
       "label": "Instrumental rock",
+      "last_revision_date": "2024-12-16T11:32:51Z",
       "degree": 6
     },
     {
       "id": "Intelligent dance music",
       "label": "Intelligent dance music",
+      "last_revision_date": "2024-12-28T17:22:27Z",
       "degree": 21
     },
     {
       "id": "Iranian alternative rock",
       "label": "Iranian alternative rock",
+      "last_revision_date": "2024-09-02T04:51:18Z",
       "degree": 3
     },
     {
       "id": "Iranian rock",
       "label": "Iranian rock",
+      "last_revision_date": "2025-01-20T02:58:17Z",
       "degree": 6
     },
     {
       "id": "Iraqi maqam",
       "label": "Iraqi Maqam",
+      "last_revision_date": "2024-10-21T20:07:53Z",
       "degree": 0
     },
     {
       "id": "Irish showband",
       "label": "Irish showband",
+      "last_revision_date": "2025-01-22T09:44:29Z",
       "degree": 4
     },
     {
       "id": "Isicathamiya",
       "label": "Isicathamiya",
+      "last_revision_date": "2025-01-11T13:55:35Z",
       "degree": 2
     },
     {
       "id": "Iso-Polyphony",
       "label": "Iso-Polyphony",
+      "last_revision_date": "2025-01-22T23:17:41Z",
       "degree": 0
     },
     {
       "id": "Israeli hip-hop",
       "label": "Israeli hip hop",
+      "last_revision_date": "2025-01-08T16:11:02Z",
       "degree": 2
     },
     {
       "id": "Israeli rock",
       "label": "Israeli rock",
+      "last_revision_date": "2024-10-25T04:58:04Z",
       "degree": 4
     },
     {
       "id": "Istrian scale",
       "label": "Istrian scale",
+      "last_revision_date": "2024-05-17T00:40:07Z",
       "degree": 0
     },
     {
       "id": "Italian occult psychedelia",
       "label": "Italian occult psychedelia",
+      "last_revision_date": "2025-01-24T16:19:11Z",
       "degree": 2
     },
     {
       "id": "Italo dance",
       "label": "Italo dance",
+      "last_revision_date": "2024-09-23T17:08:36Z",
       "degree": 4
     },
     {
       "id": "Italo disco",
       "label": "Space disco",
+      "last_revision_date": "2025-01-05T23:29:03Z",
       "degree": 19
     },
     {
       "id": "Italo house",
       "label": "Italo house",
+      "last_revision_date": "2024-11-11T08:11:17Z",
       "degree": 13
     },
     {
       "id": "J-core",
       "label": "J-core",
+      "last_revision_date": "2024-12-17T23:57:10Z",
       "degree": 4
     },
     {
       "id": "J-pop",
       "label": "J-pop",
+      "last_revision_date": "2025-01-18T21:30:15Z",
       "degree": 13
     },
     {
       "id": "Jaiva",
       "label": "Jaiva",
+      "last_revision_date": "2024-12-29T21:55:25Z",
       "degree": 3
     },
     {
       "id": "Jam band",
       "label": "Jam band",
+      "last_revision_date": "2025-01-15T02:01:08Z",
       "degree": 13
     },
     {
       "id": "Jangle pop",
       "label": "Jangle pop",
+      "last_revision_date": "2025-01-11T21:36:49Z",
       "degree": 15
     },
     {
       "id": "Japanese hip-hop",
       "label": "Japanese hip hop",
+      "last_revision_date": "2024-12-13T18:43:48Z",
       "degree": 2
     },
     {
       "id": "Japanese reggae",
       "label": "J-reggae",
+      "last_revision_date": "2024-04-11T11:04:14Z",
       "degree": 3
     },
     {
       "id": "Japanoise",
       "label": "Japanoise",
+      "last_revision_date": "2024-03-28T16:35:37Z",
       "degree": 6
     },
     {
       "id": "Jazz",
       "label": "Jazz",
+      "last_revision_date": "2025-01-19T22:51:58Z",
       "degree": 139
     },
     {
       "id": "Jazz fusion",
       "label": "Jazz-pop",
+      "last_revision_date": "2025-01-22T22:38:56Z",
       "degree": 30
     },
     {
       "id": "Jazz rap",
       "label": "Jazz rap",
+      "last_revision_date": "2025-01-20T01:52:32Z",
       "degree": 14
     },
     {
       "id": "Jazz-funk",
       "label": "Jazz-funk",
+      "last_revision_date": "2024-12-19T02:25:17Z",
       "degree": 11
     },
     {
       "id": "Jerkin'",
       "label": "Jerk",
+      "last_revision_date": "2024-12-13T23:54:42Z",
       "degree": 4
     },
     {
       "id": "Jersey club",
       "label": "Jersey club rap",
+      "last_revision_date": "2025-01-23T21:39:21Z",
       "degree": 7
     },
     {
       "id": "Jesus music",
       "label": "Jesus music",
+      "last_revision_date": "2024-09-22T17:29:10Z",
       "degree": 9
     },
     {
       "id": "Jewish hip-hop",
       "label": "Jewish hip hop",
+      "last_revision_date": "2025-01-10T02:01:53Z",
       "degree": 5
     },
     {
       "id": "Jewish rock",
       "label": "Jewish rock",
+      "last_revision_date": "2024-10-09T21:22:37Z",
       "degree": 4
     },
     {
       "id": "Jing ping",
       "label": "Jing ping",
+      "last_revision_date": "2024-11-09T19:22:54Z",
       "degree": 3
     },
     {
       "id": "Jinku",
       "label": "Jinku",
+      "last_revision_date": "2024-08-09T19:55:46Z",
       "degree": 1
     },
     {
       "id": "Jit",
       "label": "Jit",
+      "last_revision_date": "2024-09-25T20:47:51Z",
       "degree": 4
     },
     {
       "id": "Jor (music)",
       "label": "Jor",
+      "last_revision_date": "2025-01-17T12:48:57Z",
       "degree": 0
     },
     {
       "id": "Joropo",
       "label": "Joropo",
+      "last_revision_date": "2025-01-01T13:03:30Z",
       "degree": 4
     },
     {
       "id": "Jovem Guarda",
       "label": "Jovem Guarda",
+      "last_revision_date": "2024-12-25T19:59:02Z",
       "degree": 4
     },
     {
       "id": "Jump blues",
       "label": "Jump blues",
+      "last_revision_date": "2025-01-06T13:03:29Z",
       "degree": 14
     },
     {
       "id": "Jumpstyle",
       "label": "Jumpstyle",
+      "last_revision_date": "2025-01-08T02:48:55Z",
       "degree": 9
     },
     {
       "id": "Jungle music",
       "label": "Jungle",
+      "last_revision_date": "2025-01-09T11:15:57Z",
       "degree": 24
     },
     {
       "id": "Jùjú music",
       "label": "Jùjú",
+      "last_revision_date": "2024-09-19T05:53:33Z",
       "degree": 1
     },
     {
       "id": "K-pop",
       "label": "K-pop",
+      "last_revision_date": "2024-12-21T01:30:09Z",
       "degree": 17
     },
     {
       "id": "Kadongo Kamu",
       "label": "Kadongo Kamu",
+      "last_revision_date": "2024-11-11T09:00:24Z",
       "degree": 1
     },
     {
       "id": "Kaiso",
       "label": "Kaiso",
+      "last_revision_date": "2024-04-22T11:53:35Z",
       "degree": 12
     },
     {
       "id": "Kansas City jazz",
       "label": "Kansas City jazz",
+      "last_revision_date": "2025-01-18T21:57:31Z",
       "degree": 7
     },
     {
       "id": "Kanto (music)",
       "label": "Kanto",
+      "last_revision_date": "2024-11-01T01:51:52Z",
       "degree": 0
     },
     {
       "id": "Kaseko",
       "label": "Kaseko",
+      "last_revision_date": "2024-11-16T16:40:27Z",
       "degree": 5
     },
     {
       "id": "Kasékò",
       "label": "Kasékò",
+      "last_revision_date": "2024-05-30T17:24:05Z",
       "degree": 0
     },
     {
       "id": "Kavigan",
       "label": "Kobi Gaan",
+      "last_revision_date": "2024-12-19T17:33:36Z",
       "degree": 0
     },
     {
       "id": "Kavishari",
       "label": "Kavishari",
+      "last_revision_date": "2024-11-08T22:01:30Z",
       "degree": 0
     },
     {
       "id": "Kawaii metal",
       "label": "Kawaii metal",
+      "last_revision_date": "2024-12-03T11:11:35Z",
       "degree": 7
     },
     {
       "id": "Kawina (music)",
       "label": "Kawina",
+      "last_revision_date": "2024-04-13T21:24:42Z",
       "degree": 1
     },
     {
       "id": "Kayōkyoku",
       "label": "Kayōkyoku",
+      "last_revision_date": "2024-11-26T04:04:19Z",
       "degree": 10
     },
     {
       "id": "Kenyan hip-hop",
       "label": "Kenyan hip hop",
+      "last_revision_date": "2024-12-13T18:50:31Z",
       "degree": 10
     },
     {
       "id": "Kidandali",
       "label": "Kidandali",
+      "last_revision_date": "2024-08-03T06:55:15Z",
       "degree": 3
     },
     {
       "id": "Kizomba",
       "label": "Kizomba",
+      "last_revision_date": "2024-07-13T21:11:36Z",
       "degree": 3
     },
     {
       "id": "Klapa",
       "label": "Klapa",
+      "last_revision_date": "2024-10-30T11:24:49Z",
       "degree": 0
     },
     {
       "id": "Klezmer",
       "label": "Klezmer",
+      "last_revision_date": "2024-11-07T22:51:43Z",
       "degree": 5
     },
     {
       "id": "Koli Geet",
       "label": "Koli Geet",
+      "last_revision_date": "2025-01-08T15:04:21Z",
       "degree": 1
     },
     {
       "id": "Koothu",
       "label": "Koothu",
+      "last_revision_date": "2025-01-23T19:29:58Z",
       "degree": 0
     },
     {
       "id": "Koplo",
       "label": "Koplo",
+      "last_revision_date": "2025-01-07T17:56:55Z",
       "degree": 2
     },
     {
       "id": "Korean ballad",
       "label": "Ballad (Korean music)",
+      "last_revision_date": "2024-04-02T23:14:42Z",
       "degree": 3
     },
     {
       "id": "Korean court music",
       "label": "Korean court music",
+      "last_revision_date": "2024-03-06T22:37:02Z",
       "degree": 0
     },
     {
       "id": "Korean hip-hop",
       "label": "Korean hip hop",
+      "last_revision_date": "2024-12-24T17:10:49Z",
       "degree": 2
     },
     {
       "id": "Krautrock",
       "label": "Kosmische Musik",
+      "last_revision_date": "2024-12-20T16:03:15Z",
       "degree": 20
     },
     {
       "id": "Kroncong",
       "label": "Kroncong",
+      "last_revision_date": "2024-11-14T05:16:54Z",
       "degree": 3
     },
     {
       "id": "Kuduro",
       "label": "Kuduro",
+      "last_revision_date": "2025-01-07T23:04:42Z",
       "degree": 8
     },
     {
       "id": "Kulintang",
       "label": "Kulintang ensemble",
+      "last_revision_date": "2024-11-01T02:16:11Z",
       "degree": 0
     },
     {
       "id": "Kundiman",
       "label": "Kundiman",
+      "last_revision_date": "2024-12-15T20:20:39Z",
       "degree": 2
     },
     {
       "id": "Kwaito",
       "label": "Kwaito",
+      "last_revision_date": "2025-01-03T21:48:26Z",
       "degree": 15
     },
     {
       "id": "Könsrock",
       "label": "Könsrock",
+      "last_revision_date": "2023-10-07T11:00:02Z",
       "degree": 4
     },
     {
       "id": "LGBTQ music",
       "label": "LGBTQ+ music",
+      "last_revision_date": "2024-12-22T01:16:14Z",
       "degree": 10
     },
     {
       "id": "LGBTQ representation in hip-hop",
       "label": "LGBTQ hip-hop",
+      "last_revision_date": "2025-01-15T13:39:28Z",
       "degree": 5
     },
     {
       "id": "Ladishah",
       "label": "Ladishah",
+      "last_revision_date": "2024-12-22T02:56:45Z",
       "degree": 2
     },
     {
       "id": "Lambadão cuiabano",
       "label": "Lambadão cuiabano",
+      "last_revision_date": "2024-08-09T12:31:26Z",
       "degree": 0
     },
     {
       "id": "Lao pop",
       "label": "Lao pop",
+      "last_revision_date": "2025-01-09T02:35:11Z",
       "degree": 3
     },
     {
       "id": "Latin Christian music",
       "label": "Latin Christian music",
+      "last_revision_date": "2024-11-03T20:13:34Z",
       "degree": 7
     },
     {
       "id": "Latin R&B",
       "label": "Latin R&B",
+      "last_revision_date": "2023-03-21T02:37:48Z",
       "degree": 7
     },
     {
       "id": "Latin ballad",
       "label": "Latin ballad",
+      "last_revision_date": "2024-10-25T15:09:07Z",
       "degree": 4
     },
     {
       "id": "Latin hip-hop",
       "label": "Latin hip hop",
+      "last_revision_date": "2025-01-19T02:11:52Z",
       "degree": 7
     },
     {
       "id": "Latin jazz",
       "label": "Latin jazz",
+      "last_revision_date": "2024-10-19T02:15:35Z",
       "degree": 7
     },
     {
       "id": "Latin metal",
       "label": "Latin metal",
+      "last_revision_date": "2025-01-16T05:36:11Z",
       "degree": 7
     },
     {
       "id": "Latin music",
       "label": "Latin music",
+      "last_revision_date": "2025-01-19T01:42:42Z",
       "degree": 23
     },
     {
       "id": "Latin pop",
       "label": "Latin pop",
+      "last_revision_date": "2024-12-15T04:52:05Z",
       "degree": 13
     },
     {
       "id": "Latin rock",
       "label": "Latin rock",
+      "last_revision_date": "2024-11-18T14:22:41Z",
       "degree": 13
     },
     {
       "id": "Latin soul",
       "label": "Latin soul",
+      "last_revision_date": "2024-09-18T07:53:24Z",
       "degree": 5
     },
     {
       "id": "Latin trap",
       "label": "Latin trap",
+      "last_revision_date": "2025-01-19T03:30:27Z",
       "degree": 8
     },
     {
       "id": "Lavani",
       "label": "Lavani",
+      "last_revision_date": "2024-12-17T11:28:50Z",
       "degree": 0
     },
     {
       "id": "Laïko",
       "label": "Laïko",
+      "last_revision_date": "2024-11-25T03:31:08Z",
       "degree": 4
     },
     {
       "id": "Lento violento",
       "label": "Lento violento",
+      "last_revision_date": "2024-05-05T09:21:11Z",
       "degree": 7
     },
     {
       "id": "Levenslied",
       "label": "Levenslied",
+      "last_revision_date": "2024-09-06T12:13:26Z",
       "degree": 8
     },
     {
       "id": "Light music",
       "label": "Light music",
+      "last_revision_date": "2024-12-21T02:56:18Z",
       "degree": 5
     },
     {
       "id": "Liquid funk",
       "label": "Liquid funk",
+      "last_revision_date": "2024-09-23T18:19:26Z",
       "degree": 11
     },
     {
       "id": "Lofi hip-hop",
       "label": "Lofi hip hop",
+      "last_revision_date": "2025-01-19T21:47:53Z",
       "degree": 6
     },
     {
       "id": "Long song",
       "label": "Long song",
+      "last_revision_date": "2024-11-26T12:40:50Z",
       "degree": 0
     },
     {
       "id": "Louisiana blues",
       "label": "Louisiana blues",
+      "last_revision_date": "2023-09-24T15:33:00Z",
       "degree": 7
     },
     {
       "id": "Lounge music",
       "label": "Lounge music",
+      "last_revision_date": "2024-07-27T19:39:35Z",
       "degree": 20
     },
     {
       "id": "Lovers rock",
       "label": "Lovers rock",
+      "last_revision_date": "2024-07-07T01:36:37Z",
       "degree": 7
     },
     {
       "id": "Low bap",
       "label": "Low bap",
+      "last_revision_date": "2024-12-13T17:00:57Z",
       "degree": 2
     },
     {
       "id": "Lowend",
       "label": "Lowend",
+      "last_revision_date": "2025-01-03T22:18:20Z",
       "degree": 3
     },
     {
       "id": "Lowercase (music)",
       "label": "Lowercase",
+      "last_revision_date": "2024-06-07T14:10:14Z",
       "degree": 5
     },
     {
       "id": "Luk thung",
       "label": "Luk thung",
+      "last_revision_date": "2024-11-09T03:29:08Z",
       "degree": 1
     },
     {
       "id": "Mahraganat",
       "label": "Mahraganat",
+      "last_revision_date": "2025-01-12T05:05:08Z",
       "degree": 5
     },
     {
       "id": "Mahāgīta",
       "label": "Mahāgīta",
+      "last_revision_date": "2024-11-20T20:35:13Z",
       "degree": 0
     },
     {
       "id": "Mainstream hardcore",
       "label": "Mainstream hardcore",
+      "last_revision_date": "2024-10-19T01:44:45Z",
       "degree": 6
     },
     {
       "id": "Makossa",
       "label": "Makossa",
+      "last_revision_date": "2025-01-15T13:34:17Z",
       "degree": 10
     },
     {
       "id": "Malaysian hip-hop",
       "label": "Malaysian hip hop",
+      "last_revision_date": "2024-12-13T20:46:20Z",
       "degree": 1
     },
     {
       "id": "Malaysian popular music",
       "label": "Malaysian popular music",
+      "last_revision_date": "2025-01-15T10:25:12Z",
       "degree": 7
     },
     {
       "id": "Malhun",
       "label": "Malhun",
+      "last_revision_date": "2025-01-15T15:11:45Z",
       "degree": 1
     },
     {
       "id": "Malipenga",
       "label": "Malipenga",
+      "last_revision_date": "2022-02-06T01:16:37Z",
       "degree": 0
     },
     {
       "id": "Mallsoft",
       "label": "Mallsoft",
+      "last_revision_date": "2024-08-31T04:00:35Z",
       "degree": 3
     },
     {
       "id": "Maloya",
       "label": "Maloya",
+      "last_revision_date": "2025-01-20T20:00:51Z",
       "degree": 0
     },
     {
       "id": "Mambo (music)",
       "label": "Mambo",
+      "last_revision_date": "2024-12-02T06:47:08Z",
       "degree": 15
     },
     {
       "id": "Mandopop",
       "label": "Mandopop",
+      "last_revision_date": "2025-01-17T21:57:43Z",
       "degree": 6
     },
     {
       "id": "Manele",
       "label": "Manele",
+      "last_revision_date": "2025-01-09T04:11:09Z",
       "degree": 2
     },
     {
       "id": "Mangue bit",
       "label": "Mangue bit",
+      "last_revision_date": "2024-12-16T14:37:17Z",
       "degree": 8
     },
     {
       "id": "Manila sound",
       "label": "Manila sound",
+      "last_revision_date": "2024-10-21T03:51:02Z",
       "degree": 10
     },
     {
       "id": "Marabi",
       "label": "Marabi",
+      "last_revision_date": "2024-08-15T18:13:12Z",
       "degree": 7
     },
     {
       "id": "Mariachi",
       "label": "Mariachi",
+      "last_revision_date": "2025-01-20T20:23:43Z",
       "degree": 7
     },
     {
       "id": "Marinera",
       "label": "Marinera",
+      "last_revision_date": "2024-12-11T12:59:24Z",
       "degree": 4
     },
     {
       "id": "Marrabenta",
       "label": "Marrabenta",
+      "last_revision_date": "2024-04-22T11:57:20Z",
       "degree": 0
     },
     {
       "id": "Martial industrial",
       "label": "Martial industrial",
+      "last_revision_date": "2024-07-29T01:20:37Z",
       "degree": 5
     },
     {
       "id": "Mashup (music)",
       "label": "Mashup",
+      "last_revision_date": "2024-10-26T22:05:18Z",
       "degree": 5
     },
     {
       "id": "Maskandi",
       "label": "Maskandi",
+      "last_revision_date": "2024-12-15T10:07:58Z",
       "degree": 2
     },
     {
       "id": "Mata-kantiga",
       "label": "Mata-Kantiga",
+      "last_revision_date": "2024-10-09T10:21:56Z",
       "degree": 0
     },
     {
       "id": "Math rock",
       "label": "Math rock",
+      "last_revision_date": "2025-01-19T12:35:04Z",
       "degree": 10
     },
     {
       "id": "Mathcore",
       "label": "Mathcore",
+      "last_revision_date": "2025-01-18T23:53:24Z",
       "degree": 12
     },
     {
       "id": "Matrouz (music)",
       "label": "Matrouz",
+      "last_revision_date": "2024-11-07T14:14:38Z",
       "degree": 0
     },
     {
       "id": "Mbalax",
       "label": "Mbalax, Senegalese urban dance music",
+      "last_revision_date": "2024-12-25T17:41:09Z",
       "degree": 1
     },
     {
       "id": "Mbaqanga",
       "label": "Mbaqanga",
+      "last_revision_date": "2025-01-11T13:48:46Z",
       "degree": 6
     },
     {
       "id": "Mbube (genre)",
       "label": "Mbube",
+      "last_revision_date": "2024-11-24T07:43:28Z",
       "degree": 2
     },
     {
       "id": "Medieval folk rock",
       "label": "Medieval folk rock",
+      "last_revision_date": "2024-02-20T18:05:38Z",
       "degree": 9
     },
     {
       "id": "Medieval metal",
       "label": "Medieval metal",
+      "last_revision_date": "2024-07-09T12:22:28Z",
       "degree": 4
     },
     {
       "id": "Megamix",
       "label": "Megamix",
+      "last_revision_date": "2024-03-21T17:08:24Z",
       "degree": 5
     },
     {
       "id": "Mele (Hawaiian term)",
       "label": "Mele",
+      "last_revision_date": "2024-06-15T00:14:10Z",
       "degree": 0
     },
     {
       "id": "Melodic death metal",
       "label": "Melodic death metal",
+      "last_revision_date": "2025-01-18T16:33:42Z",
       "degree": 9
     },
     {
       "id": "Melodic hardcore",
       "label": "Melodic hardcore",
+      "last_revision_date": "2024-11-19T03:25:50Z",
       "degree": 6
     },
     {
       "id": "Melodic metalcore",
       "label": "Melodic metalcore",
+      "last_revision_date": "2025-01-22T09:25:54Z",
       "degree": 6
     },
     {
       "id": "Memphis blues",
       "label": "Memphis blues",
+      "last_revision_date": "2024-08-05T13:43:06Z",
       "degree": 3
     },
     {
       "id": "Memphis rap",
       "label": "Memphis rap",
+      "last_revision_date": "2025-01-12T04:31:13Z",
       "degree": 7
     },
     {
       "id": "Memphis soul",
       "label": "Memphis soul",
+      "last_revision_date": "2024-09-22T18:18:15Z",
       "degree": 7
     },
     {
       "id": "Mento",
       "label": "Mento",
+      "last_revision_date": "2025-01-15T20:56:04Z",
       "degree": 6
     },
     {
       "id": "Merengue music",
       "label": "Merengue",
+      "last_revision_date": "2025-01-19T22:28:33Z",
       "degree": 11
     },
     {
       "id": "Merenhouse",
       "label": "Merenhouse",
+      "last_revision_date": "2024-12-29T02:28:00Z",
       "degree": 5
     },
     {
       "id": "Metalcore",
       "label": "Metalcore",
+      "last_revision_date": "2025-01-22T04:02:56Z",
       "degree": 27
     },
     {
       "id": "Mexican pop music",
       "label": "Mexican pop",
+      "last_revision_date": "2024-08-29T19:34:56Z",
       "degree": 20
     },
     {
       "id": "Međimurska popevka",
       "label": "Međimurska popevka",
+      "last_revision_date": "2023-12-24T15:09:01Z",
       "degree": 0
     },
     {
       "id": "Miami bass",
       "label": "Miami bass",
+      "last_revision_date": "2025-01-13T05:36:55Z",
       "degree": 14
     },
     {
       "id": "Microhouse",
       "label": "Microhouse",
+      "last_revision_date": "2024-08-28T18:02:02Z",
       "degree": 10
     },
     {
       "id": "Midwest emo",
       "label": "Midwest emo",
+      "last_revision_date": "2025-01-16T18:12:55Z",
       "degree": 5
     },
     {
       "id": "Mini-jazz",
       "label": "Mini-jazz",
+      "last_revision_date": "2024-11-01T01:21:16Z",
       "degree": 4
     },
     {
       "id": "Minimal music",
       "label": "Minimal music",
+      "last_revision_date": "2025-01-19T20:12:55Z",
       "degree": 14
     },
     {
       "id": "Minimal techno",
       "label": "Minimal techno",
+      "last_revision_date": "2024-12-16T20:27:05Z",
       "degree": 13
     },
     {
       "id": "Minimal wave",
       "label": "Minimal wave",
+      "last_revision_date": "2024-12-21T19:30:25Z",
       "degree": 5
     },
     {
       "id": "Minneapolis sound",
       "label": "Minneapolis Sound",
+      "last_revision_date": "2024-12-10T22:38:30Z",
       "degree": 6
     },
     {
       "id": "Mizrahi music",
       "label": "Mizrahi music",
+      "last_revision_date": "2025-01-10T16:56:26Z",
       "degree": 1
     },
     {
       "id": "Mod revival",
       "label": "Mod revival",
+      "last_revision_date": "2025-01-15T18:31:30Z",
       "degree": 14
     },
     {
       "id": "Modal jazz",
       "label": "Modal jazz",
+      "last_revision_date": "2024-08-04T23:17:01Z",
       "degree": 3
     },
     {
       "id": "Moombahton",
       "label": "Moombahton",
+      "last_revision_date": "2024-06-27T21:22:41Z",
       "degree": 14
     },
     {
       "id": "Morenada",
       "label": "Morenada",
+      "last_revision_date": "2024-11-21T18:26:36Z",
       "degree": 0
     },
     {
       "id": "Morna (music)",
       "label": "Morna",
+      "last_revision_date": "2024-12-06T16:31:46Z",
       "degree": 1
     },
     {
       "id": "Moroccan pop",
       "label": "Moroccan pop",
+      "last_revision_date": "2024-12-13T21:05:27Z",
       "degree": 1
     },
     {
       "id": "Motown",
       "label": "Motown sound",
+      "last_revision_date": "2025-01-20T17:32:11Z",
       "degree": 5
     },
     {
       "id": "Motswako",
       "label": "Motswako",
+      "last_revision_date": "2024-12-13T22:38:17Z",
       "degree": 5
     },
     {
       "id": "Mugham",
       "label": "Mugham",
+      "last_revision_date": "2025-01-22T22:38:14Z",
       "degree": 2
     },
     {
       "id": "Muliza",
       "label": "Muliza",
+      "last_revision_date": "2023-04-23T14:09:45Z",
       "degree": 1
     },
     {
       "id": "Mumble rap",
       "label": "Mumble rap",
+      "last_revision_date": "2025-01-19T04:45:51Z",
       "degree": 7
     },
     {
       "id": "Murder ballad",
       "label": "Murder ballad",
+      "last_revision_date": "2024-12-13T21:28:32Z",
       "degree": 0
     },
     {
       "id": "Music hall",
       "label": "Music hall",
+      "last_revision_date": "2024-12-16T23:30:01Z",
       "degree": 3
     },
     {
       "id": "Music of Eritrea",
       "label": "Eritrean music",
+      "last_revision_date": "2024-06-30T22:37:24Z",
       "degree": 1
     },
     {
       "id": "Music of Ethiopia",
       "label": "Ethiopian music",
+      "last_revision_date": "2024-11-29T22:08:36Z",
       "degree": 5
     },
     {
       "id": "Music of Latin America",
       "label": "Music of Latin America",
+      "last_revision_date": "2025-01-10T11:56:57Z",
       "degree": 61
     },
     {
       "id": "Music of North Korea",
       "label": "DPRK-pop",
+      "last_revision_date": "2025-01-16T16:08:52Z",
       "degree": 5
     },
     {
       "id": "Mustard (record producer)",
       "label": "Ratchet music",
+      "last_revision_date": "2025-01-15T08:08:37Z",
       "degree": 6
     },
     {
       "id": "Muziki wa dansi",
       "label": "Muziki wa Dansi",
+      "last_revision_date": "2024-04-06T11:54:10Z",
       "degree": 6
     },
     {
       "id": "Mákina",
       "label": "Mákina",
+      "last_revision_date": "2024-12-27T20:14:23Z",
       "degree": 5
     },
     {
       "id": "Méringue",
       "label": "Méringue",
+      "last_revision_date": "2024-11-01T12:55:13Z",
       "degree": 8
     },
     {
       "id": "Métis fiddle",
       "label": "Métis fiddle",
+      "last_revision_date": "2024-12-10T18:36:36Z",
       "degree": 0
     },
     {
       "id": "Música criolla",
       "label": "Criolla music",
+      "last_revision_date": "2024-12-10T19:51:10Z",
       "degree": 5
     },
     {
       "id": "Música popular brasileira",
       "label": "Brazilian popular music",
+      "last_revision_date": "2024-10-29T18:11:08Z",
       "degree": 9
     },
     {
       "id": "Naattupurapaattu",
       "label": "Naattupurapaattu",
+      "last_revision_date": "2022-09-15T03:38:55Z",
       "degree": 0
     },
     {
       "id": "Nagoya kei",
       "label": "Nagoya kei",
+      "last_revision_date": "2024-08-19T08:39:18Z",
       "degree": 2
     },
     {
       "id": "Narcocorrido",
       "label": "Narcocorrido",
+      "last_revision_date": "2025-01-10T00:11:00Z",
       "degree": 6
     },
     {
       "id": "Nashville sound",
       "label": "Nashville sound",
+      "last_revision_date": "2024-08-30T16:29:33Z",
       "degree": 5
     },
     {
       "id": "National Socialist black metal",
       "label": "National Socialist black metal",
+      "last_revision_date": "2024-12-23T08:22:46Z",
       "degree": 5
     },
     {
       "id": "Nazi punk",
       "label": "Nazi punk",
+      "last_revision_date": "2025-01-23T00:36:04Z",
       "degree": 5
     },
     {
       "id": "Nazrul Geeti",
       "label": "Nazrul Sangeet",
+      "last_revision_date": "2024-12-31T11:12:48Z",
       "degree": 0
     },
     {
       "id": "Ndombolo",
       "label": "Ndombolo",
+      "last_revision_date": "2024-12-18T13:38:58Z",
       "degree": 5
     },
     {
       "id": "Nederbeat",
       "label": "Nederbeat",
+      "last_revision_date": "2024-06-08T17:04:01Z",
       "degree": 5
     },
     {
       "id": "Nederpop",
       "label": "Nederpop",
+      "last_revision_date": "2024-11-09T16:12:29Z",
       "degree": 8
     },
     {
       "id": "Neo soul",
       "label": "Neo soul",
+      "last_revision_date": "2024-12-19T05:53:46Z",
       "degree": 16
     },
     {
       "id": "Neo-bop",
       "label": "Neo-bop jazz",
+      "last_revision_date": "2024-01-22T01:09:05Z",
       "degree": 5
     },
     {
       "id": "Neo-prog",
       "label": "Neo-prog",
+      "last_revision_date": "2024-11-28T15:04:00Z",
       "degree": 6
     },
     {
       "id": "Neo-psychedelia",
       "label": "Neo-psychedelia",
+      "last_revision_date": "2025-01-06T02:45:19Z",
       "degree": 14
     },
     {
       "id": "Neoclassical metal",
       "label": "Neoclassical metal",
+      "last_revision_date": "2024-12-26T03:24:39Z",
       "degree": 8
     },
     {
       "id": "Neofolk",
       "label": "Neofolk",
+      "last_revision_date": "2025-01-19T10:25:22Z",
       "degree": 10
     },
     {
       "id": "Neoperreo",
       "label": "Neoperreo",
+      "last_revision_date": "2025-01-01T16:47:52Z",
       "degree": 8
     },
     {
       "id": "Neotraditional country",
       "label": "Neotraditional country",
+      "last_revision_date": "2025-01-16T20:52:42Z",
       "degree": 14
     },
     {
       "id": "Nerdcore",
       "label": "Nerdcore",
+      "last_revision_date": "2024-12-13T17:01:11Z",
       "degree": 3
     },
     {
       "id": "Neue Deutsche Härte",
       "label": "Neue Deutsche Härte",
+      "last_revision_date": "2024-12-22T06:02:39Z",
       "degree": 6
     },
     {
       "id": "Neue Deutsche Todeskunst",
       "label": "Neue Deutsche Todeskunst",
+      "last_revision_date": "2022-11-23T04:31:34Z",
       "degree": 3
     },
     {
       "id": "Neue Deutsche Welle",
       "label": "Neue Deutsche Welle",
+      "last_revision_date": "2024-12-13T17:13:44Z",
       "degree": 6
     },
     {
       "id": "Neue Volksmusik",
       "label": "Neue Volksmusik",
+      "last_revision_date": "2024-02-09T01:54:10Z",
       "degree": 7
     },
     {
       "id": "Neurofunk",
       "label": "Neurofunk",
+      "last_revision_date": "2024-11-28T13:21:10Z",
       "degree": 10
     },
     {
       "id": "New Chilean cumbia",
       "label": "New Chilean Cumbia",
+      "last_revision_date": "2024-12-28T21:17:04Z",
       "degree": 5
     },
     {
       "id": "New Jersey sound",
       "label": "New Jersey sound",
+      "last_revision_date": "2024-11-25T05:39:14Z",
       "degree": 6
     },
     {
       "id": "New Mexico music",
       "label": "New Mexico music",
+      "last_revision_date": "2024-11-01T19:30:33Z",
       "degree": 15
     },
     {
       "id": "New Orleans Soul",
       "label": "New Orleans Soul",
+      "last_revision_date": "2024-03-25T12:28:07Z",
       "degree": 5
     },
     {
       "id": "New Orleans blues",
       "label": "New Orleans blues",
+      "last_revision_date": "2024-12-26T09:31:16Z",
       "degree": 5
     },
     {
       "id": "New Orleans rhythm and blues",
       "label": "New Orleans rhythm and blues",
+      "last_revision_date": "2023-05-17T06:18:18Z",
       "degree": 4
     },
     {
       "id": "New Weird America",
       "label": "New Weird America",
+      "last_revision_date": "2024-05-22T08:55:07Z",
       "degree": 4
     },
     {
       "id": "New York soul",
       "label": "New York soul",
+      "last_revision_date": "2023-11-23T00:28:26Z",
       "degree": 2
     },
     {
       "id": "New beat",
       "label": "New beat",
+      "last_revision_date": "2024-12-10T08:43:49Z",
       "degree": 17
     },
     {
       "id": "New flamenco",
       "label": "New flamenco",
+      "last_revision_date": "2024-08-31T13:40:31Z",
       "degree": 7
     },
     {
       "id": "New jack swing",
       "label": "New jack swing",
+      "last_revision_date": "2025-01-12T20:58:43Z",
       "degree": 10
     },
     {
       "id": "New pop",
       "label": "New pop",
+      "last_revision_date": "2025-01-09T20:13:29Z",
       "degree": 6
     },
     {
       "id": "New rave",
       "label": "New rave",
+      "last_revision_date": "2024-10-19T00:37:19Z",
       "degree": 6
     },
     {
       "id": "New wave music",
       "label": "New wave",
+      "last_revision_date": "2025-01-11T06:27:06Z",
       "degree": 53
     },
     {
       "id": "New wave of American heavy metal",
       "label": "New wave of American heavy metal",
+      "last_revision_date": "2025-01-09T20:20:25Z",
       "degree": 8
     },
     {
       "id": "New wave of British heavy metal",
       "label": "New wave of British heavy metal",
+      "last_revision_date": "2025-01-24T02:41:51Z",
       "degree": 14
     },
     {
       "id": "New wave of classic rock",
       "label": "New wave of classic rock",
+      "last_revision_date": "2024-12-27T21:59:54Z",
       "degree": 4
     },
     {
       "id": "New wave of new wave",
       "label": "New wave of new wave",
+      "last_revision_date": "2024-08-14T13:05:39Z",
       "degree": 6
     },
     {
       "id": "New wave of traditional heavy metal",
       "label": "New wave of traditional heavy metal",
+      "last_revision_date": "2025-01-11T10:55:03Z",
       "degree": 4
     },
     {
       "id": "New-age music",
       "label": "New-age",
+      "last_revision_date": "2024-12-01T21:29:38Z",
       "degree": 22
     },
     {
       "id": "New-school hip-hop",
       "label": "New-school hip hop",
+      "last_revision_date": "2024-12-16T10:35:35Z",
       "degree": 4
     },
     {
       "id": "Nightcore",
       "label": "Nightcore",
+      "last_revision_date": "2024-12-26T06:51:08Z",
       "degree": 5
     },
     {
       "id": "Nintendocore",
       "label": "Nintendocore",
+      "last_revision_date": "2025-01-14T20:26:29Z",
       "degree": 11
     },
     {
       "id": "Nitzhonot",
       "label": "Nitzhonot",
+      "last_revision_date": "2024-11-01T13:16:48Z",
       "degree": 7
     },
     {
       "id": "Njuup",
       "label": "Njuup",
+      "last_revision_date": "2024-06-02T04:10:46Z",
       "degree": 1
     },
     {
       "id": "No wave",
       "label": "No wave",
+      "last_revision_date": "2024-12-30T15:50:13Z",
       "degree": 15
     },
     {
       "id": "Noise music",
       "label": "Noise music",
+      "last_revision_date": "2025-01-19T09:33:52Z",
       "degree": 28
     },
     {
       "id": "Noise pop",
       "label": "Noise pop",
+      "last_revision_date": "2024-11-25T15:15:01Z",
       "degree": 9
     },
     {
       "id": "Noise rock",
       "label": "Noise rock",
+      "last_revision_date": "2025-01-19T07:54:55Z",
       "degree": 15
     },
     {
       "id": "Nortec",
       "label": "Nortec",
+      "last_revision_date": "2024-06-08T00:59:17Z",
       "degree": 2
     },
     {
       "id": "Norteño (music)",
       "label": "Norteño",
+      "last_revision_date": "2025-01-04T06:55:23Z",
       "degree": 13
     },
     {
       "id": "Norteño-sax",
       "label": "Norteño-sax",
+      "last_revision_date": "2025-01-11T04:32:21Z",
       "degree": 1
     },
     {
       "id": "Novelty song",
       "label": "Novelty songs",
+      "last_revision_date": "2025-01-22T05:17:39Z",
       "degree": 7
     },
     {
       "id": "Nu gaze",
       "label": "Nu gaze",
+      "last_revision_date": "2024-11-30T10:46:36Z",
       "degree": 2
     },
     {
       "id": "Nu jazz",
       "label": "Nu Jazz",
+      "last_revision_date": "2024-12-29T22:10:59Z",
       "degree": 14
     },
     {
       "id": "Nu metal",
       "label": "Nu metal",
+      "last_revision_date": "2025-01-13T04:44:27Z",
       "degree": 21
     },
     {
       "id": "Nu metalcore",
       "label": "Nu metalcore",
+      "last_revision_date": "2024-12-04T02:33:07Z",
       "degree": 5
     },
     {
       "id": "Nu-disco",
       "label": "Nu-disco",
+      "last_revision_date": "2025-01-24T09:21:40Z",
       "degree": 7
     },
     {
       "id": "Nueva canción",
       "label": "Nueva canción",
+      "last_revision_date": "2024-08-31T00:26:06Z",
       "degree": 2
     },
     {
       "id": "Nueva canción chilena",
       "label": "Nueva canción chilena",
+      "last_revision_date": "2024-10-22T22:55:33Z",
       "degree": 2
     },
     {
       "id": "Nueva ola",
       "label": "Nueva ola",
+      "last_revision_date": "2024-09-29T05:44:01Z",
       "degree": 4
     },
     {
       "id": "Occult rock",
       "label": "Occult rock",
+      "last_revision_date": "2025-01-14T09:42:10Z",
       "degree": 10
     },
     {
       "id": "Odi Pop",
       "label": "Odi pop",
+      "last_revision_date": "2024-12-13T18:50:33Z",
       "degree": 4
     },
     {
       "id": "Odumodu music",
       "label": "Odumodu",
+      "last_revision_date": "2024-04-25T23:47:07Z",
       "degree": 0
     },
     {
       "id": "Oi!",
       "label": "Oi!",
+      "last_revision_date": "2024-12-22T14:23:58Z",
       "degree": 13
     },
     {
       "id": "Ojkanje",
       "label": "Ojkanje",
+      "last_revision_date": "2024-12-07T19:14:29Z",
       "degree": 0
     },
     {
       "id": "Old-school hip-hop",
       "label": "Old-school hip hop",
+      "last_revision_date": "2025-01-17T15:35:56Z",
       "degree": 8
     },
     {
       "id": "Old-time music",
       "label": "Old-time music",
+      "last_revision_date": "2025-01-04T11:48:00Z",
       "degree": 11
     },
     {
       "id": "Onkyokei",
       "label": "Onkyokei",
+      "last_revision_date": "2024-11-26T20:09:49Z",
       "degree": 5
     },
     {
       "id": "Operatic pop",
       "label": "Operatic pop",
+      "last_revision_date": "2024-12-05T18:46:00Z",
       "degree": 2
     },
     {
       "id": "Orchestral pop",
       "label": "Orchestral pop",
+      "last_revision_date": "2024-09-27T00:29:00Z",
       "degree": 4
     },
     {
       "id": "Organic house",
       "label": "Organic house",
+      "last_revision_date": "2025-01-25T00:51:30Z",
       "degree": 3
     },
     {
       "id": "Orthodox pop music",
       "label": "Orthodox pop",
+      "last_revision_date": "2025-01-24T03:36:08Z",
       "degree": 3
     },
     {
       "id": "Outlaw country",
       "label": "Outlaw country",
+      "last_revision_date": "2025-01-01T03:06:27Z",
       "degree": 12
     },
     {
       "id": "Outsider house",
       "label": "Outsider house",
+      "last_revision_date": "2025-01-18T06:17:18Z",
       "degree": 5
     },
     {
       "id": "Owerri Bongo",
       "label": "Owerri Bongo",
+      "last_revision_date": "2024-11-22T15:03:58Z",
       "degree": 2
     },
     {
       "id": "Pachanga",
       "label": "Pachanga",
+      "last_revision_date": "2024-05-31T20:00:58Z",
       "degree": 3
     },
     {
       "id": "Pagan metal",
       "label": "Pagan metal",
+      "last_revision_date": "2024-02-20T18:11:27Z",
       "degree": 7
     },
     {
       "id": "Pagan rock",
       "label": "Pagan rock",
+      "last_revision_date": "2024-12-21T16:29:47Z",
       "degree": 4
     },
     {
       "id": "Paisley Underground",
       "label": "Paisley Underground",
+      "last_revision_date": "2025-01-14T22:19:58Z",
       "degree": 9
     },
     {
       "id": "Pakistani hip-hop",
       "label": "Pakistani hip hop",
+      "last_revision_date": "2025-01-22T18:09:10Z",
       "degree": 1
     },
     {
       "id": "Palam (music)",
       "label": "Palam",
+      "last_revision_date": "2025-01-02T06:29:13Z",
       "degree": 1
     },
     {
       "id": "Palingsound",
       "label": "Palingpop",
+      "last_revision_date": "2024-06-10T10:25:05Z",
       "degree": 6
     },
     {
       "id": "Palm Desert Scene",
       "label": "Palm Desert Scene",
+      "last_revision_date": "2024-12-21T05:07:04Z",
       "degree": 9
     },
     {
       "id": "Palm-wine music",
       "label": "Palm-wine music",
+      "last_revision_date": "2025-01-13T15:38:37Z",
       "degree": 7
     },
     {
       "id": "Palo music",
       "label": "Palo",
+      "last_revision_date": "2024-09-20T01:38:08Z",
       "degree": 0
     },
     {
       "id": "Pambiche",
       "label": "Pambiche",
+      "last_revision_date": "2022-07-11T09:01:56Z",
       "degree": 2
     },
     {
       "id": "Paraguayan polka",
       "label": "Paraguayan polka",
+      "last_revision_date": "2023-09-08T23:07:49Z",
       "degree": 2
     },
     {
       "id": "Paranda (music)",
       "label": "Paranda",
+      "last_revision_date": "2025-01-19T09:28:00Z",
       "degree": 2
     },
     {
       "id": "Parang",
       "label": "Parang",
+      "last_revision_date": "2025-01-19T11:08:57Z",
       "degree": 5
     },
     {
       "id": "Parlour music",
       "label": "Parlour music",
+      "last_revision_date": "2024-09-13T04:52:27Z",
       "degree": 1
     },
     {
       "id": "Partido alto",
       "label": "Partido alto",
+      "last_revision_date": "2022-11-13T18:55:11Z",
       "degree": 3
     },
     {
       "id": "Patua Sangeet",
       "label": "Patua Sangeet",
+      "last_revision_date": "2024-11-19T15:46:30Z",
       "degree": 0
     },
     {
       "id": "Peking opera",
       "label": "Peking opera",
+      "last_revision_date": "2025-01-18T03:15:47Z",
       "degree": 0
     },
     {
       "id": "Peruvian cumbia",
       "label": "Peruvian cumbia",
+      "last_revision_date": "2025-01-10T20:33:51Z",
       "degree": 6
     },
     {
       "id": "Philadelphia soul",
       "label": "Philadelphia soul",
+      "last_revision_date": "2024-05-22T23:09:38Z",
       "degree": 7
     },
     {
       "id": "Philippine folk music",
       "label": "Philippine folk music",
+      "last_revision_date": "2024-10-29T09:02:54Z",
       "degree": 6
     },
     {
       "id": "Phleng phuea chiwit",
       "label": "Phleng phuea chiwit",
+      "last_revision_date": "2024-12-20T14:51:41Z",
       "degree": 7
     },
     {
       "id": "Phonk",
       "label": "Phonk",
+      "last_revision_date": "2025-01-11T17:20:38Z",
       "degree": 11
     },
     {
       "id": "Piedmont blues",
       "label": "Piedmont blues",
+      "last_revision_date": "2024-10-11T07:28:53Z",
       "degree": 3
     },
     {
       "id": "Pinoy hip-hop",
       "label": "Pinoy hip hop",
+      "last_revision_date": "2024-12-13T22:20:05Z",
       "degree": 2
     },
     {
       "id": "Pinoy pop",
       "label": "Pinoy pop",
+      "last_revision_date": "2025-01-08T16:06:00Z",
       "degree": 5
     },
     {
       "id": "Pinoy reggae",
       "label": "Pinoy reggae",
+      "last_revision_date": "2024-10-03T17:04:21Z",
       "degree": 3
     },
     {
       "id": "Pinoy rock",
       "label": "Pinoy rock",
+      "last_revision_date": "2024-11-24T05:57:20Z",
       "degree": 7
     },
     {
       "id": "Pirate metal",
       "label": "Pirate metal",
+      "last_revision_date": "2024-12-23T00:28:42Z",
       "degree": 5
     },
     {
       "id": "Pirekua",
       "label": "Pirekua",
+      "last_revision_date": "2024-11-23T09:47:10Z",
       "degree": 0
     },
     {
       "id": "Pisadinha",
       "label": "Pisadinha",
+      "last_revision_date": "2024-12-16T01:27:12Z",
       "degree": 0
     },
     {
       "id": "Plena",
       "label": "Plena",
+      "last_revision_date": "2025-01-21T14:05:22Z",
       "degree": 3
     },
     {
       "id": "Plugg music",
       "label": "Plugg",
+      "last_revision_date": "2025-01-21T19:06:25Z",
       "degree": 8
     },
     {
       "id": "Plunderphonics",
       "label": "Plunderphonics",
+      "last_revision_date": "2025-01-17T14:15:33Z",
       "degree": 5
     },
     {
       "id": "Political hip-hop",
       "label": "Political hip hop",
+      "last_revision_date": "2025-01-18T03:36:30Z",
       "degree": 6
     },
     {
       "id": "Polka",
       "label": "Polka",
+      "last_revision_date": "2025-01-10T05:49:03Z",
       "degree": 9
     },
     {
       "id": "Pop kreatif",
       "label": "Creative Pop",
+      "last_revision_date": "2025-01-25T15:16:42Z",
       "degree": 10
     },
     {
       "id": "Pop melayu",
       "label": "Pop melayu",
+      "last_revision_date": "2025-01-12T02:16:56Z",
       "degree": 6
     },
     {
       "id": "Pop metal",
       "label": "Pop metal",
+      "last_revision_date": "2024-07-18T14:02:29Z",
       "degree": 9
     },
     {
       "id": "Pop music",
       "label": "Pop music",
+      "last_revision_date": "2025-01-15T13:12:48Z",
       "degree": 134
     },
     {
       "id": "Pop rap",
       "label": "Pop rap",
+      "last_revision_date": "2024-12-22T12:47:05Z",
       "degree": 9
     },
     {
       "id": "Pop rock",
       "label": "Pop rock",
+      "last_revision_date": "2025-01-16T15:10:01Z",
       "degree": 37
     },
     {
       "id": "Pop-punk",
       "label": "Pop-punk",
+      "last_revision_date": "2025-01-20T16:19:50Z",
       "degree": 20
     },
     {
       "id": "Popcorn (Belgian music style)",
       "label": "Popcorn",
+      "last_revision_date": "2024-05-24T09:58:47Z",
       "degree": 0
     },
     {
       "id": "Pornogrind",
       "label": "Pornogrind",
+      "last_revision_date": "2024-11-04T01:41:57Z",
       "degree": 5
     },
     {
       "id": "Porro",
       "label": "Porro",
+      "last_revision_date": "2025-01-04T09:21:57Z",
       "degree": 1
     },
     {
       "id": "Positive hardcore",
       "label": "Positive hardcore",
+      "last_revision_date": "2023-05-25T03:22:29Z",
       "degree": 3
     },
     {
       "id": "Post-Britpop",
       "label": "Post-Britpop",
+      "last_revision_date": "2025-01-06T03:12:44Z",
       "degree": 3
     },
     {
       "id": "Post-disco",
       "label": "Post-disco",
+      "last_revision_date": "2024-12-24T15:24:13Z",
       "degree": 28
     },
     {
       "id": "Post-grunge",
       "label": "Post-grunge",
+      "last_revision_date": "2025-01-22T01:46:42Z",
       "degree": 3
     },
     {
       "id": "Post-hardcore",
       "label": "Post-hardcore",
+      "last_revision_date": "2024-11-13T21:37:00Z",
       "degree": 21
     },
     {
       "id": "Post-metal",
       "label": "Post-metal",
+      "last_revision_date": "2025-01-24T07:52:17Z",
       "degree": 8
     },
     {
       "id": "Post-no wave",
       "label": "Post-no wave",
+      "last_revision_date": "2024-11-25T10:43:15Z",
       "degree": 4
     },
     {
       "id": "Post-progressive",
       "label": "Post-progressive",
+      "last_revision_date": "2023-12-07T20:15:49Z",
       "degree": 12
     },
     {
       "id": "Post-punk",
       "label": "Post-punk",
+      "last_revision_date": "2024-12-31T17:18:56Z",
       "degree": 64
     },
     {
       "id": "Post-punk revival",
       "label": "Post-punk revival",
+      "last_revision_date": "2024-11-01T21:28:59Z",
       "degree": 14
     },
     {
       "id": "Post-rock",
       "label": "Post-rock",
+      "last_revision_date": "2025-01-18T01:46:13Z",
       "degree": 22
     },
     {
       "id": "Power electronics (music genre)",
       "label": "Power electronics",
+      "last_revision_date": "2025-01-17T06:50:45Z",
       "degree": 4
     },
     {
       "id": "Power metal",
       "label": "Power metal",
+      "last_revision_date": "2024-11-25T18:33:08Z",
       "degree": 10
     },
     {
       "id": "Power noise",
       "label": "Power noise",
+      "last_revision_date": "2024-12-06T23:56:34Z",
       "degree": 9
     },
     {
       "id": "Power pop",
       "label": "Power pop",
+      "last_revision_date": "2024-12-11T03:18:07Z",
       "degree": 17
     },
     {
       "id": "Powerviolence",
       "label": "Powerviolence",
+      "last_revision_date": "2024-12-03T06:32:11Z",
       "degree": 5
     },
     {
       "id": "Preaching chords",
       "label": "Preaching Chords",
+      "last_revision_date": "2025-01-10T01:03:19Z",
       "degree": 5
     },
     {
       "id": "Progressive country",
       "label": "Progressive country",
+      "last_revision_date": "2024-12-01T01:47:33Z",
       "degree": 14
     },
     {
       "id": "Progressive folk",
       "label": "Progressive folk",
+      "last_revision_date": "2024-12-20T06:02:54Z",
       "degree": 6
     },
     {
       "id": "Progressive house",
       "label": "Progressive house",
+      "last_revision_date": "2025-01-20T17:46:32Z",
       "degree": 12
     },
     {
       "id": "Progressive metal",
       "label": "Progressive metal",
+      "last_revision_date": "2025-01-09T03:41:20Z",
       "degree": 15
     },
     {
       "id": "Progressive metalcore",
       "label": "Progressive metalcore",
+      "last_revision_date": "2024-07-21T16:48:35Z",
       "degree": 5
     },
     {
       "id": "Progressive pop",
       "label": "Progressive pop",
+      "last_revision_date": "2024-11-06T23:52:48Z",
       "degree": 4
     },
     {
       "id": "Progressive rap",
       "label": "Progressive rap",
+      "last_revision_date": "2024-12-13T17:01:24Z",
       "degree": 9
     },
     {
       "id": "Progressive rock",
       "label": "Progressive rock",
+      "last_revision_date": "2025-01-22T15:02:30Z",
       "degree": 39
     },
     {
       "id": "Progressive soul",
       "label": "Progressive soul",
+      "last_revision_date": "2024-09-02T11:52:39Z",
       "degree": 9
     },
     {
       "id": "Proibidão",
       "label": "Funk proibidão",
+      "last_revision_date": "2025-01-15T18:18:48Z",
       "degree": 5
     },
     {
       "id": "Proto-prog",
       "label": "Proto-prog",
+      "last_revision_date": "2024-10-21T18:49:56Z",
       "degree": 2
     },
     {
       "id": "Proto-punk",
       "label": "Proto-punk",
+      "last_revision_date": "2025-01-10T08:07:19Z",
       "degree": 12
     },
     {
       "id": "Psychedelic folk",
       "label": "Freak folk",
+      "last_revision_date": "2024-12-25T13:52:25Z",
       "degree": 3
     },
     {
       "id": "Psychedelic funk",
       "label": "Psychedelic funk",
+      "last_revision_date": "2025-01-24T03:10:56Z",
       "degree": 9
     },
     {
       "id": "Psychedelic pop",
       "label": "Psychedelic pop",
+      "last_revision_date": "2024-12-05T00:44:48Z",
       "degree": 6
     },
     {
       "id": "Psychedelic rap",
       "label": "Psychedelic rap",
+      "last_revision_date": "2024-12-13T17:01:26Z",
       "degree": 6
     },
     {
       "id": "Psychedelic rock",
       "label": "Psychedelic rock",
+      "last_revision_date": "2025-01-15T03:57:41Z",
       "degree": 57
     },
     {
       "id": "Psychedelic soul",
       "label": "Psychedelic soul",
+      "last_revision_date": "2024-10-27T15:58:24Z",
       "degree": 12
     },
     {
       "id": "Psychedelic trance",
       "label": "Psychedelic trance",
+      "last_revision_date": "2025-01-23T19:14:48Z",
       "degree": 23
     },
     {
       "id": "Psychobilly",
       "label": "Psychobilly",
+      "last_revision_date": "2025-01-22T19:43:27Z",
       "degree": 6
     },
     {
       "id": "Psydub",
       "label": "Psydub",
+      "last_revision_date": "2025-01-14T13:49:54Z",
       "degree": 7
     },
     {
       "id": "Pub rock (Australia)",
       "label": "Australian pub rock",
+      "last_revision_date": "2025-01-08T02:03:52Z",
       "degree": 2
     },
     {
       "id": "Pub rock (United Kingdom)",
       "label": "Pub rock",
+      "last_revision_date": "2025-01-07T14:59:22Z",
       "degree": 15
     },
     {
       "id": "Punk blues",
       "label": "Punk blues",
+      "last_revision_date": "2024-12-02T15:10:49Z",
       "degree": 7
     },
     {
       "id": "Punk funk",
       "label": "Punk funk",
+      "last_revision_date": "2024-09-29T21:26:10Z",
       "degree": 6
     },
     {
       "id": "Punk jazz",
       "label": "Jazzcore",
+      "last_revision_date": "2024-12-15T04:30:48Z",
       "degree": 7
     },
     {
       "id": "Punk pathetique",
       "label": "Punk pathetique",
+      "last_revision_date": "2025-01-03T18:26:00Z",
       "degree": 7
     },
     {
       "id": "Punk rap",
       "label": "Punk rap",
+      "last_revision_date": "2025-01-12T00:40:03Z",
       "degree": 6
     },
     {
       "id": "Punk rock",
       "label": "Punk rock",
+      "last_revision_date": "2025-01-20T20:48:04Z",
       "degree": 108
     },
     {
       "id": "Punta",
       "label": "Punta",
+      "last_revision_date": "2025-01-19T21:07:26Z",
       "degree": 2
     },
     {
       "id": "Punta rock",
       "label": "Punta rock",
+      "last_revision_date": "2025-01-19T21:06:46Z",
       "degree": 4
     },
     {
       "id": "Punto (Venezuela)",
       "label": "Punto",
+      "last_revision_date": "2024-04-13T21:22:50Z",
       "degree": 0
     },
     {
       "id": "Q-pop",
       "label": "Q-pop",
+      "last_revision_date": "2025-01-19T21:40:11Z",
       "degree": 5
     },
     {
       "id": "Qudud Halabiya",
       "label": "Qudud Al-Halabiya",
+      "last_revision_date": "2025-01-16T13:45:30Z",
       "degree": 0
     },
     {
       "id": "Queercore",
       "label": "Queercore",
+      "last_revision_date": "2024-12-18T17:32:26Z",
       "degree": 5
     },
     {
       "id": "Quiet storm",
       "label": "Quiet storm",
+      "last_revision_date": "2024-12-24T05:15:21Z",
       "degree": 11
     },
     {
       "id": "Rabiz (music genre)",
       "label": "Rabiz",
+      "last_revision_date": "2025-01-16T21:42:42Z",
       "degree": 4
     },
     {
       "id": "Rabòday",
       "label": "Rabòday",
+      "last_revision_date": "2025-01-11T05:05:31Z",
       "degree": 2
     },
     {
       "id": "Radif (music)",
       "label": "Radif",
+      "last_revision_date": "2025-01-17T09:55:16Z",
       "degree": 0
     },
     {
       "id": "Raga rock",
       "label": "Raga rock",
+      "last_revision_date": "2025-01-14T18:04:13Z",
       "degree": 7
     },
     {
       "id": "Rage (music genre)",
       "label": "Rage",
+      "last_revision_date": "2025-01-20T10:34:28Z",
       "degree": 10
     },
     {
       "id": "Ragga",
       "label": "Ragga",
+      "last_revision_date": "2024-10-03T22:05:02Z",
       "degree": 13
     },
     {
       "id": "Raglife",
       "label": "Raglife",
+      "last_revision_date": "2024-04-21T15:49:00Z",
       "degree": 7
     },
     {
       "id": "Ragtime",
       "label": "Ragtime",
+      "last_revision_date": "2025-01-12T20:51:53Z",
       "degree": 14
     },
     {
       "id": "Rake-and-scrape",
       "label": "Rake-and-scrape",
+      "last_revision_date": "2024-04-04T20:23:40Z",
       "degree": 0
     },
     {
       "id": "Ramprasadi",
       "label": "Ramprasadi",
+      "last_revision_date": "2025-01-01T18:32:53Z",
       "degree": 0
     },
     {
       "id": "Ranchera",
       "label": "Ranchera",
+      "last_revision_date": "2024-08-17T22:30:07Z",
       "degree": 8
     },
     {
       "id": "Rap metal",
       "label": "Trap metal",
+      "last_revision_date": "2024-12-26T11:30:40Z",
       "degree": 10
     },
     {
       "id": "Rap rock",
       "label": "Rap rock",
+      "last_revision_date": "2025-01-22T15:31:37Z",
       "degree": 8
     },
     {
       "id": "Rapso",
       "label": "Rapso",
+      "last_revision_date": "2024-07-30T00:57:53Z",
       "degree": 5
     },
     {
       "id": "Raptor house",
       "label": "Raptor house",
+      "last_revision_date": "2024-11-07T18:44:14Z",
       "degree": 7
     },
     {
       "id": "Rara tech",
       "label": "Rara tech",
+      "last_revision_date": "2024-03-16T07:11:07Z",
       "degree": 1
     },
     {
       "id": "Rasin",
       "label": "Rasin",
+      "last_revision_date": "2025-01-08T18:05:47Z",
       "degree": 4
     },
     {
       "id": "Rasiya",
       "label": "Rasiya",
+      "last_revision_date": "2024-12-13T18:28:30Z",
       "degree": 0
     },
     {
       "id": "Rasteirinha",
       "label": "Rasteirinha",
+      "last_revision_date": "2024-05-13T12:15:17Z",
       "degree": 4
     },
     {
       "id": "Raï",
       "label": "Raï",
+      "last_revision_date": "2025-01-18T10:02:11Z",
       "degree": 2
     },
     {
       "id": "Rebetiko",
       "label": "Rebetiko rock",
+      "last_revision_date": "2025-01-17T19:16:22Z",
       "degree": 4
     },
     {
       "id": "Red dirt music",
       "label": "Red dirt",
+      "last_revision_date": "2024-09-07T17:10:15Z",
       "degree": 11
     },
     {
       "id": "Reggada",
       "label": "Reggada",
+      "last_revision_date": "2024-12-22T10:45:56Z",
       "degree": 0
     },
     {
       "id": "Reggae",
       "label": "Reggae",
+      "last_revision_date": "2025-01-20T15:33:43Z",
       "degree": 57
     },
     {
       "id": "Reggae en Español",
       "label": "Reggae en Español",
+      "last_revision_date": "2023-06-11T15:41:54Z",
       "degree": 7
     },
     {
       "id": "Reggae fusion",
       "label": "Reggae fusion",
+      "last_revision_date": "2024-10-06T15:20:27Z",
       "degree": 35
     },
     {
       "id": "Reggae punk",
       "label": "Reggae punk",
+      "last_revision_date": "2024-05-14T15:51:09Z",
       "degree": 6
     },
     {
       "id": "Reggae rock",
       "label": "Reggae rock",
+      "last_revision_date": "2024-10-14T04:06:01Z",
       "degree": 8
     },
     {
       "id": "Reggaestep",
       "label": "Reggaestep",
+      "last_revision_date": "2023-09-23T13:57:07Z",
       "degree": 9
     },
     {
       "id": "Reggaeton",
       "label": "Reggaeton",
+      "last_revision_date": "2024-12-13T19:02:36Z",
       "degree": 33
     },
     {
       "id": "Regional Mexican",
       "label": "Regional Mexican",
+      "last_revision_date": "2025-01-19T07:44:37Z",
       "degree": 3
     },
     {
       "id": "Retro-soul",
       "label": "Retro soul",
+      "last_revision_date": "2025-01-23T08:55:45Z",
       "degree": 6
     },
     {
       "id": "Rhumba",
       "label": "Rhumba",
+      "last_revision_date": "2023-08-06T22:45:09Z",
       "degree": 4
     },
     {
       "id": "Rhythm and blues",
       "label": "Rhythm and blues",
+      "last_revision_date": "2025-01-23T05:59:06Z",
       "degree": 90
     },
     {
       "id": "Riddim (genre)",
       "label": "Riddim",
+      "last_revision_date": "2024-12-27T22:44:37Z",
       "degree": 4
     },
     {
       "id": "Ringbang",
       "label": "Ringbang",
+      "last_revision_date": "2024-04-04T20:24:12Z",
       "degree": 4
     },
     {
       "id": "Riot grrrl",
       "label": "Riot grrrl",
+      "last_revision_date": "2024-12-28T04:14:29Z",
       "degree": 6
     },
     {
       "id": "RnBass",
       "label": "RnBass",
+      "last_revision_date": "2023-10-29T22:07:15Z",
       "degree": 9
     },
     {
       "id": "Rock Against Communism",
       "label": "Rock Against Communism",
+      "last_revision_date": "2024-10-31T16:07:00Z",
       "degree": 4
     },
     {
       "id": "Rock and roll",
       "label": "Rock and roll",
+      "last_revision_date": "2025-01-20T02:25:02Z",
       "degree": 76
     },
     {
       "id": "Rock kapak",
       "label": "Rock kapak",
+      "last_revision_date": "2024-12-26T05:21:26Z",
       "degree": 7
     },
     {
       "id": "Rock music",
       "label": "Rock",
+      "last_revision_date": "2025-01-23T10:56:26Z",
       "degree": 133
     },
     {
       "id": "Rock music in Australia",
       "label": "Rock music in Australia",
+      "last_revision_date": "2024-12-17T02:43:42Z",
       "degree": 2
     },
     {
       "id": "Rock music in Greece",
       "label": "Greek rock",
+      "last_revision_date": "2025-01-17T19:17:56Z",
       "degree": 5
     },
     {
       "id": "Rock music in Ireland",
       "label": "Rock music in Ireland",
+      "last_revision_date": "2025-01-05T21:25:15Z",
       "degree": 2
     },
     {
       "id": "Rock music in New Zealand",
       "label": "Rock music in New Zealand",
+      "last_revision_date": "2024-08-01T08:43:34Z",
       "degree": 2
     },
     {
       "id": "Rock music in Slovenia",
       "label": "Rock music in Slovenia",
+      "last_revision_date": "2024-04-18T21:07:06Z",
       "degree": 2
     },
     {
       "id": "Rockabilly",
       "label": "Rockabilly",
+      "last_revision_date": "2025-01-21T23:39:19Z",
       "degree": 33
     },
     {
       "id": "Rocksteady",
       "label": "Rocksteady",
+      "last_revision_date": "2024-08-09T13:36:41Z",
       "degree": 12
     },
     {
       "id": "Romo",
       "label": "Romo",
+      "last_revision_date": "2024-09-26T09:06:55Z",
       "degree": 7
     },
     {
       "id": "Roots reggae",
       "label": "Roots reggae",
+      "last_revision_date": "2023-12-23T18:38:57Z",
       "degree": 6
     },
     {
       "id": "Roots rock",
       "label": "Roots rock",
+      "last_revision_date": "2025-01-17T13:46:47Z",
       "degree": 12
     },
     {
       "id": "Rumba flamenca",
       "label": "Rumba flamenca",
+      "last_revision_date": "2024-10-22T21:30:24Z",
       "degree": 4
     },
     {
       "id": "Russ music",
       "label": "Russ music",
+      "last_revision_date": "2024-10-29T01:35:48Z",
       "degree": 6
     },
     {
       "id": "Russian chanson",
       "label": "Russian chanson",
+      "last_revision_date": "2025-01-07T21:37:22Z",
       "degree": 3
     },
     {
       "id": "Russian pop",
       "label": "Russian pop music",
+      "last_revision_date": "2024-11-02T20:15:44Z",
       "degree": 4
     },
     {
       "id": "Ryūkōka",
       "label": "Ryūkōka",
+      "last_revision_date": "2024-09-10T12:05:03Z",
       "degree": 6
     },
     {
       "id": "Sadra (music)",
       "label": "Sadra",
+      "last_revision_date": "2023-11-01T06:16:50Z",
       "degree": 0
     },
     {
       "id": "Sakara music",
       "label": "Sakara music",
+      "last_revision_date": "2024-04-22T12:16:05Z",
       "degree": 1
     },
     {
       "id": "Salsa music",
       "label": "Salsa",
+      "last_revision_date": "2024-12-16T10:37:44Z",
       "degree": 13
     },
     {
       "id": "Samba",
       "label": "Samba",
+      "last_revision_date": "2025-01-22T11:06:42Z",
       "degree": 27
     },
     {
       "id": "Samba de breque",
       "label": "Samba de breque",
+      "last_revision_date": "2024-04-16T22:19:48Z",
       "degree": 2
     },
     {
       "id": "Samba funk",
       "label": "Samba funk",
+      "last_revision_date": "2025-01-13T23:47:24Z",
       "degree": 4
     },
     {
       "id": "Samba reggae",
       "label": "Samba-reggae",
+      "last_revision_date": "2024-05-28T15:26:04Z",
       "degree": 4
     },
     {
       "id": "Samba rock",
       "label": "Samba rock",
+      "last_revision_date": "2025-01-12T14:58:54Z",
       "degree": 12
     },
     {
       "id": "Samba-canção",
       "label": "Samba-canção",
+      "last_revision_date": "2024-06-17T23:53:36Z",
       "degree": 3
     },
     {
       "id": "Samba-choro",
       "label": "Samba-choro",
+      "last_revision_date": "2024-04-16T22:19:50Z",
       "degree": 3
     },
     {
       "id": "Samba-enredo",
       "label": "Samba de enredo",
+      "last_revision_date": "2024-02-22T01:21:33Z",
       "degree": 2
     },
     {
       "id": "Samba-jazz",
       "label": "Samba-jazz",
+      "last_revision_date": "2024-04-16T22:19:53Z",
       "degree": 4
     },
     {
       "id": "Samba-sincopado",
       "label": "Samba-sincopado",
+      "last_revision_date": "2025-01-13T04:36:09Z",
       "degree": 1
     },
     {
       "id": "Sambass",
       "label": "Sambass",
+      "last_revision_date": "2024-04-12T21:23:03Z",
       "degree": 4
     },
     {
       "id": "Sampledelia",
       "label": "Sampledelia",
+      "last_revision_date": "2024-12-13T17:41:07Z",
       "degree": 8
     },
     {
       "id": "San Francisco sound",
       "label": "San Francisco sound",
+      "last_revision_date": "2024-12-27T13:26:40Z",
       "degree": 1
     },
     {
       "id": "Sanaa (music)",
       "label": "Sanaa",
+      "last_revision_date": "2024-12-28T03:53:43Z",
       "degree": 1
     },
     {
       "id": "Sanedo",
       "label": "Sanedo",
+      "last_revision_date": "2024-11-01T05:17:05Z",
       "degree": 0
     },
     {
       "id": "Sangeet Natak",
       "label": "Sangeet Natak",
+      "last_revision_date": "2024-06-26T20:22:16Z",
       "degree": 0
     },
     {
       "id": "Santé engagé",
       "label": "Santé engagé",
+      "last_revision_date": "2025-01-16T09:02:12Z",
       "degree": 2
     },
     {
       "id": "Sapphic pop",
       "label": "Sapphic pop",
+      "last_revision_date": "2024-11-25T17:38:38Z",
       "degree": 4
     },
     {
       "id": "Satirical music",
       "label": "Satire in contemporary music",
+      "last_revision_date": "2024-10-28T00:17:48Z",
       "degree": 2
     },
     {
       "id": "Scam rap",
       "label": "Scam rap",
+      "last_revision_date": "2024-12-16T05:25:18Z",
       "degree": 2
     },
     {
       "id": "Schaffel",
       "label": "Schaffel",
+      "last_revision_date": "2023-10-27T16:43:56Z",
       "degree": 3
     },
     {
       "id": "Schlager music",
       "label": "Schlager",
+      "last_revision_date": "2024-09-30T07:56:57Z",
       "degree": 12
     },
     {
       "id": "Scottish Gaelic punk",
       "label": "Scottish Gaelic punk",
+      "last_revision_date": "2025-01-10T20:00:00Z",
       "degree": 4
     },
     {
       "id": "Scottish hip-hop",
       "label": "Scottish hip hop",
+      "last_revision_date": "2024-12-13T11:35:08Z",
       "degree": 2
     },
     {
       "id": "Screamo",
       "label": "Screamo",
+      "last_revision_date": "2025-01-19T02:55:57Z",
       "degree": 11
     },
     {
       "id": "Scrumpy and Western",
       "label": "Scrumpy and Western",
+      "last_revision_date": "2023-06-09T18:52:34Z",
       "degree": 3
     },
     {
       "id": "Sea shanty",
       "label": "Sea shanty",
+      "last_revision_date": "2025-01-08T16:57:17Z",
       "degree": 3
     },
     {
       "id": "Sean-nós singing",
       "label": "Sean-nós singing",
+      "last_revision_date": "2025-01-17T16:23:31Z",
       "degree": 0
     },
     {
       "id": "Seapunk",
       "label": "Seapunk",
+      "last_revision_date": "2024-11-07T13:33:30Z",
       "degree": 9
     },
     {
       "id": "Sega (genre)",
       "label": "Sega",
+      "last_revision_date": "2024-12-27T14:58:04Z",
       "degree": 4
     },
     {
       "id": "Sega tambour Chagos",
       "label": "Sega tambour Chagos",
+      "last_revision_date": "2024-12-07T19:17:42Z",
       "degree": 1
     },
     {
       "id": "Sega tambour of Rodrigues Island",
       "label": "Sega tambour",
+      "last_revision_date": "2024-12-06T17:41:12Z",
       "degree": 1
     },
     {
       "id": "Sentimental ballad",
       "label": "Power ballad",
+      "last_revision_date": "2024-06-09T00:09:39Z",
       "degree": 8
     },
     {
       "id": "Serbian hip-hop",
       "label": "Serbian hip hop",
+      "last_revision_date": "2025-01-15T17:41:49Z",
       "degree": 1
     },
     {
       "id": "Seresta (music)",
       "label": "Seresta",
+      "last_revision_date": "2024-11-03T05:02:31Z",
       "degree": 0
     },
     {
       "id": "Sertanejo music",
       "label": "Sertanejo universitário",
+      "last_revision_date": "2024-12-10T16:00:40Z",
       "degree": 5
     },
     {
       "id": "Seto leelo",
       "label": "Seto leelo",
+      "last_revision_date": "2024-08-22T13:21:48Z",
       "degree": 0
     },
     {
       "id": "Shangaan electro",
       "label": "Shangaan electro",
+      "last_revision_date": "2025-01-06T12:19:54Z",
       "degree": 3
     },
     {
       "id": "Shashmaqam",
       "label": "Shashmaqam",
+      "last_revision_date": "2024-10-04T04:01:18Z",
       "degree": 0
     },
     {
       "id": "Shibuya-kei",
       "label": "Shibuya-kei",
+      "last_revision_date": "2024-09-15T16:48:36Z",
       "degree": 16
     },
     {
       "id": "Shock rock",
       "label": "Shock rock",
+      "last_revision_date": "2024-08-22T18:25:34Z",
       "degree": 8
     },
     {
       "id": "Shoegaze",
       "label": "Shoegaze",
+      "last_revision_date": "2025-01-14T16:35:13Z",
       "degree": 20
     },
     {
       "id": "Singeli",
       "label": "Singeli",
+      "last_revision_date": "2024-05-11T01:51:52Z",
       "degree": 3
     },
     {
       "id": "Ska",
       "label": "Ska",
+      "last_revision_date": "2025-01-23T05:15:13Z",
       "degree": 27
     },
     {
       "id": "Ska punk",
       "label": "Ska punk",
+      "last_revision_date": "2025-01-16T20:45:16Z",
       "degree": 11
     },
     {
       "id": "Skate punk",
       "label": "Skate punk",
+      "last_revision_date": "2025-01-23T05:35:46Z",
       "degree": 6
     },
     {
       "id": "Skiffle",
       "label": "Skiffle",
+      "last_revision_date": "2024-12-29T15:19:01Z",
       "degree": 10
     },
     {
       "id": "Skiladiko",
       "label": "Skiladiko",
+      "last_revision_date": "2025-01-04T18:17:44Z",
       "degree": 5
     },
     {
       "id": "Skweee",
       "label": "Skweee",
+      "last_revision_date": "2024-10-09T15:35:38Z",
       "degree": 8
     },
     {
       "id": "Slab (car)",
       "label": "Slab",
+      "last_revision_date": "2024-12-25T19:51:33Z",
       "degree": 4
     },
     {
       "id": "Slacker rock",
       "label": "Slacker rock",
+      "last_revision_date": "2025-01-08T16:39:25Z",
       "degree": 2
     },
     {
       "id": "Slowcore",
       "label": "Slowcore",
+      "last_revision_date": "2025-01-23T02:17:40Z",
       "degree": 3
     },
     {
       "id": "Sludge metal",
       "label": "Sludge metal",
+      "last_revision_date": "2024-12-24T13:10:37Z",
       "degree": 8
     },
     {
       "id": "Smooth jazz",
       "label": "Smooth jazz",
+      "last_revision_date": "2024-11-02T18:57:33Z",
       "degree": 10
     },
     {
       "id": "Smooth soul",
       "label": "Smooth soul",
+      "last_revision_date": "2024-10-15T00:12:31Z",
       "degree": 6
     },
     {
       "id": "Snap music",
       "label": "Snap music",
+      "last_revision_date": "2024-12-13T22:58:31Z",
       "degree": 6
     },
     {
       "id": "Soca music",
       "label": "Soca music",
+      "last_revision_date": "2025-01-14T22:52:00Z",
       "degree": 28
     },
     {
       "id": "Soft grunge",
       "label": "Soft grunge",
+      "last_revision_date": "2025-01-22T13:05:59Z",
       "degree": 7
     },
     {
       "id": "Soft rock",
       "label": "Soft rock",
+      "last_revision_date": "2024-12-24T08:19:42Z",
       "degree": 16
     },
     {
       "id": "Son cubano",
       "label": "Son cubano",
+      "last_revision_date": "2025-01-18T18:35:39Z",
       "degree": 17
     },
     {
       "id": "Son huasteco",
       "label": "Son huasteco",
+      "last_revision_date": "2024-03-03T16:12:23Z",
       "degree": 2
     },
     {
       "id": "Son jarocho",
       "label": "Son jarocho",
+      "last_revision_date": "2024-12-27T14:28:24Z",
       "degree": 3
     },
     {
       "id": "Son montuno",
       "label": "Son montuno",
+      "last_revision_date": "2024-07-08T04:35:39Z",
       "degree": 8
     },
     {
       "id": "Sophisti-pop",
       "label": "Sophisti-pop",
+      "last_revision_date": "2024-11-23T17:39:32Z",
       "degree": 6
     },
     {
       "id": "Soukous",
       "label": "Soukous",
+      "last_revision_date": "2025-01-15T16:54:03Z",
       "degree": 9
     },
     {
       "id": "Soul blues",
       "label": "Soul blues",
+      "last_revision_date": "2024-10-24T00:47:22Z",
       "degree": 5
     },
     {
       "id": "Soul jazz",
       "label": "Soul jazz",
+      "last_revision_date": "2024-12-18T18:59:43Z",
       "degree": 9
     },
     {
       "id": "Soul music",
       "label": "Soul",
+      "last_revision_date": "2025-01-22T21:17:20Z",
       "degree": 97
     },
     {
       "id": "Sound collage",
       "label": "Sound collage",
+      "last_revision_date": "2024-12-05T12:25:58Z",
       "degree": 4
     },
     {
       "id": "Southern gospel",
       "label": "Southern gospel",
+      "last_revision_date": "2024-10-19T04:15:49Z",
       "degree": 6
     },
     {
       "id": "Southern hip-hop",
       "label": "Southern hip hop",
+      "last_revision_date": "2025-01-16T12:41:15Z",
       "degree": 25
     },
     {
       "id": "Southern rock",
       "label": "Southern metal",
+      "last_revision_date": "2025-01-22T05:40:58Z",
       "degree": 8
     },
     {
       "id": "Southern soul",
       "label": "Southern soul",
+      "last_revision_date": "2025-01-09T03:56:56Z",
       "degree": 8
     },
     {
       "id": "Sovietwave",
       "label": "Sovietwave",
+      "last_revision_date": "2025-01-01T01:53:26Z",
       "degree": 5
     },
     {
       "id": "Space age pop",
       "label": "Space age pop",
+      "last_revision_date": "2025-01-21T16:26:04Z",
       "degree": 20
     },
     {
       "id": "Space music",
       "label": "Space music",
+      "last_revision_date": "2025-01-14T14:27:48Z",
       "degree": 12
     },
     {
       "id": "Space rock",
       "label": "Space rock",
+      "last_revision_date": "2025-01-04T17:08:30Z",
       "degree": 7
     },
     {
       "id": "Spanish traditional Christian music",
       "label": "Spanish traditional Christian music",
+      "last_revision_date": "2024-01-04T06:59:48Z",
       "degree": 0
     },
     {
       "id": "Speed garage",
       "label": "Speed garage",
+      "last_revision_date": "2025-01-04T18:09:59Z",
       "degree": 6
     },
     {
       "id": "Speed metal",
       "label": "Speed metal",
+      "last_revision_date": "2025-01-14T09:41:20Z",
       "degree": 15
     },
     {
       "id": "Speedcore",
       "label": "Speedcore",
+      "last_revision_date": "2024-11-22T22:33:58Z",
       "degree": 5
     },
     {
       "id": "Spiritual jazz",
       "label": "Spiritual jazz",
+      "last_revision_date": "2024-02-15T18:09:42Z",
       "degree": 4
     },
     {
       "id": "Spirituals",
       "label": "Spiritual",
+      "last_revision_date": "2025-01-17T23:28:54Z",
       "degree": 14
     },
     {
       "id": "Spouge",
       "label": "Spouge",
+      "last_revision_date": "2024-04-04T20:24:14Z",
       "degree": 7
     },
     {
       "id": "Sri Lankan hip-hop",
       "label": "Sri Lankan Hip Hop",
+      "last_revision_date": "2024-12-14T20:25:30Z",
       "degree": 8
     },
     {
       "id": "Sri Metal",
       "label": "Sri Metal",
+      "last_revision_date": "2023-02-27T11:57:40Z",
       "degree": 1
     },
     {
       "id": "Stadium house",
       "label": "Stadium house",
+      "last_revision_date": "2023-10-12T05:38:20Z",
       "degree": 0
     },
     {
       "id": "Starogradska muzika",
       "label": "Starogradska muzika",
+      "last_revision_date": "2024-11-11T17:51:11Z",
       "degree": 2
     },
     {
       "id": "Stoner rock",
       "label": "Stoner rock",
+      "last_revision_date": "2024-12-02T17:22:58Z",
       "degree": 12
     },
     {
       "id": "Straight-ahead jazz",
       "label": "Straight-ahead jazz",
+      "last_revision_date": "2024-12-31T16:10:27Z",
       "degree": 7
     },
     {
       "id": "Street punk",
       "label": "Street punk",
+      "last_revision_date": "2025-01-19T16:55:57Z",
       "degree": 8
     },
     {
       "id": "Stride (music)",
       "label": "Stride",
+      "last_revision_date": "2024-09-24T13:43:36Z",
       "degree": 3
     },
     {
       "id": "Stronda",
       "label": "Stronda",
+      "last_revision_date": "2024-12-13T17:01:52Z",
       "degree": 5
     },
     {
       "id": "Styles of pop music",
       "label": "Street pop",
+      "last_revision_date": "2025-01-24T20:18:34Z",
       "degree": 5
     },
     {
       "id": "Sufi rock",
       "label": "Sufi rock",
+      "last_revision_date": "2024-02-20T18:36:41Z",
       "degree": 3
     },
     {
       "id": "Sunshine pop",
       "label": "Sunshine pop",
+      "last_revision_date": "2025-01-13T12:48:17Z",
       "degree": 9
     },
     {
       "id": "Suomisaundi",
       "label": "Suomisaundi",
+      "last_revision_date": "2024-10-26T13:10:22Z",
       "degree": 2
     },
     {
       "id": "Surf music",
       "label": "Surf music",
+      "last_revision_date": "2025-01-13T12:22:26Z",
       "degree": 19
     },
     {
       "id": "Swamp blues",
       "label": "Swamp blues",
+      "last_revision_date": "2023-12-30T09:29:59Z",
       "degree": 9
     },
     {
       "id": "Swamp pop",
       "label": "Swamp pop",
+      "last_revision_date": "2025-01-13T03:36:46Z",
       "degree": 9
     },
     {
       "id": "Swamp rock",
       "label": "Swamp rock",
+      "last_revision_date": "2024-05-15T23:11:36Z",
       "degree": 13
     },
     {
       "id": "Swing music",
       "label": "Swing",
+      "last_revision_date": "2025-01-16T00:12:23Z",
       "degree": 26
     },
     {
       "id": "Swing revival",
       "label": "Swing revival",
+      "last_revision_date": "2025-01-05T15:09:32Z",
       "degree": 10
     },
     {
       "id": "Symphonic black metal",
       "label": "Symphonic black metal",
+      "last_revision_date": "2024-10-22T04:04:18Z",
       "degree": 5
     },
     {
       "id": "Symphonic metal",
       "label": "Symphonic death metal",
+      "last_revision_date": "2025-01-23T10:51:48Z",
       "degree": 11
     },
     {
       "id": "Synth-pop",
       "label": "Synth-pop",
+      "last_revision_date": "2024-12-18T13:05:30Z",
       "degree": 42
     },
     {
       "id": "Synthwave",
       "label": "Synthwave",
+      "last_revision_date": "2025-01-11T04:19:07Z",
       "degree": 10
     },
     {
       "id": "Tabanka",
       "label": "Tabanka",
+      "last_revision_date": "2024-04-21T20:50:34Z",
       "degree": 0
     },
     {
       "id": "Tahitian drumming",
       "label": "Tahitian Drumming",
+      "last_revision_date": "2022-11-03T05:40:22Z",
       "degree": 0
     },
     {
       "id": "Tahona",
       "label": "Tahona",
+      "last_revision_date": "2024-05-22T19:10:58Z",
       "degree": 1
     },
     {
       "id": "Takamba",
       "label": "Takamba",
+      "last_revision_date": "2024-03-11T22:19:16Z",
       "degree": 0
     },
     {
       "id": "Talempong",
       "label": "Talempong ensemble",
+      "last_revision_date": "2024-11-08T09:36:10Z",
       "degree": 0
     },
     {
       "id": "Tallava",
       "label": "Tallava",
+      "last_revision_date": "2024-10-08T22:35:25Z",
       "degree": 3
     },
     {
       "id": "Tamborera",
       "label": "Tamborera",
+      "last_revision_date": "2024-04-13T21:22:58Z",
       "degree": 0
     },
     {
       "id": "Tambu (music)",
       "label": "Tambu",
+      "last_revision_date": "2024-11-20T16:19:59Z",
       "degree": 1
     },
     {
       "id": "Tango music",
       "label": "Tango",
+      "last_revision_date": "2024-07-31T05:53:25Z",
       "degree": 5
     },
     {
       "id": "Tanzanian hip-hop",
       "label": "Tanzania Hip Hop Music",
+      "last_revision_date": "2024-12-17T19:48:19Z",
       "degree": 2
     },
     {
       "id": "Taqwacore",
       "label": "Taqwacore",
+      "last_revision_date": "2024-08-15T12:05:55Z",
       "degree": 2
     },
     {
       "id": "Tche music",
       "label": "Tchê music",
+      "last_revision_date": "2024-10-16T22:56:35Z",
       "degree": 3
     },
     {
       "id": "Tech house",
       "label": "Tech house",
+      "last_revision_date": "2025-01-17T09:48:44Z",
       "degree": 15
     },
     {
       "id": "Tech trance",
       "label": "Tech trance",
+      "last_revision_date": "2025-01-18T06:21:28Z",
       "degree": 9
     },
     {
       "id": "Technical death metal",
       "label": "Technical death metal",
+      "last_revision_date": "2025-01-15T20:07:52Z",
       "degree": 7
     },
     {
       "id": "Techno",
       "label": "Techno",
+      "last_revision_date": "2025-01-23T16:04:08Z",
       "degree": 92
     },
     {
       "id": "Techstep",
       "label": "Techstep",
+      "last_revision_date": "2024-12-06T23:56:46Z",
       "degree": 14
     },
     {
       "id": "Tecno brega",
       "label": "Tecno brega",
+      "last_revision_date": "2024-12-06T23:57:03Z",
       "degree": 3
     },
     {
       "id": "Tecnocumbia",
       "label": "Tecnocumbia",
+      "last_revision_date": "2025-01-23T05:44:53Z",
       "degree": 5
     },
     {
       "id": "Teen pop",
       "label": "Teen pop",
+      "last_revision_date": "2025-01-05T19:39:28Z",
       "degree": 15
     },
     {
       "id": "Tejano music",
       "label": "Tejano music",
+      "last_revision_date": "2025-01-16T14:54:08Z",
       "degree": 14
     },
     {
       "id": "Teutonic thrash metal",
       "label": "Teutonic thrash metal",
+      "last_revision_date": "2024-11-07T18:23:42Z",
       "degree": 2
     },
     {
       "id": "Texas blues",
       "label": "Texas blues",
+      "last_revision_date": "2023-12-19T15:26:24Z",
       "degree": 5
     },
     {
       "id": "Texas country music",
       "label": "Texas country music",
+      "last_revision_date": "2024-07-16T20:35:24Z",
       "degree": 6
     },
     {
       "id": "Thai hip-hop",
       "label": "Thai hip hop",
+      "last_revision_date": "2024-12-25T19:35:05Z",
       "degree": 2
     },
     {
       "id": "Thai pop music",
       "label": "Thai pop",
+      "last_revision_date": "2025-01-23T14:36:59Z",
       "degree": 11
     },
     {
       "id": "Thai rock",
       "label": "Thai rock",
+      "last_revision_date": "2025-01-22T07:21:31Z",
       "degree": 2
     },
     {
       "id": "Third stream",
       "label": "Third stream",
+      "last_revision_date": "2024-12-31T16:46:15Z",
       "degree": 3
     },
     {
       "id": "Thrash metal",
       "label": "Thrash metal",
+      "last_revision_date": "2025-01-23T23:47:28Z",
       "degree": 28
     },
     {
       "id": "Thrashcore",
       "label": "Thrashcore",
+      "last_revision_date": "2024-10-21T06:05:32Z",
       "degree": 8
     },
     {
       "id": "Tierra Caliente music",
       "label": "Tierra Caliente music",
+      "last_revision_date": "2024-11-15T03:55:53Z",
       "degree": 1
     },
     {
       "id": "Timba",
       "label": "Timba",
+      "last_revision_date": "2025-01-03T02:23:14Z",
       "degree": 7
     },
     {
       "id": "Time Lord rock",
       "label": "Time Lord rock",
+      "last_revision_date": "2025-01-06T22:29:00Z",
       "degree": 3
     },
     {
       "id": "Toi music",
       "label": "Toi",
+      "last_revision_date": "2024-12-28T04:07:17Z",
       "degree": 2
     },
     {
       "id": "Tough guy hardcore",
       "label": "Tough guy hardcore",
+      "last_revision_date": "2025-01-07T10:12:42Z",
       "degree": 8
     },
     {
       "id": "Township music",
       "label": "Township music",
+      "last_revision_date": "2025-01-01T03:28:44Z",
       "degree": 2
     },
     {
       "id": "Toytown techno",
       "label": "Toytown techno",
+      "last_revision_date": "2023-10-27T16:53:41Z",
       "degree": 5
     },
     {
       "id": "Trad jazz",
       "label": "Trad jazz",
+      "last_revision_date": "2024-11-14T22:35:24Z",
       "degree": 1
     },
     {
       "id": "Traditional black gospel",
       "label": "Traditional Black gospel",
+      "last_revision_date": "2025-01-18T10:49:52Z",
       "degree": 7
     },
     {
       "id": "Traditional bluegrass",
       "label": "Traditional bluegrass",
+      "last_revision_date": "2024-12-09T01:16:16Z",
       "degree": 5
     },
     {
       "id": "Traditional pop",
       "label": "Traditional pop",
+      "last_revision_date": "2025-01-23T17:40:32Z",
       "degree": 14
     },
     {
       "id": "Trallpunk",
       "label": "Trallpunk",
+      "last_revision_date": "2025-01-17T10:25:31Z",
       "degree": 5
     },
     {
       "id": "Trance music",
       "label": "Trance",
+      "last_revision_date": "2025-01-20T14:00:18Z",
       "degree": 47
     },
     {
       "id": "Trap music",
       "label": "Trap",
+      "last_revision_date": "2025-01-21T02:20:16Z",
       "degree": 45
     },
     {
       "id": "Tribal guarachero",
       "label": "Tribal guarachero",
+      "last_revision_date": "2024-06-10T05:09:53Z",
       "degree": 2
     },
     {
       "id": "Tribal house",
       "label": "Tribal house",
+      "last_revision_date": "2025-01-08T16:04:22Z",
       "degree": 7
     },
     {
       "id": "Trip hop",
       "label": "Trip hop",
+      "last_revision_date": "2025-01-24T03:58:56Z",
       "degree": 23
     },
     {
       "id": "Tropical house",
       "label": "Tropical house",
+      "last_revision_date": "2024-10-06T15:43:41Z",
       "degree": 8
     },
     {
       "id": "Tropicália",
       "label": "Tropicália",
+      "last_revision_date": "2024-10-29T18:11:17Z",
       "degree": 8
     },
     {
       "id": "Tropipop",
       "label": "Tropipop",
+      "last_revision_date": "2024-09-23T15:10:57Z",
       "degree": 6
     },
     {
       "id": "Trot (music)",
       "label": "Trot",
+      "last_revision_date": "2024-12-14T02:41:05Z",
       "degree": 5
     },
     {
       "id": "Truck-driving country",
       "label": "Truck-driving country",
+      "last_revision_date": "2025-01-12T23:38:40Z",
       "degree": 2
     },
     {
       "id": "Trønder rock",
       "label": "Trønder rock",
+      "last_revision_date": "2024-11-19T00:49:34Z",
       "degree": 2
     },
     {
       "id": "Tsugaru-jamisen",
       "label": "Tsugaru-jamisen",
+      "last_revision_date": "2025-01-04T17:55:42Z",
       "degree": 0
     },
     {
       "id": "Tulsa sound",
       "label": "Tulsa sound",
+      "last_revision_date": "2024-08-15T04:12:42Z",
       "degree": 6
     },
     {
       "id": "Tumba francesa",
       "label": "Tumba francesa",
+      "last_revision_date": "2024-01-04T15:31:11Z",
       "degree": 1
     },
     {
       "id": "Turbo-folk",
       "label": "Turbo-folk",
+      "last_revision_date": "2025-01-20T20:18:31Z",
       "degree": 1
     },
     {
       "id": "Twee pop",
       "label": "Twee pop",
+      "last_revision_date": "2025-01-05T20:27:27Z",
       "degree": 7
     },
     {
       "id": "Two-tone (music genre)",
       "label": "Two-tone",
+      "last_revision_date": "2025-01-23T05:16:56Z",
       "degree": 12
     },
     {
       "id": "Twoubadou",
       "label": "Twoubadou",
+      "last_revision_date": "2025-01-08T17:43:02Z",
       "degree": 2
     },
     {
       "id": "UK bass",
       "label": "UK bass",
+      "last_revision_date": "2024-12-01T11:40:06Z",
       "degree": 10
     },
     {
       "id": "UK drill",
       "label": "UK drill",
+      "last_revision_date": "2025-01-20T21:22:59Z",
       "degree": 8
     },
     {
       "id": "UK garage",
       "label": "UK garage",
+      "last_revision_date": "2025-01-16T11:05:33Z",
       "degree": 25
     },
     {
       "id": "UK hard house",
       "label": "Scouse house",
-      "degree": 18
+      "last_revision_date": "2024-10-26T14:45:07Z",
+      "degree": 17
     },
     {
       "id": "UK rap",
       "label": "UK rap",
+      "last_revision_date": "2025-01-22T21:31:15Z",
       "degree": 12
     },
     {
       "id": "Ukrainian metal",
       "label": "Ukrainian metal",
+      "last_revision_date": "2024-11-13T02:28:23Z",
       "degree": 1
     },
     {
       "id": "Ultra (music)",
       "label": "Ultra",
+      "last_revision_date": "2024-09-29T17:09:11Z",
       "degree": 5
     },
     {
       "id": "Unblack metal",
       "label": "Unblack metal",
+      "last_revision_date": "2024-11-06T20:00:27Z",
       "degree": 4
     },
     {
       "id": "Uplifting trance",
       "label": "Uplifting trance",
+      "last_revision_date": "2024-11-26T15:46:13Z",
       "degree": 10
     },
     {
       "id": "Urban Pasifika",
       "label": "Urban Pasifika",
+      "last_revision_date": "2024-12-13T22:05:50Z",
       "degree": 8
     },
     {
       "id": "Urban champeta",
       "label": "Urban champeta",
+      "last_revision_date": "2023-12-05T10:14:23Z",
       "degree": 1
     },
     {
       "id": "Urban contemporary gospel",
       "label": "Urban/contemporary gospel",
+      "last_revision_date": "2025-01-13T08:25:38Z",
       "degree": 8
     },
     {
       "id": "Urbano music",
       "label": "Urbano (Música urbana)",
+      "last_revision_date": "2024-10-25T09:31:38Z",
       "degree": 12
     },
     {
       "id": "Uruguayan rock",
       "label": "Uruguayan rock",
+      "last_revision_date": "2024-04-13T21:24:05Z",
       "degree": 3
     },
     {
       "id": "V-pop",
       "label": "V-pop",
+      "last_revision_date": "2025-01-16T08:02:42Z",
       "degree": 4
     },
     {
       "id": "Vallenato",
       "label": "Vallenato",
+      "last_revision_date": "2024-12-06T16:49:59Z",
       "degree": 2
     },
     {
       "id": "Vaporwave",
       "label": "Vaporwave",
+      "last_revision_date": "2025-01-23T00:57:58Z",
       "degree": 24
     },
     {
       "id": "Vaudeville in the Philippines",
       "label": "Vaudeville in the Philippines",
+      "last_revision_date": "2024-10-14T14:10:47Z",
       "degree": 1
     },
     {
       "id": "Venezuelan rock",
       "label": "Venezuelan rock",
+      "last_revision_date": "2025-01-16T05:36:07Z",
       "degree": 3
     },
     {
       "id": "Vigilante rap",
       "label": "Vigilante rap",
+      "last_revision_date": "2024-12-13T17:02:13Z",
       "degree": 1
     },
     {
       "id": "Viking metal",
       "label": "Viking metal",
+      "last_revision_date": "2025-01-09T18:37:06Z",
       "degree": 7
     },
     {
       "id": "Viking rock",
       "label": "Viking rock",
+      "last_revision_date": "2024-10-02T16:00:00Z",
       "degree": 6
     },
     {
       "id": "Visayan pop",
       "label": "Visayan pop",
+      "last_revision_date": "2025-01-13T22:13:08Z",
       "degree": 4
     },
     {
       "id": "Vispop",
       "label": "Vispop",
+      "last_revision_date": "2025-01-13T22:17:18Z",
       "degree": 2
     },
     {
       "id": "Visual kei",
       "label": "Visual kei",
+      "last_revision_date": "2024-10-25T20:51:36Z",
       "degree": 10
     },
     {
       "id": "Wangga",
       "label": "Wangga",
+      "last_revision_date": "2024-07-24T00:38:51Z",
       "degree": 1
     },
     {
       "id": "Wave music",
       "label": "Wave",
+      "last_revision_date": "2024-11-11T16:26:21Z",
       "degree": 19
     },
     {
       "id": "Welsh hip-hop",
       "label": "Welsh hip hop",
+      "last_revision_date": "2024-12-13T11:35:12Z",
       "degree": 1
     },
     {
       "id": "West Coast blues",
       "label": "West Coast blues",
+      "last_revision_date": "2024-12-19T23:59:05Z",
       "degree": 3
     },
     {
       "id": "West Coast hip-hop",
       "label": "West Coast hip-hop",
+      "last_revision_date": "2025-01-09T05:32:20Z",
       "degree": 16
     },
     {
       "id": "West Coast jazz",
       "label": "West Coast jazz",
+      "last_revision_date": "2024-11-04T04:47:32Z",
       "degree": 2
     },
     {
       "id": "Western music (North America)",
       "label": "Western music",
+      "last_revision_date": "2024-12-24T02:11:31Z",
       "degree": 16
     },
     {
       "id": "Western swing",
       "label": "Western swing",
+      "last_revision_date": "2024-12-15T20:48:53Z",
       "degree": 15
     },
     {
       "id": "Witch house (genre)",
       "label": "Witch house",
+      "last_revision_date": "2025-01-07T01:04:44Z",
       "degree": 10
     },
     {
       "id": "Wizard rock",
       "label": "Wizard rock",
+      "last_revision_date": "2024-11-17T12:21:33Z",
       "degree": 3
     },
     {
       "id": "Wong shadow",
       "label": "Wong shadow",
+      "last_revision_date": "2022-05-25T14:42:51Z",
       "degree": 8
     },
     {
       "id": "Wonky (genre)",
       "label": "Wonky",
+      "last_revision_date": "2024-12-31T08:22:53Z",
       "degree": 15
     },
     {
       "id": "Wonky pop",
       "label": "Wonky pop",
+      "last_revision_date": "2024-11-01T20:46:14Z",
       "degree": 4
     },
     {
       "id": "Working on Dying",
       "label": "Tread",
+      "last_revision_date": "2025-01-21T14:43:02Z",
       "degree": 5
     },
     {
       "id": "World music",
       "label": "World music",
+      "last_revision_date": "2025-01-21T17:30:41Z",
       "degree": 17
     },
     {
       "id": "Worldbeat",
       "label": "Worldbeat",
+      "last_revision_date": "2024-08-30T02:25:38Z",
       "degree": 7
     },
     {
       "id": "Xi'an guyue",
       "label": "Xi'an guyue",
+      "last_revision_date": "2024-12-07T16:50:13Z",
       "degree": 0
     },
     {
       "id": "Xoan singing",
       "label": "Xoan singing",
+      "last_revision_date": "2024-12-22T07:50:08Z",
       "degree": 0
     },
     {
       "id": "Xuc",
       "label": "Xuc",
+      "last_revision_date": "2024-11-21T20:30:21Z",
       "degree": 1
     },
     {
       "id": "Yacht rock",
       "label": "Yacht rock",
+      "last_revision_date": "2025-01-17T02:40:16Z",
       "degree": 11
     },
     {
       "id": "Yellow music",
       "label": "Yellow music",
+      "last_revision_date": "2024-12-31T03:03:44Z",
       "degree": 2
     },
     {
       "id": "Youth crew",
       "label": "Youth crew",
+      "last_revision_date": "2024-09-04T16:59:56Z",
       "degree": 4
     },
     {
       "id": "Yuka (music)",
       "label": "Yuka",
+      "last_revision_date": "2023-08-23T03:33:57Z",
       "degree": 1
     },
     {
       "id": "Yé-yé",
       "label": "Yé-yé",
+      "last_revision_date": "2024-12-28T16:57:40Z",
       "degree": 12
     },
     {
       "id": "Zamrock",
       "label": "Zamrock",
+      "last_revision_date": "2024-10-06T08:11:49Z",
       "degree": 6
     },
     {
       "id": "Zeuhl",
       "label": "Zeuhl",
+      "last_revision_date": "2025-01-13T00:14:09Z",
       "degree": 2
     },
     {
       "id": "Zhongguo feng",
       "label": "Zhongguo feng",
+      "last_revision_date": "2025-01-14T21:22:15Z",
       "degree": 6
     },
     {
       "id": "Zimbabwean hip-hop",
       "label": "Zimbabwean hip hop",
+      "last_revision_date": "2025-01-01T12:56:16Z",
       "degree": 1
     },
     {
       "id": "Zoblazo",
       "label": "Zoblazo",
+      "last_revision_date": "2022-05-24T19:19:34Z",
       "degree": 2
     },
     {
       "id": "Zouglou",
       "label": "Zouglou",
+      "last_revision_date": "2024-08-16T17:24:02Z",
       "degree": 3
     },
     {
       "id": "Zouk",
       "label": "Zouk",
+      "last_revision_date": "2024-12-26T13:14:28Z",
       "degree": 18
     },
     {
       "id": "Zydeco",
       "label": "Zydeco",
+      "last_revision_date": "2025-01-12T10:34:20Z",
       "degree": 12
     },
     {
       "id": "Éntekhno",
       "label": "Éntekhno",
+      "last_revision_date": "2025-01-17T19:48:52Z",
       "degree": 3
     }
   ],
@@ -14232,11 +15427,6 @@
       "source": "Extreme metal",
       "target": "Gothic metal",
       "ty": "Derivative"
-    },
-    {
-      "source": "Extreme metal",
-      "target": "Gothic metal",
-      "ty": "FusionGenre"
     },
     {
       "source": "Extreme metal",
@@ -30900,7 +32090,7 @@
     },
     {
       "source": "Speed garage",
-      "target": "UK hard house",
+      "target": "Bouncy techno",
       "ty": "Derivative"
     },
     {

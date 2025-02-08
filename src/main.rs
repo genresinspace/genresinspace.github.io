@@ -3,6 +3,7 @@ use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
     collections::{BTreeSet, HashMap},
+    io::Write as _,
     path::{Path, PathBuf},
 };
 
@@ -68,7 +69,7 @@ fn main() -> anyhow::Result<()> {
     let start = std::time::Instant::now();
 
     let (genres, all_redirects) =
-        extract_genre_and_all_redirects(&config, start, &genres_path, &redirects_path)?;
+        extract_genres_and_all_redirects(&config, start, &genres_path, &redirects_path)?;
 
     let links_to_articles =
         resolve_links_to_articles(start, &links_to_articles_path, &genres, all_redirects)?;
@@ -118,6 +119,11 @@ mod tests {
     }
 }
 
+#[derive(Clone, Serialize, Deserialize)]
+struct WikitextHeader {
+    timestamp: jiff::Timestamp,
+}
+
 #[derive(Clone, Default)]
 struct GenrePages(pub HashMap<PageName, PathBuf>);
 impl GenrePages {
@@ -153,7 +159,7 @@ impl TryFrom<AllRedirects> for HashMap<PageName, PageName> {
 /// Given a Wikipedia dump, extract genres and all redirects.
 ///
 /// We extract all redirects as we may need to resolve redirects to redirects.
-fn extract_genre_and_all_redirects(
+fn extract_genres_and_all_redirects(
     config: &Config,
     start: std::time::Instant,
     genres_path: &Path,
@@ -203,6 +209,8 @@ fn extract_genre_and_all_redirects(
     let mut recording_title = false;
     let mut text = String::new();
     let mut recording_text = false;
+    let mut timestamp = String::new();
+    let mut recording_timestamp = false;
     let mut redirect = None;
 
     loop {
@@ -216,6 +224,9 @@ fn extract_genre_and_all_redirects(
                 } else if name == b"text" {
                     text.clear();
                     recording_text = true;
+                } else if name == b"timestamp" {
+                    timestamp.clear();
+                    recording_timestamp = true;
                 }
             }
             Ok(Event::Text(e)) => {
@@ -223,6 +234,8 @@ fn extract_genre_and_all_redirects(
                     title.push_str(&e.unescape().unwrap());
                 } else if recording_text {
                     text.push_str(&e.unescape().unwrap());
+                } else if recording_timestamp {
+                    timestamp.push_str(&e.unescape().unwrap());
                 }
             }
             Ok(Event::Empty(e)) => {
@@ -239,6 +252,8 @@ fn extract_genre_and_all_redirects(
                     recording_title = false;
                 } else if e.name().0 == b"text" {
                     recording_text = false;
+                } else if e.name().0 == b"timestamp" {
+                    recording_timestamp = false;
                 } else if e.name().0 == b"page" {
                     let page = PageName(title.clone());
                     if let Some(redirect) = redirect {
@@ -253,12 +268,25 @@ fn extract_genre_and_all_redirects(
                             continue;
                         }
 
-                        let path =
-                            genres_path.join(format!("{}.wikitext", sanitize_page_name(&page)));
-                        std::fs::write(&path, &text)
-                            .with_context(|| format!("Failed to write genre page {page}"))?;
+                        let timestamp =
+                            timestamp.parse::<jiff::Timestamp>().with_context(|| {
+                                format!("Failed to parse timestamp {timestamp} for {page}")
+                            })?;
 
-                        genre_pages.insert(page.clone(), path);
+                        let output_file_path =
+                            genres_path.join(format!("{}.wikitext", sanitize_page_name(&page)));
+                        let output_file = std::fs::File::create(&output_file_path)
+                            .with_context(|| format!("Failed to create output file for {page}"))?;
+                        let mut output_file = std::io::BufWriter::new(output_file);
+
+                        writeln!(
+                            output_file,
+                            "{}",
+                            serde_json::to_string(&WikitextHeader { timestamp })?
+                        )?;
+                        write!(output_file, "{text}")?;
+
+                        genre_pages.insert(page.clone(), output_file_path);
                         println!("{:.2}s: {page}", start.elapsed().as_secs_f32());
                     }
 
@@ -356,6 +384,7 @@ fn resolve_links_to_articles(
 #[derive(Serialize, Deserialize, Clone, Debug)]
 struct ProcessedGenre {
     name: GenreName,
+    last_revision_date: jiff::Timestamp,
     stylistic_origins: Vec<PageName>,
     derivatives: Vec<PageName>,
     subgenres: Vec<PageName>,
@@ -398,6 +427,9 @@ fn process_genres(
 
     for (page, path) in genres.iter() {
         let wikitext = std::fs::read_to_string(path)?;
+        let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
+        let wikitext_header: WikitextHeader = serde_json::from_str(wikitext_header)?;
+
         let wikitext = pwt_configuration
             .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
             .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
@@ -476,6 +508,7 @@ fn process_genres(
 
                 let processed_genre = ProcessedGenre {
                     name: name.clone(),
+                    last_revision_date: wikitext_header.timestamp,
                     stylistic_origins,
                     derivatives,
                     subgenres,
@@ -528,6 +561,7 @@ struct Graph {
 struct NodeData {
     id: PageName,
     label: GenreName,
+    last_revision_date: jiff::Timestamp,
     degree: usize,
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
@@ -567,6 +601,7 @@ fn produce_data_json(
         let node = NodeData {
             id: genre.clone(),
             label: processed_genre.name.clone(),
+            last_revision_date: processed_genre.last_revision_date,
             degree: 0,
         };
 
