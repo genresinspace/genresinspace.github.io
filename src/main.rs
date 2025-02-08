@@ -1,4 +1,5 @@
 use anyhow::Context;
+use jiff::ToSpan;
 use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
@@ -464,9 +465,15 @@ fn process_genres(
                         name
                     }
                 });
-                if let Some((_timestamp, new_name)) = all_patches.get(page) {
-                    // TODO: Check article date before applying
-                    name = new_name.clone();
+                if let Some((timestamp, new_name)) = all_patches.get(page) {
+                    // Check whether the article has been updated since the last revision date
+                    // with one minute of leeway. If it has, don't apply the patch.
+                    if timestamp
+                        .map(|ts| wikitext_header.timestamp.saturating_add(1.minute()) < ts)
+                        .unwrap_or(true)
+                    {
+                        name = new_name.clone();
+                    }
                 }
 
                 let map_links_to_articles = |links: Vec<String>| -> Vec<PageName> {
