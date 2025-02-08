@@ -55,7 +55,7 @@ function Graph({
             : FUSION_GENRE_COLOUR;
         }}
         nodeSize={(d: NodeData) => {
-          return 4.0 * (0.25 + (d.degree / maxDegree) * 0.75);
+          return 8.0 * (0.2 + (d.degree / maxDegree) * 0.8);
         }}
         linkArrowsSizeScale={2}
         nodeLabelColor="#CCC"

@@ -101,7 +101,7 @@ export const simulationControls: SimulationControl[] = [
     min: 100,
     max: 10000,
     step: 100,
-    default: 100,
+    default: 500,
   },
 ];
 
