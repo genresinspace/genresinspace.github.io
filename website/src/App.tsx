@@ -31,9 +31,12 @@ type Data = {
   dump_date: string;
 };
 
-const DERIVATIVE_COLOUR = "hsl(0, 70%, 60%)";
-const SUBGENRE_COLOUR = "hsl(120, 70%, 60%)";
-const FUSION_GENRE_COLOUR = "hsl(240, 70%, 60%)";
+const derivativeColour = (saturation: number = 70) =>
+  `hsl(0, ${saturation}%, 60%)`;
+const subgenreColour = (saturation: number = 70) =>
+  `hsl(120, ${saturation}%, 60%)`;
+const fusionGenreColour = (saturation: number = 70) =>
+  `hsl(240, ${saturation}%, 60%)`;
 
 function Graph({
   params,
@@ -61,7 +64,9 @@ function Graph({
             .split("")
             .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
           const hue = Math.abs(hash % 360);
-          let color = `hsl(${hue}, 70%, 60%)`;
+          let color = `hsl(${hue}, ${
+            ((d.degree / maxDegree) * 0.8 + 0.2) * 100
+          }%, 60%)`;
           if (selectedId) {
             if (highlightedNodes.has(d.id)) {
               return color;
@@ -73,21 +78,22 @@ function Graph({
           }
         }}
         linkColor={(d: LinkData) => {
-          let color =
+          let color = (saturation: number) =>
             d.ty === "Derivative"
-              ? DERIVATIVE_COLOUR
+              ? derivativeColour(saturation)
               : d.ty === "Subgenre"
-              ? SUBGENRE_COLOUR
-              : FUSION_GENRE_COLOUR;
-
+              ? subgenreColour(saturation)
+              : fusionGenreColour(saturation);
           if (selectedId) {
-            if (d.source === selectedId || d.target === selectedId) {
-              return color;
+            if (d.source === selectedId) {
+              return color(90);
+            } else if (d.target === selectedId) {
+              return color(40);
             } else {
               return "hsla(0, 0%, 20%, 0.1)";
             }
           } else {
-            return color;
+            return color(70);
           }
         }}
         nodeSize={(d: NodeData) => {
@@ -95,6 +101,16 @@ function Graph({
             8.0 * (0.2 + (d.degree / maxDegree) * 0.8) +
             1.0 * (selectedId && !highlightedNodes.has(d.id) ? -1 : 0)
           );
+        }}
+        linkWidth={(d: LinkData) => {
+          if (selectedId) {
+            if (d.source === selectedId) {
+              return 2.5;
+            } else if (d.target === selectedId) {
+              return 1.5;
+            }
+          }
+          return 1;
         }}
         linkArrowsSizeScale={2}
         nodeLabelColor="#CCC"
@@ -129,19 +145,19 @@ function ProjectInformation({ dumpDate }: { dumpDate: string }) {
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         {[
           {
-            color: DERIVATIVE_COLOUR,
+            color: derivativeColour(),
             label: "Derivative",
             description:
               "Genres that use some of the elements inherent to this genre, without being a child genre.",
           },
           {
-            color: SUBGENRE_COLOUR,
+            color: subgenreColour(),
             label: "Subgenre",
             description:
               "Genres that share characteristics with this genre and fall within its purview.",
           },
           {
-            color: FUSION_GENRE_COLOUR,
+            color: fusionGenreColour(),
             label: "Fusion Genre",
             description:
               "Genres that combine elements of this genre with other genres.",
