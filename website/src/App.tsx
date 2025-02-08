@@ -125,36 +125,40 @@ function ProjectInformation() {
   return (
     <div>
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <div
-            style={{
-              width: "20px",
-              height: "20px",
-              backgroundColor: DERIVATIVE_COLOUR,
-            }}
-          />
-          <span style={{ color: DERIVATIVE_COLOUR }}>Derivative</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <div
-            style={{
-              width: "20px",
-              height: "20px",
-              backgroundColor: SUBGENRE_COLOUR,
-            }}
-          />
-          <span style={{ color: SUBGENRE_COLOUR }}>Subgenre</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <div
-            style={{
-              width: "20px",
-              height: "20px",
-              backgroundColor: FUSION_GENRE_COLOUR,
-            }}
-          />
-          <span style={{ color: FUSION_GENRE_COLOUR }}>Fusion Genre</span>
-        </div>
+        {[
+          {
+            color: DERIVATIVE_COLOUR,
+            label: "Derivative",
+            description:
+              "Genres that use some of the elements inherent to this genre, without being a child genre.",
+          },
+          {
+            color: SUBGENRE_COLOUR,
+            label: "Subgenre",
+            description:
+              "Genres that share characteristics with this genre and fall within its purview.",
+          },
+          {
+            color: FUSION_GENRE_COLOUR,
+            label: "Fusion Genre",
+            description:
+              "Genres that combine elements of this genre with other genres.",
+          },
+        ].map(({ color, label, description }) => (
+          <div key={label}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  backgroundColor: color,
+                }}
+              />
+              <span style={{ color }}>{label}</span>
+            </div>
+            <p style={{ marginTop: "0.5em" }}>{description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
