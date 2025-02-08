@@ -28,6 +28,7 @@ type Data = {
   nodes: NodeData[];
   links: LinkData[];
   max_degree: number;
+  dump_date: string;
 };
 
 const DERIVATIVE_COLOUR = "hsl(0, 70%, 60%)";
@@ -122,7 +123,7 @@ function Graph({
   );
 }
 
-function ProjectInformation() {
+function ProjectInformation({ dumpDate }: { dumpDate: string }) {
   return (
     <div>
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -162,8 +163,15 @@ function ProjectInformation() {
         ))}
         <hr />
         <p>
-          A graph of every music genre on English Wikipedia, inspired by{" "}
-          <a href="https://eightyeightthirty.one/">8831</a> and{" "}
+          A graph of every music genre on English Wikipedia (as of{" "}
+          <a
+            href={`https://dumps.wikimedia.org/enwiki/${dumpDate
+              .split("-")
+              .join("")}/`}
+          >
+            {dumpDate}
+          </a>
+          ), inspired by <a href="https://eightyeightthirty.one/">8831</a> and{" "}
           <a href="https://musicmap.info/">musicmap</a>.
         </p>
         <p>
@@ -188,9 +196,11 @@ function ProjectInformation() {
 function Sidebar({
   params,
   setParams,
+  dumpDate,
 }: {
   params: SimulationParams;
   setParams: (params: SimulationParams) => void;
+  dumpDate: string;
 }) {
   const [activeTab, setActiveTab] = useState<"information" | "simulation">(
     "information"
@@ -228,7 +238,7 @@ function Sidebar({
       </div>
 
       {activeTab === "information" ? (
-        <ProjectInformation />
+        <ProjectInformation dumpDate={dumpDate} />
       ) : (
         <SimulationControls params={params} setParams={setParams} />
       )}
@@ -241,6 +251,7 @@ function App() {
     nodes: [],
     links: [],
     max_degree: 0,
+    dump_date: "",
   });
   useEffect(() => {
     async function fetchData() {
@@ -266,7 +277,11 @@ function App() {
           selectedId={selectedId}
           setSelectedId={setSelectedId}
         />
-        <Sidebar params={params} setParams={setParams} />
+        <Sidebar
+          params={params}
+          setParams={setParams}
+          dumpDate={data.dump_date}
+        />
       </CosmographProvider>
     </div>
   );
