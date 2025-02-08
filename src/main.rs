@@ -3,7 +3,7 @@ use jiff::ToSpan;
 use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
-    collections::{BTreeSet, HashMap},
+    collections::{BTreeSet, HashMap, HashSet},
     io::Write as _,
     path::{Path, PathBuf},
 };
@@ -19,6 +19,32 @@ pub struct PageName(pub String);
 impl std::fmt::Display for PageName {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "page:{}", self.0)
+    }
+}
+
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+/// A newtype for an ID assigned to a page for the graph.
+pub struct PageDataId(pub usize);
+impl Serialize for PageDataId {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(&self.0.to_string())
+    }
+}
+impl<'de> Deserialize<'de> for PageDataId {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = String::deserialize(deserializer)?;
+        Ok(PageDataId(s.parse().map_err(serde::de::Error::custom)?))
+    }
+}
+impl std::fmt::Display for PageDataId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "page_id:{}", self.0)
     }
 }
 
@@ -566,10 +592,12 @@ struct Graph {
 }
 #[derive(Debug, Serialize, Deserialize)]
 struct NodeData {
-    id: PageName,
+    id: PageDataId,
     label: GenreName,
     last_revision_date: jiff::Timestamp,
     degree: usize,
+    inbound: HashSet<PageDataId>,
+    outbound: HashSet<PageDataId>,
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 enum LinkType {
@@ -579,8 +607,8 @@ enum LinkType {
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 struct LinkData {
-    source: PageName,
-    target: PageName,
+    source: PageDataId,
+    target: PageDataId,
     ty: LinkType,
 }
 
@@ -601,55 +629,77 @@ fn produce_data_json(
     let mut node_order = processed_genres.0.keys().cloned().collect::<Vec<_>>();
     node_order.sort();
 
-    let mut id_to_index = HashMap::new();
+    let mut page_to_id = HashMap::new();
+    let mut id_to_page = HashMap::new();
 
-    for genre in node_order {
-        let processed_genre = &processed_genres.0[&genre];
+    // First pass: create nodes
+    for genre in &node_order {
+        let processed_genre = &processed_genres.0[genre];
+        let id = PageDataId(graph.nodes.len());
         let node = NodeData {
-            id: genre.clone(),
+            id,
             label: processed_genre.name.clone(),
             last_revision_date: processed_genre.last_revision_date,
             degree: 0,
+            inbound: HashSet::new(),
+            outbound: HashSet::new(),
         };
 
         graph.nodes.push(node);
-        id_to_index.insert(genre.clone(), graph.nodes.len() - 1);
+        page_to_id.insert(genre.clone(), id.clone());
+        id_to_page.insert(id.clone(), genre.clone());
+    }
 
+    // Second pass: create links
+    for genre in &node_order {
+        let processed_genre = &processed_genres.0[genre];
+        let genre_id = page_to_id[&genre];
         for stylistic_origin in &processed_genre.stylistic_origins {
+            let source = page_to_id[&stylistic_origin];
             graph.links.insert(LinkData {
-                source: stylistic_origin.clone(),
-                target: genre.clone(),
+                source,
+                target: genre_id,
                 ty: LinkType::Derivative,
             });
+            graph.nodes[source.0].outbound.insert(genre_id);
+            graph.nodes[genre_id.0].inbound.insert(source);
         }
         for derivative in &processed_genre.derivatives {
+            let target = page_to_id[&derivative];
             graph.links.insert(LinkData {
-                source: genre.clone(),
-                target: derivative.clone(),
+                source: genre_id,
+                target,
                 ty: LinkType::Derivative,
             });
+            graph.nodes[genre_id.0].outbound.insert(target);
+            graph.nodes[target.0].inbound.insert(genre_id);
         }
         for subgenre in &processed_genre.subgenres {
+            let target = page_to_id[&subgenre];
             graph.links.insert(LinkData {
-                source: genre.clone(),
-                target: subgenre.clone(),
+                source: genre_id,
+                target,
                 ty: LinkType::Subgenre,
             });
+            graph.nodes[genre_id.0].outbound.insert(target);
+            graph.nodes[target.0].inbound.insert(genre_id);
         }
         for fusion_genre in &processed_genre.fusion_genres {
+            let target = page_to_id[&fusion_genre];
             graph.links.insert(LinkData {
-                source: genre.clone(),
-                target: fusion_genre.clone(),
+                source: genre_id,
+                target,
                 ty: LinkType::FusionGenre,
             });
+            graph.nodes[genre_id.0].outbound.insert(target);
+            graph.nodes[target.0].inbound.insert(genre_id);
         }
     }
 
-    for link in &graph.links {
-        graph.nodes[id_to_index[&link.source]].degree += 1;
-        graph.nodes[id_to_index[&link.target]].degree += 1;
+    // Third pass: calculate degrees
+    for node in &mut graph.nodes {
+        node.degree = node.inbound.len() + node.outbound.len();
     }
-
     graph.max_degree = graph.nodes.iter().map(|n| n.degree).max().unwrap_or(0);
 
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;

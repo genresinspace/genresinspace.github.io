@@ -14,6 +14,8 @@ type NodeData = {
   id: string;
   label: string;
   degree: number;
+  inbound: string[];
+  outbound: string[];
 };
 
 type LinkData = {
@@ -43,7 +45,7 @@ function Graph({
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
 }) {
-  const { cosmograph, links } = useCosmograph<NodeData, LinkData>()!;
+  const { cosmograph } = useCosmograph<NodeData, LinkData>()!;
   const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(
     new Set()
   );
@@ -105,19 +107,8 @@ function Graph({
           if (nodeData && selectedId !== nodeData.id) {
             cosmograph?.selectNode(nodeData, false);
             setSelectedId(nodeData.id);
-            // This... is not fast. It'll do for now, though.
             setHighlightedNodes(
-              new Set([
-                nodeData.id,
-                ...(links || [])
-                  .filter(
-                    (link) =>
-                      link.source === nodeData.id || link.target === nodeData.id
-                  )
-                  .map((link) =>
-                    link.source === nodeData.id ? link.target : link.source
-                  ),
-              ])
+              new Set([nodeData.id, ...nodeData.inbound, ...nodeData.outbound])
             );
           } else {
             cosmograph?.unselectNodes();
