@@ -685,14 +685,14 @@ fn produce_data_json(
             graph.nodes[target.0].inbound.insert(genre_id);
         }
         for fusion_genre in &processed_genre.fusion_genres {
-            let target = page_to_id[&fusion_genre];
+            let source = page_to_id[&fusion_genre];
             graph.links.insert(LinkData {
-                source: genre_id,
-                target,
+                source,
+                target: genre_id,
                 ty: LinkType::FusionGenre,
             });
-            graph.nodes[genre_id.0].outbound.insert(target);
-            graph.nodes[target.0].inbound.insert(genre_id);
+            graph.nodes[source.0].outbound.insert(genre_id);
+            graph.nodes[genre_id.0].inbound.insert(source);
         }
     }
 
