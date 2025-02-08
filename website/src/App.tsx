@@ -1,4 +1,8 @@
-import { Cosmograph, CosmographProvider } from "@cosmograph/react";
+import {
+  Cosmograph,
+  CosmographProvider,
+  useCosmograph,
+} from "@cosmograph/react";
 import { useEffect, useState } from "react";
 import {
   SimulationParams,
@@ -31,10 +35,19 @@ const FUSION_GENRE_COLOUR = "hsl(240, 70%, 60%)";
 function Graph({
   params,
   maxDegree,
+  selectedId,
+  setSelectedId,
 }: {
   params: SimulationParams;
   maxDegree: number;
+  selectedId: string | null;
+  setSelectedId: (id: string | null) => void;
 }) {
+  const { cosmograph, links } = useCosmograph<NodeData, LinkData>()!;
+  const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(
+    new Set()
+  );
+
   return (
     <div className="graph">
       <Cosmograph
@@ -45,17 +58,40 @@ function Graph({
             .split("")
             .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
           const hue = Math.abs(hash % 360);
-          return `hsl(${hue}, 70%, 60%)`;
+          let color = `hsl(${hue}, 70%, 60%)`;
+          if (selectedId) {
+            if (highlightedNodes.has(d.id)) {
+              return color;
+            } else {
+              return "hsl(0, 0%, 60%)";
+            }
+          } else {
+            return color;
+          }
         }}
         linkColor={(d: LinkData) => {
-          return d.ty === "Derivative"
-            ? DERIVATIVE_COLOUR
-            : d.ty === "Subgenre"
-            ? SUBGENRE_COLOUR
-            : FUSION_GENRE_COLOUR;
+          let color =
+            d.ty === "Derivative"
+              ? DERIVATIVE_COLOUR
+              : d.ty === "Subgenre"
+              ? SUBGENRE_COLOUR
+              : FUSION_GENRE_COLOUR;
+
+          if (selectedId) {
+            if (d.source === selectedId || d.target === selectedId) {
+              return color;
+            } else {
+              return "hsl(0, 0%, 20%)";
+            }
+          } else {
+            return color;
+          }
         }}
         nodeSize={(d: NodeData) => {
-          return 8.0 * (0.2 + (d.degree / maxDegree) * 0.8);
+          return (
+            8.0 * (0.2 + (d.degree / maxDegree) * 0.8) +
+            1.0 * (selectedId && highlightedNodes.has(d.id) ? 1 : 0)
+          );
         }}
         linkArrowsSizeScale={2}
         nodeLabelColor="#CCC"
@@ -63,6 +99,32 @@ function Graph({
         spaceSize={8192}
         {...params}
         randomSeed={"Where words fail, music speaks"}
+        nodeGreyoutOpacity={1}
+        linkGreyoutOpacity={1}
+        onClick={(nodeData, _nodeIndex, _nodePosition) => {
+          if (nodeData && selectedId !== nodeData.id) {
+            cosmograph?.selectNode(nodeData, false);
+            setSelectedId(nodeData.id);
+            // This... is not fast. It'll do for now, though.
+            setHighlightedNodes(
+              new Set([
+                nodeData.id,
+                ...(links || [])
+                  .filter(
+                    (link) =>
+                      link.source === nodeData.id || link.target === nodeData.id
+                  )
+                  .map((link) =>
+                    link.source === nodeData.id ? link.target : link.source
+                  ),
+              ])
+            );
+          } else {
+            cosmograph?.unselectNodes();
+            setSelectedId(null);
+            setHighlightedNodes(new Set());
+          }
+        }}
       />
     </div>
   );
@@ -171,6 +233,8 @@ function App() {
     fetchData();
   }, []);
 
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
   const [params, setParams] = useState<SimulationParams>(
     defaultSimulationParams
   );
@@ -178,7 +242,12 @@ function App() {
   return (
     <div>
       <CosmographProvider nodes={data.nodes} links={data.links}>
-        <Graph params={params} maxDegree={data.max_degree} />
+        <Graph
+          params={params}
+          maxDegree={data.max_degree}
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
+        />
         <Sidebar params={params} setParams={setParams} />
       </CosmographProvider>
     </div>
