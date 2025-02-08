@@ -119,10 +119,12 @@ export function SimulationControls({
   const cosmographContext = useCosmograph();
 
   return (
-    <div className="simulation-controls">
+    <div>
       {simulationControls.map((control) => (
         <div key={control.name} className="control-group">
-          <label title={control.description}>{control.label}</label>
+          <label title={control.description} className="block font-bold">
+            {control.label}
+          </label>
           <input
             type="range"
             min={control.min}

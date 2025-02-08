@@ -5,45 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>graphgenre</title>
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      #root {
-        width: 100vw;
-        height: 100vh;
-      }
-
-      .graph {
-        position: absolute;
-        left: 0;
-        right: 300px;
-        top: 0;
-        bottom: 0;
-      }
-
-      .sidebar {
-        position: absolute;
-        width: 300px;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-color: #111;
-        color: white;
-        padding: 20px;
-        box-sizing: border-box;
-        overflow-y: auto;
-      }
-
-      .simulation-controls label {
-        display: block;
-        font-weight: bold;
-      }
+      @import "tailwindcss";
     </style>
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="m-0 p-0">
+    <div id="root" class="w-screen h-screen"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

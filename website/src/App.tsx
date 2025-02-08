@@ -55,7 +55,7 @@ function Graph({
   );
 
   return (
-    <div className="graph">
+    <div className="absolute left-0 right-[300px] top-0 bottom-0">
       <Cosmograph
         disableSimulation={false}
         nodeLabelAccessor={(d: NodeData) => d.label}
@@ -142,7 +142,7 @@ function Graph({
 function ProjectInformation({ dumpDate }: { dumpDate: string }) {
   return (
     <div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+      <div className="flex flex-col gap-2">
         {[
           {
             color: derivativeColour(),
@@ -164,17 +164,11 @@ function ProjectInformation({ dumpDate }: { dumpDate: string }) {
           },
         ].map(({ color, label, description }) => (
           <div key={label}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div
-                style={{
-                  width: "20px",
-                  height: "20px",
-                  backgroundColor: color,
-                }}
-              />
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5" style={{ backgroundColor: color }} />
               <span style={{ color }}>{label}</span>
             </div>
-            <p style={{ marginTop: "0.5em" }}>{description}</p>
+            <p className="mt-2">{description}</p>
           </div>
         ))}
         <hr />
@@ -223,30 +217,20 @@ function Sidebar({
   );
 
   return (
-    <div className="sidebar">
-      <div style={{ display: "flex", marginBottom: "16px" }}>
+    <div className="fixed top-0 bottom-0 right-0 w-[300px] bg-neutral-900 text-white p-5 box-border overflow-y-auto">
+      <div className="flex mb-4">
         <button
-          style={{
-            flex: 1,
-            padding: "8px",
-            background: activeTab === "information" ? "#333" : "#222",
-            border: "none",
-            color: "#CCC",
-            cursor: "pointer",
-          }}
+          className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
+            activeTab === "information" ? "bg-neutral-800" : "bg-neutral-800/50"
+          }`}
           onClick={() => setActiveTab("information")}
         >
           Information
         </button>
         <button
-          style={{
-            flex: 1,
-            padding: "8px",
-            background: activeTab === "simulation" ? "#333" : "#222",
-            border: "none",
-            color: "#CCC",
-            cursor: "pointer",
-          }}
+          className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
+            activeTab === "simulation" ? "bg-neutral-800" : "bg-neutral-800/50"
+          }`}
           onClick={() => setActiveTab("simulation")}
         >
           Simulation
