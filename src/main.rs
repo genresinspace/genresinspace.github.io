@@ -3,7 +3,7 @@ use jiff::ToSpan;
 use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
-    collections::{BTreeSet, HashMap, HashSet},
+    collections::{BTreeSet, HashMap},
     io::Write as _,
     path::{Path, PathBuf},
 };
@@ -596,8 +596,8 @@ struct NodeData {
     label: GenreName,
     last_revision_date: jiff::Timestamp,
     degree: usize,
-    inbound: HashSet<PageDataId>,
-    outbound: HashSet<PageDataId>,
+    inbound: BTreeSet<PageDataId>,
+    outbound: BTreeSet<PageDataId>,
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 enum LinkType {
@@ -641,8 +641,8 @@ fn produce_data_json(
             label: processed_genre.name.clone(),
             last_revision_date: processed_genre.last_revision_date,
             degree: 0,
-            inbound: HashSet::new(),
-            outbound: HashSet::new(),
+            inbound: BTreeSet::new(),
+            outbound: BTreeSet::new(),
         };
 
         graph.nodes.push(node);
