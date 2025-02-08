@@ -179,7 +179,7 @@ function ProjectInformation({ dumpDate }: { dumpDate: string }) {
           <a href="https://cosmograph.app/">Cosmograph</a>.
         </p>
         <p>
-          <a href="https://github.com/genregraph/genregraph.github.io">
+          <a href="https://github.com/graphgenre/graphgenre.github.io">
             Source code
           </a>
           .{" "}

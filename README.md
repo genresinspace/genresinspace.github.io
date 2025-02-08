@@ -1,4 +1,4 @@
-# genregraph
+# graphgenre
 
 A graph of every music genre on English Wikipedia, inspired by [8831](https://eightyeightthirty.one/) and [musicmap](https://musicmap.info/).
 
