@@ -259,44 +259,99 @@ function SelectedNodeInfo({
   const connectionDescriptions = [
     {
       type: "Derivative" as const,
-      inbound: "This is derived from:",
-      outbound: "This has influenced:",
+      inbound: [
+        { type: "text", content: "This is " },
+        { type: "emphasis", content: "derived" },
+        { type: "text", content: " from:" },
+      ],
+      outbound: [
+        { type: "text", content: "This has " },
+        { type: "emphasis", content: "influenced" },
+        { type: "text", content: ":" },
+      ],
     },
     {
       type: "Subgenre" as const,
-      inbound: "This is a subgenre of:",
-      outbound: "This has subgenres:",
+      inbound: [
+        { type: "text", content: "This is a " },
+        { type: "emphasis", content: "subgenre" },
+        { type: "text", content: " of:" },
+      ],
+      outbound: [
+        { type: "text", content: "This has " },
+        { type: "emphasis", content: "subgenres" },
+        { type: "text", content: ":" },
+      ],
     },
     {
       type: "FusionGenre" as const,
-      inbound: "This is a component of these fusion genres:",
-      outbound: "This fusion genre draws upon:",
+      inbound: [
+        { type: "text", content: "This is a component of these " },
+        { type: "emphasis", content: "fusion genres" },
+        { type: "text", content: ":" },
+      ],
+      outbound: [
+        { type: "text", content: "This " },
+        { type: "emphasis", content: "fusion genre" },
+        { type: "text", content: " draws upon:" },
+      ],
     },
   ];
+
+  const renderHeading = (
+    textParts: { type: string; content: string }[],
+    type: LinkData["ty"]
+  ) => {
+    return (
+      <>
+        {textParts.map((part, index) =>
+          part.type === "emphasis" ? (
+            <span
+              key={index}
+              className="font-bold"
+              style={{
+                color:
+                  type === "Derivative"
+                    ? derivativeColour()
+                    : type === "Subgenre"
+                    ? subgenreColour()
+                    : fusionGenreColour(),
+              }}
+            >
+              {part.content}
+            </span>
+          ) : (
+            part.content
+          )
+        )}
+      </>
+    );
+  };
 
   const connections = connectionDescriptions.flatMap(
     ({ type, inbound: inboundDesc, outbound: outboundDesc }) => {
       const connections = [];
       if (inbound[type]?.length > 0) {
         connections.push({
-          heading: inboundDesc,
+          heading: renderHeading(inboundDesc, type),
           nodeIds: inbound[type],
         });
       }
       if (outbound[type]?.length > 0) {
         connections.push({
-          heading: outboundDesc,
+          heading: renderHeading(outboundDesc, type),
           nodeIds: outbound[type],
         });
       }
       return connections;
     }
   );
+
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-xl font-bold">{node.label}</h2>
-      {connections.map(({ heading, nodeIds }) => (
-        <div key={heading}>
+      {connections.map(({ heading, nodeIds }, index) => (
+        <div key={index}>
           <h3 className="text-lg font-medium mb-2">{heading}</h3>
           <ul className="list-disc pl-5">
             {nodeIds.map((id) => {
