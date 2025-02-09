@@ -215,12 +215,10 @@ function ProjectInformation({ dumpDate }: { dumpDate: string }) {
 
 function SelectedNodeInfo({
   selectedId,
-  setSelectedId,
   nodes,
   links,
 }: {
   selectedId: string | null;
-  setSelectedId: (id: string | null) => void;
   nodes: NodeData[];
   links: LinkData[];
 }) {
@@ -283,7 +281,6 @@ function SelectedNodeInfo({
       return connections;
     }
   );
-
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-xl font-bold">{node.label}</h2>
@@ -295,12 +292,12 @@ function SelectedNodeInfo({
               const linkedNode = nodes.find((n) => n.id === id);
               return (
                 <li key={id}>
-                  <button
+                  <a
+                    href={`#${id}`}
                     className="text-blue-400 hover:underline text-left"
-                    onClick={() => setSelectedId(id)}
                   >
                     {linkedNode?.label || id}
-                  </button>
+                  </a>
                 </li>
               );
             })}
@@ -315,7 +312,6 @@ function Sidebar({
   params,
   setParams,
   dumpDate,
-  setSelectedId,
   selectedId,
   nodes,
   links,
@@ -323,7 +319,6 @@ function Sidebar({
   params: SimulationParams;
   setParams: (params: SimulationParams) => void;
   dumpDate: string;
-  setSelectedId: (id: string | null) => void;
   selectedId: string | null;
   nodes: NodeData[];
   links: LinkData[];
@@ -406,12 +401,7 @@ function Sidebar({
       {activeTab === "information" ? (
         <ProjectInformation dumpDate={dumpDate} />
       ) : activeTab === "selected" ? (
-        <SelectedNodeInfo
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-          nodes={nodes}
-          links={links}
-        />
+        <SelectedNodeInfo selectedId={selectedId} nodes={nodes} links={links} />
       ) : (
         <SimulationControls params={params} setParams={setParams} />
       )}
@@ -523,7 +513,6 @@ function App() {
           params={params}
           setParams={setParams}
           dumpDate={data.dump_date}
-          setSelectedId={setSelectedId}
           selectedId={selectedId}
           nodes={data.nodes}
           links={data.links}
