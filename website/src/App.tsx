@@ -393,18 +393,53 @@ function Sidebar({
     </div>
   );
 }
+
 function App() {
-  const [data, setData] = useState<Data>({
-    nodes: [],
-    links: [],
-    max_degree: 0,
-    dump_date: "",
-  });
+  const [data, setData] = useState<Data | undefined>();
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/data.json");
-      const data = await response.json();
-      setData(data);
+      try {
+        const response = await fetch("/data.json");
+        const reader = response.body?.getReader();
+        const contentLength = +(response.headers.get("Content-Length") ?? 0);
+
+        if (!reader) {
+          const data = await response.json();
+          setData(data);
+          return;
+        }
+
+        let receivedLength = 0;
+        let chunks = [];
+
+        while (true) {
+          const { done, value } = await reader.read();
+
+          if (done) break;
+
+          chunks.push(value);
+          receivedLength += value.length;
+
+          setLoadingProgress(
+            contentLength ? receivedLength / contentLength : 0
+          );
+        }
+
+        const chunksAll = new Uint8Array(receivedLength);
+        let position = 0;
+        for (let chunk of chunks) {
+          chunksAll.set(chunk, position);
+          position += chunk.length;
+        }
+
+        const result = new TextDecoder("utf-8").decode(chunksAll);
+        const data = JSON.parse(result);
+        setData(data);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
     }
     fetchData();
   }, []);
@@ -436,6 +471,19 @@ function App() {
   const [params, setParams] = useState<SimulationParams>(
     defaultSimulationParams
   );
+
+  if (!data) {
+    return (
+      <div className="flex w-screen h-screen items-center justify-center bg-neutral-900 text-white">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-neutral-600 border-t-white rounded-full animate-spin" />
+          {loadingProgress > 0 && (
+            <div>Loading... {Math.round(loadingProgress * 100)}%</div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex w-screen h-screen">
