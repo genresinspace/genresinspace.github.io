@@ -60,8 +60,7 @@ function Graph({
   );
 
   useEffect(() => {
-    // There's probably a faster way of doing this, but we're only searching a ~thousand nodes, so...
-    const nodeData = nodes?.find((n) => n.id === selectedId);
+    const nodeData = selectedId ? nodes?.[parseInt(selectedId, 10)] : null;
     if (nodeData) {
       cosmograph?.selectNode(nodeData, false);
       cosmograph?.zoomToNode(nodeData);
