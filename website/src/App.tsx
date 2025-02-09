@@ -359,7 +359,6 @@ function Sidebar({
     </div>
   );
 }
-
 function App() {
   const [data, setData] = useState<Data>({
     nodes: [],
@@ -376,7 +375,29 @@ function App() {
     fetchData();
   }, []);
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(() => {
+    const hash = window.location.hash.slice(1);
+    return hash || null;
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      setSelectedId(hash || null);
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    if (selectedId) {
+      if (window.location.hash !== `#${selectedId}`) {
+        window.history.pushState(null, "", `#${selectedId}`);
+      }
+    } else if (window.location.hash) {
+      window.history.pushState(null, "", window.location.pathname);
+    }
+  }, [selectedId]);
 
   const [params, setParams] = useState<SimulationParams>(
     defaultSimulationParams
