@@ -975,12 +975,14 @@ fn node_inner_text(node: &pwt::Node, config: &InnerTextConfig) -> String {
 
 /// Makes a Wikipedia page name safe to store on disk.
 fn sanitize_page_name(title: &PageName) -> String {
-    title.0.replace("/", "#")
+    // We use BIG SOLIDUS (⧸) as it's unlikely to be used in a page name
+    // but still looks like a slash
+    title.0.replace("/", "⧸")
 }
 
 /// Reverses [`sanitize_page_name`].
 fn unsanitize_page_name(title: &str) -> PageName {
-    PageName(title.replace("#", "/"))
+    PageName(title.replace("⧸", "/"))
 }
 
 pub fn pwt_configuration() -> pwt::Configuration {
