@@ -49,10 +49,25 @@ function Graph({
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
 }) {
-  const { cosmograph } = useCosmograph<NodeData, LinkData>()!;
+  const { cosmograph, nodes } = useCosmograph<NodeData, LinkData>()!;
   const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(
     new Set()
   );
+
+  useEffect(() => {
+    // There's probably a faster way of doing this, but we're only searching a ~thousand nodes, so...
+    const nodeData = nodes?.find((n) => n.id === selectedId);
+    if (nodeData) {
+      cosmograph?.selectNode(nodeData, false);
+      setHighlightedNodes(
+        new Set([nodeData.id, ...nodeData.inbound, ...nodeData.outbound])
+      );
+    } else {
+      cosmograph?.unselectNodes();
+      setHighlightedNodes(new Set());
+    }
+  }, [selectedId]);
+
   return (
     <div className="flex-1 h-full">
       <Cosmograph
@@ -121,17 +136,9 @@ function Graph({
         linkGreyoutOpacity={1}
         linkVisibilityMinTransparency={selectedId ? 0.75 : 0.25}
         onClick={(nodeData, _nodeIndex, _nodePosition) => {
-          if (nodeData && selectedId !== nodeData.id) {
-            cosmograph?.selectNode(nodeData, false);
-            setSelectedId(nodeData.id);
-            setHighlightedNodes(
-              new Set([nodeData.id, ...nodeData.inbound, ...nodeData.outbound])
-            );
-          } else {
-            cosmograph?.unselectNodes();
-            setSelectedId(null);
-            setHighlightedNodes(new Set());
-          }
+          setSelectedId(
+            nodeData && selectedId !== nodeData.id ? nodeData.id : null
+          );
         }}
       />
     </div>
