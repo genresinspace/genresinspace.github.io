@@ -209,18 +209,70 @@ function ProjectInformation({ dumpDate }: { dumpDate: string }) {
   );
 }
 
+function SelectedNodeInfo({
+  selectedId,
+  setSelectedId,
+  nodes,
+}: {
+  selectedId: string | null;
+  setSelectedId: (id: string | null) => void;
+  nodes: NodeData[];
+}) {
+  if (!selectedId) {
+    return <p>No node selected</p>;
+  }
+
+  const node = nodes.find((n) => n.id === selectedId);
+  if (!node) return null;
+
+  return (
+    <div className="flex flex-col gap-4">
+      <h2 className="text-xl font-bold">{node.label}</h2>
+      {[
+        { title: "Inbound Connections", ids: node.inbound },
+        { title: "Outbound Connections", ids: node.outbound },
+      ].map(({ title, ids }) => (
+        <div key={title}>
+          <h3 className="text-lg font-semibold mb-2">{title}</h3>
+          <ul className="list-disc pl-5">
+            {ids.map((id) => {
+              const linkedNode = nodes.find((n) => n.id === id);
+              return (
+                <li key={id}>
+                  <button
+                    className="text-blue-400 hover:underline text-left"
+                    onClick={() => setSelectedId(id)}
+                  >
+                    {linkedNode?.label || id}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Sidebar({
   params,
   setParams,
   dumpDate,
+  setSelectedId,
+  selectedId,
+  nodes,
 }: {
   params: SimulationParams;
   setParams: (params: SimulationParams) => void;
   dumpDate: string;
+  setSelectedId: (id: string | null) => void;
+  selectedId: string | null;
+  nodes: NodeData[];
 }) {
-  const [activeTab, setActiveTab] = useState<"information" | "simulation">(
-    "information"
-  );
+  const [activeTab, setActiveTab] = useState<
+    "information" | "selected" | "simulation"
+  >("information");
   const [width, setWidth] = useState("20%");
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
@@ -251,6 +303,12 @@ function Sidebar({
     };
   }, [isResizing]);
 
+  useEffect(() => {
+    if (selectedId) {
+      setActiveTab("selected");
+    }
+  }, [selectedId]);
+
   return (
     <div
       ref={sidebarRef}
@@ -268,7 +326,15 @@ function Sidebar({
           }`}
           onClick={() => setActiveTab("information")}
         >
-          Information
+          Info
+        </button>
+        <button
+          className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
+            activeTab === "selected" ? "bg-neutral-800" : "bg-neutral-800/50"
+          }`}
+          onClick={() => setActiveTab("selected")}
+        >
+          Selected
         </button>
         <button
           className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
@@ -276,12 +342,17 @@ function Sidebar({
           }`}
           onClick={() => setActiveTab("simulation")}
         >
-          Simulation
+          Sim
         </button>
       </div>
-
       {activeTab === "information" ? (
         <ProjectInformation dumpDate={dumpDate} />
+      ) : activeTab === "selected" ? (
+        <SelectedNodeInfo
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
+          nodes={nodes}
+        />
       ) : (
         <SimulationControls params={params} setParams={setParams} />
       )}
@@ -324,6 +395,9 @@ function App() {
           params={params}
           setParams={setParams}
           dumpDate={data.dump_date}
+          setSelectedId={setSelectedId}
+          selectedId={selectedId}
+          nodes={data.nodes}
         />
       </CosmographProvider>
     </div>
