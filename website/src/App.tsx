@@ -244,42 +244,67 @@ function SelectedNodeInfo({
         return acc;
       }, {} as Record<LinkData["ty"], string[]>);
 
-  const inboundConnections = getConnections(true);
-  const outboundConnections = getConnections(false);
+  const inbound = getConnections(true);
+  const outbound = getConnections(false);
+
+  const connectionDescriptions = [
+    {
+      type: "Derivative" as const,
+      inbound: "This is derived from:",
+      outbound: "This has influenced:",
+    },
+    {
+      type: "Subgenre" as const,
+      inbound: "This is a subgenre of:",
+      outbound: "This has subgenres:",
+    },
+    {
+      type: "FusionGenre" as const,
+      inbound: "This is a component of these fusion genres:",
+      outbound: "This fusion genre draws upon:",
+    },
+  ];
+
+  const connections = connectionDescriptions.flatMap(
+    ({ type, inbound: inboundDesc, outbound: outboundDesc }) => {
+      const connections = [];
+      if (inbound[type]?.length > 0) {
+        connections.push({
+          heading: inboundDesc,
+          nodeIds: inbound[type],
+        });
+      }
+      if (outbound[type]?.length > 0) {
+        connections.push({
+          heading: outboundDesc,
+          nodeIds: outbound[type],
+        });
+      }
+      return connections;
+    }
+  );
 
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-xl font-bold">{node.label}</h2>
-      {[
-        { title: "Inbound Connections", connections: inboundConnections },
-        { title: "Outbound Connections", connections: outboundConnections },
-      ].map(({ title, connections }) => (
-        <div key={title}>
-          <h3 className="text-lg font-semibold mb-2">{title}</h3>
-          {(["Derivative", "Subgenre", "FusionGenre"] as const).map(
-            (type) =>
-              connections[type] &&
-              connections[type].length > 0 && (
-                <div key={type}>
-                  <h4 className="text-md font-medium mt-2 mb-1">{type}</h4>
-                  <ul className="list-disc pl-5">
-                    {connections[type].map((id) => {
-                      const linkedNode = nodes.find((n) => n.id === id);
-                      return (
-                        <li key={id}>
-                          <button
-                            className="text-blue-400 hover:underline text-left"
-                            onClick={() => setSelectedId(id)}
-                          >
-                            {linkedNode?.label || id}
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              )
-          )}
+      {connections.map(({ heading, nodeIds }) => (
+        <div key={heading}>
+          <h3 className="text-lg font-medium mb-2">{heading}</h3>
+          <ul className="list-disc pl-5">
+            {nodeIds.map((id) => {
+              const linkedNode = nodes.find((n) => n.id === id);
+              return (
+                <li key={id}>
+                  <button
+                    className="text-blue-400 hover:underline text-left"
+                    onClick={() => setSelectedId(id)}
+                  >
+                    {linkedNode?.label || id}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       ))}
     </div>
