@@ -477,6 +477,7 @@ fn process_genres(
             .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
 
         let mut description: Option<String> = None;
+        let mut pause_recording_description = false;
         for node in &parsed_wikitext.nodes {
             match node {
                 pwt::Node::Template {
@@ -506,8 +507,9 @@ fn process_genres(
                                 ])
                             });
 
-                        if !description.trim().is_empty()
-                            || ACCEPTABLE_TEMPLATES.contains(template_name.as_str())
+                        if !pause_recording_description
+                            && (!description.trim().is_empty()
+                                || ACCEPTABLE_TEMPLATES.contains(template_name.as_str()))
                         {
                             description.push_str(&wikitext[*start..*end]);
                         }
@@ -595,12 +597,20 @@ fn process_genres(
                     processed_genre.save(processed_genres_path, page)?;
                     description = Some(String::new());
                 }
+                pwt::Node::StartTag { name, .. } if name == "ref" => {
+                    pause_recording_description = true;
+                }
+                pwt::Node::EndTag { name, .. } if name == "ref" => {
+                    pause_recording_description = false;
+                }
+                pwt::Node::Tag { name, .. } if name == "ref" => {
+                    // Explicitly ignore body of a ref tag
+                }
                 pwt::Node::Bold { end, start }
                 | pwt::Node::BoldItalic { end, start }
                 | pwt::Node::Category { end, start, .. }
                 | pwt::Node::CharacterEntity { end, start, .. }
                 | pwt::Node::DefinitionList { end, start, .. }
-                | pwt::Node::EndTag { end, start, .. }
                 | pwt::Node::ExternalLink { end, start, .. }
                 | pwt::Node::HorizontalDivider { end, start }
                 | pwt::Node::Italic { end, start }
@@ -612,12 +622,15 @@ fn process_genres(
                 | pwt::Node::Preformatted { end, start, .. }
                 | pwt::Node::Redirect { end, start, .. }
                 | pwt::Node::StartTag { end, start, .. }
+                | pwt::Node::EndTag { end, start, .. }
                 | pwt::Node::Table { end, start, .. }
                 | pwt::Node::Tag { end, start, .. }
                 | pwt::Node::Text { end, start, .. }
                 | pwt::Node::UnorderedList { end, start, .. } => {
-                    if let Some(description) = &mut description {
-                        description.push_str(&wikitext[*start..*end]);
+                    if !pause_recording_description {
+                        if let Some(description) = &mut description {
+                            description.push_str(&wikitext[*start..*end]);
+                        }
                     }
                 }
                 pwt::Node::Heading { .. } => {
