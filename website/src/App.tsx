@@ -50,11 +50,13 @@ function Graph({
   maxDegree,
   selectedId,
   setSelectedId,
+  visibleTypes,
 }: {
   params: SimulationParams;
   maxDegree: number;
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
+  visibleTypes: Record<string, boolean>;
 }) {
   const { cosmograph, nodes, links } = useCosmograph<NodeData, LinkData>()!;
   const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(
@@ -105,6 +107,10 @@ function Graph({
           }
         }}
         linkColor={(d: LinkData) => {
+          if (!visibleTypes[d.ty]) {
+            return "rgba(0, 0, 0, 0)";
+          }
+
           let color = (saturation: number) =>
             d.ty === "Derivative"
               ? derivativeColour(saturation)
@@ -157,8 +163,17 @@ function Graph({
     </div>
   );
 }
-
-function ProjectInformation({ dumpDate }: { dumpDate: string }) {
+function ProjectInformation({
+  dumpDate,
+  visibleTypes,
+  setVisibleTypes,
+}: {
+  dumpDate: string;
+  visibleTypes: Record<string, boolean>;
+  setVisibleTypes: React.Dispatch<
+    React.SetStateAction<Record<string, boolean>>
+  >;
+}) {
   return (
     <div>
       <div className="flex flex-col gap-4">
@@ -192,16 +207,32 @@ function ProjectInformation({ dumpDate }: { dumpDate: string }) {
           {
             color: fusionGenreColour(),
             label: "Fusion Genre",
+            type: "FusionGenre",
             description:
               "Genres that combine elements of this genre with other genres.",
           },
         ].map(({ color, label, description }) => (
-          <div key={label}>
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5" style={{ backgroundColor: color }} />
-              <span style={{ color }}>{label}</span>
+          <div key={label} className="flex items-start gap-2">
+            <div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id={label}
+                  checked={visibleTypes[label.replace(" ", "")]}
+                  onChange={(e) =>
+                    setVisibleTypes((prev: Record<string, boolean>) => ({
+                      ...prev,
+                      [label.replace(" ", "")]: e.target.checked,
+                    }))
+                  }
+                  style={{ accentColor: color }}
+                />
+                <label htmlFor={label} className="select-none">
+                  <span style={{ color }}>{label}</span>
+                </label>
+              </div>
+              <p className="mt-1">{description}</p>
             </div>
-            <p className="mt-1">{description}</p>
           </div>
         ))}
         <hr />
@@ -378,6 +409,8 @@ function Sidebar({
   selectedId,
   nodes,
   links,
+  visibleTypes,
+  setVisibleTypes,
 }: {
   params: SimulationParams;
   setParams: (params: SimulationParams) => void;
@@ -385,6 +418,10 @@ function Sidebar({
   selectedId: string | null;
   nodes: NodeData[];
   links: LinkData[];
+  visibleTypes: Record<string, boolean>;
+  setVisibleTypes: React.Dispatch<
+    React.SetStateAction<Record<string, boolean>>
+  >;
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "simulation"
@@ -462,7 +499,11 @@ function Sidebar({
         </button>
       </div>
       {activeTab === "information" ? (
-        <ProjectInformation dumpDate={dumpDate} />
+        <ProjectInformation
+          dumpDate={dumpDate}
+          visibleTypes={visibleTypes}
+          setVisibleTypes={setVisibleTypes}
+        />
       ) : activeTab === "selected" ? (
         <SelectedNodeInfo selectedId={selectedId} nodes={nodes} links={links} />
       ) : (
@@ -527,6 +568,12 @@ function App() {
     return hash || null;
   });
 
+  const [visibleTypes, setVisibleTypes] = useState<Record<string, boolean>>({
+    Derivative: true,
+    Subgenre: true,
+    FusionGenre: true,
+  });
+
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
@@ -571,6 +618,7 @@ function App() {
           maxDegree={data.max_degree}
           selectedId={selectedId}
           setSelectedId={setSelectedId}
+          visibleTypes={visibleTypes}
         />
         <Sidebar
           params={params}
@@ -579,6 +627,8 @@ function App() {
           selectedId={selectedId}
           nodes={data.nodes}
           links={data.links}
+          visibleTypes={visibleTypes}
+          setVisibleTypes={setVisibleTypes}
         />
       </CosmographProvider>
     </div>
