@@ -595,9 +595,7 @@ struct NodeData {
     id: PageDataId,
     label: GenreName,
     last_revision_date: jiff::Timestamp,
-    degree: usize,
-    inbound: BTreeSet<PageDataId>,
-    outbound: BTreeSet<PageDataId>,
+    links: BTreeSet<usize>,
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 enum LinkType {
@@ -639,9 +637,7 @@ fn produce_data_json(
             id,
             label: processed_genre.name.clone(),
             last_revision_date: processed_genre.last_revision_date,
-            degree: 0,
-            inbound: BTreeSet::new(),
-            outbound: BTreeSet::new(),
+            links: BTreeSet::new(),
         };
 
         graph.nodes.push(node);
@@ -683,17 +679,13 @@ fn produce_data_json(
     }
 
     // Third pass (over links): update inbound/outbound sets
-    for link in &graph.links {
-        graph.nodes[link.source.0].outbound.insert(link.target);
-        graph.nodes[link.target.0].inbound.insert(link.source);
+    for (i, link) in graph.links.iter().enumerate() {
+        graph.nodes[link.source.0].links.insert(i);
+        graph.nodes[link.target.0].links.insert(i);
     }
 
-    // Fourth pass: calculate degrees. We could technically do this in the third pass, but it's
-    // cleaner to do it after all of the sets are no longer being modified.
-    for node in &mut graph.nodes {
-        node.degree = node.inbound.len() + node.outbound.len();
-    }
-    graph.max_degree = graph.nodes.iter().map(|n| n.degree).max().unwrap_or(0);
+    // Fourth pass: calculate max degree
+    graph.max_degree = graph.nodes.iter().map(|n| n.links.len()).max().unwrap_or(0);
 
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
     println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());

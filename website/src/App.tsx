@@ -13,9 +13,7 @@ import {
 type NodeData = {
   id: string;
   label: string;
-  degree: number;
-  inbound: string[];
-  outbound: string[];
+  links: number[];
 };
 
 type LinkData = {
@@ -49,7 +47,7 @@ function Graph({
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
 }) {
-  const { cosmograph, nodes } = useCosmograph<NodeData, LinkData>()!;
+  const { cosmograph, nodes, links } = useCosmograph<NodeData, LinkData>()!;
   const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(
     new Set()
   );
@@ -60,7 +58,13 @@ function Graph({
     if (nodeData) {
       cosmograph?.selectNode(nodeData, false);
       setHighlightedNodes(
-        new Set([nodeData.id, ...nodeData.inbound, ...nodeData.outbound])
+        new Set([
+          nodeData.id,
+          ...nodeData.links.flatMap((l) => [
+            links![l].source,
+            links![l].target,
+          ]),
+        ])
       );
     } else {
       cosmograph?.unselectNodes();
@@ -79,7 +83,7 @@ function Graph({
             .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
           const hue = Math.abs(hash % 360);
           let color = `hsl(${hue}, ${
-            ((d.degree / maxDegree) * 0.8 + 0.2) * 100
+            ((d.links.length / maxDegree) * 0.8 + 0.2) * 100
           }%, 60%)`;
           if (selectedId) {
             if (highlightedNodes.has(d.id)) {
@@ -112,7 +116,7 @@ function Graph({
         }}
         nodeSize={(d: NodeData) => {
           return (
-            8.0 * (0.2 + (d.degree / maxDegree) * 0.8) +
+            8.0 * (0.2 + (d.links.length / maxDegree) * 0.8) +
             1.0 * (selectedId && !highlightedNodes.has(d.id) ? -1 : 0)
           );
         }}
@@ -213,10 +217,12 @@ function SelectedNodeInfo({
   selectedId,
   setSelectedId,
   nodes,
+  links,
 }: {
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
   nodes: NodeData[];
+  links: LinkData[];
 }) {
   if (!selectedId) {
     return <p>No node selected</p>;
@@ -225,30 +231,55 @@ function SelectedNodeInfo({
   const node = nodes.find((n) => n.id === selectedId);
   if (!node) return null;
 
+  const getConnections = (isInbound: boolean) =>
+    node.links
+      .map((linkIndex) => links[linkIndex])
+      .filter((link) =>
+        isInbound ? link.target === selectedId : link.source === selectedId
+      )
+      .reduce((acc, link) => {
+        const type = link.ty;
+        if (!acc[type]) acc[type] = [];
+        acc[type].push(isInbound ? link.source : link.target);
+        return acc;
+      }, {} as Record<LinkData["ty"], string[]>);
+
+  const inboundConnections = getConnections(true);
+  const outboundConnections = getConnections(false);
+
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-xl font-bold">{node.label}</h2>
       {[
-        { title: "Inbound Connections", ids: node.inbound },
-        { title: "Outbound Connections", ids: node.outbound },
-      ].map(({ title, ids }) => (
+        { title: "Inbound Connections", connections: inboundConnections },
+        { title: "Outbound Connections", connections: outboundConnections },
+      ].map(({ title, connections }) => (
         <div key={title}>
           <h3 className="text-lg font-semibold mb-2">{title}</h3>
-          <ul className="list-disc pl-5">
-            {ids.map((id) => {
-              const linkedNode = nodes.find((n) => n.id === id);
-              return (
-                <li key={id}>
-                  <button
-                    className="text-blue-400 hover:underline text-left"
-                    onClick={() => setSelectedId(id)}
-                  >
-                    {linkedNode?.label || id}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          {(["Derivative", "Subgenre", "FusionGenre"] as const).map(
+            (type) =>
+              connections[type] &&
+              connections[type].length > 0 && (
+                <div key={type}>
+                  <h4 className="text-md font-medium mt-2 mb-1">{type}</h4>
+                  <ul className="list-disc pl-5">
+                    {connections[type].map((id) => {
+                      const linkedNode = nodes.find((n) => n.id === id);
+                      return (
+                        <li key={id}>
+                          <button
+                            className="text-blue-400 hover:underline text-left"
+                            onClick={() => setSelectedId(id)}
+                          >
+                            {linkedNode?.label || id}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )
+          )}
         </div>
       ))}
     </div>
@@ -262,6 +293,7 @@ function Sidebar({
   setSelectedId,
   selectedId,
   nodes,
+  links,
 }: {
   params: SimulationParams;
   setParams: (params: SimulationParams) => void;
@@ -269,6 +301,7 @@ function Sidebar({
   setSelectedId: (id: string | null) => void;
   selectedId: string | null;
   nodes: NodeData[];
+  links: LinkData[];
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "simulation"
@@ -352,6 +385,7 @@ function Sidebar({
           selectedId={selectedId}
           setSelectedId={setSelectedId}
           nodes={nodes}
+          links={links}
         />
       ) : (
         <SimulationControls params={params} setParams={setParams} />
@@ -419,6 +453,7 @@ function App() {
           setSelectedId={setSelectedId}
           selectedId={selectedId}
           nodes={data.nodes}
+          links={data.links}
         />
       </CosmographProvider>
     </div>
