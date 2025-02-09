@@ -491,7 +491,7 @@ function Sidebar({
       className="h-full bg-neutral-900 text-white p-5 box-border overflow-y-auto relative"
     >
       <div
-        className="absolute top-0 bottom-0 left-0 w-4 cursor-ew-resize hover:bg-neutral-700"
+        className="absolute top-0 bottom-0 left-0 w-4 cursor-ew-resize hover:bg-neutral-700 select-none"
         onMouseDown={() => setIsResizing(true)}
       />
       <div className="flex mb-4">
