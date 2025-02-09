@@ -41,7 +41,7 @@ export const simulationControls: SimulationControl[] = [
     min: 0.3,
     max: 2,
     step: 0.1,
-    default: 0.3,
+    default: 1.0,
   },
   {
     name: "simulationLinkSpring",
