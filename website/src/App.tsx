@@ -46,12 +46,14 @@ function Graph({
   maxDegree,
   selectedId,
   setSelectedId,
+  focusedId,
   visibleTypes,
 }: {
   params: SimulationParams;
   maxDegree: number;
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
+  focusedId: string | null;
   visibleTypes: Record<string, boolean>;
 }) {
   const { cosmograph, nodes, links } = useCosmograph<NodeData, LinkData>()!;
@@ -78,6 +80,15 @@ function Graph({
       setHighlightedNodes(new Set());
     }
   }, [selectedId]);
+
+  useEffect(() => {
+    const nodeData = focusedId ? nodes?.[parseInt(focusedId, 10)] : null;
+    if (nodeData) {
+      cosmograph?.focusNode(nodeData);
+    } else {
+      cosmograph?.focusNode(undefined);
+    }
+  }, [focusedId]);
 
   return (
     <div className="flex-1 h-full">
@@ -128,7 +139,8 @@ function Graph({
         nodeSize={(d: NodeData) => {
           return (
             8.0 * (0.2 + (d.links.length / maxDegree) * 0.8) +
-            1.0 * (selectedId && !highlightedNodes.has(d.id) ? -1 : 0)
+            1.0 * (selectedId && !highlightedNodes.has(d.id) ? -1 : 0) +
+            1.0 * (focusedId === d.id ? 1 : 0)
           );
         }}
         linkWidth={(d: LinkData) => {
@@ -249,10 +261,12 @@ function ProjectInformation({
 
 function SelectedNodeInfo({
   selectedId,
+  setFocusedId,
   nodes,
   links,
 }: {
   selectedId: string | null;
+  setFocusedId: (id: string | null) => void;
   nodes: NodeData[];
   links: LinkData[];
 }) {
@@ -411,7 +425,11 @@ function SelectedNodeInfo({
               const linkedNode = nodes.find((n) => n.id === id);
               return (
                 <li key={id}>
-                  <StyledLink href={`#${id}`}>
+                  <StyledLink
+                    href={`#${id}`}
+                    onMouseEnter={() => setFocusedId(id)}
+                    onMouseLeave={() => setFocusedId(null)}
+                  >
                     {linkedNode?.label || id}
                   </StyledLink>
                 </li>
@@ -429,6 +447,7 @@ function Sidebar({
   setParams,
   dumpDate,
   selectedId,
+  setFocusedId,
   nodes,
   links,
   visibleTypes,
@@ -438,6 +457,7 @@ function Sidebar({
   setParams: (params: SimulationParams) => void;
   dumpDate: string;
   selectedId: string | null;
+  setFocusedId: (id: string | null) => void;
   nodes: NodeData[];
   links: LinkData[];
   visibleTypes: Record<string, boolean>;
@@ -527,7 +547,12 @@ function Sidebar({
           setVisibleTypes={setVisibleTypes}
         />
       ) : activeTab === "selected" ? (
-        <SelectedNodeInfo selectedId={selectedId} nodes={nodes} links={links} />
+        <SelectedNodeInfo
+          selectedId={selectedId}
+          setFocusedId={setFocusedId}
+          nodes={nodes}
+          links={links}
+        />
       ) : (
         <SimulationControls params={params} setParams={setParams} />
       )}
@@ -590,6 +615,8 @@ function App() {
     return hash || null;
   });
 
+  const [focusedId, setFocusedId] = useState<string | null>(null);
+
   const [visibleTypes, setVisibleTypes] = useState<Record<string, boolean>>({
     Derivative: true,
     Subgenre: true,
@@ -640,6 +667,7 @@ function App() {
           maxDegree={data.max_degree}
           selectedId={selectedId}
           setSelectedId={setSelectedId}
+          focusedId={focusedId}
           visibleTypes={visibleTypes}
         />
         <Sidebar
@@ -647,6 +675,7 @@ function App() {
           setParams={setParams}
           dumpDate={data.dump_date}
           selectedId={selectedId}
+          setFocusedId={setFocusedId}
           nodes={data.nodes}
           links={data.links}
           visibleTypes={visibleTypes}
