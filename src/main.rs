@@ -689,6 +689,8 @@ struct Graph {
 #[derive(Debug, Serialize, Deserialize)]
 struct NodeData {
     id: PageDataId,
+    page_title: PageName,
+    wikitext_description: Option<String>,
     label: GenreName,
     last_revision_date: jiff::Timestamp,
     links: BTreeSet<usize>,
@@ -726,24 +728,26 @@ fn produce_data_json(
     let mut page_to_id = HashMap::new();
 
     // First pass: create nodes
-    for genre in &node_order {
-        let processed_genre = &processed_genres.0[genre];
+    for page in &node_order {
+        let processed_genre = &processed_genres.0[page];
         let id = PageDataId(graph.nodes.len());
         let node = NodeData {
             id,
+            page_title: page.clone(),
+            wikitext_description: processed_genre.wikitext_description.clone(),
             label: processed_genre.name.clone(),
             last_revision_date: processed_genre.last_revision_date,
             links: BTreeSet::new(),
         };
 
         graph.nodes.push(node);
-        page_to_id.insert(genre.clone(), id.clone());
+        page_to_id.insert(page.clone(), id.clone());
     }
 
     // Second pass: create links
-    for genre in &node_order {
-        let processed_genre = &processed_genres.0[genre];
-        let genre_id = page_to_id[&genre];
+    for page in &node_order {
+        let processed_genre = &processed_genres.0[page];
+        let genre_id = page_to_id[&page];
         for stylistic_origin in &processed_genre.stylistic_origins {
             graph.links.insert(LinkData {
                 source: page_to_id[&stylistic_origin],

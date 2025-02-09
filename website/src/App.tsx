@@ -9,10 +9,15 @@ import {
   SimulationControls,
   defaultSimulationParams,
 } from "./SimulationParams";
+import { StyledLink } from "./StyledLink";
+import { dumpUrl, WikipediaLink, Wikitext } from "./Wikipedia";
 
 type NodeData = {
   id: string;
+  page_title: string;
+  wikitext_description?: string;
   label: string;
+  last_revision_date: string;
   links: number[];
 };
 
@@ -28,15 +33,6 @@ type Data = {
   max_degree: number;
   dump_date: string;
 };
-
-function StyledLink(props: React.ComponentProps<"a">) {
-  return (
-    <a
-      {...props}
-      className={`text-blue-400 hover:underline ${props.className ?? ""}`}
-    />
-  );
-}
 
 const derivativeColour = (saturation: number = 70) =>
   `hsl(0, ${saturation}%, 60%)`;
@@ -179,15 +175,11 @@ function ProjectInformation({
       <div className="flex flex-col gap-4">
         <p>
           A graph of every music genre on English Wikipedia (as of{" "}
-          <StyledLink
-            href={`https://dumps.wikimedia.org/enwiki/${dumpDate
-              .split("-")
-              .join("")}/`}
-          >
-            {dumpDate}
-          </StyledLink>
+          <StyledLink href={dumpUrl(dumpDate)}>{dumpDate}</StyledLink>
           ), inspired by{" "}
-          <StyledLink href="https://eightyeightthirty.one/">8831</StyledLink>{" "}
+          <StyledLink href="https://eightyeightthirty.one/">
+            8831
+          </StyledLink>{" "}
           and <StyledLink href="https://musicmap.info/">musicmap</StyledLink>.
         </p>
         <hr />
@@ -264,6 +256,8 @@ function SelectedNodeInfo({
   nodes: NodeData[];
   links: LinkData[];
 }) {
+  const [expanded, setExpanded] = useState(false);
+
   if (!selectedId) {
     return <p>No node selected</p>;
   }
@@ -380,7 +374,35 @@ function SelectedNodeInfo({
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-xl font-bold">{node.label}</h2>
+      <div>
+        <WikipediaLink pageTitle={node.page_title}>
+          <h2 className="text-xl font-bold">{node.label}</h2>
+        </WikipediaLink>
+        <small>
+          Last updated:{" "}
+          <em>{new Date(node.last_revision_date).toLocaleString()}</em>
+        </small>
+        {node.wikitext_description && (
+          <div className="flex flex-col gap-2">
+            <Wikitext
+              wikitext={
+                expanded
+                  ? node.wikitext_description
+                  : node.wikitext_description.split("\n")[0]
+              }
+            />
+            {node.wikitext_description.includes("\n") && (
+              <button
+                onClick={() => setExpanded(!expanded)}
+                className="w-full p-2 text-sm text-neutral-400 hover:text-white bg-neutral-800 hover:bg-neutral-700 rounded-md mx-auto block transition-colors"
+              >
+                {expanded ? "Show less" : "Show more"}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
       {connections.map(({ heading, nodeIds }, index) => (
         <div key={index}>
           <h3 className="text-lg font-medium mb-2">{heading}</h3>
