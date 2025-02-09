@@ -3,7 +3,7 @@ import {
   CosmographProvider,
   useCosmograph,
 } from "@cosmograph/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   SimulationParams,
   SimulationControls,
@@ -53,9 +53,8 @@ function Graph({
   const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(
     new Set()
   );
-
   return (
-    <div className="absolute left-0 right-[300px] top-0 bottom-0">
+    <div className="flex-1 h-full">
       <Cosmograph
         disableSimulation={false}
         nodeLabelAccessor={(d: NodeData) => d.label}
@@ -215,9 +214,46 @@ function Sidebar({
   const [activeTab, setActiveTab] = useState<"information" | "simulation">(
     "information"
   );
+  const [width, setWidth] = useState("20%");
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const [isResizing, setIsResizing] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizing) return;
+
+      const newWidth = window.innerWidth - e.clientX;
+      const minWidth = 300;
+      const maxWidth = window.innerWidth * 0.4; // 40% max width
+
+      setWidth(`${Math.min(Math.max(newWidth, minWidth), maxWidth)}px`);
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+    };
+
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isResizing]);
 
   return (
-    <div className="fixed top-0 bottom-0 right-0 w-[300px] bg-neutral-900 text-white p-5 box-border overflow-y-auto">
+    <div
+      ref={sidebarRef}
+      style={{ width, userSelect: isResizing ? "none" : "auto" }}
+      className="h-full bg-neutral-900 text-white p-5 box-border overflow-y-auto relative"
+    >
+      <div
+        className="absolute top-0 bottom-0 left-0 w-4 cursor-ew-resize hover:bg-neutral-700"
+        onMouseDown={() => setIsResizing(true)}
+      />
       <div className="flex mb-4">
         <button
           className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
@@ -269,7 +305,7 @@ function App() {
   );
 
   return (
-    <div>
+    <div className="flex w-screen h-screen">
       <CosmographProvider nodes={data.nodes} links={data.links}>
         <Graph
           params={params}
