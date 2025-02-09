@@ -64,6 +64,7 @@ function Graph({
     const nodeData = nodes?.find((n) => n.id === selectedId);
     if (nodeData) {
       cosmograph?.selectNode(nodeData, false);
+      cosmograph?.zoomToNode(nodeData);
       setHighlightedNodes(
         new Set([
           nodeData.id,
