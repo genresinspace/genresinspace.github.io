@@ -3,9 +3,10 @@ use jiff::ToSpan;
 use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
-    collections::{BTreeSet, HashMap},
+    collections::{BTreeSet, HashMap, HashSet},
     io::Write as _,
     path::{Path, PathBuf},
+    sync::LazyLock,
 };
 
 use parse_wiki_text_2 as pwt;
@@ -411,11 +412,25 @@ fn resolve_links_to_articles(
 #[derive(Serialize, Deserialize, Clone, Debug)]
 struct ProcessedGenre {
     name: GenreName,
+    wikitext_description: Option<String>,
     last_revision_date: jiff::Timestamp,
     stylistic_origins: Vec<PageName>,
     derivatives: Vec<PageName>,
     subgenres: Vec<PageName>,
     fusion_genres: Vec<PageName>,
+}
+impl ProcessedGenre {
+    pub fn update_description(&mut self, description: &str) {
+        self.wikitext_description = Some(description.trim().to_string());
+    }
+
+    pub fn save(&self, processed_genres_path: &Path, page: &PageName) -> anyhow::Result<()> {
+        std::fs::write(
+            processed_genres_path.join(format!("{}.toml", sanitize_page_name(page))),
+            toml::to_string_pretty(self)?,
+        )?;
+        Ok(())
+    }
 }
 struct ProcessedGenres(pub HashMap<PageName, ProcessedGenre>);
 /// Given raw genre wikitext, extract the relevant information and save it to file.
@@ -457,102 +472,170 @@ fn process_genres(
         let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
         let wikitext_header: WikitextHeader = serde_json::from_str(wikitext_header)?;
 
-        let wikitext = pwt_configuration
+        let parsed_wikitext = pwt_configuration
             .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
             .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
-        for node in &wikitext.nodes {
-            if let pwt::Node::Template {
-                name, parameters, ..
-            } = node
-            {
-                if nodes_inner_text(name, &InnerTextConfig::default()).to_lowercase()
-                    != "infobox music genre"
-                {
-                    continue;
-                }
 
-                let parameters = parameters_to_map(parameters);
+        let mut description: Option<String> = None;
+        for node in &parsed_wikitext.nodes {
+            match node {
+                pwt::Node::Template {
+                    name,
+                    parameters,
+                    start,
+                    end,
+                    ..
+                } => {
+                    let template_name =
+                        nodes_inner_text(name, &InnerTextConfig::default()).to_lowercase();
 
-                // Extract name from parameters
-                let mut name = GenreName(match parameters.get("name") {
-                    None | Some([]) => page.0.clone(),
-                    Some(nodes) => {
-                        let name = nodes_inner_text(
-                            nodes,
-                            &InnerTextConfig {
-                                // Some genre headings have a `<br>` tag, followed by another name.
-                                // We only want the first name, so stop after the first `<br>`.
-                                stop_after_br: true,
-                            },
-                        );
-                        if name.is_empty() {
-                            panic!("Failed to extract name from {page}, params: {parameters:?}");
+                    // If we're recording the description and there are non-whitespace characters,
+                    // this template can be recorded (i.e. "a {{blah}}" is acceptable, "{{blah}}" is not).
+                    //
+                    // Alternatively, a select list of acceptable templates can be included in the capture,
+                    // regardless of the existing description.
+                    if let Some(description) = &mut description {
+                        static ACCEPTABLE_TEMPLATES: LazyLock<HashSet<&'static str>> =
+                            LazyLock::new(|| {
+                                HashSet::from_iter([
+                                    "nihongo",
+                                    "transliteration",
+                                    "tlit",
+                                    "transl",
+                                    "lang",
+                                ])
+                            });
+
+                        if !description.trim().is_empty()
+                            || ACCEPTABLE_TEMPLATES.contains(template_name.as_str())
+                        {
+                            description.push_str(&wikitext[*start..*end]);
                         }
-                        name
                     }
-                });
-                if let Some((timestamp, new_name)) = all_patches.get(page) {
-                    // Check whether the article has been updated since the last revision date
-                    // with one minute of leeway. If it has, don't apply the patch.
-                    if timestamp
-                        .map(|ts| wikitext_header.timestamp.saturating_add(1.minute()) < ts)
-                        .unwrap_or(true)
-                    {
-                        name = new_name.clone();
+
+                    if template_name != "infobox music genre" {
+                        continue;
+                    }
+                    let parameters = parameters_to_map(parameters);
+                    let mut name = GenreName(match parameters.get("name") {
+                        None | Some([]) => page.0.clone(),
+                        Some(nodes) => {
+                            let name = nodes_inner_text(
+                                nodes,
+                                &InnerTextConfig {
+                                    // Some genre headings have a `<br>` tag, followed by another name.
+                                    // We only want the first name, so stop after the first `<br>`.
+                                    stop_after_br: true,
+                                },
+                            );
+                            if name.is_empty() {
+                                panic!(
+                                    "Failed to extract name from {page}, params: {parameters:?}"
+                                );
+                            }
+                            name
+                        }
+                    });
+                    if let Some((timestamp, new_name)) = all_patches.get(page) {
+                        // Check whether the article has been updated since the last revision date
+                        // with one minute of leeway. If it has, don't apply the patch.
+                        if timestamp
+                            .map(|ts| wikitext_header.timestamp.saturating_add(1.minute()) < ts)
+                            .unwrap_or(true)
+                        {
+                            name = new_name.clone();
+                        }
+                    }
+                    let map_links_to_articles = |links: Vec<String>| -> Vec<PageName> {
+                        links
+                            .into_iter()
+                            .filter_map(|link| {
+                                links_to_articles
+                                    .0
+                                    .get(&link.to_lowercase())
+                                    .map(|s| s.to_owned())
+                            })
+                            .collect()
+                    };
+                    let stylistic_origins = parameters
+                        .get("stylistic_origins")
+                        .map(|ns| get_links_from_nodes(ns))
+                        .map(map_links_to_articles)
+                        .unwrap_or_default();
+                    let derivatives = parameters
+                        .get("derivatives")
+                        .map(|ns| get_links_from_nodes(ns))
+                        .map(map_links_to_articles)
+                        .unwrap_or_default();
+                    let subgenres = parameters
+                        .get("subgenres")
+                        .map(|ns| get_links_from_nodes(ns))
+                        .map(map_links_to_articles)
+                        .unwrap_or_default();
+                    let fusion_genres = parameters
+                        .get("fusiongenres")
+                        .map(|ns| get_links_from_nodes(ns))
+                        .map(map_links_to_articles)
+                        .unwrap_or_default();
+
+                    genre_count += 1;
+                    stylistic_origin_count += stylistic_origins.len();
+                    derivative_count += derivatives.len();
+
+                    let processed_genre = ProcessedGenre {
+                        name: name.clone(),
+                        wikitext_description: None,
+                        last_revision_date: wikitext_header.timestamp,
+                        stylistic_origins,
+                        derivatives,
+                        subgenres,
+                        fusion_genres,
+                    };
+                    processed_genres.insert(page.clone(), processed_genre.clone());
+                    processed_genre.save(processed_genres_path, page)?;
+                    description = Some(String::new());
+                }
+                pwt::Node::Bold { end, start }
+                | pwt::Node::BoldItalic { end, start }
+                | pwt::Node::Category { end, start, .. }
+                | pwt::Node::CharacterEntity { end, start, .. }
+                | pwt::Node::DefinitionList { end, start, .. }
+                | pwt::Node::EndTag { end, start, .. }
+                | pwt::Node::ExternalLink { end, start, .. }
+                | pwt::Node::HorizontalDivider { end, start }
+                | pwt::Node::Italic { end, start }
+                | pwt::Node::Link { end, start, .. }
+                | pwt::Node::MagicWord { end, start }
+                | pwt::Node::OrderedList { end, start, .. }
+                | pwt::Node::ParagraphBreak { end, start }
+                | pwt::Node::Parameter { end, start, .. }
+                | pwt::Node::Preformatted { end, start, .. }
+                | pwt::Node::Redirect { end, start, .. }
+                | pwt::Node::StartTag { end, start, .. }
+                | pwt::Node::Table { end, start, .. }
+                | pwt::Node::Tag { end, start, .. }
+                | pwt::Node::Text { end, start, .. }
+                | pwt::Node::UnorderedList { end, start, .. } => {
+                    if let Some(description) = &mut description {
+                        description.push_str(&wikitext[*start..*end]);
                     }
                 }
+                pwt::Node::Heading { .. } => {
+                    if let Some(processed_genre) = processed_genres.get_mut(page) {
+                        if let Some(description) = description.take() {
+                            processed_genre.update_description(&description);
+                            processed_genre.save(processed_genres_path, page)?;
+                        }
+                    }
+                }
+                pwt::Node::Image { .. } | pwt::Node::Comment { .. } => {}
+            }
+        }
 
-                let map_links_to_articles = |links: Vec<String>| -> Vec<PageName> {
-                    links
-                        .into_iter()
-                        .filter_map(|link| {
-                            links_to_articles
-                                .0
-                                .get(&link.to_lowercase())
-                                .map(|s| s.to_owned())
-                        })
-                        .collect()
-                };
-
-                let stylistic_origins = parameters
-                    .get("stylistic_origins")
-                    .map(|ns| get_links_from_nodes(ns))
-                    .map(map_links_to_articles)
-                    .unwrap_or_default();
-                let derivatives = parameters
-                    .get("derivatives")
-                    .map(|ns| get_links_from_nodes(ns))
-                    .map(map_links_to_articles)
-                    .unwrap_or_default();
-                let subgenres = parameters
-                    .get("subgenres")
-                    .map(|ns| get_links_from_nodes(ns))
-                    .map(map_links_to_articles)
-                    .unwrap_or_default();
-                let fusion_genres = parameters
-                    .get("fusiongenres")
-                    .map(|ns| get_links_from_nodes(ns))
-                    .map(map_links_to_articles)
-                    .unwrap_or_default();
-
-                genre_count += 1;
-                stylistic_origin_count += stylistic_origins.len();
-                derivative_count += derivatives.len();
-
-                let processed_genre = ProcessedGenre {
-                    name: name.clone(),
-                    last_revision_date: wikitext_header.timestamp,
-                    stylistic_origins,
-                    derivatives,
-                    subgenres,
-                    fusion_genres,
-                };
-                processed_genres.insert(page.clone(), processed_genre.clone());
-
-                std::fs::write(
-                    processed_genres_path.join(format!("{}.toml", sanitize_page_name(page))),
-                    toml::to_string_pretty(&processed_genre)?,
-                )?;
+        if let Some(processed_genre) = processed_genres.get_mut(page) {
+            if let Some(description) = description.take() {
+                processed_genre.update_description(&description);
+                processed_genre.save(processed_genres_path, page)?;
             }
         }
     }
