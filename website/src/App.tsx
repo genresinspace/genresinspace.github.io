@@ -285,9 +285,9 @@ function SelectedNodeInfo({
     {
       type: "Derivative" as const,
       inbound: [
-        { type: "text", content: "This is " },
-        { type: "emphasis", content: "derived" },
-        { type: "text", content: " from:" },
+        { type: "text", content: "This was " },
+        { type: "emphasis", content: "influenced" },
+        { type: "text", content: " by:" },
       ],
       outbound: [
         { type: "text", content: "This has " },
@@ -311,7 +311,7 @@ function SelectedNodeInfo({
     {
       type: "FusionGenre" as const,
       inbound: [
-        { type: "text", content: "This is a component of these " },
+        { type: "text", content: "Used in these " },
         { type: "emphasis", content: "fusion genres" },
         { type: "text", content: ":" },
       ],
