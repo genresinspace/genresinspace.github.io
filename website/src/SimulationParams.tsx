@@ -121,7 +121,7 @@ export function SimulationControls({
   return (
     <div>
       {simulationControls.map((control) => (
-        <div key={control.name} className="control-group">
+        <div key={control.name} className="mb-2">
           <label title={control.description} className="block font-bold">
             {control.label}
           </label>

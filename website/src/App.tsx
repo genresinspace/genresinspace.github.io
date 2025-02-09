@@ -29,6 +29,15 @@ type Data = {
   dump_date: string;
 };
 
+function StyledLink(props: React.ComponentProps<"a">) {
+  return (
+    <a
+      {...props}
+      className={`text-blue-400 hover:underline ${props.className ?? ""}`}
+    />
+  );
+}
+
 const derivativeColour = (saturation: number = 70) =>
   `hsl(0, ${saturation}%, 60%)`;
 const subgenreColour = (saturation: number = 70) =>
@@ -152,7 +161,21 @@ function Graph({
 function ProjectInformation({ dumpDate }: { dumpDate: string }) {
   return (
     <div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
+        <p>
+          A graph of every music genre on English Wikipedia (as of{" "}
+          <StyledLink
+            href={`https://dumps.wikimedia.org/enwiki/${dumpDate
+              .split("-")
+              .join("")}/`}
+          >
+            {dumpDate}
+          </StyledLink>
+          ), inspired by{" "}
+          <StyledLink href="https://eightyeightthirty.one/">8831</StyledLink>{" "}
+          and <StyledLink href="https://musicmap.info/">musicmap</StyledLink>.
+        </p>
+        <hr />
         {[
           {
             color: derivativeColour(),
@@ -178,34 +201,22 @@ function ProjectInformation({ dumpDate }: { dumpDate: string }) {
               <div className="w-5 h-5" style={{ backgroundColor: color }} />
               <span style={{ color }}>{label}</span>
             </div>
-            <p className="mt-2">{description}</p>
+            <p className="mt-1">{description}</p>
           </div>
         ))}
         <hr />
         <p>
-          A graph of every music genre on English Wikipedia (as of{" "}
-          <a
-            href={`https://dumps.wikimedia.org/enwiki/${dumpDate
-              .split("-")
-              .join("")}/`}
-          >
-            {dumpDate}
-          </a>
-          ), inspired by <a href="https://eightyeightthirty.one/">8831</a> and{" "}
-          <a href="https://musicmap.info/">musicmap</a>.
+          By <StyledLink href="https://philpax.me">Philpax</StyledLink>. Powered
+          by <StyledLink href="https://cosmograph.app/">Cosmograph</StyledLink>.
         </p>
         <p>
-          By <a href="https://philpax.me">Philpax</a>. Powered by{" "}
-          <a href="https://cosmograph.app/">Cosmograph</a>.
-        </p>
-        <p>
-          <a href="https://github.com/graphgenre/graphgenre.github.io">
+          <StyledLink href="https://github.com/graphgenre/graphgenre.github.io">
             Source code
-          </a>
+          </StyledLink>
           .{" "}
-          <a href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
+          <StyledLink href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
             Blog post
-          </a>
+          </StyledLink>
           , if you're curious.
         </p>
       </div>
@@ -292,12 +303,9 @@ function SelectedNodeInfo({
               const linkedNode = nodes.find((n) => n.id === id);
               return (
                 <li key={id}>
-                  <a
-                    href={`#${id}`}
-                    className="text-blue-400 hover:underline text-left"
-                  >
+                  <StyledLink href={`#${id}`}>
                     {linkedNode?.label || id}
-                  </a>
+                  </StyledLink>
                 </li>
               );
             })}
