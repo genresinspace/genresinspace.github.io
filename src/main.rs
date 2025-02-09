@@ -473,7 +473,7 @@ fn process_genres(
         let wikitext_header: WikitextHeader = serde_json::from_str(wikitext_header)?;
 
         let parsed_wikitext = pwt_configuration
-            .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
+            .parse_with_timeout(wikitext, std::time::Duration::from_secs(1))
             .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
 
         let mut description: Option<String> = None;
@@ -741,16 +741,16 @@ fn produce_data_json(
         };
 
         graph.nodes.push(node);
-        page_to_id.insert(page.clone(), id.clone());
+        page_to_id.insert(page.clone(), id);
     }
 
     // Second pass: create links
     for page in &node_order {
         let processed_genre = &processed_genres.0[page];
-        let genre_id = page_to_id[&page];
+        let genre_id = page_to_id[page];
         for stylistic_origin in &processed_genre.stylistic_origins {
             graph.links.insert(LinkData {
-                source: page_to_id[&stylistic_origin],
+                source: page_to_id[stylistic_origin],
                 target: genre_id,
                 ty: LinkType::Derivative,
             });
@@ -758,20 +758,20 @@ fn produce_data_json(
         for derivative in &processed_genre.derivatives {
             graph.links.insert(LinkData {
                 source: genre_id,
-                target: page_to_id[&derivative],
+                target: page_to_id[derivative],
                 ty: LinkType::Derivative,
             });
         }
         for subgenre in &processed_genre.subgenres {
             graph.links.insert(LinkData {
                 source: genre_id,
-                target: page_to_id[&subgenre],
+                target: page_to_id[subgenre],
                 ty: LinkType::Subgenre,
             });
         }
         for fusion_genre in &processed_genre.fusion_genres {
             graph.links.insert(LinkData {
-                source: page_to_id[&fusion_genre],
+                source: page_to_id[fusion_genre],
                 target: genre_id,
                 ty: LinkType::FusionGenre,
             });
