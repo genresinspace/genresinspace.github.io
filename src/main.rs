@@ -426,8 +426,8 @@ impl ProcessedGenre {
 
     pub fn save(&self, processed_genres_path: &Path, page: &PageName) -> anyhow::Result<()> {
         std::fs::write(
-            processed_genres_path.join(format!("{}.toml", sanitize_page_name(page))),
-            toml::to_string_pretty(self)?,
+            processed_genres_path.join(format!("{}.json", sanitize_page_name(page))),
+            serde_json::to_string_pretty(self)?,
         )?;
         Ok(())
     }
@@ -449,7 +449,7 @@ fn process_genres(
             };
             processed_genres.insert(
                 unsanitize_page_name(&file_stem.to_string_lossy()),
-                toml::from_str(&std::fs::read_to_string(path)?)?,
+                serde_json::from_str(&std::fs::read_to_string(path)?)?,
             );
         }
         return Ok(ProcessedGenres(processed_genres));
