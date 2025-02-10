@@ -520,9 +520,19 @@ function Sidebar({
       className="h-full bg-neutral-900 text-white p-5 box-border overflow-y-auto relative"
     >
       <div
-        className="absolute top-0 bottom-0 left-0 w-4 cursor-ew-resize hover:bg-neutral-700 select-none"
+        className="absolute top-0 bottom-0 left-0 w-4 cursor-ew-resize hover:bg-neutral-700 select-none flex items-center justify-center"
         onMouseDown={() => setIsResizing(true)}
-      />
+      >
+        <svg
+          width="8"
+          height="16"
+          viewBox="0 0 8 16"
+          fill="currentColor"
+          className="text-neutral-500"
+        >
+          <path d="M2 0h1v16H2V0zM5 0h1v16H5V0z" />
+        </svg>
+      </div>
       <div className="flex mb-4">
         <button
           className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
