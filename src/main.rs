@@ -409,6 +409,91 @@ fn resolve_links_to_articles(
     Ok(LinksToArticles(links_to_articles))
 }
 
+struct NodeMetadata<'a> {
+    name: &'static str,
+    start: usize,
+    end: usize,
+    children: Option<&'a [pwt::Node<'a>]>,
+}
+impl<'a> NodeMetadata<'a> {
+    fn new(
+        name: &'static str,
+        start: usize,
+        end: usize,
+        children: Option<&'a [pwt::Node<'a>]>,
+    ) -> Self {
+        Self {
+            name,
+            start,
+            end,
+            children,
+        }
+    }
+}
+fn node_metadata<'a>(node: &'a pwt::Node) -> NodeMetadata<'a> {
+    use NodeMetadata as NM;
+    match node {
+        pwt::Node::Bold { end, start } => NM::new("bold", *start, *end, None),
+        pwt::Node::BoldItalic { end, start } => NM::new("bold_italic", *start, *end, None),
+        pwt::Node::Category { end, start, .. } => NM::new("category", *start, *end, None),
+        pwt::Node::CharacterEntity { end, start, .. } => {
+            NM::new("character_entity", *start, *end, None)
+        }
+        pwt::Node::Comment { end, start } => NM::new("comment", *start, *end, None),
+        pwt::Node::DefinitionList {
+            end,
+            start,
+            items: _,
+        } => NM::new("definition_list", *start, *end, None),
+        pwt::Node::EndTag { end, start, .. } => NM::new("end_tag", *start, *end, None),
+        pwt::Node::ExternalLink { end, nodes, start } => {
+            NM::new("external_link", *start, *end, Some(nodes))
+        }
+        pwt::Node::Heading {
+            end, start, nodes, ..
+        } => NM::new("heading", *start, *end, Some(nodes)),
+        pwt::Node::HorizontalDivider { end, start } => {
+            NM::new("horizontal_divider", *start, *end, None)
+        }
+        pwt::Node::Image {
+            end, start, text, ..
+        } => NM::new("image", *start, *end, Some(text)),
+        pwt::Node::Italic { end, start } => NM::new("italic", *start, *end, None),
+        pwt::Node::Link {
+            end, start, text, ..
+        } => NM::new("link", *start, *end, Some(text)),
+        pwt::Node::MagicWord { end, start } => NM::new("magic_word", *start, *end, None),
+        pwt::Node::OrderedList {
+            end,
+            start,
+            items: _,
+        } => NM::new("ordered_list", *start, *end, None),
+        pwt::Node::ParagraphBreak { end, start } => NM::new("paragraph_break", *start, *end, None),
+        pwt::Node::Parameter { end, start, .. } => NM::new("parameter", *start, *end, None),
+        pwt::Node::Preformatted { end, start, nodes } => {
+            NM::new("preformatted", *start, *end, Some(nodes))
+        }
+        pwt::Node::Redirect { end, start, .. } => NM::new("redirect", *start, *end, None),
+        pwt::Node::StartTag { end, start, .. } => NM::new("start_tag", *start, *end, None),
+        pwt::Node::Table {
+            end,
+            start,
+            rows: _,
+            ..
+        } => NM::new("table", *start, *end, None),
+        pwt::Node::Tag {
+            end, start, nodes, ..
+        } => NM::new("tag", *start, *end, Some(nodes.as_slice())),
+        pwt::Node::Template { end, start, .. } => NM::new("template", *start, *end, None),
+        pwt::Node::Text { end, start, .. } => NM::new("text", *start, *end, None),
+        pwt::Node::UnorderedList {
+            end,
+            start,
+            items: _,
+        } => NM::new("unordered_list", *start, *end, None),
+    }
+}
+
 #[derive(Serialize, Deserialize, Clone, Debug)]
 struct ProcessedGenre {
     name: GenreName,
@@ -471,177 +556,16 @@ fn process_genres(
 
     fn dump_page_nodes(wikitext: &str, nodes: &[pwt::Node], depth: usize) {
         for node in nodes {
-            let mut children = None;
-            let outer_start;
-            let outer_end;
-
             print!("{:indent$}", "", indent = depth * 2);
-            match node {
-                pwt::Node::Bold { end, start } => {
-                    print!("bold");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::BoldItalic { end, start } => {
-                    print!("bold_italic");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::Category { end, start, .. } => {
-                    print!("category");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::CharacterEntity { end, start, .. } => {
-                    print!("character_entity");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::Comment { end, start } => {
-                    print!("comment");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::DefinitionList {
-                    end,
-                    start,
-                    items: _,
-                } => {
-                    print!("definition_list");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::EndTag { end, start, .. } => {
-                    print!("end_tag");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::ExternalLink { end, nodes, start } => {
-                    print!("external_link");
-                    outer_start = *start;
-                    outer_end = *end;
-                    children = Some(nodes);
-                }
-                pwt::Node::Heading {
-                    end, start, nodes, ..
-                } => {
-                    print!("heading");
-                    outer_start = *start;
-                    outer_end = *end;
-                    children = Some(nodes);
-                }
-                pwt::Node::HorizontalDivider { end, start } => {
-                    print!("horizontal_divider");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::Image {
-                    end, start, text, ..
-                } => {
-                    print!("image");
-                    outer_start = *start;
-                    outer_end = *end;
-                    children = Some(text);
-                }
-                pwt::Node::Italic { end, start } => {
-                    print!("italic");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::Link {
-                    end, start, text, ..
-                } => {
-                    print!("link");
-                    outer_start = *start;
-                    outer_end = *end;
-                    children = Some(text);
-                }
-                pwt::Node::MagicWord { end, start } => {
-                    print!("magic_word");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::OrderedList {
-                    end,
-                    start,
-                    items: _,
-                } => {
-                    print!("ordered_list");
-                    outer_start = *start;
-                    outer_end = *end;
-                    // children = Some(items);
-                }
-                pwt::Node::ParagraphBreak { end, start } => {
-                    print!("paragraph_break");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::Parameter { end, start, .. } => {
-                    print!("parameter");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::Preformatted { end, start, nodes } => {
-                    print!("preformatted");
-                    outer_start = *start;
-                    outer_end = *end;
-                    children = Some(nodes);
-                }
-                pwt::Node::Redirect { end, start, .. } => {
-                    print!("redirect");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::StartTag { end, start, .. } => {
-                    print!("start_tag");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::Table {
-                    end,
-                    start,
-                    rows: _,
-                    ..
-                } => {
-                    print!("table");
-                    outer_start = *start;
-                    outer_end = *end;
-                    // children = Some(rows);
-                }
-                pwt::Node::Tag {
-                    end, start, nodes, ..
-                } => {
-                    print!("tag");
-                    outer_start = *start;
-                    outer_end = *end;
-                    children = Some(nodes);
-                }
-                pwt::Node::Template { end, start, .. } => {
-                    print!("template");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::Text { end, start, .. } => {
-                    print!("text");
-                    outer_start = *start;
-                    outer_end = *end;
-                }
-                pwt::Node::UnorderedList {
-                    end,
-                    start,
-                    items: _,
-                } => {
-                    print!("unordered_list");
-                    outer_start = *start;
-                    outer_end = *end;
-                    // children = Some(items);
-                }
-            }
-            println!(
-                "[{outer_start}..{outer_end}]: {:?}",
-                &wikitext[outer_start..outer_end]
+            let metadata = node_metadata(node);
+            print!(
+                "{}[{}..{}]: {:?}",
+                metadata.name,
+                metadata.start,
+                metadata.end,
+                &wikitext[metadata.start..metadata.end]
             );
-            if let Some(children) = children {
+            if let Some(children) = metadata.children {
                 dump_page_nodes(wikitext, children, depth + 1);
             }
         }
