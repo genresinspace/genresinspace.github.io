@@ -467,13 +467,52 @@ fn process_genres(
     let mut stylistic_origin_count = 0usize;
     let mut derivative_count = 0usize;
 
+    /// This is monstrous.
+    /// We are parsing the Wikitext, reconstructing it without the comments, and then parsing it again.
+    ///
+    /// This is necessary as parse-wiki-text has a bug in which it does not recognise headings
+    /// where comments immediately follow - i.e.
+    ///   ===Heading===<!-- Lmao -->
+    /// results in `===Heading===` being parsed as text, not a heading.
+    ///
+    /// Ideally, this would be fixed upstream, but that looks like a non-trivial fix, and
+    /// compute and memory is cheap, so... here we go.
+    fn remove_comments_from_wikitext_the_painful_way(
+        pwt_configuration: &pwt::Configuration,
+        page: &PageName,
+        wikitext: &str,
+    ) -> String {
+        let parsed_wikitext = pwt_configuration
+            .parse_with_timeout(wikitext, std::time::Duration::from_secs(1))
+            .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
+
+        let mut new_wikitext = wikitext.to_string();
+        let mut comment_ranges = vec![];
+
+        for node in &parsed_wikitext.nodes {
+            match node {
+                pwt::Node::Comment { start, end, .. } => {
+                    comment_ranges.push((*start, *end));
+                }
+                _ => {}
+            }
+        }
+
+        for (start, end) in comment_ranges.into_iter().rev() {
+            new_wikitext.replace_range(start..end, "");
+        }
+        new_wikitext
+    }
+
     for (page, path) in genres.iter() {
         let wikitext = std::fs::read_to_string(path)?;
         let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
         let wikitext_header: WikitextHeader = serde_json::from_str(wikitext_header)?;
 
+        let wikitext =
+            remove_comments_from_wikitext_the_painful_way(&pwt_configuration, page, &wikitext);
         let parsed_wikitext = pwt_configuration
-            .parse_with_timeout(wikitext, std::time::Duration::from_secs(1))
+            .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
             .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
 
         let mut description: Option<String> = None;
@@ -483,7 +522,10 @@ fn process_genres(
         // This fixes some issues around skipped nodes including whitespace that the next
         // node doesn't include.
         let mut last_skipped_end = None;
-        fn description_start(last_skipped_end: &mut Option<usize>, start: usize) -> usize {
+        fn start_including_last_skipped_end(
+            last_skipped_end: &mut Option<usize>,
+            start: usize,
+        ) -> usize {
             last_skipped_end
                 .take()
                 .filter(|&end| end < start)
@@ -523,7 +565,10 @@ fn process_genres(
                                 || ACCEPTABLE_TEMPLATES.contains(template_name.as_str()))
                         {
                             description.push_str(
-                                &wikitext[description_start(&mut last_skipped_end, *start)..*end],
+                                &wikitext[start_including_last_skipped_end(
+                                    &mut last_skipped_end,
+                                    *start,
+                                )..*end],
                             );
                         }
                     }
@@ -647,7 +692,10 @@ fn process_genres(
                     if !pause_recording_description {
                         if let Some(description) = &mut description {
                             description.push_str(
-                                &wikitext[description_start(&mut last_skipped_end, *start)..*end],
+                                &wikitext[start_including_last_skipped_end(
+                                    &mut last_skipped_end,
+                                    *start,
+                                )..*end],
                             );
                         }
                     }
