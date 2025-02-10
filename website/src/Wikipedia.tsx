@@ -23,6 +23,26 @@ export function WikipediaLink({
   );
 }
 
+/**
+ * Like `Wikitext`, but only renders up to the first paragraph break or newline.
+ */
+export function ShortWikitext(
+  props: React.ComponentProps<"span"> & { wikitext: WikitextNode[] }
+) {
+  let index: number | undefined = props.wikitext.findIndex(
+    (node) => node.type === "paragraph_break" || node.type === "newline"
+  );
+  if (index === -1) {
+    index = undefined;
+  }
+
+  return (
+    <Wikitext
+      wikitext={index ? props.wikitext.slice(0, index) : props.wikitext}
+    />
+  );
+}
+
 export function Wikitext(
   props: React.ComponentProps<"span"> & { wikitext: WikitextNode[] }
 ) {

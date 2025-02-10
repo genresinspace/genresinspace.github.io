@@ -127,7 +127,6 @@ export function SimulationControls({
           </label>
           <input
             type="range"
-            className="w-3/5"
             min={control.min}
             max={control.max}
             step={control.step}

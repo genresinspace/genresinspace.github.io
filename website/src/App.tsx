@@ -10,7 +10,13 @@ import {
   defaultSimulationParams,
 } from "./SimulationParams";
 import { ExternalLink, InternalLink } from "./Links";
-import { dumpUrl, WikipediaLink, Wikitext, WikitextNode } from "./Wikipedia";
+import {
+  dumpUrl,
+  ShortWikitext,
+  WikipediaLink,
+  Wikitext,
+  WikitextNode,
+} from "./Wikipedia";
 
 type Settings = {
   simulation: SimulationParams;
@@ -458,6 +464,58 @@ function SelectedNodeInfo({
   );
 }
 
+function Find({
+  nodes,
+  filter,
+  setFilter,
+}: {
+  nodes: NodeData[];
+  filter: string;
+  setFilter: (filter: string) => void;
+}) {
+  const [results, setResults] = useState<NodeData[]>([]);
+
+  useEffect(() => {
+    if (filter.length < 2) {
+      setResults([]);
+      return;
+    }
+    setResults(
+      nodes
+        .filter((node) =>
+          node.label.toLowerCase().includes(filter.toLowerCase())
+        )
+        .slice(0, 5)
+    );
+  }, [filter, nodes]);
+
+  return (
+    <div>
+      <h2 className="text-lg font-extrabold mb-2">Find</h2>
+      <input
+        type="text"
+        placeholder="Search..."
+        className="w-full p-2 bg-neutral-800 rounded-md mb-2"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+      />
+      <div className="flex flex-col gap-2">
+        {results.map((node) => (
+          <div
+            key={node.id}
+            className="p-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-colors"
+          >
+            <InternalLink href={`#${node.id}`}>{node.label}</InternalLink>
+            <small className="block">
+              <ShortWikitext wikitext={node.wikitext_description ?? []} />
+            </small>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Sidebar({
   settings,
   setSettings,
@@ -482,12 +540,13 @@ function Sidebar({
   >;
 }) {
   const [activeTab, setActiveTab] = useState<
-    "information" | "selected" | "settings"
+    "information" | "find" | "selected" | "settings"
   >("information");
   const [width, setWidth] = useState("20%");
   const sidebarRef = useRef<HTMLDivElement>(null);
   const sidebarContentRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -545,36 +604,22 @@ function Sidebar({
       <div className="flex-1 overflow-y-auto" ref={sidebarContentRef}>
         <div className="p-5 pl-1">
           <div className="flex mb-4">
-            <button
-              className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
-                activeTab === "information"
-                  ? "bg-neutral-800"
-                  : "bg-neutral-800/50"
-              }`}
-              onClick={() => setActiveTab("information")}
-            >
-              Info
-            </button>
-            <button
-              className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
-                activeTab === "selected"
-                  ? "bg-neutral-800"
-                  : "bg-neutral-800/50"
-              }`}
-              onClick={() => setActiveTab("selected")}
-            >
-              Selected
-            </button>
-            <button
-              className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
-                activeTab === "settings"
-                  ? "bg-neutral-800"
-                  : "bg-neutral-800/50"
-              }`}
-              onClick={() => setActiveTab("settings")}
-            >
-              Settings
-            </button>
+            {[
+              { id: "information" as const, label: "Info" },
+              { id: "find" as const, label: "Find" },
+              { id: "selected" as const, label: "Selected" },
+              { id: "settings" as const, label: "Settings" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
+                  activeTab === tab.id ? "bg-neutral-800" : "bg-neutral-800/50"
+                }`}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
           {activeTab === "information" ? (
             <ProjectInformation
@@ -582,6 +627,8 @@ function Sidebar({
               visibleTypes={visibleTypes}
               setVisibleTypes={setVisibleTypes}
             />
+          ) : activeTab === "find" ? (
+            <Find nodes={nodes} filter={filter} setFilter={setFilter} />
           ) : activeTab === "selected" ? (
             <SelectedNodeInfo
               selectedId={selectedId}
@@ -592,14 +639,12 @@ function Sidebar({
           ) : (
             <div>
               <h2 className="text-lg font-extrabold mb-2">Simulation</h2>
-              <div className="pl-5">
-                <SimulationControls
-                  params={settings.simulation}
-                  setParams={(params) =>
-                    setSettings({ ...settings, simulation: params })
-                  }
-                />
-              </div>
+              <SimulationControls
+                params={settings.simulation}
+                setParams={(params) =>
+                  setSettings({ ...settings, simulation: params })
+                }
+              />
             </div>
           )}
         </div>
