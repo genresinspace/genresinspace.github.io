@@ -9,7 +9,7 @@ import {
   SimulationControls,
   defaultSimulationParams,
 } from "./SimulationParams";
-import { StyledLink } from "./StyledLink";
+import { ExternalLink, InternalLink } from "./Links";
 import { dumpUrl, WikipediaLink, Wikitext, WikitextNode } from "./Wikipedia";
 
 type NodeData = {
@@ -187,12 +187,13 @@ function ProjectInformation({
       <div className="flex flex-col gap-4">
         <p>
           A graph of every music genre on English Wikipedia (as of{" "}
-          <StyledLink href={dumpUrl(dumpDate)}>{dumpDate}</StyledLink>
+          <ExternalLink href={dumpUrl(dumpDate)}>{dumpDate}</ExternalLink>
           ), inspired by{" "}
-          <StyledLink href="https://eightyeightthirty.one/">
+          <ExternalLink href="https://eightyeightthirty.one/">
             8831
-          </StyledLink>{" "}
-          and <StyledLink href="https://musicmap.info/">musicmap</StyledLink>.
+          </ExternalLink>{" "}
+          and{" "}
+          <ExternalLink href="https://musicmap.info/">musicmap</ExternalLink>.
         </p>
         <hr />
         {[
@@ -241,17 +242,19 @@ function ProjectInformation({
         ))}
         <hr />
         <p>
-          By <StyledLink href="https://philpax.me">Philpax</StyledLink>. Powered
-          by <StyledLink href="https://cosmograph.app/">Cosmograph</StyledLink>.
+          By <ExternalLink href="https://philpax.me">Philpax</ExternalLink>.
+          Powered by{" "}
+          <ExternalLink href="https://cosmograph.app/">Cosmograph</ExternalLink>
+          .
         </p>
         <p>
-          <StyledLink href="https://github.com/graphgenre/graphgenre.github.io">
+          <ExternalLink href="https://github.com/graphgenre/graphgenre.github.io">
             Source code
-          </StyledLink>
+          </ExternalLink>
           .{" "}
-          <StyledLink href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
+          <ExternalLink href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
             Blog post
-          </StyledLink>
+          </ExternalLink>
           , if you're curious.
         </p>
       </div>
@@ -434,13 +437,13 @@ function SelectedNodeInfo({
               const linkedNode = nodes.find((n) => n.id === id);
               return (
                 <li key={id}>
-                  <StyledLink
+                  <InternalLink
                     href={`#${id}`}
                     onMouseEnter={() => setFocusedId(id)}
                     onMouseLeave={() => setFocusedId(null)}
                   >
                     {linkedNode?.label || id}
-                  </StyledLink>
+                  </InternalLink>
                 </li>
               );
             })}

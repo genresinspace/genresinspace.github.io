@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledLink } from "./StyledLink";
+import { ExternalLink } from "./Links";
 import { JSX, useState } from "react";
 
 const WIKIPEDIA_URL = "https://en.wikipedia.org/wiki";
@@ -16,7 +16,7 @@ export function WikipediaLink({
   ...rest
 }: React.ComponentProps<"a"> & { pageTitle: string }) {
   return (
-    <StyledLink
+    <ExternalLink
       {...rest}
       href={`${WIKIPEDIA_URL}/${pageTitle.replace(/ /g, "_")}`}
     />
@@ -70,7 +70,7 @@ function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
     case "link":
       return <WikipediaLink pageTitle={node.title}>{node.text}</WikipediaLink>;
     case "ext-link":
-      return <StyledLink href={node.link}>{node.text}</StyledLink>;
+      return <ExternalLink href={node.link}>{node.text}</ExternalLink>;
     case "bold":
       return (
         <strong>
