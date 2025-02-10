@@ -729,7 +729,7 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<Simplified
             let mut children = vec![];
             for parameter in parameters {
                 let name = if let Some(parameter_name) = &parameter.name {
-                    nodes_inner_text(&parameter_name, &InnerTextConfig::default())
+                    nodes_inner_text(parameter_name, &InnerTextConfig::default())
                 } else {
                     let name = unnamed_parameter_index.to_string();
                     unnamed_parameter_index += 1;
@@ -752,7 +752,7 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<Simplified
             }
 
             return Some(SWN::Template {
-                name: nodes_inner_text(&name, &InnerTextConfig::default()),
+                name: nodes_inner_text(name, &InnerTextConfig::default()),
                 children,
             });
         }
@@ -766,13 +766,13 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<Simplified
         }
         pwt::Node::Link { target, text, .. } => {
             return Some(SWN::Link {
-                text: nodes_inner_text(&text, &InnerTextConfig::default()),
+                text: nodes_inner_text(text, &InnerTextConfig::default()),
                 title: target.to_string(),
                 genre_id: None,
             });
         }
         pwt::Node::ExternalLink { nodes, .. } => {
-            let inner = nodes_inner_text(&nodes, &InnerTextConfig::default());
+            let inner = nodes_inner_text(nodes, &InnerTextConfig::default());
             let (text, link) = inner.split_once(' ').unwrap_or(("link", &inner));
             return Some(SWN::ExtLink {
                 text: text.to_string(),
@@ -937,11 +937,8 @@ fn process_genres(
         }
 
         for node in &parsed_wikitext.nodes {
-            match node {
-                pwt::Node::Comment { start, end, .. } => {
-                    comment_ranges.push((*start, *end));
-                }
-                _ => {}
+            if let pwt::Node::Comment { start, end, .. } = node {
+                comment_ranges.push((*start, *end));
             }
         }
 
@@ -960,7 +957,7 @@ fn process_genres(
             &pwt_configuration,
             dump_page.as_deref(),
             page,
-            &wikitext,
+            wikitext,
         );
         let parsed_wikitext = pwt_configuration
             .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
