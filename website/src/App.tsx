@@ -517,10 +517,10 @@ function Sidebar({
     <div
       ref={sidebarRef}
       style={{ width, userSelect: isResizing ? "none" : "auto" }}
-      className="h-full bg-neutral-900 text-white p-5 box-border overflow-y-auto relative"
+      className="h-full bg-neutral-900 text-white box-border flex"
     >
       <div
-        className="absolute top-0 bottom-0 left-0 w-4 cursor-ew-resize hover:bg-neutral-700 select-none flex items-center justify-center"
+        className="h-full w-4 cursor-ew-resize hover:bg-neutral-700 select-none flex items-center justify-center shrink-0"
         onMouseDown={() => setIsResizing(true)}
       >
         <svg
@@ -533,48 +533,58 @@ function Sidebar({
           <path d="M2 0h1v16H2V0zM5 0h1v16H5V0z" />
         </svg>
       </div>
-      <div className="flex mb-4">
-        <button
-          className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
-            activeTab === "information" ? "bg-neutral-800" : "bg-neutral-800/50"
-          }`}
-          onClick={() => setActiveTab("information")}
-        >
-          Info
-        </button>
-        <button
-          className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
-            activeTab === "selected" ? "bg-neutral-800" : "bg-neutral-800/50"
-          }`}
-          onClick={() => setActiveTab("selected")}
-        >
-          Selected
-        </button>
-        <button
-          className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
-            activeTab === "simulation" ? "bg-neutral-800" : "bg-neutral-800/50"
-          }`}
-          onClick={() => setActiveTab("simulation")}
-        >
-          Sim
-        </button>
+      <div className="flex-1 overflow-y-auto">
+        <div className="p-5 pl-1">
+          <div className="flex mb-4">
+            <button
+              className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
+                activeTab === "information"
+                  ? "bg-neutral-800"
+                  : "bg-neutral-800/50"
+              }`}
+              onClick={() => setActiveTab("information")}
+            >
+              Info
+            </button>
+            <button
+              className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
+                activeTab === "selected"
+                  ? "bg-neutral-800"
+                  : "bg-neutral-800/50"
+              }`}
+              onClick={() => setActiveTab("selected")}
+            >
+              Selected
+            </button>
+            <button
+              className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
+                activeTab === "simulation"
+                  ? "bg-neutral-800"
+                  : "bg-neutral-800/50"
+              }`}
+              onClick={() => setActiveTab("simulation")}
+            >
+              Sim
+            </button>
+          </div>
+          {activeTab === "information" ? (
+            <ProjectInformation
+              dumpDate={dumpDate}
+              visibleTypes={visibleTypes}
+              setVisibleTypes={setVisibleTypes}
+            />
+          ) : activeTab === "selected" ? (
+            <SelectedNodeInfo
+              selectedId={selectedId}
+              setFocusedId={setFocusedId}
+              nodes={nodes}
+              links={links}
+            />
+          ) : (
+            <SimulationControls params={params} setParams={setParams} />
+          )}
+        </div>
       </div>
-      {activeTab === "information" ? (
-        <ProjectInformation
-          dumpDate={dumpDate}
-          visibleTypes={visibleTypes}
-          setVisibleTypes={setVisibleTypes}
-        />
-      ) : activeTab === "selected" ? (
-        <SelectedNodeInfo
-          selectedId={selectedId}
-          setFocusedId={setFocusedId}
-          nodes={nodes}
-          links={links}
-        />
-      ) : (
-        <SimulationControls params={params} setParams={setParams} />
-      )}
     </div>
   );
 }
