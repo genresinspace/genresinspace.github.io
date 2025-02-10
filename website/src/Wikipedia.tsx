@@ -1,9 +1,8 @@
+import React from "react";
 import { StyledLink } from "./StyledLink";
-import Parser from "wikiparser-node";
 import { JSX, useState } from "react";
 
 const WIKIPEDIA_URL = "https://en.wikipedia.org/wiki";
-Parser.config = "enwiki";
 
 /**
  * @param {string} dumpDate - The date of the Wikipedia dump in YYYY-MM-DD format
@@ -25,209 +24,36 @@ export function WikipediaLink({
 }
 
 export function Wikitext(
-  props: React.ComponentProps<"span"> & { wikitext: string }
+  props: React.ComponentProps<"span"> & { wikitext: WikitextNode[] }
 ) {
-  const remappedAst = parseAndRemapWikitext(props.wikitext);
-  if (!remappedAst) {
-    return null;
-  }
-  return <WikitextNode node={remappedAst} />;
+  return (
+    <>
+      {props.wikitext.map((node, i) => (
+        <WikitextNode key={i} node={node} />
+      ))}
+    </>
+  );
 }
 
-type WikitextNode =
+export type WikitextNode =
   | { type: "fragment"; children: WikitextNode[] }
   | {
       type: "template";
       name: string;
-      children: Extract<WikitextNode, { type: "parameter" }>[];
+      children: { type: "parameter"; name: string; value: string }[];
     }
-  | { type: "parameter"; name: string; value: string }
   | { type: "link"; text: string; title: string }
   | { type: "ext-link"; text: string; link: string }
   | { type: "bold"; children: WikitextNode[] }
   | { type: "italic"; children: WikitextNode[] }
   | { type: "blockquote"; children: WikitextNode[] }
-  | { type: "text"; text: string };
-
-function parseAndRemapWikitext(wikitext: string): WikitextNode | null {
-  return remapWikitextNode(Parser.parse(wikitext));
-}
-
-function dumpNodes(nodes: readonly Parser.AstNodes[], depth = 0) {
-  for (const node of nodes) {
-    let line = " ".repeat(depth * 2) + node.type;
-    if (node.name) {
-      line += `(${node.name})`;
-    }
-    line += `: ${node.text()}`;
-    console.log(line);
-    if (node.childNodes.length > 0) {
-      dumpNodes(node.childNodes, depth + 1);
-    }
-  }
-}
-
-const DUMP_NODES =
-  typeof window === "undefined" && process.env.DUMP_NODES === "1";
-function remapWikitextNodes(nodes: readonly Parser.AstNodes[]): WikitextNode[] {
-  if (DUMP_NODES) {
-    dumpNodes(nodes);
-  }
-
-  const rootStack: (
-    | (
-        | { type: "fragment" }
-        | { type: "bold" }
-        | { type: "italic" }
-        | { type: "blockquote" }
-      ) & {
-        children: WikitextNode[];
-      }
-  )[] = [{ type: "fragment", children: [] }];
-
-  for (const node of nodes) {
-    switch (node.type) {
-      case "quote":
-        let quoteNode = node as Parser.QuoteToken;
-        if (quoteNode.bold && quoteNode.italic) {
-          if (rootStack[rootStack.length - 1].type !== "italic") {
-            rootStack.push({ type: "bold", children: [] });
-            rootStack.push({ type: "italic", children: [] });
-          } else {
-            const italic = rootStack.pop()! as {
-              type: "italic";
-              children: WikitextNode[];
-            };
-            const bold = rootStack.pop()! as {
-              type: "bold";
-              children: WikitextNode[];
-            };
-            bold.children.push(italic);
-            rootStack[rootStack.length - 1].children.push(bold);
-          }
-        } else if (quoteNode.bold) {
-          if (rootStack[rootStack.length - 1].type !== "bold") {
-            rootStack.push({ type: "bold", children: [] });
-          } else {
-            const bold = rootStack.pop()! as {
-              type: "bold";
-              children: WikitextNode[];
-            };
-            rootStack[rootStack.length - 1].children.push(bold);
-          }
-        } else if (quoteNode.italic) {
-          if (rootStack[rootStack.length - 1].type !== "italic") {
-            rootStack.push({ type: "italic", children: [] });
-          } else {
-            const italic = rootStack.pop()! as {
-              type: "italic";
-              children: WikitextNode[];
-            };
-            rootStack[rootStack.length - 1].children.push(italic);
-          }
-        }
-        break;
-      case "html":
-        let htmlNode = node as Parser.HtmlToken;
-        if (htmlNode.name === "blockquote") {
-          if (htmlNode.closing) {
-            const maybeBlockquote = rootStack.pop()!;
-            if (maybeBlockquote.type !== "blockquote") {
-              throw new Error(
-                `Expected blockquote to be on top of stack; instead, found ${JSON.stringify(
-                  maybeBlockquote,
-                  null,
-                  2
-                )}`
-              );
-            }
-            const blockquote = maybeBlockquote as {
-              type: "blockquote";
-              children: WikitextNode[];
-            };
-            rootStack[rootStack.length - 1].children.push(blockquote);
-          } else {
-            rootStack.push({ type: "blockquote", children: [] });
-          }
-        }
-        break;
-      default:
-        const remappedNode = remapWikitextNode(node);
-        if (remappedNode) {
-          rootStack[rootStack.length - 1].children.push(remappedNode);
-        }
-    }
-  }
-
-  // This is a disgusting hack, but Wikipedia implicitly closes these, so we need to as well...
-  while (rootStack.length > 1) {
-    const popped = rootStack.pop()!;
-    rootStack[rootStack.length - 1].children.push(popped);
-  }
-  return rootStack[0].children;
-}
-
-function remapWikitextNode(node: Parser.AstNodes): WikitextNode | null {
-  switch (node.type) {
-    case "root":
-      return {
-        type: "fragment",
-        children: remapWikitextNodes(node.childNodes),
-      };
-    case "template":
-      return {
-        type: "template",
-        name: node.name!.toLowerCase(),
-        children: remapWikitextNodes(node.childNodes.slice(1)) as Extract<
-          WikitextNode,
-          { type: "parameter" }
-        >[],
-      };
-    case "magic-word":
-      // Making the current assumption that we don't care about these
-      return null;
-    case "parameter":
-      const n = node as Parser.ParameterToken;
-      return {
-        type: "parameter",
-        name: n.name,
-        value: n.getValue(),
-      };
-    case "quote":
-      // We can't do anything at this level
-      return null;
-    case "link": {
-      const l = node as Parser.LinkToken;
-      return {
-        type: "link",
-        text: l.innerText,
-        title: l.link.title,
-      };
-    }
-    case "ext-link": {
-      const l = node as Parser.ExtLinkToken;
-      return {
-        type: "ext-link",
-        text: l.innerText,
-        link: l.link,
-      };
-    }
-    case "text":
-      return {
-        type: "text",
-        text: node.text(),
-      };
-    case "ext":
-    case "category":
-    case "comment":
-    case "file":
-      // Don't care
-      return null;
-    default:
-      break;
-  }
-  throw new Error(`Unknown node type: ${node.type}: ${node.text()}`);
-}
+  | { type: "superscript"; children: WikitextNode[] }
+  | { type: "subscript"; children: WikitextNode[] }
+  | { type: "small"; children: WikitextNode[] }
+  | { type: "preformatted"; children: WikitextNode[] }
+  | { type: "text"; text: string }
+  | { type: "paragraph_break" }
+  | { type: "newline" };
 
 function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
   switch (node.type) {
@@ -241,8 +67,6 @@ function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
       );
     case "template":
       return <WikitextTemplate node={node} />;
-    case "parameter":
-      return <WikitextParameter node={node} />;
     case "link":
       return <WikipediaLink pageTitle={node.title}>{node.text}</WikipediaLink>;
     case "ext-link":
@@ -271,8 +95,49 @@ function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
           ))}
         </blockquote>
       );
+    case "superscript":
+      return (
+        <sup>
+          {node.children.map((child, i) => (
+            <WikitextNode key={i} node={child} />
+          ))}
+        </sup>
+      );
+    case "subscript":
+      return (
+        <sub>
+          {node.children.map((child, i) => (
+            <WikitextNode key={i} node={child} />
+          ))}
+        </sub>
+      );
+    case "small":
+      return (
+        <small>
+          {node.children.map((child, i) => (
+            <WikitextNode key={i} node={child} />
+          ))}
+        </small>
+      );
+    case "preformatted":
+      return (
+        <pre>
+          {node.children.map((child, i) => (
+            <WikitextNode key={i} node={child} />
+          ))}
+        </pre>
+      );
     case "text":
       return <>{node.text}</>;
+    case "paragraph_break":
+      return (
+        <>
+          <br />
+          <br />
+        </>
+      );
+    case "newline":
+      return <br />;
   }
 }
 
@@ -287,11 +152,14 @@ function WikitextTemplate({
 }: {
   node: Extract<WikitextNode, { type: "template" }>;
 }) {
-  const templateName = node.name.replace(/^template:/, "");
+  const templateName = node.name
+    .replace(/^template:/, "")
+    .replace(/ /g, "_")
+    .toLowerCase();
   switch (templateName) {
     case "nihongo":
       // TODO: consider replicating the other arguments of the template
-      return <WikitextNode node={node.children[0]} />;
+      return <>{node.children[0].value}</>;
     case "'":
       return <>'</>;
     case `'_"`:
@@ -320,25 +188,13 @@ function WikitextTemplate({
       const author = params.author || params["2"];
       const title = params.title || params["3"];
       const source = params.source || params["4"];
-      const citationElements = [author, title, source]
+      const citation = [author, title, source]
         .filter((s) => s !== undefined)
-        .map((s, i) => <Wikitext wikitext={s} key={i} />);
-      const citation =
-        citationElements.length === 0
-          ? null
-          : citationElements.reduce((prev, curr, i) => (
-              <>
-                {prev}
-                {i > 0 && <>, </>}
-                {curr}
-              </>
-            ));
+        .join(" ");
 
       return (
         <figure>
-          <blockquote>
-            <Wikitext wikitext={text} />
-          </blockquote>
+          <blockquote>{text}</blockquote>
           {citation && <figcaption>{citation}</figcaption>}
         </figure>
       );
@@ -362,8 +218,7 @@ function WikitextTemplate({
       // TODO: consider actually doing the conversion at some point
       return (
         <>
-          <WikitextNode node={node.children[0]} />{" "}
-          <WikitextNode node={node.children[1]} />
+          {node.children[0].value} {node.children[1].value}
         </>
       );
     case "culture_of_colombia":
@@ -378,12 +233,12 @@ function WikitextTemplate({
       return <sup>[disputed]</sup>;
     case "efn":
     case "efn-ua":
-      return <WikipediaFootnote node={node.children[0]} />;
+      return <WikipediaFootnote node={node.children[0].value} />;
     case "em":
       return (
         <em>
           {node.children.map((child, i) => (
-            <WikitextNode key={i} node={child} />
+            <React.Fragment key={i}>{child.value}</React.Fragment>
           ))}
         </em>
       );
@@ -490,9 +345,7 @@ function WikitextTemplate({
       return <>{node.children.map((c) => c.value).join("")}</>;
     case "nowrap":
       return (
-        <span className="whitespace-nowrap">
-          <WikitextNode node={node.children[0]} />
-        </span>
+        <span className="whitespace-nowrap">{node.children[0].value}</span>
       );
     case "pronunciation":
       // TODO: implement, this could be quite important for this use case
@@ -503,6 +356,7 @@ function WikitextTemplate({
     case "refn":
     case "rp":
     case "sfn":
+    case "#tag:ref":
       // Don't care about references
       return null;
     case "respell":
@@ -517,7 +371,7 @@ function WikitextTemplate({
       return (
         <small>
           {node.children.map((c, i) => (
-            <Wikitext wikitext={c.value} key={i} />
+            <React.Fragment key={i}>{c.value}</React.Fragment>
           ))}
         </small>
       );
@@ -606,23 +460,12 @@ function WikitextTemplate({
   }
 }
 
-function WikitextParameter({
-  node,
-}: {
-  node: Extract<WikitextNode, { type: "parameter" }>;
-}) {
-  if (!node.value) {
-    return null;
-  }
-  return <Wikitext wikitext={node.value} />;
-}
-
-function WikipediaFootnote({ node }: { node: WikitextNode }) {
+function WikipediaFootnote({ node }: { node: string }) {
   const [visible, setVisible] = useState(false);
   return (
     <sup>
       <button onClick={() => setVisible(!visible)}>
-        [{visible ? <WikitextNode node={node} /> : "show"}]
+        [{visible ? node : "show"}]
       </button>
     </sup>
   );

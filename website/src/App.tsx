@@ -10,12 +10,12 @@ import {
   defaultSimulationParams,
 } from "./SimulationParams";
 import { StyledLink } from "./StyledLink";
-import { dumpUrl, WikipediaLink, Wikitext } from "./Wikipedia";
+import { dumpUrl, WikipediaLink, Wikitext, WikitextNode } from "./Wikipedia";
 
 type NodeData = {
   id: string;
   page_title: string;
-  wikitext_description?: string;
+  wikitext_description?: WikitextNode[];
   label: string;
   last_revision_date: string;
   links: number[];
@@ -270,8 +270,6 @@ function SelectedNodeInfo({
   nodes: NodeData[];
   links: LinkData[];
 }) {
-  const [expanded, setExpanded] = useState(false);
-
   if (!selectedId) {
     return <p>No node selected</p>;
   }
@@ -397,22 +395,8 @@ function SelectedNodeInfo({
           <em>{new Date(node.last_revision_date).toLocaleString()}</em>
         </small>
         {node.wikitext_description && (
-          <div className="flex flex-col gap-2">
-            <Wikitext
-              wikitext={
-                expanded
-                  ? node.wikitext_description
-                  : node.wikitext_description.split("\n")[0]
-              }
-            />
-            {node.wikitext_description.includes("\n") && (
-              <button
-                onClick={() => setExpanded(!expanded)}
-                className="w-full p-2 text-sm text-neutral-400 hover:text-white bg-neutral-800 hover:bg-neutral-700 rounded-md mx-auto block transition-colors"
-              >
-                {expanded ? "Show less" : "Show more"}
-              </button>
-            )}
+          <div>
+            <Wikitext wikitext={node.wikitext_description} />
           </div>
         )}
       </div>
