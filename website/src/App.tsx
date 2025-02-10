@@ -12,6 +12,10 @@ import {
 import { ExternalLink, InternalLink } from "./Links";
 import { dumpUrl, WikipediaLink, Wikitext, WikitextNode } from "./Wikipedia";
 
+type Settings = {
+  simulation: SimulationParams;
+};
+
 type NodeData = {
   id: string;
   page_title: string;
@@ -42,14 +46,14 @@ const fusionGenreColour = (saturation: number = 70) =>
   `hsl(240, ${saturation}%, 60%)`;
 
 function Graph({
-  params,
+  settings,
   maxDegree,
   selectedId,
   setSelectedId,
   focusedId,
   visibleTypes,
 }: {
-  params: SimulationParams;
+  settings: Settings;
   maxDegree: number;
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
@@ -157,7 +161,7 @@ function Graph({
         nodeLabelColor="#CCC"
         hoveredNodeLabelColor="#FFF"
         spaceSize={8192}
-        {...params}
+        {...settings.simulation}
         randomSeed={"Where words fail, music speaks"}
         nodeGreyoutOpacity={1}
         linkGreyoutOpacity={1}
@@ -455,8 +459,8 @@ function SelectedNodeInfo({
 }
 
 function Sidebar({
-  params,
-  setParams,
+  settings,
+  setSettings,
   dumpDate,
   selectedId,
   setFocusedId,
@@ -465,8 +469,8 @@ function Sidebar({
   visibleTypes,
   setVisibleTypes,
 }: {
-  params: SimulationParams;
-  setParams: (params: SimulationParams) => void;
+  settings: Settings;
+  setSettings: (settings: Settings) => void;
   dumpDate: string;
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
@@ -478,7 +482,7 @@ function Sidebar({
   >;
 }) {
   const [activeTab, setActiveTab] = useState<
-    "information" | "selected" | "simulation"
+    "information" | "selected" | "settings"
   >("information");
   const [width, setWidth] = useState("20%");
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -563,13 +567,13 @@ function Sidebar({
             </button>
             <button
               className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
-                activeTab === "simulation"
+                activeTab === "settings"
                   ? "bg-neutral-800"
                   : "bg-neutral-800/50"
               }`}
-              onClick={() => setActiveTab("simulation")}
+              onClick={() => setActiveTab("settings")}
             >
-              Sim
+              Settings
             </button>
           </div>
           {activeTab === "information" ? (
@@ -586,7 +590,17 @@ function Sidebar({
               links={links}
             />
           ) : (
-            <SimulationControls params={params} setParams={setParams} />
+            <div>
+              <h2 className="text-lg font-extrabold mb-2">Simulation</h2>
+              <div className="pl-5">
+                <SimulationControls
+                  params={settings.simulation}
+                  setParams={(params) =>
+                    setSettings({ ...settings, simulation: params })
+                  }
+                />
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -676,9 +690,9 @@ function App() {
     }
   }, [selectedId]);
 
-  const [params, setParams] = useState<SimulationParams>(
-    defaultSimulationParams
-  );
+  const [settings, setSettings] = useState<Settings>({
+    simulation: defaultSimulationParams,
+  });
 
   if (!data) {
     return (
@@ -697,7 +711,7 @@ function App() {
     <div className="flex w-screen h-screen">
       <CosmographProvider nodes={data.nodes} links={data.links}>
         <Graph
-          params={params}
+          settings={settings}
           maxDegree={data.max_degree}
           selectedId={selectedId}
           setSelectedId={setSelectedId}
@@ -705,8 +719,8 @@ function App() {
           visibleTypes={visibleTypes}
         />
         <Sidebar
-          params={params}
-          setParams={setParams}
+          settings={settings}
+          setSettings={setSettings}
           dumpDate={data.dump_date}
           selectedId={selectedId}
           setFocusedId={setFocusedId}

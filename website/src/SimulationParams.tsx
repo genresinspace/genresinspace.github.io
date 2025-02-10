@@ -119,7 +119,7 @@ export function SimulationControls({
   const cosmographContext = useCosmograph();
 
   return (
-    <div>
+    <>
       {simulationControls.map((control) => (
         <div key={control.name} className="mb-2">
           <label title={control.description} className="block font-bold">
@@ -127,6 +127,7 @@ export function SimulationControls({
           </label>
           <input
             type="range"
+            className="w-3/5"
             min={control.min}
             max={control.max}
             step={control.step}
@@ -147,6 +148,6 @@ export function SimulationControls({
           <p className="description">{control.description}</p>
         </div>
       ))}
-    </div>
+    </>
   );
 }
