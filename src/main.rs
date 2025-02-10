@@ -478,6 +478,17 @@ fn process_genres(
 
         let mut description: Option<String> = None;
         let mut pause_recording_description = false;
+        // When we skip a node for inclusion in the description, we keep track of its 'end',
+        // so that we can sample from there instead of the 'start' of the next node.
+        // This fixes some issues around skipped nodes including whitespace that the next
+        // node doesn't include.
+        let mut last_skipped_end = None;
+        fn description_start(last_skipped_end: &mut Option<usize>, start: usize) -> usize {
+            last_skipped_end
+                .take()
+                .filter(|&end| end < start)
+                .unwrap_or(start)
+        }
         for node in &parsed_wikitext.nodes {
             match node {
                 pwt::Node::Template {
@@ -511,7 +522,9 @@ fn process_genres(
                             && (!description.trim().is_empty()
                                 || ACCEPTABLE_TEMPLATES.contains(template_name.as_str()))
                         {
-                            description.push_str(&wikitext[*start..*end]);
+                            description.push_str(
+                                &wikitext[description_start(&mut last_skipped_end, *start)..*end],
+                            );
                         }
                     }
 
@@ -596,15 +609,19 @@ fn process_genres(
                     processed_genres.insert(page.clone(), processed_genre.clone());
                     processed_genre.save(processed_genres_path, page)?;
                     description = Some(String::new());
+                    last_skipped_end = Some(*end);
                 }
-                pwt::Node::StartTag { name, .. } if name == "ref" => {
+                pwt::Node::StartTag { name, end, .. } if name == "ref" => {
                     pause_recording_description = true;
+                    last_skipped_end = Some(*end);
                 }
-                pwt::Node::EndTag { name, .. } if name == "ref" => {
+                pwt::Node::EndTag { name, end, .. } if name == "ref" => {
                     pause_recording_description = false;
+                    last_skipped_end = Some(*end);
                 }
-                pwt::Node::Tag { name, .. } if name == "ref" => {
+                pwt::Node::Tag { name, end, .. } if name == "ref" => {
                     // Explicitly ignore body of a ref tag
+                    last_skipped_end = Some(*end);
                 }
                 pwt::Node::Bold { end, start }
                 | pwt::Node::BoldItalic { end, start }
@@ -629,7 +646,9 @@ fn process_genres(
                 | pwt::Node::UnorderedList { end, start, .. } => {
                     if !pause_recording_description {
                         if let Some(description) = &mut description {
-                            description.push_str(&wikitext[*start..*end]);
+                            description.push_str(
+                                &wikitext[description_start(&mut last_skipped_end, *start)..*end],
+                            );
                         }
                     }
                 }
