@@ -711,19 +711,11 @@ fn process_genres(
 
         let mut description: Option<String> = None;
         let mut pause_recording_description = false;
-        // When we skip a node for inclusion in the description, we keep track of its 'end',
-        // so that we can sample from there instead of the 'start' of the next node.
-        // This fixes some issues around skipped nodes including whitespace that the next
-        // node doesn't include.
-        let mut last_skipped_end = None;
-        fn start_including_last_skipped_end(
-            last_skipped_end: &mut Option<usize>,
-            start: usize,
-        ) -> usize {
-            last_skipped_end
-                .take()
-                .filter(|&end| end < start)
-                .unwrap_or(start)
+        // The `start` of a node doesn't always correspond to the `end` of the last node,
+        // so we always save the `end` to allow for full reconstruction in the description.
+        let mut last_end = None;
+        fn start_including_last_end(last_end: &mut Option<usize>, start: usize) -> usize {
+            last_end.take().filter(|&end| end < start).unwrap_or(start)
         }
         for node in &parsed_wikitext.nodes {
             match node {
@@ -759,13 +751,11 @@ fn process_genres(
                                 || ACCEPTABLE_TEMPLATES.contains(template_name.as_str()))
                         {
                             description.push_str(
-                                &wikitext[start_including_last_skipped_end(
-                                    &mut last_skipped_end,
-                                    *start,
-                                )..*end],
+                                &wikitext[start_including_last_end(&mut last_end, *start)..*end],
                             );
                         }
                     }
+                    last_end = Some(*end);
 
                     if template_name != "infobox music genre" {
                         continue;
@@ -848,19 +838,18 @@ fn process_genres(
                     processed_genres.insert(page.clone(), processed_genre.clone());
                     processed_genre.save(processed_genres_path, page)?;
                     description = Some(String::new());
-                    last_skipped_end = Some(*end);
                 }
                 pwt::Node::StartTag { name, end, .. } if name == "ref" => {
                     pause_recording_description = true;
-                    last_skipped_end = Some(*end);
+                    last_end = Some(*end);
                 }
                 pwt::Node::EndTag { name, end, .. } if name == "ref" => {
                     pause_recording_description = false;
-                    last_skipped_end = Some(*end);
+                    last_end = Some(*end);
                 }
                 pwt::Node::Tag { name, end, .. } if name == "ref" => {
                     // Explicitly ignore body of a ref tag
-                    last_skipped_end = Some(*end);
+                    last_end = Some(*end);
                 }
                 pwt::Node::Bold { end, start }
                 | pwt::Node::BoldItalic { end, start }
@@ -885,14 +874,19 @@ fn process_genres(
                 | pwt::Node::UnorderedList { end, start, .. } => {
                     if !pause_recording_description {
                         if let Some(description) = &mut description {
-                            description.push_str(
-                                &wikitext[start_including_last_skipped_end(
-                                    &mut last_skipped_end,
-                                    *start,
-                                )..*end],
-                            );
+                            let new_start = start_including_last_end(&mut last_end, *start);
+                            let new_fragment = &wikitext[new_start..*end];
+                            if dump_page.as_deref().is_some_and(|s| s == page.0) {
+                                println!("Description: {description:?}");
+                                println!("New fragment: {new_fragment:?}");
+                                println!("New start: {new_start} vs start: {start}");
+                                println!("End: {end}");
+                                println!();
+                            }
+                            description.push_str(new_fragment);
                         }
                     }
+                    last_end = Some(*end);
                 }
                 pwt::Node::Heading { .. } => {
                     if let Some(processed_genre) = processed_genres.get_mut(page) {
@@ -902,7 +896,9 @@ fn process_genres(
                         }
                     }
                 }
-                pwt::Node::Image { .. } | pwt::Node::Comment { .. } => {}
+                pwt::Node::Image { end, .. } | pwt::Node::Comment { end, .. } => {
+                    last_end = Some(*end);
+                }
             }
         }
 
