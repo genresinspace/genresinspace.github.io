@@ -467,6 +467,186 @@ fn process_genres(
     let mut stylistic_origin_count = 0usize;
     let mut derivative_count = 0usize;
 
+    let dump_page = std::env::var("DUMP_PAGE").ok();
+
+    fn dump_page_nodes(wikitext: &str, nodes: &[pwt::Node], depth: usize) {
+        for node in nodes {
+            let mut children = None;
+            let outer_start;
+            let outer_end;
+
+            print!("{:indent$}", "", indent = depth * 2);
+            match node {
+                pwt::Node::Bold { end, start } => {
+                    print!("bold");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::BoldItalic { end, start } => {
+                    print!("bold_italic");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::Category { end, start, .. } => {
+                    print!("category");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::CharacterEntity { end, start, .. } => {
+                    print!("character_entity");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::Comment { end, start } => {
+                    print!("comment");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::DefinitionList {
+                    end,
+                    start,
+                    items: _,
+                } => {
+                    print!("definition_list");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::EndTag { end, start, .. } => {
+                    print!("end_tag");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::ExternalLink { end, nodes, start } => {
+                    print!("external_link");
+                    outer_start = *start;
+                    outer_end = *end;
+                    children = Some(nodes);
+                }
+                pwt::Node::Heading {
+                    end, start, nodes, ..
+                } => {
+                    print!("heading");
+                    outer_start = *start;
+                    outer_end = *end;
+                    children = Some(nodes);
+                }
+                pwt::Node::HorizontalDivider { end, start } => {
+                    print!("horizontal_divider");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::Image {
+                    end, start, text, ..
+                } => {
+                    print!("image");
+                    outer_start = *start;
+                    outer_end = *end;
+                    children = Some(text);
+                }
+                pwt::Node::Italic { end, start } => {
+                    print!("italic");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::Link {
+                    end, start, text, ..
+                } => {
+                    print!("link");
+                    outer_start = *start;
+                    outer_end = *end;
+                    children = Some(text);
+                }
+                pwt::Node::MagicWord { end, start } => {
+                    print!("magic_word");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::OrderedList {
+                    end,
+                    start,
+                    items: _,
+                } => {
+                    print!("ordered_list");
+                    outer_start = *start;
+                    outer_end = *end;
+                    // children = Some(items);
+                }
+                pwt::Node::ParagraphBreak { end, start } => {
+                    print!("paragraph_break");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::Parameter { end, start, .. } => {
+                    print!("parameter");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::Preformatted { end, start, nodes } => {
+                    print!("preformatted");
+                    outer_start = *start;
+                    outer_end = *end;
+                    children = Some(nodes);
+                }
+                pwt::Node::Redirect { end, start, .. } => {
+                    print!("redirect");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::StartTag { end, start, .. } => {
+                    print!("start_tag");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::Table {
+                    end,
+                    start,
+                    rows: _,
+                    ..
+                } => {
+                    print!("table");
+                    outer_start = *start;
+                    outer_end = *end;
+                    // children = Some(rows);
+                }
+                pwt::Node::Tag {
+                    end, start, nodes, ..
+                } => {
+                    print!("tag");
+                    outer_start = *start;
+                    outer_end = *end;
+                    children = Some(nodes);
+                }
+                pwt::Node::Template { end, start, .. } => {
+                    print!("template");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::Text { end, start, .. } => {
+                    print!("text");
+                    outer_start = *start;
+                    outer_end = *end;
+                }
+                pwt::Node::UnorderedList {
+                    end,
+                    start,
+                    items: _,
+                } => {
+                    print!("unordered_list");
+                    outer_start = *start;
+                    outer_end = *end;
+                    // children = Some(items);
+                }
+            }
+            println!(
+                "[{outer_start}..{outer_end}]: {:?}",
+                &wikitext[outer_start..outer_end]
+            );
+            if let Some(children) = children {
+                dump_page_nodes(wikitext, children, depth + 1);
+            }
+        }
+    }
+
     /// This is monstrous.
     /// We are parsing the Wikitext, reconstructing it without the comments, and then parsing it again.
     ///
@@ -479,6 +659,7 @@ fn process_genres(
     /// compute and memory is cheap, so... here we go.
     fn remove_comments_from_wikitext_the_painful_way(
         pwt_configuration: &pwt::Configuration,
+        dump_page: Option<&str>,
         page: &PageName,
         wikitext: &str,
     ) -> String {
@@ -488,6 +669,11 @@ fn process_genres(
 
         let mut new_wikitext = wikitext.to_string();
         let mut comment_ranges = vec![];
+
+        if dump_page.is_some_and(|s| s == page.0) {
+            println!("--- BEFORE ---");
+            dump_page_nodes(wikitext, &parsed_wikitext.nodes, 0);
+        }
 
         for node in &parsed_wikitext.nodes {
             match node {
@@ -509,11 +695,19 @@ fn process_genres(
         let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
         let wikitext_header: WikitextHeader = serde_json::from_str(wikitext_header)?;
 
-        let wikitext =
-            remove_comments_from_wikitext_the_painful_way(&pwt_configuration, page, &wikitext);
+        let wikitext = remove_comments_from_wikitext_the_painful_way(
+            &pwt_configuration,
+            dump_page.as_deref(),
+            page,
+            &wikitext,
+        );
         let parsed_wikitext = pwt_configuration
             .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
             .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
+        if dump_page.as_deref().is_some_and(|s| s == page.0) {
+            println!("--- AFTER ---");
+            dump_page_nodes(&wikitext, &parsed_wikitext.nodes, 0);
+        }
 
         let mut description: Option<String> = None;
         let mut pause_recording_description = false;
