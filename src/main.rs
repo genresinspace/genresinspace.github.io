@@ -107,7 +107,13 @@ fn main() -> anyhow::Result<()> {
 
     remove_ignored_pages_and_detect_duplicates(&mut processed_genres);
 
-    produce_data_json(start, dump_date, &data_path, &processed_genres)?;
+    produce_data_json(
+        start,
+        dump_date,
+        &data_path,
+        &links_to_articles,
+        &processed_genres,
+    )?;
 
     Ok(())
 }
@@ -340,6 +346,11 @@ fn extract_genres_and_all_redirects(
 }
 
 pub struct LinksToArticles(pub HashMap<String, PageName>);
+impl LinksToArticles {
+    pub fn map(&self, link: &str) -> Option<PageName> {
+        self.0.get(&link.to_lowercase()).map(|s| s.to_owned())
+    }
+}
 /// Construct a map of links (lower-case page names and redirects) to genres.
 ///
 /// This will loop over all redirects and find redirects to already-resolved genres, adding them to the map.
@@ -507,7 +518,15 @@ enum SimplifiedWikitextNode {
         children: Vec<TemplateParameter>,
     },
     #[serde(rename = "link")]
-    Link { text: String, title: String },
+    Link {
+        text: String,
+        title: String,
+
+        // I don't love including this project-specific field within this, but there isn't an cleaner way to do this
+        // without having a duplicate version of this enum.
+        #[serde(skip_serializing_if = "Option::is_none")]
+        genre_id: Option<PageDataId>,
+    },
     #[serde(rename = "ext-link")]
     ExtLink { text: String, link: String },
     #[serde(rename = "bold")]
@@ -570,6 +589,14 @@ impl SimplifiedWikitextNode {
             Self::Small { children } => Some(children),
             Self::Preformatted { children } => Some(children),
             _ => None,
+        }
+    }
+    fn visit_mut(&mut self, visitor: &mut impl FnMut(&mut Self)) {
+        visitor(self);
+        if let Some(children) = self.children_mut() {
+            for child in children {
+                child.visit_mut(visitor);
+            }
         }
     }
 }
@@ -741,6 +768,7 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<Simplified
             return Some(SWN::Link {
                 text: nodes_inner_text(&text, &InnerTextConfig::default()),
                 title: target.to_string(),
+                genre_id: None,
             });
         }
         pwt::Node::ExternalLink { nodes, .. } => {
@@ -1026,12 +1054,7 @@ fn process_genres(
                     let map_links_to_articles = |links: Vec<String>| -> Vec<PageName> {
                         links
                             .into_iter()
-                            .filter_map(|link| {
-                                links_to_articles
-                                    .0
-                                    .get(&link.to_lowercase())
-                                    .map(|s| s.to_owned())
-                            })
+                            .filter_map(|link| links_to_articles.map(&link))
                             .collect()
                     };
                     let stylistic_origins = parameters
@@ -1203,6 +1226,7 @@ fn produce_data_json(
     start: std::time::Instant,
     dump_date: jiff::civil::Date,
     data_path: &Path,
+    links_to_articles: &LinksToArticles,
     processed_genres: &ProcessedGenres,
 ) -> anyhow::Result<()> {
     let mut graph = Graph {
@@ -1276,6 +1300,27 @@ fn produce_data_json(
 
     // Fourth pass: calculate max degree
     graph.max_degree = graph.nodes.iter().map(|n| n.links.len()).max().unwrap_or(0);
+
+    // Fifth pass: attempt to remap internal links to genre links where possible
+    for node in &mut graph.nodes {
+        if let Some(wikitext_description) = &mut node.wikitext_description {
+            for node in wikitext_description.iter_mut() {
+                node.visit_mut(&mut |node| {
+                    if let SimplifiedWikitextNode::Link {
+                        title, genre_id, ..
+                    } = node
+                    {
+                        if let Some(page_data_id) = links_to_articles
+                            .map(title)
+                            .and_then(|page| page_to_id.get(&page))
+                        {
+                            *genre_id = Some(*page_data_id);
+                        }
+                    }
+                });
+            }
+        }
+    }
 
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
     println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());

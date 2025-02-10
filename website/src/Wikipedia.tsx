@@ -1,5 +1,5 @@
 import React from "react";
-import { ExternalLink } from "./Links";
+import { ExternalLink, InternalLink } from "./Links";
 import { JSX, useState } from "react";
 
 const WIKIPEDIA_URL = "https://en.wikipedia.org/wiki";
@@ -42,7 +42,13 @@ export type WikitextNode =
       name: string;
       children: { type: "parameter"; name: string; value: string }[];
     }
-  | { type: "link"; text: string; title: string }
+  | {
+      type: "link";
+      text: string;
+      title: string;
+      // We love a good leaky abstraction
+      genre_id?: string;
+    }
   | { type: "ext-link"; text: string; link: string }
   | { type: "bold"; children: WikitextNode[] }
   | { type: "italic"; children: WikitextNode[] }
@@ -68,6 +74,16 @@ function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
     case "template":
       return <WikitextTemplate node={node} />;
     case "link":
+      if (node.genre_id) {
+        return (
+          <span>
+            <InternalLink href={`#${node.genre_id}`}>{node.text}</InternalLink>
+            <sup>
+              <WikipediaLink pageTitle={node.title}>wp</WikipediaLink>
+            </sup>
+          </span>
+        );
+      }
       return <WikipediaLink pageTitle={node.title}>{node.text}</WikipediaLink>;
     case "ext-link":
       return <ExternalLink href={node.link}>{node.text}</ExternalLink>;
