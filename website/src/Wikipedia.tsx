@@ -24,14 +24,20 @@ export function WikipediaLink({
 }
 
 /**
+ * Determines whether this node can be used to break a short description.
+ */
+export function isShortWikitextBreak(node: WikitextNode): boolean {
+  return node.type === "paragraph_break" || node.type === "newline";
+}
+
+/**
  * Like `Wikitext`, but only renders up to the first paragraph break or newline.
  */
 export function ShortWikitext(
   props: React.ComponentProps<"span"> & { wikitext: WikitextNode[] }
 ) {
-  let index: number | undefined = props.wikitext.findIndex(
-    (node) => node.type === "paragraph_break" || node.type === "newline"
-  );
+  let index: number | undefined =
+    props.wikitext.findIndex(isShortWikitextBreak);
   if (index === -1) {
     index = undefined;
   }

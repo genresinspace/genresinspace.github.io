@@ -12,6 +12,7 @@ import {
 import { ExternalLink, InternalLink } from "./Links";
 import {
   dumpUrl,
+  isShortWikitextBreak,
   ShortWikitext,
   WikipediaLink,
   Wikitext,
@@ -399,13 +400,6 @@ function SelectedNodeInfo({
     }
   );
 
-  let shortDescriptionIndex = node.wikitext_description?.findIndex(
-    (node) => node.type === "paragraph_break" || node.type === "newline"
-  );
-  if (shortDescriptionIndex === -1) {
-    shortDescriptionIndex = undefined;
-  }
-
   return (
     <div className="flex flex-col gap-4">
       <div>
@@ -419,15 +413,13 @@ function SelectedNodeInfo({
         {node.wikitext_description && (
           <div className="flex flex-col gap-2">
             <div>
-              <Wikitext
-                wikitext={
-                  expanded
-                    ? node.wikitext_description
-                    : node.wikitext_description.slice(0, shortDescriptionIndex)
-                }
-              />
+              {expanded ? (
+                <Wikitext wikitext={node.wikitext_description} />
+              ) : (
+                <ShortWikitext wikitext={node.wikitext_description} />
+              )}
             </div>
-            {shortDescriptionIndex !== undefined && (
+            {node.wikitext_description?.some(isShortWikitextBreak) && (
               <button
                 onClick={() => setExpanded(!expanded)}
                 className="w-full p-2 text-sm text-neutral-400 hover:text-white bg-neutral-800 hover:bg-neutral-700 rounded-md mx-auto block transition-colors"
