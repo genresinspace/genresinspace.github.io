@@ -479,6 +479,7 @@ function Sidebar({
   >("information");
   const [width, setWidth] = useState("20%");
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const sidebarContentRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
@@ -510,6 +511,7 @@ function Sidebar({
   useEffect(() => {
     if (selectedId) {
       setActiveTab("selected");
+      sidebarContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [selectedId]);
 
@@ -533,7 +535,7 @@ function Sidebar({
           <path d="M2 0h1v16H2V0zM5 0h1v16H5V0z" />
         </svg>
       </div>
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto" ref={sidebarContentRef}>
         <div className="p-5 pl-1">
           <div className="flex mb-4">
             <button
