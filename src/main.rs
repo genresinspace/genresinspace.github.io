@@ -1141,11 +1141,19 @@ fn process_genres(
                     }
                     last_end = Some(*end);
                 }
-                pwt::Node::Heading { .. } => {
+                pwt::Node::Heading { end, .. } => {
                     if let Some(processed_genre) = processed_genres.get_mut(page) {
-                        if let Some(description) = description.take() {
-                            processed_genre.update_description(&pwt_configuration, &description);
+                        // We continue going if the description so far is empty: some infoboxes are placed
+                        // before a heading, with the content following after the heading, so we offer
+                        // this as an opportunity to capture that content.
+                        if description.as_ref().is_some_and(|s| !s.trim().is_empty()) {
+                            processed_genre.update_description(
+                                &pwt_configuration,
+                                &description.take().unwrap(),
+                            );
                             processed_genre.save(processed_genres_path, page)?;
+                        } else {
+                            last_end = Some(*end);
                         }
                     }
                 }
