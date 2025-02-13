@@ -1437,7 +1437,7 @@ fn produce_data_json(
     // Second pass: create links
     for page in &node_order {
         let processed_genre = &processed_genres.0[page];
-        let genre_id = page_to_id.get(page).with_context(|| {
+        let genre_id = *page_to_id.get(page).with_context(|| {
             format!(
                 "{}: Missing page ID for genre `{page}`",
                 processed_genre.page
@@ -1451,13 +1451,13 @@ fn produce_data_json(
                         processed_genre.page
                     )
                 })?,
-                target: *genre_id,
+                target: genre_id,
                 ty: LinkType::Derivative,
             });
         }
         for derivative in &processed_genre.derivatives {
             graph.links.insert(LinkData {
-                source: *genre_id,
+                source: genre_id,
                 target: *page_to_id.get(derivative).with_context(|| {
                     format!(
                         "{}: Missing page ID for derivative `{derivative}`",
@@ -1469,7 +1469,7 @@ fn produce_data_json(
         }
         for subgenre in &processed_genre.subgenres {
             graph.links.insert(LinkData {
-                source: *genre_id,
+                source: genre_id,
                 target: *page_to_id.get(subgenre).with_context(|| {
                     format!(
                         "{}: Missing page ID for subgenre `{subgenre}`",
@@ -1487,9 +1487,20 @@ fn produce_data_json(
                         processed_genre.page
                     )
                 })?,
-                target: *genre_id,
+                target: genre_id,
                 ty: LinkType::FusionGenre,
             });
+        }
+        // If this genre comes from a heading of another page, attempt to add the parent page
+        // as a subgenre relationship.
+        if page.heading.is_some() {
+            if let Some(parent_page) = page_to_id.get(&page.with_opt_heading(None)) {
+                graph.links.insert(LinkData {
+                    source: *parent_page,
+                    target: genre_id,
+                    ty: LinkType::Subgenre,
+                });
+            }
         }
     }
 
