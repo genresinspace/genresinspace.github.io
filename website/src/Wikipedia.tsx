@@ -131,11 +131,11 @@ function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
       );
     case "blockquote":
       return (
-        <blockquote>
+        <Blockquote>
           {node.children.map((child, i) => (
             <WikitextNode key={i} node={child} />
           ))}
-        </blockquote>
+        </Blockquote>
       );
     case "superscript":
       return (
@@ -236,7 +236,7 @@ function WikitextTemplate({
 
       return (
         <figure>
-          <blockquote>{text}</blockquote>
+          <Blockquote>{text}</Blockquote>
           {citation && <figcaption>{citation}</figcaption>}
         </figure>
       );
@@ -510,5 +510,13 @@ function WikipediaFootnote({ node }: { node: string }) {
         [{visible ? node : "show"}]
       </button>
     </sup>
+  );
+}
+
+function Blockquote({ children }: { children: React.ReactNode }) {
+  return (
+    <blockquote className="pl-4 m-0 border-l-4 border-gray-300 dark:border-gray-700 italic text-gray-700 dark:text-gray-300">
+      {children}
+    </blockquote>
   );
 }
