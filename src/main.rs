@@ -1119,21 +1119,31 @@ fn process_genres(
                     //
                     // Alternatively, a select list of acceptable templates can be included in the capture,
                     // regardless of the existing description.
+                    //
+                    // However, there are also some templates where we really don't care about preserving them.
                     if let Some(description) = &mut description {
-                        static ACCEPTABLE_TEMPLATES: LazyLock<HashSet<&'static str>> =
-                            LazyLock::new(|| {
-                                HashSet::from_iter([
-                                    "nihongo",
-                                    "transliteration",
-                                    "tlit",
-                                    "transl",
-                                    "lang",
-                                ])
-                            });
+                        fn is_acceptable_template(template_name: &str) -> bool {
+                            static ACCEPTABLE_TEMPLATES: LazyLock<HashSet<&'static str>> =
+                                LazyLock::new(|| {
+                                    HashSet::from_iter([
+                                        "nihongo",
+                                        "transliteration",
+                                        "tlit",
+                                        "transl",
+                                        "lang",
+                                    ])
+                                });
+                            ACCEPTABLE_TEMPLATES.contains(template_name)
+                        }
+
+                        fn is_ignorable_template(template_name: &str) -> bool {
+                            template_name.starts_with("use")
+                        }
 
                         if !pause_recording_description
                             && (!description.trim().is_empty()
-                                || ACCEPTABLE_TEMPLATES.contains(template_name.as_str()))
+                                || is_acceptable_template(&template_name))
+                            && !is_ignorable_template(&template_name)
                         {
                             description.push_str(
                                 &wikitext[start_including_last_end(&mut last_end, *start)..*end],
