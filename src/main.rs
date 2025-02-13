@@ -12,14 +12,63 @@ use std::{
 use parse_wiki_text_2 as pwt;
 
 mod data_patches;
-
-#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[serde(transparent)]
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 /// A newtype for a Wikipedia page name.
-pub struct PageName(pub String);
+pub struct PageName {
+    pub name: String,
+    pub heading: Option<String>,
+}
+impl PageName {
+    pub fn new(name: impl Into<String>, heading: impl Into<Option<String>>) -> Self {
+        Self {
+            name: name.into(),
+            heading: heading.into(),
+        }
+    }
+
+    fn with_opt_heading(&self, heading: Option<String>) -> Self {
+        Self {
+            name: self.name.clone(),
+            heading,
+        }
+    }
+}
 impl std::fmt::Display for PageName {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "page:{}", self.0)
+        write!(f, "{}", self.name)?;
+        if let Some(heading) = &self.heading {
+            write!(f, "#{heading}")?;
+        }
+        Ok(())
+    }
+}
+impl Serialize for PageName {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match &self.heading {
+            Some(heading) => serializer.serialize_str(&format!("{}#{}", self.name, heading)),
+            None => serializer.serialize_str(&self.name),
+        }
+    }
+}
+impl<'de> Deserialize<'de> for PageName {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s = String::deserialize(deserializer)?;
+        Ok(match s.split_once('#') {
+            Some((name, heading)) => PageName {
+                name: name.to_string(),
+                heading: Some(heading.to_string()),
+            },
+            None => PageName {
+                name: s,
+                heading: None,
+            },
+        })
     }
 }
 
@@ -140,7 +189,7 @@ fn parse_wiki_dump_date(filename: &str) -> Option<jiff::civil::Date> {
 }
 
 #[cfg(test)]
-mod tests {
+mod preparation_tests {
     use super::*;
 
     #[test]
@@ -245,8 +294,6 @@ fn extract_genres_and_all_redirects(
     let mut recording_text = false;
     let mut timestamp = String::new();
     let mut recording_timestamp = false;
-    let mut redirect = None;
-
     loop {
         match reader.read_event_into(&mut buf) {
             Ok(Event::Eof) => break,
@@ -272,15 +319,6 @@ fn extract_genres_and_all_redirects(
                     timestamp.push_str(&e.unescape().unwrap());
                 }
             }
-            Ok(Event::Empty(e)) => {
-                if e.name().0 == b"redirect" {
-                    redirect = e
-                        .attributes()
-                        .filter_map(|r| r.ok())
-                        .find(|attr| attr.key.0 == b"title")
-                        .map(|attr| String::from_utf8_lossy(&attr.value).to_string());
-                }
-            }
             Ok(Event::End(e)) => {
                 if e.name().0 == b"title" {
                     recording_title = false;
@@ -289,9 +327,17 @@ fn extract_genres_and_all_redirects(
                 } else if e.name().0 == b"timestamp" {
                     recording_timestamp = false;
                 } else if e.name().0 == b"page" {
-                    let page = PageName(title.clone());
-                    if let Some(redirect) = redirect {
-                        all_redirects.insert(page, PageName(redirect));
+                    let page = PageName {
+                        name: title.clone(),
+                        heading: None,
+                    };
+                    if text.starts_with("#REDIRECT") {
+                        all_redirects.insert(
+                            page.clone(),
+                            parse_redirect_text(&text).unwrap_or_else(|| {
+                                panic!("Failed to parse redirect text for {page}: {text}")
+                            }),
+                        );
 
                         count += 1;
                         if count % 1000 == 0 {
@@ -323,8 +369,6 @@ fn extract_genres_and_all_redirects(
                         genre_pages.insert(page.clone(), output_file_path);
                         println!("{:.2}s: {page}", start.elapsed().as_secs_f32());
                     }
-
-                    redirect = None;
                 }
             }
             _ => {}
@@ -343,6 +387,81 @@ fn extract_genres_and_all_redirects(
         GenrePages(genre_pages),
         AllRedirects::InMemory(all_redirects),
     ))
+}
+
+fn parse_redirect_text(text: &str) -> Option<PageName> {
+    // Find the first [[...]] link
+    let start = text.find("[[")? + 2;
+    let end = text[start..].find("]]")? + start;
+    let link = &text[start..end];
+
+    // Split on # if there's a section heading
+    if let Some((page, heading)) = link.split_once('#') {
+        Some(PageName {
+            name: page.to_string(),
+            heading: Some(heading.to_string()),
+        })
+    } else {
+        Some(PageName {
+            name: link.to_string(),
+            heading: None,
+        })
+    }
+}
+
+#[cfg(test)]
+mod extraction_tests {
+    use super::*;
+
+    #[test]
+    fn test_parse_redirect_basic() {
+        let text = "#REDIRECT [[United Kingdom]]";
+        let result = parse_redirect_text(text).unwrap();
+        assert_eq!(
+            result,
+            PageName {
+                name: "United Kingdom".to_string(),
+                heading: None,
+            }
+        );
+    }
+
+    #[test]
+    fn test_parse_redirect_with_heading() {
+        let text = "#REDIRECT [[UK hard house#Scouse house]]";
+        let result = parse_redirect_text(text).unwrap();
+        assert_eq!(
+            result,
+            PageName {
+                name: "UK hard house".to_string(),
+                heading: Some("Scouse house".to_string()),
+            }
+        );
+    }
+
+    #[test]
+    fn test_parse_redirect_multiline() {
+        let text = "#REDIRECT [[UK hard house#Scouse house]]
+{{Redirect category shell|
+{{R to section}}
+}}
+
+[[Category:House music genres]]";
+        let result = parse_redirect_text(text).unwrap();
+        assert_eq!(
+            result,
+            PageName {
+                name: "UK hard house".to_string(),
+                heading: Some("Scouse house".to_string()),
+            }
+        );
+    }
+
+    #[test]
+    fn test_parse_redirect_invalid() {
+        let text = "Not a redirect";
+        assert!(parse_redirect_text(text).is_none());
+    }
 }
 
 pub struct LinksToArticles(pub HashMap<String, PageName>);
@@ -378,15 +497,15 @@ fn resolve_links_to_articles(
 
     let mut links_to_articles: HashMap<String, PageName> = genres
         .all()
-        .map(|s| (s.0.to_lowercase(), s.clone()))
+        .map(|s| (s.to_string().to_lowercase(), s.clone()))
         .collect();
 
     let mut round = 1;
     loop {
         let mut added = false;
         for (page, redirect) in &all_redirects {
-            let page = page.0.to_lowercase();
-            let redirect = redirect.0.to_lowercase();
+            let page = page.to_string().to_lowercase();
+            let redirect = redirect.to_string().to_lowercase();
 
             if let Some(target) = links_to_articles.get(&redirect) {
                 let newly_added = links_to_articles.insert(page, target.clone()).is_none();
@@ -829,6 +948,7 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<Simplified
 #[derive(Serialize, Deserialize, Clone, Debug)]
 struct ProcessedGenre {
     name: GenreName,
+    page: PageName,
     wikitext_description: Option<Vec<SimplifiedWikitextNode>>,
     last_revision_date: jiff::Timestamp,
     stylistic_origins: Vec<PageName>,
@@ -846,9 +966,9 @@ impl ProcessedGenre {
         self.wikitext_description = Some(simplify_wikitext_nodes(description, &nodes));
     }
 
-    pub fn save(&self, processed_genres_path: &Path, page: &PageName) -> anyhow::Result<()> {
+    pub fn save(&self, processed_genres_path: &Path) -> anyhow::Result<()> {
         std::fs::write(
-            processed_genres_path.join(format!("{}.json", sanitize_page_name(page))),
+            processed_genres_path.join(format!("{}.json", sanitize_page_name(&self.page))),
             serde_json::to_string_pretty(self)?,
         )?;
         Ok(())
@@ -931,7 +1051,7 @@ fn process_genres(
         let mut new_wikitext = wikitext.to_string();
         let mut comment_ranges = vec![];
 
-        if dump_page.is_some_and(|s| s == page.0) {
+        if dump_page.is_some_and(|s| s == page.name) {
             println!("--- BEFORE ---");
             dump_page_nodes(wikitext, &parsed_wikitext.nodes, 0);
         }
@@ -948,7 +1068,7 @@ fn process_genres(
         new_wikitext
     }
 
-    for (page, path) in genres.iter() {
+    for (original_page, path) in genres.iter() {
         let wikitext = std::fs::read_to_string(path)?;
         let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
         let wikitext_header: WikitextHeader = serde_json::from_str(wikitext_header)?;
@@ -956,13 +1076,16 @@ fn process_genres(
         let wikitext = remove_comments_from_wikitext_the_painful_way(
             &pwt_configuration,
             dump_page.as_deref(),
-            page,
+            original_page,
             wikitext,
         );
         let parsed_wikitext = pwt_configuration
             .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
-            .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
-        if dump_page.as_deref().is_some_and(|s| s == page.0) {
+            .unwrap_or_else(|e| panic!("failed to parse wikitext ({original_page}): {e:?}"));
+        if dump_page
+            .as_deref()
+            .is_some_and(|s| s == original_page.name)
+        {
             println!("--- AFTER ---");
             dump_page_nodes(&wikitext, &parsed_wikitext.nodes, 0);
         }
@@ -975,6 +1098,10 @@ fn process_genres(
         fn start_including_last_end(last_end: &mut Option<usize>, start: usize) -> usize {
             last_end.take().filter(|&end| end < start).unwrap_or(start)
         }
+        let mut last_heading = None;
+
+        let mut processed_genre: Option<ProcessedGenre> = None;
+
         for node in &parsed_wikitext.nodes {
             match node {
                 pwt::Node::Template {
@@ -1018,9 +1145,34 @@ fn process_genres(
                     if template_name != "infobox music genre" {
                         continue;
                     }
+
+                    // If we already have a processed genre, save it
+                    if let Some(mut processed_genre) = processed_genre.take() {
+                        let new_page = processed_genre.page.clone();
+                        if let Some(description) = description.take() {
+                            processed_genre.update_description(&pwt_configuration, &description);
+                        }
+                        processed_genres.insert(new_page.clone(), processed_genre.clone());
+                        processed_genre.save(processed_genres_path)?;
+                        if dump_page
+                            .as_deref()
+                            .is_some_and(|s| s == original_page.name)
+                        {
+                            println!(
+                                "Saving due to new genre: {new_page:?} | {}",
+                                processed_genre.name
+                            );
+                            println!("Description: {:?}", processed_genre.wikitext_description);
+                        }
+                    }
+
                     let parameters = parameters_to_map(parameters);
                     let mut name = GenreName(match parameters.get("name") {
-                        None | Some([]) => page.0.clone(),
+                        None | Some([]) => original_page
+                            .heading
+                            .as_ref()
+                            .unwrap_or(&original_page.name)
+                            .clone(),
                         Some(nodes) => {
                             let name = nodes_inner_text(
                                 nodes,
@@ -1032,13 +1184,13 @@ fn process_genres(
                             );
                             if name.is_empty() {
                                 panic!(
-                                    "Failed to extract name from {page}, params: {parameters:?}"
+                                    "Failed to extract name from {original_page}, params: {parameters:?}"
                                 );
                             }
                             name
                         }
                     });
-                    if let Some((timestamp, new_name)) = all_patches.get(page) {
+                    if let Some((timestamp, new_name)) = all_patches.get(&original_page) {
                         // Check whether the article has been updated since the last revision date
                         // with one minute of leeway. If it has, don't apply the patch.
                         if timestamp
@@ -1079,17 +1231,16 @@ fn process_genres(
                     stylistic_origin_count += stylistic_origins.len();
                     derivative_count += derivatives.len();
 
-                    let processed_genre = ProcessedGenre {
+                    processed_genre = Some(ProcessedGenre {
                         name: name.clone(),
+                        page: original_page.with_opt_heading(last_heading.clone()),
                         wikitext_description: None,
                         last_revision_date: wikitext_header.timestamp,
                         stylistic_origins,
                         derivatives,
                         subgenres,
                         fusion_genres,
-                    };
-                    processed_genres.insert(page.clone(), processed_genre.clone());
-                    processed_genre.save(processed_genres_path, page)?;
+                    });
                     description = Some(String::new());
                 }
                 pwt::Node::StartTag { name, end, .. } if name == "ref" => {
@@ -1129,7 +1280,10 @@ fn process_genres(
                         if let Some(description) = &mut description {
                             let new_start = start_including_last_end(&mut last_end, *start);
                             let new_fragment = &wikitext[new_start..*end];
-                            if dump_page.as_deref().is_some_and(|s| s == page.0) {
+                            if dump_page
+                                .as_deref()
+                                .is_some_and(|s| s == original_page.name)
+                            {
                                 println!("Description: {description:?}");
                                 println!("New fragment: {new_fragment:?}");
                                 println!("New start: {new_start} vs start: {start}");
@@ -1141,8 +1295,8 @@ fn process_genres(
                     }
                     last_end = Some(*end);
                 }
-                pwt::Node::Heading { end, .. } => {
-                    if let Some(processed_genre) = processed_genres.get_mut(page) {
+                pwt::Node::Heading { nodes, end, .. } => {
+                    if let Some(processed_genre) = &mut processed_genre {
                         // We continue going if the description so far is empty: some infoboxes are placed
                         // before a heading, with the content following after the heading, so we offer
                         // this as an opportunity to capture that content.
@@ -1151,11 +1305,14 @@ fn process_genres(
                                 &pwt_configuration,
                                 &description.take().unwrap(),
                             );
-                            processed_genre.save(processed_genres_path, page)?;
+                            processed_genre.page =
+                                processed_genre.page.with_opt_heading(last_heading.clone());
                         } else {
                             last_end = Some(*end);
                         }
                     }
+
+                    last_heading = Some(nodes_inner_text(&nodes, &InnerTextConfig::default()));
                 }
                 pwt::Node::Image { end, .. } | pwt::Node::Comment { end, .. } => {
                     last_end = Some(*end);
@@ -1163,10 +1320,19 @@ fn process_genres(
             }
         }
 
-        if let Some(processed_genre) = processed_genres.get_mut(page) {
+        if let Some(processed_genre) = &mut processed_genre {
+            let new_page = processed_genre.page.clone();
             if let Some(description) = description.take() {
                 processed_genre.update_description(&pwt_configuration, &description);
-                processed_genre.save(processed_genres_path, page)?;
+            }
+            processed_genres.insert(new_page.clone(), processed_genre.clone());
+            processed_genre.save(processed_genres_path)?;
+            if dump_page
+                .as_deref()
+                .is_some_and(|s| s == original_page.name)
+            {
+                println!("End-of-page save: {new_page:?} | {}", processed_genre.name);
+                println!("Description: {:?}", processed_genre.wikitext_description);
             }
         }
     }
@@ -1261,6 +1427,11 @@ fn produce_data_json(
 
         graph.nodes.push(node);
         page_to_id.insert(page.clone(), id);
+        let page_without_heading = page.with_opt_heading(None);
+        if !page_to_id.contains_key(&page_without_heading) {
+            // Add fallback page ID for pages where the main music box is under a heading
+            page_to_id.insert(page_without_heading, id);
+        }
     }
 
     // Second pass: create links
@@ -1546,12 +1717,27 @@ fn node_inner_text(node: &pwt::Node, config: &InnerTextConfig) -> String {
 fn sanitize_page_name(title: &PageName) -> String {
     // We use BIG SOLIDUS (⧸) as it's unlikely to be used in a page name
     // but still looks like a slash
-    title.0.replace("/", "⧸")
+    let mut output = title.name.clone();
+    if let Some(heading) = &title.heading {
+        output.push_str(&format!("#{heading}"));
+    }
+    output.replace("/", "⧸")
 }
 
 /// Reverses [`sanitize_page_name`].
 fn unsanitize_page_name(title: &str) -> PageName {
-    PageName(title.replace("⧸", "/"))
+    let output = title.replace("⧸", "/");
+    if let Some((name, heading)) = output.split_once('#') {
+        PageName {
+            name: name.to_string(),
+            heading: Some(heading.to_string()),
+        }
+    } else {
+        PageName {
+            name: output,
+            heading: None,
+        }
+    }
 }
 
 pub fn pwt_configuration() -> pwt::Configuration {
