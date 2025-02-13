@@ -288,12 +288,18 @@ fn extract_genres_and_all_redirects(
     reader.config_mut().trim_text(true);
 
     let mut buf = vec![];
+
     let mut title = String::new();
     let mut recording_title = false;
+
     let mut text = String::new();
     let mut recording_text = false;
+
     let mut timestamp = String::new();
     let mut recording_timestamp = false;
+
+    let mut wikipedia_domain: Option<String> = None;
+    let mut recording_wikipedia_domain = false;
     loop {
         match reader.read_event_into(&mut buf) {
             Ok(Event::Eof) => break,
@@ -308,6 +314,9 @@ fn extract_genres_and_all_redirects(
                 } else if name == b"timestamp" {
                     timestamp.clear();
                     recording_timestamp = true;
+                } else if name == b"base" {
+                    wikipedia_domain = None;
+                    recording_wikipedia_domain = true;
                 }
             }
             Ok(Event::Text(e)) => {
@@ -317,6 +326,10 @@ fn extract_genres_and_all_redirects(
                     text.push_str(&e.unescape().unwrap());
                 } else if recording_timestamp {
                     timestamp.push_str(&e.unescape().unwrap());
+                } else if recording_wikipedia_domain {
+                    wikipedia_domain
+                        .get_or_insert_default()
+                        .push_str(&e.unescape().unwrap());
                 }
             }
             Ok(Event::End(e)) => {
@@ -326,6 +339,13 @@ fn extract_genres_and_all_redirects(
                     recording_text = false;
                 } else if e.name().0 == b"timestamp" {
                     recording_timestamp = false;
+                } else if e.name().0 == b"base" {
+                    recording_wikipedia_domain = false;
+                    wikipedia_domain = Some(
+                        extract_domain(&wikipedia_domain.expect("wikipedia_domain not set"))
+                            .expect("could not extract domain from wikipedia_domain")
+                            .to_string(),
+                    );
                 } else if e.name().0 == b"page" {
                     let page = PageName {
                         name: title.clone(),
@@ -334,9 +354,13 @@ fn extract_genres_and_all_redirects(
                     if text.starts_with("#REDIRECT") {
                         all_redirects.insert(
                             page.clone(),
-                            parse_redirect_text(&text).unwrap_or_else(|| {
-                                panic!("Failed to parse redirect text for {page}: {text}")
-                            }),
+                            parse_redirect_text(
+                                wikipedia_domain
+                                    .as_deref()
+                                    .expect("wikipedia_domain not set"),
+                                &text,
+                            )
+                            .context(page.to_string())?,
                         );
 
                         count += 1;
@@ -389,20 +413,104 @@ fn extract_genres_and_all_redirects(
     ))
 }
 
-fn parse_redirect_text(text: &str) -> Option<PageName> {
-    // Find the first [[...]] link
-    let start = text.find("[[")? + 2;
-    let end = text[start..].find("]]")? + start;
+fn extract_domain(url: &str) -> Option<&str> {
+    let domain_start = url.find("://")? + 3;
+    let domain_end = url[domain_start..].find('/')?;
+    Some(&url[domain_start..domain_start + domain_end])
+}
+
+#[derive(Debug)]
+pub enum RedirectParseError {
+    InvalidRedirect { text: String },
+    ExternalLinkNotOnThisWiki { text: String },
+}
+impl std::fmt::Display for RedirectParseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RedirectParseError::InvalidRedirect { text } => {
+                write!(f, "Invalid redirect format: {}", text)
+            }
+            RedirectParseError::ExternalLinkNotOnThisWiki { text } => {
+                write!(f, "External link not on this wiki: {}", text)
+            }
+        }
+    }
+}
+impl std::error::Error for RedirectParseError {}
+fn parse_redirect_text(wikipedia_domain: &str, text: &str) -> Result<PageName, RedirectParseError> {
+    // Find the first [[...]] link or [http://... ...] link
+    let start = if let Some(pos) = text.find("[[") {
+        pos + 2
+    } else if let Some(pos) = text.find("[http") {
+        // Find the end of the link
+        let link_end =
+            text[pos..]
+                .find(']')
+                .ok_or_else(|| RedirectParseError::InvalidRedirect {
+                    text: text.to_string(),
+                })?
+                + pos;
+        let link = &text[pos + 1..link_end];
+
+        // Extract the URL and verify domain
+        let url_end = link
+            .find(' ')
+            .ok_or_else(|| RedirectParseError::InvalidRedirect {
+                text: text.to_string(),
+            })?;
+        let url = &link[..url_end];
+
+        let domain =
+            extract_domain(url).ok_or_else(|| RedirectParseError::ExternalLinkNotOnThisWiki {
+                text: text.to_string(),
+            })?;
+
+        if domain != wikipedia_domain {
+            return Err(RedirectParseError::ExternalLinkNotOnThisWiki {
+                text: text.to_string(),
+            });
+        }
+
+        // Find the page title between title= and &
+        let title_start =
+            url.find("title=")
+                .ok_or_else(|| RedirectParseError::ExternalLinkNotOnThisWiki {
+                    text: text.to_string(),
+                })?
+                + 6;
+        let title_end = url[title_start..].find('&').ok_or_else(|| {
+            RedirectParseError::ExternalLinkNotOnThisWiki {
+                text: text.to_string(),
+            }
+        })? + title_start;
+        let page_title = &url[title_start..title_end];
+
+        return Ok(PageName {
+            name: page_title.to_string(),
+            heading: None,
+        });
+    } else {
+        return Err(RedirectParseError::InvalidRedirect {
+            text: text.to_string(),
+        });
+    };
+
+    let end = text[start..]
+        .find("]]")
+        .ok_or_else(|| RedirectParseError::InvalidRedirect {
+            text: text.to_string(),
+        })?
+        + start;
     let link = &text[start..end];
 
     // Split on # if there's a section heading
     if let Some((page, heading)) = link.split_once('#') {
-        Some(PageName {
+        Ok(PageName {
             name: page.to_string(),
             heading: Some(heading.to_string()),
         })
     } else {
-        Some(PageName {
+        Ok(PageName {
             name: link.to_string(),
             heading: None,
         })
@@ -413,10 +521,27 @@ fn parse_redirect_text(text: &str) -> Option<PageName> {
 mod extraction_tests {
     use super::*;
 
+    const WIKIPEDIA_DOMAIN: &str = "en.wikipedia.org";
+
+    #[test]
+    fn test_extract_wiki_domain() {
+        assert_eq!(
+            extract_domain("https://en.wikipedia.org/wiki/Main_Page"),
+            Some("en.wikipedia.org")
+        );
+        assert_eq!(
+            extract_domain("http://en.wikipedia.org/something"),
+            Some("en.wikipedia.org")
+        );
+        assert_eq!(extract_domain("not a url"), None);
+        assert_eq!(extract_domain("https://bad"), None);
+        assert_eq!(extract_domain(""), None);
+    }
+
     #[test]
     fn test_parse_redirect_basic() {
         let text = "#REDIRECT [[United Kingdom]]";
-        let result = parse_redirect_text(text).unwrap();
+        let result = parse_redirect_text(WIKIPEDIA_DOMAIN, text).unwrap();
         assert_eq!(
             result,
             PageName {
@@ -429,7 +554,7 @@ mod extraction_tests {
     #[test]
     fn test_parse_redirect_with_heading() {
         let text = "#REDIRECT [[UK hard house#Scouse house]]";
-        let result = parse_redirect_text(text).unwrap();
+        let result = parse_redirect_text(WIKIPEDIA_DOMAIN, text).unwrap();
         assert_eq!(
             result,
             PageName {
@@ -447,7 +572,7 @@ mod extraction_tests {
 }}
 
 [[Category:House music genres]]";
-        let result = parse_redirect_text(text).unwrap();
+        let result = parse_redirect_text(WIKIPEDIA_DOMAIN, text).unwrap();
         assert_eq!(
             result,
             PageName {
@@ -460,10 +585,34 @@ mod extraction_tests {
     #[test]
     fn test_parse_redirect_invalid() {
         let text = "Not a redirect";
-        assert!(parse_redirect_text(text).is_none());
+        assert!(matches!(
+            parse_redirect_text(WIKIPEDIA_DOMAIN, text),
+            Err(RedirectParseError::InvalidRedirect { text: _ })
+        ));
+    }
+
+    #[test]
+    fn test_parse_redirect_http() {
+        let text = "#REDIRECT [http://en.wikipedia.org/w/index.php?title=Wikipedia:WikiProject_Seattle_Mariners/right_side&action=edit right panel]";
+        let result = parse_redirect_text(WIKIPEDIA_DOMAIN, text).unwrap();
+        assert_eq!(
+            result,
+            PageName {
+                name: "Wikipedia:WikiProject_Seattle_Mariners/right_side".to_string(),
+                heading: None,
+            }
+        );
+    }
+
+    #[test]
+    fn test_parse_redirect_external_link_invalid() {
+        let text = "#REDIRECT [http://example.com some text]";
+        assert!(matches!(
+            parse_redirect_text(WIKIPEDIA_DOMAIN, text),
+            Err(RedirectParseError::ExternalLinkNotOnThisWiki { text: _ })
+        ));
     }
 }
-
 pub struct LinksToArticles(pub HashMap<String, PageName>);
 impl LinksToArticles {
     pub fn map(&self, link: &str) -> Option<PageName> {
