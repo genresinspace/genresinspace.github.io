@@ -895,7 +895,7 @@ fn process_genres(
         for node in nodes {
             print!("{:indent$}", "", indent = depth * 2);
             let metadata = node_metadata(node);
-            print!(
+            println!(
                 "{}[{}..{}]: {:?}",
                 metadata.name,
                 metadata.start,
