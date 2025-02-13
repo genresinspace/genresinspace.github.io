@@ -20,6 +20,9 @@ import {
 } from "./Wikipedia";
 
 type Settings = {
+  general: {
+    zoomOnSelect: boolean;
+  };
   simulation: SimulationParams;
 };
 
@@ -76,7 +79,9 @@ function Graph({
     const nodeData = selectedId ? nodes?.[parseInt(selectedId, 10)] : null;
     if (nodeData) {
       cosmograph?.selectNode(nodeData, false);
-      cosmograph?.zoomToNode(nodeData);
+      if (settings.general.zoomOnSelect) {
+        cosmograph?.zoomToNode(nodeData);
+      }
       setHighlightedNodes(
         new Set([
           nodeData.id,
@@ -182,6 +187,7 @@ function Graph({
     </div>
   );
 }
+
 function ProjectInformation({
   dumpDate,
   visibleTypes,
@@ -512,6 +518,49 @@ function Find({
   );
 }
 
+function Settings({
+  settings,
+  setSettings,
+}: {
+  settings: Settings;
+  setSettings: (settings: Settings) => void;
+}) {
+  return (
+    <>
+      <section>
+        <h2 className="text-lg font-extrabold mb-2">General</h2>
+        <div>
+          <label title="Whether or not to zoom / pan the graph upon selecting a node.">
+            <input
+              type="checkbox"
+              checked={settings.general.zoomOnSelect}
+              onChange={(e) =>
+                setSettings({
+                  ...settings,
+                  general: {
+                    ...settings.general,
+                    zoomOnSelect: e.target.checked,
+                  },
+                })
+              }
+            />
+            Zoom on select
+          </label>
+        </div>
+      </section>
+      <section>
+        <h2 className="text-lg font-extrabold mb-2">Simulation</h2>
+        <SimulationControls
+          params={settings.simulation}
+          setParams={(params) =>
+            setSettings({ ...settings, simulation: params })
+          }
+        />
+      </section>
+    </>
+  );
+}
+
 function Sidebar({
   settings,
   setSettings,
@@ -633,15 +682,7 @@ function Sidebar({
               links={links}
             />
           ) : (
-            <div>
-              <h2 className="text-lg font-extrabold mb-2">Simulation</h2>
-              <SimulationControls
-                params={settings.simulation}
-                setParams={(params) =>
-                  setSettings({ ...settings, simulation: params })
-                }
-              />
-            </div>
+            <Settings settings={settings} setSettings={setSettings} />
           )}
         </div>
       </div>
@@ -732,6 +773,9 @@ function App() {
   }, [selectedId]);
 
   const [settings, setSettings] = useState<Settings>({
+    general: {
+      zoomOnSelect: true,
+    },
     simulation: defaultSimulationParams,
   });
 
