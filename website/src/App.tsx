@@ -286,6 +286,10 @@ function SelectedNodeInfo({
 }) {
   const [expanded, setExpanded] = useState(false);
 
+  useEffect(() => {
+    setExpanded(false);
+  }, [selectedId]);
+
   if (!selectedId) {
     return <p>No node selected</p>;
   }
