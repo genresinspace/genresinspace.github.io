@@ -300,11 +300,14 @@ function WikitextTemplate({
       const pageTitle = node.children[0].value;
       return <WikipediaLink pageTitle={pageTitle}>{pageTitle}</WikipediaLink>;
     case "ipa":
-    case "ipa-all":
       const ipa =
         node.children.length > 1 ? node.children[1] : node.children[0];
       // TODO: render properly, preferably with language support (the optional first argument, skipped above)
       return <code>{ipa.value}</code>;
+    case "ipa-all":
+      // As it turns out, this template was actually deleted between the dump I started working with and
+      // when I started this project. Unfortunately, this means we still have to handle it.
+      return <code>{node.children[0].value}</code>;
     case "ipac-en":
       // TODO: implement. This is non-trivial because of all of the aliases:
       // https://en.wikipedia.org/wiki/Template:IPAc-en
