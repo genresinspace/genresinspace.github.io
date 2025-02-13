@@ -1266,32 +1266,57 @@ fn produce_data_json(
     // Second pass: create links
     for page in &node_order {
         let processed_genre = &processed_genres.0[page];
-        let genre_id = page_to_id[page];
+        let genre_id = page_to_id.get(page).with_context(|| {
+            format!(
+                "{}: Missing page ID for genre `{page}`",
+                processed_genre.page
+            )
+        })?;
         for stylistic_origin in &processed_genre.stylistic_origins {
             graph.links.insert(LinkData {
-                source: page_to_id[stylistic_origin],
-                target: genre_id,
+                source: *page_to_id.get(stylistic_origin).with_context(|| {
+                    format!(
+                        "{}: Missing page ID for stylistic origin `{stylistic_origin}`",
+                        processed_genre.page
+                    )
+                })?,
+                target: *genre_id,
                 ty: LinkType::Derivative,
             });
         }
         for derivative in &processed_genre.derivatives {
             graph.links.insert(LinkData {
-                source: genre_id,
-                target: page_to_id[derivative],
+                source: *genre_id,
+                target: *page_to_id.get(derivative).with_context(|| {
+                    format!(
+                        "{}: Missing page ID for derivative `{derivative}`",
+                        processed_genre.page
+                    )
+                })?,
                 ty: LinkType::Derivative,
             });
         }
         for subgenre in &processed_genre.subgenres {
             graph.links.insert(LinkData {
-                source: genre_id,
-                target: page_to_id[subgenre],
+                source: *genre_id,
+                target: *page_to_id.get(subgenre).with_context(|| {
+                    format!(
+                        "{}: Missing page ID for subgenre `{subgenre}`",
+                        processed_genre.page
+                    )
+                })?,
                 ty: LinkType::Subgenre,
             });
         }
         for fusion_genre in &processed_genre.fusion_genres {
             graph.links.insert(LinkData {
-                source: page_to_id[fusion_genre],
-                target: genre_id,
+                source: *page_to_id.get(fusion_genre).with_context(|| {
+                    format!(
+                        "{}: Missing page ID for fusion genre `{fusion_genre}`",
+                        processed_genre.page
+                    )
+                })?,
+                target: *genre_id,
                 ty: LinkType::FusionGenre,
             });
         }
