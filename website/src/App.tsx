@@ -48,13 +48,12 @@ type Data = {
   max_degree: number;
   dump_date: string;
 };
-
-const derivativeColour = (saturation: number = 70) =>
-  `hsl(0, ${saturation}%, 60%)`;
-const subgenreColour = (saturation: number = 70) =>
-  `hsl(120, ${saturation}%, 60%)`;
-const fusionGenreColour = (saturation: number = 70) =>
-  `hsl(240, ${saturation}%, 60%)`;
+const derivativeColour = (saturation: number = 70, alpha: number = 1) =>
+  `hsla(0, ${saturation}%, 60%, ${alpha})`;
+const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
+  `hsla(120, ${saturation}%, 60%, ${alpha})`;
+const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
+  `hsla(240, ${saturation}%, 60%, ${alpha})`;
 
 function Graph({
   settings,
@@ -134,22 +133,27 @@ function Graph({
           return "rgba(0, 0, 0, 0)";
         }
 
-        let color = (saturation: number) =>
+        let color = (saturation: number, alpha: number) =>
           d.ty === "Derivative"
-            ? derivativeColour(saturation)
+            ? derivativeColour(saturation, alpha)
             : d.ty === "Subgenre"
-            ? subgenreColour(saturation)
-            : fusionGenreColour(saturation);
+            ? subgenreColour(saturation, alpha)
+            : fusionGenreColour(saturation, alpha);
+
+        const selectedAlpha = 0.8;
+        const selectedDimmedAlpha = 0.1;
+        const unselectedAlpha = 0.3;
+
         if (selectedId) {
           if (d.source === selectedId) {
-            return color(90);
+            return color(90, selectedAlpha);
           } else if (d.target === selectedId) {
-            return color(40);
+            return color(40, selectedAlpha);
           } else {
-            return "hsla(0, 0%, 20%, 0.1)";
+            return `hsla(0, 0%, 20%, ${selectedDimmedAlpha})`;
           }
         } else {
-          return color(70);
+          return color(70, unselectedAlpha);
         }
       }}
       nodeSize={(d: NodeData) => {
