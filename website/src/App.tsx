@@ -630,6 +630,8 @@ function Sidebar({
     if (selectedId) {
       setActiveTab("selected");
       sidebarContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      setActiveTab("information");
     }
   }, [selectedId]);
 
@@ -657,20 +659,28 @@ function Sidebar({
         <div className="p-5 pl-1">
           <div className="flex mb-4">
             {[
-              { id: "information" as const, label: "Info" },
-              { id: "selected" as const, label: "Selected" },
-              { id: "settings" as const, label: "Settings" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
-                  activeTab === tab.id ? "bg-neutral-800" : "bg-neutral-800/50"
-                }`}
-                onClick={() => setActiveTab(tab.id as typeof activeTab)}
-              >
-                {tab.label}
-              </button>
-            ))}
+              { id: "information" as const, label: "Info", show: () => true },
+              {
+                id: "selected" as const,
+                label: "Selected",
+                show: () => selectedId !== null,
+              },
+              { id: "settings" as const, label: "Settings", show: () => true },
+            ]
+              .filter((tab) => tab.show())
+              .map((tab) => (
+                <button
+                  key={tab.id}
+                  className={`flex-1 p-2 border-none text-neutral-300 cursor-pointer ${
+                    activeTab === tab.id
+                      ? "bg-neutral-800"
+                      : "bg-neutral-800/50"
+                  }`}
+                  onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                >
+                  {tab.label}
+                </button>
+              ))}
           </div>
           {activeTab === "information" ? (
             <ProjectInformation
