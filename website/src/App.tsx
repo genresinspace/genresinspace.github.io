@@ -258,8 +258,11 @@ function Graph({
           8.0 * (0.2 + (d.links.length / maxDegree) * 0.8) +
           1.0 *
             (selectedId &&
-            (!pathInfo.nodeDistances.has(d.id) ||
-              pathInfo.immediateNeighbours.has(d.id))
+            !(
+              pathInfo.immediateNeighbours.has(d.id) ||
+              (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
+                maxDistance
+            )
               ? -1
               : 0) +
           1.0 * (focusedId === d.id ? 1 : 0)
