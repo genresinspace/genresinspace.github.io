@@ -322,9 +322,11 @@ fn extract_genres_and_all_redirects(
         offsets
     };
 
-    // Load entire dump into memory: ~25GB
+    // Memory-map dump into memory and hope the OS will evict the pages once we're done looking at them
+    let dump_file = std::fs::File::open(&config.wikipedia_dump_path)
+        .context("Failed to open Wikipedia dump")?;
     let dump_file =
-        std::fs::read(&config.wikipedia_dump_path).context("Failed to open Wikipedia dump file")?;
+        unsafe { memmap2::Mmap::map(&dump_file).context("Failed to memory-map Wikipedia dump")? };
 
     println!(
         "{:.2}s: opened Wikipedia dump",

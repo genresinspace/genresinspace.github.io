@@ -13,3 +13,4 @@ parse-wiki-text-2 = "0.2.0"
 serde_json = "1.0.138"
 jiff = { version = "0.1.29", features = ["serde"] }
 rayon = "1.10.0"
+memmap2 = "0.9.5"
