@@ -23,8 +23,16 @@ import {
 type Settings = {
   general: {
     zoomOnSelect: boolean;
+    maxInfluenceDistance: number;
   };
   simulation: SimulationParams;
+};
+const defaultSettings: Settings = {
+  general: {
+    zoomOnSelect: true,
+    maxInfluenceDistance: 3,
+  },
+  simulation: defaultSimulationParams,
 };
 
 type NodeData = {
@@ -55,6 +63,74 @@ const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
 const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
   `hsla(240, ${saturation}%, 60%, ${alpha})`;
 
+// Helper types for storing path information
+type NodeDistances = Map<string, number>;
+type LinkDistances = Map<LinkData, number>;
+interface PathInfo {
+  nodeDistances: NodeDistances;
+  // Maps link index to its distance from source
+  linkDistances: LinkDistances;
+  immediateNeighbours: Set<string>;
+}
+function getPathsWithinDistance(
+  startId: string,
+  nodes: NodeData[],
+  links: LinkData[],
+  maxDistance: number
+): PathInfo {
+  const nodeDistances = new Map<string, number>();
+  const linkDistances = new Map<LinkData, number>();
+  const immediateNeighbours = new Set<string>();
+
+  const startNodeData = nodes[parseInt(startId, 10)];
+  if (startNodeData) {
+    immediateNeighbours.add(startNodeData.id);
+    for (const linkIndex of startNodeData.links) {
+      const link = links[linkIndex];
+      immediateNeighbours.add(link.source);
+      immediateNeighbours.add(link.target);
+    }
+  }
+
+  // Set the starting node
+  nodeDistances.set(startId, 0);
+
+  let frontier = new Set([startId]);
+  let currentDistance = 0;
+
+  while (frontier.size > 0 && currentDistance < maxDistance) {
+    const nextFrontier = new Set<string>();
+    currentDistance++;
+
+    for (const nodeId of frontier) {
+      const nodeIndex = parseInt(nodeId, 10);
+      const nodeData = nodes[nodeIndex];
+
+      if (!nodeData) continue;
+
+      // Process outgoing links
+      for (const linkIndex of nodeData.links) {
+        const link = links[linkIndex];
+        if (link.source === nodeId) {
+          // Only follow outgoing links
+          const targetId = link.target;
+
+          // If we haven't seen this node yet
+          if (!nodeDistances.has(targetId)) {
+            nodeDistances.set(targetId, currentDistance);
+            linkDistances.set(link, currentDistance);
+            nextFrontier.add(targetId);
+          }
+        }
+      }
+    }
+
+    frontier = nextFrontier;
+  }
+
+  return { nodeDistances, linkDistances, immediateNeighbours };
+}
+
 function Graph({
   settings,
   maxDegree,
@@ -71,16 +147,14 @@ function Graph({
   visibleTypes: Record<string, boolean>;
 }) {
   const { cosmograph, nodes, links } = useCosmograph<NodeData, LinkData>()!;
-  const highlightedNodes = useMemo(() => {
-    if (!selectedId || !nodes || !links) return new Set<string>();
-    const nodeData = nodes[parseInt(selectedId, 10)];
-    if (!nodeData) return new Set<string>();
 
-    return new Set([
-      nodeData.id,
-      ...nodeData.links.flatMap((l) => [links[l].source, links[l].target]),
-    ]);
-  }, [selectedId, nodes, links]);
+  // Calculate connected paths and their distances
+  const maxDistance = settings.general.maxInfluenceDistance;
+  const pathInfo = useMemo(() => {
+    if (!selectedId || !nodes || !links)
+      return { nodeDistances: new Map(), linkDistances: new Map() } as PathInfo;
+    return getPathsWithinDistance(selectedId, nodes, links, maxDistance);
+  }, [selectedId, nodes, links, maxDistance]);
 
   useEffect(() => {
     const nodeData = selectedId ? nodes?.[parseInt(selectedId, 10)] : null;
@@ -119,8 +193,13 @@ function Graph({
         let color = `hsl(${hue}, ${
           ((d.links.length / maxDegree) * 0.8 + 0.2) * 100
         }%, 60%)`;
+
         if (selectedId) {
-          if (highlightedNodes.has(d.id)) {
+          if (
+            pathInfo.immediateNeighbours.has(d.id) ||
+            (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
+              maxDistance
+          ) {
             return color;
           } else {
             return "hsl(0, 0%, 60%)";
@@ -134,7 +213,7 @@ function Graph({
           return "rgba(0, 0, 0, 0)";
         }
 
-        let color = (saturation: number, alpha: number) =>
+        let colour = (saturation: number, alpha: number) =>
           d.ty === "Derivative"
             ? derivativeColour(saturation, alpha)
             : d.ty === "Subgenre"
@@ -142,25 +221,46 @@ function Graph({
             : fusionGenreColour(saturation, alpha);
 
         const selectedAlpha = 0.8;
-        const selectedDimmedAlpha = 0.1;
+        const selectedDimmedAlpha = 0.2;
         const unselectedAlpha = 0.3;
 
         if (selectedId) {
           if (d.source === selectedId) {
-            return color(90, selectedAlpha);
+            return colour(90, selectedAlpha);
           } else if (d.target === selectedId) {
-            return color(40, selectedAlpha);
+            return colour(40, selectedAlpha);
           } else {
+            let distance = pathInfo.linkDistances.get(d);
+            if (distance !== undefined) {
+              const factor = 1 - distance / maxDistance;
+              const saturation = Math.max(0, 100 * factor);
+              const alpha =
+                selectedDimmedAlpha +
+                (selectedAlpha - selectedDimmedAlpha) * factor;
+
+              // Use the appropriate base color based on link type
+              if (saturation > 0) {
+                return colour(saturation, alpha);
+              }
+            }
+
+            // Links not in path
             return `hsla(0, 0%, 20%, ${selectedDimmedAlpha})`;
           }
-        } else {
-          return color(70, unselectedAlpha);
         }
+
+        // Default link colors when no selection
+        return colour(70, unselectedAlpha);
       }}
       nodeSize={(d: NodeData) => {
         return (
           8.0 * (0.2 + (d.links.length / maxDegree) * 0.8) +
-          1.0 * (selectedId && !highlightedNodes.has(d.id) ? -1 : 0) +
+          1.0 *
+            (selectedId &&
+            (!pathInfo.nodeDistances.has(d.id) ||
+              pathInfo.immediateNeighbours.has(d.id))
+              ? -1
+              : 0) +
           1.0 * (focusedId === d.id ? 1 : 0)
         );
       }}
@@ -171,10 +271,15 @@ function Graph({
           } else if (d.target === selectedId) {
             return 1.5;
           }
+          const distance = pathInfo.linkDistances.get(d);
+          if (distance !== undefined) {
+            // Scale width based on distance, with minimum of 1
+            return Math.max(1, 2.5 * (1 - distance / maxDistance));
+          }
         }
         return 1;
       }}
-      linkArrowsSizeScale={2}
+      linkArrowsSizeScale={1}
       nodeLabelColor="#CCC"
       hoveredNodeLabelColor="#FFF"
       spaceSize={8192}
@@ -535,7 +640,7 @@ function Settings({
     <>
       <section>
         <h2 className="text-lg font-extrabold mb-2">General</h2>
-        <div>
+        <div className="mb-2">
           <label title="Whether or not to zoom / pan the graph upon selecting a node.">
             <input
               type="checkbox"
@@ -552,6 +657,38 @@ function Settings({
             />
             Zoom on select
           </label>
+        </div>
+        <div className="mb-2">
+          <label
+            title="Controls how many steps away from the selected node to highlight connected nodes and links"
+            className="block font-bold"
+          >
+            Maximum Influence Distance
+          </label>
+          <input
+            type="range"
+            min={1}
+            max={5}
+            step={1}
+            value={settings.general.maxInfluenceDistance - 1}
+            onChange={(e) =>
+              setSettings({
+                ...settings,
+                general: {
+                  ...settings.general,
+                  maxInfluenceDistance: parseInt(e.target.value) + 1,
+                },
+              })
+            }
+          />
+          <span className="value">
+            {settings.general.maxInfluenceDistance - 1}
+          </span>
+          <p className="description">
+            When a node is selected, highlight nodes and links that are up to
+            this many steps away in the graph. Higher values show more of the
+            network around the selected node.
+          </p>
         </div>
       </section>
       <section>
@@ -806,12 +943,7 @@ function App() {
     FusionGenre: true,
   });
 
-  const [settings, setSettings] = useState<Settings>({
-    general: {
-      zoomOnSelect: true,
-    },
-    simulation: defaultSimulationParams,
-  });
+  const [settings, setSettings] = useState<Settings>(defaultSettings);
 
   if (!data) {
     return (
