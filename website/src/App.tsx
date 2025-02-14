@@ -221,7 +221,8 @@ function Graph({
             : fusionGenreColour(saturation, alpha);
 
         const selectedAlpha = 0.8;
-        const selectedDimmedAlpha = 0.2;
+        const selectedMinInfluenceAlpha = 0.4;
+        const selectedDimmedAlpha = 0.1;
         const unselectedAlpha = 0.3;
 
         if (selectedId) {
@@ -235,8 +236,8 @@ function Graph({
               const factor = 1 - distance / maxDistance;
               const saturation = Math.max(0, 100 * factor);
               const alpha =
-                selectedDimmedAlpha +
-                (selectedAlpha - selectedDimmedAlpha) * factor;
+                selectedMinInfluenceAlpha +
+                (selectedAlpha - selectedMinInfluenceAlpha) * factor;
 
               // Use the appropriate base color based on link type
               if (saturation > 0) {
