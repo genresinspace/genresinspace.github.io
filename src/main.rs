@@ -1462,7 +1462,7 @@ fn process_genres(
                             name
                         }
                     });
-                    if let Some((timestamp, new_name)) = all_patches.get(&original_page) {
+                    if let Some((timestamp, new_name)) = all_patches.get(original_page) {
                         // Check whether the article has been updated since the last revision date
                         // with one minute of leeway. If it has, don't apply the patch.
                         if timestamp
@@ -1584,7 +1584,7 @@ fn process_genres(
                         }
                     }
 
-                    last_heading = Some(nodes_inner_text(&nodes, &InnerTextConfig::default()));
+                    last_heading = Some(nodes_inner_text(nodes, &InnerTextConfig::default()));
                 }
                 pwt::Node::Image { end, .. } | pwt::Node::Comment { end, .. } => {
                     last_end = Some(*end);
@@ -1700,10 +1700,8 @@ fn produce_data_json(
         graph.nodes.push(node);
         page_to_id.insert(page.clone(), id);
         let page_without_heading = page.with_opt_heading(None);
-        if !page_to_id.contains_key(&page_without_heading) {
-            // Add fallback page ID for pages where the main music box is under a heading
-            page_to_id.insert(page_without_heading, id);
-        }
+        // Add fallback page ID for pages where the main music box is under a heading
+        page_to_id.entry(page_without_heading).or_insert(id);
     }
 
     // Second pass: create links
