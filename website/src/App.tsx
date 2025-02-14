@@ -106,6 +106,10 @@ function Graph({
     }
   }, [focusedId]);
 
+  const onClick = (nodeData: NodeData | undefined): void => {
+    setSelectedId(nodeData && selectedId !== nodeData.id ? nodeData.id : null);
+  };
+
   return (
     <Cosmograph
       disableSimulation={false}
@@ -182,11 +186,8 @@ function Graph({
       nodeGreyoutOpacity={1}
       linkGreyoutOpacity={1}
       linkVisibilityMinTransparency={selectedId ? 0.75 : 0.25}
-      onClick={(nodeData, _nodeIndex, _nodePosition) => {
-        setSelectedId(
-          nodeData && selectedId !== nodeData.id ? nodeData.id : null
-        );
-      }}
+      onClick={onClick}
+      onLabelClick={onClick}
     />
   );
 }
