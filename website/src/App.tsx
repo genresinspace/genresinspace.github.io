@@ -777,7 +777,9 @@ function Sidebar({
       className="h-full bg-neutral-900 text-white box-border flex"
     >
       <div
-        className="h-full w-4 cursor-ew-resize hover:bg-neutral-700 select-none flex items-center justify-center shrink-0"
+        className={`h-full w-4 cursor-ew-resize hover:bg-neutral-700 ${
+          isResizing ? "bg-neutral-700" : ""
+        } select-none flex items-center justify-center shrink-0`}
         onMouseDown={() => setIsResizing(true)}
       >
         <svg
