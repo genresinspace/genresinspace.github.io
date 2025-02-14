@@ -107,84 +107,82 @@ function Graph({
   }, [focusedId]);
 
   return (
-    <div className="flex-1 h-full">
-      <Cosmograph
-        disableSimulation={false}
-        nodeLabelAccessor={(d: NodeData) => d.label}
-        nodeColor={(d) => {
-          const hash = d.id
-            .split("")
-            .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
-          const hue = Math.abs(hash % 360);
-          let color = `hsl(${hue}, ${
-            ((d.links.length / maxDegree) * 0.8 + 0.2) * 100
-          }%, 60%)`;
-          if (selectedId) {
-            if (highlightedNodes.has(d.id)) {
-              return color;
-            } else {
-              return "hsl(0, 0%, 60%)";
-            }
-          } else {
+    <Cosmograph
+      disableSimulation={false}
+      nodeLabelAccessor={(d: NodeData) => d.label}
+      nodeColor={(d) => {
+        const hash = d.id
+          .split("")
+          .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
+        const hue = Math.abs(hash % 360);
+        let color = `hsl(${hue}, ${
+          ((d.links.length / maxDegree) * 0.8 + 0.2) * 100
+        }%, 60%)`;
+        if (selectedId) {
+          if (highlightedNodes.has(d.id)) {
             return color;
-          }
-        }}
-        linkColor={(d: LinkData) => {
-          if (!visibleTypes[d.ty]) {
-            return "rgba(0, 0, 0, 0)";
-          }
-
-          let color = (saturation: number) =>
-            d.ty === "Derivative"
-              ? derivativeColour(saturation)
-              : d.ty === "Subgenre"
-              ? subgenreColour(saturation)
-              : fusionGenreColour(saturation);
-          if (selectedId) {
-            if (d.source === selectedId) {
-              return color(90);
-            } else if (d.target === selectedId) {
-              return color(40);
-            } else {
-              return "hsla(0, 0%, 20%, 0.1)";
-            }
           } else {
-            return color(70);
+            return "hsl(0, 0%, 60%)";
           }
-        }}
-        nodeSize={(d: NodeData) => {
-          return (
-            8.0 * (0.2 + (d.links.length / maxDegree) * 0.8) +
-            1.0 * (selectedId && !highlightedNodes.has(d.id) ? -1 : 0) +
-            1.0 * (focusedId === d.id ? 1 : 0)
-          );
-        }}
-        linkWidth={(d: LinkData) => {
-          if (selectedId) {
-            if (d.source === selectedId) {
-              return 2.5;
-            } else if (d.target === selectedId) {
-              return 1.5;
-            }
+        } else {
+          return color;
+        }
+      }}
+      linkColor={(d: LinkData) => {
+        if (!visibleTypes[d.ty]) {
+          return "rgba(0, 0, 0, 0)";
+        }
+
+        let color = (saturation: number) =>
+          d.ty === "Derivative"
+            ? derivativeColour(saturation)
+            : d.ty === "Subgenre"
+            ? subgenreColour(saturation)
+            : fusionGenreColour(saturation);
+        if (selectedId) {
+          if (d.source === selectedId) {
+            return color(90);
+          } else if (d.target === selectedId) {
+            return color(40);
+          } else {
+            return "hsla(0, 0%, 20%, 0.1)";
           }
-          return 1;
-        }}
-        linkArrowsSizeScale={2}
-        nodeLabelColor="#CCC"
-        hoveredNodeLabelColor="#FFF"
-        spaceSize={8192}
-        {...settings.simulation}
-        randomSeed={"Where words fail, music speaks"}
-        nodeGreyoutOpacity={1}
-        linkGreyoutOpacity={1}
-        linkVisibilityMinTransparency={selectedId ? 0.75 : 0.25}
-        onClick={(nodeData, _nodeIndex, _nodePosition) => {
-          setSelectedId(
-            nodeData && selectedId !== nodeData.id ? nodeData.id : null
-          );
-        }}
-      />
-    </div>
+        } else {
+          return color(70);
+        }
+      }}
+      nodeSize={(d: NodeData) => {
+        return (
+          8.0 * (0.2 + (d.links.length / maxDegree) * 0.8) +
+          1.0 * (selectedId && !highlightedNodes.has(d.id) ? -1 : 0) +
+          1.0 * (focusedId === d.id ? 1 : 0)
+        );
+      }}
+      linkWidth={(d: LinkData) => {
+        if (selectedId) {
+          if (d.source === selectedId) {
+            return 2.5;
+          } else if (d.target === selectedId) {
+            return 1.5;
+          }
+        }
+        return 1;
+      }}
+      linkArrowsSizeScale={2}
+      nodeLabelColor="#CCC"
+      hoveredNodeLabelColor="#FFF"
+      spaceSize={8192}
+      {...settings.simulation}
+      randomSeed={"Where words fail, music speaks"}
+      nodeGreyoutOpacity={1}
+      linkGreyoutOpacity={1}
+      linkVisibilityMinTransparency={selectedId ? 0.75 : 0.25}
+      onClick={(nodeData, _nodeIndex, _nodePosition) => {
+        setSelectedId(
+          nodeData && selectedId !== nodeData.id ? nodeData.id : null
+        );
+      }}
+    />
   );
 }
 
@@ -467,10 +465,12 @@ function SelectedNodeInfo({
 }
 
 function Find({
+  selectedId,
   nodes,
   filter,
   setFilter,
 }: {
+  selectedId: string | null;
   nodes: NodeData[];
   filter: string;
   setFilter: (filter: string) => void;
@@ -483,17 +483,17 @@ function Find({
       return;
     }
     setResults(
-      nodes
-        .filter((node) =>
-          node.label.toLowerCase().includes(filter.toLowerCase())
-        )
-        .slice(0, 5)
+      nodes.filter((node) =>
+        node.label.toLowerCase().includes(filter.toLowerCase())
+      )
     );
   }, [filter, nodes]);
 
+  const isSelected =
+    selectedId && nodes[parseInt(selectedId, 10)]?.label == filter;
+
   return (
     <div>
-      <h2 className="text-lg font-extrabold mb-2">Find</h2>
       <input
         type="text"
         placeholder="Search..."
@@ -501,18 +501,19 @@ function Find({
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
       />
-      <div className="flex flex-col gap-2">
-        {results.map((node) => (
-          <div
-            key={node.id}
-            className="p-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-colors"
-          >
-            <InternalLink href={`#${node.id}`}>{node.label}</InternalLink>
-            <small className="block">
-              <ShortWikitext wikitext={node.wikitext_description ?? []} />
-            </small>
-          </div>
-        ))}
+      <div className="flex flex-col gap-2 max-h-[50vh] overflow-y-auto">
+        {!isSelected &&
+          results.map((node) => (
+            <div
+              key={node.id}
+              className="p-2 bg-neutral-900 rounded-lg hover:bg-neutral-700 transition-colors"
+            >
+              <InternalLink href={`#${node.id}`}>{node.label}</InternalLink>
+              <small className="block">
+                <ShortWikitext wikitext={node.wikitext_description ?? []} />
+              </small>
+            </div>
+          ))}
       </div>
     </div>
   );
@@ -585,13 +586,12 @@ function Sidebar({
   >;
 }) {
   const [activeTab, setActiveTab] = useState<
-    "information" | "find" | "selected" | "settings"
+    "information" | "selected" | "settings"
   >("information");
   const [width, setWidth] = useState("20%");
   const sidebarRef = useRef<HTMLDivElement>(null);
   const sidebarContentRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
-  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -651,7 +651,6 @@ function Sidebar({
           <div className="flex mb-4">
             {[
               { id: "information" as const, label: "Info" },
-              { id: "find" as const, label: "Find" },
               { id: "selected" as const, label: "Selected" },
               { id: "settings" as const, label: "Settings" },
             ].map((tab) => (
@@ -672,8 +671,6 @@ function Sidebar({
               visibleTypes={visibleTypes}
               setVisibleTypes={setVisibleTypes}
             />
-          ) : activeTab === "find" ? (
-            <Find nodes={nodes} filter={filter} setFilter={setFilter} />
           ) : activeTab === "selected" ? (
             <SelectedNodeInfo
               selectedId={selectedId}
@@ -744,14 +741,13 @@ function App() {
     const hash = window.location.hash.slice(1);
     return hash || null;
   });
-
   const [focusedId, setFocusedId] = useState<string | null>(null);
-
   const [visibleTypes, setVisibleTypes] = useState<Record<string, boolean>>({
     Derivative: true,
     Subgenre: true,
     FusionGenre: true,
   });
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -771,6 +767,15 @@ function App() {
       window.history.pushState(null, "", window.location.pathname);
     }
   }, [selectedId]);
+
+  useEffect(() => {
+    if (selectedId && data) {
+      const nodeData = data.nodes[parseInt(selectedId, 10)];
+      if (nodeData) {
+        setFilter(nodeData.label);
+      }
+    }
+  }, [data, selectedId]);
 
   const [settings, setSettings] = useState<Settings>({
     general: {
@@ -795,14 +800,24 @@ function App() {
   return (
     <div className="flex w-screen h-screen">
       <CosmographProvider nodes={data.nodes} links={data.links}>
-        <Graph
-          settings={settings}
-          maxDegree={data.max_degree}
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-          focusedId={focusedId}
-          visibleTypes={visibleTypes}
-        />
+        <div className="flex-1 h-full relative">
+          <Graph
+            settings={settings}
+            maxDegree={data.max_degree}
+            selectedId={selectedId}
+            setSelectedId={setSelectedId}
+            focusedId={focusedId}
+            visibleTypes={visibleTypes}
+          />
+          <div className="absolute top-4 left-4 z-50 w-sm text-white">
+            <Find
+              selectedId={selectedId}
+              nodes={data.nodes}
+              filter={filter}
+              setFilter={setFilter}
+            />
+          </div>
+        </div>
         <Sidebar
           settings={settings}
           setSettings={setSettings}
