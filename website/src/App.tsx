@@ -71,9 +71,16 @@ function Graph({
   visibleTypes: Record<string, boolean>;
 }) {
   const { cosmograph, nodes, links } = useCosmograph<NodeData, LinkData>()!;
-  const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(
-    new Set()
-  );
+  const highlightedNodes = useMemo(() => {
+    if (!selectedId || !nodes || !links) return new Set<string>();
+    const nodeData = nodes[parseInt(selectedId, 10)];
+    if (!nodeData) return new Set<string>();
+
+    return new Set([
+      nodeData.id,
+      ...nodeData.links.flatMap((l) => [links[l].source, links[l].target]),
+    ]);
+  }, [selectedId, nodes, links]);
 
   useEffect(() => {
     const nodeData = selectedId ? nodes?.[parseInt(selectedId, 10)] : null;
@@ -82,18 +89,8 @@ function Graph({
       if (settings.general.zoomOnSelect) {
         cosmograph?.zoomToNode(nodeData);
       }
-      setHighlightedNodes(
-        new Set([
-          nodeData.id,
-          ...nodeData.links.flatMap((l) => [
-            links![l].source,
-            links![l].target,
-          ]),
-        ])
-      );
     } else {
       cosmograph?.unselectNodes();
-      setHighlightedNodes(new Set());
     }
   }, [selectedId]);
 
