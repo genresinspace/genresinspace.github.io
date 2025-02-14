@@ -24,6 +24,11 @@ type Settings = {
   general: {
     zoomOnSelect: boolean;
     maxInfluenceDistance: number;
+    visibleTypes: {
+      Derivative: boolean;
+      Subgenre: boolean;
+      FusionGenre: boolean;
+    };
   };
   simulation: SimulationParams;
 };
@@ -31,6 +36,11 @@ const defaultSettings: Settings = {
   general: {
     zoomOnSelect: true,
     maxInfluenceDistance: 3,
+    visibleTypes: {
+      Derivative: true,
+      Subgenre: true,
+      FusionGenre: true,
+    },
   },
   simulation: defaultSimulationParams,
 };
@@ -137,14 +147,12 @@ function Graph({
   selectedId,
   setSelectedId,
   focusedId,
-  visibleTypes,
 }: {
   settings: Settings;
   maxDegree: number;
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
   focusedId: string | null;
-  visibleTypes: Record<string, boolean>;
 }) {
   const { cosmograph, nodes, links } = useCosmograph<NodeData, LinkData>()!;
 
@@ -209,7 +217,7 @@ function Graph({
         }
       }}
       linkColor={(d: LinkData) => {
-        if (!visibleTypes[d.ty]) {
+        if (!settings.general.visibleTypes[d.ty]) {
           return "rgba(0, 0, 0, 0)";
         }
 
@@ -300,14 +308,12 @@ function Graph({
 
 function ProjectInformation({
   dumpDate,
-  visibleTypes,
-  setVisibleTypes,
+  settings,
+  setSettings,
 }: {
   dumpDate: string;
-  visibleTypes: Record<string, boolean>;
-  setVisibleTypes: React.Dispatch<
-    React.SetStateAction<Record<string, boolean>>
-  >;
+  settings: Settings;
+  setSettings: React.Dispatch<React.SetStateAction<Settings>>;
 }) {
   return (
     <div>
@@ -328,34 +334,42 @@ function ProjectInformation({
           {
             color: derivativeColour(),
             label: "Derivative",
+            type: "Derivative" as const,
             description:
               "Genres that use some of the elements inherent to this genre, without being a child genre.",
           },
           {
             color: subgenreColour(),
             label: "Subgenre",
+            type: "Subgenre" as const,
             description:
               "Genres that share characteristics with this genre and fall within its purview.",
           },
           {
             color: fusionGenreColour(),
             label: "Fusion Genre",
-            type: "FusionGenre",
+            type: "FusionGenre" as const,
             description:
               "Genres that combine elements of this genre with other genres.",
           },
-        ].map(({ color, label, description }) => (
+        ].map(({ color, label, type, description }) => (
           <div key={label} className="flex items-start gap-2">
             <div>
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   id={label}
-                  checked={visibleTypes[label.replace(" ", "")]}
+                  checked={settings.general.visibleTypes[type]}
                   onChange={(e) =>
-                    setVisibleTypes((prev: Record<string, boolean>) => ({
+                    setSettings((prev: Settings) => ({
                       ...prev,
-                      [label.replace(" ", "")]: e.target.checked,
+                      general: {
+                        ...prev.general,
+                        visibleTypes: {
+                          ...prev.general.visibleTypes,
+                          [type]: e.target.checked,
+                        },
+                      },
                     }))
                   }
                   style={{ accentColor: color }}
@@ -716,20 +730,14 @@ function Sidebar({
   setFocusedId,
   nodes,
   links,
-  visibleTypes,
-  setVisibleTypes,
 }: {
   settings: Settings;
-  setSettings: (settings: Settings) => void;
+  setSettings: React.Dispatch<React.SetStateAction<Settings>>;
   dumpDate: string;
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   nodes: NodeData[];
   links: LinkData[];
-  visibleTypes: Record<string, boolean>;
-  setVisibleTypes: React.Dispatch<
-    React.SetStateAction<Record<string, boolean>>
-  >;
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "settings"
@@ -826,8 +834,8 @@ function Sidebar({
           {activeTab === "information" ? (
             <ProjectInformation
               dumpDate={dumpDate}
-              visibleTypes={visibleTypes}
-              setVisibleTypes={setVisibleTypes}
+              settings={settings}
+              setSettings={setSettings}
             />
           ) : activeTab === "selected" ? (
             <SelectedNodeInfo
@@ -943,12 +951,6 @@ function App() {
 
   // Focus, visible
   const [focusedId, setFocusedId] = useState<string | null>(null);
-  const [visibleTypes, setVisibleTypes] = useState<Record<string, boolean>>({
-    Derivative: true,
-    Subgenre: true,
-    FusionGenre: true,
-  });
-
   const [settings, setSettings] = useState<Settings>(defaultSettings);
 
   if (!data) {
@@ -974,7 +976,6 @@ function App() {
             selectedId={selectedId}
             setSelectedId={setSelectedId}
             focusedId={focusedId}
-            visibleTypes={visibleTypes}
           />
           <div className="absolute top-4 left-4 z-50 w-sm text-white">
             <Search
@@ -993,8 +994,6 @@ function App() {
           setFocusedId={setFocusedId}
           nodes={data.nodes}
           links={data.links}
-          visibleTypes={visibleTypes}
-          setVisibleTypes={setVisibleTypes}
         />
       </CosmographProvider>
     </div>
