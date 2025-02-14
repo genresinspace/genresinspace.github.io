@@ -219,6 +219,9 @@ function WikitextTemplate({
       return jsx;
     case "according_to_whom":
       return <sup>[according to whom]</sup>;
+    case "anchor":
+      // We don't need to emit anchors in our output
+      return null;
     case "blockquote":
     case "cquote":
       const params = templateToObject(node);
@@ -244,6 +247,7 @@ function WikitextTemplate({
     case "source_needed":
     case "cn":
     case "fact":
+    case "citesource":
       return <sup>[citation needed]</sup>;
     case "clarify":
     case "clarification_needed":
@@ -388,10 +392,14 @@ function WikitextTemplate({
     case "not_a_typo":
     case "proper_name":
       return <>{node.children.map((c) => c.value).join("")}</>;
+    case "noitalic":
+      return <span className="font-normal">{node.children[0].value}</span>;
     case "nowrap":
       return (
         <span className="whitespace-nowrap">{node.children[0].value}</span>
       );
+    case "page_needed":
+      return <sup>[page needed]</sup>;
     case "pronunciation":
       // TODO: implement, this could be quite important for this use case
       return null;
