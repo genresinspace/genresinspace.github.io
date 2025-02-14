@@ -4,7 +4,7 @@ use quick_xml::events::Event;
 use serde::{Deserialize, Serialize};
 use std::{
     collections::{BTreeSet, HashMap, HashSet},
-    io::Write as _,
+    io::{BufRead, Write as _},
     path::{Path, PathBuf},
     sync::LazyLock,
 };
@@ -111,6 +111,7 @@ impl std::fmt::Display for GenreName {
 #[derive(Debug, Deserialize)]
 struct Config {
     wikipedia_dump_path: PathBuf,
+    wikipedia_index_path: PathBuf,
 }
 fn main() -> anyhow::Result<()> {
     let config: Config = {
@@ -134,6 +135,7 @@ fn main() -> anyhow::Result<()> {
     })?;
 
     let output_path = Path::new("output").join(dump_date.to_string());
+    let offsets_path = output_path.join("offsets.txt");
     let genres_path = output_path.join("genres");
     let redirects_path = output_path.join("all_redirects.toml");
     let links_to_articles_path = output_path.join("links_to_articles.toml");
@@ -145,8 +147,13 @@ fn main() -> anyhow::Result<()> {
 
     let start = std::time::Instant::now();
 
-    let (genres, all_redirects) =
-        extract_genres_and_all_redirects(&config, start, &genres_path, &redirects_path)?;
+    let (genres, all_redirects) = extract_genres_and_all_redirects(
+        &config,
+        start,
+        &offsets_path,
+        &genres_path,
+        &redirects_path,
+    )?;
 
     let links_to_articles =
         resolve_links_to_articles(start, &links_to_articles_path, &genres, all_redirects)?;
@@ -245,6 +252,7 @@ impl TryFrom<AllRedirects> for HashMap<PageName, PageName> {
 fn extract_genres_and_all_redirects(
     config: &Config,
     start: std::time::Instant,
+    offsets_path: &Path,
     genres_path: &Path,
     redirects_path: &Path,
 ) -> anyhow::Result<(GenrePages, AllRedirects)> {
@@ -277,127 +285,202 @@ fn extract_genres_and_all_redirects(
     let now = std::time::Instant::now();
     let mut count = 0;
     std::fs::create_dir_all(genres_path).context("Failed to create genres directory")?;
+    let offsets = if offsets_path.exists() {
+        let offsets_str =
+            std::fs::read_to_string(offsets_path).context("Failed to read offsets file")?;
+        let offsets: Vec<usize> = offsets_str
+            .lines()
+            .map(|line| line.parse().unwrap())
+            .collect();
+        println!(
+            "{:.2}s: Loaded {} offsets from file",
+            start.elapsed().as_secs_f32(),
+            offsets.len(),
+        );
+        offsets
+    } else {
+        let index_file = std::fs::read(&config.wikipedia_index_path)
+            .context("Failed to open Wikipedia index file")?;
+        let index_file = std::io::BufReader::new(bzip2::bufread::BzDecoder::new(&index_file[..]));
+        let mut offsets = BTreeSet::<usize>::new();
+        for line in index_file.lines() {
+            let line = line.context("Failed to read line from Wikipedia index file")?;
+            let (offset, _) = line.split_once(':').context("Failed to split line")?;
+            offsets.insert(offset.parse().unwrap());
+        }
+        let offsets: Vec<_> = offsets.into_iter().collect();
+        let mut file =
+            std::fs::File::create(offsets_path).context("Failed to create offsets file")?;
+        for offset in &offsets {
+            writeln!(file, "{}", offset).context("Failed to write offset to file")?;
+        }
+        println!(
+            "{:.2}s: Extracted {} offsets from index and saved to file",
+            start.elapsed().as_secs_f32(),
+            offsets.len(),
+        );
+        offsets
+    };
 
-    // This could be made much faster by loading the file into memory and using the index to attack
-    // the streams in parallel, but this will only run once every month, so it's not worth optimising.
-    let file = std::fs::File::open(&config.wikipedia_dump_path)
-        .context("Failed to open Wikipedia dump file")?;
-    let decoder = bzip2::bufread::MultiBzDecoder::new(std::io::BufReader::new(file));
-    let reader = std::io::BufReader::new(decoder);
-    let mut reader = quick_xml::reader::Reader::from_reader(reader);
-    reader.config_mut().trim_text(true);
+    let dump_file =
+        std::fs::read(&config.wikipedia_dump_path).context("Failed to open Wikipedia dump file")?;
 
-    let mut buf = vec![];
+    println!(
+        "{:.2}s: opened Wikipedia dump",
+        start.elapsed().as_secs_f32()
+    );
 
-    let mut title = String::new();
-    let mut recording_title = false;
+    // Read the header of the file to extract the domain
+    let wikipedia_domain = {
+        let mut reader = quick_xml::reader::Reader::from_reader(std::io::BufReader::new(
+            bzip2::bufread::BzDecoder::new(&dump_file[0..offsets[0]]),
+        ));
+        reader.config_mut().trim_text(true);
 
-    let mut text = String::new();
-    let mut recording_text = false;
+        let mut buf = vec![];
 
-    let mut timestamp = String::new();
-    let mut recording_timestamp = false;
+        let mut wikipedia_domain: String = String::new();
+        let mut recording_wikipedia_domain = false;
 
-    let mut wikipedia_domain: Option<String> = None;
-    let mut recording_wikipedia_domain = false;
-    loop {
-        match reader.read_event_into(&mut buf) {
-            Ok(Event::Eof) => break,
-            Ok(Event::Start(e)) => {
-                let name = e.name().0;
-                if name == b"title" {
-                    title.clear();
-                    recording_title = true;
-                } else if name == b"text" {
-                    text.clear();
-                    recording_text = true;
-                } else if name == b"timestamp" {
-                    timestamp.clear();
-                    recording_timestamp = true;
-                } else if name == b"base" {
-                    wikipedia_domain = None;
-                    recording_wikipedia_domain = true;
-                }
-            }
-            Ok(Event::Text(e)) => {
-                if recording_title {
-                    title.push_str(&e.unescape().unwrap());
-                } else if recording_text {
-                    text.push_str(&e.unescape().unwrap());
-                } else if recording_timestamp {
-                    timestamp.push_str(&e.unescape().unwrap());
-                } else if recording_wikipedia_domain {
-                    wikipedia_domain
-                        .get_or_insert_default()
-                        .push_str(&e.unescape().unwrap());
-                }
-            }
-            Ok(Event::End(e)) => {
-                if e.name().0 == b"title" {
-                    recording_title = false;
-                } else if e.name().0 == b"text" {
-                    recording_text = false;
-                } else if e.name().0 == b"timestamp" {
-                    recording_timestamp = false;
-                } else if e.name().0 == b"base" {
-                    recording_wikipedia_domain = false;
-                    wikipedia_domain = Some(
-                        extract_domain(&wikipedia_domain.expect("wikipedia_domain not set"))
-                            .expect("could not extract domain from wikipedia_domain")
-                            .to_string(),
-                    );
-                } else if e.name().0 == b"page" {
-                    let page = PageName {
-                        name: title.clone(),
-                        heading: None,
-                    };
-                    if text.starts_with("#REDIRECT") {
-                        all_redirects.insert(
-                            page.clone(),
-                            parse_redirect_text(
-                                wikipedia_domain
-                                    .as_deref()
-                                    .expect("wikipedia_domain not set"),
-                                &text,
-                            )
-                            .context(page.to_string())?,
-                        );
-
-                        count += 1;
-                        if count % 1000 == 0 {
-                            println!("{:.2}s: {count} redirects", start.elapsed().as_secs_f32());
-                        }
-                    } else if text.contains("nfobox music genre") {
-                        if title.contains(":") {
-                            continue;
-                        }
-
-                        let timestamp =
-                            timestamp.parse::<jiff::Timestamp>().with_context(|| {
-                                format!("Failed to parse timestamp {timestamp} for {page}")
-                            })?;
-
-                        let output_file_path =
-                            genres_path.join(format!("{}.wikitext", sanitize_page_name(&page)));
-                        let output_file = std::fs::File::create(&output_file_path)
-                            .with_context(|| format!("Failed to create output file for {page}"))?;
-                        let mut output_file = std::io::BufWriter::new(output_file);
-
-                        writeln!(
-                            output_file,
-                            "{}",
-                            serde_json::to_string(&WikitextHeader { timestamp })?
-                        )?;
-                        write!(output_file, "{text}")?;
-
-                        genre_pages.insert(page.clone(), output_file_path);
-                        println!("{:.2}s: {page}", start.elapsed().as_secs_f32());
+        loop {
+            match reader.read_event_into(&mut buf) {
+                Ok(Event::Eof) => break,
+                Ok(Event::Start(e)) => {
+                    let name = e.name().0;
+                    if name == b"base" {
+                        wikipedia_domain.clear();
+                        recording_wikipedia_domain = true;
                     }
                 }
+                Ok(Event::Text(e)) => {
+                    if recording_wikipedia_domain {
+                        wikipedia_domain.push_str(&e.unescape().unwrap());
+                    }
+                }
+                Ok(Event::End(e)) => {
+                    if e.name().0 == b"base" {
+                        recording_wikipedia_domain = false;
+                        wikipedia_domain = extract_domain(&wikipedia_domain)
+                            .expect("wikipedia_domain could not be extracted")
+                            .to_string();
+                    }
+                }
+                _ => {}
             }
-            _ => {}
+            buf.clear();
         }
-        buf.clear();
+
+        if wikipedia_domain.is_empty() {
+            anyhow::bail!("Failed to extract Wikipedia domain from dump");
+        }
+
+        wikipedia_domain
+    };
+
+    // Iterate over each offset (we'll make this multithreaded later)
+    for offset in offsets {
+        let mut reader = quick_xml::reader::Reader::from_reader(std::io::BufReader::new(
+            // We use an open-ended slice because BzDecoder will terminate after end of stream
+            bzip2::bufread::BzDecoder::new(&dump_file[offset..]),
+        ));
+        reader.config_mut().trim_text(true);
+
+        let mut buf = vec![];
+
+        let mut title = String::new();
+        let mut recording_title = false;
+
+        let mut text = String::new();
+        let mut recording_text = false;
+
+        let mut timestamp = String::new();
+        let mut recording_timestamp = false;
+
+        loop {
+            match reader.read_event_into(&mut buf) {
+                Ok(Event::Eof) => break,
+                Ok(Event::Start(e)) => {
+                    let name = e.name().0;
+                    if name == b"title" {
+                        title.clear();
+                        recording_title = true;
+                    } else if name == b"text" {
+                        text.clear();
+                        recording_text = true;
+                    } else if name == b"timestamp" {
+                        timestamp.clear();
+                        recording_timestamp = true;
+                    }
+                }
+                Ok(Event::Text(e)) => {
+                    if recording_title {
+                        title.push_str(&e.unescape().unwrap());
+                    } else if recording_text {
+                        text.push_str(&e.unescape().unwrap());
+                    } else if recording_timestamp {
+                        timestamp.push_str(&e.unescape().unwrap());
+                    }
+                }
+                Ok(Event::End(e)) => {
+                    if e.name().0 == b"title" {
+                        recording_title = false;
+                    } else if e.name().0 == b"text" {
+                        recording_text = false;
+                    } else if e.name().0 == b"timestamp" {
+                        recording_timestamp = false;
+                    } else if e.name().0 == b"page" {
+                        let page = PageName {
+                            name: title.clone(),
+                            heading: None,
+                        };
+                        if text.starts_with("#REDIRECT") {
+                            all_redirects.insert(
+                                page.clone(),
+                                parse_redirect_text(&wikipedia_domain, &text)
+                                    .context(page.to_string())?,
+                            );
+
+                            count += 1;
+                            if count % 1000 == 0 {
+                                println!(
+                                    "{:.2}s: {count} redirects",
+                                    start.elapsed().as_secs_f32()
+                                );
+                            }
+                        } else if text.contains("nfobox music genre") {
+                            if title.contains(":") {
+                                continue;
+                            }
+
+                            let timestamp =
+                                timestamp.parse::<jiff::Timestamp>().with_context(|| {
+                                    format!("Failed to parse timestamp {timestamp} for {page}")
+                                })?;
+
+                            let output_file_path =
+                                genres_path.join(format!("{}.wikitext", sanitize_page_name(&page)));
+                            let output_file = std::fs::File::create(&output_file_path)
+                                .with_context(|| {
+                                    format!("Failed to create output file for {page}")
+                                })?;
+                            let mut output_file = std::io::BufWriter::new(output_file);
+
+                            writeln!(
+                                output_file,
+                                "{}",
+                                serde_json::to_string(&WikitextHeader { timestamp })?
+                            )?;
+                            write!(output_file, "{text}")?;
+
+                            genre_pages.insert(page.clone(), output_file_path);
+                            println!("{:.2}s: {page}", start.elapsed().as_secs_f32());
+                        }
+                    }
+                }
+                _ => {}
+            }
+            buf.clear();
+        }
     }
 
     std::fs::write(
@@ -1813,7 +1896,6 @@ struct InnerTextConfig {
     /// Whether to stop after a `<br>` tag.
     stop_after_br: bool,
 }
-
 /// Joins nodes together without any space between them and trims the result, which is not always the correct behaviour
 fn nodes_inner_text(nodes: &[pwt::Node], config: &InnerTextConfig) -> String {
     let mut result = String::new();
