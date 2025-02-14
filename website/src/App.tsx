@@ -86,6 +86,7 @@ function getPathsWithinDistance(
   startId: string,
   nodes: NodeData[],
   links: LinkData[],
+  visibleTypes: Settings["general"]["visibleTypes"],
   maxDistance: number
 ): PathInfo {
   const nodeDistances = new Map<string, number>();
@@ -97,8 +98,10 @@ function getPathsWithinDistance(
     immediateNeighbours.add(startNodeData.id);
     for (const linkIndex of startNodeData.links) {
       const link = links[linkIndex];
-      immediateNeighbours.add(link.source);
-      immediateNeighbours.add(link.target);
+      if (visibleTypes[link.ty]) {
+        immediateNeighbours.add(link.source);
+        immediateNeighbours.add(link.target);
+      }
     }
   }
 
@@ -121,6 +124,7 @@ function getPathsWithinDistance(
       // Process outgoing links
       for (const linkIndex of nodeData.links) {
         const link = links[linkIndex];
+        if (!visibleTypes[link.ty]) continue;
         if (link.source === nodeId) {
           // Only follow outgoing links
           const targetId = link.target;
@@ -161,8 +165,14 @@ function Graph({
   const pathInfo = useMemo(() => {
     if (!selectedId || !nodes || !links)
       return { nodeDistances: new Map(), linkDistances: new Map() } as PathInfo;
-    return getPathsWithinDistance(selectedId, nodes, links, maxDistance);
-  }, [selectedId, nodes, links, maxDistance]);
+    return getPathsWithinDistance(
+      selectedId,
+      nodes,
+      links,
+      settings.general.visibleTypes,
+      maxDistance
+    );
+  }, [selectedId, nodes, links, maxDistance, settings.general.visibleTypes]);
 
   useEffect(() => {
     const nodeData = selectedId ? nodes?.[parseInt(selectedId, 10)] : null;
