@@ -17,6 +17,7 @@ import {
   WikipediaLink,
   Wikitext,
   WikitextNode,
+  WikitextWithEllipsis,
 } from "./Wikipedia";
 
 type Settings = {
@@ -501,7 +502,7 @@ function Find({
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
       />
-      <div className="flex flex-col gap-2 max-h-[50vh] overflow-y-auto">
+      <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto">
         {!isSelected &&
           results.map((node) => (
             <div
@@ -510,7 +511,10 @@ function Find({
             >
               <InternalLink href={`#${node.id}`}>{node.label}</InternalLink>
               <small className="block">
-                <ShortWikitext wikitext={node.wikitext_description ?? []} />
+                <WikitextWithEllipsis
+                  wikitext={node.wikitext_description ?? []}
+                  length={100}
+                />
               </small>
             </div>
           ))}

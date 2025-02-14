@@ -49,6 +49,74 @@ export function ShortWikitext(
   );
 }
 
+/**
+ * Like `Wikitext`, but renders up to a character limit before truncating with a `...` suffix.
+ */
+export function WikitextWithEllipsis(
+  props: React.ComponentProps<"span"> & {
+    wikitext: WikitextNode[];
+    length: number;
+  }
+) {
+  function estimateNodeLength(node: WikitextNode): number {
+    switch (node.type) {
+      case "template":
+        // this is so bad
+        return (
+          node.children.map((p) => p.value.length).reduce((a, b) => a + b, 0) /
+          Math.max(node.children.length, 1)
+        );
+      case "link":
+        return node.text.length;
+      case "ext-link":
+        return node.text.length;
+      case "fragment":
+      case "bold":
+      case "italic":
+      case "blockquote":
+      case "superscript":
+      case "subscript":
+      case "small":
+      case "preformatted":
+        return node.children.map(estimateNodeLength).reduce((a, b) => a + b, 0);
+      case "text":
+        return node.text.length;
+      default:
+        return 0;
+    }
+  }
+
+  let nodes: WikitextNode[] = [];
+  let length = 0;
+  for (const node of props.wikitext) {
+    if (isShortWikitextBreak(node)) {
+      break;
+    }
+    const nodeLength = estimateNodeLength(node);
+    if (length + nodeLength > props.length) {
+      break;
+    }
+    nodes.push(node);
+    length += nodeLength;
+  }
+
+  if (nodes.length < props.wikitext.length) {
+    // if the node after the truncated node is text, make an attempt to truncate it
+    // to produce *some* output
+    const nextNode = props.wikitext[nodes.length];
+    if (nextNode.type === "text") {
+      nodes.push({
+        type: "text",
+        text: nextNode.text.slice(0, props.length - length),
+      });
+    }
+
+    nodes.push({ type: "text", text: "..." });
+  }
+
+  return <Wikitext {...props} wikitext={nodes} />;
+}
+
 export function Wikitext(
   props: React.ComponentProps<"span"> & { wikitext: WikitextNode[] }
 ) {
