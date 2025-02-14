@@ -1751,13 +1751,13 @@ fn produce_data_json(
         }
         for fusion_genre in &processed_genre.fusion_genres {
             graph.links.insert(LinkData {
-                source: *page_to_id.get(fusion_genre).with_context(|| {
+                source: genre_id,
+                target: *page_to_id.get(fusion_genre).with_context(|| {
                     format!(
                         "{}: Missing page ID for fusion genre `{fusion_genre}`",
                         processed_genre.page
                     )
                 })?,
-                target: genre_id,
                 ty: LinkType::FusionGenre,
             });
         }

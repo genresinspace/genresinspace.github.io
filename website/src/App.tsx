@@ -351,14 +351,14 @@ function SelectedNodeInfo({
     {
       type: "FusionGenre" as const,
       inbound: [
-        { type: "text", content: "Used in these " },
-        { type: "emphasis", content: "fusion genres" },
-        { type: "text", content: ":" },
-      ],
-      outbound: [
         { type: "text", content: "This " },
         { type: "emphasis", content: "fusion genre" },
         { type: "text", content: " draws upon:" },
+      ],
+      outbound: [
+        { type: "text", content: "Used in these " },
+        { type: "emphasis", content: "fusion genres" },
+        { type: "text", content: ":" },
       ],
     },
   ];
