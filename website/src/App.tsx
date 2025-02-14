@@ -216,6 +216,7 @@ function ProjectInformation({
           and{" "}
           <ExternalLink href="https://musicmap.info/">musicmap</ExternalLink>.
         </p>
+        <p>Try clicking on a genre!</p>
         <hr />
         {[
           {
@@ -659,12 +660,12 @@ function Sidebar({
         <div className="p-5 pl-1">
           <div className="flex mb-4">
             {[
-              { id: "information" as const, label: "Info", show: () => true },
               {
                 id: "selected" as const,
                 label: "Selected",
                 show: () => selectedId !== null,
               },
+              { id: "information" as const, label: "Info", show: () => true },
               { id: "settings" as const, label: "Settings", show: () => true },
             ]
               .filter((tab) => tab.show())
