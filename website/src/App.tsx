@@ -465,7 +465,7 @@ function SelectedNodeInfo({
   );
 }
 
-function Find({
+function Search({
   selectedId,
   nodes,
   filter,
@@ -826,7 +826,7 @@ function App() {
             visibleTypes={visibleTypes}
           />
           <div className="absolute top-4 left-4 z-50 w-sm text-white">
-            <Find
+            <Search
               selectedId={selectedId}
               nodes={data.nodes}
               filter={filter}
