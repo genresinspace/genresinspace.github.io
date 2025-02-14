@@ -3,7 +3,7 @@ import {
   CosmographProvider,
   useCosmograph,
 } from "@cosmograph/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import {
   SimulationParams,
   SimulationControls,
@@ -476,22 +476,21 @@ function Find({
   filter: string;
   setFilter: (filter: string) => void;
 }) {
-  const [results, setResults] = useState<NodeData[]>([]);
-
-  useEffect(() => {
+  const results = useMemo(() => {
     if (filter.length < 2) {
-      setResults([]);
-      return;
+      return [];
     }
-    setResults(
-      nodes.filter((node) =>
-        node.label.toLowerCase().includes(filter.toLowerCase())
-      )
-    );
-  }, [filter, nodes]);
 
-  const isSelected =
-    selectedId && nodes[parseInt(selectedId, 10)]?.label == filter;
+    // Check if current filter matches selected node before showing results
+    const selectedNode = selectedId ? nodes[parseInt(selectedId, 10)] : null;
+    if (selectedNode?.label.toLowerCase() === filter.toLowerCase()) {
+      return [];
+    }
+
+    return nodes.filter((node) =>
+      node.label.toLowerCase().includes(filter.toLowerCase())
+    );
+  }, [filter, nodes, selectedId]);
 
   return (
     <div>
@@ -503,21 +502,20 @@ function Find({
         onChange={(e) => setFilter(e.target.value)}
       />
       <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto">
-        {!isSelected &&
-          results.map((node) => (
-            <div
-              key={node.id}
-              className="p-2 bg-neutral-900 rounded-lg hover:bg-neutral-700 transition-colors"
-            >
-              <InternalLink href={`#${node.id}`}>{node.label}</InternalLink>
-              <small className="block">
-                <WikitextWithEllipsis
-                  wikitext={node.wikitext_description ?? []}
-                  length={100}
-                />
-              </small>
-            </div>
-          ))}
+        {results.map((node) => (
+          <div
+            key={node.id}
+            className="p-2 bg-neutral-900 rounded-lg hover:bg-neutral-700 transition-colors"
+          >
+            <InternalLink href={`#${node.id}`}>{node.label}</InternalLink>
+            <small className="block">
+              <WikitextWithEllipsis
+                wikitext={node.wikitext_description ?? []}
+                length={100}
+              />
+            </small>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -741,45 +739,59 @@ function App() {
     fetchData();
   }, []);
 
-  const [selectedId, setSelectedId] = useState<string | null>(() => {
+  // Selection
+  const [selectedId, setSelectedIdRaw] = useState<string | null>(() => {
     const hash = window.location.hash.slice(1);
     return hash || null;
   });
+  const [filter, setFilter] = useState("");
+
+  // Wrapper function to handle both states
+  const setSelectedId = useCallback(
+    (newId: string | null) => {
+      setSelectedIdRaw(newId);
+      if (newId && data) {
+        const nodeData = data.nodes[parseInt(newId, 10)];
+        if (nodeData) {
+          setFilter(nodeData.label);
+        }
+      } else {
+        setFilter("");
+      }
+    },
+    [data]
+  );
+
+  // Handle hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      setSelectedId(hash || null);
+    };
+
+    // Handle initial load
+    handleHashChange();
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [setSelectedId]);
+
+  // Handle URL updates
+  useEffect(() => {
+    if (selectedId && window.location.hash !== `#${selectedId}`) {
+      window.history.pushState(null, "", `#${selectedId}`);
+    } else if (!selectedId && window.location.hash) {
+      window.history.pushState(null, "", window.location.pathname);
+    }
+  }, [selectedId]);
+
+  // Focus, visible
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const [visibleTypes, setVisibleTypes] = useState<Record<string, boolean>>({
     Derivative: true,
     Subgenre: true,
     FusionGenre: true,
   });
-  const [filter, setFilter] = useState("");
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1);
-      setSelectedId(hash || null);
-    };
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
-
-  useEffect(() => {
-    if (selectedId) {
-      if (window.location.hash !== `#${selectedId}`) {
-        window.history.pushState(null, "", `#${selectedId}`);
-      }
-    } else if (window.location.hash) {
-      window.history.pushState(null, "", window.location.pathname);
-    }
-  }, [selectedId]);
-
-  useEffect(() => {
-    if (selectedId && data) {
-      const nodeData = data.nodes[parseInt(selectedId, 10)];
-      if (nodeData) {
-        setFilter(nodeData.label);
-      }
-    }
-  }, [data, selectedId]);
 
   const [settings, setSettings] = useState<Settings>({
     general: {
