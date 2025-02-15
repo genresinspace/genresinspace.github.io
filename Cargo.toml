@@ -1,5 +1,5 @@
 [workspace]
-members = [".", "simplified_wikitext"]
+members = [".", "wikitext_simplified", "wikitext_util"]
 
 [workspace.dependencies]
 parse-wiki-text-2 = "0.2.0"
@@ -21,4 +21,6 @@ serde_json = "1.0.138"
 jiff = { version = "0.1.29", features = ["serde"] }
 rayon = "1.10.0"
 memmap2 = "0.9.5"
-simplified_wikitext = { path = "simplified_wikitext", features = ["serde"] }
+
+wikitext_simplified = { path = "wikitext_simplified", features = ["serde"] }
+wikitext_util = { path = "wikitext_util" }

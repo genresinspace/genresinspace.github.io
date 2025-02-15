@@ -88,8 +88,9 @@ dependencies = [
  "rayon",
  "serde",
  "serde_json",
- "simplified_wikitext",
  "toml",
+ "wikitext_simplified",
+ "wikitext_util",
 ]
 
 [[package]]
@@ -298,14 +299,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
-name = "simplified_wikitext"
-version = "0.1.0"
-dependencies = [
- "parse-wiki-text-2",
- "serde",
-]
-
-[[package]]
 name = "syn"
 version = "2.0.98"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -355,6 +348,23 @@ name = "unicode-ident"
 version = "1.0.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a210d160f08b701c8721ba1c726c11662f877ea6b7094007e1ca9a1041945034"
+
+[[package]]
+name = "wikitext_simplified"
+version = "0.1.0"
+dependencies = [
+ "parse-wiki-text-2",
+ "serde",
+ "wasm-bindgen",
+ "wikitext_util",
+]
+
+[[package]]
+name = "wikitext_util"
+version = "0.1.0"
+dependencies = [
+ "parse-wiki-text-2",
+]
 
 [[package]]
 name = "windows-sys"

@@ -11,10 +11,8 @@ use std::{
 };
 
 use parse_wiki_text_2 as pwt;
-use simplified_wikitext::{
-    nodes_inner_text, pwt_configuration, simplify_wikitext_nodes, InnerTextConfig, NodeMetadata,
-    SimplifiedWikitextNode,
-};
+use wikitext_simplified::{simplify_wikitext_nodes, SimplifiedWikitextNode};
+use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig, NodeMetadata};
 
 mod data_patches;
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
