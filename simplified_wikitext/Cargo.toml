@@ -1,0 +1,12 @@
+[package]
+name = "simplified_wikitext"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+parse-wiki-text-2 = { workspace = true }
+serde = { workspace = true, optional = true }
+
+[features]
+serde = ["dep:serde"]
+default = []
