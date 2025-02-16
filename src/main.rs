@@ -157,13 +157,16 @@ fn main() -> anyhow::Result<()> {
         &redirects_path,
     )?;
 
-    let links_to_articles =
-        resolve_links_to_articles(start, &links_to_articles_path, &genres, all_redirects)?;
-
-    let mut processed_genres =
-        process_genres(start, &genres, &links_to_articles, &processed_genres_path)?;
+    let mut processed_genres = process_genres(start, &genres, &processed_genres_path)?;
 
     remove_ignored_pages_and_detect_duplicates(&mut processed_genres);
+
+    let links_to_articles = resolve_links_to_articles(
+        start,
+        &links_to_articles_path,
+        &processed_genres,
+        all_redirects,
+    )?;
 
     produce_data_json(
         start,
@@ -219,9 +222,6 @@ struct WikitextHeader {
 #[derive(Clone, Default)]
 struct GenrePages(pub HashMap<PageName, PathBuf>);
 impl GenrePages {
-    pub fn all(&self) -> impl Iterator<Item = &PageName> {
-        self.0.keys()
-    }
     pub fn iter(&self) -> impl Iterator<Item = (&PageName, &PathBuf)> {
         self.0.iter()
     }
@@ -733,14 +733,16 @@ impl LinksToArticles {
         self.0.get(&link.to_lowercase()).map(|s| s.to_owned())
     }
 }
-/// Construct a map of links (lower-case page names and redirects) to genres.
+/// Construct a map of links (lower-case page names and redirects) to processed genres.
+///
+/// We use processed genres to ensure that we're capturing subgenres / headings-under-genres as well.
 ///
 /// This will loop over all redirects and find redirects to already-resolved genres, adding them to the map.
 /// It will continue to do this until no new links are found.
 fn resolve_links_to_articles(
     start: std::time::Instant,
     links_to_articles_path: &Path,
-    genres: &GenrePages,
+    processed_genres: &ProcessedGenres,
     all_redirects: AllRedirects,
 ) -> anyhow::Result<LinksToArticles> {
     if links_to_articles_path.is_file() {
@@ -758,8 +760,9 @@ fn resolve_links_to_articles(
 
     let now = std::time::Instant::now();
 
-    let mut links_to_articles: HashMap<String, PageName> = genres
-        .all()
+    let mut links_to_articles: HashMap<String, PageName> = processed_genres
+        .0
+        .keys()
         .map(|s| (s.to_string().to_lowercase(), s.clone()))
         .collect();
 
@@ -808,10 +811,13 @@ struct ProcessedGenre {
     page: PageName,
     wikitext_description: Option<String>,
     last_revision_date: jiff::Timestamp,
-    stylistic_origins: Vec<PageName>,
-    derivatives: Vec<PageName>,
-    subgenres: Vec<PageName>,
-    fusion_genres: Vec<PageName>,
+    // the following are unresolved links: we do this
+    // so that we can defer link resolution to the end of the pipeline
+    // to make sure we've gotten the links to headings under pages
+    stylistic_origins: Vec<String>,
+    derivatives: Vec<String>,
+    subgenres: Vec<String>,
+    fusion_genres: Vec<String>,
 }
 impl ProcessedGenre {
     pub fn update_description(&mut self, description: String) {
@@ -831,7 +837,6 @@ struct ProcessedGenres(pub HashMap<PageName, ProcessedGenre>);
 fn process_genres(
     start: std::time::Instant,
     genres: &GenrePages,
-    links_to_articles: &LinksToArticles,
     processed_genres_path: &Path,
 ) -> anyhow::Result<ProcessedGenres> {
     if processed_genres_path.is_dir() {
@@ -1062,31 +1067,22 @@ fn process_genres(
                             name = new_name.clone();
                         }
                     }
-                    let map_links_to_articles = |links: Vec<String>| -> Vec<PageName> {
-                        links
-                            .into_iter()
-                            .filter_map(|link| links_to_articles.map(&link))
-                            .collect()
-                    };
+
                     let stylistic_origins = parameters
                         .get("stylistic_origins")
                         .map(|ns| get_links_from_nodes(ns))
-                        .map(map_links_to_articles)
                         .unwrap_or_default();
                     let derivatives = parameters
                         .get("derivatives")
                         .map(|ns| get_links_from_nodes(ns))
-                        .map(map_links_to_articles)
                         .unwrap_or_default();
                     let subgenres = parameters
                         .get("subgenres")
                         .map(|ns| get_links_from_nodes(ns))
-                        .map(map_links_to_articles)
                         .unwrap_or_default();
                     let fusion_genres = parameters
                         .get("fusiongenres")
                         .map(|ns| get_links_from_nodes(ns))
-                        .map(map_links_to_articles)
                         .unwrap_or_default();
 
                     genre_count += 1;
@@ -1304,53 +1300,82 @@ fn produce_data_json(
                 processed_genre.page
             )
         })?;
+
+        fn get_id_for_page(
+            links_to_articles: &LinksToArticles,
+            page_to_id: &HashMap<PageName, PageDataId>,
+            source_page: &ProcessedGenre,
+            ty: &str,
+            link: &str,
+        ) -> anyhow::Result<Option<PageDataId>> {
+            // Not all links correspond to a genre, so we return an `Option`
+            let Some(page) = links_to_articles.map(link) else {
+                return Ok(None);
+            };
+            Ok(Some(page_to_id.get(&page).copied().with_context(|| {
+                format!("{}: Missing page ID for {ty} `{link}`", source_page.page)
+            })?))
+        }
+
         for stylistic_origin in &processed_genre.stylistic_origins {
-            graph.edges.insert(EdgeData {
-                source: *page_to_id.get(stylistic_origin).with_context(|| {
-                    format!(
-                        "{}: Missing page ID for stylistic origin `{stylistic_origin}`",
-                        processed_genre.page
-                    )
-                })?,
-                target: genre_id,
-                ty: EdgeType::Derivative,
-            });
+            if let Some(source_id) = get_id_for_page(
+                links_to_articles,
+                &page_to_id,
+                processed_genre,
+                "stylistic origin",
+                stylistic_origin,
+            )? {
+                graph.edges.insert(EdgeData {
+                    source: source_id,
+                    target: genre_id,
+                    ty: EdgeType::Derivative,
+                });
+            }
         }
         for derivative in &processed_genre.derivatives {
-            graph.edges.insert(EdgeData {
-                source: genre_id,
-                target: *page_to_id.get(derivative).with_context(|| {
-                    format!(
-                        "{}: Missing page ID for derivative `{derivative}`",
-                        processed_genre.page
-                    )
-                })?,
-                ty: EdgeType::Derivative,
-            });
+            if let Some(target_id) = get_id_for_page(
+                links_to_articles,
+                &page_to_id,
+                processed_genre,
+                "derivative",
+                derivative,
+            )? {
+                graph.edges.insert(EdgeData {
+                    source: genre_id,
+                    target: target_id,
+                    ty: EdgeType::Derivative,
+                });
+            }
         }
         for subgenre in &processed_genre.subgenres {
-            graph.edges.insert(EdgeData {
-                source: genre_id,
-                target: *page_to_id.get(subgenre).with_context(|| {
-                    format!(
-                        "{}: Missing page ID for subgenre `{subgenre}`",
-                        processed_genre.page
-                    )
-                })?,
-                ty: EdgeType::Subgenre,
-            });
+            if let Some(target_id) = get_id_for_page(
+                links_to_articles,
+                &page_to_id,
+                processed_genre,
+                "subgenre",
+                subgenre,
+            )? {
+                graph.edges.insert(EdgeData {
+                    source: genre_id,
+                    target: target_id,
+                    ty: EdgeType::Subgenre,
+                });
+            }
         }
         for fusion_genre in &processed_genre.fusion_genres {
-            graph.edges.insert(EdgeData {
-                source: genre_id,
-                target: *page_to_id.get(fusion_genre).with_context(|| {
-                    format!(
-                        "{}: Missing page ID for fusion genre `{fusion_genre}`",
-                        processed_genre.page
-                    )
-                })?,
-                ty: EdgeType::FusionGenre,
-            });
+            if let Some(target_id) = get_id_for_page(
+                links_to_articles,
+                &page_to_id,
+                processed_genre,
+                "fusion genre",
+                fusion_genre,
+            )? {
+                graph.edges.insert(EdgeData {
+                    source: genre_id,
+                    target: target_id,
+                    ty: EdgeType::FusionGenre,
+                });
+            }
         }
         // If this genre comes from a heading of another page, attempt to add the parent page
         // as a subgenre relationship.
