@@ -48,10 +48,10 @@ type NodeData = {
   wikitext_description?: string;
   label: string;
   last_revision_date: string;
-  links: number[];
+  edges: number[];
 };
 
-type LinkData = {
+type EdgeData = {
   source: string;
   target: string;
   ty: "Derivative" | "Subgenre" | "FusionGenre";
@@ -59,7 +59,7 @@ type LinkData = {
 
 type Data = {
   nodes: NodeData[];
-  links: LinkData[];
+  edges: EdgeData[];
   max_degree: number;
   dump_date: string;
 };
@@ -72,32 +72,32 @@ const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
 
 // Helper types for storing path information
 type NodeDistances = Map<string, number>;
-type LinkDistances = Map<LinkData, number>;
+type EdgeDistances = Map<EdgeData, number>;
 interface PathInfo {
   nodeDistances: NodeDistances;
-  // Maps link index to its distance from source
-  linkDistances: LinkDistances;
+  // Maps edge index to its distance from source
+  edgeDistances: EdgeDistances;
   immediateNeighbours: Set<string>;
 }
 function getPathsWithinDistance(
   startId: string,
   nodes: NodeData[],
-  links: LinkData[],
+  edges: EdgeData[],
   visibleTypes: Settings["general"]["visibleTypes"],
   maxDistance: number
 ): PathInfo {
   const nodeDistances = new Map<string, number>();
-  const linkDistances = new Map<LinkData, number>();
+  const edgeDistances = new Map<EdgeData, number>();
   const immediateNeighbours = new Set<string>();
 
   const startNodeData = nodes[parseInt(startId, 10)];
   if (startNodeData) {
     immediateNeighbours.add(startNodeData.id);
-    for (const linkIndex of startNodeData.links) {
-      const link = links[linkIndex];
-      if (visibleTypes[link.ty]) {
-        immediateNeighbours.add(link.source);
-        immediateNeighbours.add(link.target);
+    for (const edgeIndex of startNodeData.edges) {
+      const edge = edges[edgeIndex];
+      if (visibleTypes[edge.ty]) {
+        immediateNeighbours.add(edge.source);
+        immediateNeighbours.add(edge.target);
       }
     }
   }
@@ -118,18 +118,18 @@ function getPathsWithinDistance(
 
       if (!nodeData) continue;
 
-      // Process outgoing links
-      for (const linkIndex of nodeData.links) {
-        const link = links[linkIndex];
-        if (!visibleTypes[link.ty]) continue;
-        if (link.source === nodeId) {
-          // Only follow outgoing links
-          const targetId = link.target;
+      // Process outgoing edges
+      for (const edgeIndex of nodeData.edges) {
+        const edge = edges[edgeIndex];
+        if (!visibleTypes[edge.ty]) continue;
+        if (edge.source === nodeId) {
+          // Only follow outgoing edges
+          const targetId = edge.target;
 
           // If we haven't seen this node yet
           if (!nodeDistances.has(targetId)) {
             nodeDistances.set(targetId, currentDistance);
-            linkDistances.set(link, currentDistance);
+            edgeDistances.set(edge, currentDistance);
             nextFrontier.add(targetId);
           }
         }
@@ -139,7 +139,7 @@ function getPathsWithinDistance(
     frontier = nextFrontier;
   }
 
-  return { nodeDistances, linkDistances, immediateNeighbours };
+  return { nodeDistances, edgeDistances: edgeDistances, immediateNeighbours };
 }
 
 function Graph({
@@ -155,13 +155,13 @@ function Graph({
   setSelectedId: (id: string | null) => void;
   focusedId: string | null;
 }) {
-  const { cosmograph, nodes, links } = useCosmograph<NodeData, LinkData>()!;
+  const { cosmograph, nodes, links } = useCosmograph<NodeData, EdgeData>()!;
 
   // Calculate connected paths and their distances
   const maxDistance = settings.general.maxInfluenceDistance;
   const pathInfo = useMemo(() => {
     if (!selectedId || !nodes || !links)
-      return { nodeDistances: new Map(), linkDistances: new Map() } as PathInfo;
+      return { nodeDistances: new Map(), edgeDistances: new Map() } as PathInfo;
     return getPathsWithinDistance(
       selectedId,
       nodes,
@@ -206,7 +206,7 @@ function Graph({
           .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
         const hue = Math.abs(hash % 360);
         let color = `hsl(${hue}, ${
-          ((d.links.length / maxDegree) * 0.8 + 0.2) * 100
+          ((d.edges.length / maxDegree) * 0.8 + 0.2) * 100
         }%, 60%)`;
 
         if (selectedId) {
@@ -223,7 +223,7 @@ function Graph({
           return color;
         }
       }}
-      linkColor={(d: LinkData) => {
+      linkColor={(d: EdgeData) => {
         if (!settings.general.visibleTypes[d.ty]) {
           return "rgba(0, 0, 0, 0)";
         }
@@ -246,7 +246,7 @@ function Graph({
           } else if (d.target === selectedId) {
             return colour(40, selectedAlpha);
           } else {
-            let distance = pathInfo.linkDistances.get(d);
+            let distance = pathInfo.edgeDistances.get(d);
             if (distance !== undefined) {
               const factor = 1 - distance / maxDistance;
               const saturation = Math.max(0, 100 * factor);
@@ -254,23 +254,23 @@ function Graph({
                 selectedMinInfluenceAlpha +
                 (selectedAlpha - selectedMinInfluenceAlpha) * factor;
 
-              // Use the appropriate base color based on link type
+              // Use the appropriate base color based on edge type
               if (saturation > 0) {
                 return colour(saturation, alpha);
               }
             }
 
-            // Links not in path
+            // Edges not in path
             return `hsla(0, 0%, 20%, ${selectedDimmedAlpha})`;
           }
         }
 
-        // Default link colors when no selection
+        // Default edge colors when no selection
         return colour(70, unselectedAlpha);
       }}
       nodeSize={(d: NodeData) => {
         return (
-          8.0 * (0.2 + (d.links.length / maxDegree) * 0.8) +
+          8.0 * (0.2 + (d.edges.length / maxDegree) * 0.8) +
           1.0 *
             (selectedId &&
             !(
@@ -283,14 +283,14 @@ function Graph({
           1.0 * (focusedId === d.id ? 1 : 0)
         );
       }}
-      linkWidth={(d: LinkData) => {
+      linkWidth={(d: EdgeData) => {
         if (selectedId) {
           if (d.source === selectedId) {
             return 2.5;
           } else if (d.target === selectedId) {
             return 1.5;
           }
-          const distance = pathInfo.linkDistances.get(d);
+          const distance = pathInfo.edgeDistances.get(d);
           if (distance !== undefined) {
             // Scale width based on distance, with minimum of 1
             return Math.max(1, 2.5 * (1 - distance / maxDistance));
@@ -415,12 +415,12 @@ function SelectedNodeInfo({
   selectedId,
   setFocusedId,
   nodes,
-  links,
+  edges,
 }: {
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   nodes: NodeData[];
-  links: LinkData[];
+  edges: EdgeData[];
 }) {
   if (!selectedId) {
     return <p>No node selected</p>;
@@ -430,17 +430,17 @@ function SelectedNodeInfo({
   if (!node) return null;
 
   const getConnections = (isInbound: boolean) =>
-    node.links
-      .map((linkIndex) => links[linkIndex])
-      .filter((link) =>
-        isInbound ? link.target === selectedId : link.source === selectedId
+    node.edges
+      .map((edgeIndex) => edges[edgeIndex])
+      .filter((edge) =>
+        isInbound ? edge.target === selectedId : edge.source === selectedId
       )
-      .reduce((acc, link) => {
-        const type = link.ty;
+      .reduce((acc, edge) => {
+        const type = edge.ty;
         if (!acc[type]) acc[type] = [];
-        acc[type].push(isInbound ? link.source : link.target);
+        acc[type].push(isInbound ? edge.source : edge.target);
         return acc;
-      }, {} as Record<LinkData["ty"], string[]>);
+      }, {} as Record<EdgeData["ty"], string[]>);
 
   const inbound = getConnections(true);
   const outbound = getConnections(false);
@@ -489,7 +489,7 @@ function SelectedNodeInfo({
 
   const renderHeading = (
     textParts: { type: string; content: string }[],
-    type: LinkData["ty"]
+    type: EdgeData["ty"]
   ) => {
     return (
       <>
@@ -559,7 +559,7 @@ function SelectedNodeInfo({
           <h3 className="text-lg font-medium mb-2">{heading}</h3>
           <ul className="list-disc pl-5">
             {nodeIds.map((id) => {
-              const linkedNode = nodes.find((n) => n.id === id);
+              const otherNode = nodes.find((n) => n.id === id);
               return (
                 <li key={id}>
                   <InternalLink
@@ -567,7 +567,7 @@ function SelectedNodeInfo({
                     onMouseEnter={() => setFocusedId(id)}
                     onMouseLeave={() => setFocusedId(null)}
                   >
-                    {linkedNode?.label || id}
+                    {otherNode?.label || id}
                   </InternalLink>
                 </li>
               );
@@ -666,7 +666,7 @@ function Settings({
         </div>
         <div className="mb-2">
           <label
-            title="Controls how many steps away from the selected node to highlight connected nodes and links"
+            title="Controls how many steps away from the selected node to highlight connected nodes and edges"
             className="block font-bold"
           >
             Maximum Influence Distance
@@ -691,7 +691,7 @@ function Settings({
             {settings.general.maxInfluenceDistance - 1}
           </span>
           <p className="description">
-            When a node is selected, highlight nodes and links that are up to
+            When a node is selected, highlight nodes and edges that are up to
             this many steps away in the graph. Higher values show more of the
             network around the selected node.
           </p>
@@ -717,7 +717,7 @@ function Sidebar({
   selectedId,
   setFocusedId,
   nodes,
-  links,
+  edges,
 }: {
   settings: Settings;
   setSettings: React.Dispatch<React.SetStateAction<Settings>>;
@@ -725,7 +725,7 @@ function Sidebar({
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   nodes: NodeData[];
-  links: LinkData[];
+  edges: EdgeData[];
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "settings"
@@ -830,7 +830,7 @@ function Sidebar({
               selectedId={selectedId}
               setFocusedId={setFocusedId}
               nodes={nodes}
-              links={links}
+              edges={edges}
             />
           ) : (
             <Settings settings={settings} setSettings={setSettings} />
@@ -956,7 +956,7 @@ function App() {
 
   return (
     <div className="flex w-screen h-screen">
-      <CosmographProvider nodes={data.nodes} links={data.links}>
+      <CosmographProvider nodes={data.nodes} links={data.edges}>
         <div className="flex-1 h-full relative">
           <Graph
             settings={settings}
@@ -981,7 +981,7 @@ function App() {
           selectedId={selectedId}
           setFocusedId={setFocusedId}
           nodes={data.nodes}
-          links={data.links}
+          edges={data.edges}
         />
       </CosmographProvider>
     </div>

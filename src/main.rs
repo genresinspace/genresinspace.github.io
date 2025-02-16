@@ -1226,7 +1226,7 @@ fn remove_ignored_pages_and_detect_duplicates(processed_genres: &mut ProcessedGe
 struct Graph {
     dump_date: String,
     nodes: Vec<NodeData>,
-    links: BTreeSet<LinkData>,
+    edges: BTreeSet<EdgeData>,
     max_degree: usize,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1236,19 +1236,19 @@ struct NodeData {
     wikitext_description: Option<String>,
     label: GenreName,
     last_revision_date: jiff::Timestamp,
-    links: BTreeSet<usize>,
+    edges: BTreeSet<usize>,
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
-enum LinkType {
+enum EdgeType {
     Derivative,
     Subgenre,
     FusionGenre,
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
-struct LinkData {
+struct EdgeData {
     source: PageDataId,
     target: PageDataId,
-    ty: LinkType,
+    ty: EdgeType,
 }
 
 /// Given processed genres, produce a graph and save it to file to be rendered by the website.
@@ -1262,7 +1262,7 @@ fn produce_data_json(
     let mut graph = Graph {
         dump_date: dump_date.to_string(),
         nodes: vec![],
-        links: BTreeSet::new(),
+        edges: BTreeSet::new(),
         max_degree: 0,
     };
 
@@ -1281,7 +1281,7 @@ fn produce_data_json(
             wikitext_description: processed_genre.wikitext_description.clone(),
             label: processed_genre.name.clone(),
             last_revision_date: processed_genre.last_revision_date,
-            links: BTreeSet::new(),
+            edges: BTreeSet::new(),
         };
 
         graph.nodes.push(node);
@@ -1291,7 +1291,7 @@ fn produce_data_json(
         page_to_id.entry(page_without_heading).or_insert(id);
     }
 
-    // Second pass: create links
+    // Second pass: create edges
     for page in &node_order {
         let processed_genre = &processed_genres.0[page];
         let genre_id = *page_to_id.get(page).with_context(|| {
@@ -1301,7 +1301,7 @@ fn produce_data_json(
             )
         })?;
         for stylistic_origin in &processed_genre.stylistic_origins {
-            graph.links.insert(LinkData {
+            graph.edges.insert(EdgeData {
                 source: *page_to_id.get(stylistic_origin).with_context(|| {
                     format!(
                         "{}: Missing page ID for stylistic origin `{stylistic_origin}`",
@@ -1309,11 +1309,11 @@ fn produce_data_json(
                     )
                 })?,
                 target: genre_id,
-                ty: LinkType::Derivative,
+                ty: EdgeType::Derivative,
             });
         }
         for derivative in &processed_genre.derivatives {
-            graph.links.insert(LinkData {
+            graph.edges.insert(EdgeData {
                 source: genre_id,
                 target: *page_to_id.get(derivative).with_context(|| {
                     format!(
@@ -1321,11 +1321,11 @@ fn produce_data_json(
                         processed_genre.page
                     )
                 })?,
-                ty: LinkType::Derivative,
+                ty: EdgeType::Derivative,
             });
         }
         for subgenre in &processed_genre.subgenres {
-            graph.links.insert(LinkData {
+            graph.edges.insert(EdgeData {
                 source: genre_id,
                 target: *page_to_id.get(subgenre).with_context(|| {
                     format!(
@@ -1333,11 +1333,11 @@ fn produce_data_json(
                         processed_genre.page
                     )
                 })?,
-                ty: LinkType::Subgenre,
+                ty: EdgeType::Subgenre,
             });
         }
         for fusion_genre in &processed_genre.fusion_genres {
-            graph.links.insert(LinkData {
+            graph.edges.insert(EdgeData {
                 source: genre_id,
                 target: *page_to_id.get(fusion_genre).with_context(|| {
                     format!(
@@ -1345,30 +1345,30 @@ fn produce_data_json(
                         processed_genre.page
                     )
                 })?,
-                ty: LinkType::FusionGenre,
+                ty: EdgeType::FusionGenre,
             });
         }
         // If this genre comes from a heading of another page, attempt to add the parent page
         // as a subgenre relationship.
         if page.heading.is_some() {
             if let Some(parent_page) = page_to_id.get(&page.with_opt_heading(None)) {
-                graph.links.insert(LinkData {
+                graph.edges.insert(EdgeData {
                     source: *parent_page,
                     target: genre_id,
-                    ty: LinkType::Subgenre,
+                    ty: EdgeType::Subgenre,
                 });
             }
         }
     }
 
-    // Third pass (over links): update inbound/outbound sets
-    for (i, link) in graph.links.iter().enumerate() {
-        graph.nodes[link.source.0].links.insert(i);
-        graph.nodes[link.target.0].links.insert(i);
+    // Third pass (over edges): update inbound/outbound sets
+    for (i, edge) in graph.edges.iter().enumerate() {
+        graph.nodes[edge.source.0].edges.insert(i);
+        graph.nodes[edge.target.0].edges.insert(i);
     }
 
     // Fourth pass: calculate max degree
-    graph.max_degree = graph.nodes.iter().map(|n| n.links.len()).max().unwrap_or(0);
+    graph.max_degree = graph.nodes.iter().map(|n| n.edges.len()).max().unwrap_or(0);
 
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
     println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());
