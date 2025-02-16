@@ -23,6 +23,7 @@ import {
   WikipediaLink,
   WikitextWithEllipsis,
 } from "./Wikipedia";
+import commit from "./commit.json";
 
 type Settings = {
   general: {
@@ -436,6 +437,13 @@ function ProjectInformation({
           </ExternalLink>
           , if you're curious.
         </p>
+        <footer className="text-sm text-neutral-500">
+          Commit <code>{commit.commit}</code> on{" "}
+          <time dateTime={commit.date}>
+            {new Date(commit.date).toLocaleString()}
+          </time>
+          .
+        </footer>
       </div>
     </div>
   );

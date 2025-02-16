@@ -22,6 +22,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Generate commit info
+        run: |
+          echo "{\"commit\": \"$(git rev-parse --short HEAD)\", \"date\": \"$(git show -s --format=%cI HEAD)\"}" > website/src/commit.json
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
