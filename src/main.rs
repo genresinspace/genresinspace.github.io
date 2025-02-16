@@ -11,7 +11,6 @@ use std::{
 };
 
 use parse_wiki_text_2 as pwt;
-use wikitext_simplified::{simplify_wikitext_nodes, SimplifiedWikitextNode};
 use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig, NodeMetadata};
 
 mod data_patches;
@@ -807,7 +806,7 @@ fn resolve_links_to_articles(
 struct ProcessedGenre {
     name: GenreName,
     page: PageName,
-    wikitext_description: Option<Vec<SimplifiedWikitextNode>>,
+    wikitext_description: Option<String>,
     last_revision_date: jiff::Timestamp,
     stylistic_origins: Vec<PageName>,
     derivatives: Vec<PageName>,
@@ -815,13 +814,8 @@ struct ProcessedGenre {
     fusion_genres: Vec<PageName>,
 }
 impl ProcessedGenre {
-    pub fn update_description(
-        &mut self,
-        pwt_configuration: &pwt::Configuration,
-        description: &str,
-    ) {
-        let nodes = pwt_configuration.parse(description).unwrap().nodes;
-        self.wikitext_description = Some(simplify_wikitext_nodes(description, &nodes));
+    pub fn update_description(&mut self, description: String) {
+        self.wikitext_description = Some(description);
     }
 
     pub fn save(&self, processed_genres_path: &Path) -> anyhow::Result<()> {
@@ -1018,7 +1012,7 @@ fn process_genres(
                     if let Some(mut processed_genre) = processed_genre.take() {
                         let new_page = processed_genre.page.clone();
                         if let Some(description) = description.take() {
-                            processed_genre.update_description(&pwt_configuration, &description);
+                            processed_genre.update_description(description);
                         }
                         processed_genres.insert(new_page.clone(), processed_genre.clone());
                         processed_genre.save(processed_genres_path)?;
@@ -1169,10 +1163,7 @@ fn process_genres(
                         // before a heading, with the content following after the heading, so we offer
                         // this as an opportunity to capture that content.
                         if description.as_ref().is_some_and(|s| !s.trim().is_empty()) {
-                            processed_genre.update_description(
-                                &pwt_configuration,
-                                &description.take().unwrap(),
-                            );
+                            processed_genre.update_description(description.take().unwrap());
                             processed_genre.page =
                                 processed_genre.page.with_opt_heading(last_heading.clone());
                         } else {
@@ -1191,7 +1182,7 @@ fn process_genres(
         if let Some(processed_genre) = &mut processed_genre {
             let new_page = processed_genre.page.clone();
             if let Some(description) = description.take() {
-                processed_genre.update_description(&pwt_configuration, &description);
+                processed_genre.update_description(description);
             }
             processed_genres.insert(new_page.clone(), processed_genre.clone());
             processed_genre.save(processed_genres_path)?;
@@ -1242,7 +1233,7 @@ struct Graph {
 struct NodeData {
     id: PageDataId,
     page_title: PageName,
-    wikitext_description: Option<Vec<SimplifiedWikitextNode>>,
+    wikitext_description: Option<String>,
     label: GenreName,
     last_revision_date: jiff::Timestamp,
     links: BTreeSet<usize>,
@@ -1378,27 +1369,6 @@ fn produce_data_json(
 
     // Fourth pass: calculate max degree
     graph.max_degree = graph.nodes.iter().map(|n| n.links.len()).max().unwrap_or(0);
-
-    // Fifth pass: attempt to remap internal links to genre links where possible
-    for node in &mut graph.nodes {
-        if let Some(wikitext_description) = &mut node.wikitext_description {
-            for node in wikitext_description.iter_mut() {
-                node.visit_mut(&mut |node| {
-                    if let SimplifiedWikitextNode::Link {
-                        title, genre_id, ..
-                    } = node
-                    {
-                        if let Some(page_data_id) = links_to_articles
-                            .map(title)
-                            .and_then(|page| page_to_id.get(&page))
-                        {
-                            *genre_id = Some(page_data_id.0.to_string());
-                        }
-                    }
-                });
-            }
-        }
-    }
 
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
     println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());

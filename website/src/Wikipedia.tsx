@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ExternalLink, InternalLink } from "./Links";
 import { JSX, useState } from "react";
+import init, {
+  parse_and_simplify_wikitext,
+  WikitextSimplifiedNode,
+} from "wikitext_simplified";
+
+await init();
 
 const WIKIPEDIA_URL = "https://en.wikipedia.org/wiki";
 
@@ -26,39 +32,52 @@ export function WikipediaLink({
 /**
  * Determines whether this node can be used to break a short description.
  */
-export function isShortWikitextBreak(node: WikitextNode): boolean {
-  return node.type === "paragraph_break" || node.type === "newline";
+function isShortWikitextBreak(node: WikitextSimplifiedNode): boolean {
+  return node.type === "paragraph-break" || node.type === "newline";
 }
 
 /**
  * Like `Wikitext`, but only renders up to the first paragraph break or newline.
  */
-export function ShortWikitext(
-  props: React.ComponentProps<"span"> & { wikitext: WikitextNode[] }
-) {
-  let index: number | undefined =
-    props.wikitext.findIndex(isShortWikitextBreak);
-  if (index === -1) {
-    index = undefined;
-  }
+export function ShortWikitext(props: {
+  wikitext: string;
+  expandable: boolean;
+}) {
+  const nodes = parse_and_simplify_wikitext(props.wikitext);
+  const index = nodes.findIndex(isShortWikitextBreak);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    setExpanded(false);
+  }, [props.wikitext]);
 
   return (
-    <Wikitext
-      wikitext={index ? props.wikitext.slice(0, index) : props.wikitext}
-    />
+    <div className="flex flex-col gap-2">
+      <div>
+        <WikitextNodes
+          nodes={index !== -1 && !expanded ? nodes.slice(0, index) : nodes}
+        />
+      </div>
+      {index !== -1 && props.expandable && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="w-full p-2 text-sm text-neutral-400 hover:text-white bg-neutral-800 hover:bg-neutral-700 rounded-md mx-auto block transition-colors"
+        >
+          {expanded ? "Show less" : "Show more"}
+        </button>
+      )}
+    </div>
   );
 }
 
 /**
  * Like `Wikitext`, but renders up to a character limit before truncating with a `...` suffix.
  */
-export function WikitextWithEllipsis(
-  props: React.ComponentProps<"span"> & {
-    wikitext: WikitextNode[];
-    length: number;
-  }
-) {
-  function estimateNodeLength(node: WikitextNode): number {
+export function WikitextWithEllipsis(props: {
+  wikitext: string;
+  length: number;
+}) {
+  function estimateNodeLength(node: WikitextSimplifiedNode): number {
     switch (node.type) {
       case "template":
         // this is so bad
@@ -86,9 +105,11 @@ export function WikitextWithEllipsis(
     }
   }
 
-  let nodes: WikitextNode[] = [];
+  const originalNodes = parse_and_simplify_wikitext(props.wikitext);
+
+  let nodes: WikitextSimplifiedNode[] = [];
   let length = 0;
-  for (const node of props.wikitext) {
+  for (const node of originalNodes) {
     if (isShortWikitextBreak(node)) {
       break;
     }
@@ -100,10 +121,10 @@ export function WikitextWithEllipsis(
     length += nodeLength;
   }
 
-  if (nodes.length < props.wikitext.length) {
+  if (nodes.length < originalNodes.length) {
     // if the node after the truncated node is text, make an attempt to truncate it
     // to produce *some* output
-    const nextNode = props.wikitext[nodes.length];
+    const nextNode = originalNodes[nodes.length];
     if (nextNode.type === "text") {
       nodes.push({
         type: "text",
@@ -114,48 +135,29 @@ export function WikitextWithEllipsis(
     nodes.push({ type: "text", text: "..." });
   }
 
-  return <Wikitext {...props} wikitext={nodes} />;
+  return <WikitextNodes nodes={nodes} />;
 }
 
-export function Wikitext(
-  props: React.ComponentProps<"span"> & { wikitext: WikitextNode[] }
-) {
+export function Wikitext(props: { wikitext: string }) {
+  const nodes = parse_and_simplify_wikitext(props.wikitext);
+  return <WikitextNodes nodes={nodes} />;
+}
+
+function WikitextNodes({
+  nodes,
+}: {
+  nodes: WikitextSimplifiedNode[];
+}): JSX.Element {
   return (
     <>
-      {props.wikitext.map((node, i) => (
+      {nodes.map((node, i) => (
         <WikitextNode key={i} node={node} />
       ))}
     </>
   );
 }
 
-export type WikitextNode =
-  | { type: "fragment"; children: WikitextNode[] }
-  | {
-      type: "template";
-      name: string;
-      children: { type: "parameter"; name: string; value: string }[];
-    }
-  | {
-      type: "link";
-      text: string;
-      title: string;
-      // We love a good leaky abstraction
-      genre_id?: string;
-    }
-  | { type: "ext-link"; text: string; link: string }
-  | { type: "bold"; children: WikitextNode[] }
-  | { type: "italic"; children: WikitextNode[] }
-  | { type: "blockquote"; children: WikitextNode[] }
-  | { type: "superscript"; children: WikitextNode[] }
-  | { type: "subscript"; children: WikitextNode[] }
-  | { type: "small"; children: WikitextNode[] }
-  | { type: "preformatted"; children: WikitextNode[] }
-  | { type: "text"; text: string }
-  | { type: "paragraph_break" }
-  | { type: "newline" };
-
-function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
+function WikitextNode({ node }: { node: WikitextSimplifiedNode }): JSX.Element {
   switch (node.type) {
     case "fragment":
       return (
@@ -168,16 +170,16 @@ function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
     case "template":
       return <WikitextTemplate node={node} />;
     case "link":
-      if (node.genre_id) {
-        return (
-          <span>
-            <InternalLink href={`#${node.genre_id}`}>{node.text}</InternalLink>
-            <sup>
-              <WikipediaLink pageTitle={node.title}>wp</WikipediaLink>
-            </sup>
-          </span>
-        );
-      }
+      // if (node.genre_id) {
+      //   return (
+      //     <span>
+      //       <InternalLink href={`#${node.genre_id}`}>{node.text}</InternalLink>
+      //       <sup>
+      //         <WikipediaLink pageTitle={node.title}>wp</WikipediaLink>
+      //       </sup>
+      //     </span>
+      //   );
+      // }
       return <WikipediaLink pageTitle={node.title}>{node.text}</WikipediaLink>;
     case "ext-link":
       return <ExternalLink href={node.link}>{node.text}</ExternalLink>;
@@ -239,7 +241,7 @@ function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
       );
     case "text":
       return <>{node.text}</>;
-    case "paragraph_break":
+    case "paragraph-break":
       return (
         <>
           <br />
@@ -252,7 +254,7 @@ function WikitextNode({ node }: { node: WikitextNode }): JSX.Element {
 }
 
 function templateToObject(
-  template: Extract<WikitextNode, { type: "template" }>
+  template: Extract<WikitextSimplifiedNode, { type: "template" }>
 ) {
   return Object.fromEntries(template.children.map((c) => [c.name, c.value]));
 }
@@ -260,7 +262,7 @@ function templateToObject(
 function WikitextTemplate({
   node,
 }: {
-  node: Extract<WikitextNode, { type: "template" }>;
+  node: Extract<WikitextSimplifiedNode, { type: "template" }>;
 }) {
   const templateName = node.name
     .replace(/^template:/, "")

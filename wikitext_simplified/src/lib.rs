@@ -1,72 +1,61 @@
 use std::sync::LazyLock;
 
-#[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
 use parse_wiki_text_2 as pwt;
 use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig, NodeMetadata};
 
-#[derive(Debug, Clone)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(tag = "type"))]
-pub enum SimplifiedWikitextNode {
-    #[cfg_attr(feature = "serde", serde(rename = "fragment"))]
+use tsify_next::Tsify;
+use wasm_bindgen::prelude::*;
+
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+#[serde(tag = "type", rename_all = "kebab-case")]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub enum WikitextSimplifiedNode {
     Fragment {
-        children: Vec<SimplifiedWikitextNode>,
+        children: Vec<WikitextSimplifiedNode>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "template"))]
     Template {
         name: String,
         children: Vec<TemplateParameter>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "link"))]
     Link {
         text: String,
         title: String,
-        /// Temporary hack: store the genre ID, if any, for this link
-        /// We will do this mapping on the client later
-        #[serde(skip_serializing_if = "Option::is_none")]
-        genre_id: Option<String>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "ext-link"))]
-    ExtLink { text: String, link: String },
-    #[cfg_attr(feature = "serde", serde(rename = "bold"))]
+    ExtLink {
+        text: String,
+        link: String,
+    },
     Bold {
-        children: Vec<SimplifiedWikitextNode>,
+        children: Vec<WikitextSimplifiedNode>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "italic"))]
     Italic {
-        children: Vec<SimplifiedWikitextNode>,
+        children: Vec<WikitextSimplifiedNode>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "blockquote"))]
     Blockquote {
-        children: Vec<SimplifiedWikitextNode>,
+        children: Vec<WikitextSimplifiedNode>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "superscript"))]
     Superscript {
-        children: Vec<SimplifiedWikitextNode>,
+        children: Vec<WikitextSimplifiedNode>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "subscript"))]
     Subscript {
-        children: Vec<SimplifiedWikitextNode>,
+        children: Vec<WikitextSimplifiedNode>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "small"))]
     Small {
-        children: Vec<SimplifiedWikitextNode>,
+        children: Vec<WikitextSimplifiedNode>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "preformatted"))]
     Preformatted {
-        children: Vec<SimplifiedWikitextNode>,
+        children: Vec<WikitextSimplifiedNode>,
     },
-    #[cfg_attr(feature = "serde", serde(rename = "text"))]
-    Text { text: String },
-    #[cfg_attr(feature = "serde", serde(rename = "paragraph_break"))]
+    Text {
+        text: String,
+    },
     ParagraphBreak,
-    #[cfg_attr(feature = "serde", serde(rename = "newline"))]
     Newline,
 }
-impl SimplifiedWikitextNode {
-    pub fn children(&self) -> Option<&[SimplifiedWikitextNode]> {
+impl WikitextSimplifiedNode {
+    pub fn children(&self) -> Option<&[WikitextSimplifiedNode]> {
         match self {
             Self::Fragment { children } => Some(children),
             Self::Bold { children } => Some(children),
@@ -79,7 +68,7 @@ impl SimplifiedWikitextNode {
             _ => None,
         }
     }
-    pub fn children_mut(&mut self) -> Option<&mut Vec<SimplifiedWikitextNode>> {
+    pub fn children_mut(&mut self) -> Option<&mut Vec<WikitextSimplifiedNode>> {
         match self {
             Self::Fragment { children } => Some(children),
             Self::Bold { children } => Some(children),
@@ -101,17 +90,25 @@ impl SimplifiedWikitextNode {
         }
     }
 }
-#[derive(Debug, Clone)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(tag = "type"))]
-#[cfg_attr(feature = "serde", serde(rename = "parameter"))]
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct TemplateParameter {
     pub name: String,
     pub value: String,
 }
 
-pub fn simplify_wikitext_nodes(wikitext: &str, nodes: &[pwt::Node]) -> Vec<SimplifiedWikitextNode> {
-    use SimplifiedWikitextNode as SWN;
+#[wasm_bindgen]
+pub fn parse_and_simplify_wikitext(wikitext: &str) -> Vec<WikitextSimplifiedNode> {
+    static PWT_CONFIGURATION: LazyLock<pwt::Configuration> = LazyLock::new(pwt_configuration);
+
+    console_error_panic_hook::set_once();
+
+    let output = PWT_CONFIGURATION.parse(wikitext).unwrap();
+    simplify_wikitext_nodes(wikitext, &output.nodes)
+}
+
+fn simplify_wikitext_nodes(wikitext: &str, nodes: &[pwt::Node]) -> Vec<WikitextSimplifiedNode> {
+    use WikitextSimplifiedNode as SWN;
     struct RootStack {
         stack: Vec<SWN>,
     }
@@ -221,8 +218,8 @@ pub fn simplify_wikitext_nodes(wikitext: &str, nodes: &[pwt::Node]) -> Vec<Simpl
     root_stack.unwind()
 }
 
-pub fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<SimplifiedWikitextNode> {
-    use SimplifiedWikitextNode as SWN;
+fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSimplifiedNode> {
+    use WikitextSimplifiedNode as SWN;
     match node {
         pwt::Node::Template {
             name, parameters, ..
@@ -270,7 +267,6 @@ pub fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<Simpli
             return Some(SWN::Link {
                 text: nodes_inner_text(text, &InnerTextConfig::default()),
                 title: target.to_string(),
-                genre_id: None,
             });
         }
         pwt::Node::ExternalLink { nodes, .. } => {

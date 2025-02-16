@@ -12,11 +12,8 @@ import {
 import { ExternalLink, InternalLink } from "./Links";
 import {
   dumpUrl,
-  isShortWikitextBreak,
   ShortWikitext,
   WikipediaLink,
-  Wikitext,
-  WikitextNode,
   WikitextWithEllipsis,
 } from "./Wikipedia";
 
@@ -48,7 +45,7 @@ const defaultSettings: Settings = {
 type NodeData = {
   id: string;
   page_title: string;
-  wikitext_description?: WikitextNode[];
+  wikitext_description?: string;
   label: string;
   last_revision_date: string;
   links: number[];
@@ -556,23 +553,10 @@ function SelectedNodeInfo({
           <em>{new Date(node.last_revision_date).toLocaleString()}</em>
         </small>
         {node.wikitext_description && (
-          <div className="flex flex-col gap-2">
-            <div>
-              {expanded ? (
-                <Wikitext wikitext={node.wikitext_description} />
-              ) : (
-                <ShortWikitext wikitext={node.wikitext_description} />
-              )}
-            </div>
-            {node.wikitext_description?.some(isShortWikitextBreak) && (
-              <button
-                onClick={() => setExpanded(!expanded)}
-                className="w-full p-2 text-sm text-neutral-400 hover:text-white bg-neutral-800 hover:bg-neutral-700 rounded-md mx-auto block transition-colors"
-              >
-                {expanded ? "Show less" : "Show more"}
-              </button>
-            )}
-          </div>
+          <ShortWikitext
+            wikitext={node.wikitext_description}
+            expandable={true}
+          />
         )}
       </div>
 
@@ -646,7 +630,7 @@ function Search({
             <InternalLink href={`#${node.id}`}>{node.label}</InternalLink>
             <small className="block">
               <WikitextWithEllipsis
-                wikitext={node.wikitext_description ?? []}
+                wikitext={node.wikitext_description ?? ""}
                 length={100}
               />
             </small>

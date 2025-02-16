@@ -2,7 +2,9 @@
 members = [".", "wikitext_simplified", "wikitext_util"]
 
 [workspace.dependencies]
-parse-wiki-text-2 = "0.2.0"
+parse-wiki-text-2 = { git = "https://github.com/philpax/parse-wiki-text-2.git", branch = "wasm-support", features = [
+    "wasm",
+] }
 serde = { version = "1.0.217", features = ["derive"] }
 
 [package]
@@ -22,5 +24,4 @@ jiff = { version = "0.1.29", features = ["serde"] }
 rayon = "1.10.0"
 memmap2 = "0.9.5"
 
-wikitext_simplified = { path = "wikitext_simplified", features = ["serde"] }
 wikitext_util = { path = "wikitext_util" }
