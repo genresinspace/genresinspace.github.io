@@ -578,6 +578,7 @@ function WikitextTemplate({
     case "lang-zh":
     case "zh":
       const texts = node.children
+        .filter((c) => c.value.length > 0)
         .map((c) => {
           switch (c.name) {
             case "t":
