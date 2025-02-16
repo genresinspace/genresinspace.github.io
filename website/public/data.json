@@ -1,4 +1,6 @@
 {
+  "wikipedia_domain": "en.wikipedia.org",
+  "wikipedia_db_name": "enwiki",
   "dump_date": "2025-01-23",
   "nodes": [
     {
@@ -2566,8 +2568,7 @@
         2192,
         2250,
         2940,
-        3590,
-        5076
+        3590
       ]
     },
     {
@@ -21308,6 +21309,7 @@
         2273,
         2450,
         2758,
+        5076,
         5372,
         5453
       ]
@@ -47522,7 +47524,7 @@
     },
     {
       "source": "1084",
-      "target": "152",
+      "target": "1184",
       "ty": "Derivative"
     },
     {
@@ -51466,7 +51468,7 @@
     "dokudenpa": "323",
     "dolewave": "338",
     "dominican dembow": "339",
-    "donk (music)": "152",
+    "donk (music)": "1184",
     "doo wop": "340",
     "doo-wop": "340",
     "doo-wop music": "340",
@@ -52404,7 +52406,7 @@
     "hardcore doom": "1057",
     "hardcore edm": "514",
     "hardcore electronic music": "514",
-    "hardcore emo": "1028",
+    "hardcore emo": "386",
     "hardcore funk": "442",
     "hardcore hip hop": "516",
     "hardcore hip hop music": "516",
@@ -53294,7 +53296,7 @@
     "melocore music": "716",
     "melodeath metal": "715",
     "melodeth": "715",
-    "melodic black metal": "128",
+    "melodic black metal": "130",
     "melodic black-death": "130",
     "melodic black/death": "130",
     "melodic black/death metal": "130",
@@ -53703,7 +53705,7 @@
     "new music (music industry)": "795",
     "new music (style)": "795",
     "new musick": "894",
-    "new new wave": "801",
+    "new new wave": "377",
     "new orleans blues": "788",
     "new orleans hip hop": "1075",
     "new orleans r&b": "789",
@@ -54344,7 +54346,7 @@
     "progressive breaks": "905",
     "progressive country": "903",
     "progressive dance music": "905",
-    "progressive deathcore": "907",
+    "progressive deathcore": "317",
     "progressive edm": "905",
     "progressive folk": "904",
     "progressive hardcore": "890",

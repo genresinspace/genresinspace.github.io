@@ -50,6 +50,8 @@ const defaultSettings: Settings = {
 };
 
 type Data = {
+  wikipedia_domain: string;
+  wikipedia_db_name: string;
   dump_date: string;
   nodes: NodeData[];
   edges: EdgeData[];
@@ -71,6 +73,10 @@ type EdgeData = {
 };
 
 export const LinksToPageIdContext = createContext<Record<string, string>>({});
+export const WikipediaMetaContext = createContext<{
+  dbName: string;
+  domain: string;
+} | null>(null);
 
 const derivativeColour = (saturation: number = 70, alpha: number = 1) =>
   `hsla(0, ${saturation}%, 60%, ${alpha})`;
@@ -323,10 +329,12 @@ function Graph({
 }
 
 function ProjectInformation({
+  databaseName,
   dumpDate,
   settings,
   setSettings,
 }: {
+  databaseName: string;
   dumpDate: string;
   settings: Settings;
   setSettings: React.Dispatch<React.SetStateAction<Settings>>;
@@ -336,7 +344,9 @@ function ProjectInformation({
       <div className="flex flex-col gap-4">
         <p>
           A graph of every music genre on English Wikipedia (as of{" "}
-          <ExternalLink href={dumpUrl(dumpDate)}>{dumpDate}</ExternalLink>
+          <ExternalLink href={dumpUrl(databaseName, dumpDate)}>
+            {dumpDate}
+          </ExternalLink>
           ), inspired by{" "}
           <ExternalLink href="https://eightyeightthirty.one/">
             8831
@@ -731,6 +741,7 @@ function Settings({
 function Sidebar({
   settings,
   setSettings,
+  databaseName,
   dumpDate,
   selectedId,
   setFocusedId,
@@ -739,6 +750,7 @@ function Sidebar({
 }: {
   settings: Settings;
   setSettings: React.Dispatch<React.SetStateAction<Settings>>;
+  databaseName: string;
   dumpDate: string;
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
@@ -839,6 +851,7 @@ function Sidebar({
           </div>
           {activeTab === "information" ? (
             <ProjectInformation
+              databaseName={databaseName}
               dumpDate={dumpDate}
               settings={settings}
               setSettings={setSettings}
@@ -974,39 +987,44 @@ function App() {
   }
 
   return (
-    <LinksToPageIdContext.Provider value={data.links_to_page_ids}>
-      <div className="flex w-screen h-screen">
-        <CosmographProvider nodes={data.nodes} links={data.edges}>
-          <div className="flex-1 h-full relative">
-            <Graph
-              settings={settings}
-              maxDegree={data.max_degree}
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
-              focusedId={focusedId}
-            />
-            <div className="absolute top-4 left-4 z-50 w-sm text-white">
-              <Search
+    <WikipediaMetaContext.Provider
+      value={{ dbName: data.wikipedia_db_name, domain: data.wikipedia_domain }}
+    >
+      <LinksToPageIdContext.Provider value={data.links_to_page_ids}>
+        <div className="flex w-screen h-screen">
+          <CosmographProvider nodes={data.nodes} links={data.edges}>
+            <div className="flex-1 h-full relative">
+              <Graph
+                settings={settings}
+                maxDegree={data.max_degree}
                 selectedId={selectedId}
-                setFocusedId={setFocusedId}
-                nodes={data.nodes}
-                filter={filter}
-                setFilter={setFilter}
+                setSelectedId={setSelectedId}
+                focusedId={focusedId}
               />
+              <div className="absolute top-4 left-4 z-50 w-sm text-white">
+                <Search
+                  selectedId={selectedId}
+                  setFocusedId={setFocusedId}
+                  nodes={data.nodes}
+                  filter={filter}
+                  setFilter={setFilter}
+                />
+              </div>
             </div>
-          </div>
-          <Sidebar
-            settings={settings}
-            setSettings={setSettings}
-            dumpDate={data.dump_date}
-            selectedId={selectedId}
-            setFocusedId={setFocusedId}
-            nodes={data.nodes}
-            edges={data.edges}
-          />
-        </CosmographProvider>
-      </div>
-    </LinksToPageIdContext.Provider>
+            <Sidebar
+              settings={settings}
+              setSettings={setSettings}
+              databaseName={data.wikipedia_db_name}
+              dumpDate={data.dump_date}
+              selectedId={selectedId}
+              setFocusedId={setFocusedId}
+              nodes={data.nodes}
+              edges={data.edges}
+            />
+          </CosmographProvider>
+        </div>
+      </LinksToPageIdContext.Provider>
+    </WikipediaMetaContext.Provider>
   );
 }
 

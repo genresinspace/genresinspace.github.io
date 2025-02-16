@@ -136,8 +136,30 @@ fn main() -> anyhow::Result<()> {
         )
     })?;
 
+    let index_date = parse_wiki_dump_date(
+        &config
+            .wikipedia_index_path
+            .file_stem()
+            .unwrap()
+            .to_string_lossy(),
+    )
+    .with_context(|| {
+        format!(
+            "Failed to parse Wikipedia dump date from {:?}",
+            config.wikipedia_index_path
+        )
+    })?;
+
+    anyhow::ensure!(
+        dump_date == index_date,
+        "Wikipedia dump date ({}) does not match index date ({})",
+        dump_date,
+        index_date
+    );
+
     let output_path = Path::new("output").join(dump_date.to_string());
     let offsets_path = output_path.join("offsets.txt");
+    let meta_path = output_path.join("meta.toml");
     let genres_path = output_path.join("genres");
     let redirects_path = output_path.join("all_redirects.toml");
     let links_to_articles_path = output_path.join("links_to_articles.toml");
@@ -149,10 +171,12 @@ fn main() -> anyhow::Result<()> {
 
     let start = std::time::Instant::now();
 
-    let (genres, all_redirects) = extract_genres_and_all_redirects(
+    let (dump_meta, genres, all_redirects) = extract_genres_and_all_redirects(
         &config,
         start,
+        dump_date,
         &offsets_path,
+        &meta_path,
         &genres_path,
         &redirects_path,
     )?;
@@ -170,7 +194,7 @@ fn main() -> anyhow::Result<()> {
 
     produce_data_json(
         start,
-        dump_date,
+        &dump_meta,
         &data_path,
         &links_to_articles,
         &processed_genres,
@@ -219,6 +243,13 @@ struct WikitextHeader {
     timestamp: jiff::Timestamp,
 }
 
+#[derive(Clone, Serialize, Deserialize)]
+struct DumpMeta {
+    wikipedia_db_name: String,
+    wikipedia_domain: String,
+    dump_date: jiff::civil::Date,
+}
+
 #[derive(Clone, Default)]
 struct GenrePages(pub HashMap<PageName, PathBuf>);
 impl GenrePages {
@@ -254,12 +285,14 @@ impl TryFrom<AllRedirects> for HashMap<PageName, PageName> {
 fn extract_genres_and_all_redirects(
     config: &Config,
     start: std::time::Instant,
+    dump_date: jiff::civil::Date,
     offsets_path: &Path,
+    meta_path: &Path,
     genres_path: &Path,
     redirects_path: &Path,
-) -> anyhow::Result<(GenrePages, AllRedirects)> {
+) -> anyhow::Result<(DumpMeta, GenrePages, AllRedirects)> {
     // Already exists, just load from file
-    if genres_path.is_dir() && redirects_path.is_file() {
+    if genres_path.is_dir() && redirects_path.is_file() && meta_path.is_file() {
         let mut genre_pages = HashMap::default();
         for entry in std::fs::read_dir(genres_path)? {
             let path = entry?.path();
@@ -274,13 +307,18 @@ fn extract_genres_and_all_redirects(
             genre_pages.len()
         );
 
+        let meta = toml::from_str(&std::fs::read_to_string(meta_path)?)?;
+
         return Ok((
+            meta,
             GenrePages(genre_pages),
             AllRedirects::LazyLoad(redirects_path.to_owned(), start),
         ));
     }
 
-    println!("Genres directory or redirects file does not exist, extracting from Wikipedia dump");
+    println!(
+        "Genres directory or redirects file or meta does not exist, extracting from Wikipedia dump"
+    );
     let now = std::time::Instant::now();
 
     std::fs::create_dir_all(genres_path).context("Failed to create genres directory")?;
@@ -335,7 +373,7 @@ fn extract_genres_and_all_redirects(
     );
 
     // Read the header of the file to extract the domain
-    let wikipedia_domain = {
+    let (wikipedia_domain, wikipedia_db_name) = {
         let mut reader = quick_xml::reader::Reader::from_reader(std::io::BufReader::new(
             bzip2::bufread::BzDecoder::new(&dump_file[0..offsets[0]]),
         ));
@@ -346,6 +384,9 @@ fn extract_genres_and_all_redirects(
         let mut wikipedia_domain: String = String::new();
         let mut recording_wikipedia_domain = false;
 
+        let mut wikipedia_db_name: String = String::new();
+        let mut recording_wikipedia_db_name = false;
+
         loop {
             match reader.read_event_into(&mut buf) {
                 Ok(Event::Eof) => break,
@@ -354,11 +395,16 @@ fn extract_genres_and_all_redirects(
                     if name == b"base" {
                         wikipedia_domain.clear();
                         recording_wikipedia_domain = true;
+                    } else if name == b"dbname" {
+                        wikipedia_db_name.clear();
+                        recording_wikipedia_db_name = true;
                     }
                 }
                 Ok(Event::Text(e)) => {
                     if recording_wikipedia_domain {
                         wikipedia_domain.push_str(&e.unescape().unwrap());
+                    } else if recording_wikipedia_db_name {
+                        wikipedia_db_name.push_str(&e.unescape().unwrap());
                     }
                 }
                 Ok(Event::End(e)) => {
@@ -367,6 +413,8 @@ fn extract_genres_and_all_redirects(
                         wikipedia_domain = extract_domain(&wikipedia_domain)
                             .expect("wikipedia_domain could not be extracted")
                             .to_string();
+                    } else if e.name().0 == b"dbname" {
+                        recording_wikipedia_db_name = false;
                     }
                 }
                 _ => {}
@@ -378,7 +426,11 @@ fn extract_genres_and_all_redirects(
             anyhow::bail!("Failed to extract Wikipedia domain from dump");
         }
 
-        wikipedia_domain
+        if wikipedia_db_name.is_empty() {
+            anyhow::bail!("Failed to extract Wikipedia db name from dump");
+        }
+
+        (wikipedia_domain, wikipedia_db_name)
     };
 
     // Iterate over each offset (we'll make this multithreaded later)
@@ -519,9 +571,21 @@ fn extract_genres_and_all_redirects(
         toml::to_string_pretty(&all_redirects)?.as_bytes(),
     )
     .context("Failed to write redirects")?;
-    println!("Extracted genres and redirects in {:?}", now.elapsed());
+
+    let meta = DumpMeta {
+        wikipedia_domain,
+        wikipedia_db_name,
+        dump_date,
+    };
+    std::fs::write(meta_path, toml::to_string_pretty(&meta)?).context("Failed to write meta")?;
+
+    println!(
+        "Extracted genres and redirects and meta in {:?}",
+        now.elapsed()
+    );
 
     Ok((
+        meta,
         GenrePages(genre_pages),
         AllRedirects::InMemory(all_redirects),
     ))
@@ -1219,7 +1283,9 @@ fn remove_ignored_pages_and_detect_duplicates(processed_genres: &mut ProcessedGe
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct Graph {
+struct FrontendData {
+    wikipedia_domain: String,
+    wikipedia_db_name: String,
     dump_date: String,
     nodes: Vec<NodeData>,
     edges: BTreeSet<EdgeData>,
@@ -1253,13 +1319,15 @@ struct EdgeData {
 /// Given processed genres, produce a graph and save it to file to be rendered by the website.
 fn produce_data_json(
     start: std::time::Instant,
-    dump_date: jiff::civil::Date,
+    dump_meta: &DumpMeta,
     data_path: &Path,
     links_to_articles: &LinksToArticles,
     processed_genres: &ProcessedGenres,
 ) -> anyhow::Result<()> {
-    let mut graph = Graph {
-        dump_date: dump_date.to_string(),
+    let mut graph = FrontendData {
+        wikipedia_domain: dump_meta.wikipedia_domain.clone(),
+        wikipedia_db_name: dump_meta.wikipedia_db_name.clone(),
+        dump_date: dump_meta.dump_date.to_string(),
         nodes: vec![],
         edges: BTreeSet::new(),
         links_to_page_ids: BTreeMap::new(),

@@ -5,20 +5,28 @@ import init, {
   parse_and_simplify_wikitext,
   WikitextSimplifiedNode,
 } from "wikitext_simplified";
-import { LinksToPageIdContext } from "./App";
+import { LinksToPageIdContext, WikipediaMetaContext } from "./App";
 
 export const initWasm = async (binary?: Buffer) => {
   return init({ module_or_path: binary });
 };
 
-const WIKIPEDIA_URL = "https://en.wikipedia.org/wiki";
-
 /**
  * @param {string} dumpDate - The date of the Wikipedia dump in YYYY-MM-DD format
  * @returns {string} URL to the Wikipedia dump directory
  */
-export const dumpUrl = (dumpDate: string): string =>
-  `https://dumps.wikimedia.org/enwiki/${dumpDate.split("-").join("")}/`;
+export const dumpUrl = (databaseName: string, dumpDate: string): string =>
+  `https://dumps.wikimedia.org/${databaseName}/${dumpDate
+    .split("-")
+    .join("")}/`;
+
+export const useWikiUrl = () => {
+  const meta = useContext(WikipediaMetaContext);
+  if (!meta) {
+    return null;
+  }
+  return `https://${meta.domain}/wiki`;
+};
 
 /**
  * A link to a Wikipedia page.
@@ -27,10 +35,15 @@ export function WikipediaLink({
   pageTitle,
   ...rest
 }: React.ComponentProps<"a"> & { pageTitle: string }) {
+  const wikiUrl = useWikiUrl();
+  if (!wikiUrl) {
+    return null;
+  }
+
   return (
     <ExternalLink
       {...rest}
-      href={`${WIKIPEDIA_URL}/${pageTitle.replace(/ /g, "_")}`}
+      href={`${wikiUrl}/${pageTitle.replace(/ /g, "_")}`}
     />
   );
 }
@@ -280,6 +293,8 @@ function WikitextTemplate({
 }: {
   node: Extract<WikitextSimplifiedNode, { type: "template" }>;
 }) {
+  const wikiUrl = useWikiUrl();
+
   const templateName = node.name
     .replace(/^template:/, "")
     .replace(/ /g, "_")
@@ -602,7 +617,7 @@ function WikitextTemplate({
       return <span>{texts}</span>;
     default:
       throw new Error(
-        `Unknown template: ${WIKIPEDIA_URL}/Template:${templateName}`
+        `Unknown template: ${wikiUrl ?? ""}/Template:${templateName}`
       );
   }
 }
