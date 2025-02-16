@@ -4,7 +4,7 @@ use quick_xml::events::Event;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
 use std::{
-    collections::{BTreeSet, HashMap, HashSet},
+    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
     io::{BufRead, Write as _},
     path::{Path, PathBuf},
     sync::LazyLock,
@@ -1227,6 +1227,9 @@ struct Graph {
     dump_date: String,
     nodes: Vec<NodeData>,
     edges: BTreeSet<EdgeData>,
+    /// This is a separate field as `LinksToArticles` has already resolved
+    /// redirects, which we wouldn't know about on the client
+    links_to_page_ids: BTreeMap<String, PageDataId>,
     max_degree: usize,
 }
 #[derive(Debug, Serialize, Deserialize)]
@@ -1263,6 +1266,7 @@ fn produce_data_json(
         dump_date: dump_date.to_string(),
         nodes: vec![],
         edges: BTreeSet::new(),
+        links_to_page_ids: BTreeMap::new(),
         max_degree: 0,
     };
 
@@ -1369,6 +1373,14 @@ fn produce_data_json(
 
     // Fourth pass: calculate max degree
     graph.max_degree = graph.nodes.iter().map(|n| n.edges.len()).max().unwrap_or(0);
+
+    // Fifth pass (over links_to_articles): update links_to_page_ids
+    graph.links_to_page_ids.extend(
+        links_to_articles
+            .0
+            .iter()
+            .filter_map(|(link, page)| page_to_id.get(page).map(|id| (link.clone(), *id))),
+    );
 
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
     println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());
