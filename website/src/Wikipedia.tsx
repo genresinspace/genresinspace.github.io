@@ -302,7 +302,7 @@ function WikitextTemplate({
   switch (templateName) {
     case "nihongo":
       // TODO: consider replicating the other arguments of the template
-      return <>{node.children[0].value}</>;
+      return <Wikitext wikitext={node.children[0].value}></Wikitext>;
     case "'":
       return <>'</>;
     case `'_"`:
