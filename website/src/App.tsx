@@ -25,6 +25,11 @@ import {
 } from "./Wikipedia";
 import commit from "./commit.json";
 
+// Ideally, we could integrate this into `commit.json`, but getting the "safe" URL from the checkout
+// that GHA does is a bit tricky (we don't necessarily know what the remote's name is in that environment,
+// and we'd have to convert the git@ URL to https://).
+const REPO_LINK = "https://github.com/graphgenre/graphgenre.github.io";
+
 type Settings = {
   general: {
     zoomOnSelect: boolean;
@@ -428,17 +433,20 @@ function ProjectInformation({
           .
         </p>
         <p>
-          <ExternalLink href="https://github.com/graphgenre/graphgenre.github.io">
-            Source code
-          </ExternalLink>
-          .{" "}
+          <ExternalLink href={REPO_LINK}>Source code</ExternalLink>.{" "}
           <ExternalLink href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
             Blog post
           </ExternalLink>
           , if you're curious.
         </p>
         <footer className="text-sm text-neutral-500">
-          Commit <code>{commit.commit}</code> on{" "}
+          Commit{" "}
+          <code>
+            <ExternalLink href={`${REPO_LINK}/tree/${commit.commit}`}>
+              {commit.commit}
+            </ExternalLink>
+          </code>{" "}
+          on{" "}
           <time dateTime={commit.date}>
             {new Date(commit.date).toLocaleString()}
           </time>
