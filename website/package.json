@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test:wikitext": "tsx tests/wikitext.ts"
+    "test:wikitext": "NODE_OPTIONS='--experimental-wasm-modules' tsx tests/wikitext.ts"
   },
   "dependencies": {
     "@cosmograph/react": "^1.4.2",

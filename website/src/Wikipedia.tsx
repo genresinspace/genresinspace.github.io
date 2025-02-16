@@ -6,7 +6,9 @@ import init, {
   WikitextSimplifiedNode,
 } from "wikitext_simplified";
 
-await init();
+export const initWasm = async (binary?: Buffer) => {
+  return init({ module_or_path: binary });
+};
 
 const WIKIPEDIA_URL = "https://en.wikipedia.org/wiki";
 

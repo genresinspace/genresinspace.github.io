@@ -1,9 +1,24 @@
 import { JSDOM } from "jsdom";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import { Wikitext } from "../src/Wikipedia";
+import { initWasm, Wikitext } from "../src/Wikipedia";
 import data from "../public/data.json";
+import { readFile } from "fs/promises";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 
+// Get the directory path of the current file
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Setup WASM loading for Node environment
+const wasmPath = join(
+  __dirname,
+  "../wikitext_simplified/wikitext_simplified_bg.wasm"
+);
+
+await initWasm(await readFile(wasmPath));
+
+// Setup DOM environment
 const dom = new JSDOM('<!DOCTYPE html><div id="root"></div>');
 global.window = dom.window as unknown as Window & typeof globalThis;
 global.document = dom.window.document;
