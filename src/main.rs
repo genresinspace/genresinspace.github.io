@@ -885,7 +885,7 @@ struct ProcessedGenre {
 }
 impl ProcessedGenre {
     pub fn update_description(&mut self, description: String) {
-        self.wikitext_description = Some(description);
+        self.wikitext_description = Some(description.trim().to_string());
     }
 
     pub fn save(&self, processed_genres_path: &Path) -> anyhow::Result<()> {
