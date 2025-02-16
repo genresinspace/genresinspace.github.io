@@ -1378,11 +1378,16 @@ fn produce_data_json(
             }
         }
         // If this genre comes from a heading of another page, attempt to add the parent page
-        // as a subgenre relationship.
+        // as a subgenre relationship, as long as it's not the same page (this can happen in
+        // a few strange cases, like "Satirical music#History").
         if page.heading.is_some() {
-            if let Some(parent_page) = page_to_id.get(&page.with_opt_heading(None)) {
+            if let Some(parent_page) = page_to_id
+                .get(&page.with_opt_heading(None))
+                .copied()
+                .filter(|pp| *pp != genre_id)
+            {
                 graph.edges.insert(EdgeData {
-                    source: *parent_page,
+                    source: parent_page,
                     target: genre_id,
                     ty: EdgeType::Subgenre,
                 });
