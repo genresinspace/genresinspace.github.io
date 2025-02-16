@@ -581,11 +581,13 @@ function SelectedNodeInfo({
 
 function Search({
   selectedId,
+  setFocusedId,
   nodes,
   filter,
   setFilter,
 }: {
   selectedId: string | null;
+  setFocusedId: (id: string | null) => void;
   nodes: NodeData[];
   filter: string;
   setFilter: (filter: string) => void;
@@ -620,6 +622,8 @@ function Search({
           <div
             key={node.id}
             className="p-2 bg-neutral-900 rounded-lg hover:bg-neutral-700 transition-colors"
+            onMouseEnter={() => setFocusedId(node.id)}
+            onMouseLeave={() => setFocusedId(null)}
           >
             <InternalLink href={`#${node.id}`}>{node.label}</InternalLink>
             <small className="block">
@@ -910,6 +914,7 @@ function App() {
       } else {
         setFilter("");
       }
+      setFocusedId(null);
     },
     [data]
   );
@@ -968,6 +973,7 @@ function App() {
           <div className="absolute top-4 left-4 z-50 w-sm text-white">
             <Search
               selectedId={selectedId}
+              setFocusedId={setFocusedId}
               nodes={data.nodes}
               filter={filter}
               setFilter={setFilter}
