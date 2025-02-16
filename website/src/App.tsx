@@ -441,6 +441,8 @@ function SelectedNodeInfo({
   nodes: NodeData[];
   edges: EdgeData[];
 }) {
+  const cosmograph = useCosmograph();
+
   if (!selectedId) {
     return <p>No node selected</p>;
   }
@@ -565,6 +567,19 @@ function SelectedNodeInfo({
           Last updated:{" "}
           <em>{new Date(node.last_revision_date).toLocaleString()}</em>
         </small>
+        <button
+          className="w-full p-1 my-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded"
+          onClick={() => {
+            if (cosmograph) {
+              const targetNodeData = cosmograph.nodes?.[parseInt(node.id, 10)];
+              if (targetNodeData) {
+                cosmograph.cosmograph?.zoomToNode(targetNodeData);
+              }
+            }
+          }}
+        >
+          Zoom to
+        </button>
         {node.wikitext_description && (
           <ShortWikitext
             wikitext={node.wikitext_description}
