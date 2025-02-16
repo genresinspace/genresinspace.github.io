@@ -587,7 +587,7 @@ function SelectedNodeInfo({
           <em>{new Date(node.last_revision_date).toLocaleString()}</em>
         </small>
         <button
-          className="w-full p-1 my-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded"
+          className="w-full p-1 my-2 bg-neutral-800 hover:bg-neutral-700 text-white text-xs rounded"
           onClick={() => {
             if (cosmograph) {
               const targetNodeData = cosmograph.nodes?.[parseInt(node.id, 10)];
