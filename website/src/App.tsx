@@ -981,9 +981,11 @@ function App() {
         const nodeData = data.nodes[parseInt(newId, 10)];
         if (nodeData) {
           setFilter(nodeData.label);
+          document.title = `graphgenre: ${nodeData.label}`;
         }
       } else {
         setFilter("");
+        document.title = "graphgenre";
       }
       setFocusedId(null);
     },
