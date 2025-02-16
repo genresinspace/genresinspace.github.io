@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import { ExternalLink, InternalLink } from "./Links";
+import React, { useContext, useEffect } from "react";
+import { ExternalLink, GenreLink } from "./Links";
 import { JSX, useState } from "react";
 import init, {
   parse_and_simplify_wikitext,
   WikitextSimplifiedNode,
 } from "wikitext_simplified";
+import { LinksToPageIdContext } from "./App";
 
 export const initWasm = async (binary?: Buffer) => {
   return init({ module_or_path: binary });
@@ -19,6 +20,9 @@ const WIKIPEDIA_URL = "https://en.wikipedia.org/wiki";
 export const dumpUrl = (dumpDate: string): string =>
   `https://dumps.wikimedia.org/enwiki/${dumpDate.split("-").join("")}/`;
 
+/**
+ * A link to a Wikipedia page.
+ */
 export function WikipediaLink({
   pageTitle,
   ...rest
@@ -29,6 +33,22 @@ export function WikipediaLink({
       href={`${WIKIPEDIA_URL}/${pageTitle.replace(/ /g, "_")}`}
     />
   );
+}
+
+/**
+ * A link to a Wikipedia page, or a genre link if the page title is a genre.
+ */
+export function WikipediaMaybeGenreLink({
+  pageTitle,
+  ...rest
+}: React.ComponentProps<typeof WikipediaLink>) {
+  const linksToPageId = useContext(LinksToPageIdContext);
+  const pageId = linksToPageId[pageTitle.toLowerCase()];
+  if (pageId) {
+    return <GenreLink genreId={pageId} pageTitle={pageTitle} {...rest} />;
+  } else {
+    return <WikipediaLink {...rest} pageTitle={pageTitle} />;
+  }
 }
 
 /**
@@ -172,17 +192,11 @@ function WikitextNode({ node }: { node: WikitextSimplifiedNode }): JSX.Element {
     case "template":
       return <WikitextTemplate node={node} />;
     case "link":
-      // if (node.genre_id) {
-      //   return (
-      //     <span>
-      //       <InternalLink href={`#${node.genre_id}`}>{node.text}</InternalLink>
-      //       <sup>
-      //         <WikipediaLink pageTitle={node.title}>wp</WikipediaLink>
-      //       </sup>
-      //     </span>
-      //   );
-      // }
-      return <WikipediaLink pageTitle={node.title}>{node.text}</WikipediaLink>;
+      return (
+        <WikipediaMaybeGenreLink pageTitle={node.title}>
+          {node.text}
+        </WikipediaMaybeGenreLink>
+      );
     case "ext-link":
       return <ExternalLink href={node.link}>{node.text}</ExternalLink>;
     case "bold":
@@ -286,7 +300,11 @@ function WikitextTemplate({
       const phrase = node.children[1]?.value;
       const jsx = <abbr title={phrase}>{abbr}</abbr>;
       if (templateName === "abbrlink") {
-        return <WikipediaLink pageTitle={phrase}>{jsx}</WikipediaLink>;
+        return (
+          <WikipediaMaybeGenreLink pageTitle={phrase}>
+            {jsx}
+          </WikipediaMaybeGenreLink>
+        );
       }
       return jsx;
     case "according_to_whom":
@@ -374,7 +392,11 @@ function WikitextTemplate({
       return null;
     case "ill":
       const pageTitle = node.children[0].value;
-      return <WikipediaLink pageTitle={pageTitle}>{pageTitle}</WikipediaLink>;
+      return (
+        <WikipediaMaybeGenreLink pageTitle={pageTitle}>
+          {pageTitle}
+        </WikipediaMaybeGenreLink>
+      );
     case "ipa":
       const ipa =
         node.children.length > 1 ? node.children[1] : node.children[0];

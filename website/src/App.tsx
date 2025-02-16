@@ -3,13 +3,20 @@ import {
   CosmographProvider,
   useCosmograph,
 } from "@cosmograph/react";
-import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+  createContext,
+} from "react";
 import {
   SimulationParams,
   SimulationControls,
   defaultSimulationParams,
 } from "./SimulationParams";
-import { ExternalLink, InternalLink } from "./Links";
+import { ExternalLink, GenreLink } from "./Links";
 import {
   dumpUrl,
   ShortWikitext,
@@ -42,6 +49,13 @@ const defaultSettings: Settings = {
   simulation: defaultSimulationParams,
 };
 
+type Data = {
+  dump_date: string;
+  nodes: NodeData[];
+  edges: EdgeData[];
+  links_to_page_ids: Record<string, string>;
+  max_degree: number;
+};
 type NodeData = {
   id: string;
   page_title: string;
@@ -50,19 +64,14 @@ type NodeData = {
   last_revision_date: string;
   edges: number[];
 };
-
 type EdgeData = {
   source: string;
   target: string;
   ty: "Derivative" | "Subgenre" | "FusionGenre";
 };
 
-type Data = {
-  nodes: NodeData[];
-  edges: EdgeData[];
-  max_degree: number;
-  dump_date: string;
-};
+export const LinksToPageIdContext = createContext<Record<string, string>>({});
+
 const derivativeColour = (saturation: number = 70, alpha: number = 1) =>
   `hsla(0, ${saturation}%, 60%, ${alpha})`;
 const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
@@ -561,15 +570,18 @@ function SelectedNodeInfo({
             {nodeIds.map((id) => {
               const otherNode = nodes.find((n) => n.id === id);
               return (
-                <li key={id}>
-                  <InternalLink
-                    href={`#${id}`}
-                    onMouseEnter={() => setFocusedId(id)}
-                    onMouseLeave={() => setFocusedId(null)}
-                  >
-                    {otherNode?.label || id}
-                  </InternalLink>
-                </li>
+                otherNode && (
+                  <li key={id}>
+                    <GenreLink
+                      genreId={id}
+                      pageTitle={otherNode.page_title}
+                      onMouseEnter={() => setFocusedId(id)}
+                      onMouseLeave={() => setFocusedId(null)}
+                    >
+                      {otherNode.label || id}
+                    </GenreLink>
+                  </li>
+                )
               );
             })}
           </ul>
@@ -625,7 +637,9 @@ function Search({
             onMouseEnter={() => setFocusedId(node.id)}
             onMouseLeave={() => setFocusedId(null)}
           >
-            <InternalLink href={`#${node.id}`}>{node.label}</InternalLink>
+            <GenreLink genreId={node.id} pageTitle={node.page_title}>
+              {node.label}
+            </GenreLink>
             <small className="block">
               <WikitextWithEllipsis
                 wikitext={node.wikitext_description ?? ""}
@@ -960,37 +974,39 @@ function App() {
   }
 
   return (
-    <div className="flex w-screen h-screen">
-      <CosmographProvider nodes={data.nodes} links={data.edges}>
-        <div className="flex-1 h-full relative">
-          <Graph
-            settings={settings}
-            maxDegree={data.max_degree}
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
-            focusedId={focusedId}
-          />
-          <div className="absolute top-4 left-4 z-50 w-sm text-white">
-            <Search
+    <LinksToPageIdContext.Provider value={data.links_to_page_ids}>
+      <div className="flex w-screen h-screen">
+        <CosmographProvider nodes={data.nodes} links={data.edges}>
+          <div className="flex-1 h-full relative">
+            <Graph
+              settings={settings}
+              maxDegree={data.max_degree}
               selectedId={selectedId}
-              setFocusedId={setFocusedId}
-              nodes={data.nodes}
-              filter={filter}
-              setFilter={setFilter}
+              setSelectedId={setSelectedId}
+              focusedId={focusedId}
             />
+            <div className="absolute top-4 left-4 z-50 w-sm text-white">
+              <Search
+                selectedId={selectedId}
+                setFocusedId={setFocusedId}
+                nodes={data.nodes}
+                filter={filter}
+                setFilter={setFilter}
+              />
+            </div>
           </div>
-        </div>
-        <Sidebar
-          settings={settings}
-          setSettings={setSettings}
-          dumpDate={data.dump_date}
-          selectedId={selectedId}
-          setFocusedId={setFocusedId}
-          nodes={data.nodes}
-          edges={data.edges}
-        />
-      </CosmographProvider>
-    </div>
+          <Sidebar
+            settings={settings}
+            setSettings={setSettings}
+            dumpDate={data.dump_date}
+            selectedId={selectedId}
+            setFocusedId={setFocusedId}
+            nodes={data.nodes}
+            edges={data.edges}
+          />
+        </CosmographProvider>
+      </div>
+    </LinksToPageIdContext.Provider>
   );
 }
 
