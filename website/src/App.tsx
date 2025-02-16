@@ -329,11 +329,15 @@ function Graph({
 }
 
 function ProjectInformation({
+  nodeCount,
+  edgeCount,
   databaseName,
   dumpDate,
   settings,
   setSettings,
 }: {
+  nodeCount: number;
+  edgeCount: number;
   databaseName: string;
   dumpDate: string;
   settings: Settings;
@@ -343,7 +347,14 @@ function ProjectInformation({
     <div>
       <div className="flex flex-col gap-4">
         <p>
-          A graph of every music genre on English Wikipedia (as of{" "}
+          A graph of{" "}
+          <span
+            title={`${nodeCount} genres, ${edgeCount} connections`}
+            className="border-b border-dotted border-neutral-500 hover:border-white cursor-help"
+          >
+            every music genre on English Wikipedia
+          </span>{" "}
+          (as of{" "}
           <ExternalLink href={dumpUrl(databaseName, dumpDate)}>
             {dumpDate}
           </ExternalLink>
@@ -709,7 +720,7 @@ function Settings({
         </div>
         <div className="mb-2">
           <label
-            title="Controls how many steps away from the selected node to highlight connected nodes and edges"
+            title="Controls how many steps away from the selected node to highlight connected nodes and connections"
             className="block font-bold"
           >
             Maximum Influence Distance
@@ -734,8 +745,8 @@ function Settings({
             {settings.general.maxInfluenceDistance - 1}
           </span>
           <p className="description">
-            When a node is selected, highlight nodes and edges that are up to
-            this many steps away in the graph. Higher values show more of the
+            When a node is selected, highlight nodes and connections that are up
+            to this many steps away in the graph. Higher values show more of the
             network around the selected node.
           </p>
         </div>
@@ -866,6 +877,8 @@ function Sidebar({
           </div>
           {activeTab === "information" ? (
             <ProjectInformation
+              nodeCount={nodes.length}
+              edgeCount={edges.length}
               databaseName={databaseName}
               dumpDate={dumpDate}
               settings={settings}
