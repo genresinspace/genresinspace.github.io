@@ -364,6 +364,8 @@ function ProjectInformation({
   const randomNodeColour = nodeColour(randomNode, maxDegree, 30);
   const randomNodeColourHover = nodeColour(randomNode, maxDegree, 50);
 
+  const [legendOpen, setLegendOpen] = useState(true);
+
   return (
     <div>
       <div className="flex flex-col gap-4">
@@ -415,60 +417,70 @@ function ProjectInformation({
             </button>
           </div>
         </p>
-        <hr />
-        {[
-          {
-            color: derivativeColour(),
-            label: "Derivative",
-            type: "Derivative" as const,
-            description:
-              "Genres that use some of the elements inherent to this genre, without being a child genre.",
-          },
-          {
-            color: subgenreColour(),
-            label: "Subgenre",
-            type: "Subgenre" as const,
-            description:
-              "Genres that share characteristics with this genre and fall within its purview.",
-          },
-          {
-            color: fusionGenreColour(),
-            label: "Fusion Genre",
-            type: "FusionGenre" as const,
-            description:
-              "Genres that combine elements of this genre with other genres.",
-          },
-        ].map(({ color, label, type, description }) => (
-          <div key={label} className="flex items-start gap-2">
-            <div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id={label}
-                  checked={settings.general.visibleTypes[type]}
-                  onChange={(e) =>
-                    setSettings((prev: Settings) => ({
-                      ...prev,
-                      general: {
-                        ...prev.general,
-                        visibleTypes: {
-                          ...prev.general.visibleTypes,
-                          [type]: e.target.checked,
-                        },
-                      },
-                    }))
-                  }
-                  style={{ accentColor: color }}
-                />
-                <label htmlFor={label} className="select-none">
-                  <span style={{ color }}>{label}</span>
-                </label>
-              </div>
-              <p className="mt-1">{description}</p>
+        <div>
+          <button
+            onClick={() => setLegendOpen(!legendOpen)}
+            className="flex items-center gap-2 text-lg font-bold"
+          >
+            {legendOpen ? "▼" : "▶"} Legend
+          </button>
+          {legendOpen && (
+            <div className="flex flex-col gap-2 mt-1">
+              {[
+                {
+                  color: derivativeColour(),
+                  label: "Derivative",
+                  type: "Derivative" as const,
+                  description:
+                    "Genres that use some of the elements inherent to this genre, without being a child genre.",
+                },
+                {
+                  color: subgenreColour(),
+                  label: "Subgenre",
+                  type: "Subgenre" as const,
+                  description:
+                    "Genres that share characteristics with this genre and fall within its purview.",
+                },
+                {
+                  color: fusionGenreColour(),
+                  label: "Fusion Genre",
+                  type: "FusionGenre" as const,
+                  description:
+                    "Genres that combine elements of this genre with other genres.",
+                },
+              ].map(({ color, label, type, description }) => (
+                <div key={label} className="flex items-start gap-2">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id={label}
+                        checked={settings.general.visibleTypes[type]}
+                        onChange={(e) =>
+                          setSettings((prev: Settings) => ({
+                            ...prev,
+                            general: {
+                              ...prev.general,
+                              visibleTypes: {
+                                ...prev.general.visibleTypes,
+                                [type]: e.target.checked,
+                              },
+                            },
+                          }))
+                        }
+                        style={{ accentColor: color }}
+                      />
+                      <label htmlFor={label} className="select-none">
+                        <span style={{ color }}>{label}</span>
+                      </label>
+                    </div>
+                    <p className="mt-1">{description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ))}
-        <hr />
+          )}
+        </div>
         <p>
           By <ExternalLink href="https://philpax.me">Philpax</ExternalLink>.
           Powered by{" "}
