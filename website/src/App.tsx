@@ -372,7 +372,16 @@ function ProjectInformation({
           and{" "}
           <ExternalLink href="https://musicmap.info/">musicmap</ExternalLink>.
         </p>
-        <p>Try clicking on a genre!</p>
+        <p>
+          Try clicking on a genre, or try a{" "}
+          <a
+            href={`#${Math.floor(Math.random() * nodeCount)}`}
+            className="p-1 bg-neutral-800 hover:bg-neutral-700 text-white rounded inline"
+          >
+            random genre
+          </a>
+          !
+        </p>
         <hr />
         {[
           {
