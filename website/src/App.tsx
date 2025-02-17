@@ -676,7 +676,7 @@ function Search({
     <div>
       <input
         type="text"
-        placeholder="Search..."
+        placeholder="Search for genre..."
         className="w-full p-2 bg-neutral-800 rounded-md mb-2"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
