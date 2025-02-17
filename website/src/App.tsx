@@ -211,7 +211,7 @@ function Graph({
     } else {
       cosmograph?.focusNode(undefined);
     }
-  }, [focusedId]);
+  }, [focusedId, nodes]);
 
   const onClick = (nodeData: NodeData | undefined): void => {
     setSelectedId(nodeData && selectedId !== nodeData.id ? nodeData.id : null);
@@ -987,7 +987,7 @@ function App() {
         setFilter("");
         document.title = "graphgenre";
       }
-      setFocusedId(null);
+      setFocusedId(newId);
     },
     [data]
   );
@@ -1016,7 +1016,21 @@ function App() {
   }, [selectedId]);
 
   // Focus, visible
-  const [focusedId, setFocusedId] = useState<string | null>(null);
+  const [focusedId, setFocusedRawId] = useState<string | null>(null);
+
+  const setFocusedId = useCallback(
+    (id: string | null) => {
+      if (id) {
+        setFocusedRawId(id);
+      } else if (selectedId) {
+        setFocusedRawId(selectedId);
+      } else {
+        setFocusedRawId(null);
+      }
+    },
+    [data, selectedId]
+  );
+
   const [settings, setSettings] = useState<Settings>(defaultSettings);
 
   if (!data) {
