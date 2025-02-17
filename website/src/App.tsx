@@ -223,13 +223,7 @@ function Graph({
       backgroundColor="#000"
       nodeLabelAccessor={(d: NodeData) => d.label}
       nodeColor={(d) => {
-        const hash = d.id
-          .split("")
-          .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
-        const hue = Math.abs(hash % 360);
-        let color = `hsl(${hue}, ${
-          ((d.edges.length / maxDegree) * 0.8 + 0.2) * 100
-        }%, 60%)`;
+        let color = nodeColour(d, maxDegree);
 
         if (selectedId) {
           if (
@@ -335,28 +329,48 @@ function Graph({
   );
 }
 
+function nodeColour(d: NodeData, maxDegree: number, lightness: number = 60) {
+  const hash = d.id
+    .split("")
+    .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
+  const hue = Math.abs(hash % 360);
+  let color = `hsl(${hue}, ${
+    ((d.edges.length / maxDegree) * 0.8 + 0.2) * 100
+  }%, ${lightness}%)`;
+  return color;
+}
+
 function ProjectInformation({
-  nodeCount,
-  edgeCount,
+  nodes,
+  edges,
   databaseName,
   dumpDate,
   settings,
   setSettings,
+  maxDegree,
 }: {
-  nodeCount: number;
-  edgeCount: number;
+  nodes: NodeData[];
+  edges: EdgeData[];
   databaseName: string;
   dumpDate: string;
   settings: Settings;
   setSettings: React.Dispatch<React.SetStateAction<Settings>>;
+  maxDegree: number;
 }) {
+  const [randomId, setRandomId] = useState(
+    Math.floor(Math.random() * nodes.length)
+  );
+  const randomNode = nodes[randomId];
+  const randomNodeColour = nodeColour(randomNode, maxDegree, 30);
+  const randomNodeColourHover = nodeColour(randomNode, maxDegree, 50);
+
   return (
     <div>
       <div className="flex flex-col gap-4">
         <p>
           A graph of{" "}
           <span
-            title={`${nodeCount} genres, ${edgeCount} connections`}
+            title={`${nodes.length} genres, ${edges.length} connections`}
             className="border-b border-dotted border-neutral-500 hover:border-white cursor-help"
           >
             every music genre on English Wikipedia
@@ -373,14 +387,33 @@ function ProjectInformation({
           <ExternalLink href="https://musicmap.info/">musicmap</ExternalLink>.
         </p>
         <p>
-          Try clicking on a genre, or try a{" "}
-          <a
-            href={`#${Math.floor(Math.random() * nodeCount)}`}
-            className="p-1 bg-neutral-800 hover:bg-neutral-700 text-white rounded inline"
-          >
-            random genre
-          </a>
-          !
+          Try clicking on a genre, or try a random genre:{" "}
+          <div className="flex gap-2 mt-1">
+            <a
+              href={`#${randomId}`}
+              className="block p-1 text-white rounded flex-1 min-h-[2rem] flex items-center"
+              style={{
+                backgroundColor: randomNodeColour,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = randomNodeColourHover;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = randomNodeColour;
+              }}
+            >
+              {nodes[randomId].label}
+            </a>
+            <button
+              onClick={() =>
+                setRandomId(Math.floor(Math.random() * nodes.length))
+              }
+              className="p-1 bg-neutral-800 hover:bg-neutral-700 rounded w-8 self-stretch flex items-center justify-center"
+              title="Get another random genre"
+            >
+              🎲
+            </button>
+          </div>
         </p>
         <hr />
         {[
@@ -799,6 +832,7 @@ function Sidebar({
   setFocusedId,
   nodes,
   edges,
+  maxDegree,
 }: {
   settings: Settings;
   setSettings: React.Dispatch<React.SetStateAction<Settings>>;
@@ -808,6 +842,7 @@ function Sidebar({
   setFocusedId: (id: string | null) => void;
   nodes: NodeData[];
   edges: EdgeData[];
+  maxDegree: number;
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "settings"
@@ -903,12 +938,13 @@ function Sidebar({
           </div>
           {activeTab === "information" ? (
             <ProjectInformation
-              nodeCount={nodes.length}
-              edgeCount={edges.length}
+              nodes={nodes}
+              edges={edges}
               databaseName={databaseName}
               dumpDate={dumpDate}
               settings={settings}
               setSettings={setSettings}
+              maxDegree={maxDegree}
             />
           ) : activeTab === "selected" ? (
             <SelectedNodeInfo
@@ -1090,6 +1126,7 @@ function App() {
               setFocusedId={setFocusedId}
               nodes={data.nodes}
               edges={data.edges}
+              maxDegree={data.max_degree}
             />
           </CosmographProvider>
         </div>
