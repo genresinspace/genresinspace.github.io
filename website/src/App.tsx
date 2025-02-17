@@ -220,6 +220,7 @@ function Graph({
   return (
     <Cosmograph
       disableSimulation={false}
+      backgroundColor="#111"
       nodeLabelAccessor={(d: NodeData) => d.label}
       nodeColor={(d) => {
         const hash = d.id
