@@ -543,6 +543,19 @@ function FAQ({ dumpDate }: { dumpDate: string }) {
       ),
     },
     {
+      question: "What's with the ring of genres around the graph?",
+      answer: (
+        <p>
+          Those are genres that have very few, or zero, connections to the rest
+          of the graph. This can happen because their connections are
+          poorly-documented, they're unique and have few connections to other
+          genres (most often the case with traditional cultural music), or
+          they're too broad to be a distinct entity that other genres can
+          connect to.
+        </p>
+      ),
+    },
+    {
       question:
         "Why are some genres' descriptions kind of broken, but look fine on Wikipedia?",
       answer: (
