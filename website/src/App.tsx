@@ -507,29 +507,35 @@ function FAQ({ dumpDate }: { dumpDate: string }) {
     {
       question: "How does this compare to the other music mapping projects?",
       answer: (
-        <p>
-          I encourage you to check out other projects of a similar ilk! This
-          project is designed to show you how the genres are connected, and to
-          give you a representative mix for each; but you may find other maps
-          more germane to your interests. Here's the ones I'm aware of:
-          <ul className="list-disc pl-5">
-            <li>
-              <ExternalLink href="https://everynoise.com/">
-                Every Noise At Once
-              </ExternalLink>
-              : a word cloud of genres, arranged across axes, and with
-              perspective-altering filters to further contextualise the
-              development and influence of each genre
-            </li>
-            <li>
-              <ExternalLink href="https://musicmap.info/">
-                Musicmap
-              </ExternalLink>
-              : an extremely-well-researched, high-quality map of the world of
-              music, with genealogy, purpose-written text, references, and more
-            </li>
-          </ul>
-        </p>
+        <>
+          <p>
+            I encourage you to check out other projects of a similar ilk! This
+            project is designed to show you how the genres are connected, and to
+            give you a representative mix for each; but you may find other maps
+            more germane to your interests.
+          </p>
+          <p>
+            Here's the ones I'm aware of:
+            <ul className="list-disc pl-5">
+              <li>
+                <ExternalLink href="https://everynoise.com/">
+                  Every Noise At Once
+                </ExternalLink>
+                : a word cloud of genres, arranged across axes, and with
+                perspective-altering filters to further contextualise the
+                development and influence of each genre
+              </li>
+              <li>
+                <ExternalLink href="https://musicmap.info/">
+                  Musicmap
+                </ExternalLink>
+                : an extremely-well-researched, high-quality map of the world of
+                music, with genealogy, purpose-written text, references, and
+                more
+              </li>
+            </ul>
+          </p>
+        </>
       ),
     },
     {
