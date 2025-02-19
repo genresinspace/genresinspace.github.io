@@ -403,9 +403,12 @@ function FAQ({ dumpDate }: { dumpDate: string }) {
             In addition to that, Wikipedia is one of the greatest resources of
             our time, and I wanted to do two things: encourage people to improve
             this little slice of it (I've certainly made a few edits while
-            working on this!) and to draw attention to the vicious attacks by
-            people who would rather you didn't know any better
-            {/* TODO: link */}. Don't let them take it from you.
+            working on this!) and to draw attention to{" "}
+            <ExternalLink href="https://www.theatlantic.com/technology/archive/2025/02/elon-musk-wikipedia/681577/">
+              the vicious attacks by people who would rather you didn't know any
+              better
+            </ExternalLink>
+            . Don't let them take it from you.
           </p>
         </>
       ),
@@ -462,12 +465,15 @@ function FAQ({ dumpDate }: { dumpDate: string }) {
           <p>
             This sucks, but it means that every genre covered here has{" "}
             <em>some</em> information attached to it to help you contextualise
-            it.
+            it. In future, I may consider using genres from MusicBrainz and/or
+            other-language Wikis.
           </p>
           <p>
             To see what's <em>really</em> out there, check out{" "}
-            <ExternalLink href="TODO: link">MusicBrainz' genres</ExternalLink>,
-            or poke around{" "}
+            <ExternalLink href="https://musicbrainz.org/genres">
+              MusicBrainz' genres
+            </ExternalLink>
+            , or poke around{" "}
             <ExternalLink href="https://everynoise.com/">
               Every Noise At Once
             </ExternalLink>
