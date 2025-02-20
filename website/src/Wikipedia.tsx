@@ -442,6 +442,9 @@ function WikitextTemplate({
       );
     case "lang-sr-cyrl":
       return <span>Serbian Cyrillic: {node.children[0].value}</span>;
+    case "lang-su-fonts":
+    case "sund":
+      return <Wikitext wikitext={node.children[0].value} />;
     case "langx":
       // TODO: remap language codes to language names, support other parameters
       return (
@@ -480,6 +483,37 @@ function WikitextTemplate({
     case "literal_translation": {
       const params = node.children.filter((p) => p.name !== "lk");
       return <span>lit. {params.map((p) => `'${p.value}'`).join(" or ")}</span>;
+    }
+    case "mongolunicode": {
+      const text = node.children.find((p) => p.name === "1");
+      if (!text) return null;
+
+      const direction =
+        node.children.find((p) => p.name === "2")?.value === "h"
+          ? "horizontal-tb"
+          : "vertical-rl";
+      // We don't currently do anything to handle fonts, but we could in the future
+      // const lang = node.children.find((p) => p.name === "lang")?.value || "mn";
+      const style = node.children.find((p) => p.name === "style")?.value || "";
+      const fontSize = node.children.find((p) => p.name === "font-size")?.value;
+      const lineHeight = node.children.find(
+        (p) => p.name === "line-height"
+      )?.value;
+      const display = node.children.find((p) => p.name === "display")?.value;
+
+      return (
+        <span
+          style={{
+            writingMode: direction,
+            ...(fontSize && { fontSize }),
+            ...(lineHeight && { lineHeight }),
+            ...(display && { display }),
+            ...(style && { style }),
+          }}
+        >
+          <Wikitext wikitext={text.value} />
+        </span>
+      );
     }
     case "multiple_image":
       // We don't render images from the description
