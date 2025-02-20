@@ -982,9 +982,27 @@ function Search({
       return [];
     }
 
-    return nodes.filter((node) =>
-      node.label.toLowerCase().includes(filter.toLowerCase())
-    );
+    // Normalize the filter string to remove diacritics and convert to lowercase
+    const normalizeStr = (str: string) =>
+      str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+    const normalizedFilter = normalizeStr(filter);
+
+    return nodes
+      .filter((node) => normalizeStr(node.label).includes(normalizedFilter))
+      .sort((a, b) => {
+        // Sort by closest length first
+        const lengthDiffA = Math.abs(a.label.length - filter.length);
+        const lengthDiffB = Math.abs(b.label.length - filter.length);
+        if (lengthDiffA !== lengthDiffB) {
+          return lengthDiffA - lengthDiffB;
+        }
+        // Then alphabetically
+        return a.label.localeCompare(b.label);
+      });
   }, [filter, nodes, selectedId]);
 
   return (
