@@ -663,15 +663,10 @@ function ProjectInformation({
           <div className="flex gap-2 mt-1">
             <a
               href={`#${randomId}`}
-              className="block p-1 text-white rounded flex-1 min-h-[2rem] flex items-center"
+              className="block p-1 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded flex-1 min-h-[2rem] flex items-center"
               style={{
-                backgroundColor: randomNodeColour,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = randomNodeColourHover;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = randomNodeColour;
+                ["--node-color" as any]: randomNodeColour,
+                ["--node-color-hover" as any]: randomNodeColourHover,
               }}
             >
               {nodes[randomId].label}
