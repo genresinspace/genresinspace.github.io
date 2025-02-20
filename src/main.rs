@@ -187,7 +187,7 @@ fn main() -> anyhow::Result<()> {
     remove_ignored_pages_and_detect_duplicates(&mut processed_genres);
 
     if std::env::args().any(|arg| arg == "--populate-mixes") {
-        populate_mixes(&mixes_path, &processed_genres)?;
+        populate_mixes(mixes_path, &processed_genres)?;
     } else {
         let links_to_articles = resolve_links_to_articles(
             start,
@@ -199,7 +199,7 @@ fn main() -> anyhow::Result<()> {
         produce_data_json(
             start,
             &dump_meta,
-            &mixes_path,
+            mixes_path,
             &data_path,
             &links_to_articles,
             &processed_genres,
@@ -1421,7 +1421,7 @@ fn produce_data_json(
         let processed_genre = &processed_genres.0[page];
         let id = PageDataId(graph.nodes.len());
 
-        let mixes = std::fs::read_to_string(&mixes_path.join(sanitize_page_name(page)))
+        let mixes = std::fs::read_to_string(mixes_path.join(sanitize_page_name(page)))
             .ok()
             .unwrap_or_default()
             .lines()
