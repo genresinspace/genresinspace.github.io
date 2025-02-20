@@ -445,14 +445,23 @@ function WikitextTemplate({
     case "lang-su-fonts":
     case "sund":
       return <Wikitext wikitext={node.children[0].value} />;
-    case "langx":
-      // TODO: remap language codes to language names, support other parameters
+    case "langx": {
+      // TODO: support transliteration / translation
+      const params = templateToObject(node);
+      const tag = params.code || params["1"];
+      const text = params.text || params["2"];
+      const label = params.label;
       return (
-        <span>
-          {node.children[0].value}:{" "}
-          <Wikitext wikitext={node.children[1].value} />
-        </span>
+        <>
+          {label !== "none" && (
+            <>
+              <IetfLanguageTagLink tag={tag} label={label} />:{" "}
+            </>
+          )}
+          <Wikitext wikitext={text} />
+        </>
       );
+    }
     case "language_with_name/for":
     case "langnf":
       const langCode = node.children[0].value;
@@ -656,6 +665,168 @@ function WikitextTemplate({
         `Unknown template: ${wikiUrl ?? ""}/Template:${templateName}`
       );
   }
+}
+
+function IetfLanguageTagLink({ tag, label }: { tag: string; label?: string }) {
+  // Produced from the Wikipedia article on IETF language tags, plus whatever ones were required to
+  // render the rest of the articles. Would be nice to use the canonical list, but I don't see an
+  // easy way to get at the Lua backing `langx`.
+  const languageLinks: Record<string, { pageTitle: string; name?: string }> = {
+    af: { pageTitle: "Afrikaans" },
+    am: { pageTitle: "Amharic" },
+    ar: { pageTitle: "Arabic" },
+    arn: { pageTitle: "Mapuche language", name: "Mapudungun" },
+    ary: { pageTitle: "Moroccan Arabic" },
+    arz: { pageTitle: "Egyptian Arabic language", name: "Egyptian Arabic" },
+    as: { pageTitle: "Assamese language", name: "Assamese" },
+    az: { pageTitle: "Azerbaijani language", name: "Azerbaijani" },
+    ba: { pageTitle: "Bashkir language", name: "Bashkir" },
+    ban: { pageTitle: "Balinese language", name: "Balinese" },
+    be: { pageTitle: "Belarusian language", name: "Belarusian" },
+    ber: { pageTitle: "Berber languages" },
+    bg: { pageTitle: "Bulgarian language", name: "Bulgarian" },
+    bn: { pageTitle: "Bengali language", name: "Bengali" },
+    bo: { pageTitle: "Tibetan language (standard)", name: "Tibetan" },
+    br: { pageTitle: "Breton language", name: "Breton" },
+    bs: { pageTitle: "Bosnian language", name: "Bosnian" },
+    ca: { pageTitle: "Catalan language", name: "Catalan" },
+    ckb: { pageTitle: "Sorani", name: "Central Kurdish" },
+    co: { pageTitle: "Corsican language", name: "Corsican" },
+    cs: { pageTitle: "Czech language", name: "Czech" },
+    cy: { pageTitle: "Welsh language", name: "Welsh" },
+    da: { pageTitle: "Danish language", name: "Danish" },
+    de: { pageTitle: "German language", name: "German" },
+    dsb: { pageTitle: "Lower Sorbian language", name: "Lower Sorbian" },
+    dv: { pageTitle: "Divehi (language)", name: "Divehi" },
+    el: { pageTitle: "Greek language", name: "Greek" },
+    en: { pageTitle: "English language", name: "English" },
+    es: { pageTitle: "Spanish language", name: "Spanish" },
+    et: { pageTitle: "Estonian language", name: "Estonian" },
+    eu: { pageTitle: "Basque language", name: "Basque" },
+    fa: { pageTitle: "Persian language", name: "Persian" },
+    fi: { pageTitle: "Finnish language", name: "Finnish" },
+    fil: { pageTitle: "Filipino language", name: "Filipino" },
+    fo: { pageTitle: "Faroese language", name: "Faroese" },
+    fr: { pageTitle: "French language", name: "French" },
+    fy: { pageTitle: "Frisian languages", name: "Frisian" },
+    ga: { pageTitle: "Irish language", name: "Irish" },
+    gcf: {
+      pageTitle: "Guadeloupean Creole French language",
+      name: "Guadeloupean Creole French",
+    },
+    gd: { pageTitle: "Scottish Gaelic" },
+    gil: { pageTitle: "Gilbertese language", name: "Gilbertese" },
+    gl: { pageTitle: "Galician language", name: "Galician" },
+    gsw: { pageTitle: "Swiss German" },
+    gu: { pageTitle: "Gujarati language", name: "Gujarati" },
+    ha: { pageTitle: "Hausa language", name: "Hausa" },
+    he: { pageTitle: "Hebrew language", name: "Hebrew" },
+    hi: { pageTitle: "Hindi" },
+    ht: { pageTitle: "Haitian Creole language", name: "Haitian Creole" },
+    hr: { pageTitle: "Croatian language", name: "Croatian" },
+    hsb: { pageTitle: "Upper Sorbian language", name: "Upper Sorbian" },
+    hu: { pageTitle: "Hungarian language", name: "Hungarian" },
+    hy: { pageTitle: "Armenian language", name: "Armenian" },
+    id: { pageTitle: "Indonesian language", name: "Indonesian" },
+    ig: { pageTitle: "Igbo language", name: "Igbo" },
+    ii: { pageTitle: "Nuosu language", name: "Yi" },
+    is: { pageTitle: "Icelandic language", name: "Icelandic" },
+    it: { pageTitle: "Italian language", name: "Italian" },
+    iu: { pageTitle: "Inuktitut" },
+    ja: { pageTitle: "Japanese language", name: "Japanese" },
+    jam: { pageTitle: "Jamaican Patois language", name: "Jamaican Patois" },
+    jv: { pageTitle: "Javanese language", name: "Javanese" },
+    ka: { pageTitle: "Georgian language", name: "Georgian" },
+    kk: { pageTitle: "Kazakh language", name: "Kazakh" },
+    kl: { pageTitle: "Greenlandic language", name: "Greenlandic" },
+    km: { pageTitle: "Khmer language", name: "Khmer" },
+    kn: { pageTitle: "Kannada" },
+    ko: { pageTitle: "Korean language", name: "Korean" },
+    kok: { pageTitle: "Konkani language", name: "Konkani" },
+    ku: { pageTitle: "Kurdish language", name: "Kurdish" },
+    ky: { pageTitle: "Kyrgyz language", name: "Kyrgyz" },
+    lb: { pageTitle: "Luxembourgish" },
+    lo: { pageTitle: "Lao language", name: "Lao" },
+    lt: { pageTitle: "Lithuanian language", name: "Lithuanian" },
+    lv: { pageTitle: "Latvian language", name: "Latvian" },
+    mfe: { pageTitle: "Morisyen language", name: "Morisyen" },
+    mi: { pageTitle: "Māori language", name: "Maori" },
+    mk: { pageTitle: "Macedonian language", name: "Macedonian" },
+    ml: { pageTitle: "Malayalam" },
+    mn: { pageTitle: "Mongolian language", name: "Mongolian" },
+    moh: { pageTitle: "Mohawk language", name: "Mohawk" },
+    mr: { pageTitle: "Marathi language", name: "Marathi" },
+    ms: { pageTitle: "Malay language", name: "Malay" },
+    mt: { pageTitle: "Maltese language", name: "Maltese" },
+    my: { pageTitle: "Burmese language", name: "Burmese" },
+    nb: { pageTitle: "Bokmål", name: "Norwegian (Bokmål)" },
+    ne: { pageTitle: "Nepali language", name: "Nepali" },
+    nl: { pageTitle: "Dutch language", name: "Dutch" },
+    nn: { pageTitle: "Nynorsk", name: "Norwegian (Nynorsk)" },
+    no: { pageTitle: "Norwegian language", name: "Norwegian" },
+    oc: { pageTitle: "Occitan language", name: "Occitan" },
+    or: { pageTitle: "Odia language", name: "Odia" },
+    pa: { pageTitle: "Punjabi language", name: "Punjabi" },
+    pap: { pageTitle: "Papiamento language", name: "Papiamento" },
+    pi: { pageTitle: "Pali language", name: "Pali" },
+    pl: { pageTitle: "Polish language", name: "Polish" },
+    prs: { pageTitle: "Dari" },
+    ps: { pageTitle: "Pashto" },
+    pt: { pageTitle: "Portuguese language", name: "Portuguese" },
+    quc: { pageTitle: "Kʼicheʼ language", name: "K'iche" },
+    qu: { pageTitle: "Quechuan languages", name: "Quechua" },
+    rm: { pageTitle: "Romansh language", name: "Romansh" },
+    ro: { pageTitle: "Romanian language", name: "Romanian" },
+    ru: { pageTitle: "Russian language", name: "Russian" },
+    rw: { pageTitle: "Kinyarwanda" },
+    sa: { pageTitle: "Sanskrit" },
+    sah: { pageTitle: "Yakut language", name: "Yakut" },
+    sc: { pageTitle: "Sardinian language", name: "Sardinian" },
+    se: { pageTitle: "Northern Sami", name: "Sami (Northern)" },
+    si: { pageTitle: "Sinhala language", name: "Sinhala" },
+    sk: { pageTitle: "Slovak language", name: "Slovak" },
+    sl: { pageTitle: "Slovene language", name: "Slovenian" },
+    sma: { pageTitle: "Southern Sámi", name: "Sami (Southern)" },
+    smj: { pageTitle: "Lule Sami", name: "Sami (Lule)" },
+    smn: { pageTitle: "Inari Sámi language", name: "Sami (Inari)" },
+    sms: { pageTitle: "Skolt Sami", name: "Sami (Skolt)" },
+    sq: { pageTitle: "Albanian language", name: "Albanian" },
+    sr: { pageTitle: "Serbian language", name: "Serbian" },
+    st: { pageTitle: "Sotho language", name: "Sesotho" },
+    su: { pageTitle: "Sundanese language", name: "Sundanese" },
+    sv: { pageTitle: "Swedish language", name: "Swedish" },
+    sw: { pageTitle: "Swahili language", name: "Kiswahili" },
+    syc: { pageTitle: "Syriac language", name: "Syriac" },
+    ta: { pageTitle: "Tamil language", name: "Tamil" },
+    te: { pageTitle: "Telugu language", name: "Telugu" },
+    tg: { pageTitle: "Tajik language", name: "Tajik" },
+    th: { pageTitle: "Thai language", name: "Thai" },
+    tk: { pageTitle: "Turkmen language", name: "Turkmen" },
+    tn: { pageTitle: "Tswana language", name: "Tswana" },
+    tr: { pageTitle: "Turkish language", name: "Turkish" },
+    tt: { pageTitle: "Tatar language", name: "Tatar" },
+    tzm: { pageTitle: "Berber languages", name: "Tamazight" },
+    ug: { pageTitle: "Uyghur language", name: "Uyghur" },
+    uk: { pageTitle: "Ukrainian language", name: "Ukrainian" },
+    ur: { pageTitle: "Urdu" },
+    uz: { pageTitle: "Uzbek language", name: "Uzbek" },
+    vi: { pageTitle: "Vietnamese language", name: "Vietnamese" },
+    wo: { pageTitle: "Wolof language", name: "Wolof" },
+    xh: { pageTitle: "Xhosa language", name: "Xhosa" },
+    yi: { pageTitle: "Yiddish language", name: "Yiddish" },
+    yo: { pageTitle: "Yoruba language", name: "Yoruba" },
+    zh: { pageTitle: "Chinese language", name: "Chinese" },
+    zu: { pageTitle: "Zulu language", name: "Zulu" },
+  };
+
+  const link = languageLinks[tag];
+  if (!link) throw new Error(`Unknown language tag: ${tag}`);
+
+  return (
+    <WikipediaLink pageTitle={link.pageTitle}>
+      <Wikitext wikitext={label ?? link.name ?? link.pageTitle} />
+    </WikipediaLink>
+  );
 }
 
 function WikipediaFootnote({ node }: { node: string }) {
