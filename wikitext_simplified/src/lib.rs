@@ -8,7 +8,7 @@ use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig, NodeMe
 use tsify_next::Tsify;
 use wasm_bindgen::prelude::*;
 
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify, PartialEq, Eq)]
 #[serde(tag = "type", rename_all = "kebab-case")]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub enum WikitextSimplifiedNode {
@@ -90,7 +90,7 @@ impl WikitextSimplifiedNode {
         }
     }
 }
-#[derive(Debug, Clone, Serialize, Deserialize, Tsify)]
+#[derive(Debug, Clone, Serialize, Deserialize, Tsify, PartialEq, Eq)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct TemplateParameter {
     pub name: String,
@@ -104,30 +104,31 @@ pub fn parse_and_simplify_wikitext(wikitext: &str) -> Vec<WikitextSimplifiedNode
     console_error_panic_hook::set_once();
 
     let output = PWT_CONFIGURATION.parse(wikitext).unwrap();
+    dbg!(&output.nodes);
     simplify_wikitext_nodes(wikitext, &output.nodes)
 }
 
 fn simplify_wikitext_nodes(wikitext: &str, nodes: &[pwt::Node]) -> Vec<WikitextSimplifiedNode> {
-    use WikitextSimplifiedNode as SWN;
+    use WikitextSimplifiedNode as WSN;
     struct RootStack {
-        stack: Vec<SWN>,
+        stack: Vec<WSN>,
     }
     impl RootStack {
         fn new() -> Self {
             Self {
-                stack: vec![SWN::Fragment { children: vec![] }],
+                stack: vec![WSN::Fragment { children: vec![] }],
             }
         }
-        fn push_layer(&mut self, node: SWN) {
+        fn push_layer(&mut self, node: WSN) {
             self.stack.push(node);
         }
-        fn pop_layer(&mut self) -> SWN {
+        fn pop_layer(&mut self) -> WSN {
             self.stack.pop().unwrap()
         }
-        fn last_layer(&self) -> &SWN {
+        fn last_layer(&self) -> &WSN {
             self.stack.last().unwrap()
         }
-        fn add_to_children(&mut self, node: SWN) {
+        fn add_to_children(&mut self, node: WSN) {
             self.stack
                 .last_mut()
                 .unwrap()
@@ -135,7 +136,7 @@ fn simplify_wikitext_nodes(wikitext: &str, nodes: &[pwt::Node]) -> Vec<WikitextS
                 .unwrap()
                 .push(node);
         }
-        fn unwind(mut self) -> Vec<SWN> {
+        fn unwind(mut self) -> Vec<WSN> {
             // This is a disgusting hack, but Wikipedia implicitly closes these, so we need to as well...
             while self.stack.len() > 1 {
                 let popped = self.pop_layer();
@@ -149,25 +150,25 @@ fn simplify_wikitext_nodes(wikitext: &str, nodes: &[pwt::Node]) -> Vec<WikitextS
     for node in nodes {
         match node {
             pwt::Node::Bold { .. } => {
-                if matches!(root_stack.last_layer(), SWN::Bold { .. }) {
+                if matches!(root_stack.last_layer(), WSN::Bold { .. }) {
                     let bold = root_stack.pop_layer();
                     root_stack.add_to_children(bold);
                 } else {
-                    root_stack.push_layer(SWN::Bold { children: vec![] });
+                    root_stack.push_layer(WSN::Bold { children: vec![] });
                 }
             }
             pwt::Node::Italic { .. } => {
-                if matches!(root_stack.last_layer(), SWN::Italic { .. }) {
+                if matches!(root_stack.last_layer(), WSN::Italic { .. }) {
                     let italic = root_stack.pop_layer();
                     root_stack.add_to_children(italic);
                 } else {
-                    root_stack.push_layer(SWN::Italic { children: vec![] });
+                    root_stack.push_layer(WSN::Italic { children: vec![] });
                 }
             }
             pwt::Node::BoldItalic { .. } => {
-                if matches!(root_stack.last_layer(), SWN::Italic { .. }) {
+                if matches!(root_stack.last_layer(), WSN::Italic { .. }) {
                     let italic = root_stack.pop_layer();
-                    if matches!(root_stack.last_layer(), SWN::Bold { .. }) {
+                    if matches!(root_stack.last_layer(), WSN::Bold { .. }) {
                         let mut bold = root_stack.pop_layer();
                         bold.children_mut().unwrap().push(italic);
                         root_stack.add_to_children(bold);
@@ -175,33 +176,33 @@ fn simplify_wikitext_nodes(wikitext: &str, nodes: &[pwt::Node]) -> Vec<WikitextS
                         panic!("BoldItalic found without a bold layer");
                     }
                 } else {
-                    root_stack.push_layer(SWN::Bold { children: vec![] });
-                    root_stack.push_layer(SWN::Italic { children: vec![] });
+                    root_stack.push_layer(WSN::Bold { children: vec![] });
+                    root_stack.push_layer(WSN::Italic { children: vec![] });
                 }
             }
             pwt::Node::StartTag { name, .. } if name == "blockquote" => {
-                root_stack.push_layer(SWN::Blockquote { children: vec![] });
+                root_stack.push_layer(WSN::Blockquote { children: vec![] });
             }
             pwt::Node::EndTag { name, .. } if name == "blockquote" => {
                 let blockquote = root_stack.pop_layer();
                 root_stack.add_to_children(blockquote);
             }
             pwt::Node::StartTag { name, .. } if name == "sup" => {
-                root_stack.push_layer(SWN::Superscript { children: vec![] });
+                root_stack.push_layer(WSN::Superscript { children: vec![] });
             }
             pwt::Node::EndTag { name, .. } if name == "sup" => {
                 let superscript = root_stack.pop_layer();
                 root_stack.add_to_children(superscript);
             }
             pwt::Node::StartTag { name, .. } if name == "sub" => {
-                root_stack.push_layer(SWN::Subscript { children: vec![] });
+                root_stack.push_layer(WSN::Subscript { children: vec![] });
             }
             pwt::Node::EndTag { name, .. } if name == "sub" => {
                 let subscript = root_stack.pop_layer();
                 root_stack.add_to_children(subscript);
             }
             pwt::Node::StartTag { name, .. } if name == "small" => {
-                root_stack.push_layer(SWN::Small { children: vec![] });
+                root_stack.push_layer(WSN::Small { children: vec![] });
             }
             pwt::Node::EndTag { name, .. } if name == "small" => {
                 let small = root_stack.pop_layer();
@@ -219,7 +220,7 @@ fn simplify_wikitext_nodes(wikitext: &str, nodes: &[pwt::Node]) -> Vec<WikitextS
 }
 
 fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSimplifiedNode> {
-    use WikitextSimplifiedNode as SWN;
+    use WikitextSimplifiedNode as WSN;
     match node {
         pwt::Node::Template {
             name, parameters, ..
@@ -250,7 +251,7 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSi
                 children.push(TemplateParameter { name, value });
             }
 
-            return Some(SWN::Template {
+            return Some(WSN::Template {
                 name: nodes_inner_text(name, &InnerTextConfig::default()),
                 children,
             });
@@ -264,7 +265,7 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSi
             return None;
         }
         pwt::Node::Link { target, text, .. } => {
-            return Some(SWN::Link {
+            return Some(WSN::Link {
                 text: nodes_inner_text(text, &InnerTextConfig::default()),
                 title: target.to_string(),
             });
@@ -272,23 +273,23 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSi
         pwt::Node::ExternalLink { nodes, .. } => {
             let inner = nodes_inner_text(nodes, &InnerTextConfig::default());
             let (text, link) = inner.split_once(' ').unwrap_or(("link", &inner));
-            return Some(SWN::ExtLink {
+            return Some(WSN::ExtLink {
                 text: text.to_string(),
                 link: link.to_string(),
             });
         }
         pwt::Node::Text { value, .. } => {
-            return Some(SWN::Text {
+            return Some(WSN::Text {
                 text: value.to_string(),
             });
         }
         pwt::Node::CharacterEntity { character, .. } => {
-            return Some(SWN::Text {
+            return Some(WSN::Text {
                 text: character.to_string(),
             });
         }
         pwt::Node::ParagraphBreak { .. } => {
-            return Some(SWN::ParagraphBreak);
+            return Some(WSN::ParagraphBreak);
         }
         pwt::Node::Category { .. } | pwt::Node::Comment { .. } | pwt::Node::Image { .. } => {
             // Don't care
@@ -307,10 +308,10 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSi
             return None;
         }
         pwt::Node::StartTag { name, .. } if name == "br" => {
-            return Some(SWN::Newline);
+            return Some(WSN::Newline);
         }
         pwt::Node::Preformatted { nodes, .. } => {
-            return Some(SWN::Preformatted {
+            return Some(WSN::Preformatted {
                 children: simplify_wikitext_nodes(wikitext, nodes),
             });
         }
