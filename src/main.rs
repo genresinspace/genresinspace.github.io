@@ -165,6 +165,8 @@ fn main() -> anyhow::Result<()> {
     let links_to_articles_path = output_path.join("links_to_articles.toml");
     let processed_genres_path = output_path.join("processed");
 
+    let mixes_path = Path::new("mixes");
+
     let website_path = Path::new("website");
     let website_public_path = website_path.join("public");
     let data_path = website_public_path.join("data.json");
@@ -182,23 +184,27 @@ fn main() -> anyhow::Result<()> {
     )?;
 
     let mut processed_genres = process_genres(start, &genres, &processed_genres_path)?;
-
     remove_ignored_pages_and_detect_duplicates(&mut processed_genres);
 
-    let links_to_articles = resolve_links_to_articles(
-        start,
-        &links_to_articles_path,
-        &processed_genres,
-        all_redirects,
-    )?;
+    if std::env::args().any(|arg| arg == "--populate-mixes") {
+        populate_mixes(&mixes_path, &processed_genres)?;
+    } else {
+        let links_to_articles = resolve_links_to_articles(
+            start,
+            &links_to_articles_path,
+            &processed_genres,
+            all_redirects,
+        )?;
 
-    produce_data_json(
-        start,
-        &dump_meta,
-        &data_path,
-        &links_to_articles,
-        &processed_genres,
-    )?;
+        produce_data_json(
+            start,
+            &dump_meta,
+            &mixes_path,
+            &data_path,
+            &links_to_articles,
+            &processed_genres,
+        )?;
+    }
 
     Ok(())
 }
@@ -884,10 +890,15 @@ struct ProcessedGenre {
     fusion_genres: Vec<String>,
 }
 impl ProcessedGenre {
+    pub fn edge_count(&self) -> usize {
+        self.stylistic_origins.len()
+            + self.derivatives.len()
+            + self.subgenres.len()
+            + self.fusion_genres.len()
+    }
     pub fn update_description(&mut self, description: String) {
         self.wikitext_description = Some(description.trim().to_string());
     }
-
     pub fn save(&self, processed_genres_path: &Path) -> anyhow::Result<()> {
         std::fs::write(
             processed_genres_path.join(format!("{}.json", sanitize_page_name(&self.page))),
@@ -1282,6 +1293,69 @@ fn remove_ignored_pages_and_detect_duplicates(processed_genres: &mut ProcessedGe
     }
 }
 
+fn populate_mixes(mixes_path: &Path, processed_genres: &ProcessedGenres) -> anyhow::Result<()> {
+    let pwt_configuration = pwt_configuration();
+
+    let already_existing_mixes = std::fs::read_dir(mixes_path)?
+        .filter_map(Result::ok)
+        .map(|e| e.path())
+        .filter(|p| p.is_file())
+        .map(|p| unsanitize_page_name(&p.file_name().unwrap().to_string_lossy()))
+        .collect::<HashSet<_>>();
+
+    let mut needs_filling = processed_genres
+        .0
+        .values()
+        .filter(|pg| !already_existing_mixes.contains(&pg.page))
+        .collect::<Vec<_>>();
+    needs_filling.sort_by_key(|pg| pg.edge_count());
+    needs_filling.reverse();
+
+    for pg in needs_filling {
+        let mut description = nodes_inner_text(
+            &pwt_configuration
+                .parse(pg.wikitext_description.as_deref().unwrap_or_default())
+                .unwrap()
+                .nodes,
+            &InnerTextConfig {
+                stop_after_br: true,
+            },
+        );
+        if let Some(dot_idx) = description.find('.') {
+            description.truncate(dot_idx + 1);
+        }
+
+        println!("==> {}: {description}", pg.page);
+
+        let genre_name = &pg.name.0;
+        let link = format!(
+            "https://www.youtube.com/results?search_query={}&sp=EgQQARgC",
+            (if genre_name.to_lowercase().contains("music") {
+                format!("\"{genre_name}\" mix")
+            } else {
+                format!("\"{genre_name}\" music mix")
+            })
+            .replace(" ", "%20")
+        );
+        open::that(link)?;
+
+        print!("> ");
+        std::io::stdout().flush()?;
+        let mut line = String::new();
+        std::io::stdin().read_line(&mut line)?;
+
+        if let Some(amp_idx) = line.find('&') {
+            line.truncate(amp_idx);
+        }
+        line = line.trim().to_string();
+
+        let mix_path = mixes_path.join(sanitize_page_name(&pg.page));
+        std::fs::write(mix_path, line)?;
+    }
+
+    Ok(())
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 struct FrontendData {
     wikipedia_domain: String,
@@ -1301,6 +1375,8 @@ struct NodeData {
     wikitext_description: Option<String>,
     label: GenreName,
     last_revision_date: jiff::Timestamp,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    mixes: Vec<String>,
     edges: BTreeSet<usize>,
 }
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
@@ -1320,6 +1396,7 @@ struct EdgeData {
 fn produce_data_json(
     start: std::time::Instant,
     dump_meta: &DumpMeta,
+    mixes_path: &Path,
     data_path: &Path,
     links_to_articles: &LinksToArticles,
     processed_genres: &ProcessedGenres,
@@ -1343,12 +1420,21 @@ fn produce_data_json(
     for page in &node_order {
         let processed_genre = &processed_genres.0[page];
         let id = PageDataId(graph.nodes.len());
+
+        let mixes = std::fs::read_to_string(&mixes_path.join(sanitize_page_name(page)))
+            .ok()
+            .unwrap_or_default()
+            .lines()
+            .map(|l| l.trim().to_string())
+            .collect::<Vec<_>>();
+
         let node = NodeData {
             id,
             page_title: page.clone(),
             wikitext_description: processed_genre.wikitext_description.clone(),
             label: processed_genre.name.clone(),
             last_revision_date: processed_genre.last_revision_date,
+            mixes,
             edges: BTreeSet::new(),
         };
 

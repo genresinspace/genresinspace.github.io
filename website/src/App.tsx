@@ -70,6 +70,7 @@ type NodeData = {
   wikitext_description?: string;
   label: string;
   last_revision_date: string;
+  mixes?: string[];
   edges: number[];
 };
 type EdgeData = {
@@ -922,6 +923,13 @@ function SelectedNodeInfo({
         >
           Zoom to
         </button>
+        {
+          // TODO: proper switcher between videos
+          node.mixes &&
+            node.mixes.map((mix) => (
+              <YouTubeEmbed link={mix} className="mb-2" />
+            ))
+        }
         {node.wikitext_description && (
           <ShortWikitext
             wikitext={node.wikitext_description}
@@ -954,6 +962,36 @@ function SelectedNodeInfo({
           </ul>
         </div>
       ))}
+    </div>
+  );
+}
+
+function YouTubeEmbed({
+  link,
+  className,
+}: {
+  link: string;
+  className?: string;
+}) {
+  // Extract video ID from YouTube URL
+  const videoId = link.split("v=")[1]?.split("&")[0];
+
+  if (!videoId) {
+    return null;
+  }
+
+  return (
+    <div
+      className={`relative w-full ${className}`}
+      style={{ paddingBottom: "56.25%" }}
+    >
+      <iframe
+        className="absolute top-0 left-0 w-full h-full"
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
     </div>
   );
 }
