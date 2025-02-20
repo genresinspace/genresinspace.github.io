@@ -104,7 +104,6 @@ pub fn parse_and_simplify_wikitext(wikitext: &str) -> Vec<WikitextSimplifiedNode
     console_error_panic_hook::set_once();
 
     let output = PWT_CONFIGURATION.parse(wikitext).unwrap();
-    dbg!(&output.nodes);
     simplify_wikitext_nodes(wikitext, &output.nodes)
 }
 
@@ -323,4 +322,26 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSi
         node,
         &wikitext[metadata.start..metadata.end]
     );
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use WikitextSimplifiedNode as WSN;
+
+    #[test]
+    fn test_s_after_link() {
+        let wikitext = "cool [[thing]]s by cool [[Person|person]]s";
+        let simplified = parse_and_simplify_wikitext(wikitext);
+        assert_eq!(
+            simplified,
+            vec![
+                WSN::Text { text: "cool ".into() },
+                WSN::Link { text: "thing".into(), title: "thing".into() },
+                WSN::Text { text: "s by cool ".into() },
+                WSN::Link { text: "person".into(), title: "Person".into() },
+                WSN::Text { text: "s".into() }
+            ]
+        )
+    }
 }
