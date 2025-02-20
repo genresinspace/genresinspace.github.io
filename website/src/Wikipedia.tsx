@@ -568,7 +568,7 @@ function WikitextTemplate({
       return (
         <small>
           {node.children.map((c, i) => (
-            <React.Fragment key={i}>{c.value}</React.Fragment>
+            <Wikitext key={i} wikitext={c.value} />
           ))}
         </small>
       );
