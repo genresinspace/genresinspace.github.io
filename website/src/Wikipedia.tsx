@@ -446,7 +446,8 @@ function WikitextTemplate({
       // TODO: remap language codes to language names, support other parameters
       return (
         <span>
-          {node.children[0].value}: {node.children[1].value}
+          {node.children[0].value}:{" "}
+          <Wikitext wikitext={node.children[1].value} />
         </span>
       );
     case "language_with_name/for":
