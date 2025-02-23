@@ -1308,7 +1308,11 @@ fn populate_mixes(mixes_path: &Path, processed_genres: &ProcessedGenres) -> anyh
         .values()
         .filter(|pg| !already_existing_mixes.contains(&pg.page))
         .collect::<Vec<_>>();
-    needs_filling.sort_by_key(|pg| pg.edge_count());
+    needs_filling.sort_by(|a, b| {
+        a.edge_count()
+            .cmp(&b.edge_count())
+            .then_with(|| a.page.cmp(&b.page))
+    });
     needs_filling.reverse();
 
     for pg in needs_filling {
