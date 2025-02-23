@@ -925,10 +925,17 @@ function SelectedNodeInfo({
         </button>
         {
           // TODO: proper switcher between videos
-          node.mixes &&
+          node.mixes ? (
             node.mixes.map((mix) => (
-              <YouTubeEmbed link={mix} className="mb-2" />
+              <UncertainYouTubeEmbed link={mix} className="mb-2" />
             ))
+          ) : (
+            <Notice colour="red">
+              There's no mix selected for this genre yet. If you know of a good
+              mix or playlist that represents this genre well, please let me
+              know - see the FAQ on how to contribute!
+            </Notice>
+          )
         }
         {node.wikitext_description && (
           <ShortWikitext
@@ -962,6 +969,66 @@ function SelectedNodeInfo({
           </ul>
         </div>
       ))}
+    </div>
+  );
+}
+
+function UncertainYouTubeEmbed({
+  link,
+  className,
+}: {
+  link: string;
+  className?: string;
+}) {
+  if (link === "help") {
+    return (
+      <Notice colour="blue">
+        I've been unable to select a good mix or playlist for this genre because
+        I don't know enough about the genre, the mixes I could find include
+        other genres, or there just isn't an appropriate mix available. If you
+        find one, please contact me - see the FAQ on how!
+      </Notice>
+    );
+  }
+
+  return <YouTubeEmbed link={link} className={className} />;
+}
+
+function Notice({
+  children,
+  colour = "yellow",
+}: {
+  children: React.ReactNode;
+  colour?: "yellow" | "red" | "blue" | "green";
+}) {
+  const colourClasses = {
+    yellow: {
+      bg: "bg-yellow-100",
+      border: "border-yellow-400",
+      text: "text-yellow-900",
+    },
+    red: {
+      bg: "bg-red-100",
+      border: "border-red-400",
+      text: "text-red-900",
+    },
+    blue: {
+      bg: "bg-blue-100",
+      border: "border-blue-400",
+      text: "text-blue-900",
+    },
+    green: {
+      bg: "bg-green-100",
+      border: "border-green-400",
+      text: "text-green-900",
+    },
+  };
+
+  const classes = colourClasses[colour];
+
+  return (
+    <div className={`${classes.bg} border-l-4 ${classes.border} p-4 my-1`}>
+      <p className={classes.text}>{children}</p>
     </div>
   );
 }
