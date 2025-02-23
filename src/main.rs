@@ -34,6 +34,13 @@ impl PageName {
             heading,
         }
     }
+
+    fn linksafe(&self) -> Self {
+        Self {
+            name: self.name.replace(' ', "_"),
+            heading: self.heading.clone(),
+        }
+    }
 }
 impl std::fmt::Display for PageName {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -187,7 +194,7 @@ fn main() -> anyhow::Result<()> {
     remove_ignored_pages_and_detect_duplicates(&mut processed_genres);
 
     if std::env::args().any(|arg| arg == "--populate-mixes") {
-        populate_mixes(mixes_path, &processed_genres)?;
+        populate_mixes(mixes_path, &dump_meta, &processed_genres)?;
     } else {
         let links_to_articles = resolve_links_to_articles(
             start,
@@ -1293,7 +1300,11 @@ fn remove_ignored_pages_and_detect_duplicates(processed_genres: &mut ProcessedGe
     }
 }
 
-fn populate_mixes(mixes_path: &Path, processed_genres: &ProcessedGenres) -> anyhow::Result<()> {
+fn populate_mixes(
+    mixes_path: &Path,
+    dump_meta: &DumpMeta,
+    processed_genres: &ProcessedGenres,
+) -> anyhow::Result<()> {
     let pwt_configuration = pwt_configuration();
 
     let already_existing_mixes = std::fs::read_dir(mixes_path)?
@@ -1329,7 +1340,13 @@ fn populate_mixes(mixes_path: &Path, processed_genres: &ProcessedGenres) -> anyh
             description.truncate(dot_idx + 1);
         }
 
-        println!("==> {}: {description}", pg.page);
+        let wikipedia_page_link = format!(
+            "https://{}/wiki/{}",
+            dump_meta.wikipedia_domain,
+            pg.page.linksafe()
+        );
+
+        println!("==> {} ({wikipedia_page_link}): {description}", pg.page);
 
         let genre_name = &pg.name.0;
         let link = format!(
