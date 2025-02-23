@@ -980,13 +980,21 @@ function UncertainYouTubeEmbed({
   link: string;
   className?: string;
 }) {
-  if (link === "help") {
+  if (link.startsWith("help")) {
+    const reason = link.startsWith("help:") ? link.substring(5).trim() : null;
     return (
       <Notice colour="blue">
-        I've been unable to select a good mix or playlist for this genre because
-        I don't know enough about the genre, the mixes I could find include
-        other genres, or there just isn't an appropriate mix available. If you
-        find one, please contact me - see the FAQ on how!
+        <p>
+          I've been unable to select a good mix or playlist for this genre
+          because I don't know enough about the genre, the mixes I could find
+          include other genres, or there just isn't an appropriate mix
+          available. If you find one, please contact me - see the FAQ on how!
+        </p>
+        {reason && (
+          <p className="mt-2">
+            <strong>Reason:</strong> {reason}
+          </p>
+        )}
       </Notice>
     );
   }
