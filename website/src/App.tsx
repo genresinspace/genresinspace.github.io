@@ -973,12 +973,17 @@ function YouTubeEmbed({
   link: string;
   className?: string;
 }) {
-  // Extract video ID from YouTube URL
+  // Extract video ID or playlist ID from YouTube URL
   const videoId = link.split("v=")[1]?.split("&")[0];
+  const playlistId = link.split("list=")[1]?.split("&")[0];
 
-  if (!videoId) {
+  if (!videoId && !playlistId) {
     return null;
   }
+
+  const embedUrl = playlistId
+    ? `https://www.youtube.com/embed/videoseries?list=${playlistId}`
+    : `https://www.youtube.com/embed/${videoId}`;
 
   return (
     <div
@@ -987,7 +992,7 @@ function YouTubeEmbed({
     >
       <iframe
         className="absolute top-0 left-0 w-full h-full"
-        src={`https://www.youtube.com/embed/${videoId}`}
+        src={embedUrl}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
