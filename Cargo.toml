@@ -8,7 +8,7 @@ parse-wiki-text-2 = { git = "https://github.com/philpax/parse-wiki-text-2.git", 
 serde = { version = "1.0.217", features = ["derive"] }
 
 [package]
-name = "graphgenre"
+name = "genresinspace"
 version = "0.1.0"
 edition = "2021"
 

@@ -28,7 +28,7 @@ import commit from "./commit.json";
 // Ideally, we could integrate this into `commit.json`, but getting the "safe" URL from the checkout
 // that GHA does is a bit tricky (we don't necessarily know what the remote's name is in that environment,
 // and we'd have to convert the git@ URL to https://).
-const REPO_LINK = "https://github.com/graphgenre/graphgenre.github.io";
+const REPO_LINK = "https://github.com/genresinspace/genresinspace.github.io";
 
 type Settings = {
   general: {
@@ -1435,11 +1435,11 @@ function App() {
         const nodeData = data.nodes[parseInt(newId, 10)];
         if (nodeData) {
           setFilter(nodeData.label);
-          document.title = `graphgenre: ${nodeData.label}`;
+          document.title = `genres in space: ${nodeData.label}`;
         }
       } else {
         setFilter("");
-        document.title = "graphgenre";
+        document.title = "genres in space";
       }
       setFocusedId(newId);
     },
