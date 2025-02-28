@@ -1,7 +1,7 @@
 import { JSDOM } from "jsdom";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import { initWasm, Wikitext } from "../src/Wikipedia";
+import { initWasm, Wikitext, wikiUrl, wikiPageUrl } from "../src/Wikipedia";
 import data from "../public/data.json";
 import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
@@ -27,6 +27,8 @@ const filterPageTitle = process.argv[2];
 const errors: Array<{ pageTitle: string; error: string; wikitext: string }> =
   [];
 
+const resolvedWikiUrl = wikiUrl(data.wikipedia_domain);
+
 try {
   for (const genre of Object.values(data.nodes)) {
     if (filterPageTitle && genre.page_title !== filterPageTitle) {
@@ -51,7 +53,12 @@ try {
 
   if (errors.length > 0) {
     errors.forEach(({ pageTitle, error, wikitext }) => {
-      console.log(`${pageTitle}: Wikitext: ${wikitext.slice(0, 100)}...`);
+      console.log(
+        `${pageTitle} (${wikiPageUrl(
+          resolvedWikiUrl,
+          pageTitle
+        )}): Wikitext: ${wikitext.slice(0, 100)}...`
+      );
       console.log(`Error: ${error}`);
       console.log();
     });
