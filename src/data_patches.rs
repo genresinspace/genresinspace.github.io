@@ -22,26 +22,12 @@ pub fn pages_to_ignore() -> Vec<PageName> {
 /// in the dump being processed.
 fn fixed_already() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
     [
-        // The infobox for the page 'Sanedo' is wrong and uses 'Rasiya' as the genre name.
+        // The infobox for the page 'Hip-hop in the Pacific Northwest' has a = instead of a - in the name.
         (
-            "2025-02-07T20:02:00Z",
-            ("Sanedo", None),
-            "Sanedo",
-            "https://en.wikipedia.org/w/index.php?title=Sanedo&oldid=1274517946",
-        ),
-        // "Western music (North America)" had a space in its genre name.
-        (
-            "2025-02-07T20:42:00Z",
-            ("Western music (North America)", None),
-            "Western music",
-            "https://en.wikipedia.org/w/index.php?title=Western_music_(North_America)&oldid=1274523831",
-        ),
-        // "Cajun music" and "Cajun fiddle" both use the same genre name of "Cajun music".
-        (
-            "2025-02-07T20:46:00Z",
-            ("Cajun fiddle", None),
-            "Cajun fiddle",
-            "https://en.wikipedia.org/w/index.php?title=Cajun_fiddle&oldid=1274524250"
+            "2025-02-28T11:03:00Z",
+            ("Hip-hop in the Pacific Northwest", None),
+            "Hip-hop in the Pacific Northwest",
+            "https://en.wikipedia.org/w/index.php?title=Hip-hop_in_the_Pacific_Northwest&oldid=1278081681",
         ),
     ]
     .into_iter()
