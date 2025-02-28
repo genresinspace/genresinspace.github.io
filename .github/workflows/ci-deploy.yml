@@ -1,9 +1,7 @@
-name: Deploy Website
+name: CI and Deploy
 
 on:
   push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -16,8 +14,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  test-and-deploy:
+    name: Test, Build and Deploy
     runs-on: ubuntu-latest
+    # Only deploy on main branch or manual trigger
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,6 +40,9 @@ jobs:
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
 
+      - name: Run Rust tests
+        run: cargo test
+
       - name: Build WASM
         run: wasm-pack build --target web wikitext_simplified -d ../website/wikitext_simplified
 
@@ -47,26 +53,27 @@ jobs:
           cache: "npm"
           cache-dependency-path: website/package-lock.json
 
-      - name: Install dependencies
+      - name: Install website dependencies
         working-directory: website
         run: npm ci
 
+      - name: Run wikitext tests
+        working-directory: website
+        run: npm run test:wikitext
+
+      # Deploy steps (only run on main or manual trigger)
       - name: Build site
+        if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
         working-directory: website
         run: npm run build
 
-      - name: Upload artifact
+      - name: Upload pages artifact
+        if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
         uses: actions/upload-pages-artifact@v3
         with:
           path: website/dist
 
-  deploy:
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
         id: deployment
         uses: actions/deploy-pages@v4
