@@ -591,6 +591,7 @@ function WikitextTemplate({
       );
     case "sic":
       return <>[sic]</>;
+    case "small":
     case "smaller":
       return (
         <small>
@@ -633,6 +634,7 @@ function WikitextTemplate({
     case "which":
       return <sup>[which?]</sup>;
     case "who":
+    case "who?":
       return <sup>[who?]</sup>;
     case "wikibooks":
       // Book links not relevant to a description
@@ -788,6 +790,7 @@ function IetfLanguageTagLink({ tag, label }: { tag: string; label?: string }) {
     jam: { pageTitle: "Jamaican Patois language", name: "Jamaican Patois" },
     jv: { pageTitle: "Javanese language", name: "Javanese" },
     ka: { pageTitle: "Georgian language", name: "Georgian" },
+    kea: { pageTitle: "Kabuverdianu language", name: "Kabuverdianu" },
     kk: { pageTitle: "Kazakh language", name: "Kazakh" },
     kl: { pageTitle: "Greenlandic language", name: "Greenlandic" },
     km: { pageTitle: "Khmer language", name: "Khmer" },
