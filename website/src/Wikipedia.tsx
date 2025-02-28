@@ -623,42 +623,75 @@ function WikitextTemplate({
     case "zh":
       const texts = node.children
         .filter((c) => c.value.length > 0)
-        .map((c) => {
+        .map((c, i) => {
+          let label;
+          let prefix = "";
+          let suffix = "";
           switch (c.name) {
             case "t":
-              return `traditional Chinese: ${c.value}`;
+              label = "traditional Chinese";
+              break;
             case "s":
-              return `simplified Chinese: ${c.value}`;
+              label = "simplified Chinese";
+              break;
             case "c":
-              return `Chinese: ${c.value}`;
+              label = "Chinese";
+              break;
             case "p":
-              return `pinyin: ${c.value}`;
+              label = "pinyin";
+              break;
             case "tp":
-              return `Tongyong Pinyin: ${c.value}`;
+              label = "Tongyong Pinyin";
+              break;
             case "w":
-              return `Wade–Giles: ${c.value}`;
+              label = "Wade–Giles";
+              break;
             case "j":
-              return `Jyutping: ${c.value}`;
+              label = "Jyutping";
+              break;
             case "cy":
-              return `Cantonese Yale: ${c.value}`;
+              label = "Cantonese Yale";
+              break;
             case "sl":
-              return `Sidney Lau: ${c.value}`;
+              label = "Sidney Lau";
+              break;
             case "poj":
-              return `Pe̍h-ōe-jī: ${c.value}`;
+              label = "Pe̍h-ōe-jī";
+              break;
             case "tl":
-              return `Tâi-lô: ${c.value}`;
+              label = "Tâi-lô";
+              break;
             case "zhu":
-              return `Zhuyin Fuhao: ${c.value}`;
+              label = "Zhuyin Fuhao";
+              break;
             case "l":
-              return `lit. '${c.value}'`;
+              prefix = "lit. '";
+              suffix = "'";
+              break;
             case "tr":
-              return `trans. "${c.value}"`;
+              prefix = 'trans. "';
+              suffix = '"';
+              break;
             default:
               return null;
           }
+          return (
+            <React.Fragment key={i}>
+              {label && <>{label}: </>}
+              {prefix}
+              <Wikitext wikitext={c.value} />
+              {suffix}
+            </React.Fragment>
+          );
         })
         .filter((t) => t !== null)
-        .join("; ");
+        .reduce((prev, curr, i) => (
+          <React.Fragment key={i}>
+            {prev}
+            {i > 0 && "; "}
+            {curr}
+          </React.Fragment>
+        ));
       return <span>{texts}</span>;
     default:
       throw new Error(
