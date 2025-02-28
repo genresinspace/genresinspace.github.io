@@ -33,6 +33,7 @@ const REPO_LINK = "https://github.com/genresinspace/genresinspace.github.io";
 type Settings = {
   general: {
     zoomOnSelect: boolean;
+    showLabels: boolean;
     maxInfluenceDistance: number;
     visibleTypes: {
       Derivative: boolean;
@@ -45,6 +46,7 @@ type Settings = {
 const defaultSettings: Settings = {
   general: {
     zoomOnSelect: true,
+    showLabels: true,
     maxInfluenceDistance: 3,
     visibleTypes: {
       Derivative: true,
@@ -222,6 +224,7 @@ function Graph({
     <Cosmograph
       disableSimulation={false}
       backgroundColor="#000"
+      showDynamicLabels={settings.general.showLabels}
       nodeLabelAccessor={(d: NodeData) => d.label}
       nodeColor={(d) => {
         let color = nodeColour(d, maxDegree);
@@ -1183,6 +1186,24 @@ function Settings({
               }
             />
             Zoom on select
+          </label>
+        </div>
+        <div className="mb-2">
+          <label title="Whether or not to show labels on the graph.">
+            <input
+              type="checkbox"
+              checked={settings.general.showLabels}
+              onChange={(e) =>
+                setSettings({
+                  ...settings,
+                  general: {
+                    ...settings.general,
+                    showLabels: e.target.checked,
+                  },
+                })
+              }
+            />
+            Show labels
           </label>
         </div>
         <div className="mb-2">
