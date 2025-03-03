@@ -141,7 +141,7 @@ export function WikitextWithEllipsis(props: {
       case "link":
         return node.text.length;
       case "ext-link":
-        return node.text.length;
+        return (node.text ?? node.link).length;
       case "fragment":
       case "bold":
       case "italic":
