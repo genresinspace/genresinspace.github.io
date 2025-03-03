@@ -694,7 +694,7 @@ function ProjectInformation({
                 label: "Derivative",
                 type: "Derivative" as const,
                 description:
-                  "Genres that use some of the elements inherent to this genre, without being a child genre.",
+                  "Genres that use some of the elements inherent to this genre, without being a subgenre.",
               },
               {
                 color: subgenreColour(),
