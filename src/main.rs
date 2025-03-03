@@ -1614,9 +1614,9 @@ impl GenreMixes {
     pub fn parse(input: &str) -> Self {
         let input = input.trim();
 
-        if input.starts_with("help:") {
+        if let Some(help_reason) = input.strip_prefix("help:") {
             return GenreMixes::Help {
-                help_reason: input["help:".len()..].trim().to_string(),
+                help_reason: help_reason.trim().to_string(),
             };
         }
 
@@ -1647,17 +1647,13 @@ impl GenreMixes {
         }
 
         fn extract_playlist_id(url: &str) -> Option<String> {
-            if let Some(list) = url.find("list=") {
-                Some(
-                    url[list + 5..]
-                        .split(['&', '#'])
-                        .next()
-                        .unwrap()
-                        .to_string(),
-                )
-            } else {
-                None
-            }
+            url.find("list=").map(|list| {
+                url[list + 5..]
+                    .split(['&', '#'])
+                    .next()
+                    .unwrap()
+                    .to_string()
+            })
         }
 
         fn extract_video_id(url: &str) -> Option<String> {
