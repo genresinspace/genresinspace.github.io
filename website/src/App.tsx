@@ -21,9 +21,11 @@ import {
   dumpUrl,
   ShortWikitext,
   WikipediaLink,
+  Wikitext,
   WikitextWithEllipsis,
 } from "./Wikipedia";
 import commit from "./commit.json";
+import React from "react";
 
 // Ideally, we could integrate this into `commit.json`, but getting the "safe" URL from the checkout
 // that GHA does is a bit tricky (we don't necessarily know what the remote's name is in that environment,
@@ -72,7 +74,10 @@ type NodeData = {
   wikitext_description?: string;
   label: string;
   last_revision_date: string;
-  mixes?: string[];
+  mixes?:
+    | { help_reason: string }
+    | { playlist: string; note?: string }[]
+    | { video: string; note?: string }[];
   edges: number[];
 };
 type EdgeData = {
@@ -929,9 +934,27 @@ function SelectedNodeInfo({
         {
           // TODO: proper switcher between videos
           node.mixes ? (
-            node.mixes.map((mix) => (
-              <UncertainYouTubeEmbed link={mix} className="mb-2" />
-            ))
+            "help_reason" in node.mixes ? (
+              <HelpNeededForMix reason={node.mixes.help_reason} />
+            ) : (
+              node.mixes.map((mix, i) => (
+                <React.Fragment key={i}>
+                  {"video" in mix ? (
+                    <YouTubeVideoEmbed videoId={mix.video} className="mb-2" />
+                  ) : (
+                    <YouTubePlaylistEmbed
+                      playlistId={mix.playlist}
+                      className="mb-2"
+                    />
+                  )}
+                  {mix.note && (
+                    <Notice colour="blue">
+                      <Wikitext wikitext={mix.note} />
+                    </Notice>
+                  )}
+                </React.Fragment>
+              ))
+            )
           ) : (
             <Notice colour="red">
               There's no mix selected for this genre yet. If you know of a good
@@ -976,33 +999,22 @@ function SelectedNodeInfo({
   );
 }
 
-function UncertainYouTubeEmbed({
-  link,
-  className,
-}: {
-  link: string;
-  className?: string;
-}) {
-  if (link.startsWith("help")) {
-    const reason = link.startsWith("help:") ? link.substring(5).trim() : null;
-    return (
-      <Notice colour="blue">
-        <p>
-          I've been unable to select a good mix or playlist for this genre
-          because I don't know enough about the genre, the mixes I could find
-          include other genres, or there just isn't an appropriate mix
-          available. If you find one, please contact me - see the FAQ on how!
+function HelpNeededForMix({ reason }: { reason: string | null }) {
+  return (
+    <Notice colour="blue">
+      <p>
+        I've been unable to select a good mix or playlist for this genre because
+        I don't know enough about the genre, the mixes I could find include
+        other genres, or there just isn't an appropriate mix available. If you
+        find one, please contact me - see the FAQ on how!
+      </p>
+      {reason && (
+        <p className="mt-2">
+          <strong>Reason:</strong> {reason}
         </p>
-        {reason && (
-          <p className="mt-2">
-            <strong>Reason:</strong> {reason}
-          </p>
-        )}
-      </Notice>
-    );
-  }
-
-  return <YouTubeEmbed link={link} className={className} />;
+      )}
+    </Notice>
+  );
 }
 
 function Notice({
@@ -1038,9 +1050,39 @@ function Notice({
   const classes = colourClasses[colour];
 
   return (
-    <div className={`${classes.bg} border-l-4 ${classes.border} p-4 my-1`}>
+    <div className={`${classes.bg} border-l-4 ${classes.border} p-2 my-1`}>
       <p className={classes.text}>{children}</p>
     </div>
+  );
+}
+
+function YouTubeVideoEmbed({
+  videoId,
+  className,
+}: {
+  videoId: string;
+  className?: string;
+}) {
+  return (
+    <YouTubeEmbed
+      link={`https://www.youtube.com/watch?v=${videoId}`}
+      className={className}
+    />
+  );
+}
+
+function YouTubePlaylistEmbed({
+  playlistId,
+  className,
+}: {
+  playlistId: string;
+  className?: string;
+}) {
+  return (
+    <YouTubeEmbed
+      link={`https://www.youtube.com/playlist?list=${playlistId}`}
+      className={className}
+    />
   );
 }
 

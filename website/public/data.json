@@ -665,7 +665,9 @@
       "label": "Alternative rock",
       "last_revision_date": "2025-02-19T04:17:40Z",
       "mixes": [
-        "https://www.youtube.com/playlist?list=PLjF50Dlp9iembnFdfoZaqIoYZ0zBm7utR"
+        {
+          "playlist": "PLjF50Dlp9iembnFdfoZaqIoYZ0zBm7utR"
+        }
       ],
       "edges": [
         110,
@@ -833,7 +835,9 @@
       "label": "Ambient music",
       "last_revision_date": "2025-02-20T08:05:33Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=BHl4NVytGpo"
+        {
+          "video": "BHl4NVytGpo"
+        }
       ],
       "edges": [
         182,
@@ -2214,9 +2218,9 @@
       "wikitext_description": "'''Blues''' is a [[music genre]] and [[musical form]] that originated amongst African-Americans in the [[Deep South]] of the United States around the 1860s.  Blues has incorporated [[spiritual (music)|spirituals]], [[work song]]s, [[field holler]]s, [[Ring shout|shouts]], [[chant]]s, and rhymed simple narrative [[ballad (music)|ballads]] from the [[African-American culture]]. The blues form is ubiquitous in [[jazz]], [[rhythm and blues]], and [[rock and roll]], and is characterized by the [[Call and response (music)|call-and-response]] pattern, the [[blues scale]], and specific [[chord progression]]s, of which the [[twelve-bar blues]] is the most common. [[Blue note]]s (or \"worried notes\"), usually thirds, fifths or sevenths flattened in [[Pitch (music)|pitch]], are also an essential part of the sound. Blues [[shuffle note|shuffles]] or [[walking bass]] reinforce the trance-like rhythm and form a repetitive effect known as the [[groove (popular music)|groove]].\n\nBlues music is characterized by its [[lyrics]], [[Bassline|bass lines]], and [[Instrumentation (music)|instrumentation]]. Early [[traditional blues verse]]s consisted of a single line repeated four times. It was only in the first decades of the 20th century that the most common current structure became standard: the [[Bar form|AAB pattern]], consisting of a line sung over the four first bars, its repetition over the next four, and then a longer concluding line over the last bars. Early blues frequently took the form of a loose narrative, often relating the [[racial discrimination]] and other challenges experienced by African-Americans.\n\nMany elements, such as the [[Call and response (music)|call-and-response]] format and the use of blue notes, can be traced back to the [[music of Africa]]. The origins of the blues are also closely related to the religious music of the African-American community, the [[spiritual (music)|spirituals]]. The first appearance of the blues is often dated to after the [[Abolitionism in the United States|ending of slavery]], with the development of [[juke joint]]s occurring later. It is associated with the newly acquired freedom of the former slaves. Chroniclers began to report about blues music at the dawn of the 20th century. The first publication of blues sheet music was in 1908. Blues has since evolved from unaccompanied vocal music and oral traditions of slaves into a wide variety of styles and subgenres. Blues [[List of blues genres|subgenres]] include [[country blues]], [[Delta blues]] and [[Piedmont blues]], as well as urban blues styles such as [[Chicago blues]] and [[West Coast blues]]. [[World War II]] marked the transition from acoustic to [[electric blues]] and the progressive opening of blues music to a wider audience, especially white listeners. In the 1960s and 1970s, a hybrid form called [[blues rock]] developed, which blended blues styles with [[rock music]].",
       "label": "Blues",
       "last_revision_date": "2025-02-18T04:13:18Z",
-      "mixes": [
-        "help: Blues is too varied a genre for me to find a single mix that speaks to its wholeness, and I don't want to reduce it to a single style. If you find a mix that's truly representative of blues as a whole, send it in!"
-      ],
+      "mixes": {
+        "help_reason": "Blues is too varied a genre for me to find a single mix that speaks to its wholeness, and I don't want to reduce it to a single style. If you find a mix that's truly representative of blues as a whole, send it in!"
+      },
       "edges": [
         423,
         424,
@@ -3673,7 +3677,9 @@
       "label": "Chillwave",
       "last_revision_date": "2025-02-19T15:02:25Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=3z55w5fXqEQ"
+        {
+          "video": "3z55w5fXqEQ"
+        }
       ],
       "edges": [
         186,
@@ -4413,7 +4419,9 @@
       "label": "Contemporary folk music",
       "last_revision_date": "2025-01-28T13:55:23Z",
       "mixes": [
-        "https://www.youtube.com/playlist?list=PLwNv9Hhd8gZiXY7xzjB52n-KEkODT_ZIc"
+        {
+          "playlist": "PLwNv9Hhd8gZiXY7xzjB52n-KEkODT_ZIc"
+        }
       ],
       "edges": [
         235,
@@ -4524,7 +4532,10 @@
       "label": "Coon song",
       "last_revision_date": "2025-02-07T10:25:52Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        {
+          "video": "dQw4w9WgXcQ",
+          "note": "You're on your own with finding a mix for this."
+        }
       ],
       "edges": []
     },
@@ -4605,7 +4616,9 @@
       "label": "Country",
       "last_revision_date": "2025-02-13T15:49:06Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=mpdjkLyO71o"
+        {
+          "video": "mpdjkLyO71o"
+        }
       ],
       "edges": [
         236,
@@ -5195,9 +5208,9 @@
       "wikitext_description": "'''Dangdut''' ({{IPAc-en|d|ɑː|ŋ|'|d|uː|t}}) is a genre of [[Music of Indonesia|Indonesian]] [[folk music]] that is partly derived and fused from [[Hindustani Classical Music|Hindustani]], [[Arabic music|Arabic]], and, to a lesser extent, Javanese, Malay, Minangkabau, Sundanese and local folk music. Dangdut is the most popular musical genre in Indonesia and very popular in other [[Maritime Southeast Asia]]n countries because of its melodious instrumentation and vocals. Dangdut features a [[tabla]] and [[gendang]] beat.\n\nSeveral popular dangdut singers include [[Rhoma Irama]], [[Mansyur S.]], [[Elvy Sukaesih]], [[Camelia Malik]] and now [[Iyeth Bustami]], [[Ayu Ting Ting]], [[Lesti Kejora]] and [[Via Vallen]] as Indonesian dangdut [[diva]]s. Their music includes strong Indian music influences as the basis of harmony, theme, and beat. A dangdut musical group typically consists of a lead singer, backed by four to eight musicians. Instruments usually include a [[tabla]], [[gendang]], [[flute]], [[mandolin]], [[guitar]]s, [[sitar]], [[drum machine]]s, and [[synthesizer|synthesiser]]s. Modern dangdut incorporates influences from Middle Eastern pop music, Western rock, [[reggae]], [[disco music|disco]], [[contemporary R&B]], [[hip hop music|hip-hop]], [[house music|house]], and [[electronic dance music]].\n\nThe popularity of dangdut peaked in the 1970s and 1980s but emerged in the late 1960s. By 2012, it was still largely popular in Western Indonesia, but the genre was becoming less popular in the eastern parts, apart from [[Maluku Islands|Maluku]]. Meanwhile, more regional and faster-paced forms of dangdut (as opposed to slower, Bollywood-influenced dangdut) have risen in popularity.",
       "label": "Dangdut",
       "last_revision_date": "2025-01-17T05:54:03Z",
-      "mixes": [
-        "help: Most of the mixes I could find were for fusion genres (i.e. dangdut house); I was unable to find a pure-dangdut mix, at least within my understanding of the genre."
-      ],
+      "mixes": {
+        "help_reason": "Most of the mixes I could find were for fusion genres (i.e. dangdut house); I was unable to find a pure-dangdut mix, at least within my understanding of the genre."
+      },
       "edges": [
         1151,
         1152,
@@ -5657,7 +5670,9 @@
       "label": "Disco",
       "last_revision_date": "2025-02-18T08:28:25Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=LUGga_VPeTo"
+        {
+          "video": "LUGga_VPeTo"
+        }
       ],
       "edges": [
         655,
@@ -6042,7 +6057,9 @@
       "label": "Drum and bass",
       "last_revision_date": "2025-02-04T22:04:54Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=R8MWKsheHxk"
+        {
+          "video": "R8MWKsheHxk"
+        }
       ],
       "edges": [
         193,
@@ -6150,7 +6167,9 @@
       "label": "Dub techno",
       "last_revision_date": "2025-01-04T22:30:00Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=-ljOpZ03x1I"
+        {
+          "video": "-ljOpZ03x1I"
+        }
       ],
       "edges": [
         194,
@@ -7196,7 +7215,9 @@
       "label": "Extreme metal",
       "last_revision_date": "2025-02-15T04:49:06Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=ZjS7OuNDrZk"
+        {
+          "video": "ZjS7OuNDrZk"
+        }
       ],
       "edges": [
         383,
@@ -7789,7 +7810,9 @@
       "label": "Funk",
       "last_revision_date": "2025-02-02T20:18:26Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=LY5AUWr8KYk"
+        {
+          "video": "LY5AUWr8KYk"
+        }
       ],
       "edges": [
         387,
@@ -9301,7 +9324,9 @@
       "label": "Hardcore punk",
       "last_revision_date": "2025-02-17T20:20:22Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=NGtA1lr86TY"
+        {
+          "video": "NGtA1lr86TY"
+        }
       ],
       "edges": [
         384,
@@ -9474,7 +9499,9 @@
       "label": "Heavy metal",
       "last_revision_date": "2025-02-17T00:59:56Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=80lKLqLm16I"
+        {
+          "video": "80lKLqLm16I"
+        }
       ],
       "edges": [
         51,
@@ -9656,7 +9683,9 @@
       "label": "Hip-hop",
       "last_revision_date": "2025-02-18T04:05:35Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=rwYrEEka1mc"
+        {
+          "video": "rwYrEEka1mc"
+        }
       ],
       "edges": [
         1207,
@@ -10036,7 +10065,9 @@
       "label": "House music",
       "last_revision_date": "2025-02-11T13:17:46Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=PJxxfilLnGI"
+        {
+          "video": "PJxxfilLnGI"
+        }
       ],
       "edges": [
         264,
@@ -10627,7 +10658,9 @@
       "label": "Industrial",
       "last_revision_date": "2025-02-11T21:11:16Z",
       "mixes": [
-        "https://www.youtube.com/playlist?list=PLFBZT3CIdFxJm4FD8E0P14K6w7BxuerNc"
+        {
+          "playlist": "PLFBZT3CIdFxJm4FD8E0P14K6w7BxuerNc"
+        }
       ],
       "edges": [
         247,
@@ -11109,7 +11142,9 @@
       "label": "Jazz",
       "last_revision_date": "2025-02-14T11:09:34Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=_sI_Ps7JSEk"
+        {
+          "video": "_sI_Ps7JSEk"
+        }
       ],
       "edges": [
         466,
@@ -13156,7 +13191,9 @@
       "label": "Mexican pop",
       "last_revision_date": "2024-08-29T19:34:56Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=YfFe9iiG0RI"
+        {
+          "video": "YfFe9iiG0RI"
+        }
       ],
       "edges": [
         320,
@@ -13559,7 +13596,9 @@
       "label": "Music of Latin America",
       "last_revision_date": "2025-01-24T02:44:25Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=PbB_dF7Hetc"
+        {
+          "video": "PbB_dF7Hetc"
+        }
       ],
       "edges": [
         3480,
@@ -13791,7 +13830,10 @@
       "label": "National Socialist black metal",
       "last_revision_date": "2025-02-13T07:49:22Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        {
+          "video": "dQw4w9WgXcQ",
+          "note": "You're on your own with finding a mix for this."
+        }
       ],
       "edges": [
         398,
@@ -13808,7 +13850,10 @@
       "label": "Nazi punk",
       "last_revision_date": "2025-02-15T09:42:24Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        {
+          "video": "dQw4w9WgXcQ",
+          "note": "You're on your own with finding a mix for this."
+        }
       ],
       "edges": [
         3565,
@@ -14328,7 +14373,9 @@
       "label": "New wave",
       "last_revision_date": "2025-02-11T11:57:27Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=NdhMTtiC_vQ"
+        {
+          "video": "NdhMTtiC_vQ"
+        }
       ],
       "edges": [
         248,
@@ -15598,7 +15645,9 @@
       "label": "Pop music",
       "last_revision_date": "2025-02-09T18:31:16Z",
       "mixes": [
-        "https://www.youtube.com/playlist?list=PLMC9KNkIncKvYin_USF1qoJQnIyMAfRxl"
+        {
+          "playlist": "PLMC9KNkIncKvYin_USF1qoJQnIyMAfRxl"
+        }
       ],
       "edges": [
         949,
@@ -16027,7 +16076,9 @@
       "label": "Post-punk",
       "last_revision_date": "2025-02-13T21:15:11Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=W2dfe9mAb7c"
+        {
+          "video": "W2dfe9mAb7c"
+        }
       ],
       "edges": [
         249,
@@ -16393,6 +16444,12 @@
       "wikitext_description": "'''Progressive rock''' (shortened as '''prog rock''' or simply '''prog''') is a broad [[genre]] of [[rock music]]{{sfn|Martin|1998|pp=71–75}} that primarily developed in the United Kingdom through the mid- to late 1960s, peaking in the early-to-mid 1970s. Initially termed \"[[progressive pop]]\", the style was an emergence of [[psychedelic music|psychedelic]] bands who abandoned standard [[pop music|pop]] traditions in favour of [[Instrumentation (music)|instrumentation]] and [[Composition (music)|composition]]al techniques more frequently associated with [[jazz]], [[folk music|folk]], or [[classical music]]. Additional elements contributed to its \"[[progressive music|progressive]]\" label: lyrics were more poetic, technology was harnessed for new sounds, music approached the condition of \"[[art music|art]]\", and the studio, rather than the stage, [[Recording studio as an instrument|became the focus of musical activity]], which often involved creating music for listening rather than dancing.\n\nProgressive rock is based on fusions of styles, approaches and genres, involving a continuous move between [[formalism (music)|formalism]] and [[eclecticism in music|eclecticism]]. Due to its historical reception, the scope of progressive rock is sometimes limited to a stereotype of long solos, long albums, fantasy lyrics, grandiose stage sets and costumes, and an obsessive dedication to technical skill. While the genre is often cited for its merging of [[high culture]] and [[low culture]], few artists incorporated literal classical themes in their work to any great degree, and only a handful of groups, such as [[Emerson, Lake & Palmer]] and [[Renaissance (band)|Renaissance]], purposely emulated or referenced classical music.\n\nThe genre coincided with the mid-1960s economic boom that allowed record labels to allocate more creative control to their artists, as well as the new journalistic division between \"pop\" and \"rock\" that lent generic significance to both terms. It saw a high level of popularity in the early-to-mid-1970s, but faded soon after. [[Conventional wisdom]] holds that the rise of [[punk rock]] caused this, but several more factors contributed to the decline.{{sfn|Hegarty|Halliwell|2011|p=1}} Music critics, who often labelled the concepts as \"pretentious\" and the sounds as \"pompous\" and \"overblown\", tended to be hostile towards the genre or to completely ignore it.{{sfn|Lucky|2000|p=7}} After the late 1970s, progressive rock fragmented in numerous forms. Some bands achieved commercial success well into the 1980s (albeit with changed lineups and more compact song structures) or crossed into [[symphonic pop]], [[arena rock]], or [[new wave music|new wave]].\n\nEarly groups who exhibited progressive features are retroactively described as \"[[proto-prog]]\". The [[Canterbury scene]], originating in the late 1960s, denotes a subset of progressive rock bands who emphasised the use of [[wind instrument]]s, complex chord changes and long improvisations. [[Rock in Opposition]], from the late 1970s, was more [[avant-garde]], and when combined with the Canterbury style, created [[avant-prog]]. In the 1980s, a new subgenre, [[neo-prog]], enjoyed some commercial success, although it was also accused of being derivative and lacking in innovation. [[Post-progressive]] draws upon newer developments in popular music and the avant-garde since the mid-1970s.",
       "label": "Progressive rock",
       "last_revision_date": "2025-02-19T00:28:24Z",
+      "mixes": [
+        {
+          "video": "kh1ufeangzo",
+          "note": "With thanks to [https://cytricacidart.carrd.co/ CytricAcid], who gave me a very detailed list of artists, albums, and general pointers, and whose advice I wish I could fully capture here."
+        }
+      ],
       "edges": [
         55,
         636,
@@ -16580,7 +16637,9 @@
       "label": "Psychedelic rock",
       "last_revision_date": "2025-02-17T19:44:00Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=tg--8NDbD90"
+        {
+          "video": "tg--8NDbD90"
+        }
       ],
       "edges": [
         343,
@@ -16859,7 +16918,9 @@
       "label": "Punk rock",
       "last_revision_date": "2025-02-06T19:52:16Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=Ih6TuqmIwcU"
+        {
+          "video": "Ih6TuqmIwcU"
+        }
       ],
       "edges": [
         661,
@@ -17512,7 +17573,9 @@
       "label": "Reggae fusion",
       "last_revision_date": "2024-10-06T15:20:27Z",
       "mixes": [
-        "https://www.youtube.com/playlist?list=PLkcCp8omjtKzNYItTtiCyqtmdl9Za1-Uf"
+        {
+          "playlist": "PLkcCp8omjtKzNYItTtiCyqtmdl9Za1-Uf"
+        }
       ],
       "edges": [
         1144,
@@ -17686,7 +17749,9 @@
       "label": "Rhythm and blues",
       "last_revision_date": "2025-02-19T05:25:28Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=b5YnZrW_HFc"
+        {
+          "video": "b5YnZrW_HFc"
+        }
       ],
       "edges": [
         67,
@@ -17850,7 +17915,10 @@
       "label": "Rock Against Communism",
       "last_revision_date": "2024-10-31T16:07:00Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        {
+          "video": "dQw4w9WgXcQ",
+          "note": "You're on your own with finding a mix for this."
+        }
       ],
       "edges": [
         3566,
@@ -17971,7 +18039,9 @@
       "label": "Rock",
       "last_revision_date": "2025-02-17T18:59:03Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=aeBmia24CQQ"
+        {
+          "video": "aeBmia24CQQ"
+        }
       ],
       "edges": [
         489,
@@ -20270,7 +20340,9 @@
       "label": "Synth-pop",
       "last_revision_date": "2025-02-17T08:00:10Z",
       "mixes": [
-        "https://www.youtube.com/playlist?list=PL9gmr3fphigI5UMHlrcPSl-sdAb6K8vI9"
+        {
+          "playlist": "PL9gmr3fphigI5UMHlrcPSl-sdAb6K8vI9"
+        }
       ],
       "edges": [
         250,
@@ -20525,7 +20597,9 @@
       "label": "Techno",
       "last_revision_date": "2025-02-13T12:50:58Z",
       "mixes": [
-        "https://www.youtube.com/playlist?list=PLXaMXWVpXbiU8t2IfdBiiwwVIG02a9j3y"
+        {
+          "playlist": "PLXaMXWVpXbiU8t2IfdBiiwwVIG02a9j3y"
+        }
       ],
       "edges": [
         41,
@@ -21092,9 +21166,9 @@
       "wikitext_description": "'''Trap''' is a subgenre of [[hip-hop]] which originated in the [[Southern United States]], with lyrical references to trap starting in 1991 but the modern sound of trap appearing in 1999. The genre gets its name from the [[Atlanta]] slang term \"[[trap house]]\", a house used exclusively to sell drugs. Trap music is known for its simple, rhythmic, minimalistic productions that uses synthesized drums, and is characterized by complex [[hi-hat]] patterns, [[snare drum]]s, [[Bass drum|bass drums]], some tuned with a long [[Envelope (music)|decay]] to emit a bass frequency (originally from the [[Roland TR-808]] [[drum machine]]), and lyrical content that often focuses on drug use and urban violence.\n\nPioneers of the genre include producers [[DJ Paul]] & [[Juicy J]], [[Kurtis Mantronik]], Harry James Barton, [[Mannie Fresh]], [[Shawty Redd]], Fatboi, [[Zaytoven]], [[DJ Screw]], and [[DJ Toomp]], along with rappers T.I., Jeezy, and Gucci Mane. The style was popularized by producer [[Lex Luger (record producer)|Lex Luger]], who produced the influential [[Waka Flocka Flame]] album ''[[Flockaveli]]'' in 2010, and cofounded the prolific hip-hop production team [[808 Mafia]].\n\nSince crossing over into the mainstream in the 2010s, trap has become one of the most popular forms of American music, consistently dominating the [[Hot 100|''Billboard'' Hot 100]] throughout the decade, with artists such as [[Drake (musician)|Drake]], [[Kendrick Lamar]], [[Future (rapper)|Future]], [[Playboi Carti]], [[21 Savage]], [[Migos]], [[Lil Uzi Vert]], [[Post Malone]], [[XXXTentacion]], [[DaBaby]], [[Roddy Ricch]], [[Young Thug]], and [[Travis Scott]] (among many others) all achieving No. 1s on the chart with songs featuring production inspired by the trap subgenre. It has influenced the music of many pop and [[Contemporary R&B|R&B]] artists, such as [[Ariana Grande]], [[Beyoncé]], [[Miley Cyrus]], [[Rihanna]], [[The Weeknd]], and more. Its influence can also be heard in [[reggaetón]] and [[K-pop]]. In 2018, hip-hop became the most popular form of music for the first time ever (according to [[Nielsen Data]]), coinciding with trap's continued rise in popularity. 2019 saw trap-influenced hits amass high commercial success such as Ariana Grande's \"[[7 Rings]]\" spending eight weeks at No. 1 on the ''Billboard'' Hot 100 chart and the country-trap song \"[[Old Town Road]]\" by [[Lil Nas X]] (featuring [[Billy Ray Cyrus]]), which broke the record for spending the most weeks (19) on top of the ''Billboard'' Hot 100 chart, as well as becoming the fastest song to reach a [[Music recording certification|Diamond Certification]].",
       "label": "Trap",
       "last_revision_date": "2025-02-08T11:01:33Z",
-      "mixes": [
-        "help: I was unable to find a mix that was purely trap music."
-      ],
+      "mixes": {
+        "help_reason": "I was unable to find a mix that was purely trap music."
+      },
       "edges": [
         572,
         1068,
@@ -21676,7 +21750,9 @@
       "label": "Vaporwave",
       "last_revision_date": "2025-02-18T20:25:39Z",
       "mixes": [
-        "https://www.youtube.com/watch?v=nHv2CFIRkJs"
+        {
+          "video": "nHv2CFIRkJs"
+        }
       ],
       "edges": [
         251,
