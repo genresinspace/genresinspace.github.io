@@ -24,8 +24,8 @@ pub enum WikitextSimplifiedNode {
         title: String,
     },
     ExtLink {
-        text: String,
         link: String,
+        text: Option<String>,
     },
     Bold {
         children: Vec<WikitextSimplifiedNode>,
@@ -271,10 +271,13 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSi
         }
         pwt::Node::ExternalLink { nodes, .. } => {
             let inner = nodes_inner_text(nodes, &InnerTextConfig::default());
-            let (text, link) = inner.split_once(' ').unwrap_or(("link", &inner));
+            let (link, text) = inner
+                .split_once(' ')
+                .map(|(l, t)| (l, Some(t)))
+                .unwrap_or((&inner, None));
             return Some(WSN::ExtLink {
-                text: text.to_string(),
                 link: link.to_string(),
+                text: text.map(|s| s.to_string()),
             });
         }
         pwt::Node::Text { value, .. } => {
@@ -336,10 +339,20 @@ mod tests {
         assert_eq!(
             simplified,
             vec![
-                WSN::Text { text: "cool ".into() },
-                WSN::Link { text: "thing".into(), title: "thing".into() },
-                WSN::Text { text: "s by cool ".into() },
-                WSN::Link { text: "person".into(), title: "Person".into() },
+                WSN::Text {
+                    text: "cool ".into()
+                },
+                WSN::Link {
+                    text: "thing".into(),
+                    title: "thing".into()
+                },
+                WSN::Text {
+                    text: "s by cool ".into()
+                },
+                WSN::Link {
+                    text: "person".into(),
+                    title: "Person".into()
+                },
                 WSN::Text { text: "s".into() }
             ]
         )
