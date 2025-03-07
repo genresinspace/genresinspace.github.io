@@ -507,14 +507,22 @@ function FAQ({ dumpDate }: { dumpDate: string }) {
       answer: (
         <>
           <p>
-            Tentative answer: I did, under essentially vibes-based criteria: I
-            looked at the most relevant/most viewed mixes for a given genre, and
-            then picked the mixes that looked like they had the most
-            effort/love/curation.
+            I did, under vibes-based criteria: I looked at the most
+            relevant/most viewed mixes for a given genre, and then picked the
+            mixes that looked like they had the most effort/love/curation. With
+            that being said, however, I also consulted both my own experience
+            and that of friends' to help in selecting representative mixes.
           </p>
           <p>
-            I'm very open to suggestions for new mixes or replacements - see the
-            FAQ entry below on how to contact me!
+            My selection is not perfect; I had to make judgement calls and to
+            apply my own curatorial taste, which can be difficult when I'm not
+            acquainted with the genre. For genres that span multiple decades,
+            I've tried to pick mixes that cover the most iconic decade, which
+            means there's a bias towards more historical tracks. Sorry!
+          </p>
+          <p>
+            I'm <em>very</em> open to suggestions for new mixes or replacements
+            - see the FAQ entry below on how to contact me!
           </p>
         </>
       ),
@@ -556,11 +564,18 @@ function FAQ({ dumpDate }: { dumpDate: string }) {
     {
       question: "Why is it difficult to pan the graph at times?",
       answer: (
-        <p>
-          That's a technical limitation of the solution I'm using for the graph:
-          the labels for each genre block the motion for panning, and there are
-          a *lot* of labels. I'm still working on a way to address this.
-        </p>
+        <>
+          <p>
+            That's a technical limitation of the solution I'm using for the
+            graph: the labels for each genre block the motion for panning, and
+            there are a *lot* of labels. I'm still working on a way to address
+            this.
+          </p>
+          <p>
+            In the meantime, you may want to consider turning off labels in the
+            settings.
+          </p>
+        </>
       ),
     },
     {
