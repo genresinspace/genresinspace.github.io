@@ -9,6 +9,7 @@ import { Music } from "./music/Music";
 import { useWikiUrl } from "../urls";
 import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
 import { Zh } from "./Zh";
+import { Mongolunicode } from "./Mongolunicode";
 
 /**
  * Renders a Wikitext simplified template node, including implementations for all supported templates.
@@ -218,37 +219,8 @@ export function WikitextTemplate({
       const params = node.children.filter((p) => p.name !== "lk");
       return <span>lit. {params.map((p) => `'${p.value}'`).join(" or ")}</span>;
     }
-    case "mongolunicode": {
-      const text = node.children.find((p) => p.name === "1");
-      if (!text) return null;
-
-      const direction =
-        node.children.find((p) => p.name === "2")?.value === "h"
-          ? "horizontal-tb"
-          : "vertical-rl";
-      // We don't currently do anything to handle fonts, but we could in the future
-      // const lang = node.children.find((p) => p.name === "lang")?.value || "mn";
-      const style = node.children.find((p) => p.name === "style")?.value || "";
-      const fontSize = node.children.find((p) => p.name === "font-size")?.value;
-      const lineHeight = node.children.find(
-        (p) => p.name === "line-height"
-      )?.value;
-      const display = node.children.find((p) => p.name === "display")?.value;
-
-      return (
-        <span
-          style={{
-            writingMode: direction,
-            ...(fontSize && { fontSize }),
-            ...(lineHeight && { lineHeight }),
-            ...(display && { display }),
-            ...(style && { style }),
-          }}
-        >
-          <Wikitext wikitext={text.value} />
-        </span>
-      );
-    }
+    case "mongolunicode":
+      return <Mongolunicode node={node} />;
     case "multiple_image":
       // We don't render images from the description
       return null;
