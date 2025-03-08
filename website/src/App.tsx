@@ -681,7 +681,7 @@ function ProjectInformation({
         </p>
         <p>
           Try clicking on a genre, or try a random genre:{" "}
-          <div className="flex gap-2 mt-1">
+          <span className="flex gap-2 mt-1">
             <a
               href={`#${randomId}`}
               className="block p-1 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded flex-1 min-h-[2rem] flex items-center"
@@ -701,7 +701,7 @@ function ProjectInformation({
             >
               🎲
             </button>
-          </div>
+          </span>
         </p>
         <Collapsible title="Legend" defaultOpen={true}>
           <div className="flex flex-col gap-2 mt-1">
