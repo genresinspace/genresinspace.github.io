@@ -3,7 +3,9 @@ use std::sync::LazyLock;
 use serde::{Deserialize, Serialize};
 
 use parse_wiki_text_2 as pwt;
-use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig, NodeMetadata};
+use wikitext_util::{
+    nodes_inner_text, nodes_inner_wikitext, pwt_configuration, InnerTextConfig, NodeMetadata,
+};
 
 use tsify_next::Tsify;
 use wasm_bindgen::prelude::*;
@@ -265,12 +267,12 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSi
         }
         pwt::Node::Link { target, text, .. } => {
             return Some(WSN::Link {
-                text: nodes_inner_text(text, &InnerTextConfig::default()),
+                text: nodes_inner_wikitext(wikitext, text),
                 title: target.to_string(),
             });
         }
         pwt::Node::ExternalLink { nodes, .. } => {
-            let inner = nodes_inner_text(nodes, &InnerTextConfig::default());
+            let inner = nodes_inner_wikitext(wikitext, nodes);
             let (link, text) = inner
                 .split_once(' ')
                 .map(|(l, t)| (l, Some(t)))
@@ -355,6 +357,19 @@ mod tests {
                 },
                 WSN::Text { text: "s".into() }
             ]
+        )
+    }
+
+    #[test]
+    fn can_parse_wikitext_in_link() {
+        let wikitext = r#"[[Time signature|{{music|time|4|4}}]]"#;
+        let simplified = parse_and_simplify_wikitext(wikitext);
+        assert_eq!(
+            simplified,
+            vec![WSN::Link {
+                text: "{{music|time|4|4}}".into(),
+                title: "Time signature".into()
+            }]
         )
     }
 }

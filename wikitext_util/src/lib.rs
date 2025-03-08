@@ -88,6 +88,17 @@ impl<'a> NodeMetadata<'a> {
     }
 }
 
+/// Unlike [`nodes_inner_text`], this function does not retrieve just text: it retrieves all of the wikitext
+/// described by the nodes.
+pub fn nodes_inner_wikitext(original_wikitext: &str, nodes: &[pwt::Node]) -> String {
+    let mut result = String::new();
+    for node in nodes {
+        let metadata = NodeMetadata::for_node(node);
+        result.push_str(&original_wikitext[metadata.start..metadata.end]);
+    }
+    result
+}
+
 #[derive(Default)]
 pub struct InnerTextConfig {
     /// Whether to stop after a `<br>` tag.
