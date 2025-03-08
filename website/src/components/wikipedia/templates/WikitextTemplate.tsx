@@ -2,7 +2,6 @@ import { WikitextSimplifiedNode } from "wikitext_simplified";
 import React from "react";
 
 import { Wikitext } from "../wikitexts/Wikitext";
-import { Blockquote } from "../../Blockquote";
 import { Footnote } from "../../Footnote";
 import { IetfLanguageTagLink } from "../IetfLanguageTagLink";
 import { Music } from "./music/Music";
@@ -11,6 +10,8 @@ import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
 import { Zh } from "./Zh";
 import { Mongolunicode } from "./Mongolunicode";
 import { Abbrlink } from "./Abbrlink";
+import { templateToObject } from "./util";
+import { Cquote } from "./Cquote";
 
 /**
  * Renders a Wikitext simplified template node, including implementations for all supported templates.
@@ -46,25 +47,7 @@ export function WikitextTemplate({
       return null;
     case "blockquote":
     case "cquote":
-      const params = templateToObject(node);
-      const text = params.text || params["1"];
-      if (!text) {
-        return null;
-      }
-
-      const author = params.author || params["2"];
-      const title = params.title || params["3"];
-      const source = params.source || params["4"];
-      const citation = [author, title, source]
-        .filter((s) => s !== undefined)
-        .join(" ");
-
-      return (
-        <figure>
-          <Blockquote>{text}</Blockquote>
-          {citation && <figcaption>{citation}</figcaption>}
-        </figure>
-      );
+      return <Cquote node={node} />;
     case "citation_needed":
     case "source_needed":
     case "cn":
@@ -322,10 +305,4 @@ export function WikitextTemplate({
         `Unknown template: ${wikiUrl ?? ""}/Template:${templateName}`
       );
   }
-}
-
-function templateToObject(
-  template: Extract<WikitextSimplifiedNode, { type: "template" }>
-) {
-  return Object.fromEntries(template.children.map((c) => [c.name, c.value]));
 }
