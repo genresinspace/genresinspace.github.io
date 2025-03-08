@@ -225,11 +225,15 @@ function WikitextNode({ node }: { node: WikitextSimplifiedNode }): JSX.Element {
     case "link":
       return (
         <WikipediaMaybeGenreLink pageTitle={node.title}>
-          {node.text}
+          <Wikitext wikitext={node.text} />
         </WikipediaMaybeGenreLink>
       );
     case "ext-link":
-      return <ExternalLink href={node.link}>{node.text}</ExternalLink>;
+      return (
+        <ExternalLink href={node.link}>
+          <Wikitext wikitext={node.text ?? node.link} />
+        </ExternalLink>
+      );
     case "bold":
       return (
         <strong>
