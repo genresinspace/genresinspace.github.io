@@ -16,16 +16,18 @@ import {
   SimulationControls,
   defaultSimulationParams,
 } from "./SimulationParams";
-import { ExternalLink, GenreLink } from "./Links";
-import {
-  dumpUrl,
-  ShortWikitext,
-  WikipediaLink,
-  Wikitext,
-  WikitextWithEllipsis,
-} from "./Wikipedia";
 import commit from "./commit.json";
 import React from "react";
+
+import { dumpUrl, WikipediaMetaContext } from "./components/wikipedia/urls";
+
+import { Wikitext } from "./components/wikipedia/wikitexts/Wikitext";
+import { WikitextTruncateAtNewline } from "./components/wikipedia/wikitexts/WikitextTruncateAtNewline";
+import { WikitextTruncateAtLength } from "./components/wikipedia/wikitexts/WikitextTruncateAtLength";
+
+import { WikipediaLink } from "./components/wikipedia/links/WikipediaLink";
+import { ExternalLink } from "./components/links/ExternalLink";
+import { GenreLink } from "./components/links/GenreLink";
 
 // Ideally, we could integrate this into `commit.json`, but getting the "safe" URL from the checkout
 // that GHA does is a bit tricky (we don't necessarily know what the remote's name is in that environment,
@@ -87,11 +89,6 @@ type EdgeData = {
 };
 
 export const LinksToPageIdContext = createContext<Record<string, string>>({});
-export const WikipediaMetaContext = createContext<{
-  dbName: string;
-  domain: string;
-} | null>(null);
-
 const derivativeColour = (saturation: number = 70, alpha: number = 1) =>
   `hsla(0, ${saturation}%, 60%, ${alpha})`;
 const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
@@ -979,7 +976,7 @@ function SelectedNodeInfo({
           )
         }
         {node.wikitext_description && (
-          <ShortWikitext
+          <WikitextTruncateAtNewline
             wikitext={node.wikitext_description}
             expandable={true}
           />
@@ -1204,7 +1201,7 @@ function Search({
               {node.label}
             </GenreLink>
             <small className="block">
-              <WikitextWithEllipsis
+              <WikitextTruncateAtLength
                 wikitext={node.wikitext_description ?? ""}
                 length={100}
               />

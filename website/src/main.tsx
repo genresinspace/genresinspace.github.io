@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-import { initWasm } from "./Wikipedia";
+import { initWasm } from "./components/wikipedia";
 
 await initWasm();
 

@@ -1,16 +1,10 @@
-import { WikipediaLink } from "./Wikipedia";
+import { WikipediaLink } from "../wikipedia/links/WikipediaLink";
 
-export function ExternalLink(props: React.ComponentProps<"a">) {
-  return (
-    <a
-      {...props}
-      className={`text-blue-400 hover:underline ${props.className ?? ""}`}
-      target="_blank"
-      rel="noopener noreferrer"
-    />
-  );
-}
-
+/**
+ * A link to a genre, including a link to the Wikipedia page for the genre.
+ *
+ * Will navigate to the genre in the graph.
+ */
 export function GenreLink({
   genreId,
   pageTitle,

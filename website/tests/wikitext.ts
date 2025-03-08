@@ -1,11 +1,13 @@
 import { JSDOM } from "jsdom";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import { initWasm, Wikitext, wikiUrl, wikiPageUrl } from "../src/Wikipedia";
 import data from "../public/data.json";
 import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import { initWasm } from "../src/components/wikipedia";
+import { wikiPageUrl, wikiUrl } from "../src/components/wikipedia/urls";
+import { Wikitext } from "../src/components/wikipedia/wikitexts/Wikitext";
 
 // Get the directory path of the current file
 const __dirname = dirname(fileURLToPath(import.meta.url));
