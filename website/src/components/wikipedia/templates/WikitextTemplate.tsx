@@ -3,15 +3,15 @@ import React from "react";
 
 import { Wikitext } from "../wikitexts/Wikitext";
 import { Footnote } from "../../Footnote";
-import { IetfLanguageTagLink } from "../IetfLanguageTagLink";
 import { Music } from "./music/Music";
 import { useWikiUrl } from "../urls";
 import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
 import { Zh } from "./Zh";
 import { Mongolunicode } from "./Mongolunicode";
 import { Abbrlink } from "./Abbrlink";
-import { templateToObject } from "./util";
 import { Cquote } from "./Cquote";
+import { Langx } from "./Langx.tsx";
+import { Langnf } from "./Langnf.tsx";
 
 /**
  * Renders a Wikitext simplified template node, including implementations for all supported templates.
@@ -145,34 +145,11 @@ export function WikitextTemplate({
     case "lang-su-fonts":
     case "sund":
       return <Wikitext wikitext={node.children[0].value} />;
-    case "langx": {
-      // TODO: support transliteration / translation
-      const params = templateToObject(node);
-      const tag = params.code || params["1"];
-      const text = params.text || params["2"];
-      const label = params.label;
-      return (
-        <>
-          {label !== "none" && (
-            <>
-              <IetfLanguageTagLink tag={tag} label={label} />:{" "}
-            </>
-          )}
-          <Wikitext wikitext={text} />
-        </>
-      );
-    }
+    case "langx":
+      return <Langx node={node} />;
     case "language_with_name/for":
     case "langnf":
-      const langCode = node.children[0].value;
-      const originalText = node.children[1].value;
-      const translatedText = node.children[2].value;
-      const langName = node.children.find((c) => c.name === "lang-name")?.value;
-      return (
-        <span>
-          {originalText} ({langCode || langName} for '{translatedText}')
-        </span>
-      );
+      return <Langnf node={node} />;
     case "linktext":
       // TODO: make each keyword linkable to Wikitionary
       return (
@@ -199,12 +176,13 @@ export function WikitextTemplate({
       // We don't render images from the description
       return null;
     case "music":
-      // Extract all possible parameters
-      const musicSymbol = node.children[0]?.value || "";
-      const param2 = node.children[1]?.value;
-      const param3 = node.children[2]?.value;
-
-      return <Music symbol={musicSymbol} param2={param2} param3={param3} />;
+      return (
+        <Music
+          symbol={node.children[0]?.value || ""}
+          param2={node.children[1]?.value}
+          param3={node.children[2]?.value}
+        />
+      );
     case "music_genre_stub":
     case "music-genre-stub":
       // Stub notice: don't care
