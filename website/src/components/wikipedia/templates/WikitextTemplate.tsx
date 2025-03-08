@@ -10,6 +10,7 @@ import { useWikiUrl } from "../urls";
 import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
 import { Zh } from "./Zh";
 import { Mongolunicode } from "./Mongolunicode";
+import { Abbrlink } from "./Abbrlink";
 
 /**
  * Renders a Wikitext simplified template node, including implementations for all supported templates.
@@ -37,17 +38,7 @@ export function WikitextTemplate({
       return <>"</>;
     case "abbr":
     case "abbrlink":
-      const abbr = node.children[0].value;
-      const phrase = node.children[1]?.value;
-      const jsx = <abbr title={phrase}>{abbr}</abbr>;
-      if (templateName === "abbrlink") {
-        return (
-          <WikipediaMaybeGenreLink pageTitle={phrase}>
-            {jsx}
-          </WikipediaMaybeGenreLink>
-        );
-      }
-      return jsx;
+      return <Abbrlink node={node} templateName={templateName} />;
     case "according_to_whom":
       return <sup>[according to whom]</sup>;
     case "anchor":
