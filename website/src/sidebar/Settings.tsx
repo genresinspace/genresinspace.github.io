@@ -152,7 +152,8 @@ function CheckboxControl({
     <CheckboxInput
       name={control.name}
       label={control.label}
-      checked={param ?? control.default}
+      checked={param}
+      defaultValue={control.default}
       onChange={(_name, checked) => setParam(checked)}
     />
   );

@@ -19,16 +19,28 @@ export function CheckboxInput({
   name,
   label,
   checked,
+  defaultValue,
   onChange,
 }: {
   name: string;
   label: string;
   checked: boolean;
+  defaultValue: boolean;
   onChange: (name: string, checked: boolean) => void;
 }) {
   return (
     <div className="flex flex-col space-y-1">
-      <label className="block font-bold">{label}</label>
+      <div className="flex justify-between items-center">
+        <label className="block font-bold">{label}</label>
+        <button
+          type="button"
+          className="text-sm px-2 py-1 bg-amber-700 rounded-md text-gray-200 hover:bg-amber-600"
+          onClick={() => onChange(name, defaultValue)}
+          aria-label="Reset to default"
+        >
+          ↺
+        </button>
+      </div>
       <div className="flex items-center space-x-2">
         <input
           type="checkbox"
@@ -65,9 +77,19 @@ export function RangeInput({
     <div className="flex flex-col space-y-1">
       <div className="flex justify-between items-center gap-2">
         <label className="block font-bold">{label}</label>
-        <span className="text-sm font-medium px-2 py-1 bg-gray-700 rounded-md text-gray-200">
-          {value ?? defaultValue}
-        </span>
+        <div className="flex items-center">
+          <span className="text-sm font-medium px-2 py-1 bg-gray-700 rounded-l-md text-gray-200">
+            {value ?? defaultValue}
+          </span>
+          <button
+            type="button"
+            className="text-sm font-medium px-2 py-1 bg-amber-700 rounded-r-md text-gray-200 hover:bg-amber-600"
+            onClick={() => onChange(name, defaultValue)}
+            aria-label="Reset to default"
+          >
+            ↺
+          </button>
+        </div>
       </div>
       <input
         type="range"
