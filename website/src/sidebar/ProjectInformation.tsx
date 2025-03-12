@@ -51,7 +51,7 @@ export function ProjectInformation({
       <Collapsible title="Legend" defaultOpen={true}>
         <Legend settings={settings} setSettings={setSettings} />
       </Collapsible>
-      <Collapsible title="FAQ" defaultOpen={false}>
+      <Collapsible title="FAQ" defaultOpen={true}>
         <FAQ dumpDate={dumpDate} />
       </Collapsible>
       <p>
