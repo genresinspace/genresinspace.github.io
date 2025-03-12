@@ -41,7 +41,7 @@ export function SettingsView({
   return (
     <div className="flex flex-col gap-4">
       <section>
-        <h2 className="text-lg font-extrabold mb-2">General</h2>
+        <h2 className="text-xl font-extrabold">General</h2>
         <div className="flex flex-col gap-2">
           <InputDescription description="Whether or not to zoom / pan the graph upon selecting a node.">
             <CheckboxInput
@@ -98,7 +98,7 @@ export function SettingsView({
         </div>
       </section>
       <section>
-        <h2 className="text-lg font-extrabold mb-2">Simulation</h2>
+        <h2 className="text-xl font-extrabold">Simulation</h2>
         <SimulationControls
           params={settings.simulation}
           setParams={(params) =>

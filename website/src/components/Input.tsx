@@ -8,9 +8,9 @@ export function InputDescription({
   description: string;
 }) {
   return (
-    <div className={className}>
+    <div className={`${className || ""}`}>
       {children}
-      <p className="description">{description}</p>
+      <p className="text-sm text-gray-500 mt-1">{description}</p>
     </div>
   );
 }
@@ -27,14 +27,17 @@ export function CheckboxInput({
   onChange: (name: string, checked: boolean) => void;
 }) {
   return (
-    <div>
+    <div className="flex flex-col space-y-1">
       <label className="block font-bold">{label}</label>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(e) => onChange(name, e.target.checked)}
-      />
-      <span className="value">{checked ? "Yes" : "No"}</span>
+      <div className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          className="h-4 w-4"
+          checked={checked}
+          onChange={(e) => onChange(name, e.target.checked)}
+        />
+        <span className="text-sm">{checked ? "Yes" : "No"}</span>
+      </div>
     </div>
   );
 }
@@ -59,10 +62,16 @@ export function RangeInput({
   onChange: (name: string, value: number) => void;
 }) {
   return (
-    <div>
-      <label className="block font-bold">{label}</label>
+    <div className="flex flex-col space-y-1">
+      <div className="flex justify-between items-center gap-2">
+        <label className="block font-bold">{label}</label>
+        <span className="text-sm font-medium px-2 py-1 bg-gray-700 rounded-md text-gray-200">
+          {value ?? defaultValue}
+        </span>
+      </div>
       <input
         type="range"
+        className="w-full"
         min={min}
         max={max}
         step={step}
@@ -71,7 +80,6 @@ export function RangeInput({
           onChange(name, parseFloat(e.target.value));
         }}
       />
-      <span className="value">{value ?? defaultValue}</span>
     </div>
   );
 }
