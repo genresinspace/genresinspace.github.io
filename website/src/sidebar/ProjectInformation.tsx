@@ -13,7 +13,7 @@ import {
 import { FAQ } from "./FAQ";
 
 import { Collapsible } from "../components/Collapsible";
-import { ExternalLink } from "../components/links/ExternalLink";
+import { ExternalLink as EL } from "../components/links/ExternalLink";
 import { dumpUrl } from "../components/wikipedia/urls";
 
 export function ProjectInformation({
@@ -33,6 +33,50 @@ export function ProjectInformation({
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
   maxDegree: number;
 }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <p>
+        A graph of every music genre on English Wikipedia{" "}
+        <small>
+          ({nodes.length} genres, {edges.length} connections, as of{" "}
+          <EL href={dumpUrl(databaseName, dumpDate)}>{dumpDate}</EL>)
+        </small>
+        , inspired by <EL href="https://eightyeightthirty.one/">8831</EL> and{" "}
+        <EL href="https://musicmap.info/">musicmap</EL>.
+      </p>
+      <p>
+        Try clicking on a genre, or try a random genre:{" "}
+        <RandomGenre nodes={nodes} maxDegree={maxDegree} />
+      </p>
+      <Collapsible title="Legend" defaultOpen={true}>
+        <Legend settings={settings} setSettings={setSettings} />
+      </Collapsible>
+      <Collapsible title="FAQ" defaultOpen={false}>
+        <FAQ dumpDate={dumpDate} />
+      </Collapsible>
+      <p>
+        By <EL href="https://philpax.me">Philpax</EL>. Powered by{" "}
+        <EL href="https://cosmograph.app/">Cosmograph</EL>.
+      </p>
+      <p>
+        <EL href={REPO_LINK}>Source code</EL>.{" "}
+        <EL href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
+          Blog post
+        </EL>
+        , if you're curious.
+      </p>
+      <CommitFooter />
+    </div>
+  );
+}
+
+function RandomGenre({
+  nodes,
+  maxDegree,
+}: {
+  nodes: NodeData[];
+  maxDegree: number;
+}) {
   const [randomId, setRandomId] = useState(
     Math.floor(Math.random() * nodes.length)
   );
@@ -41,134 +85,104 @@ export function ProjectInformation({
   const randomNodeColourHover = nodeColour(randomNode, maxDegree, 50);
 
   return (
-    <div>
-      <div className="flex flex-col gap-4">
-        <p>
-          A graph of{" "}
-          <span
-            title={`${nodes.length} genres, ${edges.length} connections`}
-            className="border-b border-dotted border-neutral-500 hover:border-white cursor-help"
-          >
-            every music genre on English Wikipedia
-          </span>{" "}
-          (as of{" "}
-          <ExternalLink href={dumpUrl(databaseName, dumpDate)}>
-            {dumpDate}
-          </ExternalLink>
-          ), inspired by{" "}
-          <ExternalLink href="https://eightyeightthirty.one/">
-            8831
-          </ExternalLink>{" "}
-          and{" "}
-          <ExternalLink href="https://musicmap.info/">musicmap</ExternalLink>.
-        </p>
-        <p>
-          Try clicking on a genre, or try a random genre:{" "}
-          <span className="flex gap-2 mt-1">
-            <a
-              href={`#${randomId}`}
-              className="block p-1 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded flex-1 min-h-[2rem] flex items-center"
-              style={{
-                ["--node-color" as any]: randomNodeColour,
-                ["--node-color-hover" as any]: randomNodeColourHover,
-              }}
-            >
-              {nodes[randomId].label}
-            </a>
-            <button
-              onClick={() =>
-                setRandomId(Math.floor(Math.random() * nodes.length))
-              }
-              className="p-1 bg-neutral-800 hover:bg-neutral-700 rounded w-8 self-stretch flex items-center justify-center"
-              title="Get another random genre"
-            >
-              🎲
-            </button>
-          </span>
-        </p>
-        <Collapsible title="Legend" defaultOpen={true}>
-          <div className="flex flex-col gap-2 mt-1">
-            {[
-              {
-                color: derivativeColour(),
-                label: "Derivative",
-                type: "Derivative" as const,
-                description:
-                  "Genres that use some of the elements inherent to this genre, without being a subgenre.",
-              },
-              {
-                color: subgenreColour(),
-                label: "Subgenre",
-                type: "Subgenre" as const,
-                description:
-                  "Genres that share characteristics with this genre and fall within its purview.",
-              },
-              {
-                color: fusionGenreColour(),
-                label: "Fusion Genre",
-                type: "FusionGenre" as const,
-                description:
-                  "Genres that combine elements of this genre with other genres.",
-              },
-            ].map(({ color, label, type, description }) => (
-              <div key={label} className="flex items-start gap-2">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      id={label}
-                      checked={settings.visibleTypes[type]}
-                      onChange={(e) =>
-                        setSettings((prev: SettingsData) => ({
-                          ...prev,
-                          visibleTypes: {
-                            ...prev.visibleTypes,
-                            [type]: e.target.checked,
-                          },
-                        }))
-                      }
-                      style={{ accentColor: color }}
-                    />
-                    <label htmlFor={label} className="select-none">
-                      <span style={{ color }}>{label}</span>
-                    </label>
-                  </div>
-                  <p className="mt-1">{description}</p>
-                </div>
-              </div>
-            ))}
+    <span className="flex mt-1">
+      <a
+        href={`#${randomId}`}
+        className="block p-2 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded-l-md flex-1 min-h-[2rem] flex items-center"
+        style={{
+          ["--node-color" as any]: randomNodeColour,
+          ["--node-color-hover" as any]: randomNodeColourHover,
+        }}
+      >
+        {nodes[randomId].label}
+      </a>
+      <button
+        onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
+        className="p-2 bg-neutral-800 hover:bg-neutral-700 rounded-r-md w-8 self-stretch flex items-center justify-center"
+        title="Get another random genre"
+      >
+        🎲
+      </button>
+    </span>
+  );
+}
+
+function Legend({
+  settings,
+  setSettings,
+}: {
+  settings: SettingsData;
+  setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
+}) {
+  const types = [
+    {
+      color: derivativeColour(),
+      label: "Derivative",
+      type: "Derivative" as const,
+      description:
+        "Genres that use some of the elements inherent to this genre, without being a subgenre.",
+    },
+    {
+      color: subgenreColour(),
+      label: "Subgenre",
+      type: "Subgenre" as const,
+      description:
+        "Genres that share characteristics with this genre and fall within its purview.",
+    },
+    {
+      color: fusionGenreColour(),
+      label: "Fusion Genre",
+      type: "FusionGenre" as const,
+      description:
+        "Genres that combine elements of this genre with other genres.",
+    },
+  ];
+
+  return (
+    <div className="flex flex-col gap-2 mt-1">
+      {types.map(({ color, label, type, description }) => (
+        <div key={label} className="flex items-start gap-2">
+          <div>
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id={label}
+                checked={settings.visibleTypes[type]}
+                onChange={(e) =>
+                  setSettings((prev: SettingsData) => ({
+                    ...prev,
+                    visibleTypes: {
+                      ...prev.visibleTypes,
+                      [type]: e.target.checked,
+                    },
+                  }))
+                }
+                style={{ accentColor: color }}
+              />
+              <label htmlFor={label} className="select-none">
+                <span style={{ color }}>{label}</span>
+              </label>
+            </div>
+            <p className="mt-1">{description}</p>
           </div>
-        </Collapsible>
-        <Collapsible title="FAQ" defaultOpen={false}>
-          <FAQ dumpDate={dumpDate} />
-        </Collapsible>
-        <p>
-          By <ExternalLink href="https://philpax.me">Philpax</ExternalLink>.
-          Powered by{" "}
-          <ExternalLink href="https://cosmograph.app/">Cosmograph</ExternalLink>
-          .
-        </p>
-        <p>
-          <ExternalLink href={REPO_LINK}>Source code</ExternalLink>.{" "}
-          <ExternalLink href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
-            Blog post
-          </ExternalLink>
-          , if you're curious.
-        </p>
-        <footer className="text-sm text-neutral-500">
-          Commit{" "}
-          <code>
-            <ExternalLink href={`${REPO_LINK}/tree/${commit.commit}`}>
-              {commit.commit}
-            </ExternalLink>
-          </code>{" "}
-          on{" "}
-          <time dateTime={commit.date}>
-            {new Date(commit.date).toLocaleString()}
-          </time>
-          .
-        </footer>
-      </div>
+        </div>
+      ))}
     </div>
+  );
+}
+
+function CommitFooter() {
+  return (
+    <footer className="text-sm text-neutral-500">
+      Commit{" "}
+      <code>
+        <EL href={`${REPO_LINK}/tree/${commit.commit}`}>{commit.commit}</EL>
+      </code>{" "}
+      on{" "}
+      <time dateTime={commit.date}>
+        {new Date(commit.date).toLocaleString()}
+      </time>
+      .
+    </footer>
   );
 }
