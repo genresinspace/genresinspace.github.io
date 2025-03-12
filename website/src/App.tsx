@@ -11,11 +11,7 @@ import {
   useCallback,
   createContext,
 } from "react";
-import {
-  SimulationParams,
-  SimulationControls,
-  defaultSimulationParams,
-} from "./SimulationParams";
+import { Settings, DEFAULT_SETTINGS, SettingsView } from "./Settings";
 import commit from "./commit.json";
 import React from "react";
 
@@ -33,33 +29,6 @@ import { GenreLink } from "./components/links/GenreLink";
 // that GHA does is a bit tricky (we don't necessarily know what the remote's name is in that environment,
 // and we'd have to convert the git@ URL to https://).
 const REPO_LINK = "https://github.com/genresinspace/genresinspace.github.io";
-
-type Settings = {
-  general: {
-    zoomOnSelect: boolean;
-    showLabels: boolean;
-    maxInfluenceDistance: number;
-    visibleTypes: {
-      Derivative: boolean;
-      Subgenre: boolean;
-      FusionGenre: boolean;
-    };
-  };
-  simulation: SimulationParams;
-};
-const defaultSettings: Settings = {
-  general: {
-    zoomOnSelect: true,
-    showLabels: true,
-    maxInfluenceDistance: 3,
-    visibleTypes: {
-      Derivative: true,
-      Subgenre: true,
-      FusionGenre: true,
-    },
-  },
-  simulation: defaultSimulationParams,
-};
 
 type Data = {
   wikipedia_domain: string;
@@ -1213,99 +1182,6 @@ function Search({
   );
 }
 
-function Settings({
-  settings,
-  setSettings,
-}: {
-  settings: Settings;
-  setSettings: (settings: Settings) => void;
-}) {
-  return (
-    <>
-      <section>
-        <h2 className="text-lg font-extrabold mb-2">General</h2>
-        <div className="mb-2">
-          <label title="Whether or not to zoom / pan the graph upon selecting a node.">
-            <input
-              type="checkbox"
-              checked={settings.general.zoomOnSelect}
-              onChange={(e) =>
-                setSettings({
-                  ...settings,
-                  general: {
-                    ...settings.general,
-                    zoomOnSelect: e.target.checked,
-                  },
-                })
-              }
-            />
-            Zoom on select
-          </label>
-        </div>
-        <div className="mb-2">
-          <label title="Whether or not to show labels on the graph.">
-            <input
-              type="checkbox"
-              checked={settings.general.showLabels}
-              onChange={(e) =>
-                setSettings({
-                  ...settings,
-                  general: {
-                    ...settings.general,
-                    showLabels: e.target.checked,
-                  },
-                })
-              }
-            />
-            Show labels
-          </label>
-        </div>
-        <div className="mb-2">
-          <label
-            title="Controls how many steps away from the selected node to highlight connected nodes and connections"
-            className="block font-bold"
-          >
-            Maximum Influence Distance
-          </label>
-          <input
-            type="range"
-            min={1}
-            max={5}
-            step={1}
-            value={settings.general.maxInfluenceDistance - 1}
-            onChange={(e) =>
-              setSettings({
-                ...settings,
-                general: {
-                  ...settings.general,
-                  maxInfluenceDistance: parseInt(e.target.value) + 1,
-                },
-              })
-            }
-          />
-          <span className="value">
-            {settings.general.maxInfluenceDistance - 1}
-          </span>
-          <p className="description">
-            When a node is selected, highlight nodes and connections that are up
-            to this many steps away in the graph. Higher values show more of the
-            network around the selected node.
-          </p>
-        </div>
-      </section>
-      <section>
-        <h2 className="text-lg font-extrabold mb-2">Simulation</h2>
-        <SimulationControls
-          params={settings.simulation}
-          setParams={(params) =>
-            setSettings({ ...settings, simulation: params })
-          }
-        />
-      </section>
-    </>
-  );
-}
-
 function Sidebar({
   settings,
   setSettings,
@@ -1437,7 +1313,7 @@ function Sidebar({
               edges={edges}
             />
           ) : (
-            <Settings settings={settings} setSettings={setSettings} />
+            <SettingsView settings={settings} setSettings={setSettings} />
           )}
         </div>
       </div>
@@ -1560,7 +1436,7 @@ function App() {
     [data, selectedId]
   );
 
-  const [settings, setSettings] = useState<Settings>(defaultSettings);
+  const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
 
   if (!data) {
     return (
