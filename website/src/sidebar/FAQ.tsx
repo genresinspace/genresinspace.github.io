@@ -254,7 +254,7 @@ export function FAQ({ dumpDate }: { dumpDate: string }) {
   ];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 text-sm">
       {faqs.map((faq, index) => (
         <div key={index}>
           <p className="font-bold">{faq.question}</p>
