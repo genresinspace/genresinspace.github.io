@@ -34,7 +34,7 @@ export function ProjectInformation({
   maxDegree: number;
 }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       <p>
         A graph of every music genre on English Wikipedia{" "}
         <small>
@@ -85,7 +85,7 @@ function RandomGenre({
   const randomNodeColourHover = nodeColour(randomNode, maxDegree, 50);
 
   return (
-    <span className="flex mt-1">
+    <span className="flex">
       <a
         href={`#${randomId}`}
         className="block p-2 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded-l-md flex-1 min-h-[2rem] flex items-center"
@@ -139,7 +139,7 @@ function Legend({
   ];
 
   return (
-    <div className="flex flex-col gap-2 mt-1">
+    <div className="flex flex-col gap-2">
       {types.map(({ color, label, type, description }) => (
         <div key={label} className="flex items-start gap-2">
           <div>
@@ -163,7 +163,7 @@ function Legend({
                 <span style={{ color }}>{label}</span>
               </label>
             </div>
-            <p className="mt-1">{description}</p>
+            <p>{description}</p>
           </div>
         </div>
       ))}
