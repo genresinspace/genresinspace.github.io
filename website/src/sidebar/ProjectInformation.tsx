@@ -15,6 +15,7 @@ import { FAQ } from "./FAQ";
 import { Collapsible } from "../components/Collapsible";
 import { ExternalLink as EL } from "../components/links/ExternalLink";
 import { dumpUrl } from "../components/wikipedia/urls";
+import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 
 export function ProjectInformation({
   nodes,
@@ -72,7 +73,7 @@ function RandomGenre({
   nodes: NodeData[];
   maxDegree: number;
 }) {
-  const [randomId, setRandomId] = useState(
+  const [randomId, setRandomId] = useState(() =>
     Math.floor(Math.random() * nodes.length)
   );
   const randomNode = nodes[randomId];
@@ -83,13 +84,21 @@ function RandomGenre({
     <span className="flex">
       <a
         href={`#${randomId}`}
-        className="block p-2 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded-l-md flex-1 min-h-[2rem] flex items-center"
+        className="block p-2 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded-l-md flex-1 min-h-[2rem]"
         style={{
           ["--node-color" as any]: randomNodeColour,
           ["--node-color-hover" as any]: randomNodeColourHover,
         }}
       >
-        {nodes[randomId].label}
+        {randomNode.label}
+        {randomNode.wikitext_description && (
+          <span className="block text-xs">
+            <WikitextTruncateAtLength
+              wikitext={randomNode.wikitext_description}
+              length={100}
+            />
+          </span>
+        )}
       </a>
       <button
         onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
