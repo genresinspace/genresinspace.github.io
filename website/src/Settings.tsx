@@ -24,18 +24,62 @@ export type SimulationParams = {
   simulationFriction?: number | undefined;
 };
 
-export type SimulationControl = {
-  name: keyof SimulationParams;
+export type ControlDesc = {
+  name: string;
   label: string;
   description: string;
-  min: number;
-  max: number;
-  step: number;
-  default: number;
-};
+} & (
+  | {
+      type: "number";
+      min: number;
+      max: number;
+      step: number;
+      default: number;
+    }
+  | {
+      type: "boolean";
+      default: boolean;
+    }
+);
 
-export const SIMULATION_CONTROLS: SimulationControl[] = [
+export type GeneralControlDesc = ControlDesc & {
+  name: keyof SettingsData["general"];
+};
+export const GENERAL_CONTROLS: GeneralControlDesc[] = [
   {
+    type: "boolean",
+    name: "zoomOnSelect",
+    label: "Zoom on select",
+    description:
+      "Whether or not to zoom / pan the graph upon selecting a node.",
+    default: true,
+  },
+  {
+    type: "boolean",
+    name: "showLabels",
+    label: "Show labels",
+    description: "Whether or not to show labels on the graph.",
+    default: true,
+  },
+  {
+    type: "number",
+    name: "maxInfluenceDistance",
+    label: "Maximum Influence Distance",
+    description:
+      "When a node is selected, highlight nodes and connections that are up to this many steps away in the graph. Higher values show more of the network around the selected node.",
+    min: 1,
+    max: 5,
+    step: 1,
+    default: 1,
+  },
+];
+
+export type SimulationControlDesc = ControlDesc & {
+  name: keyof SimulationParams;
+};
+export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
+  {
+    type: "number",
     name: "simulationRepulsion",
     label: "Repulsion Force",
     description:
@@ -46,6 +90,7 @@ export const SIMULATION_CONTROLS: SimulationControl[] = [
     default: 2,
   },
   {
+    type: "number",
     name: "simulationRepulsionTheta",
     label: "Repulsion Detail",
     description:
@@ -56,6 +101,7 @@ export const SIMULATION_CONTROLS: SimulationControl[] = [
     default: 1.0,
   },
   {
+    type: "number",
     name: "simulationLinkSpring",
     label: "Link Spring Force",
     description:
@@ -66,6 +112,7 @@ export const SIMULATION_CONTROLS: SimulationControl[] = [
     default: 0.3,
   },
   {
+    type: "number",
     name: "simulationLinkDistance",
     label: "Link Distance",
     description:
@@ -76,6 +123,7 @@ export const SIMULATION_CONTROLS: SimulationControl[] = [
     default: 8,
   },
   {
+    type: "number",
     name: "simulationGravity",
     label: "Gravity",
     description:
@@ -86,6 +134,7 @@ export const SIMULATION_CONTROLS: SimulationControl[] = [
     default: 0.6,
   },
   {
+    type: "number",
     name: "simulationCenter",
     label: "Center Force",
     description:
@@ -96,6 +145,7 @@ export const SIMULATION_CONTROLS: SimulationControl[] = [
     default: 0,
   },
   {
+    type: "number",
     name: "simulationFriction",
     label: "Friction",
     description:
@@ -106,6 +156,7 @@ export const SIMULATION_CONTROLS: SimulationControl[] = [
     default: 0.85,
   },
   {
+    type: "number",
     name: "simulationDecay",
     label: "Decay",
     description:
@@ -119,9 +170,9 @@ export const SIMULATION_CONTROLS: SimulationControl[] = [
 
 export const DEFAULT_SETTINGS: SettingsData = {
   general: {
-    zoomOnSelect: true,
-    showLabels: true,
-    maxInfluenceDistance: 3,
+    ...(Object.fromEntries(
+      GENERAL_CONTROLS.map((control) => [control.name, control.default])
+    ) as unknown as SettingsData["general"]),
     visibleTypes: {
       Derivative: true,
       Subgenre: true,

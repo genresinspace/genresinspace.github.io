@@ -27,7 +27,7 @@ export function Graph({
   const { cosmograph, nodes, links } = useCosmograph<NodeData, EdgeData>()!;
 
   // Calculate connected paths and their distances
-  const maxDistance = settings.general.maxInfluenceDistance;
+  const maxDistance = settings.general.maxInfluenceDistance + 1;
   const pathInfo = useMemo(() => {
     if (!selectedId || !nodes || !links)
       return { nodeDistances: new Map(), edgeDistances: new Map() } as PathInfo;
