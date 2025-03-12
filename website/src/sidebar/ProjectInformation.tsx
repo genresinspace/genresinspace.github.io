@@ -117,16 +117,13 @@ export function ProjectInformation({
                     <input
                       type="checkbox"
                       id={label}
-                      checked={settings.general.visibleTypes[type]}
+                      checked={settings.visibleTypes[type]}
                       onChange={(e) =>
                         setSettings((prev: SettingsData) => ({
                           ...prev,
-                          general: {
-                            ...prev.general,
-                            visibleTypes: {
-                              ...prev.general.visibleTypes,
-                              [type]: e.target.checked,
-                            },
+                          visibleTypes: {
+                            ...prev.visibleTypes,
+                            [type]: e.target.checked,
                           },
                         }))
                       }

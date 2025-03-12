@@ -1,13 +1,13 @@
 export type SettingsData = {
+  visibleTypes: {
+    Derivative: boolean;
+    Subgenre: boolean;
+    FusionGenre: boolean;
+  };
   general: {
     zoomOnSelect: boolean;
     showLabels: boolean;
     maxInfluenceDistance: number;
-    visibleTypes: {
-      Derivative: boolean;
-      Subgenre: boolean;
-      FusionGenre: boolean;
-    };
   };
   simulation: SimulationParams;
 };
@@ -169,16 +169,14 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
 ];
 
 export const DEFAULT_SETTINGS: SettingsData = {
-  general: {
-    ...(Object.fromEntries(
-      GENERAL_CONTROLS.map((control) => [control.name, control.default])
-    ) as unknown as SettingsData["general"]),
-    visibleTypes: {
-      Derivative: true,
-      Subgenre: true,
-      FusionGenre: true,
-    },
+  visibleTypes: {
+    Derivative: true,
+    Subgenre: true,
+    FusionGenre: true,
   },
+  general: Object.fromEntries(
+    GENERAL_CONTROLS.map((control) => [control.name, control.default])
+  ) as unknown as SettingsData["general"],
   simulation: Object.fromEntries(
     SIMULATION_CONTROLS.map((control) => [control.name, control.default])
   ) as SimulationParams,

@@ -35,10 +35,10 @@ export function Graph({
       selectedId,
       nodes,
       links,
-      settings.general.visibleTypes,
+      settings.visibleTypes,
       maxDistance
     );
-  }, [selectedId, nodes, links, maxDistance, settings.general.visibleTypes]);
+  }, [selectedId, nodes, links, maxDistance, settings.visibleTypes]);
 
   useEffect(() => {
     const nodeData = selectedId ? nodes?.[parseInt(selectedId, 10)] : null;
@@ -89,7 +89,7 @@ export function Graph({
         }
       }}
       linkColor={(d: EdgeData) => {
-        if (!settings.general.visibleTypes[d.ty]) {
+        if (!settings.visibleTypes[d.ty]) {
           return "rgba(0, 0, 0, 0)";
         }
 
@@ -206,7 +206,7 @@ function getPathsWithinDistance(
   startId: string,
   nodes: NodeData[],
   edges: EdgeData[],
-  visibleTypes: SettingsData["general"]["visibleTypes"],
+  visibleTypes: SettingsData["visibleTypes"],
   maxDistance: number
 ): PathInfo {
   const nodeDistances = new Map<string, number>();
