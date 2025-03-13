@@ -1,3 +1,4 @@
+/** The complete data dump (data.json). */
 export type Data = {
   wikipedia_domain: string;
   wikipedia_db_name: string;
@@ -8,6 +9,7 @@ export type Data = {
   max_degree: number;
 };
 
+/** A node in the graph. */
 export type NodeData = {
   id: string;
   page_title: string;
@@ -21,6 +23,7 @@ export type NodeData = {
   edges: number[];
 };
 
+/** An edge in the graph. */
 export type EdgeData = {
   source: string;
   target: string;
@@ -30,5 +33,6 @@ export type EdgeData = {
 // Ideally, we could integrate this into `commit.json`, but getting the "safe" URL from the checkout
 // that GHA does is a bit tricky (we don't necessarily know what the remote's name is in that environment,
 // and we'd have to convert the git@ URL to https://).
+/** The link to the project's repository. */
 export const REPO_LINK =
   "https://github.com/genresinspace/genresinspace.github.io";

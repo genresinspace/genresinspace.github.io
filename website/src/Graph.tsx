@@ -4,13 +4,19 @@ import { Cosmograph, useCosmograph } from "@cosmograph/react";
 import { EdgeData, NodeData } from "./data";
 import { SettingsData } from "./settings";
 
+/** The colour of a derivative genre */
 export const derivativeColour = (saturation: number = 70, alpha: number = 1) =>
   `hsla(0, ${saturation}%, 60%, ${alpha})`;
+
+/** The colour of a subgenre */
 export const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
   `hsla(120, ${saturation}%, 60%, ${alpha})`;
+
+/** The colour of a fusion genre */
 export const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
   `hsla(240, ${saturation}%, 60%, ${alpha})`;
 
+/** Cosmograph component wired up to display the data. Depends on a Cosmograph context in the parent. */
 export function Graph({
   settings,
   maxDegree,
@@ -178,6 +184,7 @@ export function Graph({
   );
 }
 
+/** Given a node, calculate its colour, factoring in degree and lightness */
 export function nodeColour(
   d: NodeData,
   maxDegree: number,

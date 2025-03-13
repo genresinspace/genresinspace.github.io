@@ -2,6 +2,7 @@ import { REPO_LINK } from "../data";
 
 import { ExternalLink } from "../components/links/ExternalLink";
 
+/** The FAQ for the project. */
 export function FAQ({ dumpDate }: { dumpDate: string }) {
   const faqs = [
     {

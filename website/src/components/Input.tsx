@@ -1,3 +1,4 @@
+/** Wraps an input and shows a description below it */
 export function InputDescription({
   children,
   className,
@@ -15,6 +16,7 @@ export function InputDescription({
   );
 }
 
+/** A checkbox input with a label and a reset button */
 export function CheckboxInput({
   name,
   label,
@@ -54,6 +56,7 @@ export function CheckboxInput({
   );
 }
 
+/** A range input with a label and a reset button */
 export function RangeInput({
   name,
   label,

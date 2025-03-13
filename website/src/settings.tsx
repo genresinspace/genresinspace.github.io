@@ -1,3 +1,4 @@
+/** The settings for the app. Updated by the `Settings` component. */
 export type SettingsData = {
   visibleTypes: {
     Derivative: boolean;
@@ -13,6 +14,7 @@ export type SettingsData = {
   simulation: SimulationParams;
 };
 
+/** The parameters for the simulation. */
 export type SimulationParams = {
   simulationDecay?: number | undefined;
   simulationGravity?: number | undefined;
@@ -25,6 +27,7 @@ export type SimulationParams = {
   simulationFriction?: number | undefined;
 };
 
+/** A description (metadata) for a settings control. */
 export type ControlDesc = {
   name: string;
   label: string;
@@ -43,9 +46,11 @@ export type ControlDesc = {
     }
 );
 
+/** A description for a general settings control. */
 export type GeneralControlDesc = ControlDesc & {
   name: keyof SettingsData["general"];
 };
+/** The general settings controls. */
 export const GENERAL_CONTROLS: GeneralControlDesc[] = [
   {
     type: "boolean",
@@ -82,9 +87,11 @@ export const GENERAL_CONTROLS: GeneralControlDesc[] = [
   },
 ];
 
+/** A description for a simulation settings control. */
 export type SimulationControlDesc = ControlDesc & {
   name: keyof SimulationParams;
 };
+/** The simulation settings controls. */
 export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
   {
     type: "number",
@@ -176,6 +183,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
   },
 ];
 
+/** The default settings for the app. */
 export const DEFAULT_SETTINGS: SettingsData = {
   visibleTypes: {
     Derivative: true,

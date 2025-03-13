@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+/** A collapsible component; the children are not rendered when collapsed. */
 export function Collapsible({
   title,
   children,

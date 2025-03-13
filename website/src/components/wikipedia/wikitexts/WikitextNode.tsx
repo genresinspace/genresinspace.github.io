@@ -6,6 +6,7 @@ import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
 import { ExternalLink } from "../../links/ExternalLink";
 import { Blockquote } from "../../Blockquote";
 
+/** Renders a `WikitextSimplifiedNode`. */
 export function WikitextNode({
   node,
 }: {

@@ -1,3 +1,4 @@
+/** A YouTube video embed */
 export function YouTubeVideoEmbed({
   videoId,
   className,
@@ -13,6 +14,7 @@ export function YouTubeVideoEmbed({
   );
 }
 
+/** A YouTube playlist embed */
 export function YouTubePlaylistEmbed({
   playlistId,
   className,
@@ -28,6 +30,7 @@ export function YouTubePlaylistEmbed({
   );
 }
 
+/** A YouTube embed for an arbitrary link */
 export function YouTubeEmbed({
   link,
   className,

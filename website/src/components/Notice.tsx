@@ -1,3 +1,4 @@
+/** A notice box with a coloured background */
 export function Notice({
   children,
   colour = "yellow",

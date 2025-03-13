@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
 
+/** Stores metadata about the Wikipedia dump in use. */
 export const WikipediaMetaContext = createContext<{
   dbName: string;
   domain: string;

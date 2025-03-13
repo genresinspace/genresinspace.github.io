@@ -7,6 +7,7 @@ import { Settings } from "./Settings";
 import { SelectedNodeInfo } from "./SelectedNodeInfo";
 import { ProjectInformation } from "./ProjectInformation";
 
+/** The sidebar for the app. */
 export function Sidebar({
   settings,
   setSettings,

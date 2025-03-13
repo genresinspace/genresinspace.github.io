@@ -3,6 +3,7 @@ import { WikitextSimplifiedNode } from "wikitext_simplified";
 import { Wikitext } from "../wikitexts/Wikitext";
 import { templateToObject } from "./util";
 
+/** The `nihongo` template, which displays Japanese text with an English translation */
 export function Nihongo({
   node,
 }: {

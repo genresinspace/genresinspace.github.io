@@ -20,6 +20,7 @@ import { ExternalLink as EL } from "../components/links/ExternalLink";
 import { dumpUrl } from "../components/wikipedia/urls";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 
+/** The sidebar panel for information about the project. */
 export function ProjectInformation({
   nodes,
   edges,

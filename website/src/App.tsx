@@ -11,8 +11,10 @@ import { Sidebar } from "./sidebar/Sidebar";
 
 import { WikipediaMetaContext } from "./components/wikipedia/urls";
 
+/** Maps a Wikipedia link to a genre ID */
 export const LinksToPageIdContext = createContext<Record<string, string>>({});
 
+/** The main app component */
 function App() {
   const loading = useData();
 
@@ -227,4 +229,5 @@ function useSelectedIdAndFilterAndFocus(data: Data): {
   };
 }
 
+/** The main app component */
 export default App;

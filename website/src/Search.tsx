@@ -6,6 +6,7 @@ import { stripGenreNamePrefixFromDescription } from "./util";
 import { GenreLink } from "./components/links/GenreLink";
 import { WikitextTruncateAtLength } from "./components/wikipedia/wikitexts/WikitextTruncateAtLength";
 
+/** Search dropdown that searches over genres and shows results */
 export function Search({
   selectedId,
   setFocusedId,

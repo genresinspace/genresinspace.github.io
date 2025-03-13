@@ -14,6 +14,7 @@ import { WikipediaLink } from "../components/wikipedia/links/WikipediaLink";
 import { Wikitext } from "../components/wikipedia/wikitexts/Wikitext";
 import { WikitextTruncateAtNewline } from "../components/wikipedia/wikitexts/WikitextTruncateAtNewline";
 
+/** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
   selectedId,
   setFocusedId,
