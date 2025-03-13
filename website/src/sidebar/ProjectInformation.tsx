@@ -108,7 +108,7 @@ function RandomGenre({
       </a>
       <button
         onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
-        className="p-2 bg-neutral-800 hover:bg-neutral-700 rounded-r-md w-8 self-stretch flex items-center justify-center"
+        className="p-2 bg-amber-700 hover:bg-amber-600 rounded-r-md w-8 self-stretch flex items-center justify-center text-white transition-colors"
         title="Get another random genre"
       >
         🎲
