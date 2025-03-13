@@ -85,21 +85,20 @@ export function FAQ({ dumpDate }: { dumpDate: string }) {
           <p>
             The English Wikipedia doesn't capture the full breadth of the world
             of music for a variety of reasons:
-            <ul className="list-disc pl-5">
-              <li>the genre is poorly known in the English-speaking world</li>
-              <li>nobody has made the time to write an article about it</li>
-              <li>
-                it's just not notable enough to merit an entire article, or a
-                section of an article
-              </li>
-              <li>
-                it's not treated as a genre unto itself by Wikipedia: for
-                example, "classical music" is too broad to be considered just
-                one genre, so it's not represented here outside of downstream
-                genres
-              </li>
-            </ul>
           </p>
+          <ul className="list-disc pl-5">
+            <li>the genre is poorly known in the English-speaking world</li>
+            <li>nobody has made the time to write an article about it</li>
+            <li>
+              it's just not notable enough to merit an entire article, or a
+              section of an article
+            </li>
+            <li>
+              it's not treated as a genre unto itself by Wikipedia: for example,
+              "classical music" is too broad to be considered just one genre, so
+              it's not represented here outside of downstream genres
+            </li>
+          </ul>
           <p>
             This sucks, but it means that every genre covered here has{" "}
             <em>some</em> information attached to it to help you contextualise
@@ -166,27 +165,24 @@ export function FAQ({ dumpDate }: { dumpDate: string }) {
             give you a representative mix for each; but you may find other maps
             more germane to your interests.
           </p>
-          <p>
-            Here's the ones I'm aware of:
-            <ul className="list-disc pl-5">
-              <li>
-                <ExternalLink href="https://everynoise.com/">
-                  Every Noise At Once
-                </ExternalLink>
-                : a word cloud of genres, arranged across axes, and with
-                perspective-altering filters to further contextualise the
-                development and influence of each genre
-              </li>
-              <li>
-                <ExternalLink href="https://musicmap.info/">
-                  Musicmap
-                </ExternalLink>
-                : an extremely-well-researched, high-quality map of the world of
-                music, with genealogy, purpose-written text, references, and
-                more
-              </li>
-            </ul>
-          </p>
+          <p>Here's the ones I'm aware of:</p>
+          <ul className="list-disc pl-5">
+            <li>
+              <ExternalLink href="https://everynoise.com/">
+                Every Noise At Once
+              </ExternalLink>
+              : a word cloud of genres, arranged across axes, and with
+              perspective-altering filters to further contextualise the
+              development and influence of each genre
+            </li>
+            <li>
+              <ExternalLink href="https://musicmap.info/">
+                Musicmap
+              </ExternalLink>
+              : an extremely-well-researched, high-quality map of the world of
+              music, with genealogy, purpose-written text, references, and more
+            </li>
+          </ul>
         </>
       ),
     },
