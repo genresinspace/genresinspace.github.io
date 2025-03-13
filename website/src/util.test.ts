@@ -70,4 +70,32 @@ describe("stripGenreNamePrefixFromDescription", () => {
       stripGenreNamePrefixFromDescription(testCase.label, testCase.description)
     ).toBe(testCase.description_output);
   });
+
+  test("ignores 'the' when stripping bolded genre name", () => {
+    const testCase = {
+      label: "Bakersfield sound",
+      description:
+        "The '''Bakersfield sound''' is a sub-[[musical genre|genre]] of [[country music]] developed in the mid-to-late 1950s in and around [[Bakersfield, California]].",
+      description_output:
+        "is a sub-[[musical genre|genre]] of [[country music]] developed in the mid-to-late 1950s in and around [[Bakersfield, California]].",
+    };
+
+    expect(
+      stripGenreNamePrefixFromDescription(testCase.label, testCase.description)
+    ).toBe(testCase.description_output);
+  });
+
+  test("ignores 'the' when stripping genre name", () => {
+    const testCase = {
+      label: "Bakersfield sound",
+      description:
+        "The Bakersfield sound is a sub-[[musical genre|genre]] of [[country music]] developed in the mid-to-late 1950s in and around [[Bakersfield, California]].",
+      description_output:
+        "is a sub-[[musical genre|genre]] of [[country music]] developed in the mid-to-late 1950s in and around [[Bakersfield, California]].",
+    };
+
+    expect(
+      stripGenreNamePrefixFromDescription(testCase.label, testCase.description)
+    ).toBe(testCase.description_output);
+  });
 });
