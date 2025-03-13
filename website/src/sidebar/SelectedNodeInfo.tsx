@@ -4,8 +4,7 @@ import { useCosmograph } from "@cosmograph/react";
 import { NodeData, EdgeData } from "../data";
 import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
 
-import { YouTubeVideoEmbed } from "../components/YouTubeEmbed";
-import { YouTubePlaylistEmbed } from "../components/YouTubeEmbed";
+import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { Notice } from "../components/Notice";
 
 import { GenreLink } from "../components/links/GenreLink";
@@ -179,12 +178,9 @@ export function SelectedNodeInfo({
               node.mixes.map((mix, i) => (
                 <React.Fragment key={i}>
                   {"video" in mix ? (
-                    <YouTubeVideoEmbed videoId={mix.video} className="mb-2" />
+                    <YouTubeEmbed videoId={mix.video} className="mb-2" />
                   ) : (
-                    <YouTubePlaylistEmbed
-                      playlistId={mix.playlist}
-                      className="mb-2"
-                    />
+                    <YouTubeEmbed playlistId={mix.playlist} className="mb-2" />
                   )}
                   {mix.note && (
                     <Notice colour="blue">

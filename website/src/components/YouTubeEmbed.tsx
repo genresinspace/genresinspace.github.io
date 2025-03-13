@@ -1,51 +1,16 @@
-/** A YouTube video embed */
-export function YouTubeVideoEmbed({
+/** A YouTube embed for either a video or a playlist */
+export function YouTubeEmbed({
   videoId,
-  className,
-}: {
-  videoId: string;
-  className?: string;
-}) {
-  return (
-    <YouTubeEmbed
-      link={`https://www.youtube.com/watch?v=${videoId}`}
-      className={className}
-    />
-  );
-}
-
-/** A YouTube playlist embed */
-export function YouTubePlaylistEmbed({
   playlistId,
   className,
 }: {
-  playlistId: string;
+  videoId?: string;
+  playlistId?: string;
   className?: string;
-}) {
-  return (
-    <YouTubeEmbed
-      link={`https://www.youtube.com/playlist?list=${playlistId}`}
-      className={className}
-    />
-  );
-}
-
-/** A YouTube embed for an arbitrary link */
-export function YouTubeEmbed({
-  link,
-  className,
-}: {
-  link: string;
-  className?: string;
-}) {
-  // Extract video ID or playlist ID from YouTube URL
-  const videoId = link.split("v=")[1]?.split("&")[0];
-  const playlistId = link.split("list=")[1]?.split("&")[0];
-
-  if (!videoId && !playlistId) {
-    return null;
-  }
-
+} & (
+  | { videoId: string; playlistId?: never }
+  | { videoId?: never; playlistId: string }
+)) {
   const embedUrl = playlistId
     ? `https://www.youtube.com/embed/videoseries?list=${playlistId}`
     : `https://www.youtube.com/embed/${videoId}`;
