@@ -42,12 +42,15 @@ export function SelectedNodeInfo({
       .filter((edge) =>
         isInbound ? edge.target === selectedId : edge.source === selectedId
       )
-      .reduce((acc, edge) => {
-        const type = edge.ty;
-        if (!acc[type]) acc[type] = [];
-        acc[type].push(isInbound ? edge.source : edge.target);
-        return acc;
-      }, {} as Record<EdgeData["ty"], string[]>);
+      .reduce(
+        (acc, edge) => {
+          const type = edge.ty;
+          if (!acc[type]) acc[type] = [];
+          acc[type].push(isInbound ? edge.source : edge.target);
+          return acc;
+        },
+        {} as Record<EdgeData["ty"], string[]>
+      );
 
   const inbound = getConnections(true);
   const outbound = getConnections(false);
@@ -110,8 +113,8 @@ export function SelectedNodeInfo({
                   type === "Derivative"
                     ? derivativeColour()
                     : type === "Subgenre"
-                    ? subgenreColour()
-                    : fusionGenreColour(),
+                      ? subgenreColour()
+                      : fusionGenreColour(),
               }}
             >
               {part.content}

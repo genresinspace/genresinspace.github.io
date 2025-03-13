@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest && NODE_OPTIONS='--experimental-wasm-modules' tsx tests/wikitext.ts"
+    "test": "jest && NODE_OPTIONS='--experimental-wasm-modules' tsx tests/wikitext.ts",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "dependencies": {
     "@cosmograph/react": "^1.4.2",
@@ -25,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^8.23.0",
     "@typescript-eslint/parser": "^8.23.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "prettier": "^3.2.4",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^26.0.0",

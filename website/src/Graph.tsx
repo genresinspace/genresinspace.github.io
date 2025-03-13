@@ -97,8 +97,8 @@ export function Graph({
           d.ty === "Derivative"
             ? derivativeColour(saturation, alpha)
             : d.ty === "Subgenre"
-            ? subgenreColour(saturation, alpha)
-            : fusionGenreColour(saturation, alpha);
+              ? subgenreColour(saturation, alpha)
+              : fusionGenreColour(saturation, alpha);
 
         const selectedAlpha = 0.8;
         const selectedMinInfluenceAlpha = 0.4;

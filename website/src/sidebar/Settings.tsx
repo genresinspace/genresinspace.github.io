@@ -51,7 +51,7 @@ export function Settings({
 /** Renders a section of controls. */
 function ControlSection<
   SectionDesc extends ControlDesc,
-  SectionData extends Record<string, any>
+  SectionData extends Record<string, any>,
 >({
   name,
   sectionDesc,
