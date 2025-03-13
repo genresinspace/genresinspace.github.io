@@ -211,7 +211,7 @@ export function WikitextTemplate({
     case "proper_name":
       return <>{node.children.map((c) => c.value).join("")}</>;
     case "noitalic":
-      return <span className="font-normal">{node.children[0].value}</span>;
+      return <span className="not-italic">{node.children[0].value}</span>;
     case "nowrap":
       return (
         <span className="whitespace-nowrap">{node.children[0].value}</span>
