@@ -57,9 +57,9 @@ jobs:
         working-directory: website
         run: npm ci
 
-      - name: Run wikitext tests
+      - name: Run tests
         working-directory: website
-        run: npm run test:wikitext
+        run: npm run test
 
       # Deploy steps (only run on main or manual trigger)
       - name: Build site
