@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-import { SettingsData } from "../Settings";
-import { NodeData, EdgeData } from "../Data";
+import { SettingsData } from "../settings";
+import { NodeData, EdgeData } from "../data";
 
 import { Settings } from "./Settings";
 import { SelectedNodeInfo } from "./SelectedNodeInfo";

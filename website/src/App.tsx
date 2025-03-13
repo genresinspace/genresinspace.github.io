@@ -4,8 +4,8 @@ import { useEffect, useState, useCallback, createContext } from "react";
 
 import { Graph } from "./Graph";
 import { Search } from "./Search";
-import { DEFAULT_SETTINGS, SettingsData } from "./Settings";
-import { Data } from "./Data";
+import { DEFAULT_SETTINGS, SettingsData } from "./settings";
+import { Data } from "./data";
 
 import { Sidebar } from "./sidebar/Sidebar";
 

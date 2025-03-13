@@ -4,8 +4,8 @@ import {
   ControlDesc,
   GENERAL_CONTROLS,
   SIMULATION_CONTROLS,
-} from "../Settings";
-import { SettingsData } from "../Settings";
+} from "../settings";
+import { SettingsData } from "../settings";
 
 import {
   CheckboxInput,

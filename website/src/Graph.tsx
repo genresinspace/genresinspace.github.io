@@ -1,8 +1,8 @@
 import { useMemo, useEffect } from "react";
 import { Cosmograph, useCosmograph } from "@cosmograph/react";
 
-import { EdgeData, NodeData } from "./Data";
-import { SettingsData } from "./Settings";
+import { EdgeData, NodeData } from "./data";
+import { SettingsData } from "./settings";
 
 export const derivativeColour = (saturation: number = 70, alpha: number = 1) =>
   `hsla(0, ${saturation}%, 60%, ${alpha})`;

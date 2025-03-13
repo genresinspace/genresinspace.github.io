@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { NodeData } from "./Data";
+import { NodeData } from "./data";
 import { stripGenreNamePrefixFromDescription } from "./util";
 
 import { GenreLink } from "./components/links/GenreLink";

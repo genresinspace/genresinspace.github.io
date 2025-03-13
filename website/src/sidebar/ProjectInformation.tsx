@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import commit from "../commit.json";
-import { EdgeData, NodeData, REPO_LINK } from "../Data";
-import { SettingsData } from "../Settings";
+import { EdgeData, NodeData, REPO_LINK } from "../data";
+import { SettingsData } from "../settings";
 import { stripGenreNamePrefixFromDescription } from "../util";
 
 import {

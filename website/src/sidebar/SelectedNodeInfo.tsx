@@ -1,7 +1,7 @@
 import React from "react";
 import { useCosmograph } from "@cosmograph/react";
 
-import { NodeData, EdgeData } from "../Data";
+import { NodeData, EdgeData } from "../data";
 import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
 
 import { YouTubeVideoEmbed } from "../components/YouTubeEmbed";
