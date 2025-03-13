@@ -56,4 +56,18 @@ describe("stripGenreNamePrefixFromDescription", () => {
       stripGenreNamePrefixFromDescription(testCase.label, testCase.description)
     ).toBe(testCase.description_output);
   });
+
+  test("ignores case when stripping genre name", () => {
+    const testCase = {
+      label: "Christian Hip Hop",
+      description:
+        "'''Christian hip hop''' (originally '''gospel rap''', also known as '''Christian rap''', '''gospel hip hop''' or '''holy hip hop''') is a cross-genre of [[contemporary Christian music]] and [[hip-hop]].",
+      description_output:
+        "(originally '''gospel rap''', also known as '''Christian rap''', '''gospel hip hop''' or '''holy hip hop''') is a cross-genre of [[contemporary Christian music]] and [[hip-hop]].",
+    };
+
+    expect(
+      stripGenreNamePrefixFromDescription(testCase.label, testCase.description)
+    ).toBe(testCase.description_output);
+  });
 });

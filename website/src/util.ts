@@ -14,7 +14,7 @@ export function stripGenreNamePrefixFromDescription(
   description: string
 ): string {
   // Check if the description starts with the genre name in bold ('''Genre name''')
-  const boldGenreRegex = new RegExp(`^'''${genreName}'''\\s*`);
+  const boldGenreRegex = new RegExp(`^'''${genreName}'''\\s*`, "i");
   if (boldGenreRegex.test(description)) {
     let result = description.replace(boldGenreRegex, "");
 
@@ -28,13 +28,16 @@ export function stripGenreNamePrefixFromDescription(
 
   // Also handle cases where there might be additional text after the genre name
   // but before the actual description starts
-  const boldGenreWithTextRegex = new RegExp(`^'''${genreName}'''\\s*,\\s*`);
+  const boldGenreWithTextRegex = new RegExp(
+    `^'''${genreName}'''\\s*,\\s*`,
+    "i"
+  );
   if (boldGenreWithTextRegex.test(description)) {
     return description.replace(boldGenreWithTextRegex, "");
   }
 
   // Handle cases where the genre name appears without being bolded
-  const plainGenreRegex = new RegExp(`^${genreName}\\s*`);
+  const plainGenreRegex = new RegExp(`^${genreName}\\s*`, "i");
   if (plainGenreRegex.test(description)) {
     return description.replace(plainGenreRegex, "");
   }
