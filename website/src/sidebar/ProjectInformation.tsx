@@ -14,6 +14,8 @@ import {
 import { FAQ } from "./FAQ";
 
 import { Collapsible } from "../components/Collapsible";
+import { Footnote } from "../components/Footnote";
+
 import { ExternalLink as EL } from "../components/links/ExternalLink";
 import { dumpUrl } from "../components/wikipedia/urls";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
@@ -38,11 +40,11 @@ export function ProjectInformation({
   return (
     <div className="flex flex-col gap-2">
       <p>
-        A graph of every music genre on English Wikipedia{" "}
-        <small>
-          ({nodes.length} genres, {edges.length} connections, as of{" "}
-          <EL href={dumpUrl(databaseName, dumpDate)}>{dumpDate}</EL>)
-        </small>
+        A graph of every music genre on English Wikipedia
+        <Footnote>
+          {nodes.length} genres, {edges.length} connections, as of{" "}
+          <EL href={dumpUrl(databaseName, dumpDate)}>{dumpDate}</EL>.
+        </Footnote>
         , by <EL href="https://philpax.me">Philpax</EL>.
       </p>
       <p>Try clicking on a genre, or try a random genre: </p>
