@@ -43,14 +43,17 @@ export function CheckboxInput({
           ↺
         </button>
       </div>
-      <div className="flex items-center space-x-2">
+      <div
+        className="flex items-center space-x-2 cursor-pointer"
+        onClick={() => onChange(name, !checked)}
+      >
         <input
           type="checkbox"
           className="h-4 w-4"
           checked={checked}
-          onChange={(e) => onChange(name, e.target.checked)}
+          onChange={(e) => e.stopPropagation()}
         />
-        <span className="text-sm">{checked ? "Yes" : "No"}</span>
+        <span className="text-sm select-none">{checked ? "Yes" : "No"}</span>
       </div>
     </div>
   );
