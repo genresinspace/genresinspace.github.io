@@ -3,6 +3,7 @@ import { useState } from "react";
 import commit from "../commit.json";
 import { EdgeData, NodeData, REPO_LINK } from "../Data";
 import { SettingsData } from "../Settings";
+import { stripGenreNamePrefixFromDescription } from "../util";
 
 import {
   fusionGenreColour,
@@ -90,11 +91,14 @@ function RandomGenre({
           ["--node-color-hover" as any]: randomNodeColourHover,
         }}
       >
-        {randomNode.label}
+        <span className="font-bold">{randomNode.label}</span>
         {randomNode.wikitext_description && (
           <span className="block text-xs">
             <WikitextTruncateAtLength
-              wikitext={randomNode.wikitext_description}
+              wikitext={stripGenreNamePrefixFromDescription(
+                randomNode.label,
+                randomNode.wikitext_description
+              )}
               length={100}
             />
           </span>

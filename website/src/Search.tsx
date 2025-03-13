@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 
 import { NodeData } from "./Data";
+import { stripGenreNamePrefixFromDescription } from "./util";
 
 import { GenreLink } from "./components/links/GenreLink";
 import { WikitextTruncateAtLength } from "./components/wikipedia/wikitexts/WikitextTruncateAtLength";
@@ -49,7 +50,14 @@ export function Search({
         }
         // Then alphabetically
         return a.label.localeCompare(b.label);
-      });
+      })
+      .map((node) => ({
+        node,
+        strippedDescription: stripGenreNamePrefixFromDescription(
+          node.label,
+          node.wikitext_description ?? ""
+        ),
+      }));
   }, [filter, nodes, selectedId]);
 
   return (
@@ -62,7 +70,7 @@ export function Search({
         onChange={(e) => setFilter(e.target.value)}
       />
       <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto">
-        {results.map((node) => (
+        {results.map(({ node, strippedDescription }) => (
           <div
             key={node.id}
             className="p-2 bg-neutral-900 rounded-lg hover:bg-neutral-700 transition-colors"
@@ -74,7 +82,7 @@ export function Search({
             </GenreLink>
             <small className="block">
               <WikitextTruncateAtLength
-                wikitext={node.wikitext_description ?? ""}
+                wikitext={strippedDescription}
                 length={100}
               />
             </small>
