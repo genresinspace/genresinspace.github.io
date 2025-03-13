@@ -61,6 +61,10 @@ jobs:
         working-directory: website
         run: npm run test
 
+      - name: Run ESLint
+        working-directory: website
+        run: npm run lint
+
       # Deploy steps (only run on main or manual trigger)
       - name: Build site
         if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'

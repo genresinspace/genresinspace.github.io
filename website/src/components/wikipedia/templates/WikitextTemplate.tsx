@@ -111,18 +111,20 @@ export function WikitextTemplate({
     case "igbo_topics":
       // Category box: don't care
       return null;
-    case "ill":
+    case "ill": {
       const pageTitle = node.children[0].value;
       return (
         <WikipediaMaybeGenreLink pageTitle={pageTitle}>
           {pageTitle}
         </WikipediaMaybeGenreLink>
       );
-    case "ipa":
+    }
+    case "ipa": {
       const ipa =
         node.children.length > 1 ? node.children[1] : node.children[0];
       // TODO: render properly, preferably with language support (the optional first argument, skipped above)
       return <code>{ipa.value}</code>;
+    }
     case "ipa-all":
       // As it turns out, this template was actually deleted between the dump I started working with and
       // when I started this project. Unfortunately, this means we still have to handle it.
@@ -204,10 +206,13 @@ export function WikitextTemplate({
     case "music-genre-stub":
       // Stub notice: don't care
       return null;
+    // eslint-disable-next-line no-fallthrough
     case "music_of_cape_verde":
     // Category box: don't care
+    // eslint-disable-next-line no-fallthrough
     case "music_of_jamaica":
     // Category box: don't care
+    // eslint-disable-next-line no-fallthrough
     case "nastaliq":
       // Requesting a particular choice of fonts: not sure how to support
       return null;

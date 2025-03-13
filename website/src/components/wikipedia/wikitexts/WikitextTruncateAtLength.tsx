@@ -42,7 +42,7 @@ export function WikitextTruncateAtLength(props: {
 
   const originalNodes = parse_and_simplify_wikitext(props.wikitext);
 
-  let nodes: WikitextSimplifiedNode[] = [];
+  const nodes: WikitextSimplifiedNode[] = [];
   let length = 0;
   for (const node of originalNodes) {
     if (isNewlineNode(node)) {

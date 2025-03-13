@@ -89,8 +89,8 @@ function RandomGenre({
         onClick={() => (window.location.hash = `${randomId}`)}
         className="block p-2 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded-l-md flex-1 min-h-[2rem] text-left cursor-pointer"
         style={{
-          ["--node-color" as any]: randomNodeColour,
-          ["--node-color-hover" as any]: randomNodeColourHover,
+          ["--node-color" as string]: randomNodeColour,
+          ["--node-color-hover" as string]: randomNodeColourHover,
         }}
       >
         <span className="font-bold">{randomNode.label}</span>

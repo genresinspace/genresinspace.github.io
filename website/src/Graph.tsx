@@ -72,7 +72,7 @@ export function Graph({
       showDynamicLabels={settings.general.showLabels}
       nodeLabelAccessor={(d: NodeData) => d.label}
       nodeColor={(d) => {
-        let color = nodeColour(d, maxDegree);
+        const colour = nodeColour(d, maxDegree);
 
         if (selectedId) {
           if (
@@ -80,12 +80,12 @@ export function Graph({
             (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
               maxDistance
           ) {
-            return color;
+            return colour;
           } else {
             return "hsl(0, 0%, 60%)";
           }
         } else {
-          return color;
+          return colour;
         }
       }}
       linkColor={(d: EdgeData) => {
@@ -93,7 +93,7 @@ export function Graph({
           return "rgba(0, 0, 0, 0)";
         }
 
-        let colour = (saturation: number, alpha: number) =>
+        const colour = (saturation: number, alpha: number) =>
           d.ty === "Derivative"
             ? derivativeColour(saturation, alpha)
             : d.ty === "Subgenre"
@@ -111,7 +111,7 @@ export function Graph({
           } else if (d.target === selectedId) {
             return colour(40, selectedAlpha);
           } else {
-            let distance = pathInfo.edgeDistances.get(d);
+            const distance = pathInfo.edgeDistances.get(d);
             if (distance !== undefined) {
               const factor = 1 - distance / maxDistance;
               const saturation = Math.max(0, 100 * factor);
@@ -187,10 +187,10 @@ export function nodeColour(
     .split("")
     .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
   const hue = Math.abs(hash % 360);
-  let color = `hsl(${hue}, ${
+  const colour = `hsl(${hue}, ${
     ((d.edges.length / maxDegree) * 0.8 + 0.2) * 100
   }%, ${lightness}%)`;
-  return color;
+  return colour;
 }
 
 // Helper types for storing path information

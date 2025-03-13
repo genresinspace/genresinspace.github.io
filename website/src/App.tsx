@@ -52,8 +52,9 @@ function useData():
         }
 
         let receivedLength = 0;
-        let chunks = [];
+        const chunks = [];
 
+        // eslint-disable-next-line no-constant-condition
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
@@ -68,7 +69,7 @@ function useData():
 
         const chunksAll = new Uint8Array(receivedLength);
         let position = 0;
-        for (let chunk of chunks) {
+        for (const chunk of chunks) {
           chunksAll.set(chunk, position);
           position += chunk.length;
         }
