@@ -136,6 +136,7 @@ export function Sidebar({
               setFocusedId={setFocusedId}
               nodes={nodes}
               edges={edges}
+              shouldShowMixes={settings.general.showMixes}
             />
           ) : (
             <Settings settings={settings} setSettings={setSettings} />

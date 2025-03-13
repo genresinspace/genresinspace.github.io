@@ -19,11 +19,13 @@ export function SelectedNodeInfo({
   setFocusedId,
   nodes,
   edges,
+  shouldShowMixes,
 }: {
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   nodes: NodeData[];
   edges: EdgeData[];
+  shouldShowMixes: boolean;
 }) {
   const cosmograph = useCosmograph();
 
@@ -164,9 +166,9 @@ export function SelectedNodeInfo({
         >
           Zoom to
         </button>
-        {
+        {shouldShowMixes &&
           // TODO: proper switcher between videos
-          node.mixes ? (
+          (node.mixes ? (
             "help_reason" in node.mixes ? (
               <HelpNeededForMix reason={node.mixes.help_reason} />
             ) : (
@@ -194,8 +196,7 @@ export function SelectedNodeInfo({
               mix or playlist that represents this genre well, please let me
               know - see the FAQ on how to contribute!
             </Notice>
-          )
-        }
+          ))}
         {node.wikitext_description && (
           <WikitextTruncateAtNewline
             wikitext={node.wikitext_description}

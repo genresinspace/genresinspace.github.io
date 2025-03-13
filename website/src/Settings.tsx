@@ -7,6 +7,7 @@ export type SettingsData = {
   general: {
     zoomOnSelect: boolean;
     showLabels: boolean;
+    showMixes: boolean;
     maxInfluenceDistance: number;
   };
   simulation: SimulationParams;
@@ -59,6 +60,13 @@ export const GENERAL_CONTROLS: GeneralControlDesc[] = [
     name: "showLabels",
     label: "Show labels",
     description: "Whether or not to show labels on the graph.",
+    default: true,
+  },
+  {
+    type: "boolean",
+    name: "showMixes",
+    label: "Show mixes",
+    description: "Whether or not to show mixes for each genre.",
     default: true,
   },
   {
