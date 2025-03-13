@@ -165,10 +165,21 @@ export function WikitextTemplate({
       return null;
     case "lit":
     case "lit.":
+    case "literal":
     case "literally":
     case "literal_translation": {
       const params = node.children.filter((p) => p.name !== "lk");
-      return <span>lit. {params.map((p) => `'${p.value}'`).join(" or ")}</span>;
+      return (
+        <span>
+          <abbr
+            title="literal translation"
+            className="text-sm border-b border-dotted border-gray-500 cursor-help"
+          >
+            lit.
+          </abbr>{" "}
+          {params.map((p) => `'${p.value}'`).join(" or ")}
+        </span>
+      );
     }
     case "mongolunicode":
       return <Mongolunicode node={node} />;
