@@ -306,7 +306,7 @@ fn simplify_wikitext_node(wikitext: &str, node: &pwt::Node) -> Option<WikitextSi
             return None;
         }
         pwt::Node::Tag { name, .. }
-            if ["nowiki", "references", "gallery"].contains(&name.as_ref()) =>
+            if ["nowiki", "references", "gallery", "ref"].contains(&name.as_ref()) =>
         {
             // Don't care
             return None;
@@ -371,5 +371,12 @@ mod tests {
                 title: "Time signature".into()
             }]
         )
+    }
+
+    #[test]
+    fn will_gracefully_ignore_refs() {
+        let wikitext = r#"<ref name=bigtakeover>{{cite web|author=Kristen Sollee|title=Japanese Rock on NPR|work=[[The Big Takeover]]|date=2006-06-25|url=http://www.bigtakeover.com/news/japanese-rock-on-npr|access-date=2013-06-07|quote=It's a style of dress, there's a lot of costuming and make up and it's uniquely Japanese because it goes back to ancient Japan. Men would often wear women's clothing...}}</ref>"#;
+        let simplified = parse_and_simplify_wikitext(wikitext);
+        assert_eq!(simplified, vec![]);
     }
 }
