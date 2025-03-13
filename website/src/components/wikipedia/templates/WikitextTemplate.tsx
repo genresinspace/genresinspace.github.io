@@ -86,7 +86,11 @@ export function WikitextTemplate({
       return <sup>[disputed]</sup>;
     case "efn":
     case "efn-ua":
-      return <Footnote node={node.children[0].value} />;
+      return (
+        <Footnote>
+          <Wikitext wikitext={node.children[0].value} />
+        </Footnote>
+      );
     case "em":
       return (
         <em>
