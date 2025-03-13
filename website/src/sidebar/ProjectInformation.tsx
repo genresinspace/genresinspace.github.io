@@ -85,9 +85,9 @@ function RandomGenre({
 
   return (
     <span className="flex">
-      <a
-        href={`#${randomId}`}
-        className="block p-2 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded-l-md flex-1 min-h-[2rem]"
+      <button
+        onClick={() => (window.location.hash = `${randomId}`)}
+        className="block p-2 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded-l-md flex-1 min-h-[2rem] text-left cursor-pointer"
         style={{
           ["--node-color" as any]: randomNodeColour,
           ["--node-color-hover" as any]: randomNodeColourHover,
@@ -105,7 +105,7 @@ function RandomGenre({
             />
           </span>
         )}
-      </a>
+      </button>
       <button
         onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
         className="p-2 bg-amber-700 hover:bg-amber-600 rounded-r-md w-8 self-stretch flex items-center justify-center text-white transition-colors"
