@@ -78,7 +78,7 @@ export const GENERAL_CONTROLS: GeneralControlDesc[] = [
     min: 1,
     max: 5,
     step: 1,
-    default: 1,
+    default: 2,
   },
 ];
 
