@@ -1,17 +1,20 @@
 import { WikitextSimplifiedNode } from "wikitext_simplified";
 import React from "react";
 
-import { Wikitext } from "../wikitexts/Wikitext";
-import { Footnote } from "../../Footnote";
-import { Music } from "./music/Music";
 import { useWikiUrl } from "../urls";
+import { Footnote } from "../../Footnote";
 import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
+import { Wikitext } from "../wikitexts/Wikitext";
+
 import { Zh } from "./Zh";
 import { Mongolunicode } from "./Mongolunicode";
 import { Abbrlink } from "./Abbrlink";
 import { Cquote } from "./Cquote";
-import { Langx } from "./Langx.tsx";
-import { Langnf } from "./Langnf.tsx";
+import { Langx } from "./Langx";
+import { Langnf } from "./Langnf";
+import { Nihongo } from "./Nihongo";
+
+import { Music } from "./music/Music";
 
 /**
  * Renders a Wikitext simplified template node, including implementations for all supported templates.
@@ -29,8 +32,7 @@ export function WikitextTemplate({
     .toLowerCase();
   switch (templateName) {
     case "nihongo":
-      // TODO: consider replicating the other arguments of the template
-      return <Wikitext wikitext={node.children[0].value}></Wikitext>;
+      return <Nihongo node={node} />;
     case "'":
       return <>'</>;
     case `'_"`:
