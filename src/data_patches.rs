@@ -21,26 +21,21 @@ pub fn pages_to_ignore() -> Vec<PageName> {
 /// Patches that have already been applied to Wikipedia, but may not be
 /// in the dump being processed.
 fn fixed_already() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
-    [
-        // The infobox for the page 'Hip-hop in the Pacific Northwest' has a = instead of a - in the name.
-        (
-            "2025-02-28T11:03:00Z",
-            ("Hip-hop in the Pacific Northwest", None),
-            "Hip-hop in the Pacific Northwest",
-            "https://en.wikipedia.org/w/index.php?title=Hip-hop_in_the_Pacific_Northwest&oldid=1278081681",
-        ),
-    ]
-    .into_iter()
-    .map(|(timestamp, (page, heading), name, _link)| {
-        (
-            PageName::new(page, heading),
+    #[allow(clippy::type_complexity)]
+    const FIXES: &[(&str, (&str, Option<String>), &str, &str)] = &[];
+
+    FIXES
+        .iter()
+        .map(|(timestamp, (page, heading), name, _link)| {
             (
-                Some(Timestamp::from_str(timestamp).unwrap()),
-                GenreName(name.to_string()),
-            ),
-        )
-    })
-    .collect()
+                PageName::new(*page, heading.clone()),
+                (
+                    Some(Timestamp::from_str(timestamp).unwrap()),
+                    GenreName(name.to_string()),
+                ),
+            )
+        })
+        .collect()
 }
 
 /// Patches to resolve ambiguity in the source data. I don't feel confident in making
