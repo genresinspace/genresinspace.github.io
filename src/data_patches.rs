@@ -2,7 +2,7 @@ use std::{collections::HashMap, str::FromStr};
 
 use jiff::Timestamp;
 
-use crate::{GenreName, PageName};
+use crate::types::{GenreName, PageName};
 
 pub fn all() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
     fixed_already().into_iter().chain(unclear_fixes()).collect()
