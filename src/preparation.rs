@@ -1,3 +1,4 @@
+//! Loads the raw Wikipedia dump and extracts all pages with the infobox "music genre" and all redirects.
 use std::{
     collections::{BTreeSet, HashMap},
     io::{BufRead as _, Write as _},
@@ -14,16 +15,21 @@ use crate::{
     util,
 };
 
+/// A map of page names to their output file paths.
 #[derive(Clone, Default)]
 pub struct GenrePages(pub HashMap<PageName, PathBuf>);
 impl GenrePages {
+    /// Iterate over all genre pages.
     pub fn iter(&self) -> impl Iterator<Item = (&PageName, &PathBuf)> {
         self.0.iter()
     }
 }
 
+/// All redirects on Wikipedia. Yes, all of them.
 pub enum AllRedirects {
+    /// All redirects in memory.
     InMemory(HashMap<PageName, PageName>),
+    /// Redirects loaded from a file.
     LazyLoad(PathBuf, std::time::Instant),
 }
 impl TryFrom<AllRedirects> for HashMap<PageName, PageName> {
@@ -43,15 +49,21 @@ impl TryFrom<AllRedirects> for HashMap<PageName, PageName> {
     }
 }
 
+/// The header placed atop an outputted wikitext file.
 #[derive(Clone, Serialize, Deserialize)]
 pub struct WikitextHeader {
+    /// The timestamp of the page when it was last edited.
     pub timestamp: jiff::Timestamp,
 }
 
+/// Metadata about the Wikipedia dump.
 #[derive(Clone, Serialize, Deserialize)]
 pub struct DumpMeta {
+    /// The name of the Wikipedia database.
     pub wikipedia_db_name: String,
+    /// The domain of the Wikipedia instance.
     pub wikipedia_domain: String,
+    /// The date of the Wikipedia dump.
     pub dump_date: jiff::civil::Date,
 }
 
@@ -368,7 +380,7 @@ pub fn extract_genres_and_all_redirects(
 }
 
 #[derive(Debug)]
-pub enum RedirectParseError {
+enum RedirectParseError {
     InvalidRedirect { text: String },
     ExternalLinkNotOnThisWiki { text: String },
 }

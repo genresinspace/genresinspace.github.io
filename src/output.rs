@@ -1,3 +1,4 @@
+//! Produces the data.json file for the frontend.
 use std::{
     collections::{BTreeMap, BTreeSet, HashMap},
     path::Path,

@@ -1,11 +1,14 @@
+//! Resolves links to articles and builds a map of links to page names.
 use std::{collections::HashMap, path::Path};
 
 use anyhow::Context as _;
 
 use crate::{preparation, process, types::PageName};
 
+/// A map of links to page names.
 pub struct LinksToArticles(pub HashMap<String, PageName>);
 impl LinksToArticles {
+    /// Get the page name for a link.
     pub fn map(&self, link: &str) -> Option<PageName> {
         self.0.get(&link.to_lowercase()).map(|s| s.to_owned())
     }

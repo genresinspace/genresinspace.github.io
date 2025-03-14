@@ -1,20 +1,27 @@
+//! Types used throughout the program that are not specific to any stage.
 use std::path::PathBuf;
 
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize)]
+/// The configuration for the program.
 pub struct Config {
+    /// The path to the Wikipedia dump.
     pub wikipedia_dump_path: PathBuf,
+    /// The path to the Wikipedia index.
     pub wikipedia_index_path: PathBuf,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 /// A newtype for a Wikipedia page name.
 pub struct PageName {
+    /// The name of the page.
     pub name: String,
+    /// The heading of the page, if any.
     pub heading: Option<String>,
 }
 impl PageName {
+    /// Create a new page name.
     pub fn new(name: impl Into<String>, heading: impl Into<Option<String>>) -> Self {
         Self {
             name: name.into(),
@@ -22,6 +29,7 @@ impl PageName {
         }
     }
 
+    /// Set the heading of the page (for cases where the genre box is under a heading, not the root of the page)
     pub fn with_opt_heading(&self, heading: Option<String>) -> Self {
         Self {
             name: self.name.clone(),
@@ -29,6 +37,7 @@ impl PageName {
         }
     }
 
+    /// Creates a variant of the page name that can be used for a link.
     pub fn linksafe(&self) -> Self {
         Self {
             name: self.name.replace(' ', "_"),
