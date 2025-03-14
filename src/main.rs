@@ -86,13 +86,22 @@ fn main() -> anyhow::Result<()> {
 
     let website_path = Path::new("website");
     let website_public_path = website_path.join("public");
-    let data_path = website_public_path.join("data.json");
+
+    {
+        let icon = image::open(Path::new("assets/icon.png"))?;
+
+        icon.resize(128, 128, image::imageops::FilterType::Lanczos3)
+            .save(website_public_path.join("icon.png"))?;
+
+        icon.resize(32, 32, image::imageops::FilterType::Lanczos3)
+            .save(website_public_path.join("favicon.ico"))?;
+    }
 
     output::produce_data_json(
         start,
         &dump_meta,
         mixes_path,
-        &data_path,
+        &website_public_path.join("data.json"),
         &links_to_articles,
         &processed_genres,
     )

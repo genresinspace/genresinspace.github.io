@@ -15,14 +15,19 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.95"
 bzip2 = "0.5.0"
+image = { version = "0.25.1", features = [
+    "png",
+    "ico",
+], default-features = false }
+jiff = { version = "0.1.29", features = ["serde"] }
+memmap2 = "0.9.5"
+open = "5.3.2"
 quick-xml = "0.37.2"
+rayon = "1.10.0"
+serde_json = "1.0.138"
 toml = "0.8.19"
+
 parse-wiki-text-2 = { workspace = true }
 serde = { workspace = true }
-serde_json = "1.0.138"
-jiff = { version = "0.1.29", features = ["serde"] }
-rayon = "1.10.0"
-memmap2 = "0.9.5"
 
 wikitext_util = { path = "wikitext_util" }
-open = "5.3.2"
