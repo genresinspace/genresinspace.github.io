@@ -1,13 +1,18 @@
+//! Patches for Wikipedia data to deal with ambiguities and errors that may have been fixed after
+//! the dump was created.
+
 use std::{collections::HashMap, str::FromStr};
 
 use jiff::Timestamp;
 
 use crate::types::{GenreName, PageName};
 
+/// All data patches.
 pub fn all() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
     fixed_already().into_iter().chain(unclear_fixes()).collect()
 }
 
+/// Pages to ignore when processing Wikipedia.
 pub fn pages_to_ignore() -> Vec<PageName> {
     [
         // Redefines jazz as a genre; redundant with the "Jazz" article

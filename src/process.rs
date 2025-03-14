@@ -1,3 +1,4 @@
+//! Processes the wikitext for each genre page to extract the genre infobox's information.
 use std::{
     collections::{HashMap, HashSet},
     path::Path,
@@ -14,30 +15,46 @@ use crate::{
     types::{GenreName, PageName},
 };
 
+/// A processed genre containing all the information we can extract from the infobox.
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct ProcessedGenre {
+    /// The name of the genre.
     pub name: GenreName,
+    /// The page name of the genre.
     pub page: PageName,
+    /// The description of the genre, extracted from the page.
+    ///
+    /// This is all text after the infobox to the next heading.
+    /// There are some nuances around what "after" means; we
+    /// bodge the extraction to handle the case where the infobox was misplaced.
     pub wikitext_description: Option<String>,
+    /// The timestamp of the last revision of the page.
     pub last_revision_date: jiff::Timestamp,
     // the following are unresolved links: we do this
     // so that we can defer link resolution to the end of the pipeline
     // to make sure we've gotten the links to headings under pages
+    /// Stylistic origins of the genre.
     pub stylistic_origins: Vec<String>,
+    /// Derivatives of the genre.
     pub derivatives: Vec<String>,
+    /// Subgenres of the genre.
     pub subgenres: Vec<String>,
+    /// Fusion genres of the genre.
     pub fusion_genres: Vec<String>,
 }
 impl ProcessedGenre {
+    /// The number of edges in the genre's graph.
     pub fn edge_count(&self) -> usize {
         self.stylistic_origins.len()
             + self.derivatives.len()
             + self.subgenres.len()
             + self.fusion_genres.len()
     }
+    /// Update the description of the genre.
     pub fn update_description(&mut self, description: String) {
         self.wikitext_description = Some(description.trim().to_string());
     }
+    /// Save the processed genre to a file.
     pub fn save(&self, processed_genres_path: &Path) -> anyhow::Result<()> {
         std::fs::write(
             processed_genres_path.join(format!("{}.json", PageName::sanitize(&self.page))),
@@ -46,6 +63,8 @@ impl ProcessedGenre {
         Ok(())
     }
 }
+
+/// A map of page names to their processed genre.
 pub struct ProcessedGenres(pub HashMap<PageName, ProcessedGenre>);
 /// Given raw genre wikitext, extract the relevant information and save it to file.
 pub fn genres(

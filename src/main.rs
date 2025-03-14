@@ -1,15 +1,18 @@
+//! Processes Wikipedia dumps to extract music genres and produce data for a graph.
+#![warn(missing_docs)]
+
 use anyhow::Context;
 
 use std::path::Path;
 
-mod data_patches;
-mod links;
-mod output;
-mod populate_mixes;
-mod preparation;
-mod process;
-mod types;
-mod util;
+pub mod data_patches;
+pub mod links;
+pub mod output;
+pub mod populate_mixes;
+pub mod preparation;
+pub mod process;
+pub mod types;
+pub mod util;
 
 fn main() -> anyhow::Result<()> {
     let config: types::Config = {

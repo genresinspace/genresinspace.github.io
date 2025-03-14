@@ -1,3 +1,5 @@
+//! Utility functions used throughout the program.
+
 /// Extracts the domain from a URL.
 pub fn extract_domain(url: &str) -> Option<&str> {
     let domain_start = url.find("://")? + 3;
