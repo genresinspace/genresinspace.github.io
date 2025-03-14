@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useCosmograph } from "@cosmograph/react";
 
 import { NodeData, EdgeData } from "../data";
@@ -35,116 +35,6 @@ export function SelectedNodeInfo({
 
   const node = nodes.find((n) => n.id === selectedId);
   if (!node) return null;
-
-  const getConnections = (isInbound: boolean) =>
-    node.edges
-      .map((edgeIndex) => edges[edgeIndex])
-      .filter((edge) =>
-        isInbound ? edge.target === selectedId : edge.source === selectedId
-      )
-      .reduce(
-        (acc, edge) => {
-          const type = edge.ty;
-          if (!acc[type]) acc[type] = [];
-          acc[type].push(isInbound ? edge.source : edge.target);
-          return acc;
-        },
-        {} as Record<EdgeData["ty"], string[]>
-      );
-
-  const inbound = getConnections(true);
-  const outbound = getConnections(false);
-
-  const connectionDescriptions = [
-    {
-      type: "Derivative" as const,
-      inbound: [
-        { type: "text", content: "This was " },
-        { type: "emphasis", content: "influenced" },
-        { type: "text", content: " by:" },
-      ],
-      outbound: [
-        { type: "text", content: "This has " },
-        { type: "emphasis", content: "influenced" },
-        { type: "text", content: ":" },
-      ],
-    },
-    {
-      type: "Subgenre" as const,
-      inbound: [
-        { type: "text", content: "This is a " },
-        { type: "emphasis", content: "subgenre" },
-        { type: "text", content: " of:" },
-      ],
-      outbound: [
-        { type: "text", content: "This has " },
-        { type: "emphasis", content: "subgenres" },
-        { type: "text", content: ":" },
-      ],
-    },
-    {
-      type: "FusionGenre" as const,
-      inbound: [
-        { type: "text", content: "This " },
-        { type: "emphasis", content: "fusion genre" },
-        { type: "text", content: " draws upon:" },
-      ],
-      outbound: [
-        { type: "text", content: "Used in these " },
-        { type: "emphasis", content: "fusion genres" },
-        { type: "text", content: ":" },
-      ],
-    },
-  ];
-
-  const renderHeading = (
-    textParts: { type: string; content: string }[],
-    type: EdgeData["ty"]
-  ) => {
-    return (
-      <>
-        {textParts.map((part, index) =>
-          part.type === "emphasis" ? (
-            <span
-              key={index}
-              className="font-bold"
-              style={{
-                color:
-                  type === "Derivative"
-                    ? derivativeColour()
-                    : type === "Subgenre"
-                      ? subgenreColour()
-                      : fusionGenreColour(),
-              }}
-            >
-              {part.content}
-            </span>
-          ) : (
-            part.content
-          )
-        )}
-      </>
-    );
-  };
-
-  const connections = connectionDescriptions.flatMap(
-    ({ type, inbound: inboundDesc, outbound: outboundDesc }) => {
-      const connections = [];
-      if (inbound[type]?.length > 0) {
-        connections.push({
-          heading: renderHeading(inboundDesc, type),
-          nodeIds: inbound[type],
-        });
-      }
-      if (outbound[type]?.length > 0) {
-        connections.push({
-          heading: renderHeading(outboundDesc, type),
-          nodeIds: outbound[type],
-        });
-      }
-      return connections;
-    }
-  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -204,31 +94,13 @@ export function SelectedNodeInfo({
           />
         )}
       </div>
-
-      {connections.map(({ heading, nodeIds }, index) => (
-        <div key={index}>
-          <h3 className="text-lg font-medium mb-2">{heading}</h3>
-          <ul className="list-disc pl-5">
-            {nodeIds.map((id) => {
-              const otherNode = nodes.find((n) => n.id === id);
-              return (
-                otherNode && (
-                  <li key={id}>
-                    <GenreLink
-                      genreId={id}
-                      pageTitle={otherNode.page_title}
-                      onMouseEnter={() => setFocusedId(id)}
-                      onMouseLeave={() => setFocusedId(null)}
-                    >
-                      {otherNode.label || id}
-                    </GenreLink>
-                  </li>
-                )
-              );
-            })}
-          </ul>
-        </div>
-      ))}
+      <Connections
+        node={node}
+        nodes={nodes}
+        edges={edges}
+        selectedId={selectedId}
+        setFocusedId={setFocusedId}
+      />
     </div>
   );
 }
@@ -248,5 +120,172 @@ function HelpNeededForMix({ reason }: { reason: string | null }) {
         </p>
       )}
     </Notice>
+  );
+}
+
+function Connections({
+  node,
+  nodes,
+  edges,
+  selectedId,
+  setFocusedId,
+}: {
+  node: NodeData;
+  nodes: NodeData[];
+  edges: EdgeData[];
+  selectedId: string | null;
+  setFocusedId: (id: string | null) => void;
+}) {
+  const connectionDescriptions = useMemo(
+    () => [
+      {
+        type: "Derivative" as const,
+        inbound: [
+          { type: "text", content: "This was " },
+          { type: "emphasis", content: "influenced" },
+          { type: "text", content: " by:" },
+        ],
+        outbound: [
+          { type: "text", content: "This has " },
+          { type: "emphasis", content: "influenced" },
+          { type: "text", content: ":" },
+        ],
+      },
+      {
+        type: "Subgenre" as const,
+        inbound: [
+          { type: "text", content: "This is a " },
+          { type: "emphasis", content: "subgenre" },
+          { type: "text", content: " of:" },
+        ],
+        outbound: [
+          { type: "text", content: "This has " },
+          { type: "emphasis", content: "subgenres" },
+          { type: "text", content: ":" },
+        ],
+      },
+      {
+        type: "FusionGenre" as const,
+        inbound: [
+          { type: "text", content: "This " },
+          { type: "emphasis", content: "fusion genre" },
+          { type: "text", content: " draws upon:" },
+        ],
+        outbound: [
+          { type: "text", content: "Used in these " },
+          { type: "emphasis", content: "fusion genres" },
+          { type: "text", content: ":" },
+        ],
+      },
+    ],
+    []
+  );
+
+  const connections = useMemo(() => {
+    const getConnections = (
+      node: NodeData,
+      edges: EdgeData[],
+      isInbound: boolean
+    ) =>
+      node.edges
+        .map((edgeIndex) => edges[edgeIndex])
+        .filter((edge) =>
+          isInbound ? edge.target === selectedId : edge.source === selectedId
+        )
+        .reduce(
+          (acc, edge) => {
+            const type = edge.ty;
+            if (!acc[type]) acc[type] = [];
+            acc[type].push(isInbound ? edge.source : edge.target);
+            return acc;
+          },
+          {} as Record<EdgeData["ty"], string[]>
+        );
+
+    const inbound = getConnections(node, edges, true);
+    const outbound = getConnections(node, edges, false);
+
+    return connectionDescriptions.flatMap(
+      ({ type, inbound: inboundDesc, outbound: outboundDesc }) => [
+        ...(inbound[type]?.length > 0
+          ? [
+              {
+                textParts: inboundDesc,
+                type,
+                nodeIds: inbound[type],
+              },
+            ]
+          : []),
+        ...(outbound[type]?.length > 0
+          ? [
+              {
+                textParts: outboundDesc,
+                type,
+                nodeIds: outbound[type],
+              },
+            ]
+          : []),
+      ]
+    );
+  }, [connectionDescriptions, node, edges]);
+
+  return connections.map(({ textParts, type, nodeIds }, index) => (
+    <div key={index}>
+      <h3 className="text-lg font-medium mb-2">
+        <ConnectionHeading textParts={textParts} type={type} />
+      </h3>
+      <ul className="list-disc pl-5">
+        {nodeIds.map((id) => {
+          const otherNode = nodes[parseInt(id, 10)];
+          return (
+            otherNode && (
+              <li key={id}>
+                <GenreLink
+                  genreId={id}
+                  pageTitle={otherNode.page_title}
+                  onMouseEnter={() => setFocusedId(id)}
+                  onMouseLeave={() => setFocusedId(null)}
+                >
+                  {otherNode.label || id}
+                </GenreLink>
+              </li>
+            )
+          );
+        })}
+      </ul>
+    </div>
+  ));
+}
+
+function ConnectionHeading({
+  textParts,
+  type,
+}: {
+  textParts: { type: string; content: string }[];
+  type: EdgeData["ty"];
+}) {
+  return (
+    <>
+      {textParts.map((part, index) =>
+        part.type === "emphasis" ? (
+          <span
+            key={index}
+            className="font-bold"
+            style={{
+              color:
+                type === "Derivative"
+                  ? derivativeColour()
+                  : type === "Subgenre"
+                    ? subgenreColour()
+                    : fusionGenreColour(),
+            }}
+          >
+            {part.content}
+          </span>
+        ) : (
+          part.content
+        )
+      )}
+    </>
   );
 }
