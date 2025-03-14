@@ -3,7 +3,7 @@ use std::{collections::HashMap, path::Path};
 
 use anyhow::Context as _;
 
-use crate::{preparation, process, types::PageName};
+use crate::{extract, process, types::PageName};
 
 /// A map of links to page names.
 pub struct LinksToArticles(pub HashMap<String, PageName>);
@@ -24,7 +24,7 @@ pub fn resolve(
     start: std::time::Instant,
     links_to_articles_path: &Path,
     processed_genres: &process::ProcessedGenres,
-    all_redirects: preparation::AllRedirects,
+    all_redirects: extract::AllRedirects,
 ) -> anyhow::Result<LinksToArticles> {
     if links_to_articles_path.is_file() {
         let links_to_articles: HashMap<String, PageName> =

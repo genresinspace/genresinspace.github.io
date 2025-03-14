@@ -3,12 +3,12 @@ use std::{collections::HashSet, io::Write as _, path::Path};
 
 use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig};
 
-use crate::{preparation, process, types::PageName};
+use crate::{extract, process, types::PageName};
 
 /// Loops over all genres that don't have a mix yet and prompts the user to fill in a mix.
 pub fn run(
     mixes_path: &Path,
-    dump_meta: &preparation::DumpMeta,
+    dump_meta: &extract::DumpMeta,
     processed_genres: &process::ProcessedGenres,
 ) -> anyhow::Result<()> {
     let pwt_configuration = pwt_configuration();
