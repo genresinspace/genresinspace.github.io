@@ -70,7 +70,7 @@ pub struct DumpMeta {
 /// Given a Wikipedia dump, extract genres and all redirects.
 ///
 /// We extract all redirects as we may need to resolve redirects to redirects.
-pub fn extract_genres_and_all_redirects(
+pub fn genres_and_all_redirects(
     config: &Config,
     start: std::time::Instant,
     dump_date: jiff::civil::Date,

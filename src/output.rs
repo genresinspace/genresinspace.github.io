@@ -8,7 +8,7 @@ use anyhow::Context as _;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    links, preparation, process,
+    extract, links, process,
     types::{GenreName, PageDataId, PageName},
 };
 
@@ -130,10 +130,10 @@ struct EdgeData {
     ty: EdgeType,
 }
 
-/// Given processed genres, produce a graph and save it to file to be rendered by the website.
+/// Given processed genres, produce a graph and save it to `data.json` to be rendered by the website.
 pub fn produce_data_json(
     start: std::time::Instant,
-    dump_meta: &preparation::DumpMeta,
+    dump_meta: &extract::DumpMeta,
     mixes_path: &Path,
     data_path: &Path,
     links_to_articles: &links::LinksToArticles,

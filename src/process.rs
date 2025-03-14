@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig, NodeMetadata};
 
 use crate::{
-    data_patches, preparation,
+    data_patches, extract,
     types::{GenreName, PageName},
 };
 
@@ -69,7 +69,7 @@ pub struct ProcessedGenres(pub HashMap<PageName, ProcessedGenre>);
 /// Given raw genre wikitext, extract the relevant information and save it to file.
 pub fn genres(
     start: std::time::Instant,
-    genres: &preparation::GenrePages,
+    genres: &extract::GenrePages,
     processed_genres_path: &Path,
 ) -> anyhow::Result<ProcessedGenres> {
     if processed_genres_path.is_dir() {
@@ -163,7 +163,7 @@ pub fn genres(
     for (original_page, path) in genres.iter() {
         let wikitext = std::fs::read_to_string(path)?;
         let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
-        let wikitext_header: preparation::WikitextHeader = serde_json::from_str(wikitext_header)?;
+        let wikitext_header: extract::WikitextHeader = serde_json::from_str(wikitext_header)?;
 
         let wikitext = remove_comments_from_wikitext_the_painful_way(
             &pwt_configuration,

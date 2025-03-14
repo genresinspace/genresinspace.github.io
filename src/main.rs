@@ -6,10 +6,10 @@ use anyhow::Context;
 use std::path::Path;
 
 pub mod data_patches;
+pub mod extract;
 pub mod links;
 pub mod output;
 pub mod populate_mixes;
-pub mod preparation;
 pub mod process;
 pub mod types;
 pub mod util;
@@ -59,7 +59,7 @@ fn main() -> anyhow::Result<()> {
     let output_path = Path::new("output").join(dump_date.to_string());
     let start = std::time::Instant::now();
 
-    let (dump_meta, genres, all_redirects) = preparation::extract_genres_and_all_redirects(
+    let (dump_meta, genres, all_redirects) = extract::genres_and_all_redirects(
         &config,
         start,
         dump_date,
@@ -74,27 +74,26 @@ fn main() -> anyhow::Result<()> {
     let mixes_path = Path::new("mixes");
     if std::env::args().any(|arg| arg == "--populate-mixes") {
         populate_mixes::run(mixes_path, &dump_meta, &processed_genres)?;
-    } else {
-        let links_to_articles = links::resolve(
-            start,
-            &output_path.join("links_to_articles.toml"),
-            &processed_genres,
-            all_redirects,
-        )?;
-
-        let website_path = Path::new("website");
-        let website_public_path = website_path.join("public");
-        let data_path = website_public_path.join("data.json");
-
-        output::produce_data_json(
-            start,
-            &dump_meta,
-            mixes_path,
-            &data_path,
-            &links_to_articles,
-            &processed_genres,
-        )?;
+        return Ok(());
     }
 
-    Ok(())
+    let links_to_articles = links::resolve(
+        start,
+        &output_path.join("links_to_articles.toml"),
+        &processed_genres,
+        all_redirects,
+    )?;
+
+    let website_path = Path::new("website");
+    let website_public_path = website_path.join("public");
+    let data_path = website_public_path.join("data.json");
+
+    output::produce_data_json(
+        start,
+        &dump_meta,
+        mixes_path,
+        &data_path,
+        &links_to_articles,
+        &processed_genres,
+    )
 }
