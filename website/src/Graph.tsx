@@ -170,7 +170,7 @@ export function Graph({
         }
         return 1;
       }}
-      linkArrowsSizeScale={1}
+      linkArrowsSizeScale={settings.general.arrowSizeScale}
       nodeLabelClassName="node-label"
       nodeLabelColor={nodeColor}
       hoveredNodeLabelClassName="node-label node-hovered-label"
