@@ -10,6 +10,7 @@ export type SettingsData = {
     showLabels: boolean;
     showMixes: boolean;
     maxInfluenceDistance: number;
+    arrowSizeScale: number;
   };
   simulation: SimulationParams;
 };
@@ -84,6 +85,16 @@ export const GENERAL_CONTROLS: GeneralControlDesc[] = [
     max: 5,
     step: 1,
     default: 2,
+  },
+  {
+    type: "number",
+    name: "arrowSizeScale",
+    label: "Arrow Size Scale",
+    description: "The size of the arrows on the graph.",
+    min: 0.5,
+    max: 3,
+    step: 0.1,
+    default: 1.5,
   },
 ];
 
