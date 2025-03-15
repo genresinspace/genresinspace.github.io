@@ -1,4 +1,5 @@
 import { useMemo, useEffect } from "react";
+import { Cosmograph as RawCosmograph } from "@cosmograph/cosmograph";
 import { Cosmograph, useCosmograph } from "@cosmograph/react";
 
 import { EdgeData, NodeData } from "./data";
@@ -67,19 +68,28 @@ export function Graph({
     }
   }, [focusedId, nodes]);
 
+  useCosmographLabelColourPatch(cosmograph, maxDegree);
+
   const onClick = (nodeData: NodeData | undefined): void => {
     setSelectedId(nodeData && selectedId !== nodeData.id ? nodeData.id : null);
+  };
+
+  const isHighlightedDueToSelection = (d: NodeData, includePath: boolean) => {
+    if (!selectedId) return false;
+    const isSelected = d.id === selectedId;
+    const isImmediateNeighbour = pathInfo.immediateNeighbours.has(d.id);
+    const isInPath =
+      includePath &&
+      (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
+        maxDistance;
+    return isSelected || isImmediateNeighbour || isInPath;
   };
 
   const nodeColor = (d: NodeData) => {
     const colour = nodeColour(d, maxDegree);
 
     if (selectedId) {
-      if (
-        pathInfo.immediateNeighbours.has(d.id) ||
-        (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
-          maxDistance
-      ) {
+      if (isHighlightedDueToSelection(d, true)) {
         return colour;
       } else {
         return "hsl(0, 0%, 60%)";
@@ -171,10 +181,13 @@ export function Graph({
         return 1;
       }}
       linkArrowsSizeScale={settings.general.arrowSizeScale}
-      nodeLabelClassName="node-label"
       nodeLabelColor={nodeColor}
-      hoveredNodeLabelClassName="node-label node-hovered-label"
       hoveredNodeLabelColor={nodeColor}
+      showLabelsFor={
+        selectedId
+          ? nodes?.filter((d) => isHighlightedDueToSelection(d, false))
+          : undefined
+      }
       spaceSize={8192}
       {...settings.simulation}
       randomSeed={"Where words fail, music speaks"}
@@ -201,6 +214,153 @@ export function nodeColour(
     ((d.edges.length / maxDegree) * 0.8 + 0.2) * 100
   }%, ${lightness}%)`;
   return colour;
+}
+
+/**
+ * Patch Cosmograph's functions for rendering labels. This does a number of things:
+ * - use a custom background and foreground colour, instead of just foreground colour
+ * - set the bottom border to a custom colour
+ * - overrides the weight logic to give precedence to selected nodes
+ * - sets the font size based on the node's degree
+ * - moves labels to be close to the centre of their node, as opposed to on top of it
+ * - hardcodes a few assumptions for the project
+ *
+ * Cosmograph is not fully open-source, so this was done by looking at the source map
+ * for the relevant file, extracting the relevant functions, and then updating them
+ * to meet our requirements.
+ */
+function useCosmographLabelColourPatch(
+  cosmograph: RawCosmograph<NodeData, EdgeData> | undefined,
+  maxDegree: number
+) {
+  useEffect(() => {
+    if (!cosmograph) return;
+    if ("wasPatchedByGenresInSpace" in cosmograph) return;
+
+    const calcFontSize = (node: NodeData) => {
+      return 10 + (node.edges.length / maxDegree) * 6;
+    };
+
+    const getNodeLabelStyle = (node: NodeData, isVisible: boolean) => {
+      let style = [
+        `background-color: ${nodeColour(node, maxDegree, 25)};`,
+        `border-bottom: 4px solid ${nodeColour(node, maxDegree, 35)};`,
+      ];
+      if (!isVisible) {
+        style.push("opacity: 0.1;");
+      }
+      return style.join(" ");
+    };
+
+    (cosmograph as unknown as any)._renderLabels = function (): void {
+      if (this._isLabelsDestroyed || !this._cosmos) return;
+      const {
+        _cosmos,
+        _selectedNodesSet,
+        _cosmographConfig: { showDynamicLabels, nodeLabelAccessor },
+      } = this;
+      let labels = [];
+      const trackedNodesPositions = _cosmos.getTrackedNodePositionsMap();
+      const nodeToLabelInfo = new Map<
+        NodeData,
+        [string | undefined, [number, number] | undefined, number]
+      >();
+      if (showDynamicLabels) {
+        const sampledNodesPositions = (
+          this as RawCosmograph<NodeData, EdgeData>
+        ).getSampledNodePositionsMap();
+        sampledNodesPositions?.forEach((positions, id) => {
+          const node = _cosmos.graph.getNodeById(id);
+          if (node)
+            nodeToLabelInfo.set(node, [
+              nodeLabelAccessor?.(node) ?? node.id,
+              positions,
+              0.7,
+            ]);
+        });
+      }
+      this._nodesForTopLabels.forEach((node: NodeData) => {
+        nodeToLabelInfo.set(node, [
+          this._trackedNodeToLabel.get(node),
+          trackedNodesPositions.get(node.id),
+          0.9,
+        ]);
+      });
+      this._nodesForForcedLabels.forEach((node: NodeData) => {
+        nodeToLabelInfo.set(node, [
+          this._trackedNodeToLabel.get(node),
+          trackedNodesPositions.get(node.id),
+          1.0,
+        ]);
+      });
+      labels = [...nodeToLabelInfo.entries()].map(
+        ([p, [text, positions, weight]]) => {
+          const screenPosition = this.spaceToScreenPosition([
+            positions?.[0] ?? 0,
+            positions?.[1] ?? 0,
+          ]) as [number, number];
+
+          const isSelected = _selectedNodesSet?.has(p);
+          const isVisible =
+            isSelected ||
+            this._nodesForForcedLabels.size == 0 ||
+            this._nodesForForcedLabels.has(p);
+
+          return {
+            id: p.id,
+            text: text ?? "",
+            x: screenPosition[0],
+            y: screenPosition[1],
+            fontSize: calcFontSize(p),
+            weight:
+              this._nodesForForcedLabels.size > 0
+                ? isVisible
+                  ? 100 + (isSelected ? 100 : 0)
+                  : 0.1
+                : weight,
+            shouldBeShown: isVisible,
+            style: getNodeLabelStyle(p, isVisible),
+            color: nodeColour(p, maxDegree, 60),
+            className: "node-label",
+          };
+        }
+      );
+      this._cssLabelsRenderer.setLabels(labels);
+      this._cssLabelsRenderer.draw(true);
+    };
+
+    (cosmograph as unknown as any)._renderLabelForHovered = function (
+      node?: NodeData,
+      nodeSpacePosition?: [number, number]
+    ): void {
+      if (!this._cosmos) return;
+      const {
+        _cosmographConfig: {
+          showHoveredNodeLabel,
+          nodeLabelAccessor,
+          hoveredNodeLabelColor,
+        },
+      } = this;
+      if (this._isLabelsDestroyed) return;
+      if (showHoveredNodeLabel && node && nodeSpacePosition) {
+        const screenPosition = this.spaceToScreenPosition(
+          nodeSpacePosition
+        ) as [number, number];
+        this._hoveredCssLabel.setText(nodeLabelAccessor?.(node) ?? node.id);
+        this._hoveredCssLabel.setVisibility(true);
+        this._hoveredCssLabel.setPosition(screenPosition[0], screenPosition[1]);
+        this._hoveredCssLabel.setClassName("node-label node-hovered-label");
+        this._hoveredCssLabel.setStyle(getNodeLabelStyle(node, true));
+        this._hoveredCssLabel.setFontSize(calcFontSize(node));
+        const textColor = hoveredNodeLabelColor(node);
+        if (textColor) this._hoveredCssLabel.setColor(textColor);
+      } else {
+        this._hoveredCssLabel.setVisibility(false);
+      }
+      this._hoveredCssLabel.draw();
+    };
+    (cosmograph as unknown as any).wasPatchedByGenresInSpace = true;
+  }, [cosmograph, maxDegree]);
 }
 
 // Helper types for storing path information
