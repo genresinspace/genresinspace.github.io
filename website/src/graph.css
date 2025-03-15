@@ -1,0 +1,19 @@
+.node-label {
+  font-size: 12px !important;
+  font-weight: normal !important;
+  padding: 0px 4px !important;
+  margin: 0 !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 4px !important;
+  text-underline-offset: 4px !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.node-label:hover {
+  filter: brightness(1.6);
+}
+
+.node-hovered-label {
+  filter: brightness(1.6);
+}
