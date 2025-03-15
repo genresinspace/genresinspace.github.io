@@ -242,7 +242,7 @@ function useCosmographLabelColourPatch(
     };
 
     const getNodeLabelStyle = (node: NodeData, isVisible: boolean) => {
-      let style = [
+      const style = [
         `background-color: ${nodeColour(node, maxDegree, 25)};`,
         `border-bottom: 4px solid ${nodeColour(node, maxDegree, 35)};`,
       ];
@@ -252,6 +252,7 @@ function useCosmographLabelColourPatch(
       return style.join(" ");
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (cosmograph as unknown as any)._renderLabels = function (): void {
       if (this._isLabelsDestroyed || !this._cosmos) return;
       const {
@@ -329,6 +330,7 @@ function useCosmographLabelColourPatch(
       this._cssLabelsRenderer.draw(true);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (cosmograph as unknown as any)._renderLabelForHovered = function (
       node?: NodeData,
       nodeSpacePosition?: [number, number]
@@ -359,6 +361,7 @@ function useCosmographLabelColourPatch(
       }
       this._hoveredCssLabel.draw();
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (cosmograph as unknown as any).wasPatchedByGenresInSpace = true;
   }, [cosmograph, maxDegree]);
 }
