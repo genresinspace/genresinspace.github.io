@@ -71,29 +71,30 @@ export function Graph({
     setSelectedId(nodeData && selectedId !== nodeData.id ? nodeData.id : null);
   };
 
+  const nodeColor = (d: NodeData) => {
+    const colour = nodeColour(d, maxDegree);
+
+    if (selectedId) {
+      if (
+        pathInfo.immediateNeighbours.has(d.id) ||
+        (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
+          maxDistance
+      ) {
+        return colour;
+      } else {
+        return "hsl(0, 0%, 60%)";
+      }
+    } else {
+      return colour;
+    }
+  };
   return (
     <Cosmograph
       disableSimulation={false}
       backgroundColor="#000"
       showDynamicLabels={settings.general.showLabels}
       nodeLabelAccessor={(d: NodeData) => d.label}
-      nodeColor={(d) => {
-        const colour = nodeColour(d, maxDegree);
-
-        if (selectedId) {
-          if (
-            pathInfo.immediateNeighbours.has(d.id) ||
-            (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
-              maxDistance
-          ) {
-            return colour;
-          } else {
-            return "hsl(0, 0%, 60%)";
-          }
-        } else {
-          return colour;
-        }
-      }}
+      nodeColor={nodeColor}
       linkColor={(d: EdgeData) => {
         if (!settings.visibleTypes[d.ty]) {
           return "rgba(0, 0, 0, 0)";
@@ -170,8 +171,10 @@ export function Graph({
         return 1;
       }}
       linkArrowsSizeScale={1}
-      nodeLabelColor="#CCC"
-      hoveredNodeLabelColor="#FFF"
+      nodeLabelClassName="node-label"
+      nodeLabelColor={nodeColor}
+      hoveredNodeLabelClassName="node-label node-hovered-label"
+      hoveredNodeLabelColor={nodeColor}
       spaceSize={8192}
       {...settings.simulation}
       randomSeed={"Where words fail, music speaks"}
