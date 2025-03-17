@@ -32,6 +32,12 @@ pub fn run(
     });
     needs_filling.reverse();
 
+    println!(
+        "{} genres to go, bucko ({} already have mixes)",
+        needs_filling.len(),
+        already_existing_mixes.len()
+    );
+
     for pg in needs_filling {
         let mut description = nodes_inner_text(
             &pwt_configuration
