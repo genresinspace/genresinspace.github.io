@@ -1,5 +1,10 @@
 //! CLI for populating mixes for genres.
-use std::{collections::HashSet, io::Write as _, path::Path};
+use std::{
+    collections::HashSet,
+    io::Write as _,
+    path::Path,
+    time::{Duration, Instant},
+};
 
 use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig};
 
@@ -38,7 +43,10 @@ pub fn run(
         already_existing_mixes.len()
     );
 
-    for pg in needs_filling {
+    let mut total_response_time = Duration::new(0, 0);
+    let mut genres_processed = 0;
+
+    for (index, pg) in needs_filling.iter().enumerate() {
         let mut description = nodes_inner_text(
             &pwt_configuration
                 .parse(pg.wikitext_description.as_deref().unwrap_or_default())
@@ -58,7 +66,25 @@ pub fn run(
             pg.page.linksafe()
         );
 
-        println!("==> {} ({wikipedia_page_link}): {description}", pg.page);
+        let avg_response_time = if genres_processed > 0 {
+            format!("avg response: {:?}", total_response_time / genres_processed)
+        } else {
+            String::new()
+        };
+
+        println!(
+            "==> {}/{}: {} ({}) {}{}",
+            index + 1,
+            needs_filling.len(),
+            pg.page,
+            wikipedia_page_link,
+            description,
+            if genres_processed > 0 {
+                format!(" ({})", avg_response_time)
+            } else {
+                String::new()
+            }
+        );
 
         let genre_name = &pg.name.0;
         let link = format!(
@@ -74,8 +100,14 @@ pub fn run(
 
         print!("> ");
         std::io::stdout().flush()?;
+
+        let start_time = Instant::now();
         let mut line = String::new();
         std::io::stdin().read_line(&mut line)?;
+        let response_time = start_time.elapsed();
+
+        total_response_time += response_time;
+        genres_processed += 1;
 
         if let Some(amp_idx) = line.find('&') {
             line.truncate(amp_idx);
