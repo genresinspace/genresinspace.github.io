@@ -90,7 +90,7 @@ pub fn genres_and_all_redirects(
             genre_pages.insert(PageName::unsanitize(&file_stem.to_string_lossy()), path);
         }
         println!(
-            "{:.2}s: loaded all {} genres",
+            "{:.2}s: loaded all {} pages",
             start.elapsed().as_secs_f32(),
             genre_pages.len()
         );
