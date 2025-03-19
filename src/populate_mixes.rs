@@ -104,6 +104,11 @@ pub fn run(
         let start_time = Instant::now();
         let mut line = String::new();
         std::io::stdin().read_line(&mut line)?;
+
+        if line.trim() == "finish" {
+            break;
+        }
+
         let response_time = start_time.elapsed();
 
         total_response_time += response_time;

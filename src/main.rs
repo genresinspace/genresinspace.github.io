@@ -74,7 +74,6 @@ fn main() -> anyhow::Result<()> {
     let mixes_path = Path::new("mixes");
     if std::env::args().any(|arg| arg == "--populate-mixes") {
         populate_mixes::run(mixes_path, &dump_meta, &processed_genres)?;
-        return Ok(());
     }
 
     let links_to_articles = links::resolve(
