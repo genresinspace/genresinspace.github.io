@@ -365,18 +365,7 @@ function Connections({
                 const otherNode = nodes[nodeIdToInt(id)];
                 return (
                   otherNode && (
-                    <li key={id} className="flex items-center">
-                      <div
-                        className="w-2 h-2 rounded-full mr-2"
-                        style={{
-                          backgroundColor:
-                            type === "Derivative"
-                              ? derivativeColour()
-                              : type === "Subgenre"
-                                ? subgenreColour()
-                                : fusionGenreColour(),
-                        }}
-                      />
+                    <li key={id}>
                       <GenreLink
                         genreId={id}
                         pageTitle={otherNode.page_title}

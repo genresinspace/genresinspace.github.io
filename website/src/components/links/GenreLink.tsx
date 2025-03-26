@@ -18,7 +18,12 @@ export function GenreLink({
         href={`#${genreId}`}
         className={`text-teal-400 hover:underline ${props.className ?? ""}`}
       >
-        {props.children}
+        <span className="inline-flex items-center">
+          <span className="mr-1 flex items-center" title="Genre link">
+            ♪
+          </span>
+          {props.children}
+        </span>
       </a>
     </span>
   );
