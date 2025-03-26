@@ -1,4 +1,7 @@
-/** A notice box with a coloured background */
+/**
+ * A styled notice box component with different color themes
+ * Used to display important information with visual emphasis
+ */
 export function Notice({
   children,
   colour = "yellow",
@@ -8,22 +11,22 @@ export function Notice({
 }) {
   const colourClasses = {
     yellow: {
-      bg: "bg-yellow-100",
+      bg: "bg-yellow-100/90",
       border: "border-yellow-400",
       text: "text-yellow-900",
     },
     red: {
-      bg: "bg-red-100",
+      bg: "bg-red-100/90",
       border: "border-red-400",
       text: "text-red-900",
     },
     blue: {
-      bg: "bg-blue-100",
+      bg: "bg-blue-100/90",
       border: "border-blue-400",
       text: "text-blue-900",
     },
     green: {
-      bg: "bg-green-100",
+      bg: "bg-green-100/90",
       border: "border-green-400",
       text: "text-green-900",
     },
@@ -32,7 +35,7 @@ export function Notice({
   const classes = colourClasses[colour];
 
   return (
-    <div className={`${classes.bg} border-l-4 ${classes.border} p-2 my-1`}>
+    <div className={`${classes.bg} border-l-4 ${classes.border} p-3 mb-1`}>
       <p className={classes.text}>{children}</p>
     </div>
   );
