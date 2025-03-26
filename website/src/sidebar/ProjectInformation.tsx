@@ -39,26 +39,28 @@ export function ProjectInformation({
   maxDegree: number;
 }) {
   return (
-    <div className="flex flex-col gap-2">
-      <p>
-        A graph of every music genre on English Wikipedia
-        <Footnote>
-          {nodes.length} genres, {edges.length} connections, as of{" "}
-          <EL href={dumpUrl(databaseName, dumpDate)}>{dumpDate}</EL>.
-        </Footnote>
-        , by <EL href="https://philpax.me">Philpax</EL>.
-      </p>
-      <p>Try clicking on a genre, or try a random genre: </p>
-      <RandomGenre nodes={nodes} maxDegree={maxDegree} />
-      <p>
-        <EL href={REPO_LINK}>Source code</EL>.{" "}
-        <EL href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
-          Blog post
-        </EL>
-        , if you're curious. Inspired by{" "}
-        <EL href="https://eightyeightthirty.one/">8831</EL> and{" "}
-        <EL href="https://musicmap.info/">musicmap</EL>.
-      </p>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <p>
+          A graph of every music genre on English Wikipedia
+          <Footnote>
+            {nodes.length} genres, {edges.length} connections, as of{" "}
+            <EL href={dumpUrl(databaseName, dumpDate)}>{dumpDate}</EL>.
+          </Footnote>
+          , by <EL href="https://philpax.me">Philpax</EL>.
+        </p>
+        <p>Try clicking on a genre, or try a random genre: </p>
+        <RandomGenre nodes={nodes} maxDegree={maxDegree} />
+        <p>
+          <EL href={REPO_LINK}>Source code</EL>.{" "}
+          <EL href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
+            Blog post
+          </EL>
+          , if you're curious. Inspired by{" "}
+          <EL href="https://eightyeightthirty.one/">8831</EL> and{" "}
+          <EL href="https://musicmap.info/">musicmap</EL>.
+        </p>
+      </div>
       <Collapsible title="Legend" defaultOpen={true}>
         <Legend settings={settings} setSettings={setSettings} />
       </Collapsible>
