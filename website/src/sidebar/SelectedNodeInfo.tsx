@@ -99,14 +99,14 @@ function GenreHeader({
       <div className="rounded overflow-hidden">
         <WikipediaLink
           pageTitle={node.page_title}
-          className="bg-[var(--node-color)] hover:bg-[var(--node-color-hover)] text-white py-2 block"
+          className="bg-[var(--node-color)] hover:bg-[var(--node-color-hover)] text-white py-2 block text-3xl font-bold text-center"
           nostyle={true}
           style={{
             ["--node-color" as string]: selectedNodeColour,
             ["--node-color-hover" as string]: selectedNodeColourHover,
           }}
         >
-          <h2 className="text-3xl font-bold text-center">{node.label}</h2>
+          {node.label}
         </WikipediaLink>
 
         <div className="flex justify-between items-center bg-neutral-800">

@@ -6,6 +6,7 @@ import { useWikiUrl, wikiPageUrl } from "../urls";
  */
 export function WikipediaLink({
   pageTitle,
+  children,
   ...rest
 }: React.ComponentProps<typeof ExternalLink> & { pageTitle: string }) {
   const wikiUrl = useWikiUrl();
@@ -13,5 +14,14 @@ export function WikipediaLink({
     return null;
   }
 
-  return <ExternalLink {...rest} href={wikiPageUrl(wikiUrl, pageTitle)} />;
+  return (
+    <ExternalLink {...rest} href={wikiPageUrl(wikiUrl, pageTitle)}>
+      <span className="inline-flex items-center">
+        <span className="mr-0.5 flex items-center" title="Wikipedia link">
+          ⓦ
+        </span>
+        {children}
+      </span>
+    </ExternalLink>
+  );
 }
