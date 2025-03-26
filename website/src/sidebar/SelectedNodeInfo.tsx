@@ -12,6 +12,7 @@ import { GenreLink } from "../components/links/GenreLink";
 import { WikipediaLink } from "../components/wikipedia/links/WikipediaLink";
 import { Wikitext } from "../components/wikipedia/wikitexts/Wikitext";
 import { WikitextTruncateAtNewline } from "../components/wikipedia/wikitexts/WikitextTruncateAtNewline";
+import { Collapsible } from "../components/Collapsible";
 
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
@@ -141,12 +142,12 @@ function Connections({
       {
         type: "Derivative" as const,
         inbound: [
-          { type: "text", content: "This was " },
+          { type: "text", content: "Was " },
           { type: "emphasis", content: "influenced" },
           { type: "text", content: " by:" },
         ],
         outbound: [
-          { type: "text", content: "This has " },
+          { type: "text", content: "Has " },
           { type: "emphasis", content: "influenced" },
           { type: "text", content: ":" },
         ],
@@ -154,12 +155,12 @@ function Connections({
       {
         type: "Subgenre" as const,
         inbound: [
-          { type: "text", content: "This is a " },
+          { type: "text", content: "Is a " },
           { type: "emphasis", content: "subgenre" },
           { type: "text", content: " of:" },
         ],
         outbound: [
-          { type: "text", content: "This has " },
+          { type: "text", content: "Has " },
           { type: "emphasis", content: "subgenres" },
           { type: "text", content: ":" },
         ],
@@ -167,12 +168,12 @@ function Connections({
       {
         type: "FusionGenre" as const,
         inbound: [
-          { type: "text", content: "This " },
+          { type: "text", content: "Is a " },
           { type: "emphasis", content: "fusion genre" },
-          { type: "text", content: " draws upon:" },
+          { type: "text", content: " of:" },
         ],
         outbound: [
-          { type: "text", content: "Used in these " },
+          { type: "text", content: "Part of " },
           { type: "emphasis", content: "fusion genres" },
           { type: "text", content: ":" },
         ],
@@ -230,10 +231,11 @@ function Connections({
   }, [connectionDescriptions, node, edges]);
 
   return connections.map(({ textParts, type, nodeIds }, index) => (
-    <div key={index}>
-      <h3 className="text-lg font-medium mb-2">
-        <ConnectionHeading textParts={textParts} type={type} />
-      </h3>
+    <Collapsible
+      title={<ConnectionHeading textParts={textParts} type={type} />}
+      defaultOpen={true}
+      key={index}
+    >
       <ul className="list-disc pl-5">
         {nodeIds.map((id) => {
           const otherNode = nodes[parseInt(id, 10)];
@@ -253,7 +255,7 @@ function Connections({
           );
         })}
       </ul>
-    </div>
+    </Collapsible>
   ));
 }
 

@@ -6,7 +6,7 @@ export function Collapsible({
   children,
   defaultOpen = false,
 }: {
-  title: string;
+  title: React.ReactNode;
   children: React.ReactNode;
   defaultOpen?: boolean;
 }) {
