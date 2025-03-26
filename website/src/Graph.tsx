@@ -2,7 +2,7 @@ import { useMemo, useEffect } from "react";
 import { Cosmograph as RawCosmograph } from "@cosmograph/cosmograph";
 import { Cosmograph, useCosmograph } from "@cosmograph/react";
 
-import { EdgeData, NodeData, nodeIdToInt } from "./data";
+import { EdgeData, nodeColour, NodeData, nodeIdToInt } from "./data";
 import { SettingsData } from "./settings";
 
 /** The colour of a derivative genre */
@@ -198,22 +198,6 @@ export function Graph({
       onLabelClick={onClick}
     />
   );
-}
-
-/** Given a node, calculate its colour, factoring in degree and lightness */
-export function nodeColour(
-  d: NodeData,
-  maxDegree: number,
-  lightness: number = 60
-) {
-  const hash = d.id
-    .split("")
-    .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
-  const hue = Math.abs(hash % 360);
-  const colour = `hsl(${hue}, ${
-    ((d.edges.length / maxDegree) * 0.8 + 0.2) * 100
-  }%, ${lightness}%)`;
-  return colour;
 }
 
 /**

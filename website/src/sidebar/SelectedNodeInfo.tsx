@@ -1,13 +1,8 @@
 import { useMemo } from "react";
 import { useCosmograph } from "@cosmograph/react";
 
-import { NodeData, EdgeData, nodeIdToInt } from "../data";
-import {
-  derivativeColour,
-  fusionGenreColour,
-  nodeColour,
-  subgenreColour,
-} from "../Graph";
+import { NodeData, EdgeData, nodeIdToInt, nodeColour } from "../data";
+import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
 
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { Notice } from "../components/Notice";

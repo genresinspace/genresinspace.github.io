@@ -37,8 +37,26 @@ export type NodeData = {
   edges: number[];
 };
 
+/** Convert a node ID (integer as a string) to an integer. */
 export const nodeIdToInt = (id: string) => parseInt(id, 10);
+/** Get the integer ID of a node. */
 export const nodeDataId = (data: NodeData) => nodeIdToInt(data.id);
+
+/** Given a node, calculate its colour, factoring in degree and lightness */
+export function nodeColour(
+  node: NodeData,
+  maxDegree: number,
+  lightness: number = 60
+) {
+  const hash = node.id
+    .split("")
+    .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
+  const hue = Math.abs(hash % 360);
+  const colour = `hsl(${hue}, ${
+    ((node.edges.length / maxDegree) * 0.8 + 0.2) * 100
+  }%, ${lightness}%)`;
+  return colour;
+}
 
 /** An edge in the graph. */
 export type EdgeData = {

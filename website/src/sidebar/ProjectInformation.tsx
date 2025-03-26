@@ -1,16 +1,11 @@
 import { useState } from "react";
 
 import commit from "../commit.json";
-import { EdgeData, NodeData, REPO_LINK } from "../data";
+import { EdgeData, NodeData, REPO_LINK, nodeColour } from "../data";
 import { SettingsData } from "../settings";
 import { stripGenreNamePrefixFromDescription } from "../util";
 
-import {
-  fusionGenreColour,
-  derivativeColour,
-  nodeColour,
-  subgenreColour,
-} from "../Graph";
+import { fusionGenreColour, derivativeColour, subgenreColour } from "../Graph";
 import { FAQ } from "./FAQ";
 
 import { Collapsible } from "../components/Collapsible";
