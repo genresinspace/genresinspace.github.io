@@ -1,7 +1,13 @@
 import { useState } from "react";
 
 import commit from "../commit.json";
-import { EdgeData, NodeData, REPO_LINK, nodeColour } from "../data";
+import {
+  EdgeData,
+  NodeColourLightness,
+  NodeData,
+  REPO_LINK,
+  nodeColour,
+} from "../data";
 import { SettingsData } from "../settings";
 import { stripGenreNamePrefixFromDescription } from "../util";
 
@@ -78,8 +84,16 @@ function RandomGenre({
     Math.floor(Math.random() * nodes.length)
   );
   const randomNode = nodes[randomId];
-  const randomNodeColour = nodeColour(randomNode, maxDegree, 30);
-  const randomNodeColourHover = nodeColour(randomNode, maxDegree, 50);
+  const randomNodeColour = nodeColour(
+    randomNode,
+    maxDegree,
+    NodeColourLightness.Background
+  );
+  const randomNodeColourHover = nodeColour(
+    randomNode,
+    maxDegree,
+    NodeColourLightness.BackgroundHover
+  );
 
   return (
     <span className="flex">

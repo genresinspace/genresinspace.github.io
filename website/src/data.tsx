@@ -46,7 +46,7 @@ export const nodeDataId = (data: NodeData) => nodeIdToInt(data.id);
 export function nodeColour(
   node: NodeData,
   maxDegree: number,
-  lightness: number = 60
+  lightness: number
 ) {
   const hash = node.id
     .split("")
@@ -57,6 +57,22 @@ export function nodeColour(
   }%, ${lightness}%)`;
   return colour;
 }
+
+/** Used with {@link nodeColour} to set the lightness of the node colour. */
+export const NodeColourLightness = {
+  /** The lightness of the background colour. */
+  Background: 30,
+  /** The lightness of the background colour when hovered. */
+  BackgroundHover: 50,
+  /** The lightness of the graph node's colour. */
+  GraphNode: 60,
+  /** The lightness of the graph label's background colour. */
+  GraphLabelBackground: 25,
+  /** The lightness of the graph label's background border colour. */
+  GraphLabelBackgroundBorder: 35,
+  /** The lightness of the graph label's text colour. */
+  GraphLabelText: 60,
+};
 
 /** An edge in the graph. */
 export type EdgeData = {

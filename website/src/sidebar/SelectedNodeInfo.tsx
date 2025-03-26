@@ -1,7 +1,13 @@
 import { useMemo } from "react";
 import { useCosmograph } from "@cosmograph/react";
 
-import { NodeData, EdgeData, nodeIdToInt, nodeColour } from "../data";
+import {
+  NodeData,
+  EdgeData,
+  nodeIdToInt,
+  nodeColour,
+  NodeColourLightness,
+} from "../data";
 import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
 
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
@@ -77,8 +83,16 @@ function GenreHeader({
   node: NodeData;
   maxDegree: number;
 }) {
-  const selectedNodeColour = nodeColour(node, maxDegree, 30);
-  const selectedNodeColourHover = nodeColour(node, maxDegree, 50);
+  const selectedNodeColour = nodeColour(
+    node,
+    maxDegree,
+    NodeColourLightness.Background
+  );
+  const selectedNodeColourHover = nodeColour(
+    node,
+    maxDegree,
+    NodeColourLightness.BackgroundHover
+  );
 
   return (
     <div className="space-y-4">

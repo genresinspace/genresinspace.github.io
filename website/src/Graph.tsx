@@ -2,7 +2,13 @@ import { useMemo, useEffect } from "react";
 import { Cosmograph as RawCosmograph } from "@cosmograph/cosmograph";
 import { Cosmograph, useCosmograph } from "@cosmograph/react";
 
-import { EdgeData, nodeColour, NodeData, nodeIdToInt } from "./data";
+import {
+  EdgeData,
+  nodeColour,
+  NodeColourLightness,
+  NodeData,
+  nodeIdToInt,
+} from "./data";
 import { SettingsData } from "./settings";
 
 /** The colour of a derivative genre */
@@ -85,11 +91,11 @@ export function Graph({
     return isSelected || isImmediateNeighbour || isInPath;
   };
 
-  const nodeColor = (d: NodeData) => {
-    const colour = nodeColour(d, maxDegree);
+  const nodeDataColour = (node: NodeData) => {
+    const colour = nodeColour(node, maxDegree, NodeColourLightness.GraphNode);
 
     if (selectedId) {
-      if (isHighlightedDueToSelection(d, true)) {
+      if (isHighlightedDueToSelection(node, true)) {
         return colour;
       } else {
         return "hsl(0, 0%, 60%)";
@@ -104,7 +110,7 @@ export function Graph({
       backgroundColor="#000"
       showDynamicLabels={settings.general.showLabels}
       nodeLabelAccessor={(d: NodeData) => d.label}
-      nodeColor={nodeColor}
+      nodeColor={nodeDataColour}
       linkColor={(d: EdgeData) => {
         if (!settings.visibleTypes[d.ty]) {
           return "rgba(0, 0, 0, 0)";
@@ -181,8 +187,8 @@ export function Graph({
         return 1;
       }}
       linkArrowsSizeScale={settings.general.arrowSizeScale}
-      nodeLabelColor={nodeColor}
-      hoveredNodeLabelColor={nodeColor}
+      nodeLabelColor={nodeDataColour}
+      hoveredNodeLabelColor={nodeDataColour}
       showLabelsFor={
         selectedId
           ? nodes?.filter((d) => isHighlightedDueToSelection(d, false))
@@ -227,8 +233,8 @@ function useCosmographLabelColourPatch(
 
     const getNodeLabelStyle = (node: NodeData, isVisible: boolean) => {
       const style = [
-        `background-color: ${nodeColour(node, maxDegree, 25)};`,
-        `border-bottom: 4px solid ${nodeColour(node, maxDegree, 35)};`,
+        `background-color: ${nodeColour(node, maxDegree, NodeColourLightness.GraphLabelBackground)};`,
+        `border-bottom: 4px solid ${nodeColour(node, maxDegree, NodeColourLightness.GraphLabelBackgroundBorder)};`,
       ];
       if (!isVisible) {
         style.push("opacity: 0.1;");
@@ -305,7 +311,7 @@ function useCosmographLabelColourPatch(
                 : weight,
             shouldBeShown: isVisible,
             style: getNodeLabelStyle(p, isVisible),
-            color: nodeColour(p, maxDegree, 60),
+            color: nodeColour(p, maxDegree, NodeColourLightness.GraphLabelText),
             className: "node-label",
           };
         }
