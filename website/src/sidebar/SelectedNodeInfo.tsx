@@ -32,7 +32,7 @@ export function SelectedNodeInfo({
     return <EmptyState />;
   }
 
-  const node = nodes.find((n) => n.id === selectedId);
+  const node = nodes[nodeIdToInt(selectedId)];
   if (!node) return null;
 
   return (
