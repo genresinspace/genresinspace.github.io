@@ -127,11 +127,6 @@ export function FAQ({ dumpDate }: { dumpDate: string }) {
       ),
     },
     {
-      question: 'What does the "wp" next to each genre mean?',
-      answer:
-        "That's the link to the corresponding Wikipedia article for the genre, as opposed to the primary link, which navigates you to that genre in the graph.",
-    },
-    {
       question: "Who selected the mixes, and under what criteria?",
       answer: (
         <>

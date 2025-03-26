@@ -1,7 +1,5 @@
-import { WikipediaLink } from "../wikipedia/links/WikipediaLink";
-
 /**
- * A link to a genre, including a link to the Wikipedia page for the genre.
+ * A link to a genre.
  *
  * Will navigate to the genre in the graph.
  */
@@ -22,9 +20,6 @@ export function GenreLink({
       >
         {props.children}
       </a>
-      <sup>
-        <WikipediaLink pageTitle={pageTitle}>wp</WikipediaLink>
-      </sup>
     </span>
   );
 }
