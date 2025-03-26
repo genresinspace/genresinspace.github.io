@@ -138,6 +138,7 @@ export function Sidebar({
               nodes={nodes}
               edges={edges}
               shouldShowMixes={settings.general.showMixes}
+              maxDegree={maxDegree}
             />
           ) : (
             <Settings settings={settings} setSettings={setSettings} />

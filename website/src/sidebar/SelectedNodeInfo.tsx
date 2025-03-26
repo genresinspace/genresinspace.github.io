@@ -2,7 +2,12 @@ import { useMemo } from "react";
 import { useCosmograph } from "@cosmograph/react";
 
 import { NodeData, EdgeData, nodeIdToInt } from "../data";
-import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
+import {
+  derivativeColour,
+  fusionGenreColour,
+  nodeColour,
+  subgenreColour,
+} from "../Graph";
 
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { Notice } from "../components/Notice";
@@ -21,12 +26,14 @@ export function SelectedNodeInfo({
   nodes,
   edges,
   shouldShowMixes,
+  maxDegree,
 }: {
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   nodes: NodeData[];
   edges: EdgeData[];
   shouldShowMixes: boolean;
+  maxDegree: number;
 }) {
   if (!selectedId) {
     return <EmptyState />;
@@ -37,7 +44,7 @@ export function SelectedNodeInfo({
 
   return (
     <div className="flex flex-col gap-4">
-      <GenreHeader node={node} />
+      <GenreHeader node={node} maxDegree={maxDegree} />
 
       {shouldShowMixes && <FeaturedMix node={node} />}
 
@@ -68,18 +75,37 @@ function EmptyState() {
 }
 
 /** Header section with genre title and controls */
-function GenreHeader({ node }: { node: NodeData }) {
+function GenreHeader({
+  node,
+  maxDegree,
+}: {
+  node: NodeData;
+  maxDegree: number;
+}) {
+  const selectedNodeColour = nodeColour(node, maxDegree, 30);
+  const selectedNodeColourHover = nodeColour(node, maxDegree, 50);
+
   return (
     <div className="space-y-4">
-      <div className="border-b border-neutral-700 pb-3">
-        <WikipediaLink pageTitle={node.page_title}>
+      <div className="rounded overflow-hidden">
+        <WikipediaLink
+          pageTitle={node.page_title}
+          className="bg-[var(--node-color)] hover:bg-[var(--node-color-hover)] text-white py-2 block"
+          nostyle={true}
+          style={{
+            ["--node-color" as string]: selectedNodeColour,
+            ["--node-color-hover" as string]: selectedNodeColourHover,
+          }}
+        >
           <h2 className="text-3xl font-bold text-center">{node.label}</h2>
         </WikipediaLink>
 
-        <div className="flex justify-between items-center mt-1">
-          <small className="text-neutral-400">
+        <div className="flex justify-between items-center bg-neutral-800">
+          <small className="text-neutral-400 text-xs flex items-center px-3">
             Updated:{" "}
-            <em>{new Date(node.last_revision_date).toLocaleDateString()}</em>
+            <em className="ml-1">
+              {new Date(node.last_revision_date).toLocaleDateString()}
+            </em>
           </small>
 
           <ZoomToNodeButton node={node} />
@@ -95,7 +121,7 @@ function ZoomToNodeButton({ node }: { node: NodeData }) {
 
   return (
     <button
-      className="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-white text-xs rounded transition-colors duration-200 flex items-center gap-1 shadow-sm"
+      className="px-3 py-1.5 hover:bg-neutral-700 text-white text-xs transition-colors duration-200 flex items-center gap-1"
       onClick={() => {
         if (cosmograph) {
           const targetNodeData = cosmograph.nodes?.[nodeIdToInt(node.id)];
