@@ -7,7 +7,7 @@ import { useWikiUrl, wikiPageUrl } from "../urls";
 export function WikipediaLink({
   pageTitle,
   ...rest
-}: React.ComponentProps<"a"> & { pageTitle: string }) {
+}: React.ComponentProps<typeof ExternalLink> & { pageTitle: string }) {
   const wikiUrl = useWikiUrl();
   if (!wikiUrl) {
     return null;
