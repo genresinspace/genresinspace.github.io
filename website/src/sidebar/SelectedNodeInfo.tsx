@@ -28,120 +28,22 @@ export function SelectedNodeInfo({
   edges: EdgeData[];
   shouldShowMixes: boolean;
 }) {
-  const cosmograph = useCosmograph();
-
   if (!selectedId) {
-    return (
-      <div className="flex items-center justify-center h-full p-6 text-gray-400">
-        <p className="text-center">
-          No genre selected. Click on a node in the graph to view details.
-        </p>
-      </div>
-    );
+    return <EmptyState />;
   }
 
   const node = nodes.find((n) => n.id === selectedId);
   if (!node) return null;
 
   return (
-    <div className="flex flex-col gap-6 animate-fadeIn">
-      <div className="space-y-4">
-        <div className="border-b border-neutral-700 pb-3">
-          <WikipediaLink pageTitle={node.page_title}>
-            <h2 className="text-3xl font-bold text-center">{node.label}</h2>
-          </WikipediaLink>
+    <div className="flex flex-col gap-4">
+      <GenreHeader node={node} />
 
-          <div className="flex justify-between items-center mt-1">
-            <small className="text-neutral-400">
-              Updated:{" "}
-              <em>{new Date(node.last_revision_date).toLocaleDateString()}</em>
-            </small>
+      {shouldShowMixes && <FeaturedMix node={node} />}
 
-            <button
-              className="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-white text-xs rounded transition-colors duration-200 flex items-center gap-1 shadow-sm"
-              onClick={() => {
-                if (cosmograph) {
-                  const targetNodeData =
-                    cosmograph.nodes?.[parseInt(node.id, 10)];
-                  if (targetNodeData) {
-                    cosmograph.cosmograph?.zoomToNode(targetNodeData);
-                  }
-                }
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              Zoom to node
-            </button>
-          </div>
-        </div>
-
-        {shouldShowMixes && (
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2 text-neutral-200">
-              Featured Mix
-            </h3>
-            {node.mixes ? (
-              "help_reason" in node.mixes ? (
-                <HelpNeededForMix reason={node.mixes.help_reason} />
-              ) : (
-                node.mixes.map((mix, i) => (
-                  <div
-                    key={i}
-                    className="mb-4 bg-neutral-800 rounded-lg overflow-hidden shadow-md"
-                  >
-                    {"video" in mix ? (
-                      <YouTubeEmbed videoId={mix.video} />
-                    ) : (
-                      <YouTubeEmbed playlistId={mix.playlist} />
-                    )}
-                    {mix.note && (
-                      <Notice colour="blue">
-                        <Wikitext wikitext={mix.note} />
-                      </Notice>
-                    )}
-                  </div>
-                ))
-              )
-            ) : (
-              <Notice colour="red">
-                <p>
-                  There's no mix selected for this genre yet. If you know of a
-                  good mix or playlist that represents this genre well, please
-                  let me know - see the FAQ on how to contribute!
-                </p>
-              </Notice>
-            )}
-          </div>
-        )}
-
-        {node.wikitext_description && (
-          <div>
-            <h3 className="text-lg font-semibold mb-2 text-neutral-200">
-              Description
-            </h3>
-            <div className="border border-neutral-800 rounded-md p-4">
-              <WikitextTruncateAtNewline
-                wikitext={node.wikitext_description}
-                expandable={true}
-              />
-            </div>
-          </div>
-        )}
-      </div>
+      {node.wikitext_description && (
+        <GenreDescription description={node.wikitext_description} />
+      )}
 
       <Connections
         node={node}
@@ -150,6 +52,133 @@ export function SelectedNodeInfo({
         selectedId={selectedId}
         setFocusedId={setFocusedId}
       />
+    </div>
+  );
+}
+
+/** Displayed when no genre is selected */
+function EmptyState() {
+  return (
+    <div className="flex items-center justify-center h-full p-6 text-gray-400">
+      <p className="text-center">
+        No genre selected. Click on a node in the graph to view details.
+      </p>
+    </div>
+  );
+}
+
+/** Header section with genre title and controls */
+function GenreHeader({ node }: { node: NodeData }) {
+  return (
+    <div className="space-y-4">
+      <div className="border-b border-neutral-700 pb-3">
+        <WikipediaLink pageTitle={node.page_title}>
+          <h2 className="text-3xl font-bold text-center">{node.label}</h2>
+        </WikipediaLink>
+
+        <div className="flex justify-between items-center mt-1">
+          <small className="text-neutral-400">
+            Updated:{" "}
+            <em>{new Date(node.last_revision_date).toLocaleDateString()}</em>
+          </small>
+
+          <ZoomToNodeButton node={node} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Button to zoom to the selected node in the graph */
+function ZoomToNodeButton({ node }: { node: NodeData }) {
+  const cosmograph = useCosmograph();
+
+  return (
+    <button
+      className="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-white text-xs rounded transition-colors duration-200 flex items-center gap-1 shadow-sm"
+      onClick={() => {
+        if (cosmograph) {
+          const targetNodeData = cosmograph.nodes?.[parseInt(node.id, 10)];
+          if (targetNodeData) {
+            cosmograph.cosmograph?.zoomToNode(targetNodeData);
+          }
+        }
+      }}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
+      </svg>
+      Zoom to node
+    </button>
+  );
+}
+
+/** Featured mix section */
+function FeaturedMix({ node }: { node: NodeData }) {
+  return (
+    <div>
+      <h3 className="text-lg font-semibold mb-2 text-neutral-200">
+        Featured Mix
+      </h3>
+      {node.mixes ? (
+        "help_reason" in node.mixes ? (
+          <HelpNeededForMix reason={node.mixes.help_reason} />
+        ) : (
+          node.mixes.map((mix, i) => <MixItem key={i} mix={mix} />)
+        )
+      ) : (
+        <Notice colour="red">
+          <p>
+            There's no mix selected for this genre yet. If you know of a good
+            mix or playlist that represents this genre well, please let me know
+            - see the FAQ on how to contribute!
+          </p>
+        </Notice>
+      )}
+    </div>
+  );
+}
+
+/** Individual mix item with video or playlist */
+function MixItem({ mix }: { mix: any }) {
+  return (
+    <div className="bg-neutral-800 rounded-lg overflow-hidden shadow-md">
+      {"video" in mix ? (
+        <YouTubeEmbed videoId={mix.video} />
+      ) : (
+        <YouTubeEmbed playlistId={mix.playlist} />
+      )}
+      {mix.note && (
+        <Notice colour="blue">
+          <Wikitext wikitext={mix.note} />
+        </Notice>
+      )}
+    </div>
+  );
+}
+
+/** Genre description section */
+function GenreDescription({ description }: { description: string }) {
+  return (
+    <div>
+      <h3 className="text-lg font-semibold mb-2 text-neutral-200">
+        Description
+      </h3>
+      <div className="border border-neutral-800 rounded-md p-4">
+        <WikitextTruncateAtNewline wikitext={description} expandable={true} />
+      </div>
     </div>
   );
 }
