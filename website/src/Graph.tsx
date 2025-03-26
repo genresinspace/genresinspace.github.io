@@ -2,7 +2,7 @@ import { useMemo, useEffect } from "react";
 import { Cosmograph as RawCosmograph } from "@cosmograph/cosmograph";
 import { Cosmograph, useCosmograph } from "@cosmograph/react";
 
-import { EdgeData, NodeData } from "./data";
+import { EdgeData, NodeData, nodeIdToInt } from "./data";
 import { SettingsData } from "./settings";
 
 /** The colour of a derivative genre */
@@ -48,7 +48,7 @@ export function Graph({
   }, [selectedId, nodes, links, maxDistance, settings.visibleTypes]);
 
   useEffect(() => {
-    const nodeData = selectedId ? nodes?.[parseInt(selectedId, 10)] : null;
+    const nodeData = selectedId ? nodes?.[nodeIdToInt(selectedId)] : null;
     if (nodeData) {
       cosmograph?.selectNode(nodeData, false);
       if (settings.general.zoomOnSelect) {
@@ -60,7 +60,7 @@ export function Graph({
   }, [selectedId]);
 
   useEffect(() => {
-    const nodeData = focusedId ? nodes?.[parseInt(focusedId, 10)] : null;
+    const nodeData = focusedId ? nodes?.[nodeIdToInt(focusedId)] : null;
     if (nodeData) {
       cosmograph?.focusNode(nodeData);
     } else {
@@ -386,7 +386,7 @@ function getPathsWithinDistance(
   const edgeDistances = new Map<EdgeData, number>();
   const immediateNeighbours = new Set<string>();
 
-  const startNodeData = nodes[parseInt(startId, 10)];
+  const startNodeData = nodes[nodeIdToInt(startId)];
   if (startNodeData) {
     immediateNeighbours.add(startNodeData.id);
     for (const edgeIndex of startNodeData.edges) {
@@ -409,8 +409,7 @@ function getPathsWithinDistance(
     currentDistance++;
 
     for (const nodeId of frontier) {
-      const nodeIndex = parseInt(nodeId, 10);
-      const nodeData = nodes[nodeIndex];
+      const nodeData = nodes[nodeIdToInt(nodeId)];
 
       if (!nodeData) continue;
 

@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback, createContext } from "react";
 import { Graph } from "./Graph";
 import { Search } from "./Search";
 import { DEFAULT_SETTINGS, SettingsData } from "./settings";
-import { Data } from "./data";
+import { Data, nodeIdToInt } from "./data";
 
 import { Sidebar } from "./sidebar/Sidebar";
 
@@ -185,7 +185,7 @@ function useSelectedIdAndFilterAndFocus(data: Data): {
     (newId: string | null) => {
       setSelectedIdRaw(newId);
       if (newId) {
-        const nodeData = data.nodes[parseInt(newId, 10)];
+        const nodeData = data.nodes[nodeIdToInt(newId)];
         if (nodeData) {
           setFilter(nodeData.label);
           document.title = `genres in space: ${nodeData.label}`;

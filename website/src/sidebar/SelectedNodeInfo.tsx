@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useCosmograph } from "@cosmograph/react";
 
-import { NodeData, EdgeData } from "../data";
+import { NodeData, EdgeData, nodeIdToInt } from "../data";
 import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
 
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
@@ -98,7 +98,7 @@ function ZoomToNodeButton({ node }: { node: NodeData }) {
       className="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-white text-xs rounded transition-colors duration-200 flex items-center gap-1 shadow-sm"
       onClick={() => {
         if (cosmograph) {
-          const targetNodeData = cosmograph.nodes?.[parseInt(node.id, 10)];
+          const targetNodeData = cosmograph.nodes?.[nodeIdToInt(node.id)];
           if (targetNodeData) {
             cosmograph.cosmograph?.zoomToNode(targetNodeData);
           }
@@ -327,7 +327,7 @@ function Connections({
           >
             <ul>
               {nodeIds.map((id) => {
-                const otherNode = nodes[parseInt(id, 10)];
+                const otherNode = nodes[nodeIdToInt(id)];
                 return (
                   otherNode && (
                     <li key={id} className="flex items-center">

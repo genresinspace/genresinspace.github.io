@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { NodeData } from "./data";
+import { NodeData, nodeIdToInt } from "./data";
 import { stripGenreNamePrefixFromDescription } from "./util";
 
 import { GenreLink } from "./components/links/GenreLink";
@@ -26,7 +26,7 @@ export function Search({
     }
 
     // Check if current filter matches selected node before showing results
-    const selectedNode = selectedId ? nodes[parseInt(selectedId, 10)] : null;
+    const selectedNode = selectedId ? nodes[nodeIdToInt(selectedId)] : null;
     if (selectedNode?.label.toLowerCase() === filter.toLowerCase()) {
       return [];
     }
