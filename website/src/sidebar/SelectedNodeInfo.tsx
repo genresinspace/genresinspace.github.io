@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useCosmograph } from "@cosmograph/react";
 
 import { NodeData, EdgeData } from "../data";
@@ -31,70 +31,118 @@ export function SelectedNodeInfo({
   const cosmograph = useCosmograph();
 
   if (!selectedId) {
-    return <p>No node selected</p>;
+    return (
+      <div className="flex items-center justify-center h-full p-6 text-gray-400">
+        <p className="text-center">
+          No genre selected. Click on a node in the graph to view details.
+        </p>
+      </div>
+    );
   }
 
   const node = nodes.find((n) => n.id === selectedId);
   if (!node) return null;
 
   return (
-    <div className="flex flex-col gap-4">
-      <div>
-        <WikipediaLink pageTitle={node.page_title}>
-          <h2 className="text-xl font-bold">{node.label}</h2>
-        </WikipediaLink>
-        <small>
-          Last updated:{" "}
-          <em>{new Date(node.last_revision_date).toLocaleString()}</em>
-        </small>
-        <button
-          className="w-full p-1 my-2 bg-neutral-800 hover:bg-neutral-700 text-white text-xs rounded"
-          onClick={() => {
-            if (cosmograph) {
-              const targetNodeData = cosmograph.nodes?.[parseInt(node.id, 10)];
-              if (targetNodeData) {
-                cosmograph.cosmograph?.zoomToNode(targetNodeData);
-              }
-            }
-          }}
-        >
-          Zoom to
-        </button>
-        {shouldShowMixes &&
-          // TODO: proper switcher between videos
-          (node.mixes ? (
-            "help_reason" in node.mixes ? (
-              <HelpNeededForMix reason={node.mixes.help_reason} />
+    <div className="flex flex-col gap-6 animate-fadeIn">
+      <div className="space-y-4">
+        <div className="border-b border-neutral-700 pb-3">
+          <WikipediaLink pageTitle={node.page_title}>
+            <h2 className="text-3xl font-bold text-center">{node.label}</h2>
+          </WikipediaLink>
+
+          <div className="flex justify-between items-center mt-1">
+            <small className="text-neutral-400">
+              Updated:{" "}
+              <em>{new Date(node.last_revision_date).toLocaleDateString()}</em>
+            </small>
+
+            <button
+              className="px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-white text-xs rounded transition-colors duration-200 flex items-center gap-1 shadow-sm"
+              onClick={() => {
+                if (cosmograph) {
+                  const targetNodeData =
+                    cosmograph.nodes?.[parseInt(node.id, 10)];
+                  if (targetNodeData) {
+                    cosmograph.cosmograph?.zoomToNode(targetNodeData);
+                  }
+                }
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              Zoom to node
+            </button>
+          </div>
+        </div>
+
+        {shouldShowMixes && (
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold mb-2 text-neutral-200">
+              Featured Mix
+            </h3>
+            {node.mixes ? (
+              "help_reason" in node.mixes ? (
+                <HelpNeededForMix reason={node.mixes.help_reason} />
+              ) : (
+                node.mixes.map((mix, i) => (
+                  <div
+                    key={i}
+                    className="mb-4 bg-neutral-800 rounded-lg overflow-hidden shadow-md"
+                  >
+                    {"video" in mix ? (
+                      <YouTubeEmbed videoId={mix.video} />
+                    ) : (
+                      <YouTubeEmbed playlistId={mix.playlist} />
+                    )}
+                    {mix.note && (
+                      <Notice colour="blue">
+                        <Wikitext wikitext={mix.note} />
+                      </Notice>
+                    )}
+                  </div>
+                ))
+              )
             ) : (
-              node.mixes.map((mix, i) => (
-                <React.Fragment key={i}>
-                  {"video" in mix ? (
-                    <YouTubeEmbed videoId={mix.video} className="mb-2" />
-                  ) : (
-                    <YouTubeEmbed playlistId={mix.playlist} className="mb-2" />
-                  )}
-                  {mix.note && (
-                    <Notice colour="blue">
-                      <Wikitext wikitext={mix.note} />
-                    </Notice>
-                  )}
-                </React.Fragment>
-              ))
-            )
-          ) : (
-            <Notice colour="red">
-              There's no mix selected for this genre yet. If you know of a good
-              mix or playlist that represents this genre well, please let me
-              know - see the FAQ on how to contribute!
-            </Notice>
-          ))}
+              <Notice colour="red">
+                <p>
+                  There's no mix selected for this genre yet. If you know of a
+                  good mix or playlist that represents this genre well, please
+                  let me know - see the FAQ on how to contribute!
+                </p>
+              </Notice>
+            )}
+          </div>
+        )}
+
         {node.wikitext_description && (
-          <WikitextTruncateAtNewline
-            wikitext={node.wikitext_description}
-            expandable={true}
-          />
+          <div>
+            <h3 className="text-lg font-semibold mb-2 text-neutral-200">
+              Description
+            </h3>
+            <div className="border border-neutral-800 rounded-md p-4">
+              <WikitextTruncateAtNewline
+                wikitext={node.wikitext_description}
+                expandable={true}
+              />
+            </div>
+          </div>
         )}
       </div>
+
       <Connections
         node={node}
         nodes={nodes}
@@ -228,35 +276,61 @@ function Connections({
           : []),
       ]
     );
-  }, [connectionDescriptions, node, edges]);
+  }, [connectionDescriptions, node, edges, selectedId]);
 
-  return connections.map(({ textParts, type, nodeIds }, index) => (
-    <Collapsible
-      title={<ConnectionHeading textParts={textParts} type={type} />}
-      defaultOpen={true}
-      key={index}
-    >
-      <ul className="list-disc pl-5">
-        {nodeIds.map((id) => {
-          const otherNode = nodes[parseInt(id, 10)];
-          return (
-            otherNode && (
-              <li key={id}>
-                <GenreLink
-                  genreId={id}
-                  pageTitle={otherNode.page_title}
-                  onMouseEnter={() => setFocusedId(id)}
-                  onMouseLeave={() => setFocusedId(null)}
-                >
-                  {otherNode.label || id}
-                </GenreLink>
-              </li>
-            )
-          );
-        })}
-      </ul>
-    </Collapsible>
-  ));
+  if (connections.length === 0) {
+    return (
+      <div className="text-neutral-400 text-sm p-3 border border-dashed border-neutral-700 rounded-lg text-center">
+        This genre has no documented connections to other genres.
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <h3 className="text-lg font-semibold text-neutral-200">Connections</h3>
+      <div className="grid gap-2">
+        {connections.map(({ textParts, type, nodeIds }, index) => (
+          <Collapsible
+            title={<ConnectionHeading textParts={textParts} type={type} />}
+            defaultOpen={true}
+            key={index}
+          >
+            <ul>
+              {nodeIds.map((id) => {
+                const otherNode = nodes[parseInt(id, 10)];
+                return (
+                  otherNode && (
+                    <li key={id} className="flex items-center">
+                      <div
+                        className="w-2 h-2 rounded-full mr-2"
+                        style={{
+                          backgroundColor:
+                            type === "Derivative"
+                              ? derivativeColour()
+                              : type === "Subgenre"
+                                ? subgenreColour()
+                                : fusionGenreColour(),
+                        }}
+                      />
+                      <GenreLink
+                        genreId={id}
+                        pageTitle={otherNode.page_title}
+                        onMouseEnter={() => setFocusedId(id)}
+                        onMouseLeave={() => setFocusedId(null)}
+                      >
+                        {otherNode.label || id}
+                      </GenreLink>
+                    </li>
+                  )
+                );
+              })}
+            </ul>
+          </Collapsible>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function ConnectionHeading({
@@ -266,28 +340,93 @@ function ConnectionHeading({
   textParts: { type: string; content: string }[];
   type: EdgeData["ty"];
 }) {
-  return (
-    <>
-      {textParts.map((part, index) =>
-        part.type === "emphasis" ? (
-          <span
-            key={index}
-            className="font-bold"
-            style={{
-              color:
-                type === "Derivative"
-                  ? derivativeColour()
-                  : type === "Subgenre"
-                    ? subgenreColour()
-                    : fusionGenreColour(),
-            }}
+  const getIcon = () => {
+    switch (type) {
+      case "Derivative":
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            style={{ color: derivativeColour() }}
           >
-            {part.content}
-          </span>
-        ) : (
-          part.content
-        )
-      )}
-    </>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 5l7 7-7 7M5 5l7 7-7 7"
+            />
+          </svg>
+        );
+      case "Subgenre":
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            style={{ color: subgenreColour() }}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+            />
+          </svg>
+        );
+      case "FusionGenre":
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            style={{ color: fusionGenreColour() }}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
+            />
+          </svg>
+        );
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      {getIcon()}
+      <div>
+        {textParts.map((part, index) =>
+          part.type === "emphasis" ? (
+            <span
+              key={index}
+              className="font-bold"
+              style={{
+                color:
+                  type === "Derivative"
+                    ? derivativeColour()
+                    : type === "Subgenre"
+                      ? subgenreColour()
+                      : fusionGenreColour(),
+              }}
+            >
+              {part.content}
+            </span>
+          ) : (
+            part.content
+          )
+        )}
+      </div>
+    </div>
   );
 }
