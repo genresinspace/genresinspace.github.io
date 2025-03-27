@@ -20,18 +20,18 @@ export function Collapsible({
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center gap-2 text-md font-bold p-1 px-2 bg-neutral-800/50 hover:bg-neutral-800 transition-colors"
+        className="w-full flex items-start gap-2 text-md font-bold p-1 px-2 bg-neutral-800/50 hover:bg-neutral-800 transition-colors"
         aria-expanded={isOpen}
       >
         <span
-          className="text-sm w-4 flex-shrink-0 transition-transform duration-200"
+          className="text-sm w-4 flex-shrink-0 transition-transform duration-200 mt-1"
           style={{
             transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)",
           }}
         >
           ▼
         </span>
-        <span>{title}</span>
+        <span className="text-left">{title}</span>
       </button>
       {isOpen && <div className="p-3">{children}</div>}
     </div>
