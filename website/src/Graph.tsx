@@ -8,6 +8,7 @@ import {
   NodeColourLightness,
   NodeData,
   nodeIdToInt,
+  useDataContext,
 } from "./data";
 import { SettingsData } from "./settings";
 
@@ -26,17 +27,16 @@ export const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
 /** Cosmograph component wired up to display the data. Depends on a Cosmograph context in the parent. */
 export function Graph({
   settings,
-  maxDegree,
   selectedId,
   setSelectedId,
   focusedId,
 }: {
   settings: SettingsData;
-  maxDegree: number;
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
   focusedId: string | null;
 }) {
+  const { max_degree: maxDegree } = useDataContext();
   const { cosmograph, nodes, links } = useCosmograph<NodeData, EdgeData>()!;
 
   // Calculate connected paths and their distances

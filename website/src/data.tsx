@@ -1,3 +1,5 @@
+import { createContext, useContext } from "react";
+
 /** The complete data dump (data.json). */
 export type Data = {
   /** The Wikipedia domain. */
@@ -15,6 +17,13 @@ export type Data = {
   /** The maximum degree of any node in the graph. */
   max_degree: number;
 };
+
+/** Global context for the data. */
+export const DataContext = createContext<Data | null>(null);
+/** Hook to get the global graph data ({@link Data}).
+ *
+ * This assumes the data has already been provided; the result is empty if not. */
+export const useDataContext = () => useContext(DataContext) || ({} as Data);
 
 /** A node in the graph. */
 export type NodeData = {

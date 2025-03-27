@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import { WikipediaLink } from "./WikipediaLink";
-import { LinksToPageIdContext } from "../../../App";
 import { GenreLink } from "../../links/GenreLink";
+import { NodeData, nodeIdToInt, useDataContext } from "../../../data";
 
 /**
  * A link to a Wikipedia page, or a genre link if the page title is a genre.
@@ -9,11 +8,14 @@ import { GenreLink } from "../../links/GenreLink";
 export function WikipediaMaybeGenreLink({
   pageTitle,
   ...rest
-}: React.ComponentProps<typeof WikipediaLink>) {
-  const linksToPageId = useContext(LinksToPageIdContext);
-  const pageId = linksToPageId[pageTitle.toLowerCase()];
-  if (pageId) {
-    return <GenreLink genreId={pageId} pageTitle={pageTitle} {...rest} />;
+}: React.ComponentProps<typeof WikipediaLink> & {
+  nodes: NodeData[];
+}) {
+  const { links_to_page_ids: linksToPageId, nodes } = useDataContext();
+  const nodeId = nodeIdToInt(linksToPageId[pageTitle.toLowerCase()]);
+  const node = nodes[nodeId];
+  if (node) {
+    return <GenreLink node={node} {...rest} />;
   } else {
     return <WikipediaLink {...rest} pageTitle={pageTitle} />;
   }

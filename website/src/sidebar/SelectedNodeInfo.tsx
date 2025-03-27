@@ -7,6 +7,7 @@ import {
   nodeIdToInt,
   nodeColour,
   NodeColourLightness,
+  useDataContext,
 } from "../data";
 import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
 
@@ -24,18 +25,14 @@ import { Collapsible } from "../components/Collapsible";
 export function SelectedNodeInfo({
   selectedId,
   setFocusedId,
-  nodes,
-  edges,
   shouldShowMixes,
-  maxDegree,
 }: {
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
-  nodes: NodeData[];
-  edges: EdgeData[];
   shouldShowMixes: boolean;
-  maxDegree: number;
 }) {
+  const { nodes, edges, max_degree: maxDegree } = useDataContext();
+
   if (!selectedId) {
     return <EmptyState />;
   }
@@ -99,7 +96,7 @@ function GenreHeader({
       <div className="rounded overflow-hidden">
         <WikipediaLink
           pageTitle={node.page_title}
-          className="bg-[var(--node-color)] hover:bg-[var(--node-color-hover)] text-white py-2 block text-3xl font-bold text-center"
+          className="bg-[var(--node-color)] hover:bg-[var(--node-color-hover)] text-white px-2 py-2 block text-3xl font-bold text-center"
           nostyle={true}
           style={{
             ["--node-color" as string]: selectedNodeColour,
@@ -187,7 +184,11 @@ function FeaturedMix({ node }: { node: NodeData }) {
 }
 
 /** Individual mix item with video or playlist */
-function MixItem({ mix }: { mix: any }) {
+function MixItem({
+  mix,
+}: {
+  mix: { playlist: string; note?: string } | { video: string; note?: string };
+}) {
   return (
     <div className="bg-neutral-800 rounded-lg overflow-hidden shadow-md">
       {"video" in mix ? (
@@ -367,8 +368,7 @@ function Connections({
                   otherNode && (
                     <li key={id}>
                       <GenreLink
-                        genreId={id}
-                        pageTitle={otherNode.page_title}
+                        node={otherNode}
                         onMouseEnter={() => setFocusedId(id)}
                         onMouseLeave={() => setFocusedId(null)}
                       >

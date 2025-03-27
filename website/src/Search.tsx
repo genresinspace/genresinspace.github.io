@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { NodeData, nodeIdToInt } from "./data";
+import { nodeIdToInt, useDataContext } from "./data";
 import { stripGenreNamePrefixFromDescription } from "./util";
 
 import { GenreLink } from "./components/links/GenreLink";
@@ -10,16 +10,16 @@ import { WikitextTruncateAtLength } from "./components/wikipedia/wikitexts/Wikit
 export function Search({
   selectedId,
   setFocusedId,
-  nodes,
   filter,
   setFilter,
 }: {
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
-  nodes: NodeData[];
   filter: string;
   setFilter: (filter: string) => void;
 }) {
+  const { nodes, max_degree: maxDegree } = useDataContext();
+
   const results = useMemo(() => {
     if (filter.length < 2) {
       return [];
@@ -78,9 +78,7 @@ export function Search({
             onMouseEnter={() => setFocusedId(node.id)}
             onMouseLeave={() => setFocusedId(null)}
           >
-            <GenreLink genreId={node.id} pageTitle={node.page_title}>
-              {node.label}
-            </GenreLink>
+            <GenreLink node={node}>{node.label}</GenreLink>
             <small className="block">
               <WikitextTruncateAtLength
                 wikitext={strippedDescription}

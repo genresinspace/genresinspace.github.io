@@ -2,11 +2,11 @@ import { useState } from "react";
 
 import commit from "../commit.json";
 import {
-  EdgeData,
   NodeColourLightness,
   NodeData,
   REPO_LINK,
   nodeColour,
+  useDataContext,
 } from "../data";
 import { SettingsData } from "../settings";
 import { stripGenreNamePrefixFromDescription } from "../util";
@@ -23,22 +23,20 @@ import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/Wiki
 
 /** The sidebar panel for information about the project. */
 export function ProjectInformation({
-  nodes,
-  edges,
-  databaseName,
-  dumpDate,
   settings,
   setSettings,
-  maxDegree,
 }: {
-  nodes: NodeData[];
-  edges: EdgeData[];
-  databaseName: string;
-  dumpDate: string;
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
-  maxDegree: number;
 }) {
+  const {
+    nodes,
+    edges,
+    wikipedia_db_name: databaseName,
+    dump_date: dumpDate,
+    max_degree: maxDegree,
+  } = useDataContext();
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">

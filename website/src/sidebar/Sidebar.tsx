@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 import { SettingsData } from "../settings";
-import { NodeData, EdgeData } from "../data";
 
 import { Settings } from "./Settings";
 import { SelectedNodeInfo } from "./SelectedNodeInfo";
@@ -11,23 +10,13 @@ import { ProjectInformation } from "./ProjectInformation";
 export function Sidebar({
   settings,
   setSettings,
-  databaseName,
-  dumpDate,
   selectedId,
   setFocusedId,
-  nodes,
-  edges,
-  maxDegree,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
-  databaseName: string;
-  dumpDate: string;
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
-  nodes: NodeData[];
-  edges: EdgeData[];
-  maxDegree: number;
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "settings"
@@ -122,23 +111,12 @@ export function Sidebar({
               ))}
           </div>
           {activeTab === "information" ? (
-            <ProjectInformation
-              nodes={nodes}
-              edges={edges}
-              databaseName={databaseName}
-              dumpDate={dumpDate}
-              settings={settings}
-              setSettings={setSettings}
-              maxDegree={maxDegree}
-            />
+            <ProjectInformation settings={settings} setSettings={setSettings} />
           ) : activeTab === "selected" ? (
             <SelectedNodeInfo
               selectedId={selectedId}
               setFocusedId={setFocusedId}
-              nodes={nodes}
-              edges={edges}
               shouldShowMixes={settings.general.showMixes}
-              maxDegree={maxDegree}
             />
           ) : (
             <Settings settings={settings} setSettings={setSettings} />

@@ -4,18 +4,16 @@
  * Will navigate to the genre in the graph.
  */
 export function GenreLink({
-  genreId,
-  pageTitle,
+  node,
   ...props
 }: Omit<React.ComponentProps<"a">, "href"> & {
-  genreId: string;
-  pageTitle: string;
+  node: NodeData;
 }) {
   return (
     <span>
       <a
         {...props}
-        href={`#${genreId}`}
+        href={`#${node.id}`}
         className={`text-teal-400 ${props.className ?? ""}`}
       >
         <span className="inline-flex items-center hover:underline">

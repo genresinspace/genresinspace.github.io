@@ -1,10 +1,4 @@
-import { createContext, useContext } from "react";
-
-/** Stores metadata about the Wikipedia dump in use. */
-export const WikipediaMetaContext = createContext<{
-  dbName: string;
-  domain: string;
-} | null>(null);
+import { useDataContext } from "../../data";
 
 /**
  * @param {string} dumpDate - The date of the Wikipedia dump in YYYY-MM-DD format
@@ -39,9 +33,9 @@ export function wikiPageUrl(wikiUrl: string, pageTitle: string): string {
  * @returns The base Wikipedia URL or null if no domain is found in context
  */
 export const useWikiUrl = () => {
-  const meta = useContext(WikipediaMetaContext);
-  if (!meta) {
+  const { wikipedia_domain: domain } = useDataContext();
+  if (!domain) {
     return null;
   }
-  return wikiUrl(meta.domain);
+  return wikiUrl(domain);
 };

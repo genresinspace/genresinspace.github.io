@@ -1,18 +1,13 @@
 import { CosmographProvider } from "@cosmograph/react";
 
-import { useEffect, useState, useCallback, createContext } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import { Graph } from "./Graph";
 import { Search } from "./Search";
 import { DEFAULT_SETTINGS, SettingsData } from "./settings";
-import { Data, nodeIdToInt } from "./data";
+import { Data, nodeIdToInt, DataContext } from "./data";
 
 import { Sidebar } from "./sidebar/Sidebar";
-
-import { WikipediaMetaContext } from "./components/wikipedia/urls";
-
-/** Maps a Wikipedia link to a genre ID */
-export const LinksToPageIdContext = createContext<Record<string, string>>({});
 
 /** The main app component */
 function App() {
@@ -106,45 +101,34 @@ function LoadedApp({ data }: { data: Data }) {
   const [settings, setSettings] = useState<SettingsData>(DEFAULT_SETTINGS);
 
   return (
-    <WikipediaMetaContext.Provider
-      value={{ dbName: data.wikipedia_db_name, domain: data.wikipedia_domain }}
-    >
-      <LinksToPageIdContext.Provider value={data.links_to_page_ids}>
-        <div className="flex w-screen h-screen">
-          <CosmographProvider nodes={data.nodes} links={data.edges}>
-            <div className="flex-1 h-full relative">
-              <Graph
-                settings={settings}
-                maxDegree={data.max_degree}
-                selectedId={selectedId}
-                setSelectedId={setSelectedId}
-                focusedId={focusedId}
-              />
-              <div className="absolute top-4 left-4 z-50 w-sm text-white">
-                <Search
-                  selectedId={selectedId}
-                  setFocusedId={setFocusedId}
-                  nodes={data.nodes}
-                  filter={filter}
-                  setFilter={setFilter}
-                />
-              </div>
-            </div>
-            <Sidebar
+    <DataContext.Provider value={data}>
+      <div className="flex w-screen h-screen">
+        <CosmographProvider nodes={data.nodes} links={data.edges}>
+          <div className="flex-1 h-full relative">
+            <Graph
               settings={settings}
-              setSettings={setSettings}
-              databaseName={data.wikipedia_db_name}
-              dumpDate={data.dump_date}
               selectedId={selectedId}
-              setFocusedId={setFocusedId}
-              nodes={data.nodes}
-              edges={data.edges}
-              maxDegree={data.max_degree}
+              setSelectedId={setSelectedId}
+              focusedId={focusedId}
             />
-          </CosmographProvider>
-        </div>
-      </LinksToPageIdContext.Provider>
-    </WikipediaMetaContext.Provider>
+            <div className="absolute top-4 left-4 z-50 w-sm text-white">
+              <Search
+                selectedId={selectedId}
+                setFocusedId={setFocusedId}
+                filter={filter}
+                setFilter={setFilter}
+              />
+            </div>
+          </div>
+          <Sidebar
+            settings={settings}
+            setSettings={setSettings}
+            selectedId={selectedId}
+            setFocusedId={setFocusedId}
+          />
+        </CosmographProvider>
+      </div>
+    </DataContext.Provider>
   );
 }
 
