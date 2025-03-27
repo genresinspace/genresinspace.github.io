@@ -9,6 +9,7 @@ interface TooltipProps {
   children: React.ReactNode;
 }
 
+/** A tooltip that appears when hovering over a node. */
 export function Tooltip({
   position,
   isOpen,

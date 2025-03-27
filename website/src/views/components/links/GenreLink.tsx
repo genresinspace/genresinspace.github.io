@@ -4,9 +4,12 @@ import {
   NodeData,
   useDataContext,
 } from "../../../data";
-import { useState, useRef } from "react";
+import { useState, useRef, createContext, useContext } from "react";
 import { Tooltip } from "../../components/Tooltip";
 import { WikitextTruncateAtLength } from "../wikipedia/wikitexts/WikitextTruncateAtLength";
+
+/** A context to track tooltip nesting. */
+export const TooltipContext = createContext(false);
 
 /**
  * A link to a genre.
@@ -26,14 +29,17 @@ export function GenreLink({
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const tooltipHoveredRef = useRef(false);
 
+  // Check if we're already inside a tooltip
+  const insideTooltip = useContext(TooltipContext);
+
   const [genreColour, genreColourHover] = [
     NodeColourLightness.LinkText,
     NodeColourLightness.LinkTextHover,
   ].map((lightness) => nodeColour(node, maxDegree, lightness, 30));
 
   const handleMouseEnter = (e: React.MouseEvent) => {
-    if (hoverPreview) {
-      // Set the tooltip position only when first entering the link
+    // Only show preview if we're not already inside a tooltip
+    if (hoverPreview && !insideTooltip) {
       setTooltipPosition({ x: e.clientX, y: e.clientY });
       setShowPreview(true);
     }
@@ -73,17 +79,20 @@ export function GenreLink({
         ♪ {props.children}
       </a>
 
-      {node.wikitext_description && (
+      {node.wikitext_description && showPreview && (
         <Tooltip
           position={tooltipPosition}
           isOpen={showPreview}
           onMouseEnter={handleTooltipMouseEnter}
           onMouseLeave={handleTooltipMouseLeave}
         >
-          <WikitextTruncateAtLength
-            wikitext={node.wikitext_description}
-            length={100}
-          />
+          {/* Provide context value for nested GenreLinks */}
+          <TooltipContext.Provider value={true}>
+            <WikitextTruncateAtLength
+              wikitext={node.wikitext_description}
+              length={100}
+            />
+          </TooltipContext.Provider>
         </Tooltip>
       )}
     </>
