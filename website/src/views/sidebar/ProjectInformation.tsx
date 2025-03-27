@@ -95,17 +95,32 @@ function RandomGenre({
 
   return (
     <span className="flex">
-      <button
-        onClick={() => (window.location.hash = `${randomId}`)}
-        className="block p-2 bg-(--node-color) hover:bg-(--node-color-hover) text-white rounded-l-md flex-1 min-h-[2rem] text-left cursor-pointer"
-        style={{
-          ["--node-color" as string]: randomNodeColour,
-          ["--node-color-hover" as string]: randomNodeColourHover,
-        }}
-      >
-        <span className="font-bold">{randomNode.label}</span>
+      <span className="flex flex-col">
+        <span className="flex flex-row">
+          <button
+            onClick={() => (window.location.hash = `${randomId}`)}
+            className="flex-1 min-h-[2rem] text-left cursor-pointer"
+            style={{
+              ["--node-color" as string]: randomNodeColour,
+              ["--node-color-hover" as string]: randomNodeColourHover,
+            }}
+          >
+            <span className="font-bold block p-2 bg-(--node-color) hover:bg-(--node-color-hover) text-white">
+              {randomNode.label}
+            </span>
+          </button>
+          <button
+            onClick={() =>
+              setRandomId(Math.floor(Math.random() * nodes.length))
+            }
+            className="p-2 bg-amber-700 hover:bg-amber-600 w-8 flex items-center justify-center text-white transition-colors"
+            title="Get another random genre"
+          >
+            🎲
+          </button>
+        </span>
         {randomNode.wikitext_description && (
-          <span className="block text-xs">
+          <span className="block text-xs p-2 border-b border-l border-r border-neutral-800">
             <WikitextTruncateAtLength
               wikitext={stripGenreNamePrefixFromDescription(
                 randomNode.label,
@@ -115,14 +130,7 @@ function RandomGenre({
             />
           </span>
         )}
-      </button>
-      <button
-        onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
-        className="p-2 bg-amber-700 hover:bg-amber-600 rounded-r-md w-8 self-stretch flex items-center justify-center text-white transition-colors"
-        title="Get another random genre"
-      >
-        🎲
-      </button>
+      </span>
     </span>
   );
 }
