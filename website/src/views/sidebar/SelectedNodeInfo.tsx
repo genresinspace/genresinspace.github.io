@@ -369,26 +369,29 @@ function Connections({
     const outbound = getConnections(node, edges, false);
 
     return connectionDescriptions.flatMap(
-      ({ type, inbound: inboundDesc, outbound: outboundDesc }) => [
-        ...(inbound[type]?.length > 0
-          ? [
-              {
-                textParts: inboundDesc,
-                type,
-                nodeIds: inbound[type],
-              },
-            ]
-          : []),
-        ...(outbound[type]?.length > 0
-          ? [
-              {
-                textParts: outboundDesc,
-                type,
-                nodeIds: outbound[type],
-              },
-            ]
-          : []),
-      ]
+      ({ type, inbound: inboundDesc, outbound: outboundDesc }) => {
+        const createConnectionItem = (
+          nodeIds: string[] | undefined,
+          textParts: { type: string; content: string }[]
+        ) => {
+          if (!nodeIds?.length) return [];
+
+          return [
+            {
+              textParts,
+              type,
+              nodes: nodeIds.map((id) => {
+                return nodes[nodeIdToInt(id)];
+              }),
+            },
+          ];
+        };
+
+        return [
+          ...createConnectionItem(inbound[type], inboundDesc),
+          ...createConnectionItem(outbound[type], outboundDesc),
+        ];
+      }
     );
   }, [connectionDescriptions, node, edges, selectedId]);
 
@@ -421,7 +424,7 @@ function Connections({
         </svg>
       }
     >
-      {connections.map(({ textParts, type, nodeIds }, index) => (
+      {connections.map(({ textParts, type, nodes }, index) => (
         <Collapsible
           title={<ConnectionHeading textParts={textParts} type={type} />}
           defaultOpen={true}
@@ -429,17 +432,16 @@ function Connections({
           showBorder={false}
         >
           <ul>
-            {nodeIds.map((id) => {
-              const otherNode = nodes[nodeIdToInt(id)];
+            {nodes.map((otherNode) => {
               return (
                 otherNode && (
-                  <li key={id}>
+                  <li key={otherNode.id}>
                     <GenreLink
                       node={otherNode}
-                      onMouseEnter={() => setFocusedId(id)}
+                      onMouseEnter={() => setFocusedId(otherNode.id)}
                       onMouseLeave={() => setFocusedId(null)}
                     >
-                      {otherNode.label || id}
+                      {otherNode.label || otherNode.id}
                     </GenreLink>
                   </li>
                 )
