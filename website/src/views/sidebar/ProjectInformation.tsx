@@ -38,28 +38,30 @@ export function ProjectInformation({
   } = useDataContext();
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <p>
-          A graph of every music genre on English Wikipedia
-          <Footnote>
-            {nodes.length} genres, {edges.length} connections, as of{" "}
-            <EL href={dumpUrl(databaseName, dumpDate)}>{dumpDate}</EL>.
-          </Footnote>
-          , by <EL href="https://philpax.me">Philpax</EL>.
-        </p>
-        <p>Try clicking on a genre, or try a random genre: </p>
-        <RandomGenre nodes={nodes} maxDegree={maxDegree} />
-        <p>
-          <EL href={REPO_LINK}>Source code</EL>.{" "}
-          <EL href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
-            Blog post
-          </EL>
-          , if you're curious. Inspired by{" "}
-          <EL href="https://eightyeightthirty.one/">8831</EL> and{" "}
-          <EL href="https://musicmap.info/">musicmap</EL>.
-        </p>
-      </div>
+    <div className="flex flex-col gap-4">
+      <Section heading="About">
+        <div className="flex flex-col gap-2 p-3">
+          <p>
+            A graph of every music genre on English Wikipedia
+            <Footnote>
+              {nodes.length} genres, {edges.length} connections, as of{" "}
+              <EL href={dumpUrl(databaseName, dumpDate)}>{dumpDate}</EL>.
+            </Footnote>
+            , by <EL href="https://philpax.me">Philpax</EL>. Inspired by{" "}
+            <EL href="https://eightyeightthirty.one/">8831</EL> and{" "}
+            <EL href="https://musicmap.info/">musicmap</EL>.
+          </p>
+          <p>
+            <EL href={REPO_LINK}>Source code</EL>.{" "}
+            <EL href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
+              Blog post
+            </EL>
+            , if you're curious.
+          </p>
+          <p>Try clicking on a genre, or check out a random genre: </p>
+          <RandomGenre nodes={nodes} maxDegree={maxDegree} />
+        </div>
+      </Section>
       <Section heading="Legend">
         <Legend settings={settings} setSettings={setSettings} />
       </Section>
