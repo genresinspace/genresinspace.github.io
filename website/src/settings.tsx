@@ -9,6 +9,7 @@ export type SettingsData = {
     zoomOnSelect: boolean;
     showLabels: boolean;
     showMixes: boolean;
+    autoplayMixes: boolean;
     maxInfluenceDistance: number;
     arrowSizeScale: number;
   };
@@ -74,6 +75,13 @@ export const GENERAL_CONTROLS: GeneralControlDesc[] = [
     label: "Show mixes",
     description: "Whether or not to show mixes for each genre.",
     default: true,
+  },
+  {
+    type: "boolean",
+    name: "autoplayMixes",
+    label: "Autoplay mixes",
+    description: "Whether or not to autoplay mixes when a genre is selected.",
+    default: false,
   },
   {
     type: "number",

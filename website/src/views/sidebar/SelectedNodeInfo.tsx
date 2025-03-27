@@ -27,10 +27,12 @@ export function SelectedNodeInfo({
   selectedId,
   setFocusedId,
   shouldShowMixes,
+  shouldAutoplayMixes,
 }: {
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   shouldShowMixes: boolean;
+  shouldAutoplayMixes: boolean;
 }) {
   const { nodes, edges, max_degree: maxDegree } = useDataContext();
 
@@ -45,7 +47,9 @@ export function SelectedNodeInfo({
     <div className="flex flex-col gap-4">
       <GenreHeader node={node} maxDegree={maxDegree} />
 
-      {shouldShowMixes && <FeaturedMix node={node} />}
+      {shouldShowMixes && (
+        <FeaturedMix node={node} shouldAutoplayMixes={shouldAutoplayMixes} />
+      )}
 
       {node.wikitext_description && (
         <GenreDescription description={node.wikitext_description} />
@@ -159,7 +163,13 @@ function ZoomToNodeButton({ node }: { node: NodeData }) {
 }
 
 /** Featured mix section */
-function FeaturedMix({ node }: { node: NodeData }) {
+function FeaturedMix({
+  node,
+  shouldAutoplayMixes,
+}: {
+  node: NodeData;
+  shouldAutoplayMixes: boolean;
+}) {
   return (
     <Section
       heading="Featured Mix"
@@ -185,7 +195,9 @@ function FeaturedMix({ node }: { node: NodeData }) {
         "help_reason" in node.mixes ? (
           <HelpNeededForMix reason={node.mixes.help_reason} />
         ) : (
-          node.mixes.map((mix, i) => <MixItem key={i} mix={mix} />)
+          node.mixes.map((mix, i) => (
+            <MixItem key={i} mix={mix} autoplay={shouldAutoplayMixes} />
+          ))
         )
       ) : (
         <Notice colour="red">
@@ -203,15 +215,17 @@ function FeaturedMix({ node }: { node: NodeData }) {
 /** Individual mix item with video or playlist */
 function MixItem({
   mix,
+  autoplay,
 }: {
   mix: { playlist: string; note?: string } | { video: string; note?: string };
+  autoplay: boolean;
 }) {
   return (
     <div className="bg-neutral-800 overflow-hidden shadow-md">
       {"video" in mix ? (
-        <YouTubeEmbed videoId={mix.video} />
+        <YouTubeEmbed videoId={mix.video} autoplay={autoplay} />
       ) : (
-        <YouTubeEmbed playlistId={mix.playlist} />
+        <YouTubeEmbed playlistId={mix.playlist} autoplay={autoplay} />
       )}
       {mix.note && (
         <Notice colour="blue">

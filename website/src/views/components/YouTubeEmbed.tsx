@@ -3,17 +3,19 @@ export function YouTubeEmbed({
   videoId,
   playlistId,
   className,
+  autoplay = false,
 }: {
   videoId?: string;
   playlistId?: string;
   className?: string;
+  autoplay?: boolean;
 } & (
   | { videoId: string; playlistId?: never }
   | { videoId?: never; playlistId: string }
 )) {
   const embedUrl = playlistId
-    ? `https://www.youtube.com/embed/videoseries?list=${playlistId}`
-    : `https://www.youtube.com/embed/${videoId}`;
+    ? `https://www.youtube.com/embed/videoseries?list=${playlistId}${autoplay ? "&autoplay=1" : ""}`
+    : `https://www.youtube.com/embed/${videoId}${autoplay ? "?autoplay=1" : ""}`;
 
   return (
     <div
