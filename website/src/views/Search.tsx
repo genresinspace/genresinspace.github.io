@@ -78,7 +78,9 @@ export function Search({
             onMouseEnter={() => setFocusedId(node.id)}
             onMouseLeave={() => setFocusedId(null)}
           >
-            <GenreLink node={node}>{node.label}</GenreLink>
+            <GenreLink node={node} hoverPreview={false}>
+              {node.label}
+            </GenreLink>
             <small className="block">
               <WikitextTruncateAtLength
                 wikitext={strippedDescription}
