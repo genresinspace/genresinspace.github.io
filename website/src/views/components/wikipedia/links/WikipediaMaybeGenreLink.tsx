@@ -7,14 +7,33 @@ import { nodeIdToInt, useDataContext } from "../../../../data";
  */
 export function WikipediaMaybeGenreLink({
   pageTitle,
+  onMouseEnter,
+  onMouseLeave,
   ...rest
-}: React.ComponentProps<typeof WikipediaLink>) {
+}: React.ComponentProps<typeof WikipediaLink> & {
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}) {
   const { links_to_page_ids: linksToPageId, nodes } = useDataContext();
   const nodeId = nodeIdToInt(linksToPageId[pageTitle.toLowerCase()]);
   const node = nodes[nodeId];
   if (node) {
-    return <GenreLink node={node} {...rest} />;
+    return (
+      <GenreLink
+        node={node}
+        {...rest}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      />
+    );
   } else {
-    return <WikipediaLink {...rest} pageTitle={pageTitle} />;
+    return (
+      <WikipediaLink
+        {...rest}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        pageTitle={pageTitle}
+      />
+    );
   }
 }

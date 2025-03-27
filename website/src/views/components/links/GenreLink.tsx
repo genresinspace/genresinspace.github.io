@@ -25,7 +25,7 @@ export function GenreLink({
 }: Omit<React.ComponentProps<"a">, "href"> & {
   node: NodeData;
   hoverPreview?: boolean;
-  onMouseEnter?: (e: React.MouseEvent) => void;
+  onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
   const { max_degree: maxDegree } = useDataContext();
@@ -47,7 +47,7 @@ export function GenreLink({
       setTooltipPosition({ x: e.clientX, y: e.clientY });
       setShowPreview(true);
     }
-    onMouseEnterProp?.(e);
+    onMouseEnterProp?.();
   };
 
   const handleMouseLeave = () => {
