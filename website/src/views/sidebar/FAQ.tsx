@@ -1,4 +1,5 @@
 import { REPO_LINK } from "../../data";
+import { Collapsible } from "../components/Collapsible";
 
 import { ExternalLink } from "../components/links/ExternalLink";
 
@@ -246,12 +247,16 @@ export function FAQ({ dumpDate }: { dumpDate: string }) {
   ];
 
   return (
-    <div className="flex flex-col gap-4 text-sm">
+    <div className="flex flex-col text-sm">
       {faqs.map((faq, index) => (
-        <div key={index}>
-          <p className="font-bold">{faq.question}</p>
-          <div className="mt-1 flex flex-col gap-2">{faq.answer}</div>
-        </div>
+        <Collapsible
+          key={index}
+          title={<span className="text-left">{faq.question}</span>}
+          defaultOpen={true}
+          showBorder={false}
+        >
+          <div className="flex flex-col gap-2">{faq.answer}</div>
+        </Collapsible>
       ))}
     </div>
   );
