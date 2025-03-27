@@ -35,7 +35,7 @@ export function Notice({
   const classes = colourClasses[colour];
 
   return (
-    <div className={`${classes.bg} border-l-4 ${classes.border} p-3 mb-1`}>
+    <div className={`${classes.bg} border-l-4 ${classes.border} p-3`}>
       <p className={classes.text}>{children}</p>
     </div>
   );
