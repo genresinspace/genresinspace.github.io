@@ -20,7 +20,7 @@ import { WikipediaLink } from "../components/wikipedia/links/WikipediaLink";
 import { Wikitext } from "../components/wikipedia/wikitexts/Wikitext";
 import { WikitextTruncateAtNewline } from "../components/wikipedia/wikitexts/WikitextTruncateAtNewline";
 import { Collapsible } from "../components/Collapsible";
-import { SectionHeading } from "../components/SectionHeading";
+import { Section } from "../components/Section";
 
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
@@ -94,7 +94,7 @@ function GenreHeader({
 
   return (
     <div className="space-y-4">
-      <div className="rounded overflow-hidden">
+      <div className="overflow-hidden">
         <WikipediaLink
           pageTitle={node.page_title}
           className="bg-[var(--node-color)] hover:bg-[var(--node-color-hover)] text-white px-2 py-2 block text-3xl font-bold text-center"
@@ -161,28 +161,26 @@ function ZoomToNodeButton({ node }: { node: NodeData }) {
 /** Featured mix section */
 function FeaturedMix({ node }: { node: NodeData }) {
   return (
-    <div>
-      <SectionHeading
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-            />
-          </svg>
-        }
-      >
-        Featured Mix
-      </SectionHeading>
+    <Section
+      heading="Featured Mix"
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+          />
+        </svg>
+      }
+    >
       {node.mixes ? (
         "help_reason" in node.mixes ? (
           <HelpNeededForMix reason={node.mixes.help_reason} />
@@ -198,7 +196,7 @@ function FeaturedMix({ node }: { node: NodeData }) {
           </p>
         </Notice>
       )}
-    </div>
+    </Section>
   );
 }
 
@@ -209,7 +207,7 @@ function MixItem({
   mix: { playlist: string; note?: string } | { video: string; note?: string };
 }) {
   return (
-    <div className="bg-neutral-800 rounded-lg overflow-hidden shadow-md">
+    <div className="bg-neutral-800 overflow-hidden shadow-md">
       {"video" in mix ? (
         <YouTubeEmbed videoId={mix.video} />
       ) : (
@@ -227,30 +225,32 @@ function MixItem({
 /** Genre description section */
 function GenreDescription({ description }: { description: string }) {
   return (
-    <div>
-      <SectionHeading
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-            />
-          </svg>
-        }
-      >
-        Description
-      </SectionHeading>
-      <WikitextTruncateAtNewline wikitext={description} expandable={true} />
-    </div>
+    <Section
+      heading="Description"
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+          />
+        </svg>
+      }
+    >
+      <WikitextTruncateAtNewline
+        wikitext={description}
+        expandable={true}
+        className="p-3"
+      />
+    </Section>
   );
 }
 
@@ -380,64 +380,61 @@ function Connections({
 
   if (connections.length === 0) {
     return (
-      <div className="text-neutral-400 text-sm p-3 border border-dashed border-neutral-700 rounded-lg text-center">
+      <div className="text-neutral-400 text-sm p-3 border border-dashed border-neutral-700 text-center">
         This genre has no documented connections to other genres.
       </div>
     );
   }
 
   return (
-    <div className="space-y-3">
-      <SectionHeading
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M7 11l5-5m0 0l5 5m-5-5v12"
-            />
-          </svg>
-        }
-      >
-        Connections
-      </SectionHeading>
-      <div className="grid gap-2">
-        {connections.map(({ textParts, type, nodeIds }, index) => (
-          <Collapsible
-            title={<ConnectionHeading textParts={textParts} type={type} />}
-            defaultOpen={true}
-            key={index}
-          >
-            <ul>
-              {nodeIds.map((id) => {
-                const otherNode = nodes[nodeIdToInt(id)];
-                return (
-                  otherNode && (
-                    <li key={id}>
-                      <GenreLink
-                        node={otherNode}
-                        onMouseEnter={() => setFocusedId(id)}
-                        onMouseLeave={() => setFocusedId(null)}
-                      >
-                        {otherNode.label || id}
-                      </GenreLink>
-                    </li>
-                  )
-                );
-              })}
-            </ul>
-          </Collapsible>
-        ))}
-      </div>
-    </div>
+    <Section
+      heading="Connections"
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 11l5-5m0 0l5 5m-5-5v12"
+          />
+        </svg>
+      }
+    >
+      {connections.map(({ textParts, type, nodeIds }, index) => (
+        <Collapsible
+          title={<ConnectionHeading textParts={textParts} type={type} />}
+          defaultOpen={true}
+          key={index}
+          showBorder={false}
+        >
+          <ul>
+            {nodeIds.map((id) => {
+              const otherNode = nodes[nodeIdToInt(id)];
+              return (
+                otherNode && (
+                  <li key={id}>
+                    <GenreLink
+                      node={otherNode}
+                      onMouseEnter={() => setFocusedId(id)}
+                      onMouseLeave={() => setFocusedId(null)}
+                    >
+                      {otherNode.label || id}
+                    </GenreLink>
+                  </li>
+                )
+              );
+            })}
+          </ul>
+        </Collapsible>
+      ))}
+    </Section>
   );
 }
 

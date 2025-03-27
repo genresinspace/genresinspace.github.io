@@ -5,18 +5,22 @@ export function Collapsible({
   title,
   children,
   defaultOpen = false,
+  showBorder = true,
 }: {
   title: React.ReactNode;
   children: React.ReactNode;
   defaultOpen?: boolean;
+  showBorder?: boolean;
 }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border border-neutral-800 rounded-md overflow-hidden">
+    <div
+      className={`${showBorder ? "border border-neutral-800" : ""} overflow-hidden`}
+    >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center gap-2 text-lg font-bold p-1 px-2 bg-neutral-800/50 hover:bg-neutral-800 transition-colors"
+        className="w-full flex items-center gap-2 text-md font-bold p-1 px-2 bg-neutral-800/50 hover:bg-neutral-800 transition-colors"
         aria-expanded={isOpen}
       >
         <span
@@ -29,7 +33,7 @@ export function Collapsible({
         </span>
         <span>{title}</span>
       </button>
-      {isOpen && <div className="p-3">{children}</div>}
+      {isOpen && <div className="p-2">{children}</div>}
     </div>
   );
 }

@@ -18,6 +18,7 @@ export function isNewlineNode(node: WikitextSimplifiedNode): boolean {
 export function WikitextTruncateAtNewline(props: {
   wikitext: string;
   expandable: boolean;
+  className?: string;
 }) {
   const nodes = parse_and_simplify_wikitext(props.wikitext);
   const index = nodes.findIndex(isNewlineNode);
@@ -28,7 +29,7 @@ export function WikitextTruncateAtNewline(props: {
   }, [props.wikitext]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className={`flex flex-col gap-2 ${props.className || ""}`}>
       <div>
         <WikitextNodes
           nodes={index !== -1 && !expanded ? nodes.slice(0, index) : nodes}

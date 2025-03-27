@@ -12,7 +12,7 @@ import {
   RangeInput,
   InputDescription,
 } from "../components/Input";
-import { SectionHeading } from "../components/SectionHeading";
+import { Section } from "../components/Section";
 
 /** Renders the settings sidebar. */
 export function Settings({
@@ -107,9 +107,8 @@ function ControlSection<
   setSettingsSection: (settingsSection: SectionData) => void;
 }) {
   return (
-    <section className="space-y-3">
-      <SectionHeading icon={icon}>{name}</SectionHeading>
-      <div className="flex flex-col gap-3">
+    <Section heading={name} icon={icon}>
+      <div className="flex flex-col gap-3 p-3">
         {sectionDesc.map((control) => (
           <Control
             key={control.name}
@@ -124,7 +123,7 @@ function ControlSection<
           />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
