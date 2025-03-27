@@ -189,7 +189,12 @@ export function WikitextTemplate({
           >
             lit.
           </abbr>{" "}
-          {params.map((p) => `'${p.value}'`).join(" or ")}
+          {params.map((p, index) => (
+            <React.Fragment key={index}>
+              {index > 0 && " or "}
+              '<Wikitext wikitext={p.value} />'
+            </React.Fragment>
+          ))}
         </span>
       );
     }
