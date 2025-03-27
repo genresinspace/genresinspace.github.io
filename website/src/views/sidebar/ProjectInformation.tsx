@@ -14,12 +14,12 @@ import { stripGenreNamePrefixFromDescription } from "../../util";
 import { fusionGenreColour, derivativeColour, subgenreColour } from "../Graph";
 import { FAQ } from "./FAQ";
 
-import { Collapsible } from "../components/Collapsible";
 import { Footnote } from "../components/Footnote";
 
 import { ExternalLink as EL } from "../components/links/ExternalLink";
 import { dumpUrl } from "../components/wikipedia/urls";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
+import { Section } from "../components/Section";
 
 /** The sidebar panel for information about the project. */
 export function ProjectInformation({
@@ -60,12 +60,12 @@ export function ProjectInformation({
           <EL href="https://musicmap.info/">musicmap</EL>.
         </p>
       </div>
-      <Collapsible title="Legend" defaultOpen={true}>
+      <Section heading="Legend">
         <Legend settings={settings} setSettings={setSettings} />
-      </Collapsible>
-      <Collapsible title="FAQ" defaultOpen={true}>
+      </Section>
+      <Section heading="FAQ">
         <FAQ dumpDate={dumpDate} />
-      </Collapsible>
+      </Section>
       <CommitFooter />
     </div>
   );
@@ -167,7 +167,7 @@ function Legend({
   ];
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 p-3">
       {types.map(({ color, label, type, description }) => (
         <div key={label} className="flex items-start gap-2">
           <div>
