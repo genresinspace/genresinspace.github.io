@@ -33,7 +33,7 @@ export function Collapsible({
         </span>
         <span>{title}</span>
       </button>
-      {isOpen && <div className="p-2">{children}</div>}
+      {isOpen && <div className="p-3">{children}</div>}
     </div>
   );
 }
