@@ -5,9 +5,7 @@ import data from "../public/data.json";
 import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { initWasm } from "../src/components/wikipedia";
-import { wikiPageUrl, wikiUrl } from "../src/components/wikipedia/urls";
-import { Wikitext } from "../src/components/wikipedia/wikitexts/Wikitext";
+import { Data, DataContext } from "../src/data";
 
 // Get the directory path of the current file
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -40,9 +38,15 @@ try {
     const wikitext = genre.wikitext_description || "";
     try {
       ReactDOMServer.renderToString(
-        React.createElement(Wikitext, {
-          wikitext: wikitext,
-        })
+        React.createElement(
+          DataContext.Provider,
+          {
+            value: data as Data,
+          },
+          React.createElement(Wikitext, {
+            wikitext: wikitext,
+          })
+        )
       );
     } catch (err) {
       errors.push({
