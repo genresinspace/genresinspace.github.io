@@ -13,6 +13,7 @@ import { Cquote } from "./Cquote";
 import { Langx } from "./Langx";
 import { Langnf } from "./Langnf";
 import { Nihongo } from "./Nihongo";
+import { IPAcEn } from "./IPAc-en";
 
 import { Music } from "./music/Music";
 
@@ -130,9 +131,7 @@ export function WikitextTemplate({
       // when I started this project. Unfortunately, this means we still have to handle it.
       return <code>{node.children[0].value}</code>;
     case "ipac-en":
-      // TODO: implement. This is non-trivial because of all of the aliases:
-      // https://en.wikipedia.org/wiki/Template:IPAc-en
-      return <span>[English IPA pronunciation elided]</span>;
+      return <IPAcEn node={node} />;
     case "irrelevant_citation":
       return <sup>[irrelevant citation]</sup>;
     case "korean":
