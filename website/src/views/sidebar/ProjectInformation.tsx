@@ -167,7 +167,7 @@ function Legend({
   ];
 
   return (
-    <div className="flex flex-col gap-2 p-3">
+    <div className="flex flex-col gap-4 p-3 text-sm">
       {types.map(({ color, label, type, description }) => (
         <div key={label} className="flex items-start gap-2">
           <div>
