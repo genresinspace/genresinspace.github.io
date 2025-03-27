@@ -14,9 +14,7 @@ export const dumpUrl = (databaseName: string, dumpDate: string): string =>
  * @param domain - The Wikipedia domain (e.g. "en.wikipedia.org")
  * @returns The base Wikipedia URL (e.g. "https://en.wikipedia.org/wiki")
  */
-export function wikiUrl(domain: string): string {
-  return `https://${domain}/wiki`;
-}
+export const wikiUrl = (domain: string): string => `https://${domain}/wiki`;
 
 /**
  * Constructs the full Wikipedia page URL from a base wiki URL and page title
@@ -24,9 +22,16 @@ export function wikiUrl(domain: string): string {
  * @param pageTitle - The title of the Wikipedia page
  * @returns The full Wikipedia page URL with spaces replaced by underscores
  */
-export function wikiPageUrl(wikiUrl: string, pageTitle: string): string {
-  return `${wikiUrl}/${pageTitle.replace(/ /g, "_")}`;
-}
+export const wikiPageUrl = (wikiUrl: string, pageTitle: string): string =>
+  `${wikiUrl}/${pageTitle.replace(/ /g, "_")}`;
+
+/**
+ * Constructs a redirect URL for a Wikimedia Commons asset.
+ * @param filename The filename of the asset.
+ * @returns A redirect URL for the asset.
+ */
+export const wikimediaCommmonsAssetUrl = (filename: string) =>
+  `https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/${filename}`;
 
 /**
  * React hook that returns the base Wikipedia URL using the domain from context
