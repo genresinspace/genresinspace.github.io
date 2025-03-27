@@ -9,7 +9,7 @@ export function SectionHeading({
   icon?: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center gap-2 p-2 w-full bg-neutral-800 text-white">
+    <div className="flex items-center gap-2 p-2 w-full bg-gray-800 text-white">
       {icon && <span className="text-neutral-300">{icon}</span>}
       <h3 className="text-lg font-bold">{children}</h3>
     </div>
