@@ -16,12 +16,7 @@ export function WikipediaLink({
 
   return (
     <ExternalLink {...rest} href={wikiPageUrl(wikiUrl, pageTitle)}>
-      <span className="inline-flex items-center hover:underline">
-        <span className="mr-0.5 flex items-center" title="Wikipedia link">
-          ⓦ
-        </span>
-        {children}
-      </span>
+      ⓦ {children}
     </ExternalLink>
   );
 }
