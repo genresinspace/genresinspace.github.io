@@ -65,20 +65,25 @@ export const NodeColourLightness = {
   GraphLabelBackgroundBorder: 35,
   /** The lightness of the graph label's text colour. */
   GraphLabelText: 60,
+  /** The lightness of a link's text colour. */
+  LinkText: 60,
+  /** The lightness of a link's text colour when hovered. */
+  LinkTextHover: 80,
 } as const;
 
 /** Given a node, calculate its colour, factoring in degree and lightness */
 export function nodeColour(
   node: NodeData,
   maxDegree: number,
-  lightness: (typeof NodeColourLightness)[keyof typeof NodeColourLightness]
+  lightness: (typeof NodeColourLightness)[keyof typeof NodeColourLightness],
+  saturationBoost: number = 0
 ) {
   const hash = node.id
     .split("")
     .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
   const hue = Math.abs(hash % 360);
   const colour = `hsl(${hue}, ${
-    ((node.edges.length / maxDegree) * 0.8 + 0.2) * 100
+    ((node.edges.length / maxDegree) * 0.8 + 0.2) * 100 + saturationBoost
   }%, ${lightness}%)`;
   return colour;
 }
