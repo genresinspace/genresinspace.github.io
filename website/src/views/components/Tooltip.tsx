@@ -36,7 +36,7 @@ export function Tooltip({
 
   return createPortal(
     <div
-      className="fixed z-[9999] bg-gray-800 text-white rounded p-3 shadow-lg"
+      className="fixed z-[9999] bg-neutral-950 border border-neutral-800 text-white rounded p-3 shadow-lg"
       style={{
         left: `${adjustedX}px`,
         top: `${adjustedY}px`,
