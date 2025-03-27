@@ -153,7 +153,7 @@ export function FAQ({ dumpDate }: { dumpDate: string }) {
       ),
     },
     {
-      question: "How does this compare to the other music mapping projects?",
+      question: "How does this compare to other music mapping projects?",
       answer: (
         <>
           <p>
