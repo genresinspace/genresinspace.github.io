@@ -26,8 +26,8 @@ export function Tooltip({
   const tooltipY = position.y + yOffset;
 
   // Calculate max coordinates to prevent tooltip from going off-screen
-  const tooltipWidth = 400;
-  const tooltipHeight = 100; // Approximate height, can be adjusted
+  const tooltipWidth = 250;
+  const tooltipHeight = 200; // Approximate height, can be adjusted
   const maxX = window.innerWidth - tooltipWidth - 10;
   const maxY = window.innerHeight - tooltipHeight - 10;
 
