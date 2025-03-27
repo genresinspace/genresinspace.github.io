@@ -140,7 +140,11 @@ export function WikitextTemplate({
       return <span>Korean: {node.children[0].value}</span>;
     case "lang":
       // TODO: indicate language to browser / support rtl+italic+size
-      return <span>{node.children[1].value}</span>;
+      return (
+        <span>
+          <Wikitext wikitext={node.children[1].value} />
+        </span>
+      );
     case "lang-rus":
       return (
         <span>
