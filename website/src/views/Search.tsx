@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
-import { nodeIdToInt, useDataContext } from "./data";
-import { stripGenreNamePrefixFromDescription } from "./util";
+import { nodeIdToInt, useDataContext } from "../data";
+import { stripGenreNamePrefixFromDescription } from "../util";
 
 import { GenreLink } from "./components/links/GenreLink";
 import { WikitextTruncateAtLength } from "./components/wikipedia/wikitexts/WikitextTruncateAtLength";
@@ -18,7 +18,7 @@ export function Search({
   filter: string;
   setFilter: (filter: string) => void;
 }) {
-  const { nodes, max_degree: maxDegree } = useDataContext();
+  const { nodes } = useDataContext();
 
   const results = useMemo(() => {
     if (filter.length < 2) {

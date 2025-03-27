@@ -8,7 +8,7 @@ import {
   nodeColour,
   NodeColourLightness,
   useDataContext,
-} from "../data";
+} from "../../data";
 import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
 
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
@@ -249,9 +249,7 @@ function GenreDescription({ description }: { description: string }) {
       >
         Description
       </SectionHeading>
-      <div className="border border-neutral-800 rounded-md p-4">
-        <WikitextTruncateAtNewline wikitext={description} expandable={true} />
-      </div>
+      <WikitextTruncateAtNewline wikitext={description} expandable={true} />
     </div>
   );
 }

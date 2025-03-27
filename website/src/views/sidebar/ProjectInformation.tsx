@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-import commit from "../commit.json";
+import commit from "../../commit.json";
 import {
   NodeColourLightness,
   NodeData,
   REPO_LINK,
   nodeColour,
   useDataContext,
-} from "../data";
-import { SettingsData } from "../settings";
-import { stripGenreNamePrefixFromDescription } from "../util";
+} from "../../data";
+import { SettingsData } from "../../settings";
+import { stripGenreNamePrefixFromDescription } from "../../util";
 
 import { fusionGenreColour, derivativeColour, subgenreColour } from "../Graph";
 import { FAQ } from "./FAQ";

@@ -1,4 +1,4 @@
-import { REPO_LINK } from "../data";
+import { REPO_LINK } from "../../data";
 
 import { ExternalLink } from "../components/links/ExternalLink";
 

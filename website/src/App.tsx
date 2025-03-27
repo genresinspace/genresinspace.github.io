@@ -2,12 +2,12 @@ import { CosmographProvider } from "@cosmograph/react";
 
 import { useEffect, useState, useCallback } from "react";
 
-import { Graph } from "./Graph";
-import { Search } from "./Search";
+import { Graph } from "./views/Graph";
+import { Search } from "./views/Search";
 import { DEFAULT_SETTINGS, SettingsData } from "./settings";
 import { Data, nodeIdToInt, DataContext } from "./data";
 
-import { Sidebar } from "./sidebar/Sidebar";
+import { Sidebar } from "./views/sidebar/Sidebar";
 
 /** The main app component */
 function App() {

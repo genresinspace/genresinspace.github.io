@@ -6,6 +6,9 @@ import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { Data, DataContext } from "../src/data";
+import { initWasm } from "../src/views/components/wikipedia";
+import { wikiPageUrl, wikiUrl } from "../src/views/components/wikipedia/urls";
+import { Wikitext } from "../src/views/components/wikipedia/wikitexts/Wikitext";
 
 // Get the directory path of the current file
 const __dirname = dirname(fileURLToPath(import.meta.url));

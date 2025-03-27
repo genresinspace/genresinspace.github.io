@@ -3,7 +3,7 @@ import {
   NodeColourLightness,
   NodeData,
   useDataContext,
-} from "../../data";
+} from "../../../data";
 
 /**
  * A link to a genre.

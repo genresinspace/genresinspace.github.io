@@ -1,4 +1,4 @@
-import { useDataContext } from "../../data";
+import { useDataContext } from "../../../data";
 
 /**
  * @param {string} dumpDate - The date of the Wikipedia dump in YYYY-MM-DD format

@@ -9,8 +9,8 @@ import {
   NodeData,
   nodeIdToInt,
   useDataContext,
-} from "./data";
-import { SettingsData } from "./settings";
+} from "../data";
+import { SettingsData } from "../settings";
 
 /** The colour of a derivative genre */
 export const derivativeColour = (saturation: number = 70, alpha: number = 1) =>

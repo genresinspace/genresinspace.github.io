@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { SettingsData } from "../settings";
+import { SettingsData } from "../../settings";
 
 import { Settings } from "./Settings";
 import { SelectedNodeInfo } from "./SelectedNodeInfo";
