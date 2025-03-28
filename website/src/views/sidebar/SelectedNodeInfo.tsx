@@ -27,6 +27,9 @@ import {
   MusicIcon,
   DocumentIcon,
   ArrowUpIcon,
+  DerivativeIcon,
+  SubgenreIcon,
+  FusionGenreIcon,
 } from "../components/icons";
 
 import { stripGenreNamePrefixFromDescription } from "../../util";
@@ -421,60 +424,27 @@ function ConnectionHeading({
     switch (type) {
       case "Derivative":
         return (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          <DerivativeIcon
+            width={16}
+            height={16}
             style={{ color: derivativeColour() }}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 5l7 7-7 7M5 5l7 7-7 7"
-            />
-          </svg>
+          />
         );
       case "Subgenre":
         return (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          <SubgenreIcon
+            width={16}
+            height={16}
             style={{ color: subgenreColour() }}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-            />
-          </svg>
+          />
         );
       case "FusionGenre":
         return (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          <FusionGenreIcon
+            width={16}
+            height={16}
             style={{ color: fusionGenreColour() }}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
-            />
-          </svg>
+          />
         );
     }
   };

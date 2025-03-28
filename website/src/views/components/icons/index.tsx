@@ -12,4 +12,8 @@ export * from "./MusicIcon";
 export * from "./DocumentIcon";
 export * from "./ArrowUpIcon";
 export * from "./EyeIcon";
+export * from "./DerivativeIcon";
+export * from "./SubgenreIcon";
+export * from "./FusionGenreIcon";
+export * from "./ResizeHandleIcon";
 // Export additional icons as you create them

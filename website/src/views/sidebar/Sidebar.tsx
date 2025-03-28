@@ -5,7 +5,12 @@ import { SettingsData } from "../../settings";
 import { Settings } from "./Settings";
 import { SelectedNodeInfo } from "./SelectedNodeInfo";
 import { ProjectInformation } from "./ProjectInformation";
-import { SettingsIcon, InfoIcon, EyeIcon } from "../components/icons";
+import {
+  SettingsIcon,
+  InfoIcon,
+  EyeIcon,
+  ResizeHandleIcon,
+} from "../components/icons";
 
 /** The sidebar for the app. */
 export function Sidebar({
@@ -74,15 +79,7 @@ export function Sidebar({
         } select-none flex items-center justify-center shrink-0`}
         onMouseDown={() => setIsResizing(true)}
       >
-        <svg
-          width="8"
-          height="16"
-          viewBox="0 0 8 16"
-          fill="currentColor"
-          className="text-neutral-500"
-        >
-          <path d="M2 0h1v16H2V0zM5 0h1v16H5V0z" />
-        </svg>
+        <ResizeHandleIcon className="text-neutral-500" />
       </div>
       <div className="flex-1 overflow-y-auto" ref={sidebarContentRef}>
         <div className="p-5 pl-1">
