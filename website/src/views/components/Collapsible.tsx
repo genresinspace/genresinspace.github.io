@@ -24,7 +24,7 @@ export function Collapsible({
         aria-expanded={isOpen}
       >
         <span
-          className="text-sm w-4 flex-shrink-0 transition-transform duration-200 mt-1"
+          className="text-sm w-4 flex-shrink-0 transition-transform duration-200"
           style={{
             transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)",
           }}
