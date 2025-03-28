@@ -384,9 +384,16 @@ function Connections({
         >
           <div className="flex flex-col gap-3">
             {nodes.map(
-              ({ node: otherNode, shortDescription }) =>
+              ({ node: otherNode, shortDescription }, index) =>
                 otherNode && (
-                  <div key={otherNode.id}>
+                  <div
+                    key={otherNode.id}
+                    className={
+                      index !== nodes.length - 1
+                        ? "pb-3 border-b border-neutral-700"
+                        : ""
+                    }
+                  >
                     <GenreLink
                       node={otherNode}
                       hoverPreview={false}
