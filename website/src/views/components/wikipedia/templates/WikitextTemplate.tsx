@@ -222,6 +222,8 @@ export function WikitextTemplate({
     // Category box: don't care
     // eslint-disable-next-line no-fallthrough
     case "nastaliq":
+    case "script/nastaliq":
+    case "nq":
       // Requesting a particular choice of fonts: not sure how to support
       return null;
     case "nbsp":

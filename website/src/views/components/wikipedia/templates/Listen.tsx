@@ -173,8 +173,8 @@ export function Listen({
     }
 
     // Check for additional files (filename2, filename3, etc.)
-    let i = 2;
-    while (true) {
+    // Use a for loop with a reasonable upper limit instead of while(true)
+    for (let i = 2; i <= 10; i++) {
       const filenameN = getParam(`filename${i}`);
       const titleN = getParam(`title${i}`);
 
@@ -185,8 +185,8 @@ export function Listen({
           description: getParam(`description${i}`),
           start: getParam(`start${i}`),
         });
-        i++;
       } else {
+        // No more files found, exit the loop
         break;
       }
     }
