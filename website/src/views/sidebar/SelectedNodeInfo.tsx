@@ -14,7 +14,7 @@ import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { Notice } from "../components/Notice";
 
-import { GenreLink } from "../components/links/GenreLink";
+import { DisableTooltips, GenreLink } from "../components/links/GenreLink";
 
 import { WikipediaLink } from "../components/wikipedia/links/WikipediaLink";
 import { Wikitext } from "../components/wikipedia/wikitexts/Wikitext";
@@ -397,10 +397,12 @@ function Connections({
                     </GenreLink>
                     {shortDescription && (
                       <small className="block text-xs text-neutral-400 ml-4">
-                        <WikitextTruncateAtLength
-                          wikitext={shortDescription}
-                          length={200}
-                        />
+                        <DisableTooltips>
+                          <WikitextTruncateAtLength
+                            wikitext={shortDescription}
+                            length={200}
+                          />
+                        </DisableTooltips>
                       </small>
                     )}
                   </div>

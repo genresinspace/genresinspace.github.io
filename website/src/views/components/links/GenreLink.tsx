@@ -12,6 +12,16 @@ import { WikitextTruncateAtLength } from "../wikipedia/wikitexts/WikitextTruncat
 export const TooltipContext = createContext(false);
 
 /**
+ * Component that disables tooltips for all child components.
+ * Useful for preventing recursive tooltips or simplifying UI in certain areas.
+ */
+export function DisableTooltips({ children }: { children: React.ReactNode }) {
+  return (
+    <TooltipContext.Provider value={true}>{children}</TooltipContext.Provider>
+  );
+}
+
+/**
  * A link to a genre.
  *
  * Will navigate to the genre in the graph.
@@ -92,13 +102,12 @@ export function GenreLink({
           onMouseEnter={handleTooltipMouseEnter}
           onMouseLeave={handleTooltipMouseLeave}
         >
-          {/* Provide context value for nested GenreLinks */}
-          <TooltipContext.Provider value={true}>
+          <DisableTooltips>
             <WikitextTruncateAtLength
               wikitext={node.wikitext_description}
               length={100}
             />
-          </TooltipContext.Provider>
+          </DisableTooltips>
         </Tooltip>
       )}
     </>
