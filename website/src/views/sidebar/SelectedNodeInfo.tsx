@@ -22,6 +22,13 @@ import { WikitextTruncateAtNewline } from "../components/wikipedia/wikitexts/Wik
 import { Collapsible } from "../components/Collapsible";
 import { Section } from "../components/Section";
 
+import {
+  SearchIcon,
+  MusicIcon,
+  DocumentIcon,
+  ArrowUpIcon,
+} from "../components/icons";
+
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
   selectedId,
@@ -142,21 +149,7 @@ function ZoomToNodeButton({ node }: { node: NodeData }) {
         }
       }}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-        />
-      </svg>
+      <SearchIcon />
       Zoom to node
     </button>
   );
@@ -171,26 +164,7 @@ function FeaturedMix({
   shouldAutoplayMixes: boolean;
 }) {
   return (
-    <Section
-      heading="Featured Mix"
-      icon={
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-          />
-        </svg>
-      }
-    >
+    <Section heading="Featured Mix" icon={<MusicIcon />}>
       {node.mixes ? (
         "help_reason" in node.mixes ? (
           <HelpNeededForMix reason={node.mixes.help_reason} />
@@ -239,26 +213,7 @@ function MixItem({
 /** Genre description section */
 function GenreDescription({ description }: { description: string }) {
   return (
-    <Section
-      heading="Description"
-      icon={
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-          />
-        </svg>
-      }
-    >
+    <Section heading="Description" icon={<DocumentIcon />}>
       <WikitextTruncateAtNewline
         wikitext={description}
         expandable={true}
@@ -404,26 +359,7 @@ function Connections({
   }
 
   return (
-    <Section
-      heading="Connections"
-      icon={
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M7 11l5-5m0 0l5 5m-5-5v12"
-          />
-        </svg>
-      }
-    >
+    <Section heading="Connections" icon={<ArrowUpIcon />}>
       {connections.map(({ textParts, type, nodes }, index) => (
         <Collapsible
           title={<ConnectionHeading textParts={textParts} type={type} />}

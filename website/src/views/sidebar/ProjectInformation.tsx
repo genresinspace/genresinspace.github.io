@@ -20,6 +20,7 @@ import { ExternalLink as EL } from "../components/links/ExternalLink";
 import { dumpUrl } from "../components/wikipedia/urls";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { Section } from "../components/Section";
+import { InfoIcon, MapIcon, QuestionIcon } from "../components/icons";
 
 /** The sidebar panel for information about the project. */
 export function ProjectInformation({
@@ -39,26 +40,7 @@ export function ProjectInformation({
 
   return (
     <div className="flex flex-col gap-4">
-      <Section
-        heading="About"
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        }
-      >
+      <Section heading="About" icon={<InfoIcon />}>
         <div className="flex flex-col gap-2 p-3">
           <p>
             A graph of every music genre on English Wikipedia
@@ -81,48 +63,10 @@ export function ProjectInformation({
           <RandomGenre nodes={nodes} maxDegree={maxDegree} />
         </div>
       </Section>
-      <Section
-        heading="Legend"
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-            />
-          </svg>
-        }
-      >
+      <Section heading="Legend" icon={<MapIcon />}>
         <Legend settings={settings} setSettings={setSettings} />
       </Section>
-      <Section
-        heading="FAQ"
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        }
-      >
+      <Section heading="FAQ" icon={<QuestionIcon />}>
         <FAQ dumpDate={dumpDate} />
       </Section>
       <CommitFooter />
