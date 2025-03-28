@@ -5,6 +5,7 @@ import { stripGenreNamePrefixFromDescription } from "../util";
 
 import { GenreLink } from "./components/links/GenreLink";
 import { WikitextTruncateAtLength } from "./components/wikipedia/wikitexts/WikitextTruncateAtLength";
+import { SearchIcon } from "./components/icons/SearchIcon";
 
 /** Search dropdown that searches over genres and shows results */
 export function Search({
@@ -63,13 +64,18 @@ export function Search({
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search for genre..."
-        className="w-full p-2 bg-neutral-800 rounded-md mb-2"
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-      />
+      <div className="relative mb-2">
+        <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
+          <SearchIcon width={16} height={16} stroke="#9ca3af" />
+        </div>
+        <input
+          type="text"
+          placeholder="Search for genre..."
+          className="w-full p-2 pl-8 bg-neutral-800 rounded-md"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
+      </div>
       <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto">
         {results.map(({ node, strippedDescription }) => (
           <div
