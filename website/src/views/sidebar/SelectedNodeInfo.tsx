@@ -29,6 +29,9 @@ import {
   ArrowUpIcon,
 } from "../components/icons";
 
+import { stripGenreNamePrefixFromDescription } from "../../util";
+import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
+
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
   selectedId,
@@ -336,7 +339,16 @@ function Connections({
               textParts,
               type,
               nodes: nodeIds.map((id) => {
-                return nodes[nodeIdToInt(id)];
+                const connectedNode = nodes[nodeIdToInt(id)];
+                return {
+                  node: connectedNode,
+                  shortDescription: connectedNode.wikitext_description
+                    ? stripGenreNamePrefixFromDescription(
+                        connectedNode.label,
+                        connectedNode.wikitext_description
+                      )
+                    : "",
+                };
               }),
             },
           ];
@@ -348,7 +360,7 @@ function Connections({
         ];
       }
     );
-  }, [connectionDescriptions, node, edges, selectedId]);
+  }, [connectionDescriptions, node, edges, selectedId, nodes]);
 
   if (connections.length === 0) {
     return (
@@ -367,23 +379,31 @@ function Connections({
           key={index}
           showBorder={false}
         >
-          <ul>
-            {nodes.map((otherNode) => {
-              return (
+          <div className="flex flex-col gap-3">
+            {nodes.map(
+              ({ node: otherNode, shortDescription }) =>
                 otherNode && (
-                  <li key={otherNode.id}>
+                  <div key={otherNode.id}>
                     <GenreLink
                       node={otherNode}
+                      hoverPreview={false}
                       onMouseEnter={() => setFocusedId(otherNode.id)}
                       onMouseLeave={() => setFocusedId(null)}
                     >
                       {otherNode.label || otherNode.id}
                     </GenreLink>
-                  </li>
+                    {shortDescription && (
+                      <small className="block text-xs text-neutral-400 ml-4">
+                        <WikitextTruncateAtLength
+                          wikitext={shortDescription}
+                          length={200}
+                        />
+                      </small>
+                    )}
+                  </div>
                 )
-              );
-            })}
-          </ul>
+            )}
+          </div>
         </Collapsible>
       ))}
     </Section>
