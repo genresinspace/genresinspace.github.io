@@ -98,4 +98,47 @@ describe("stripGenreNamePrefixFromDescription", () => {
       stripGenreNamePrefixFromDescription(testCase.label, testCase.description)
     ).toBe(testCase.description_output);
   });
+
+  test("removes Wikitext template containing genre name", () => {
+    const testCase = {
+      label: "City pop",
+      description:
+        "{{Nihongo|'''City pop'''|シティ・ポップ|shiti poppu|lead=yes}} is a loosely defined form of [[Japanese pop music]] that emerged in the late 1970s and peaked in popularity during the 1980s.",
+      description_output:
+        "is a loosely defined form of [[Japanese pop music]] that emerged in the late 1970s and peaked in popularity during the 1980s.",
+    };
+
+    expect(
+      stripGenreNamePrefixFromDescription(testCase.label, testCase.description)
+    ).toBe(testCase.description_output);
+  });
+
+  // Extra test to verify template handling with different formats
+  test("removes Wikitext template when genre name is not bolded", () => {
+    const testCase = {
+      label: "Folk rock",
+      description:
+        "{{Other uses|Folk-rock}} Folk rock is a hybrid music genre combining elements of folk music and rock music.",
+      description_output:
+        "Folk rock is a hybrid music genre combining elements of folk music and rock music.",
+    };
+
+    expect(
+      stripGenreNamePrefixFromDescription(testCase.label, testCase.description)
+    ).toBe(testCase.description_output);
+  });
+
+  test("removes nested Wikitext templates containing genre name", () => {
+    const testCase = {
+      label: "Anime song",
+      description:
+        "{{Nihongo|'''Anime song'''|アニメソング|anime songu|also shortened to {{nihongo|'''''anison'''''|アニソン}}}}  is a genre of music originating from [[Japanese pop music]].",
+      description_output:
+        "is a genre of music originating from [[Japanese pop music]].",
+    };
+
+    expect(
+      stripGenreNamePrefixFromDescription(testCase.label, testCase.description)
+    ).toBe(testCase.description_output);
+  });
 });
