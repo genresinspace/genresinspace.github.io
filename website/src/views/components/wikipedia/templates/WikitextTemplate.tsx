@@ -16,6 +16,7 @@ import { Nihongo } from "./Nihongo";
 import { IPAcEn } from "./IPAc-en";
 
 import { Music } from "./music/Music";
+import { Listen } from "./Listen";
 
 /**
  * Renders a Wikitext simplified template node, including implementations for all supported templates.
@@ -172,8 +173,7 @@ export function WikitextTemplate({
         </>
       );
     case "listen":
-      // TODO: implement, this could be quite important for this use case
-      return null;
+      return <Listen node={node} />;
     case "lit":
     case "lit.":
     case "literal":
