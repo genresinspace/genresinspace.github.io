@@ -28,14 +28,14 @@ export function WikitextTruncateAtNewline(props: {
     setExpanded(false);
   }, [props.wikitext]);
 
-  return (
+  return props.expandable ? (
     <div className={`flex flex-col gap-2 ${props.className || ""}`}>
       <div>
         <WikitextNodes
           nodes={index !== -1 && !expanded ? nodes.slice(0, index) : nodes}
         />
       </div>
-      {index !== -1 && props.expandable && (
+      {index !== -1 && (
         <button
           onClick={() => setExpanded(!expanded)}
           className="w-full p-2 text-sm text-neutral-400 hover:text-white bg-neutral-800 hover:bg-neutral-700 rounded-md mx-auto block transition-colors"
@@ -44,5 +44,7 @@ export function WikitextTruncateAtNewline(props: {
         </button>
       )}
     </div>
+  ) : (
+    <WikitextNodes nodes={index !== -1 ? nodes.slice(0, index) : nodes} />
   );
 }
