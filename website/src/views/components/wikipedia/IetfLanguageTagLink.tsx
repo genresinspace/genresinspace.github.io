@@ -166,9 +166,12 @@ export function IetfLanguageTagLink({
   const link = languageLinks[tag];
   if (!link) throw new Error(`Unknown language tag: ${tag}`);
 
-  return (
+  const wikitext = label ?? link.name ?? link.pageTitle;
+  return wikitext.startsWith("[[") ? (
+    <Wikitext wikitext={wikitext} />
+  ) : (
     <WikipediaLink pageTitle={link.pageTitle}>
-      <Wikitext wikitext={label ?? link.name ?? link.pageTitle} />
+      <Wikitext wikitext={wikitext} />
     </WikipediaLink>
   );
 }
