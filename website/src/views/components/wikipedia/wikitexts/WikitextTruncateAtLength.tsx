@@ -52,8 +52,16 @@ export function WikitextTruncateAtLength(props: {
       if (nextNode && nextNode.type === "text") {
         truncatedNodes.push({
           type: "text",
-          text: nextNode.text.slice(0, props.length - length).trimEnd(),
+          text: nextNode.text.slice(0, props.length - length),
         });
+      }
+    }
+
+    if (isTruncated && truncatedNodes.length > 0) {
+      const lastNode = truncatedNodes[truncatedNodes.length - 1];
+      if (lastNode.type === "text") {
+        // Trim the last text node to remove any trailing whitespace
+        lastNode.text = lastNode.text.trimEnd();
       }
     }
 
