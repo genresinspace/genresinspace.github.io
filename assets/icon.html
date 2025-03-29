@@ -45,32 +45,23 @@
     <script type="text/babel">
       // Initial configuration
       const DEFAULT_CONFIG = {
-        // Canvas settings
         size: 1024,
-
-        // Node settings
-        nodeCount: 24,
+        nodeCount: 20,
         minNodeRadius: 16,
         maxNodeRadius: 40,
-        boundaryNodeCount: 10,
+        boundaryNodeCount: 7,
         boundaryNodeRadius: 0.95,
-        boundaryNodeMaxRadius: 0.98,
-
-        // Layout settings
+        boundaryNodeMaxRadius: 0.9,
         forceIterations: 300,
         movementThreshold: 0.1,
         outerRadius: 0.49,
         minInitialDistance: 0.2,
-
-        // Random seeds
         layoutSeed: 43,
-        nodeSeed: 45,
-
-        // Visual settings
+        nodeSeed: 47,
         nodeSaturation: 0.8,
         nodeBrightness: 0.95,
         lineWidth: 12,
-        outerLineWidth: 0,
+        outerLineWidth: 16,
       };
 
       // Left sidebar component for Node and Visual settings
@@ -266,8 +257,15 @@
         );
       }
 
-      // Right sidebar component for Layout and Random Seeds settings
-      function RightSidebar({ config, setConfig }) {
+      // Right sidebar component with Photoshop-style history panel
+      function RightSidebar({
+        config,
+        setConfig,
+        history,
+        onUndo,
+        onRedo,
+        onNavigate,
+      }) {
         // Group the config fields for UI display
         const configGroups = [
           {
@@ -342,6 +340,121 @@
           <div className="w-72 px-4 py-6 bg-gray-900 overflow-y-auto no-scrollbar">
             <h2 className="text-xl font-bold mb-4">Layout Settings</h2>
 
+            {/* Photoshop-style History Panel */}
+            <div className="border border-gray-700 rounded-lg p-3 mb-4">
+              <h3 className="font-medium text-lg mb-3">History</h3>
+
+              {/* Undo/Redo buttons */}
+              <div className="flex justify-between mb-3">
+                <button
+                  onClick={onUndo}
+                  disabled={history.currentIndex < 0}
+                  className={`flex items-center px-3 py-1.5 rounded transition-colors ${
+                    history.currentIndex >= 0
+                      ? "bg-blue-600 hover:bg-blue-700 text-white"
+                      : "bg-gray-800 text-gray-500 cursor-not-allowed"
+                  }`}
+                  title={
+                    history.currentIndex < 0
+                      ? "No actions to undo"
+                      : "Undo last action"
+                  }
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mr-1"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Undo
+                </button>
+                <button
+                  onClick={onRedo}
+                  disabled={history.currentIndex >= history.commands.length - 1}
+                  className={`flex items-center px-3 py-1.5 rounded transition-colors ${
+                    history.currentIndex < history.commands.length - 1
+                      ? "bg-blue-600 hover:bg-blue-700 text-white"
+                      : "bg-gray-800 text-gray-500 cursor-not-allowed"
+                  }`}
+                  title={
+                    history.currentIndex >= history.commands.length - 1
+                      ? "No actions to redo"
+                      : "Redo last undone action"
+                  }
+                >
+                  Redo
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 ml-1"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Always visible history list */}
+              <div className="h-56 overflow-y-auto border border-gray-700 rounded bg-gray-950">
+                {/* Command history - newest first */}
+                {history.commands
+                  .slice()
+                  .reverse()
+                  .map((command, reversedIndex) => {
+                    const actualIndex =
+                      history.commands.length - 1 - reversedIndex;
+                    const isCurrentState = actualIndex === history.currentIndex;
+
+                    return (
+                      <div
+                        key={`command-${actualIndex}`}
+                        onClick={() => onNavigate(actualIndex)}
+                        className={`p-2 border-b border-gray-800 hover:bg-gray-800 cursor-pointer text-sm flex items-center ${
+                          isCurrentState
+                            ? "bg-blue-900"
+                            : actualIndex > history.currentIndex
+                            ? "text-gray-400"
+                            : ""
+                        }`}
+                        title={command.description}
+                      >
+                        <span className="w-5 text-center mr-2">
+                          {isCurrentState && (
+                            <span className="text-blue-400">●</span>
+                          )}
+                        </span>
+                        <span>{command.name}</span>
+                      </div>
+                    );
+                  })}
+
+                {/* Initial state - at the bottom */}
+                <div
+                  className={`p-2 border-b border-gray-800 hover:bg-gray-800 cursor-pointer text-sm flex items-center ${
+                    history.currentIndex === -1 ? "bg-blue-900" : ""
+                  }`}
+                  onClick={() => onNavigate(-1)}
+                >
+                  <span className="w-5 text-center mr-2">
+                    {history.currentIndex === -1 && (
+                      <span className="text-blue-400">●</span>
+                    )}
+                  </span>
+                  <span>Initial State</span>
+                </div>
+              </div>
+            </div>
+
             <div className="space-y-4">
               {configGroups.map((group) => (
                 <div
@@ -396,6 +509,11 @@
       // Main app component
       function App() {
         const [config, setConfig] = React.useState(DEFAULT_CONFIG);
+        // Command pattern history implementation
+        const [history, setHistory] = React.useState({
+          commands: [], // All executed commands
+          currentIndex: -1, // Current position in command history (-1 is initial state)
+        });
         const canvasRef = React.useRef(null);
         const regenerateTimeoutRef = React.useRef(null);
 
@@ -914,30 +1032,134 @@
           }, 250); // 250ms delay before regenerating
         };
 
-        // Handle the "Copy Config JSON" button click
-        const handleCopyConfigClick = () => {
-          const configJson = JSON.stringify(config, null, 2);
-          navigator.clipboard.writeText(configJson).then(
-            () => {
-              alert("Configuration copied to clipboard!");
+        // Create a new command and execute it
+        const executeCommand = (key, newValue) => {
+          const oldValue = config[key];
+
+          // Don't create a command if value didn't change
+          if (oldValue === newValue) return;
+
+          // Create a command object
+          const command = {
+            name: `${key}: ${oldValue} → ${newValue}`,
+            execute: () => {
+              const newConfig = { ...config };
+              newConfig[key] = newValue;
+              setConfig(newConfig);
             },
-            (err) => {
-              console.error("Could not copy text: ", err);
-              // Fallback for browsers that don't support clipboard API
-              const textarea = document.createElement("textarea");
-              textarea.value = configJson;
-              document.body.appendChild(textarea);
-              textarea.select();
-              document.execCommand("copy");
-              document.body.removeChild(textarea);
-              alert("Configuration copied to clipboard!");
-            }
+            undo: () => {
+              const prevConfig = { ...config };
+              prevConfig[key] = oldValue;
+              setConfig(prevConfig);
+            },
+            description: `Changed ${key} from ${oldValue} to ${newValue}`,
+          };
+
+          // Execute the command
+          command.execute();
+
+          // Add to history, removing any future commands if we're not at the end
+          const newCommands = history.commands.slice(
+            0,
+            history.currentIndex + 1
           );
+          newCommands.push(command);
+
+          setHistory({
+            commands: newCommands,
+            currentIndex: newCommands.length - 1,
+          });
         };
 
-        // Update config handler (with auto-regeneration)
+        // Update config handler that creates and executes commands
         const handleConfigUpdate = (newConfig) => {
-          setConfig(newConfig);
+          // Find what changed compared to current config
+          const changedKey = Object.keys(newConfig).find(
+            (key) => newConfig[key] !== config[key]
+          );
+
+          // Execute a command for the change
+          if (changedKey) {
+            executeCommand(changedKey, newConfig[changedKey]);
+            scheduleRegeneration();
+          }
+        };
+
+        // Undo the last command
+        const handleUndo = () => {
+          if (history.currentIndex >= 0) {
+            // Get the command to undo
+            const command = history.commands[history.currentIndex];
+
+            // Run the undo function
+            command.undo();
+
+            // Update history position
+            setHistory({
+              ...history,
+              currentIndex: history.currentIndex - 1,
+            });
+
+            scheduleRegeneration();
+          }
+        };
+
+        // Redo the next command
+        const handleRedo = () => {
+          if (history.currentIndex < history.commands.length - 1) {
+            // Move to next command
+            const nextIndex = history.currentIndex + 1;
+            const command = history.commands[nextIndex];
+
+            // Execute the command
+            command.execute();
+
+            // Update history position
+            setHistory({
+              ...history,
+              currentIndex: nextIndex,
+            });
+
+            scheduleRegeneration();
+          }
+        };
+
+        // Navigate to a specific point in history
+        const navigateToHistoryState = (index) => {
+          if (index === history.currentIndex) return; // Already at this state
+
+          // Going to initial state (before any commands)
+          if (index === -1) {
+            setConfig(DEFAULT_CONFIG);
+            setHistory({
+              ...history,
+              currentIndex: -1,
+            });
+            scheduleRegeneration();
+            return;
+          }
+
+          // If going backwards
+          if (index < history.currentIndex) {
+            // Undo commands one by one from current to target
+            for (let i = history.currentIndex; i > index; i--) {
+              history.commands[i].undo();
+            }
+          }
+          // If going forwards
+          else {
+            // Execute commands one by one from current to target
+            for (let i = history.currentIndex + 1; i <= index; i++) {
+              history.commands[i].execute();
+            }
+          }
+
+          // Update history position
+          setHistory({
+            ...history,
+            currentIndex: index,
+          });
+
           scheduleRegeneration();
         };
 
@@ -976,7 +1198,14 @@
               />
             </div>
 
-            <RightSidebar config={config} setConfig={handleConfigUpdate} />
+            <RightSidebar
+              config={config}
+              setConfig={handleConfigUpdate}
+              history={history}
+              onUndo={handleUndo}
+              onRedo={handleRedo}
+              onNavigate={navigateToHistoryState}
+            />
           </div>
         );
       }
