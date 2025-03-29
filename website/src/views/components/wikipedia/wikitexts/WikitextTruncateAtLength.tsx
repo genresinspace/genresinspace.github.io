@@ -7,7 +7,7 @@ import {
   WikitextTruncateAtNewline,
 } from "./WikitextTruncateAtNewline";
 import { WikitextNodes } from "./WikitextNodes";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 /**
  * Like `Wikitext`, but renders up to a character limit before truncating with a `...` suffix.
@@ -20,35 +20,45 @@ export function WikitextTruncateAtLength(props: {
   const expandable = props.expandable ?? true;
   const [expanded, setExpanded] = useState(false);
 
-  function estimateNodeLength(node: WikitextSimplifiedNode): number {
-    switch (node.type) {
-      case "template":
-        // this is so bad
-        return (
-          node.children.map((p) => p.value.length).reduce((a, b) => a + b, 0) /
-          Math.max(node.children.length, 1)
-        );
-      case "link":
-        return node.text.length;
-      case "ext-link":
-        return (node.text ?? node.link).length;
-      case "fragment":
-      case "bold":
-      case "italic":
-      case "blockquote":
-      case "superscript":
-      case "subscript":
-      case "small":
-      case "preformatted":
-        return node.children.map(estimateNodeLength).reduce((a, b) => a + b, 0);
-      case "text":
-        return node.text.length;
-      default:
-        return 0;
-    }
-  }
+  // Memoize the original nodes to avoid recomputing on every render
+  const originalNodes = useMemo(
+    () => parse_and_simplify_wikitext(props.wikitext),
+    [props.wikitext]
+  );
 
-  const originalNodes = parse_and_simplify_wikitext(props.wikitext);
+  // Memoize the truncated nodes calculation
+  const { nodes, isTruncated } = useMemo(() => {
+    const truncatedNodes: WikitextSimplifiedNode[] = [];
+    let length = 0;
+
+    for (const node of originalNodes) {
+      if (isNewlineNode(node)) {
+        break;
+      }
+      const nodeLength = estimateNodeLength(node);
+      if (length + nodeLength > props.length) {
+        break;
+      }
+      truncatedNodes.push(node);
+      length += nodeLength;
+    }
+
+    const isTruncated = truncatedNodes.length < originalNodes.length;
+
+    // if the node after the truncated node is text, make an attempt to truncate it
+    // to produce *some* output
+    if (isTruncated) {
+      const nextNode = originalNodes[truncatedNodes.length];
+      if (nextNode && nextNode.type === "text") {
+        truncatedNodes.push({
+          type: "text",
+          text: nextNode.text.slice(0, props.length - length).trimEnd(),
+        });
+      }
+    }
+
+    return { nodes: truncatedNodes, isTruncated };
+  }, [originalNodes, props.length]);
 
   if (expanded) {
     return (
@@ -65,34 +75,6 @@ export function WikitextTruncateAtLength(props: {
         </button>
       </>
     );
-  }
-
-  const nodes: WikitextSimplifiedNode[] = [];
-  let length = 0;
-  for (const node of originalNodes) {
-    if (isNewlineNode(node)) {
-      break;
-    }
-    const nodeLength = estimateNodeLength(node);
-    if (length + nodeLength > props.length) {
-      break;
-    }
-    nodes.push(node);
-    length += nodeLength;
-  }
-
-  const isTruncated = nodes.length < originalNodes.length;
-
-  // if the node after the truncated node is text, make an attempt to truncate it
-  // to produce *some* output
-  if (isTruncated) {
-    const nextNode = originalNodes[nodes.length];
-    if (nextNode.type === "text") {
-      nodes.push({
-        type: "text",
-        text: nextNode.text.slice(0, props.length - length).trimEnd(),
-      });
-    }
   }
 
   return (
@@ -115,4 +97,32 @@ export function WikitextTruncateAtLength(props: {
       )}
     </>
   );
+}
+
+function estimateNodeLength(node: WikitextSimplifiedNode): number {
+  switch (node.type) {
+    case "template":
+      // this is so bad
+      return (
+        node.children.map((p) => p.value.length).reduce((a, b) => a + b, 0) /
+        Math.max(node.children.length, 1)
+      );
+    case "link":
+      return node.text.length;
+    case "ext-link":
+      return (node.text ?? node.link).length;
+    case "fragment":
+    case "bold":
+    case "italic":
+    case "blockquote":
+    case "superscript":
+    case "subscript":
+    case "small":
+    case "preformatted":
+      return node.children.map(estimateNodeLength).reduce((a, b) => a + b, 0);
+    case "text":
+      return node.text.length;
+    default:
+      return 0;
+  }
 }
