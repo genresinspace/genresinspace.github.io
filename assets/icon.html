@@ -904,9 +904,8 @@
 
           const random = createSeededRandom(config.nodeSeed);
 
-          // Clear canvas
-          ctx.fillStyle = "black";
-          ctx.fillRect(0, 0, config.size, config.size);
+          // Clear canvas with transparency
+          ctx.clearRect(0, 0, config.size, config.size);
 
           // Draw outer circle
           if (config.outerLineWidth > 0) {
