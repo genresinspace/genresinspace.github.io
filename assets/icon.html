@@ -4,65 +4,402 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Network Diagram</title>
+    <!-- Fix React version to use 18 (latest stable) -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
+      html,
       body {
         margin: 0;
         padding: 0;
-        background-color: white;
+        background-color: black;
+        height: 100%;
+        color: white;
+        overflow: hidden;
+      }
+      #app {
+        height: 100vh;
+        width: 100%;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
       }
       canvas {
         max-width: 100%;
         max-height: 100%;
       }
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
     </style>
   </head>
-  <body>
-    <canvas id="networkCanvas" width="1024" height="1024"></canvas>
+  <body class="bg-black text-white">
+    <div id="app"></div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Configuration constants
-        const CONFIG = {
-          // Canvas settings
-          size: 1024,
+    <script type="text/babel">
+      // Initial configuration
+      const DEFAULT_CONFIG = {
+        // Canvas settings
+        size: 1024,
 
-          // Node settings
-          nodeCount: 24,
-          minNodeRadius: 16,
-          maxNodeRadius: 40,
-          boundaryNodeCount: 10,
-          boundaryNodeRadius: 0.95,
-          boundaryNodeMaxRadius: 0.98,
+        // Node settings
+        nodeCount: 24,
+        minNodeRadius: 16,
+        maxNodeRadius: 40,
+        boundaryNodeCount: 10,
+        boundaryNodeRadius: 0.95,
+        boundaryNodeMaxRadius: 0.98,
 
-          // Layout settings
-          forceIterations: 300,
-          movementThreshold: 0.1,
-          outerRadius: 0.49,
-          minInitialDistance: 0.2,
+        // Layout settings
+        forceIterations: 300,
+        movementThreshold: 0.1,
+        outerRadius: 0.49,
+        minInitialDistance: 0.2,
 
-          // Random seeds
-          layoutSeed: 43,
-          nodeSeed: 45,
+        // Random seeds
+        layoutSeed: 43,
+        nodeSeed: 45,
 
-          // Visual settings
-          nodeSaturation: 0.8,
-          nodeBrightness: 0.95,
-          lineWidth: 12,
-          outerLineWidth: 0,
+        // Visual settings
+        nodeSaturation: 0.8,
+        nodeBrightness: 0.95,
+        lineWidth: 12,
+        outerLineWidth: 0,
+      };
+
+      // Left sidebar component for Node and Visual settings
+      function LeftSidebar({ config, setConfig }) {
+        // Group the config fields for UI display
+        const configGroups = [
+          {
+            title: "Nodes",
+            fields: [
+              {
+                key: "nodeCount",
+                label: "Node Count",
+                type: "number",
+                min: 3,
+                max: 100,
+                step: 1,
+              },
+              {
+                key: "minNodeRadius",
+                label: "Min Node Radius",
+                type: "number",
+                min: 1,
+                max: 100,
+                step: 1,
+              },
+              {
+                key: "maxNodeRadius",
+                label: "Max Node Radius",
+                type: "number",
+                min: 1,
+                max: 100,
+                step: 1,
+              },
+              {
+                key: "boundaryNodeCount",
+                label: "Boundary Node Count",
+                type: "number",
+                min: 0,
+                max: 50,
+                step: 1,
+              },
+              {
+                key: "boundaryNodeRadius",
+                label: "Boundary Node Radius",
+                type: "range",
+                min: 0,
+                max: 1,
+                step: 0.01,
+              },
+              {
+                key: "boundaryNodeMaxRadius",
+                label: "Boundary Node Max Radius",
+                type: "range",
+                min: 0,
+                max: 1,
+                step: 0.01,
+              },
+            ],
+          },
+          {
+            title: "Visual",
+            fields: [
+              {
+                key: "nodeSaturation",
+                label: "Node Saturation",
+                type: "range",
+                min: 0,
+                max: 1,
+                step: 0.01,
+              },
+              {
+                key: "nodeBrightness",
+                label: "Node Brightness",
+                type: "range",
+                min: 0,
+                max: 1,
+                step: 0.01,
+              },
+              {
+                key: "lineWidth",
+                label: "Line Width",
+                type: "number",
+                min: 0,
+                max: 50,
+                step: 0.5,
+              },
+              {
+                key: "outerLineWidth",
+                label: "Outer Line Width",
+                type: "number",
+                min: 0,
+                max: 50,
+                step: 0.5,
+              },
+            ],
+          },
+        ];
+
+        const handleChange = (key, value) => {
+          // Convert string values to numbers where appropriate
+          const numValue = !isNaN(parseFloat(value))
+            ? parseFloat(value)
+            : value;
+          setConfig({ ...config, [key]: numValue });
         };
-        const outerRadiusPx = CONFIG.size * CONFIG.outerRadius;
-        const minInitialDistancePx = outerRadiusPx * CONFIG.minInitialDistance;
 
-        const canvas = document.getElementById("networkCanvas");
-        const ctx = canvas.getContext("2d");
-        const centerX = CONFIG.size / 2;
-        const centerY = CONFIG.size / 2;
+        return (
+          <div className="w-72 px-4 py-6 bg-gray-900 overflow-y-auto no-scrollbar">
+            <h2 className="text-xl font-bold mb-4">Node Configuration</h2>
 
-        // Deterministic random number generator with seed
+            <div className="space-y-4 mb-6">
+              {configGroups.map((group) => (
+                <div
+                  key={group.title}
+                  className="border border-gray-700 rounded-lg p-3"
+                >
+                  <h3 className="font-medium text-lg mb-2">{group.title}</h3>
+                  <div className="space-y-3">
+                    {group.fields.map((field) => (
+                      <div key={field.key} className="flex flex-col">
+                        <div className="flex justify-between">
+                          <label className="text-sm">{field.label}</label>
+                          <span className="text-sm text-gray-400">
+                            {config[field.key]}
+                          </span>
+                        </div>
+                        {field.type === "range" ? (
+                          <input
+                            type="range"
+                            min={field.min}
+                            max={field.max}
+                            step={field.step}
+                            value={config[field.key]}
+                            onChange={(e) =>
+                              handleChange(field.key, e.target.value)
+                            }
+                            className="w-full accent-blue-500"
+                          />
+                        ) : (
+                          <input
+                            type={field.type}
+                            min={field.min}
+                            max={field.max}
+                            step={field.step}
+                            value={config[field.key]}
+                            onChange={(e) =>
+                              handleChange(field.key, e.target.value)
+                            }
+                            className="w-full rounded bg-gray-800 border border-gray-700 px-2 py-1"
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-2">
+              <button
+                onClick={() =>
+                  navigator.clipboard.writeText(JSON.stringify(config, null, 2))
+                }
+                className="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Copy Config JSON
+              </button>
+
+              <button
+                onClick={() => {
+                  const canvas = document.querySelector("canvas");
+                  if (canvas) {
+                    // Convert canvas to data URL
+                    const dataUrl = canvas.toDataURL("image/png");
+
+                    // Create download link
+                    const link = document.createElement("a");
+                    link.download = "icon.png";
+                    link.href = dataUrl;
+
+                    // Trigger download
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }
+                }}
+                className="w-full bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Save as PNG
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      // Right sidebar component for Layout and Random Seeds settings
+      function RightSidebar({ config, setConfig }) {
+        // Group the config fields for UI display
+        const configGroups = [
+          {
+            title: "Layout",
+            fields: [
+              {
+                key: "forceIterations",
+                label: "Force Iterations",
+                type: "number",
+                min: 10,
+                max: 1000,
+                step: 10,
+              },
+              {
+                key: "movementThreshold",
+                label: "Movement Threshold",
+                type: "range",
+                min: 0.001,
+                max: 1,
+                step: 0.001,
+              },
+              {
+                key: "outerRadius",
+                label: "Outer Radius",
+                type: "range",
+                min: 0.1,
+                max: 0.99,
+                step: 0.01,
+              },
+              {
+                key: "minInitialDistance",
+                label: "Min Initial Distance",
+                type: "range",
+                min: 0.05,
+                max: 0.5,
+                step: 0.01,
+              },
+            ],
+          },
+          {
+            title: "Random Seeds",
+            fields: [
+              {
+                key: "layoutSeed",
+                label: "Layout Seed",
+                type: "number",
+                min: 0,
+                max: 1000,
+                step: 1,
+              },
+              {
+                key: "nodeSeed",
+                label: "Node Seed",
+                type: "number",
+                min: 0,
+                max: 1000,
+                step: 1,
+              },
+            ],
+          },
+        ];
+
+        const handleChange = (key, value) => {
+          // Convert string values to numbers where appropriate
+          const numValue = !isNaN(parseFloat(value))
+            ? parseFloat(value)
+            : value;
+          setConfig({ ...config, [key]: numValue });
+        };
+
+        return (
+          <div className="w-72 px-4 py-6 bg-gray-900 overflow-y-auto no-scrollbar">
+            <h2 className="text-xl font-bold mb-4">Layout Settings</h2>
+
+            <div className="space-y-4">
+              {configGroups.map((group) => (
+                <div
+                  key={group.title}
+                  className="border border-gray-700 rounded-lg p-3"
+                >
+                  <h3 className="font-medium text-lg mb-2">{group.title}</h3>
+                  <div className="space-y-3">
+                    {group.fields.map((field) => (
+                      <div key={field.key} className="flex flex-col">
+                        <div className="flex justify-between">
+                          <label className="text-sm">{field.label}</label>
+                          <span className="text-sm text-gray-400">
+                            {config[field.key]}
+                          </span>
+                        </div>
+                        {field.type === "range" ? (
+                          <input
+                            type="range"
+                            min={field.min}
+                            max={field.max}
+                            step={field.step}
+                            value={config[field.key]}
+                            onChange={(e) =>
+                              handleChange(field.key, e.target.value)
+                            }
+                            className="w-full accent-blue-500"
+                          />
+                        ) : (
+                          <input
+                            type={field.type}
+                            min={field.min}
+                            max={field.max}
+                            step={field.step}
+                            value={config[field.key]}
+                            onChange={(e) =>
+                              handleChange(field.key, e.target.value)
+                            }
+                            className="w-full rounded bg-gray-800 border border-gray-700 px-2 py-1"
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      // Main app component
+      function App() {
+        const [config, setConfig] = React.useState(DEFAULT_CONFIG);
+        const canvasRef = React.useRef(null);
+        const regenerateTimeoutRef = React.useRef(null);
+
+        // Network generation utilities
         const createSeededRandom = (seed = 42) => {
           return () => {
             seed = (seed * 9301 + 49297) % 233280;
@@ -122,19 +459,63 @@
           return Math.sqrt((p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2);
         };
 
+        // Check if two edges are the same (regardless of direction)
+        const edgesEqual = (edge1, edge2) => {
+          return (
+            (edge1[0].id === edge2[0].id && edge1[1].id === edge2[1].id) ||
+            (edge1[0].id === edge2[1].id && edge1[1].id === edge2[0].id)
+          );
+        };
+
+        // Check if a point is inside the circumcircle of a triangle
+        const circumCircleContains = (triangle, point) => {
+          const vertices = triangle.vertices;
+
+          // Calculate the circumcenter
+          const a = vertices[0];
+          const b = vertices[1];
+          const c = vertices[2];
+
+          const D =
+            2 * (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y));
+
+          if (Math.abs(D) < 1e-10) return false;
+
+          const ux =
+            ((a.x * a.x + a.y * a.y) * (b.y - c.y) +
+              (b.x * b.x + b.y * b.y) * (c.y - a.y) +
+              (c.x * c.x + c.y * c.y) * (a.y - b.y)) /
+            D;
+
+          const uy =
+            ((a.x * a.x + a.y * a.y) * (c.x - b.x) +
+              (b.x * b.x + b.y * b.y) * (a.x - c.x) +
+              (c.x * c.x + c.y * c.y) * (b.x - a.x)) /
+            D;
+
+          const center = { x: ux, y: uy };
+          const radius = distance(center, a);
+
+          return distance(center, point) <= radius;
+        };
+
         // Improved force-directed placement to evenly distribute nodes
-        const applyForces = (nodes, iterations = CONFIG.forceIterations) => {
-          const random = createSeededRandom(CONFIG.layoutSeed);
+        const applyForces = (nodes, iterations = config.forceIterations) => {
+          const centerX = config.size / 2;
+          const centerY = config.size / 2;
+          const outerRadiusPx = config.size * config.outerRadius;
+
+          const random = createSeededRandom(config.layoutSeed);
 
           // Calculate desired distance between nodes
           const circleArea =
             Math.PI *
-            (outerRadiusPx * CONFIG.boundaryNodeMaxRadius) *
-            (outerRadiusPx * CONFIG.boundaryNodeMaxRadius);
+            (outerRadiusPx * config.boundaryNodeMaxRadius) *
+            (outerRadiusPx * config.boundaryNodeMaxRadius);
           const desiredDistance = Math.sqrt(circleArea / nodes.length) * 1.2;
 
           // Track node movements to detect equilibrium
-          const movementThreshold = CONFIG.movementThreshold;
+          const movementThreshold = config.movementThreshold;
           let equilibriumCount = 0;
 
           for (let iter = 0; iter < iterations; iter++) {
@@ -193,7 +574,7 @@
                 const boundaryForce =
                   Math.pow(
                     distFromCenter /
-                      (outerRadiusPx * CONFIG.boundaryNodeMaxRadius),
+                      (outerRadiusPx * config.boundaryNodeMaxRadius),
                     4
                   ) * 5;
                 const angle = Math.atan2(
@@ -246,7 +627,7 @@
 
               if (
                 distFromCenter >
-                outerRadiusPx * CONFIG.boundaryNodeMaxRadius
+                outerRadiusPx * config.boundaryNodeMaxRadius
               ) {
                 const angle = Math.atan2(
                   nodes[i].y - centerY,
@@ -255,12 +636,12 @@
                 nodes[i].x =
                   centerX +
                   outerRadiusPx *
-                    CONFIG.boundaryNodeMaxRadius *
+                    config.boundaryNodeMaxRadius *
                     Math.cos(angle);
                 nodes[i].y =
                   centerY +
                   outerRadiusPx *
-                    CONFIG.boundaryNodeMaxRadius *
+                    config.boundaryNodeMaxRadius *
                     Math.sin(angle);
               }
             }
@@ -366,46 +747,6 @@
           return triangulation;
         };
 
-        // Check if two edges are the same (regardless of direction)
-        const edgesEqual = (edge1, edge2) => {
-          return (
-            (edge1[0].id === edge2[0].id && edge1[1].id === edge2[1].id) ||
-            (edge1[0].id === edge2[1].id && edge1[1].id === edge2[0].id)
-          );
-        };
-
-        // Check if a point is inside the circumcircle of a triangle
-        const circumCircleContains = (triangle, point) => {
-          const vertices = triangle.vertices;
-
-          // Calculate the circumcenter
-          const a = vertices[0];
-          const b = vertices[1];
-          const c = vertices[2];
-
-          const D =
-            2 * (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y));
-
-          if (Math.abs(D) < 1e-10) return false;
-
-          const ux =
-            ((a.x * a.x + a.y * a.y) * (b.y - c.y) +
-              (b.x * b.x + b.y * b.y) * (c.y - a.y) +
-              (c.x * c.x + c.y * c.y) * (a.y - b.y)) /
-            D;
-
-          const uy =
-            ((a.x * a.x + a.y * a.y) * (c.x - b.x) +
-              (b.x * b.x + b.y * b.y) * (a.x - c.x) +
-              (c.x * c.x + c.y * c.y) * (b.x - a.x)) /
-            D;
-
-          const center = { x: ux, y: uy };
-          const radius = distance(center, a);
-
-          return distance(center, point) <= radius;
-        };
-
         // Extract edges from triangulation
         const extractEdges = (triangulation) => {
           const edges = new Set();
@@ -431,18 +772,28 @@
           });
         };
 
-        function drawNetworkDiagram() {
-          const random = createSeededRandom(CONFIG.nodeSeed); // Fixed seed for determinism
+        // Main drawing function
+        const drawNetworkDiagram = () => {
+          if (!canvasRef.current) return;
+
+          const canvas = canvasRef.current;
+          const ctx = canvas.getContext("2d");
+          const centerX = config.size / 2;
+          const centerY = config.size / 2;
+          const outerRadiusPx = config.size * config.outerRadius;
+          const minInitialDistancePx =
+            outerRadiusPx * config.minInitialDistance;
+
+          const random = createSeededRandom(config.nodeSeed);
 
           // Clear canvas
           ctx.fillStyle = "black";
-          ctx.fillRect(0, 0, CONFIG.size, CONFIG.size);
+          ctx.fillRect(0, 0, config.size, config.size);
 
           // Draw outer circle
-          ctx.strokeStyle = "white";
-
-          if (CONFIG.outerLineWidth > 0) {
-            ctx.lineWidth = CONFIG.outerLineWidth;
+          if (config.outerLineWidth > 0) {
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = config.outerLineWidth;
             ctx.beginPath();
             ctx.arc(centerX, centerY, outerRadiusPx, 0, Math.PI * 2);
             ctx.stroke();
@@ -450,24 +801,24 @@
 
           // Generate random node radius function
           const nodeRadius = () =>
-            CONFIG.minNodeRadius +
-            (CONFIG.maxNodeRadius - CONFIG.minNodeRadius) * random();
+            config.minNodeRadius +
+            (config.maxNodeRadius - config.minNodeRadius) * random();
 
           // Generate initial nodes with blue noise distribution
           const nodes = [];
           const minInitialDistance = minInitialDistancePx;
 
           // First, create nodes at regular intervals around the boundary
-          const boundaryNodeCount = CONFIG.boundaryNodeCount;
+          const boundaryNodeCount = config.boundaryNodeCount;
           for (let i = 0; i < boundaryNodeCount; i++) {
             const angle = (i / boundaryNodeCount) * Math.PI * 2;
             nodes.push({
               x:
                 centerX +
-                outerRadiusPx * CONFIG.boundaryNodeRadius * Math.cos(angle),
+                outerRadiusPx * config.boundaryNodeRadius * Math.cos(angle),
               y:
                 centerY +
-                outerRadiusPx * CONFIG.boundaryNodeRadius * Math.sin(angle),
+                outerRadiusPx * config.boundaryNodeRadius * Math.sin(angle),
               radius: nodeRadius(),
               id: i,
             });
@@ -476,7 +827,7 @@
           // Then fill the interior with a blue noise-like distribution
           for (
             let i = boundaryNodeCount;
-            i < CONFIG.nodeCount && nodes.length < CONFIG.nodeCount;
+            i < config.nodeCount && nodes.length < config.nodeCount;
             i++
           ) {
             let attempts = 0;
@@ -518,18 +869,18 @@
           const links = extractEdges(triangulation);
 
           // Assign colors to nodes
-          nodes.forEach((node, index) => {
+          nodes.forEach((node) => {
             const hue = random();
             node.color = hsvToRgb(
               hue,
-              CONFIG.nodeSaturation,
-              CONFIG.nodeBrightness
+              config.nodeSaturation,
+              config.nodeBrightness
             );
           });
 
           // Draw links
           ctx.strokeStyle = "white";
-          ctx.lineWidth = CONFIG.lineWidth;
+          ctx.lineWidth = config.lineWidth;
 
           links.forEach((link) => {
             const sourceNode = nodes[link.source];
@@ -548,11 +899,91 @@
             ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
             ctx.fill();
           });
-        }
+        };
 
-        // Run the drawing function
-        drawNetworkDiagram();
-      });
+        // Schedule regeneration after config changes
+        const scheduleRegeneration = () => {
+          // Clear any existing timeout
+          if (regenerateTimeoutRef.current) {
+            clearTimeout(regenerateTimeoutRef.current);
+          }
+
+          // Set new timeout
+          regenerateTimeoutRef.current = setTimeout(() => {
+            drawNetworkDiagram();
+          }, 250); // 250ms delay before regenerating
+        };
+
+        // Handle the "Copy Config JSON" button click
+        const handleCopyConfigClick = () => {
+          const configJson = JSON.stringify(config, null, 2);
+          navigator.clipboard.writeText(configJson).then(
+            () => {
+              alert("Configuration copied to clipboard!");
+            },
+            (err) => {
+              console.error("Could not copy text: ", err);
+              // Fallback for browsers that don't support clipboard API
+              const textarea = document.createElement("textarea");
+              textarea.value = configJson;
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand("copy");
+              document.body.removeChild(textarea);
+              alert("Configuration copied to clipboard!");
+            }
+          );
+        };
+
+        // Update config handler (with auto-regeneration)
+        const handleConfigUpdate = (newConfig) => {
+          setConfig(newConfig);
+          scheduleRegeneration();
+        };
+
+        // Draw the network diagram when the component mounts and when config changes
+        React.useEffect(() => {
+          // Set the canvas width and height
+          if (canvasRef.current) {
+            canvasRef.current.width = config.size;
+            canvasRef.current.height = config.size;
+            drawNetworkDiagram();
+          }
+
+          // Clean up any pending timers when component unmounts
+          return () => {
+            if (regenerateTimeoutRef.current) {
+              clearTimeout(regenerateTimeoutRef.current);
+            }
+          };
+        }, []); // Only run on mount
+
+        // Schedule regeneration whenever config changes
+        React.useEffect(() => {
+          scheduleRegeneration();
+        }, [config]); // Run whenever config changes
+
+        return (
+          <div className="flex flex-row w-full h-full">
+            <LeftSidebar config={config} setConfig={handleConfigUpdate} />
+
+            <div className="flex-grow flex items-center justify-center bg-gray-800 p-4 h-full">
+              <canvas
+                ref={canvasRef}
+                width={config.size}
+                height={config.size}
+                className="max-w-full max-h-[calc(100vh-2rem)] object-contain"
+              />
+            </div>
+
+            <RightSidebar config={config} setConfig={handleConfigUpdate} />
+          </div>
+        );
+      }
+
+      // Render the React app - use the correct ReactDOM method for React 18
+      const root = ReactDOM.createRoot(document.getElementById("app"));
+      root.render(<App />);
     </script>
   </body>
 </html>
