@@ -36,7 +36,7 @@ export function Notice({
 
   return (
     <div className={`${classes.bg} border-l-4 ${classes.border} p-3`}>
-      <p className={classes.text}>{children}</p>
+      <div className={classes.text}>{children}</div>
     </div>
   );
 }
