@@ -103,22 +103,16 @@ function GenreHeader({
     maxDegree,
     NodeColourLightness.Background
   );
-  const selectedNodeBorderColour = nodeColour(
-    node,
-    maxDegree,
-    NodeColourLightness.BackgroundBorder
-  );
 
   return (
     <div className="space-y-4">
       <div className="overflow-hidden">
         <WikipediaLink
           pageTitle={node.page_title}
-          className="bg-[var(--node-color)] border-b-6 border-[var(--node-color-border)] hover:filter hover:brightness-[1.6] text-white px-2 pt-2 pb-1 block text-3xl font-bold text-center transition-all duration-200"
+          className="bg-[var(--node-color)] hover:filter hover:brightness-[1.6] text-white p-2 block text-3xl font-bold text-center transition-all duration-200"
           nostyle={true}
           style={{
             ["--node-color" as string]: selectedNodeColour,
-            ["--node-color-border" as string]: selectedNodeBorderColour,
           }}
         >
           {node.label}

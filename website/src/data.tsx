@@ -55,8 +55,6 @@ export const nodeDataId = (data: NodeData) => nodeIdToInt(data.id);
 export const NodeColourLightness = {
   /** The lightness of the background colour. */
   Background: 30,
-  /** The lightness of the background border colour. */
-  BackgroundBorder: 40,
   /** The lightness of the graph node's colour. */
   GraphNode: 60,
   /** The lightness of the graph label's background colour. */

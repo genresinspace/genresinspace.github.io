@@ -90,11 +90,6 @@ function RandomGenre({
     maxDegree,
     NodeColourLightness.Background
   );
-  const randomNodeBorderColour = nodeColour(
-    randomNode,
-    maxDegree,
-    NodeColourLightness.BackgroundBorder
-  );
 
   return (
     <span className="flex flex-col w-full">
@@ -104,10 +99,9 @@ function RandomGenre({
           className="flex-1 min-h-[2rem] text-left cursor-pointer"
           style={{
             ["--node-color" as string]: randomNodeColour,
-            ["--node-color-border" as string]: randomNodeBorderColour,
           }}
         >
-          <span className="font-bold block px-2 py-1 bg-[var(--node-color)] border-b-6 border-[var(--node-color-border)] hover:filter hover:brightness-[1.6] text-white transition-all duration-200">
+          <span className="font-bold block p-2 bg-[var(--node-color)] hover:filter hover:brightness-[1.6] text-white transition-all duration-200">
             {randomNode.label}
           </span>
         </button>
