@@ -62,6 +62,7 @@
         nodeBrightness: 0.91,
         lineWidth: 12,
         outerLineWidth: 24,
+        colorScheme: "vibrant",
       };
 
       // Left sidebar component for Node and Visual settings
@@ -125,6 +126,17 @@
             title: "Visual",
             fields: [
               {
+                key: "colorScheme",
+                label: "Color Scheme",
+                type: "select",
+                options: [
+                  { value: "random", label: "Random" },
+                  { value: "vibrant", label: "Vibrant" },
+                  { value: "pastel", label: "Pastel" },
+                  { value: "neon", label: "Neon" },
+                ],
+              },
+              {
                 key: "nodeSaturation",
                 label: "Node Saturation",
                 type: "range",
@@ -162,9 +174,10 @@
 
         const handleChange = (key, value) => {
           // Convert string values to numbers where appropriate
-          const numValue = !isNaN(parseFloat(value))
-            ? parseFloat(value)
-            : value;
+          const numValue =
+            !isNaN(parseFloat(value)) && key !== "colorScheme"
+              ? parseFloat(value)
+              : value;
           setConfig({ ...config, [key]: numValue });
         };
 
@@ -184,9 +197,11 @@
                       <div key={field.key} className="flex flex-col">
                         <div className="flex justify-between">
                           <label className="text-sm">{field.label}</label>
-                          <span className="text-sm text-gray-400">
-                            {config[field.key]}
-                          </span>
+                          {field.type !== "select" && (
+                            <span className="text-sm text-gray-400">
+                              {config[field.key]}
+                            </span>
+                          )}
                         </div>
                         {field.type === "range" ? (
                           <input
@@ -200,6 +215,20 @@
                             }
                             className="w-full accent-blue-500"
                           />
+                        ) : field.type === "select" ? (
+                          <select
+                            value={config[field.key]}
+                            onChange={(e) =>
+                              handleChange(field.key, e.target.value)
+                            }
+                            className="w-full rounded bg-gray-800 border border-gray-700 px-2 py-1"
+                          >
+                            {field.options.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
                         ) : (
                           <input
                             type={field.type}
@@ -986,13 +1015,61 @@
           const links = extractEdges(triangulation);
 
           // Assign colors to nodes
-          nodes.forEach((node) => {
-            const hue = random();
-            node.color = hsvToRgb(
-              hue,
-              config.nodeSaturation,
-              config.nodeBrightness
-            );
+          const colorPalettes = {
+            vibrant: [
+              "#FF3366",
+              "#FF6633",
+              "#FFCC33",
+              "#33CC33",
+              "#3366FF",
+              "#CC33FF",
+              "#33CCCC",
+              "#00CCFF",
+            ],
+            pastel: [
+              "#FFB3BA",
+              "#FFDFBA",
+              "#FFFFBA",
+              "#BAFFC9",
+              "#BAE1FF",
+              "#D0BAFF",
+              "#F4BAFF",
+              "#BAF2FF",
+            ],
+            neon: [
+              "#FF00FF",
+              "#00FFFF",
+              "#FF00AA",
+              "#00FF00",
+              "#FFF000",
+              "#0066FF",
+              "#00FF99",
+              "#FF3300",
+            ],
+          };
+
+          nodes.forEach((node, index) => {
+            if (config.colorScheme === "random") {
+              // Original random color logic
+              const hue = random();
+              node.color = hsvToRgb(
+                hue,
+                config.nodeSaturation,
+                config.nodeBrightness
+              );
+            } else if (colorPalettes[config.colorScheme]) {
+              // Use palette if it exists
+              const palette = colorPalettes[config.colorScheme];
+              node.color = palette[index % palette.length];
+            } else {
+              // Fallback to random if an invalid scheme is selected
+              const hue = random();
+              node.color = hsvToRgb(
+                hue,
+                config.nodeSaturation,
+                config.nodeBrightness
+              );
+            }
           });
 
           // Draw links
