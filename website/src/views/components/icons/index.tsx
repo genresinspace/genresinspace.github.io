@@ -16,4 +16,5 @@ export * from "./DerivativeIcon";
 export * from "./SubgenreIcon";
 export * from "./FusionGenreIcon";
 export * from "./ResizeHandleIcon";
+export * from "./SwapIcon";
 // Export additional icons as you create them
