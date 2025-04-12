@@ -15520,6 +15520,11 @@
       "wikitext_description": "'''Mugham''' ({{langx|az|Muğam}}) or '''Mughamat''' ({{langx|az|Muğamat}}) is one of the many [[art music|classical]] compositions from [[Azerbaijan]], contrasting with [[tasnif]] and [[ashik]].\n\nIt is an art form that weds classical poetry and musical improvisation in specific local modes. Mugham is a modal system. Unlike Western modes, \"mugham\" modes are associated not only with scales but with an orally transmitted collection of melodies and melodic fragments that performers use in the course of improvisation. Mugham is a compound composition of many parts. The choice of a particular mugham and a style of performance fits a specific event. The dramatic unfolding in performance is typically associated with increasing intensity and rising pitches, and a form of poetic-musical communication between performers and initiated listeners.\n\nThree major schools of mugham performance existed from the late 19th and early 20th centuries in the regions of Karabakh, Shirvan, and Baku. The town of [[Shusha]] of [[Karabakh]], was particularly renowned for this art.\n\nA short selection of Azerbaijani mugham, played on the wind instrument [[balaban (instrument)|balaban]], was included among many cultural achievements of humanity on the [[Voyager Golden Record]], which was attached to the [[Voyager program|Voyager]] spacecraft to represent world music.\n\nIn 2003, [[UNESCO]] proclaimed Azerbaijani Mugham a [[Masterpieces of the Oral and Intangible Heritage of Humanity|\"Masterpiece of the Oral and Intangible Heritage of Humanity\"]]. It was added to the [[UNESCO Intangible Cultural Heritage Lists]] in 2008.",
       "label": "Mugham",
       "last_revision_date": "2025-01-22T22:38:14Z",
+      "mixes": [
+        {
+          "playlist": "PLFFmhKTLDKpH1OdnxuovmO03LzVXzQQ-2"
+        }
+      ],
       "edges": [
         3486,
         3487
@@ -15731,6 +15736,11 @@
       "wikitext_description": "'''Mákina''' is a subgenre of [[Hardcore (electronic dance music genre)|hardcore techno]], originating in Spain. Similar to [[Happy hardcore|UK hardcore]], it includes elements of [[bouncy techno]] and [[hard trance]], it also incorporates influence from [[Eurodance]], and the [[tempo]] ranges from 150 to 180 BPM.",
       "label": "Mákina",
       "last_revision_date": "2024-12-27T20:14:23Z",
+      "mixes": [
+        {
+          "video": "6tpPsE50BE4"
+        }
+      ],
       "edges": [
         577,
         1705,
@@ -15858,6 +15868,11 @@
       "wikitext_description": "The '''Nashville sound''' is a subgenre of American [[country music]] that originated in the 1950s in [[Nashville, Tennessee]]. It replaced the dominance of the rough [[Honky tonk|honky tonk music]] with \"smooth strings and choruses\", \"sophisticated background vocals\" and \"smooth tempos\" associated with [[traditional pop]]. It was an attempt \"to revive country sales, which had been devastated by the rise of [[Rock and roll|rock 'n' roll]]\".",
       "label": "Nashville sound",
       "last_revision_date": "2025-02-06T20:49:00Z",
+      "mixes": [
+        {
+          "playlist": "PLkN4nHBT-Ww18nUg7rbS0gbFB3VXohYhr"
+        }
+      ],
       "edges": [
         1016,
         3581,
@@ -15995,6 +16010,9 @@
       "wikitext_description": "'''Neo-bop''' (also called neotraditionalist) refers to a style of [[jazz]] that gained popularity in the 1980s among musicians who found greater aesthetic affinity for acoustically based, swinging, melodic forms of jazz than for [[free jazz]] and [[jazz fusion]] that had gained prominence in the 1960s and 1970s. Neo-bop is distinct from previous bop music due to the influence of trumpeter [[Wynton Marsalis]], who popularized the genre as an artistic and academic endeavor opposed to the [[Counterculture|countercultural]] developments of the [[Beat Generation|beat generation]].",
       "label": "Neo-bop jazz",
       "last_revision_date": "2024-01-22T01:09:05Z",
+      "mixes": {
+        "help_reason": "I was unable to find a mix or playlist for neo-bop; it seems poorly attested."
+      },
       "edges": [
         354,
         2222,
@@ -16009,6 +16027,11 @@
       "wikitext_description": "'''Neo-progressive rock''' (commonly abbreviated '''neo-prog'''){{sfn|Covach|Boone|1997|p=5}} is a [[subgenre]] of [[progressive rock]] that developed in the UK in the early 1980s. The genre's most popular band, [[Marillion]], achieved mainstream success in the decade. Several bands from the genre have continued to record and tour.",
       "label": "Neo-prog",
       "last_revision_date": "2025-02-09T13:36:38Z",
+      "mixes": [
+        {
+          "playlist": "PLfEnNJ97H5QoyMbaXtYw0K9PlrLuTi8mI"
+        }
+      ],
       "edges": [
         1742,
         1960,
@@ -16150,6 +16173,11 @@
       "wikitext_description": "'''Nerdcore''' is a genre of [[hip hop music]] characterized by subject matter considered of interest to [[nerd]]s and [[geek]]s.  Self-described nerdcore musician [[MC Frontalot]] has the earliest known recorded use of the term (to describe this genre) in the 2000 song \"Nerdcore Hiphop\". Frontalot, like most nerdcore artists, self-publishes his work and has released much of it for free online. As a niche genre, nerdcore generally holds to the [[DIY ethic]], and has a history of self-publishing and self-production.\n\nThough nerdcore rappers rhyme about anything from politics to science fiction, there are some perennial favorites in nerdcore subject matter, including [[anime]], ''[[Star Wars]]'', [[role-playing games]], science, [[high fantasy|fantasy]] and computers.",
       "label": "Nerdcore",
       "last_revision_date": "2025-02-26T13:51:12Z",
+      "mixes": [
+        {
+          "playlist": "PLpCdGVY6BiK2DY0Csinn3LX9oks__NXfH"
+        }
+      ],
       "edges": [
         99,
         2631,
@@ -16182,6 +16210,11 @@
       "wikitext_description": "'''Neue Deutsche Todeskunst''' ('''NDT''', {{lit}} \"New German Death Art\") is a musical genre that developed in Germany in the late 1980s. It is credited with establishing the German language in the [[dark wave]] movement, although there were already such German bands as [[Xmal Deutschland]], {{ill|Geisterfahrer|de|Geisterfahrer (Band)}}, and [[Malaria!]].",
       "label": "Neue Deutsche Todeskunst",
       "last_revision_date": "2022-11-23T04:31:34Z",
+      "mixes": [
+        {
+          "video": "6lyYC478V6U"
+        }
+      ],
       "edges": [
         1180,
         1181,
@@ -16344,6 +16377,7 @@
       "wikitext_description": "'''New Orleans blues''' is a subgenre of [[blues]] that developed in and around the city of [[New Orleans]], influenced by jazz and Caribbean music. It is dominated by piano and saxophone, but also produced guitar bluesmen.",
       "label": "New Orleans blues",
       "last_revision_date": "2025-02-20T04:33:06Z",
+      "mixes": [],
       "edges": [
         478,
         710,
@@ -16371,6 +16405,11 @@
       "wikitext_description": "'''New Weird America''' is a 21st-century style of music that primarily draws on psychedelic and folk music of the 1960s and 1970s.",
       "label": "New Weird America",
       "last_revision_date": "2024-05-22T08:55:07Z",
+      "mixes": [
+        {
+          "playlist": "PLA36E6C1788614BC8"
+        }
+      ],
       "edges": [
         1861,
         4183,
@@ -16493,6 +16532,11 @@
       "wikitext_description": "'''New rave''' (also typeset as '''nu-rave''', '''nu rave''' or '''neu rave''') is a genre of music described by ''[[The Guardian]]'' as \"an in-yer-face, [[Do it yourself|DIY]] [[disco]] riposte to the sensitive [[indie rock]] touted by bands like [[Bloc Party]].\" It is most commonly applied to a [[United Kingdom|British]]-based music scene between 2005 and late 2008 of fast-paced electronica-influenced indie music that celebrated the late 1980s [[Madchester]] and [[rave]] scenes through the use of neon colours and using the term 'raving' to refer to going [[nightclubs|nightclubbing]].",
       "label": "New rave",
       "last_revision_date": "2024-10-19T00:37:19Z",
+      "mixes": [
+        {
+          "playlist": "PL3F97F2F05DB14E74"
+        }
+      ],
       "edges": [
         93,
         1128,
@@ -16627,6 +16671,11 @@
       "wikitext_description": "'''New wave of classic rock''', also known as '''classic rock revival''', is a style of [[rock music]] that is meant to emulate the sound of earlier rock acts, particularly those of the 1960s, 1970s and 1980s.",
       "label": "New wave of classic rock",
       "last_revision_date": "2024-12-27T21:59:54Z",
+      "mixes": [
+        {
+          "playlist": "PLs9tfulSFnpra0t8Vg1ukygqjCNlWRvb0"
+        }
+      ],
       "edges": [
         521,
         2244,
@@ -16660,6 +16709,11 @@
       "wikitext_description": "The '''new wave of traditional heavy metal''' ('''N.W.O.T.H.M.''') is a musical movement that started in the mid-2000s as a revival of [[classic metal]] sound from the 1970s and 1980s. The term is used to describe bands that make heavy use of the elements and style of that era of [[Heavy metal music|metal music]].",
       "label": "New wave of traditional heavy metal",
       "last_revision_date": "2025-01-31T20:01:25Z",
+      "mixes": [
+        {
+          "video": "CMAh6zfATzY"
+        }
+      ],
       "edges": [
         2423,
         3676,
@@ -17108,6 +17162,11 @@
       "wikitext_description": "'''{{Lang|es|Nueva canción chilena|italic=no}}''' ({{langx|en|new Chilean song}}) was a movement and genre of Chilean music incorporating strong political and social themes, taking influences from traditional or [[folk music]] of Chile. The movement was to spread throughout [[Latin America]] during the 1960s and 1970s, in what is called \"[[Nueva canción]]\" sparking the renewal in traditional folk music and playing a key role in political movements in the region.\n\nThe foundations of the Chilean New Song were laid through the efforts of [[Violeta Parra]] to revive over 3,000 Chilean songs, [[Chilean cuisine|recipes]], [[Culture of Chile|traditions]], and proverbs, and it eventually aligned with the 1970 presidential campaign of Salvador Allende, incorporating the songs of [[Víctor Jara]], [[Inti-Illimani]] and [[Quilapayún]] among others.\n\nOther key proponents of the movement include [[Patricio Manns]], [[Rolando Alarcón]], [[Payo Grondona]], [[Patricio Castillo (folk musician)|Patricio Castillo]], [[Homero Caro]], and [[Kiko Álvarez]], as well as non-Chilean musicians, such as [[César Isella]] and [[Atahualpa Yupanqui]] from Argentina and [[Paco Ibáñez]] from Spain.",
       "label": "Nueva canción chilena",
       "last_revision_date": "2025-03-02T01:02:28Z",
+      "mixes": [
+        {
+          "video": "0hWWX9BYdnA"
+        }
+      ],
       "edges": [
         3536
       ]
@@ -17118,6 +17177,11 @@
       "wikitext_description": "The '''nueva ola''' ({{IPA|es|'nwe βa 'o la|pron}}; Spanish for \"new wave\") was a loosely affiliated group of musicians, mainly in Spanish-speaking South America, who played and introduced [[rock 'n roll]] and other American and European music of the 1950s and 1960s to their countries. The term \"nueva ola\" was coined in Argentina around the turn of the 1960s to denote the foreign rock and roll styles that were gaining popularity among the youth, along with their local exponents. From there, the concept spread to Chile, with exponents such as [[Buddy Richard]], Los Carr Twins, Los Red Junior, Luis Dimas, José Alfredo Fuentes, Fresia Soto, [[Cecilia Pantoja|Cecilia]], Gloria Aguirre and Pat Henry. And in [[Peru]], with exponents such as [[Kela Gates]], Jimmy Santi, Los Doltons, Joe Danova, Los Silvertons, Los Belkings and Anita Martinez.\n\nNueva ola bands usually had their names in English and rather than producing their own material they recorded [[cover song|versions]] of songs that were already popular in the United States or Europe. More than an artistic movement the nueva ola was an economic and social phenomenon that marked the beginning of [[youth culture]] and pop music in South America.\n\nArtists associated with the nueva ola reached their peak of popularity in the 1960s. Nueva ola music was contemporaneous with [[nueva canción]], a style which, together with nueva ola, became the precursor to the [[rock en español]] scene that rose to prominence in the 1980s. During the '90s nueva ola music experienced a revival in Chile.",
       "label": "Nueva ola",
       "last_revision_date": "2024-09-29T05:44:01Z",
+      "mixes": [
+        {
+          "video": "jN9Wdm1umWM"
+        }
+      ],
       "edges": [
         341,
         625,
@@ -17308,6 +17372,11 @@
       "wikitext_description": "'''Organic house''' is a subgenre of house music that emphasizes acoustic instruments and natural sounds. The genre was made as a way to express a \"deeper, more meditative, and occasionally slower shades of house music\", often combining elements of Deep House, Melodic House, Electronica, and [[Afro House]].",
       "label": "Organic house",
       "last_revision_date": "2025-01-25T00:51:30Z",
+      "mixes": [
+        {
+          "video": "NoBeQvuEw2k"
+        }
+      ],
       "edges": [
         74,
         205,
@@ -17620,6 +17689,11 @@
       "wikitext_description": "'''Partido Alto''' refers to a type of [[samba]] with a number of particularities. In the world of samba subgenres and in samba reunions, partido alto songs (informally called ''partidos'') can represent a time for improvisation and (humorous or not) disputes, besides a stronger singalong opportunity for the participants.\n\nPartido Alto is also the name of a particular rhythm that is derived from the above-mentioned style of samba (especially in a jazz context).  The rhythm is often played in samba, and is also the basis for the Partido Alto groove, in which more or all of the instruments accent this rhythm.",
       "label": "Partido alto",
       "last_revision_date": "2022-11-13T18:55:11Z",
+      "mixes": [
+        {
+          "playlist": "PLSCXAnvHcTUXzm4YqHjJtuV1PnUPCdE1C"
+        }
+      ],
       "edges": [
         3816,
         4825,
@@ -17640,6 +17714,11 @@
       "wikitext_description": "'''Peking opera''', or '''Beijing opera''' ({{zh|c=京劇|p=Jīngjù}}), is the most dominant form of [[Chinese opera]], which combines instrumental music, vocal performance, mime, martial arts, dance and acrobatics. It arose in [[Beijing]] in the mid-[[Qing dynasty]] (1644–1912) and became fully developed and recognized by the mid-19th century. The form was extremely popular in the Qing court and has come to be regarded as one of the cultural treasures of China. Major performance troupes are based in Beijing, [[Tianjin]] and [[Shanghai]]. The art form is also preserved in [[Taiwan]], where it is also known as {{lang|zh-Latn|Guójù}} ({{zh|t=國劇 |l=National opera}}). It has also spread to other regions such as the [[United States]] and [[Japan]].\n\nPeking opera features four main role types, ''[[Sheng role|sheng]]'' (gentlemen), ''[[dan role|dan]]'' (women), ''[[jing role|jing]]'' (rough men), and ''[[chou role|chou]]'' (clowns). Performing troupes often have several of each variety, as well as numerous secondary and tertiary performers. With their elaborate and colorful costumes, performers are the only focal points on Peking opera characteristically sparse stage. They use the skills of speech, song, dance and combat in movements that are symbolic and suggestive, rather than realistic. Above all else, the skill of performers is evaluated according to the beauty of their movements. Performers also adhere to a variety of stylistic conventions that help audiences navigate the plot of the production. The layers of meaning within each movement must be expressed in time with music. The music of Peking opera can be divided into the {{lang|zh-Latn|xīpí}} ({{lang|zh|西皮}}) and {{lang|zh-Latn|èrhuáng}} ({{lang|zh-hans|二黄}}) styles. Melodies include [[aria]]s, fixed-tune melodies and [[Percussion instrument|percussion]] patterns. The repertoire of Peking opera includes over 1,400 works, which are based on [[Chinese history]], [[Chinese folklore|folklore]] and, increasingly, contemporary life.\n\nTraditional Peking opera was denounced as \"feudalistic\" and \"bourgeois\" during the [[Cultural Revolution]] (1966–1976) and replaced mostly with the [[revolutionary opera]]s until the period's end. After the Cultural Revolution, these transformations were largely undone. In recent years, Peking opera has responded to sagging audience numbers by attempting reforms, including improving performance quality, adapting new performance elements, shortening works, and performing new and original plays.",
       "label": "Peking opera",
       "last_revision_date": "2025-01-18T03:15:47Z",
+      "mixes": [
+        {
+          "playlist": "PLDCI2Wz2e2pJHEiQVHNP5iLARUnQWPP5Y"
+        }
+      ],
       "edges": []
     },
     {
@@ -18271,6 +18350,11 @@
       "wikitext_description": "'''Pornogrind''' (also known as '''porngrind''' or '''pornogore''') is a musical microgenre offshoot of [[goregrind]] that lyrically deals with sexual and [[Pornography|pornographic]] themes, hence the name.",
       "label": "Pornogrind",
       "last_revision_date": "2025-02-19T10:47:59Z",
+      "mixes": [
+        {
+          "playlist": "PLpkgjbXReLDJLfX35DEwdJ0KVsNHs2Vb2"
+        }
+      ],
       "edges": [
         1185,
         1209,
@@ -19686,6 +19770,11 @@
       "wikitext_description": "'''Rabiz''' or '''rabis''' ({{langx|hy|ռաբիզ}} or {{langx|hy|ռաբիս}}; {{langx|ka|რაბიზი}}) is a genre of Armenian [[popular music]], distinguished by its lyrics and dance-oriented synthesized melodies in {{music|time|6|8}} time signature with elements of Armenian [[folk music]]. Rabiz first emerged in [[Yerevan]] in the 1970-80s and was often associated with Armenian migrants from [[Baku]], [[Ganja (city)|Ganja]], [[Tbilisi]] and rural regions of Armenia. Rabiz singers are with few exceptions male. More recently, rabiz songs have been augmented with heavier arrangements and [[electronic dance music]] elements in their instrumentation.{{source needed|date=January 2025}} [[Georgia (country)|Georgia]] also has a Rabiz music scene influenced by the Armenian genre.{{source needed|date=January 2025}}\n\nThough the singers and their audience primarily refer to rabiz as a music genre, the term is also used broadly to refer to a certain type of [[subculture]] with its particular fashion, [[Russian language|Russian]]-derived [[slang]], and lifestyle. The genre has received criticism from various music critics due to its perceived similarities to Middle Eastern music. Prominent performers of the genre include [[Aram Asatryan]], [[Tatul Avoyan]] (known by the mononym Tatul), and Hayk Ghevondyan (known as [[Spitakci Hayko]] or more commonly by the mononym Hayko).\n\n{{blockquote|The musical language of the rabiz, being a blend of several musical traditions (primarily Armenian national music, called ''[[ashug]]''. [Bardic-style] and Eastern in the style of the makam [classical court music]), it is marked by delicate Eastern harmony and an abundance of melisinas, which allow the musician to achieve the desired effect by purely musical means.<ref>{{cite book|title=Soviet anthropology and archeology: Volume 29|year=1990|publisher=International Arts and Sciences Press|page=41}}</ref> }}\n\nSome performances of rabiz music are characterized by [[code-switching]] in which rabiz performers such as Mingichauri Samo ([[Samvel Avanesyan]]) and Spitakci Hayko (Hayk Ghevondyan) – reminiscent of similarly multilingual pieces by [[Ashik|ashughs]] such as [[Sayat-Nova]] – improvise simultaneously in different languages such as [[Armenian language|Armenian]], [[Kurdish languages|Kurdish]] or [[Russian language|Russian]].\n\nOutside of Armenia, rabiz also enjoys popularity in the [[Armenian diaspora]], particularly in [[Russia]] and [[Los Angeles]], [[California]]. Many of the performers of the genre are now greatly popular with Armenian diaspora listeners as well.",
       "label": "Rabiz",
       "last_revision_date": "2025-01-16T21:42:42Z",
+      "mixes": [
+        {
+          "video": "Qzs6avYHTe4"
+        }
+      ],
       "edges": [
         241,
         3487,
@@ -19835,6 +19924,11 @@
       "wikitext_description": "'''Rake-and-scrape''' is the traditional music of The Bahamas, alongside [[Junkanoo]]. It combines African musical elements with European musical elements to create a sound comparable to other Caribbean music while remaining distinct.",
       "label": "Rake-and-scrape",
       "last_revision_date": "2024-04-04T20:23:40Z",
+      "mixes": [
+        {
+          "video": "en6VwAY2aEw"
+        }
+      ],
       "edges": []
     },
     {
@@ -19894,6 +19988,11 @@
       "wikitext_description": "'''Trap metal''' (also known as '''ragecore''', '''death rap''', '''hardcore trap, industrial trap''' and '''scream rap''') is a subgenre of [[trap music]] that features elements and inspiration from various [[heavy metal music|metal]] and [[hardcore punk]] genres, as well as elements of other genres, like [[industrial music|industrial]] and [[nu metal]]. It is characterized by distorted beats, hip hop flows, harsh vocals, and can also sometimes feature guitar riffs that are either sampled, synthesized or recorded by an actual guitarist. [[Bones (rapper)|Bones]] has been considered by ''[[Kerrang!]]'' to be one of the earliest practitioners of the genre, releasing tracks that could be considered \"trap metal\" beginning around 2014. British rapper [[Scarlxrd]] is often associated with the genre and is considered a pioneer of trap metal. [[WQHT]] described [[OG Maco]]'s [[OG Maco (EP)|2014 eponymous EP]] as being a part of the genre's early development. Other artists associated with trap metal include [[Dropout Kings]], [[Bone Crew]], [[Ghostemane]], [[ZillaKami]], [[Fever 333]], [[Ho99o9]], [[City Morgue]], [[Kid Bookie]], [[Kim Dracula]], [[Backxwash]], [[Banshee (musician)|Banshee]], [[Denzel Curry]], and [[$uicideboy$]], as well as the early careers of [[XXXTentacion]], [[6ix9ine]] and [[Ski Mask the Slump God]].\n\nThe stylistic influences of trap metal vary widely, with some artists such as City Morgue and Ho99o9 drawing influence from [[hardcore punk]], while other artists such as Ghostemane have pioneered their own sounds with influences from genres including [[black metal]], [[gothic rock]], [[industrial metal]], and [[emo]].",
       "label": "Trap metal",
       "last_revision_date": "2025-02-02T01:44:23Z",
+      "mixes": [
+        {
+          "video": "sBvQy19thA4"
+        }
+      ],
       "edges": [
         2437,
         2659,
@@ -20001,6 +20100,11 @@
       "wikitext_description": "'''Rasteirinha''' (or '''Ragga funk''') is a subgenre of [[funk carioca]] that takes large influence from [[samba]] and [[axé (music)|axé]], and adopts [[caribbean music|Caribbean]] grooves derived from [[reggaeton]] and [[dancehall]]. Rasteirinha was born in the early 2010s in the [[favela|favelas]] of [[Rio de Janeiro]] and quickly popularized by some of its early hits, like MC Delano's \"Na Ponta Ela Fica\" and MC Romântico's \"As Novinha Tão Sensacional\". DJs like [[Mulú]], DJ Comrade, [[Munchi (DJ)|Munchi]] and [[Buraka Som Sistema]] later spread it to the world.",
       "label": "Rasteirinha",
       "last_revision_date": "2024-05-13T12:15:17Z",
+      "mixes": [
+        {
+          "playlist": "PLNaI1lAgCSeQITIVXOgBG38wFu4gjrUWL"
+        }
+      ],
       "edges": [
         301,
         2005,
@@ -20971,6 +21075,11 @@
       "wikitext_description": "'''Rocksteady''' is a [[music genre]] that originated in [[Jamaica]] around 1966. A successor of [[ska]] and a precursor to [[reggae]], rocksteady was the dominant style of music in Jamaica for nearly two years, performed by many of the artists who helped establish reggae, including harmony groups such as [[the Techniques]], [[the Paragons]], [[the Heptones]] and [[the Gaylads]]; soulful singers such as [[Alton Ellis]], [[Delroy Wilson]], Bob Andy, [[Ken Boothe]] and [[Phyllis Dillon]]; musicians such as [[Jackie Mittoo]], [[Lynn Taitt]] and [[Tommy McCook]]. The term ''rocksteady'' comes from a popular (slower) dance style mentioned in the Alton Ellis song \"Rocksteady\", that matched the new sound. Some rocksteady songs became hits outside Jamaica, as with ska, helping to secure the international base reggae music has today.",
       "label": "Rocksteady",
       "last_revision_date": "2025-02-06T12:46:33Z",
+      "mixes": [
+        {
+          "playlist": "PL037F8CE61D670129"
+        }
+      ],
       "edges": [
         4794,
         4795,
@@ -21059,6 +21168,11 @@
       "wikitext_description": "'''Rumba flamenca''', also known as '''flamenco rumba''' or simply '''rumba''' ({{IPA|es|ˈrumba}}), is a ''[[Palo (flamenco)|palo]]'' (style) of [[flamenco]] music developed in [[Andalusia]], [[Spain]]. It is known as one of the ''[[cantes de ida y vuelta]]'' (roundtrip songs), music which diverged in the new world, then returned to Spain in a new form. The genre originated in the 19th century in Andalusia, southern Spain, where Cuban music first reached the country.",
       "label": "Rumba flamenca",
       "last_revision_date": "2024-10-22T21:30:24Z",
+      "mixes": [
+        {
+          "playlist": "PLIb2ijdMGKWUA_EFGZSQQgMN0MpNcLm_Q"
+        }
+      ],
       "edges": [
         1085,
         1819,
@@ -21353,6 +21467,11 @@
       "wikitext_description": "'''Sambass''', '''drum 'n' bossa''' or '''drum 'n' sambass''' (a [[portmanteau]] of \"[[samba]]\" and \"[[Bass (sound)|bass]]\") is a regional subgenre of [[drum and bass]] music mostly native to [[Brazil]], which combines drum and bass rhythms with influences from [[Latin American music]].\n\nPopular artists in the genre include [[DJ Marky]], [[DJ Patife]], [[XRS Land]], [[Drumagick]], [[Marcelinho da Lua]], [[Kaleidoscopio]] and DJ Roots.  Four compilation albums titles ''Sambass Vol. 1'' through ''Sambass Vol. 4'' were released to international acclaim, by the Italian record label Cuadra.\n{{clear}}",
       "label": "Sambass",
       "last_revision_date": "2024-04-12T21:23:03Z",
+      "mixes": [
+        {
+          "video": "xYLMeQrhbac"
+        }
+      ],
       "edges": [
         566,
         1395,
