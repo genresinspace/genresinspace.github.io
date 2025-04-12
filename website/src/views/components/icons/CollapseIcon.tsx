@@ -1,11 +1,5 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Collapse icon - a downward-pointing chevron
@@ -13,11 +7,12 @@ interface IconProps {
  * Used to indicate collapsible content that is currently expanded.
  * Common use cases: accordions, expandable panels, dropdown menus that are currently open.
  */
-export const CollapseIcon: React.FC<IconProps> = ({
-  width = 16,
-  height = 16,
+export const CollapseIcon: React.FC<StrokeIconProps> = ({
+  width = 18,
+  height = 18,
   className = "",
   stroke = "currentColor",
+  style = {},
 }) => {
   return (
     <svg
@@ -28,6 +23,7 @@ export const CollapseIcon: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       stroke={stroke}
       className={className}
+      style={style}
     >
       <path
         strokeLinecap="round"

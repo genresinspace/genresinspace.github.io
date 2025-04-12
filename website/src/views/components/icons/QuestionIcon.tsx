@@ -1,11 +1,5 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Question icon - a circle with a question mark
@@ -13,11 +7,12 @@ interface IconProps {
  * Used to indicate questions, FAQs, or help sections.
  * Common use cases: FAQ sections, help documentation, customer support.
  */
-export const QuestionIcon: React.FC<IconProps> = ({
+export const QuestionIcon: React.FC<StrokeIconProps> = ({
   width = 18,
   height = 18,
   className = "",
   stroke = "currentColor",
+  style = {},
 }) => {
   return (
     <svg
@@ -28,6 +23,7 @@ export const QuestionIcon: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       stroke={stroke}
       className={className}
+      style={style}
     >
       <path
         strokeLinecap="round"

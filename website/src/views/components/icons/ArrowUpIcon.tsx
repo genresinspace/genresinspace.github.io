@@ -1,11 +1,5 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Arrow Up icon - an upward-pointing arrow
@@ -13,11 +7,12 @@ interface IconProps {
  * Used to represent upward movement, increasing values, or navigation.
  * Common use cases: scroll to top buttons, upload actions, sorting indicators, connections.
  */
-export const ArrowUpIcon: React.FC<IconProps> = ({
+export const ArrowUpIcon: React.FC<StrokeIconProps> = ({
   width = 18,
   height = 18,
   className = "",
   stroke = "currentColor",
+  style = {},
 }) => {
   return (
     <svg
@@ -28,6 +23,7 @@ export const ArrowUpIcon: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       stroke={stroke}
       className={className}
+      style={style}
     >
       <path
         strokeLinecap="round"

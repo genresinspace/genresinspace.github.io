@@ -1,10 +1,19 @@
-import { IconProps } from "./IconProps";
+import React from "react";
+import { StrokeIconProps } from "./IconProps";
 
-export function SwapIcon({
-  width = 16,
-  height = 16,
+/**
+ * Swap icon - represents a swap action
+ *
+ * Used to represent swapping or exchanging items.
+ * Common use cases: swap buttons, exchange actions, reordering.
+ */
+export const SwapIcon: React.FC<StrokeIconProps> = ({
+  width = 18,
+  height = 18,
+  className = "",
   stroke = "#9ca3af",
-}: IconProps) {
+  style = {},
+}) => {
   return (
     <svg
       width={width}
@@ -15,6 +24,8 @@ export function SwapIcon({
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      className={className}
+      style={style}
     >
       <path d="M16 3h5v5" />
       <path d="M4 20L21 3" />
@@ -22,4 +33,4 @@ export function SwapIcon({
       <path d="M15 15l6 6" />
     </svg>
   );
-}
+};

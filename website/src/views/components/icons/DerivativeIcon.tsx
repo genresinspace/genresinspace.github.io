@@ -1,21 +1,14 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-  style?: React.CSSProperties;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Derivative icon - double chevron
  *
  * Used to represent derivative relationships between genres.
  */
-export const DerivativeIcon: React.FC<IconProps> = ({
-  width = 16,
-  height = 16,
+export const DerivativeIcon: React.FC<StrokeIconProps> = ({
+  width = 18,
+  height = 18,
   className = "",
   stroke = "currentColor",
   style = {},

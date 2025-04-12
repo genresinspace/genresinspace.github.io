@@ -1,11 +1,5 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Map icon - a folded map or document with coordinates
@@ -13,11 +7,12 @@ interface IconProps {
  * Used to represent maps, locations, or geographic information.
  * Common use cases: map features, navigation, location services, legends.
  */
-export const MapIcon: React.FC<IconProps> = ({
+export const MapIcon: React.FC<StrokeIconProps> = ({
   width = 18,
   height = 18,
   className = "",
   stroke = "currentColor",
+  style = {},
 }) => {
   return (
     <svg
@@ -28,6 +23,7 @@ export const MapIcon: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       stroke={stroke}
       className={className}
+      style={style}
     >
       <path
         strokeLinecap="round"

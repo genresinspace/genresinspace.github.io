@@ -1,11 +1,5 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Search icon - a magnifying glass
@@ -13,11 +7,12 @@ interface IconProps {
  * Used to represent search functionality.
  * Common use cases: search bars, search buttons, find features, zoom functionality.
  */
-export const SearchIcon: React.FC<IconProps> = ({
+export const SearchIcon: React.FC<StrokeIconProps> = ({
   width = 14,
   height = 14,
   className = "",
   stroke = "currentColor",
+  style = {},
 }) => {
   return (
     <svg
@@ -28,6 +23,7 @@ export const SearchIcon: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       stroke={stroke}
       className={className}
+      style={style}
     >
       <path
         strokeLinecap="round"

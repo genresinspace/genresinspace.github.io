@@ -1,21 +1,14 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-  style?: React.CSSProperties;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Fusion Genre icon - document copy
  *
  * Used to represent fusion relationships between genres.
  */
-export const FusionGenreIcon: React.FC<IconProps> = ({
-  width = 16,
-  height = 16,
+export const FusionGenreIcon: React.FC<StrokeIconProps> = ({
+  width = 18,
+  height = 18,
   className = "",
   stroke = "currentColor",
   style = {},

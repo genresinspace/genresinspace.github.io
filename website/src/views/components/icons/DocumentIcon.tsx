@@ -1,11 +1,5 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Document icon - a paper document with text lines
@@ -13,11 +7,12 @@ interface IconProps {
  * Used to represent documents, text content, or written information.
  * Common use cases: descriptions, documentation, text content, articles.
  */
-export const DocumentIcon: React.FC<IconProps> = ({
+export const DocumentIcon: React.FC<StrokeIconProps> = ({
   width = 18,
   height = 18,
   className = "",
   stroke = "currentColor",
+  style = {},
 }) => {
   return (
     <svg
@@ -28,6 +23,7 @@ export const DocumentIcon: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       stroke={stroke}
       className={className}
+      style={style}
     >
       <path
         strokeLinecap="round"

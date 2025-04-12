@@ -1,11 +1,5 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Information icon - a circle with the letter "i"
@@ -13,11 +7,12 @@ interface IconProps {
  * Used to indicate additional information or help content.
  * Common use cases: informational sections, tooltips, help buttons.
  */
-export const InfoIcon: React.FC<IconProps> = ({
+export const InfoIcon: React.FC<StrokeIconProps> = ({
   width = 18,
   height = 18,
   className = "",
   stroke = "currentColor",
+  style = {},
 }) => {
   return (
     <svg
@@ -28,6 +23,7 @@ export const InfoIcon: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       stroke={stroke}
       className={className}
+      style={style}
     >
       <path
         strokeLinecap="round"

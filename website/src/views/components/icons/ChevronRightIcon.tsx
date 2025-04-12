@@ -1,23 +1,18 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
- * Chevron Right icon - a right-pointing chevron (>)
+ * Chevron right icon - a right-pointing chevron
  *
- * Used to indicate forward navigation or expandable content.
- * Common use cases: navigation buttons, expandable sections, breadcrumbs, menu items.
+ * Used to represent rightward direction or next actions.
+ * Common use cases: navigation arrows, next buttons, forward indicators.
  */
-export const ChevronRightIcon: React.FC<IconProps> = ({
+export const ChevronRightIcon: React.FC<StrokeIconProps> = ({
   width = 18,
   height = 18,
   className = "",
   stroke = "currentColor",
+  style = {},
 }) => {
   return (
     <svg
@@ -28,6 +23,7 @@ export const ChevronRightIcon: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       stroke={stroke}
       className={className}
+      style={style}
     >
       <path
         strokeLinecap="round"

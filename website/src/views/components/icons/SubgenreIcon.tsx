@@ -1,21 +1,14 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-  style?: React.CSSProperties;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Subgenre icon - document
  *
  * Used to represent subgenre relationships between genres.
  */
-export const SubgenreIcon: React.FC<IconProps> = ({
-  width = 16,
-  height = 16,
+export const SubgenreIcon: React.FC<StrokeIconProps> = ({
+  width = 18,
+  height = 18,
   className = "",
   stroke = "currentColor",
   style = {},

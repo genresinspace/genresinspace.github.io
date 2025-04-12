@@ -1,11 +1,5 @@
 import React from "react";
-
-interface IconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  stroke?: string;
-}
+import { StrokeIconProps } from "./IconProps";
 
 /**
  * Expand icon - a right-pointing chevron
@@ -13,11 +7,12 @@ interface IconProps {
  * Used to indicate expandable content that is currently collapsed.
  * Common use cases: accordions, expandable panels, tree views, nested navigation.
  */
-export const ExpandIcon: React.FC<IconProps> = ({
-  width = 16,
-  height = 16,
+export const ExpandIcon: React.FC<StrokeIconProps> = ({
+  width = 18,
+  height = 18,
   className = "",
   stroke = "currentColor",
+  style = {},
 }) => {
   return (
     <svg
@@ -28,6 +23,7 @@ export const ExpandIcon: React.FC<IconProps> = ({
       viewBox="0 0 24 24"
       stroke={stroke}
       className={className}
+      style={style}
     >
       <path
         strokeLinecap="round"
