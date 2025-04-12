@@ -101,13 +101,13 @@ function RandomGenre({
             ["--node-color" as string]: randomNodeColour,
           }}
         >
-          <span className="font-bold block p-2 bg-[var(--node-color)] hover:filter hover:brightness-[1.6] text-white transition-all duration-200">
+          <span className="font-bold block p-2 bg-[var(--node-color)] hover:filter hover:brightness-[1.6] text-white transition-all duration-250">
             {randomNode.label}
           </span>
         </button>
         <button
           onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
-          className="p-1 bg-amber-700 hover:bg-amber-600 w-8 flex items-center justify-center text-white transition-colors"
+          className="p-1 bg-neutral-800 hover:bg-neutral-700 w-8 flex items-center justify-center text-white transition-colors"
           title="Get another random genre"
         >
           🎲
