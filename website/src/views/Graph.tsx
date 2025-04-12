@@ -30,11 +30,15 @@ export function Graph({
   selectedId,
   setSelectedId,
   focusedId,
+  destinationId,
+  path,
 }: {
   settings: SettingsData;
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
   focusedId: string | null;
+  destinationId: string | null;
+  path: string[] | null;
 }) {
   const { max_degree: maxDegree } = useDataContext();
   const { cosmograph, nodes, links } = useCosmograph<NodeData, EdgeData>()!;
@@ -83,12 +87,16 @@ export function Graph({
   const isHighlightedDueToSelection = (d: NodeData, includePath: boolean) => {
     if (!selectedId) return false;
     const isSelected = d.id === selectedId;
+    const isDestination = d.id === destinationId;
     const isImmediateNeighbour = pathInfo.immediateNeighbours.has(d.id);
     const isInPath =
       includePath &&
       (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
         maxDistance;
-    return isSelected || isImmediateNeighbour || isInPath;
+    const isInDirectionalPath = path?.includes(d.id);
+    return path !== null
+      ? isInDirectionalPath
+      : isSelected || isDestination || isImmediateNeighbour || isInPath;
   };
 
   const nodeDataColour = (node: NodeData) => {
@@ -127,9 +135,21 @@ export function Graph({
         const selectedMinInfluenceAlpha = 0.4;
         const selectedDimmedAlpha = 0.1;
         const unselectedAlpha = 0.3;
+        const dimmedColour = `hsla(0, 0%, 20%, ${selectedDimmedAlpha})`;
 
         if (selectedId) {
-          if (d.source === selectedId) {
+          if (path) {
+            const sourceIndex = path.indexOf(d.source);
+            const targetIndex = path.indexOf(d.target);
+            if (
+              sourceIndex !== -1 &&
+              targetIndex !== -1 &&
+              Math.abs(sourceIndex - targetIndex) === 1
+            ) {
+              return colour(90, selectedAlpha);
+            }
+            return dimmedColour;
+          } else if (d.source === selectedId) {
             return colour(90, selectedAlpha);
           } else if (d.target === selectedId) {
             return colour(40, selectedAlpha);
@@ -149,7 +169,7 @@ export function Graph({
             }
 
             // Edges not in path
-            return `hsla(0, 0%, 20%, ${selectedDimmedAlpha})`;
+            return dimmedColour;
           }
         }
 

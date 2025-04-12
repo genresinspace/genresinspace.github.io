@@ -100,6 +100,12 @@ function LoadedApp({ data }: { data: Data }) {
 
   const [settings, setSettings] = useState<SettingsData>(DEFAULT_SETTINGS);
 
+  const { pathState, updateDestinationId } = usePath(
+    data,
+    settings,
+    selectedId
+  );
+
   return (
     <DataContext.Provider value={data}>
       <div className="flex w-screen h-screen">
@@ -110,6 +116,8 @@ function LoadedApp({ data }: { data: Data }) {
               selectedId={selectedId}
               setSelectedId={setSelectedId}
               focusedId={focusedId}
+              destinationId={pathState.destination}
+              path={pathState.path}
             />
             <div className="absolute top-4 left-4 z-50 w-sm text-white">
               <Search
@@ -117,6 +125,9 @@ function LoadedApp({ data }: { data: Data }) {
                 setFocusedId={setFocusedId}
                 filter={filter}
                 setFilter={setFilter}
+                destinationId={pathState.destination}
+                setDestinationId={updateDestinationId}
+                path={pathState.path}
               />
             </div>
           </div>
@@ -211,6 +222,124 @@ function useSelectedIdAndFilterAndFocus(data: Data): {
     focusedId,
     setFocusedId,
   };
+}
+
+function usePath(
+  data: Data,
+  settings: SettingsData,
+  selectedId: string | null
+) {
+  // Store the source and destination that created the current path
+  const [pathState, setPathState] = useState<{
+    source: string | null;
+    destination: string | null;
+    path: string[] | null;
+  }>({
+    source: null,
+    destination: null,
+    path: null,
+  });
+
+  // Calculate path when source/destination changes
+  useEffect(() => {
+    if (
+      !pathState.source ||
+      !pathState.destination ||
+      !data.nodes ||
+      !data.edges
+    ) {
+      return;
+    }
+
+    // Dijkstra's algorithm to find shortest path
+    const distances = new Map<string, number>();
+    const previous = new Map<string, string>();
+    const unvisited = new Set<string>();
+    const visited = new Set<string>();
+
+    // Initialize distances
+    data.nodes.forEach((node) => {
+      distances.set(node.id, Infinity);
+      unvisited.add(node.id);
+    });
+    distances.set(pathState.source, 0);
+
+    while (unvisited.size > 0) {
+      // Find unvisited node with smallest distance
+      let currentId: string | null = null;
+      let smallestDistance = Infinity;
+      for (const id of unvisited) {
+        const distance = distances.get(id)!;
+        if (distance < smallestDistance) {
+          smallestDistance = distance;
+          currentId = id;
+        }
+      }
+
+      if (!currentId || smallestDistance === Infinity) break;
+
+      // If we reached the destination, reconstruct the path
+      if (currentId === pathState.destination) {
+        const path: string[] = [];
+        let current = currentId;
+        while (current) {
+          path.unshift(current);
+          current = previous.get(current)!;
+        }
+        setPathState((prev) => ({ ...prev, path }));
+        return;
+      }
+
+      // Mark as visited
+      unvisited.delete(currentId);
+      visited.add(currentId);
+
+      // Update distances to neighbors
+      const currentNode = data.nodes[nodeIdToInt(currentId)];
+      for (const edgeIndex of currentNode.edges) {
+        const edge = data.edges[edgeIndex];
+        if (edge.source === currentId && settings.visibleTypes[edge.ty]) {
+          const neighborId = edge.target;
+          if (!visited.has(neighborId)) {
+            const newDistance = distances.get(currentId)! + 1;
+            if (newDistance < distances.get(neighborId)!) {
+              distances.set(neighborId, newDistance);
+              previous.set(neighborId, currentId);
+            }
+          }
+        }
+      }
+    }
+
+    // No path found
+    setPathState((prev) => ({ ...prev, path: null }));
+  }, [
+    pathState.source,
+    pathState.destination,
+    data.nodes,
+    data.edges,
+    settings.visibleTypes,
+  ]);
+
+  // Handle setting destination
+  const updateDestinationId = useCallback(
+    (destination: string | null) => {
+      if (!selectedId || !destination) {
+        setPathState({ source: null, destination: null, path: null });
+        return;
+      }
+
+      // Update path source/destination - path will be calculated in effect
+      setPathState({
+        source: selectedId,
+        destination,
+        path: null,
+      });
+    },
+    [selectedId]
+  );
+
+  return { pathState, updateDestinationId };
 }
 
 /** The main app component */
