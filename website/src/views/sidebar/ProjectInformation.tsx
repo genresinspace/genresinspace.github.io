@@ -26,9 +26,11 @@ import { InfoIcon, MapIcon, QuestionIcon } from "../components/icons";
 export function ProjectInformation({
   settings,
   setSettings,
+  setFocusedId,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
+  setFocusedId: (id: string | null) => void;
 }) {
   const {
     nodes,
@@ -60,7 +62,11 @@ export function ProjectInformation({
             , if you're curious.
           </p>
           <p>Try clicking on a genre, or check out a random genre: </p>
-          <RandomGenre nodes={nodes} maxDegree={maxDegree} />
+          <RandomGenre
+            nodes={nodes}
+            maxDegree={maxDegree}
+            setFocusedId={setFocusedId}
+          />
         </div>
       </Section>
       <Section heading="Legend" icon={<MapIcon />}>
@@ -77,9 +83,11 @@ export function ProjectInformation({
 function RandomGenre({
   nodes,
   maxDegree,
+  setFocusedId,
 }: {
   nodes: NodeData[];
   maxDegree: number;
+  setFocusedId: (id: string | null) => void;
 }) {
   const [randomId, setRandomId] = useState(() =>
     Math.floor(Math.random() * nodes.length)
@@ -100,6 +108,8 @@ function RandomGenre({
           style={{
             ["--node-color" as string]: randomNodeColour,
           }}
+          onMouseEnter={() => setFocusedId(randomNode.id)}
+          onMouseLeave={() => setFocusedId(null)}
         >
           <span className="font-bold block p-2 bg-[var(--node-color)] hover:filter hover:brightness-[1.6] text-white transition-all duration-250">
             {randomNode.label}

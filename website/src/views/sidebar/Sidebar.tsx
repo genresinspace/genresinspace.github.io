@@ -121,7 +121,11 @@ export function Sidebar({
               ))}
           </div>
           {activeTab === "information" ? (
-            <ProjectInformation settings={settings} setSettings={setSettings} />
+            <ProjectInformation
+              settings={settings}
+              setSettings={setSettings}
+              setFocusedId={setFocusedId}
+            />
           ) : activeTab === "selected" ? (
             <SelectedNodeInfo
               selectedId={selectedId}
