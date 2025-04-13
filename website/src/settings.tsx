@@ -39,6 +39,7 @@ export const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
 export const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
   `hsla(240, ${saturation}%, 60%, ${alpha})`;
 
+/** Descriptions of the visible types in the graph */
 export const VISIBLE_TYPES: VisibleTypeDesc[] = [
   {
     color: derivativeColour(),
@@ -62,6 +63,8 @@ export const VISIBLE_TYPES: VisibleTypeDesc[] = [
       "Genres that combine elements of this genre with other genres.",
   },
 ];
+
+/** Map of visible type names to their descriptions */
 export const VISIBLE_TYPES_BY_TYPE = Object.fromEntries(
   VISIBLE_TYPES.map((type) => [type.type, type])
 ) as Record<keyof VisibleTypes, VisibleTypeDesc>;

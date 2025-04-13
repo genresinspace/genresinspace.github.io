@@ -11,11 +11,13 @@ import { CloseIcon } from "./components/icons/CloseIcon";
 import { VISIBLE_TYPES_BY_TYPE, VisibleTypes } from "../settings";
 import React from "react";
 
+/** Represents a search result with node data and description */
 type SearchResult = {
   node: NodeData;
   strippedDescription: string;
 };
 
+/** The state of the search component */
 export type SearchState =
   | {
       // node not selected, search for a node
@@ -38,6 +40,7 @@ export type SearchState =
       path: string[] | null;
     };
 
+/** The actions that can be dispatched to the search reducer */
 export type SearchAction =
   | {
       // any state: set the source query for the search, go to `initial` state
@@ -432,7 +435,7 @@ function GenreResultsList({ children }: { children: React.ReactNode }) {
 
 function getFormattedThroughLabels(visibleTypes: VisibleTypes) {
   const labels = Object.entries(visibleTypes)
-    .filter(([_, visible]) => visible)
+    .filter(([, visible]) => visible)
     .map(([label]) => (
       <span
         key={label}
@@ -469,6 +472,14 @@ function getFormattedThroughLabels(visibleTypes: VisibleTypes) {
   );
 }
 
+/**
+ * Hook to manage search state and actions
+ * @param nodes - Array of node data
+ * @param edges - Array of edge data
+ * @param visibleTypes - Types of nodes that are visible
+ * @param selectedId - ID of currently selected node
+ * @returns A tuple containing search state and dispatch function
+ */
 export function useSearchState(
   nodes: NodeData[],
   edges: EdgeData[],
