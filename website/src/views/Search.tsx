@@ -370,9 +370,8 @@ export function Search({
           </div>
 
           {searchState.path && (
-            <div className="mt-4">
-              <h3 className="text-sm font-semibold mb-2">Path:</h3>
-              <div className="flex flex-col gap-2">
+            <div className="mt-2">
+              <div className="flex flex-col gap-2 max-h-[80vh] overflow-y-auto">
                 {searchState.path.map((nodeId) => {
                   const node = nodes[nodeIdToInt(nodeId)];
                   const isSelected = nodeId === selectedId;
