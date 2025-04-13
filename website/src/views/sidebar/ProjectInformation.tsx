@@ -8,10 +8,9 @@ import {
   nodeColour,
   useDataContext,
 } from "../../data";
-import { SettingsData } from "../../settings";
+import { VISIBLE_TYPES, VisibleTypes } from "../../settings";
 import { stripGenreNamePrefixFromDescription } from "../../util";
 
-import { fusionGenreColour, derivativeColour, subgenreColour } from "../Graph";
 import { FAQ } from "./FAQ";
 
 import { Footnote } from "../components/Footnote";
@@ -24,12 +23,12 @@ import { InfoIcon, MapIcon, QuestionIcon } from "../components/icons";
 
 /** The sidebar panel for information about the project. */
 export function ProjectInformation({
-  settings,
-  setSettings,
+  visibleTypes,
+  setVisibleTypes,
   setFocusedId,
 }: {
-  settings: SettingsData;
-  setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
+  visibleTypes: VisibleTypes;
+  setVisibleTypes: (visibleTypes: VisibleTypes) => void;
   setFocusedId: (id: string | null) => void;
 }) {
   const {
@@ -70,7 +69,7 @@ export function ProjectInformation({
         </div>
       </Section>
       <Section heading="Legend" icon={<MapIcon />}>
-        <Legend settings={settings} setSettings={setSettings} />
+        <Legend visibleTypes={visibleTypes} setVisibleTypes={setVisibleTypes} />
       </Section>
       <Section heading="FAQ" icon={<QuestionIcon />}>
         <FAQ dumpDate={dumpDate} />
@@ -139,54 +138,27 @@ function RandomGenre({
 }
 
 function Legend({
-  settings,
-  setSettings,
+  visibleTypes,
+  setVisibleTypes,
 }: {
-  settings: SettingsData;
-  setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
+  visibleTypes: VisibleTypes;
+  setVisibleTypes: (visibleTypes: VisibleTypes) => void;
 }) {
-  const types = [
-    {
-      color: derivativeColour(),
-      label: "Derivative",
-      type: "Derivative" as const,
-      description:
-        "Genres that use some of the elements inherent to this genre, without being a subgenre.",
-    },
-    {
-      color: subgenreColour(),
-      label: "Subgenre",
-      type: "Subgenre" as const,
-      description:
-        "Genres that share characteristics with this genre and fall within its purview.",
-    },
-    {
-      color: fusionGenreColour(),
-      label: "Fusion Genre",
-      type: "FusionGenre" as const,
-      description:
-        "Genres that combine elements of this genre with other genres.",
-    },
-  ];
-
   return (
     <div className="flex flex-col gap-4 p-3 text-sm">
-      {types.map(({ color, label, type, description }) => (
+      {VISIBLE_TYPES.map(({ color, label, type, description }) => (
         <div key={label} className="flex items-start gap-2">
           <div>
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
                 id={label}
-                checked={settings.visibleTypes[type]}
+                checked={visibleTypes[type]}
                 onChange={(e) =>
-                  setSettings((prev: SettingsData) => ({
-                    ...prev,
-                    visibleTypes: {
-                      ...prev.visibleTypes,
-                      [type]: e.target.checked,
-                    },
-                  }))
+                  setVisibleTypes({
+                    ...visibleTypes,
+                    [type]: e.target.checked,
+                  })
                 }
                 style={{ accentColor: color }}
               />

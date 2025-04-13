@@ -9,7 +9,12 @@ import {
   NodeColourLightness,
   useDataContext,
 } from "../../data";
-import { derivativeColour, fusionGenreColour, subgenreColour } from "../Graph";
+import {
+  derivativeColour,
+  fusionGenreColour,
+  subgenreColour,
+} from "../../settings";
+import { stripGenreNamePrefixFromDescription } from "../../util";
 
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { Notice } from "../components/Notice";
@@ -32,7 +37,6 @@ import {
   FusionGenreIcon,
 } from "../components/icons";
 
-import { stripGenreNamePrefixFromDescription } from "../../util";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 
 /** The sidebar panel for information about the selected node. */

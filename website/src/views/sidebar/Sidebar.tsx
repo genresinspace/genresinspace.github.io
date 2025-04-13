@@ -122,8 +122,10 @@ export function Sidebar({
           </div>
           {activeTab === "information" ? (
             <ProjectInformation
-              settings={settings}
-              setSettings={setSettings}
+              visibleTypes={settings.visibleTypes}
+              setVisibleTypes={(visibleTypes) =>
+                setSettings((prev) => ({ ...prev, visibleTypes }))
+              }
               setFocusedId={setFocusedId}
             />
           ) : activeTab === "selected" ? (

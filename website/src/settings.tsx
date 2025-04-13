@@ -1,10 +1,6 @@
 /** The settings for the app. Updated by the `Settings` component. */
 export type SettingsData = {
-  visibleTypes: {
-    Derivative: boolean;
-    Subgenre: boolean;
-    FusionGenre: boolean;
-  };
+  visibleTypes: VisibleTypes;
   general: {
     zoomOnSelect: boolean;
     showLabels: boolean;
@@ -15,6 +11,60 @@ export type SettingsData = {
   };
   simulation: SimulationParams;
 };
+
+/** The types of nodes that are visible in the graph. */
+export type VisibleTypes = {
+  Derivative: boolean;
+  Subgenre: boolean;
+  FusionGenre: boolean;
+};
+
+/** A description of a visible type. */
+export type VisibleTypeDesc = {
+  color: string;
+  label: string;
+  type: keyof VisibleTypes;
+  description: string;
+};
+
+/** The colour of a derivative genre */
+export const derivativeColour = (saturation: number = 70, alpha: number = 1) =>
+  `hsla(0, ${saturation}%, 60%, ${alpha})`;
+
+/** The colour of a subgenre */
+export const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
+  `hsla(120, ${saturation}%, 60%, ${alpha})`;
+
+/** The colour of a fusion genre */
+export const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
+  `hsla(240, ${saturation}%, 60%, ${alpha})`;
+
+export const VISIBLE_TYPES: VisibleTypeDesc[] = [
+  {
+    color: derivativeColour(),
+    label: "Derivative",
+    type: "Derivative" as const,
+    description:
+      "Genres that use some of the elements inherent to this genre, without being a subgenre.",
+  },
+  {
+    color: subgenreColour(),
+    label: "Subgenre",
+    type: "Subgenre" as const,
+    description:
+      "Genres that share characteristics with this genre and fall within its purview.",
+  },
+  {
+    color: fusionGenreColour(),
+    label: "Fusion Genre",
+    type: "FusionGenre" as const,
+    description:
+      "Genres that combine elements of this genre with other genres.",
+  },
+];
+export const VISIBLE_TYPES_BY_TYPE = Object.fromEntries(
+  VISIBLE_TYPES.map((type) => [type.type, type])
+) as Record<keyof VisibleTypes, VisibleTypeDesc>;
 
 /** The parameters for the simulation. */
 export type SimulationParams = {
