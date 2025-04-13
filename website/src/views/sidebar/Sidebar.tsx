@@ -71,73 +71,78 @@ export function Sidebar({
     <div
       ref={sidebarRef}
       style={{ width, userSelect: isResizing ? "none" : "auto" }}
-      className="h-full bg-neutral-900 text-white box-border flex"
+      className="h-full bg-neutral-900 text-white box-border flex flex-col"
     >
-      <div
-        className={`h-full w-4 cursor-ew-resize hover:bg-neutral-700 ${
-          isResizing ? "bg-neutral-700" : ""
-        } select-none flex items-center justify-center shrink-0`}
-        onMouseDown={() => setIsResizing(true)}
-      >
-        <ResizeHandleIcon className="text-neutral-500" />
+      {/* Fixed navigation bar at top */}
+      <div className="flex shrink-0">
+        {[
+          {
+            id: "selected" as const,
+            label: "Selected",
+            icon: <EyeIcon className="mr-2" />,
+            show: () => selectedId !== null,
+          },
+          {
+            id: "information" as const,
+            label: "Info",
+            icon: <InfoIcon width={16} height={16} className="mr-2" />,
+            show: () => true,
+          },
+          {
+            id: "settings" as const,
+            label: "Settings",
+            icon: <SettingsIcon width={16} height={16} className="mr-2" />,
+            show: () => true,
+          },
+        ]
+          .filter((tab) => tab.show())
+          .map((tab) => (
+            <button
+              key={tab.id}
+              className={`flex-1 px-2 py-2 border-b-6 text-white cursor-pointer flex items-center justify-center ${
+                activeTab === tab.id
+                  ? "bg-violet-600 font-bold border-violet-500"
+                  : "bg-gray-700 hover:bg-gray-600 border-gray-600"
+              } transition-colors duration-200`}
+              onClick={() => setActiveTab(tab.id as typeof activeTab)}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
       </div>
-      <div className="flex-1 overflow-y-auto" ref={sidebarContentRef}>
-        <div className="p-5 pl-1">
-          <div className="flex mb-4">
-            {[
-              {
-                id: "selected" as const,
-                label: "Selected",
-                icon: <EyeIcon className="mr-2" />,
-                show: () => selectedId !== null,
-              },
-              {
-                id: "information" as const,
-                label: "Info",
-                icon: <InfoIcon width={16} height={16} className="mr-2" />,
-                show: () => true,
-              },
-              {
-                id: "settings" as const,
-                label: "Settings",
-                icon: <SettingsIcon width={16} height={16} className="mr-2" />,
-                show: () => true,
-              },
-            ]
-              .filter((tab) => tab.show())
-              .map((tab) => (
-                <button
-                  key={tab.id}
-                  className={`flex-1 px-2 py-1 border-b-6 text-white cursor-pointer flex items-center justify-center ${
-                    activeTab === tab.id
-                      ? "bg-violet-600 font-bold border-violet-500"
-                      : "bg-gray-700 hover:bg-gray-600 border-gray-600"
-                  } transition-colors duration-200`}
-                  onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                >
-                  {tab.icon}
-                  {tab.label}
-                </button>
-              ))}
+
+      {/* Scrollable content area */}
+      <div className="flex overflow-y-auto flex-1" ref={sidebarContentRef}>
+        <div
+          className={`h-auto w-4 cursor-ew-resize hover:bg-neutral-700 ${
+            isResizing ? "bg-neutral-700" : ""
+          } select-none flex items-center justify-center shrink-0 sticky top-0`}
+          onMouseDown={() => setIsResizing(true)}
+        >
+          <ResizeHandleIcon className="text-neutral-500" />
+        </div>
+        <div className="flex-1">
+          <div className="pr-4 py-4">
+            {activeTab === "information" ? (
+              <ProjectInformation
+                visibleTypes={settings.visibleTypes}
+                setVisibleTypes={(visibleTypes) =>
+                  setSettings((prev) => ({ ...prev, visibleTypes }))
+                }
+                setFocusedId={setFocusedId}
+              />
+            ) : activeTab === "selected" ? (
+              <SelectedNodeInfo
+                selectedId={selectedId}
+                setFocusedId={setFocusedId}
+                shouldShowMixes={settings.general.showMixes}
+                shouldAutoplayMixes={settings.general.autoplayMixes}
+              />
+            ) : (
+              <Settings settings={settings} setSettings={setSettings} />
+            )}
           </div>
-          {activeTab === "information" ? (
-            <ProjectInformation
-              visibleTypes={settings.visibleTypes}
-              setVisibleTypes={(visibleTypes) =>
-                setSettings((prev) => ({ ...prev, visibleTypes }))
-              }
-              setFocusedId={setFocusedId}
-            />
-          ) : activeTab === "selected" ? (
-            <SelectedNodeInfo
-              selectedId={selectedId}
-              setFocusedId={setFocusedId}
-              shouldShowMixes={settings.general.showMixes}
-              shouldAutoplayMixes={settings.general.autoplayMixes}
-            />
-          ) : (
-            <Settings settings={settings} setSettings={setSettings} />
-          )}
         </div>
       </div>
     </div>
