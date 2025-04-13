@@ -96,187 +96,243 @@ export function Search({
   searchDispatch: Dispatch<SearchAction>;
   visibleTypes: VisibleTypes;
 }) {
+  switch (searchState.type) {
+    case "initial":
+      return (
+        <SearchInitial
+          searchState={searchState}
+          searchDispatch={searchDispatch}
+          setFocusedId={setFocusedId}
+        />
+      );
+    case "selected":
+      return (
+        <SearchSelected
+          searchState={searchState}
+          searchDispatch={searchDispatch}
+          setFocusedId={setFocusedId}
+        />
+      );
+    case "path":
+      return (
+        <SearchPath
+          searchState={searchState}
+          searchDispatch={searchDispatch}
+          setFocusedId={setFocusedId}
+          selectedId={selectedId}
+          visibleTypes={visibleTypes}
+        />
+      );
+  }
+}
+
+function SearchInitial({
+  searchState,
+  searchDispatch,
+  setFocusedId,
+}: {
+  searchState: Extract<SearchState, { type: "initial" }>;
+  searchDispatch: Dispatch<SearchAction>;
+  setFocusedId: (id: string | null) => void;
+}) {
+  return (
+    <div>
+      <SearchBar>
+        <SearchInput
+          placeholder="Search for genre..."
+          value={searchState.sourceQuery}
+          onChange={(value) =>
+            searchDispatch({
+              type: "set-source-query",
+              sourceQuery: value,
+            })
+          }
+        />
+      </SearchBar>
+
+      <GenreResultsList>
+        {searchState.sourceResults.map(({ node, strippedDescription }) => (
+          <GenreResultItem
+            key={node.id}
+            node={node}
+            description={strippedDescription}
+            setFocusedId={setFocusedId}
+            onClick={() => {
+              searchDispatch({
+                type: "select-node",
+                nodeId: node.id,
+              });
+            }}
+          />
+        ))}
+      </GenreResultsList>
+    </div>
+  );
+}
+
+function SearchSelected({
+  searchState,
+  searchDispatch,
+  setFocusedId,
+}: {
+  searchState: Extract<SearchState, { type: "selected" }>;
+  searchDispatch: Dispatch<SearchAction>;
+  setFocusedId: (id: string | null) => void;
+}) {
   const { nodes } = useDataContext();
 
-  switch (searchState.type) {
-    case "initial": {
-      return (
-        <div>
-          <SearchBar>
-            <SearchInput
-              placeholder="Search for genre..."
-              value={searchState.sourceQuery}
-              onChange={(value) =>
-                searchDispatch({
-                  type: "set-source-query",
-                  sourceQuery: value,
-                })
-              }
-            />
-          </SearchBar>
+  return (
+    <div>
+      <SearchBar>
+        <SearchInput
+          placeholder="Search for genre..."
+          value={nodes[nodeIdToInt(searchState.sourceId)].label}
+          onChange={(value) =>
+            searchDispatch({
+              type: "set-source-query",
+              sourceQuery: value,
+            })
+          }
+        />
+        <SearchInput
+          placeholder="Destination..."
+          value={searchState.destinationQuery}
+          onChange={(value) =>
+            searchDispatch({
+              type: "selected|path:set-destination-query",
+              destinationQuery: value,
+            })
+          }
+          onClear={() => {
+            searchDispatch({
+              type: "selected|path:set-destination-query",
+              destinationQuery: "",
+            });
+          }}
+        />
+      </SearchBar>
 
-          <GenreResultsList>
-            {searchState.sourceResults.map(({ node, strippedDescription }) => (
+      <GenreResultsList>
+        {searchState.destinationResults.map(({ node, strippedDescription }) => (
+          <GenreResultItem
+            key={node.id}
+            node={node}
+            description={strippedDescription}
+            setFocusedId={setFocusedId}
+            onClick={() => {
+              searchDispatch({
+                type: "selected:select-destination",
+                destinationId: node.id,
+              });
+            }}
+          />
+        ))}
+      </GenreResultsList>
+    </div>
+  );
+}
+
+function SearchPath({
+  searchState,
+  searchDispatch,
+  setFocusedId,
+  selectedId,
+  visibleTypes,
+}: {
+  searchState: Extract<SearchState, { type: "path" }>;
+  searchDispatch: Dispatch<SearchAction>;
+  setFocusedId: (id: string | null) => void;
+  selectedId: string | null;
+  visibleTypes: VisibleTypes;
+}) {
+  const { nodes } = useDataContext();
+
+  return (
+    <div>
+      <div className="flex items-center bg-neutral-700">
+        <SearchBar>
+          <SearchInput
+            placeholder="Search for genre..."
+            value={nodes[nodeIdToInt(searchState.sourceId)].label}
+            onChange={(value) =>
+              searchDispatch({
+                type: "set-source-query",
+                sourceQuery: value,
+              })
+            }
+          />
+          <SearchInput
+            placeholder="Destination..."
+            value={nodes[nodeIdToInt(searchState.destinationId)].label}
+            onChange={(value) =>
+              searchDispatch({
+                type: "selected|path:set-destination-query",
+                destinationQuery: value,
+              })
+            }
+            onClear={() => {
+              searchDispatch({
+                type: "selected|path:set-destination-query",
+                destinationQuery: "",
+              });
+            }}
+          />
+        </SearchBar>
+        <button
+          className="ml-2 px-2 py-1 bg-neutral-700 hover:bg-neutral-600 transition-colors"
+          onClick={() => {
+            searchDispatch({
+              type: "path:swap-source-and-destination",
+            });
+          }}
+          title="Swap source and destination"
+        >
+          <SwapIcon width={16} height={16} stroke="#9ca3af" />
+        </button>
+      </div>
+
+      {searchState.path ? (
+        <GenreResultsList>
+          {searchState.path.map((nodeId) => {
+            const node = nodes[nodeIdToInt(nodeId)];
+            const isSelected = nodeId === selectedId;
+            return (
               <GenreResultItem
-                key={node.id}
+                key={nodeId}
                 node={node}
-                description={strippedDescription}
+                description={
+                  node.wikitext_description
+                    ? stripGenreNamePrefixFromDescription(
+                        node.label,
+                        node.wikitext_description
+                      )
+                    : ""
+                }
                 setFocusedId={setFocusedId}
-                onClick={() => {
-                  searchDispatch({
-                    type: "select-node",
-                    nodeId: node.id,
-                  });
-                }}
+                isSelected={isSelected}
               />
-            ))}
-          </GenreResultsList>
+            );
+          })}
+        </GenreResultsList>
+      ) : (
+        <div className="mt-2 text-sm text-neutral-400">
+          No path found from {nodes[nodeIdToInt(searchState.sourceId)].label} to{" "}
+          {nodes[nodeIdToInt(searchState.destinationId)].label} through{" "}
+          {getFormattedThroughLabels(visibleTypes)}.{" "}
+          <button
+            className="text-blue-400 hover:underline"
+            onClick={() => {
+              searchDispatch({
+                type: "path:swap-source-and-destination",
+              });
+            }}
+          >
+            Try swapping direction?
+          </button>
         </div>
-      );
-    }
-    case "selected": {
-      return (
-        <div>
-          <SearchBar>
-            <SearchInput
-              placeholder="Search for genre..."
-              value={nodes[nodeIdToInt(searchState.sourceId)].label}
-              onChange={(value) =>
-                searchDispatch({
-                  type: "set-source-query",
-                  sourceQuery: value,
-                })
-              }
-            />
-            <SearchInput
-              placeholder="Destination..."
-              value={searchState.destinationQuery}
-              onChange={(value) =>
-                searchDispatch({
-                  type: "selected|path:set-destination-query",
-                  destinationQuery: value,
-                })
-              }
-              onClear={() => {
-                searchDispatch({
-                  type: "selected|path:set-destination-query",
-                  destinationQuery: "",
-                });
-              }}
-            />
-          </SearchBar>
-
-          <GenreResultsList>
-            {searchState.destinationResults.map(
-              ({ node, strippedDescription }) => (
-                <GenreResultItem
-                  key={node.id}
-                  node={node}
-                  description={strippedDescription}
-                  setFocusedId={setFocusedId}
-                  onClick={() => {
-                    searchDispatch({
-                      type: "selected:select-destination",
-                      destinationId: node.id,
-                    });
-                  }}
-                />
-              )
-            )}
-          </GenreResultsList>
-        </div>
-      );
-    }
-    case "path": {
-      return (
-        <div>
-          <div className="flex items-center bg-neutral-700">
-            <SearchBar>
-              <SearchInput
-                placeholder="Search for genre..."
-                value={nodes[nodeIdToInt(searchState.sourceId)].label}
-                onChange={(value) =>
-                  searchDispatch({
-                    type: "set-source-query",
-                    sourceQuery: value,
-                  })
-                }
-              />
-              <SearchInput
-                placeholder="Destination..."
-                value={nodes[nodeIdToInt(searchState.destinationId)].label}
-                onChange={(value) =>
-                  searchDispatch({
-                    type: "selected|path:set-destination-query",
-                    destinationQuery: value,
-                  })
-                }
-                onClear={() => {
-                  searchDispatch({
-                    type: "selected|path:set-destination-query",
-                    destinationQuery: "",
-                  });
-                }}
-              />
-            </SearchBar>
-            <button
-              className="ml-2 px-2 py-1 bg-neutral-700 hover:bg-neutral-600 transition-colors"
-              onClick={() => {
-                searchDispatch({
-                  type: "path:swap-source-and-destination",
-                });
-              }}
-              title="Swap source and destination"
-            >
-              <SwapIcon width={16} height={16} stroke="#9ca3af" />
-            </button>
-          </div>
-
-          {searchState.path ? (
-            <GenreResultsList>
-              {searchState.path.map((nodeId) => {
-                const node = nodes[nodeIdToInt(nodeId)];
-                const isSelected = nodeId === selectedId;
-                return (
-                  <GenreResultItem
-                    key={nodeId}
-                    node={node}
-                    description={
-                      node.wikitext_description
-                        ? stripGenreNamePrefixFromDescription(
-                            node.label,
-                            node.wikitext_description
-                          )
-                        : ""
-                    }
-                    setFocusedId={setFocusedId}
-                    isSelected={isSelected}
-                  />
-                );
-              })}
-            </GenreResultsList>
-          ) : (
-            <div className="mt-2 text-sm text-neutral-400">
-              No path found from{" "}
-              {nodes[nodeIdToInt(searchState.sourceId)].label} to{" "}
-              {nodes[nodeIdToInt(searchState.destinationId)].label} through{" "}
-              {getFormattedThroughLabels(visibleTypes)}.{" "}
-              <button
-                className="text-blue-400 hover:underline"
-                onClick={() => {
-                  searchDispatch({
-                    type: "path:swap-source-and-destination",
-                  });
-                }}
-              >
-                Try swapping direction?
-              </button>
-            </div>
-          )}
-        </div>
-      );
-    }
-  }
+      )}
+    </div>
+  );
 }
 
 // Reusable components
