@@ -1,9 +1,14 @@
 import { CosmographProvider } from "@cosmograph/react";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Dispatch } from "react";
 
 import { Graph } from "./views/Graph";
-import { Search } from "./views/Search";
+import {
+  Search,
+  SearchAction,
+  SearchState,
+  useSearchState,
+} from "./views/Search";
 import { DEFAULT_SETTINGS, SettingsData } from "./settings";
 import { Data, nodeIdToInt, DataContext } from "./data";
 
@@ -89,22 +94,15 @@ function useData():
 }
 
 function LoadedApp({ data }: { data: Data }) {
+  const [settings, setSettings] = useState<SettingsData>(DEFAULT_SETTINGS);
   const {
     selectedId,
     setSelectedId,
-    filter,
-    setFilter,
     focusedId,
     setFocusedId,
-  } = useSelectedIdAndFilterAndFocus(data);
-
-  const [settings, setSettings] = useState<SettingsData>(DEFAULT_SETTINGS);
-
-  const { pathState, updateDestinationId } = usePath(
-    data,
-    settings,
-    selectedId
-  );
+    searchState,
+    searchDispatch,
+  } = useSelectedIdAndFilterAndFocus(data, settings);
 
   return (
     <DataContext.Provider value={data}>
@@ -116,17 +114,15 @@ function LoadedApp({ data }: { data: Data }) {
               selectedId={selectedId}
               setSelectedId={setSelectedId}
               focusedId={focusedId}
-              path={pathState.path}
+              path={searchState.type === "path" ? searchState.path : null}
             />
             <div className="absolute top-4 left-4 z-50 w-sm text-white">
               <Search
                 selectedId={selectedId}
                 setFocusedId={setFocusedId}
-                filter={filter}
-                setFilter={setFilter}
-                destinationId={pathState.destination}
-                setDestinationId={updateDestinationId}
-                path={pathState.path}
+                searchState={searchState}
+                searchDispatch={searchDispatch}
+                visibleTypes={settings.visibleTypes}
               />
             </div>
           </div>
@@ -142,13 +138,16 @@ function LoadedApp({ data }: { data: Data }) {
   );
 }
 
-function useSelectedIdAndFilterAndFocus(data: Data): {
+function useSelectedIdAndFilterAndFocus(
+  data: Data,
+  settings: SettingsData
+): {
   selectedId: string | null;
   setSelectedId: (newId: string | null) => void;
-  filter: string;
-  setFilter: (filter: string) => void;
   focusedId: string | null;
   setFocusedId: (id: string | null) => void;
+  searchState: SearchState;
+  searchDispatch: Dispatch<SearchAction>;
 } {
   // Selection
   const [selectedId, setSelectedIdRaw] = useState<string | null>(() => {
@@ -156,8 +155,18 @@ function useSelectedIdAndFilterAndFocus(data: Data): {
     return hash || null;
   });
 
-  // Filter
-  const [filter, setFilter] = useState("");
+  // Search state
+  const [searchState, searchDispatch] = useSearchState(
+    data.nodes,
+    data.edges,
+    settings.visibleTypes,
+    selectedId
+  );
+
+  useEffect(() => {
+    // Ensure the path is rebuilt when the visible types change
+    searchDispatch({ type: "path:rebuild" });
+  }, [searchDispatch, settings.visibleTypes]);
 
   // Focus
   const [focusedId, setFocusedRawId] = useState<string | null>(null);
@@ -180,12 +189,15 @@ function useSelectedIdAndFilterAndFocus(data: Data): {
       setSelectedIdRaw(newId);
       if (newId) {
         const nodeData = data.nodes[nodeIdToInt(newId)];
+        searchDispatch({
+          type: "select-node",
+          nodeId: newId,
+        });
         if (nodeData) {
-          setFilter(nodeData.label);
           document.title = `genres in space: ${nodeData.label}`;
         }
       } else {
-        setFilter("");
+        searchDispatch({ type: "selected:clear-source" });
         document.title = "genres in space";
       }
       setFocusedId(newId);
@@ -216,129 +228,11 @@ function useSelectedIdAndFilterAndFocus(data: Data): {
   return {
     selectedId,
     setSelectedId,
-    filter,
-    setFilter,
     focusedId,
     setFocusedId,
+    searchState,
+    searchDispatch,
   };
-}
-
-function usePath(
-  data: Data,
-  settings: SettingsData,
-  selectedId: string | null
-) {
-  // Store the source and destination that created the current path
-  const [pathState, setPathState] = useState<{
-    source: string | null;
-    destination: string | null;
-    path: string[] | null;
-  }>({
-    source: null,
-    destination: null,
-    path: null,
-  });
-
-  // Calculate path when source/destination changes
-  useEffect(() => {
-    if (
-      !pathState.source ||
-      !pathState.destination ||
-      !data.nodes ||
-      !data.edges
-    ) {
-      return;
-    }
-
-    // Dijkstra's algorithm to find shortest path
-    const distances = new Map<string, number>();
-    const previous = new Map<string, string>();
-    const unvisited = new Set<string>();
-    const visited = new Set<string>();
-
-    // Initialize distances
-    data.nodes.forEach((node) => {
-      distances.set(node.id, Infinity);
-      unvisited.add(node.id);
-    });
-    distances.set(pathState.source, 0);
-
-    while (unvisited.size > 0) {
-      // Find unvisited node with smallest distance
-      let currentId: string | null = null;
-      let smallestDistance = Infinity;
-      for (const id of unvisited) {
-        const distance = distances.get(id)!;
-        if (distance < smallestDistance) {
-          smallestDistance = distance;
-          currentId = id;
-        }
-      }
-
-      if (!currentId || smallestDistance === Infinity) break;
-
-      // If we reached the destination, reconstruct the path
-      if (currentId === pathState.destination) {
-        const path: string[] = [];
-        let current = currentId;
-        while (current) {
-          path.unshift(current);
-          current = previous.get(current)!;
-        }
-        setPathState((prev) => ({ ...prev, path }));
-        return;
-      }
-
-      // Mark as visited
-      unvisited.delete(currentId);
-      visited.add(currentId);
-
-      // Update distances to neighbors
-      const currentNode = data.nodes[nodeIdToInt(currentId)];
-      for (const edgeIndex of currentNode.edges) {
-        const edge = data.edges[edgeIndex];
-        if (edge.source === currentId && settings.visibleTypes[edge.ty]) {
-          const neighborId = edge.target;
-          if (!visited.has(neighborId)) {
-            const newDistance = distances.get(currentId)! + 1;
-            if (newDistance < distances.get(neighborId)!) {
-              distances.set(neighborId, newDistance);
-              previous.set(neighborId, currentId);
-            }
-          }
-        }
-      }
-    }
-
-    // No path found
-    setPathState((prev) => ({ ...prev, path: null }));
-  }, [
-    pathState.source,
-    pathState.destination,
-    data.nodes,
-    data.edges,
-    settings.visibleTypes,
-  ]);
-
-  // Handle setting destination
-  const updateDestinationId = useCallback(
-    (destination: string | null) => {
-      if (!selectedId || !destination) {
-        setPathState({ source: null, destination: null, path: null });
-        return;
-      }
-
-      // Update path source/destination - path will be calculated in effect
-      setPathState({
-        source: selectedId,
-        destination,
-        path: null,
-      });
-    },
-    [selectedId]
-  );
-
-  return { pathState, updateDestinationId };
 }
 
 /** The main app component */
