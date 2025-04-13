@@ -23,14 +23,12 @@ export function Graph({
   selectedId,
   setSelectedId,
   focusedId,
-  destinationId,
   path,
 }: {
   settings: SettingsData;
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
   focusedId: string | null;
-  destinationId: string | null;
   path: string[] | null;
 }) {
   const { max_degree: maxDegree } = useDataContext();
@@ -80,7 +78,6 @@ export function Graph({
   const isHighlightedDueToSelection = (d: NodeData, includePath: boolean) => {
     if (!selectedId) return false;
     const isSelected = d.id === selectedId;
-    const isDestination = d.id === destinationId;
     const isImmediateNeighbour = pathInfo.immediateNeighbours.has(d.id);
     const isInPath =
       includePath &&
@@ -89,7 +86,7 @@ export function Graph({
     const isInDirectionalPath = path?.includes(d.id);
     return path !== null
       ? isInDirectionalPath
-      : isSelected || isDestination || isImmediateNeighbour || isInPath;
+      : isSelected || isImmediateNeighbour || isInPath;
   };
 
   const nodeDataColour = (node: NodeData) => {

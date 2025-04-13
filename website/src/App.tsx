@@ -116,7 +116,6 @@ function LoadedApp({ data }: { data: Data }) {
               selectedId={selectedId}
               setSelectedId={setSelectedId}
               focusedId={focusedId}
-              destinationId={pathState.destination}
               path={pathState.path}
             />
             <div className="absolute top-4 left-4 z-50 w-sm text-white">
