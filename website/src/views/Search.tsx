@@ -88,12 +88,14 @@ export type SearchAction =
 /** Search dropdown that searches over genres and shows results */
 export function Search({
   selectedId,
+  setSelectedId,
   setFocusedId,
   searchState,
   searchDispatch,
   visibleTypes,
 }: {
   selectedId: string | null;
+  setSelectedId: (id: string | null) => void;
   setFocusedId: (id: string | null) => void;
   searchState: SearchState;
   searchDispatch: Dispatch<SearchAction>;
@@ -123,6 +125,7 @@ export function Search({
           searchDispatch={searchDispatch}
           setFocusedId={setFocusedId}
           selectedId={selectedId}
+          setSelectedId={setSelectedId}
           visibleTypes={visibleTypes}
         />
       );
@@ -240,12 +243,14 @@ function SearchPath({
   searchDispatch,
   setFocusedId,
   selectedId,
+  setSelectedId,
   visibleTypes,
 }: {
   searchState: Extract<SearchState, { type: "path" }>;
   searchDispatch: Dispatch<SearchAction>;
   setFocusedId: (id: string | null) => void;
   selectedId: string | null;
+  setSelectedId: (id: string | null) => void;
   visibleTypes: VisibleTypes;
 }) {
   const { nodes } = useDataContext();
@@ -313,6 +318,9 @@ function SearchPath({
                 }
                 setFocusedId={setFocusedId}
                 isSelected={isSelected}
+                onClick={() => {
+                  setSelectedId(nodeId);
+                }}
               />
             );
           })}

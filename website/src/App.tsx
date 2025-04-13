@@ -123,6 +123,7 @@ function LoadedApp({ data }: { data: Data }) {
                 searchState={searchState}
                 searchDispatch={searchDispatch}
                 visibleTypes={settings.visibleTypes}
+                setSelectedId={setSelectedId}
               />
             </div>
           </div>
