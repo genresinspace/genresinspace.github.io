@@ -89,14 +89,14 @@ export function Graph({
       : isSelected || isImmediateNeighbour || isInPath;
   };
 
-  const nodeDataColour = (node: NodeData) => {
+  const nodeDataColour = (node: NodeData, isBeingHovered: boolean) => {
     const colour = nodeColour(node, maxDegree, NodeColourLightness.GraphNode);
 
-    if (selectedId) {
+    if (selectedId && !isBeingHovered) {
       if (isHighlightedDueToSelection(node, true)) {
         return colour;
       } else {
-        return "hsl(0, 0%, 60%)";
+        return "hsla(0, 0%, 70%, 0.1)";
       }
     } else {
       return colour;
@@ -108,7 +108,7 @@ export function Graph({
       backgroundColor="#000"
       showDynamicLabels={settings.general.showLabels}
       nodeLabelAccessor={(d: NodeData) => d.label}
-      nodeColor={nodeDataColour}
+      nodeColor={(d) => nodeDataColour(d, false)}
       linkColor={(d: EdgeData) => {
         if (!settings.visibleTypes[d.ty]) {
           return "rgba(0, 0, 0, 0)";
@@ -197,8 +197,8 @@ export function Graph({
         return 1;
       }}
       linkArrowsSizeScale={settings.general.arrowSizeScale}
-      nodeLabelColor={nodeDataColour}
-      hoveredNodeLabelColor={nodeDataColour}
+      nodeLabelColor={(node) => nodeDataColour(node, false)}
+      hoveredNodeLabelColor={(node) => nodeDataColour(node, true)}
       showLabelsFor={
         selectedId
           ? nodes?.filter((d) => isHighlightedDueToSelection(d, false))
