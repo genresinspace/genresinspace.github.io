@@ -102,312 +102,315 @@ export function Search({
     case "initial": {
       return (
         <div>
-          <div className="flex flex-col">
-            <div className="bg-neutral-700 flex gap-2">
-              <div className="flex-1 flex flex-col gap-0">
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
-                    <SearchIcon width={16} height={16} stroke="#9ca3af" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search for genre..."
-                    className="w-full p-2 pl-8 bg-neutral-700"
-                    value={searchState.sourceQuery}
-                    onChange={(e) =>
-                      searchDispatch({
-                        type: "set-source-query",
-                        sourceQuery: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <SearchBar>
+            <SearchInput
+              placeholder="Search for genre..."
+              value={searchState.sourceQuery}
+              onChange={(value) =>
+                searchDispatch({
+                  type: "set-source-query",
+                  sourceQuery: value,
+                })
+              }
+            />
+          </SearchBar>
 
-          <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto mt-2">
+          <GenreResultsList>
             {searchState.sourceResults.map(({ node, strippedDescription }) => (
-              <div
+              <GenreResultItem
                 key={node.id}
-                className="p-2 bg-neutral-900 hover:bg-neutral-700 transition-colors"
-                onMouseEnter={() => setFocusedId(node.id)}
-                onMouseLeave={() => setFocusedId(null)}
+                node={node}
+                description={strippedDescription}
+                setFocusedId={setFocusedId}
                 onClick={() => {
                   searchDispatch({
                     type: "select-node",
                     nodeId: node.id,
                   });
                 }}
-              >
-                <GenreLink node={node} hoverPreview={false}>
-                  {node.label}
-                </GenreLink>
-                <small className="block">
-                  <WikitextTruncateAtLength
-                    wikitext={strippedDescription}
-                    length={100}
-                  />
-                </small>
-              </div>
+              />
             ))}
-          </div>
+          </GenreResultsList>
         </div>
       );
     }
     case "selected": {
       return (
         <div>
-          <div className="flex flex-col">
-            <div className="bg-neutral-700 flex gap-2">
-              <div className="flex-1 flex flex-col gap-0">
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
-                    <SearchIcon width={16} height={16} stroke="#9ca3af" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search for genre..."
-                    className="w-full p-2 pl-8 bg-neutral-700"
-                    value={nodes[nodeIdToInt(searchState.sourceId)].label}
-                    onChange={(e) =>
-                      searchDispatch({
-                        type: "set-source-query",
-                        sourceQuery: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+          <SearchBar>
+            <SearchInput
+              placeholder="Search for genre..."
+              value={nodes[nodeIdToInt(searchState.sourceId)].label}
+              onChange={(value) =>
+                searchDispatch({
+                  type: "set-source-query",
+                  sourceQuery: value,
+                })
+              }
+            />
+            <SearchInput
+              placeholder="Destination..."
+              value={searchState.destinationQuery}
+              onChange={(value) =>
+                searchDispatch({
+                  type: "selected|path:set-destination-query",
+                  destinationQuery: value,
+                })
+              }
+              onClear={() => {
+                searchDispatch({
+                  type: "selected|path:set-destination-query",
+                  destinationQuery: "",
+                });
+              }}
+            />
+          </SearchBar>
 
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
-                    <SearchIcon width={16} height={16} stroke="#9ca3af" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Destination..."
-                    className="w-full p-2 pl-8 bg-neutral-700 border-t border-neutral-600"
-                    value={searchState.destinationQuery}
-                    onChange={(e) =>
-                      searchDispatch({
-                        type: "selected|path:set-destination-query",
-                        destinationQuery: e.target.value,
-                      })
-                    }
-                  />
-                  <button
-                    className="absolute inset-y-0 right-2 flex items-center hover:opacity-75 transition-opacity"
-                    onClick={() => {
-                      searchDispatch({
-                        type: "selected|path:set-destination-query",
-                        destinationQuery: "",
-                      });
-                    }}
-                    title="Clear destination"
-                  >
-                    <CloseIcon width={16} height={16} stroke="#9ca3af" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto mt-2">
+          <GenreResultsList>
             {searchState.destinationResults.map(
               ({ node, strippedDescription }) => (
-                <div
+                <GenreResultItem
                   key={node.id}
-                  className="p-2 bg-neutral-900 hover:bg-neutral-700 transition-colors"
-                  onMouseEnter={() => setFocusedId(node.id)}
-                  onMouseLeave={() => setFocusedId(null)}
+                  node={node}
+                  description={strippedDescription}
+                  setFocusedId={setFocusedId}
                   onClick={() => {
                     searchDispatch({
                       type: "selected:select-destination",
                       destinationId: node.id,
                     });
                   }}
-                >
-                  <GenreLink node={node} hoverPreview={false}>
-                    {node.label}
-                  </GenreLink>
-                  <small className="block">
-                    <WikitextTruncateAtLength
-                      wikitext={strippedDescription}
-                      length={100}
-                    />
-                  </small>
-                </div>
+                />
               )
             )}
-          </div>
+          </GenreResultsList>
         </div>
       );
     }
     case "path": {
-      const formattedThroughLabels = (() => {
-        const labels = Object.entries(visibleTypes)
-          .filter(([_, visible]) => visible)
-          .map(([label]) => (
-            <span
-              key={label}
-              style={{
-                color: VISIBLE_TYPES_BY_TYPE[label as keyof VisibleTypes].color,
-              }}
-            >
-              {VISIBLE_TYPES_BY_TYPE[
-                label as keyof VisibleTypes
-              ].label.toLowerCase() + "s"}
-            </span>
-          ));
-
-        if (labels.length === 0) return null;
-        if (labels.length === 1) return labels[0];
-        if (labels.length === 2)
-          return (
-            <>
-              {labels[0]} and {labels[1]}
-            </>
-          );
-
-        return (
-          <>
-            {labels.slice(0, -1).map((label, i) => (
-              <React.Fragment key={i}>
-                {label}
-                {i < labels.length - 2 ? ", " : ""}
-              </React.Fragment>
-            ))}
-            {", and "}
-            {labels[labels.length - 1]}
-          </>
-        );
-      })();
-
       return (
         <div>
-          <div className="flex flex-col">
-            <div className="bg-neutral-700 flex gap-2">
-              <div className="flex-1 flex flex-col gap-0">
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
-                    <SearchIcon width={16} height={16} stroke="#9ca3af" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search for genre..."
-                    className="w-full p-2 pl-8 bg-neutral-700"
-                    value={nodes[nodeIdToInt(searchState.sourceId)].label}
-                    onChange={(e) =>
-                      searchDispatch({
-                        type: "set-source-query",
-                        sourceQuery: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
-                    <SearchIcon width={16} height={16} stroke="#9ca3af" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Destination..."
-                    className="w-full p-2 pl-8 bg-neutral-700 border-t border-neutral-600"
-                    value={nodes[nodeIdToInt(searchState.destinationId)].label}
-                    onChange={(e) =>
-                      searchDispatch({
-                        type: "selected|path:set-destination-query",
-                        destinationQuery: e.target.value,
-                      })
-                    }
-                  />
-                  <button
-                    className="absolute inset-y-0 right-2 flex items-center hover:opacity-75 transition-opacity"
-                    onClick={() => {
-                      searchDispatch({
-                        type: "selected|path:set-destination-query",
-                        destinationQuery: "",
-                      });
-                    }}
-                    title="Clear destination"
-                  >
-                    <CloseIcon width={16} height={16} stroke="#9ca3af" />
-                  </button>
-                </div>
-              </div>
+          <div className="flex items-center bg-neutral-700">
+            <SearchBar>
+              <SearchInput
+                placeholder="Search for genre..."
+                value={nodes[nodeIdToInt(searchState.sourceId)].label}
+                onChange={(value) =>
+                  searchDispatch({
+                    type: "set-source-query",
+                    sourceQuery: value,
+                  })
+                }
+              />
+              <SearchInput
+                placeholder="Destination..."
+                value={nodes[nodeIdToInt(searchState.destinationId)].label}
+                onChange={(value) =>
+                  searchDispatch({
+                    type: "selected|path:set-destination-query",
+                    destinationQuery: value,
+                  })
+                }
+                onClear={() => {
+                  searchDispatch({
+                    type: "selected|path:set-destination-query",
+                    destinationQuery: "",
+                  });
+                }}
+              />
+            </SearchBar>
+            <button
+              className="ml-2 px-2 py-1 bg-neutral-700 hover:bg-neutral-600 transition-colors"
+              onClick={() => {
+                searchDispatch({
+                  type: "path:swap-source-and-destination",
+                });
+              }}
+              title="Swap source and destination"
+            >
+              <SwapIcon width={16} height={16} stroke="#9ca3af" />
+            </button>
+          </div>
 
+          {searchState.path ? (
+            <GenreResultsList>
+              {searchState.path.map((nodeId) => {
+                const node = nodes[nodeIdToInt(nodeId)];
+                const isSelected = nodeId === selectedId;
+                return (
+                  <GenreResultItem
+                    key={nodeId}
+                    node={node}
+                    description={
+                      node.wikitext_description
+                        ? stripGenreNamePrefixFromDescription(
+                            node.label,
+                            node.wikitext_description
+                          )
+                        : ""
+                    }
+                    setFocusedId={setFocusedId}
+                    isSelected={isSelected}
+                  />
+                );
+              })}
+            </GenreResultsList>
+          ) : (
+            <div className="mt-2 text-sm text-neutral-400">
+              No path found from{" "}
+              {nodes[nodeIdToInt(searchState.sourceId)].label} to{" "}
+              {nodes[nodeIdToInt(searchState.destinationId)].label} through{" "}
+              {getFormattedThroughLabels(visibleTypes)}.{" "}
               <button
-                className="self-center px-2 py-1 bg-neutral-700 hover:bg-neutral-600 transition-colors"
+                className="text-blue-400 hover:underline"
                 onClick={() => {
                   searchDispatch({
                     type: "path:swap-source-and-destination",
                   });
                 }}
-                title="Swap source and destination"
               >
-                <SwapIcon width={16} height={16} stroke="#9ca3af" />
+                Try swapping direction?
               </button>
-            </div>
-
-            {!searchState.path && (
-              <div className="mt-2 text-sm text-neutral-400">
-                No path found from{" "}
-                {nodes[nodeIdToInt(searchState.sourceId)].label} to{" "}
-                {nodes[nodeIdToInt(searchState.destinationId)].label} through{" "}
-                {formattedThroughLabels}.{" "}
-                <button
-                  className="text-blue-400 hover:underline"
-                  onClick={() => {
-                    searchDispatch({
-                      type: "path:swap-source-and-destination",
-                    });
-                  }}
-                >
-                  Try swapping direction?
-                </button>
-              </div>
-            )}
-          </div>
-
-          {searchState.path && (
-            <div className="mt-2">
-              <div className="flex flex-col gap-2 max-h-[80vh] overflow-y-auto">
-                {searchState.path.map((nodeId) => {
-                  const node = nodes[nodeIdToInt(nodeId)];
-                  const isSelected = nodeId === selectedId;
-                  return (
-                    <div
-                      key={nodeId}
-                      className={`p-2 bg-neutral-900 hover:bg-neutral-700 transition-colors ${
-                        isSelected ? "ring-2 ring-blue-500" : ""
-                      }`}
-                      onMouseEnter={() => setFocusedId(nodeId)}
-                      onMouseLeave={() => setFocusedId(null)}
-                    >
-                      <GenreLink node={node} hoverPreview={false}>
-                        {node.label}
-                      </GenreLink>
-                      {node.wikitext_description && (
-                        <small className="block">
-                          <WikitextTruncateAtLength
-                            wikitext={stripGenreNamePrefixFromDescription(
-                              node.label,
-                              node.wikitext_description
-                            )}
-                            length={100}
-                          />
-                        </small>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
             </div>
           )}
         </div>
       );
     }
   }
+}
+
+// Reusable components
+
+function SearchInput({
+  placeholder,
+  value,
+  onChange,
+  onClear,
+}: {
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+  onClear?: () => void;
+}) {
+  return (
+    <div className="relative">
+      <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
+        <SearchIcon width={16} height={16} stroke="#9ca3af" />
+      </div>
+      <input
+        type="text"
+        placeholder={placeholder}
+        className="w-full p-2 pl-8 bg-neutral-700"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      {onClear && (
+        <button
+          className="absolute inset-y-0 right-2 flex items-center hover:opacity-75 transition-opacity"
+          onClick={onClear}
+          title="Clear destination"
+        >
+          <CloseIcon width={16} height={16} stroke="#9ca3af" />
+        </button>
+      )}
+    </div>
+  );
+}
+
+function SearchBar({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-neutral-700 flex flex-col flex-grow gap-2">
+      <div className="flex-1 flex flex-col gap-0">
+        {React.Children.map(children, (child, index) => {
+          if (index > 0) {
+            return <div className="border-t border-neutral-600">{child}</div>;
+          }
+          return child;
+        })}
+      </div>
+    </div>
+  );
+}
+
+function GenreResultItem({
+  node,
+  description,
+  setFocusedId,
+  onClick,
+  isSelected,
+}: {
+  node: NodeData;
+  description: string;
+  setFocusedId: (id: string | null) => void;
+  onClick?: () => void;
+  isSelected?: boolean;
+}) {
+  return (
+    <div
+      className={`p-2 bg-neutral-900 hover:bg-neutral-700 transition-colors ${
+        isSelected ? "ring-2 ring-blue-500" : ""
+      }`}
+      onMouseEnter={() => setFocusedId(node.id)}
+      onMouseLeave={() => setFocusedId(null)}
+      onClick={onClick}
+    >
+      <GenreLink node={node} hoverPreview={false}>
+        {node.label}
+      </GenreLink>
+      {description && (
+        <small className="block">
+          <WikitextTruncateAtLength wikitext={description} length={100} />
+        </small>
+      )}
+    </div>
+  );
+}
+
+function GenreResultsList({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto mt-2">
+      {children}
+    </div>
+  );
+}
+
+function getFormattedThroughLabels(visibleTypes: VisibleTypes) {
+  const labels = Object.entries(visibleTypes)
+    .filter(([_, visible]) => visible)
+    .map(([label]) => (
+      <span
+        key={label}
+        style={{
+          color: VISIBLE_TYPES_BY_TYPE[label as keyof VisibleTypes].color,
+        }}
+      >
+        {VISIBLE_TYPES_BY_TYPE[
+          label as keyof VisibleTypes
+        ].label.toLowerCase() + "s"}
+      </span>
+    ));
+
+  if (labels.length === 0) return null;
+  if (labels.length === 1) return labels[0];
+  if (labels.length === 2)
+    return (
+      <>
+        {labels[0]} and {labels[1]}
+      </>
+    );
+
+  return (
+    <>
+      {labels.slice(0, -1).map((label, i) => (
+        <React.Fragment key={i}>
+          {label}
+          {i < labels.length - 2 ? ", " : ""}
+        </React.Fragment>
+      ))}
+      {", and "}
+      {labels[labels.length - 1]}
+    </>
+  );
 }
 
 export function useSearchState(
