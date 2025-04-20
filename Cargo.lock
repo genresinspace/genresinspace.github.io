@@ -125,6 +125,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0a5c400df2834b80a4c3327b3aad3a4c4cd4de0629063962b03235697506a28"
 
 [[package]]
+name = "datagen"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bzip2",
+ "image",
+ "jiff",
+ "memmap2",
+ "open",
+ "quick-xml",
+ "rayon",
+ "serde",
+ "serde_json",
+ "toml",
+ "wikitext_util",
+]
+
+[[package]]
 name = "either"
 version = "1.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -163,24 +181,6 @@ dependencies = [
  "serde",
  "wasm-bindgen",
  "wikitext_simplified",
- "wikitext_util",
-]
-
-[[package]]
-name = "genresinspace"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "bzip2",
- "image",
- "jiff",
- "memmap2",
- "open",
- "quick-xml",
- "rayon",
- "serde",
- "serde_json",
- "toml",
  "wikitext_util",
 ]
 

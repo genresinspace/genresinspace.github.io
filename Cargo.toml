@@ -1,30 +1,8 @@
 [workspace]
-members = [".", "frontend_wasm"]
+members = ["datagen", "frontend_wasm"]
+resolver = "2"
 
 [workspace.dependencies]
 serde = { version = "1.0", features = ["derive"] }
 wikitext_util = { git = "https://github.com/philpax/wikitext_simplified.git" }
 wikitext_simplified = { git = "https://github.com/philpax/wikitext_simplified.git" }
-
-[package]
-name = "genresinspace"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-anyhow = "1.0.95"
-bzip2 = "0.5.0"
-image = { version = "0.25.1", features = [
-    "png",
-    "ico",
-], default-features = false }
-jiff = { version = "0.1.29", features = ["serde"] }
-memmap2 = "0.9.5"
-open = "5.3.2"
-quick-xml = "0.37.2"
-rayon = "1.10.0"
-serde_json = "1.0.138"
-toml = "0.8.19"
-
-serde = { workspace = true }
-wikitext_util = { workspace = true }
