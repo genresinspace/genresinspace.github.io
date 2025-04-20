@@ -43,6 +43,12 @@ jobs:
       - name: Run Rust tests
         run: cargo test
 
+      - name: Run cargo clippy (native)
+        run: cargo clippy -- -D warnings
+
+      - name: Run cargo clippy (WASM)
+        run: cargo clippy -p frontend_wasm --target wasm32-unknown-unknown -- -D warnings
+
       - name: Build WASM
         run: wasm-pack build --target web frontend_wasm -d ../website/frontend_wasm
 
