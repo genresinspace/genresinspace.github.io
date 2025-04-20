@@ -1,4 +1,4 @@
-import { parse_and_simplify_wikitext } from "wikitext_simplified";
+import { parse_and_simplify_wikitext } from "frontend_wasm";
 import { WikitextNodes } from "./WikitextNodes";
 
 /**

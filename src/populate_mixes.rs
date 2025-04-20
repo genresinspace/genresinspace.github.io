@@ -6,7 +6,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig};
+use wikitext_util::{nodes_inner_text_with_config, wikipedia_pwt_configuration, InnerTextConfig};
 
 use crate::{extract, process, types::PageName};
 
@@ -16,7 +16,7 @@ pub fn run(
     dump_meta: &extract::DumpMeta,
     processed_genres: &process::ProcessedGenres,
 ) -> anyhow::Result<()> {
-    let pwt_configuration = pwt_configuration();
+    let pwt_configuration = wikipedia_pwt_configuration();
 
     let already_existing_mixes = std::fs::read_dir(mixes_path)?
         .filter_map(Result::ok)
@@ -47,12 +47,12 @@ pub fn run(
     let mut genres_processed = 0;
 
     for (index, pg) in needs_filling.iter().enumerate() {
-        let mut description = nodes_inner_text(
+        let mut description = nodes_inner_text_with_config(
             &pwt_configuration
                 .parse(pg.wikitext_description.as_deref().unwrap_or_default())
                 .unwrap()
                 .nodes,
-            &InnerTextConfig {
+            InnerTextConfig {
                 stop_after_br: true,
             },
         );

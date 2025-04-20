@@ -1,11 +1,10 @@
 [workspace]
-members = [".", "wikitext_simplified", "wikitext_util"]
+members = [".", "frontend_wasm"]
 
 [workspace.dependencies]
-parse-wiki-text-2 = { git = "https://github.com/philpax/parse-wiki-text-2.git", branch = "wasm-support", features = [
-    "wasm",
-] }
-serde = { version = "1.0.217", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+wikitext_util = { git = "https://github.com/philpax/wikitext_simplified.git" }
+wikitext_simplified = { git = "https://github.com/philpax/wikitext_simplified.git" }
 
 [package]
 name = "genresinspace"
@@ -27,7 +26,5 @@ rayon = "1.10.0"
 serde_json = "1.0.138"
 toml = "0.8.19"
 
-parse-wiki-text-2 = { workspace = true }
 serde = { workspace = true }
-
-wikitext_util = { path = "wikitext_util" }
+wikitext_util = { workspace = true }

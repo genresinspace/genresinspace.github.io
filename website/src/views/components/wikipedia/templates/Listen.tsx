@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { WikitextSimplifiedNode } from "wikitext_simplified";
+import { WikitextSimplifiedNode } from "frontend_wasm";
 import { wikimediaCommmonsAssetUrl } from "../urls";
 import { Wikitext } from "../wikitexts/Wikitext";
 

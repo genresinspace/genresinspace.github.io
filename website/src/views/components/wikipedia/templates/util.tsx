@@ -1,4 +1,4 @@
-import { WikitextSimplifiedNode } from "wikitext_simplified";
+import { WikitextSimplifiedNode } from "frontend_wasm";
 
 /** Given a template, return an object with the parameters as keys and the values as values. */
 export function templateToObject(

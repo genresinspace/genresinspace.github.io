@@ -1,4 +1,4 @@
-import { WikitextSimplifiedNode } from "wikitext_simplified";
+import { WikitextSimplifiedNode } from "frontend_wasm";
 
 import { Wikitext } from "../wikitexts/Wikitext";
 import { templateToObject } from "./util";

@@ -1,7 +1,7 @@
 import {
   parse_and_simplify_wikitext,
   WikitextSimplifiedNode,
-} from "wikitext_simplified";
+} from "frontend_wasm";
 import {
   isNewlineNode,
   WikitextTruncateAtNewline,

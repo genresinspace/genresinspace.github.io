@@ -1,4 +1,4 @@
-import { WikitextSimplifiedNode } from "wikitext_simplified";
+import { WikitextSimplifiedNode } from "frontend_wasm";
 import React from "react";
 
 import { useWikiUrl } from "../urls";

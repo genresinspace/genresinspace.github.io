@@ -14,10 +14,7 @@ import { Wikitext } from "../src/views/components/wikipedia/wikitexts/Wikitext";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Setup WASM loading for Node environment
-const wasmPath = join(
-  __dirname,
-  "../wikitext_simplified/wikitext_simplified_bg.wasm"
-);
+const wasmPath = join(__dirname, "../frontend_wasm/frontend_wasm_bg.wasm");
 
 await initWasm(await readFile(wasmPath));
 

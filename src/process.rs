@@ -6,9 +6,11 @@ use std::{
 };
 
 use jiff::ToSpan as _;
-use parse_wiki_text_2 as pwt;
 use serde::{Deserialize, Serialize};
-use wikitext_util::{nodes_inner_text, pwt_configuration, InnerTextConfig, NodeMetadata};
+use wikitext_util::{
+    nodes_inner_text, nodes_inner_text_with_config, parse_wiki_text_2 as pwt,
+    wikipedia_pwt_configuration, InnerTextConfig, NodeMetadata,
+};
 
 use crate::{
     data_patches, extract,
@@ -93,7 +95,7 @@ pub fn genres(
 
     std::fs::create_dir_all(processed_genres_path)?;
 
-    let pwt_configuration = pwt_configuration();
+    let pwt_configuration = wikipedia_pwt_configuration();
     let all_patches = data_patches::all();
 
     let mut processed_genres = HashMap::default();
@@ -203,8 +205,7 @@ pub fn genres(
                     end,
                     ..
                 } => {
-                    let template_name =
-                        nodes_inner_text(name, &InnerTextConfig::default()).to_lowercase();
+                    let template_name = nodes_inner_text(name).to_lowercase();
 
                     // If we're recording the description and there are non-whitespace characters,
                     // this template can be recorded (i.e. "a {{blah}}" is acceptable, "{{blah}}" is not).
@@ -276,9 +277,9 @@ pub fn genres(
                             .unwrap_or(&original_page.name)
                             .clone(),
                         Some(nodes) => {
-                            let name = nodes_inner_text(
+                            let name = nodes_inner_text_with_config(
                                 nodes,
-                                &InnerTextConfig {
+                                InnerTextConfig {
                                     // Some genre headings have a `<br>` tag, followed by another name.
                                     // We only want the first name, so stop after the first `<br>`.
                                     stop_after_br: true,
@@ -402,7 +403,7 @@ pub fn genres(
                         }
                     }
 
-                    last_heading = Some(nodes_inner_text(nodes, &InnerTextConfig::default()));
+                    last_heading = Some(nodes_inner_text(nodes));
                 }
                 pwt::Node::Image { end, .. } | pwt::Node::Comment { end, .. } => {
                     last_end = Some(*end);
@@ -555,11 +556,6 @@ fn parameters_to_map<'a>(
 ) -> HashMap<String, &'a [pwt::Node<'a>]> {
     parameters
         .iter()
-        .filter_map(|p| {
-            Some((
-                nodes_inner_text(p.name.as_deref()?, &InnerTextConfig::default()),
-                p.value.as_slice(),
-            ))
-        })
+        .filter_map(|p| Some((nodes_inner_text(p.name.as_deref()?), p.value.as_slice())))
         .collect()
 }

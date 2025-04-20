@@ -156,6 +156,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "frontend_wasm"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "serde",
+ "wasm-bindgen",
+ "wikitext_simplified",
+ "wikitext_util",
+]
+
+[[package]]
 name = "genresinspace"
 version = "0.1.0"
 dependencies = [
@@ -165,7 +176,6 @@ dependencies = [
  "jiff",
  "memmap2",
  "open",
- "parse-wiki-text-2",
  "quick-xml",
  "rayon",
  "serde",
@@ -682,8 +692,8 @@ dependencies = [
 [[package]]
 name = "wikitext_simplified"
 version = "0.1.0"
+source = "git+https://github.com/philpax/wikitext_simplified.git#cfa603d79a596724c4a1a15eec0df54451b01947"
 dependencies = [
- "console_error_panic_hook",
  "parse-wiki-text-2",
  "serde",
  "serde-wasm-bindgen",
@@ -695,6 +705,7 @@ dependencies = [
 [[package]]
 name = "wikitext_util"
 version = "0.1.0"
+source = "git+https://github.com/philpax/wikitext_simplified.git#cfa603d79a596724c4a1a15eec0df54451b01947"
 dependencies = [
  "parse-wiki-text-2",
 ]

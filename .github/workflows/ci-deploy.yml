@@ -44,7 +44,7 @@ jobs:
         run: cargo test
 
       - name: Build WASM
-        run: wasm-pack build --target web wikitext_simplified -d ../website/wikitext_simplified
+        run: wasm-pack build --target web frontend_wasm -d ../website/frontend_wasm
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

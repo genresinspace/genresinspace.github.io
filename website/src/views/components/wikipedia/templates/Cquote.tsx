@@ -1,4 +1,4 @@
-import { WikitextSimplifiedNode } from "wikitext_simplified";
+import { WikitextSimplifiedNode } from "frontend_wasm";
 import { Blockquote } from "../../Blockquote";
 import { templateToObject } from "./util";
 

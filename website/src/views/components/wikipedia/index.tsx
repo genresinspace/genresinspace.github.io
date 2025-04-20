@@ -1,7 +1,7 @@
-import init from "wikitext_simplified";
+import init from "frontend_wasm";
 
 /**
- * Initialize the Wikitext Simplified WASM module.
+ * Initialize the Frontend WASM module.
  */
 export const initWasm = async (binary?: Buffer) => {
   return init({ module_or_path: binary });

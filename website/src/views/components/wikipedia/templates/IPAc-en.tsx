@@ -1,5 +1,5 @@
 import { JSX, ReactNode } from "react";
-import { WikitextSimplifiedNode } from "wikitext_simplified";
+import { WikitextSimplifiedNode } from "frontend_wasm";
 import { WikipediaLink } from "../links/WikipediaLink";
 import { WikimediaAudio } from "../components/WikimediaAudio";
 
