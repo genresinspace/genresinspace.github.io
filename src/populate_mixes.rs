@@ -44,7 +44,6 @@ pub fn run(
     );
 
     let mut total_response_time = Duration::new(0, 0);
-    let mut genres_processed = 0;
 
     for (index, pg) in needs_filling.iter().enumerate() {
         let mut description = nodes_inner_text_with_config(
@@ -66,8 +65,8 @@ pub fn run(
             pg.page.linksafe()
         );
 
-        let avg_response_time = if genres_processed > 0 {
-            format!("avg response: {:?}", total_response_time / genres_processed)
+        let avg_response_time = if index > 0 {
+            format!("avg response: {:?}", total_response_time / index as u32)
         } else {
             String::new()
         };
@@ -79,7 +78,7 @@ pub fn run(
             pg.page,
             wikipedia_page_link,
             description,
-            if genres_processed > 0 {
+            if index > 0 {
                 format!(" ({})", avg_response_time)
             } else {
                 String::new()
@@ -112,7 +111,6 @@ pub fn run(
         let response_time = start_time.elapsed();
 
         total_response_time += response_time;
-        genres_processed += 1;
 
         if let Some(amp_idx) = line.find('&') {
             line.truncate(amp_idx);

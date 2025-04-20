@@ -107,7 +107,7 @@ impl GenreMixes {
                 Some(url[v + 2..].split(['&', '#']).next().unwrap().to_string())
             } else if url.contains("youtu.be/") {
                 url.split('/')
-                    .last()
+                    .next_back()
                     .map(|s| s.split(['&', '#']).next().unwrap().to_string())
             } else {
                 None
