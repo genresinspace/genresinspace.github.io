@@ -5,6 +5,7 @@ import { WikitextTemplate } from "../templates/WikitextTemplate";
 import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
 import { ExternalLink } from "../../links/ExternalLink";
 import { Blockquote } from "../../Blockquote";
+import { WikitextNodes } from "./WikitextNodes";
 
 /** Renders a `WikitextSimplifiedNode`. */
 export function WikitextNode({
@@ -102,5 +103,53 @@ export function WikitextNode({
       );
     case "newline":
       return <br />;
+    case "unordered-list":
+      return (
+        <ul>
+          {node.items.map((item, i) => (
+            <WikitextNodes key={i} nodes={item.content} />
+          ))}
+        </ul>
+      );
+    case "ordered-list":
+      return (
+        <ol>
+          {node.items.map((item, i) => (
+            <WikitextNodes key={i} nodes={item.content} />
+          ))}
+        </ol>
+      );
+    case "table":
+      return (
+        <table>
+          <thead>
+            <tr>
+              {node.captions.map((caption, i) => (
+                <WikitextNodes key={i} nodes={caption.content} />
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {node.rows.map((row, i) => (
+              <tr key={i}>
+                {row.cells.map((cell, j) => (
+                  <td key={j}>
+                    <WikitextNodes nodes={cell.content} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    case "horizontal-divider":
+      return <hr />;
+    case "template-parameter-use":
+    case "heading":
+    case "tag":
+    case "redirect":
+      return <></>;
+    default:
+      return node satisfies never;
   }
 }
