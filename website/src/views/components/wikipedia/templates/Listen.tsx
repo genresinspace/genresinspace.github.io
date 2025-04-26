@@ -147,7 +147,7 @@ export function Listen({
 }) {
   // Extract parameters from the template
   const getParam = (name: string): string | undefined => {
-    const param = node.children.find((child) => child.name === name);
+    const param = node.parameters.find((param) => param.name === name);
     return param?.value;
   };
 

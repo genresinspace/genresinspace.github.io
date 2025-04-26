@@ -10,13 +10,13 @@ export function Zh({
 }: {
   node: Extract<WikitextSimplifiedNode, { type: "template" }>;
 }) {
-  const texts = node.children
-    .filter((c) => c.value.length > 0)
-    .map((c, i) => {
+  const texts = node.parameters
+    .filter((p) => p.value.length > 0)
+    .map((p, i) => {
       let label;
       let prefix = "";
       let suffix = "";
-      switch (c.name) {
+      switch (p.name) {
         case "t":
           label = "traditional Chinese";
           break;
@@ -68,7 +68,7 @@ export function Zh({
         <React.Fragment key={i}>
           {label && <>{label}: </>}
           {prefix}
-          <Wikitext wikitext={c.value} />
+          <Wikitext wikitext={p.value} />
           {suffix}
         </React.Fragment>
       );

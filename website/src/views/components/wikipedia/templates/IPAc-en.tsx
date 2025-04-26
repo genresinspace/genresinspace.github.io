@@ -132,7 +132,7 @@ export function IPAcEn({
   node: Extract<WikitextSimplifiedNode, { type: "template" }>;
 }) {
   // Get all the parameters from the node
-  const params = node.children;
+  const params = node.parameters;
 
   // Check if there's an audio file
   const audioParam = params.find((param) => param.name === "audio");

@@ -112,8 +112,8 @@ function estimateNodeLength(node: WikitextSimplifiedNode): number {
     case "template":
       // this is so bad
       return (
-        node.children.map((p) => p.value.length).reduce((a, b) => a + b, 0) /
-        Math.max(node.children.length, 1)
+        node.parameters.map((p) => p.value.length).reduce((a, b) => a + b, 0) /
+        Math.max(node.parameters.length, 1)
       );
     case "link":
       return node.text.length;

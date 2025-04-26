@@ -11,8 +11,8 @@ export function Abbrlink({
   node: Extract<WikitextSimplifiedNode, { type: "template" }>;
   templateName: string;
 }) {
-  const abbr = node.children[0].value;
-  const phrase = node.children[1]?.value;
+  const abbr = node.parameters[0].value;
+  const phrase = node.parameters[1]?.value;
   const jsx = <abbr title={phrase}>{abbr}</abbr>;
   if (templateName === "abbrlink") {
     return (

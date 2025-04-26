@@ -119,6 +119,22 @@ export function WikitextNode({
           ))}
         </ol>
       );
+    case "definition-list":
+      return (
+        <dl>
+          {node.items.map((item, i) =>
+            item.type_ === "Term" ? (
+              <dt key={i}>
+                <WikitextNodes nodes={item.content} />
+              </dt>
+            ) : (
+              <dd key={i}>
+                <WikitextNodes nodes={item.content} />
+              </dd>
+            )
+          )}
+        </dl>
+      );
     case "table":
       return (
         <table>

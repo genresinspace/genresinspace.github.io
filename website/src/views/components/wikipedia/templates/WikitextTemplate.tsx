@@ -73,7 +73,7 @@ export function WikitextTemplate({
       // TODO: consider actually doing the conversion at some point
       return (
         <>
-          {node.children[0].value} {node.children[1].value}
+          {node.parameters[0].value} {node.parameters[1].value}
         </>
       );
     case "culture_of_colombia":
@@ -90,13 +90,13 @@ export function WikitextTemplate({
     case "efn-ua":
       return (
         <Footnote>
-          <Wikitext wikitext={node.children[0].value} />
+          <Wikitext wikitext={node.parameters[0].value} />
         </Footnote>
       );
     case "em":
       return (
         <em>
-          {node.children.map((child, i) => (
+          {node.parameters.map((child, i) => (
             <React.Fragment key={i}>{child.value}</React.Fragment>
           ))}
         </em>
@@ -114,7 +114,7 @@ export function WikitextTemplate({
       // Category box: don't care
       return null;
     case "ill": {
-      const pageTitle = node.children[0].value;
+      const pageTitle = node.parameters[0].value;
       return (
         <WikipediaMaybeGenreLink pageTitle={pageTitle}>
           {pageTitle}
@@ -123,40 +123,41 @@ export function WikitextTemplate({
     }
     case "ipa": {
       const ipa =
-        node.children.length > 1 ? node.children[1] : node.children[0];
+        node.parameters.length > 1 ? node.parameters[1] : node.parameters[0];
       // TODO: render properly, preferably with language support (the optional first argument, skipped above)
       return <code>{ipa.value}</code>;
     }
     case "ipa-all":
       // As it turns out, this template was actually deleted between the dump I started working with and
       // when I started this project. Unfortunately, this means we still have to handle it.
-      return <code>{node.children[0].value}</code>;
+      return <code>{node.parameters[0].value}</code>;
     case "ipac-en":
       return <IPAcEn node={node} />;
     case "irrelevant_citation":
       return <sup>[irrelevant citation]</sup>;
     case "korean":
       // TODO: support hanja/rr/etc, instead of assuming hangul
-      return <span>Korean: {node.children[0].value}</span>;
+      return <span>Korean: {node.parameters[0].value}</span>;
     case "lang":
       // TODO: indicate language to browser / support rtl+italic+size
       return (
         <span>
-          <Wikitext wikitext={node.children[1].value} />
+          <Wikitext wikitext={node.parameters[1].value} />
         </span>
       );
     case "lang-rus":
       return (
         <span>
-          Russian: {node.children[0].value}
-          {node.children.length > 1 && `, romanized: ${node.children[1].value}`}
+          Russian: {node.parameters[0].value}
+          {node.parameters.length > 1 &&
+            `, romanized: ${node.parameters[1].value}`}
         </span>
       );
     case "lang-sr-cyrl":
-      return <span>Serbian Cyrillic: {node.children[0].value}</span>;
+      return <span>Serbian Cyrillic: {node.parameters[0].value}</span>;
     case "lang-su-fonts":
     case "sund":
-      return <Wikitext wikitext={node.children[0].value} />;
+      return <Wikitext wikitext={node.parameters[0].value} />;
     case "langx":
       return <Langx node={node} />;
     case "language_with_name/for":
@@ -166,7 +167,7 @@ export function WikitextTemplate({
       // TODO: make each keyword linkable to Wikitionary
       return (
         <>
-          {node.children
+          {node.parameters
             .filter((c) => c.name !== "pref")
             .map((c) => c.value)
             .join("")}
@@ -179,7 +180,7 @@ export function WikitextTemplate({
     case "literal":
     case "literally":
     case "literal_translation": {
-      const params = node.children.filter((p) => p.name !== "lk");
+      const params = node.parameters.filter((p) => p.name !== "lk");
       return (
         <span>
           <abbr
@@ -205,9 +206,9 @@ export function WikitextTemplate({
     case "music":
       return (
         <Music
-          symbol={node.children[0]?.value || ""}
-          param2={node.children[1]?.value}
-          param3={node.children[2]?.value}
+          symbol={node.parameters[0]?.value || ""}
+          param2={node.parameters[1]?.value}
+          param3={node.parameters[2]?.value}
         />
       );
     case "music_genre_stub":
@@ -230,12 +231,12 @@ export function WikitextTemplate({
       return <>&nbsp;</>;
     case "not_a_typo":
     case "proper_name":
-      return <>{node.children.map((c) => c.value).join("")}</>;
+      return <>{node.parameters.map((c) => c.value).join("")}</>;
     case "noitalic":
-      return <span className="not-italic">{node.children[0].value}</span>;
+      return <span className="not-italic">{node.parameters[0].value}</span>;
     case "nowrap":
       return (
-        <span className="whitespace-nowrap">{node.children[0].value}</span>
+        <span className="whitespace-nowrap">{node.parameters[0].value}</span>
       );
     case "page_needed":
       return <sup>[page needed]</sup>;
@@ -254,7 +255,7 @@ export function WikitextTemplate({
     case "respell":
       return (
         <span className="italic">
-          {node.children.map((c) => c.value).join("-")}
+          {node.parameters.map((c) => c.value).join("-")}
         </span>
       );
     case "sic":
@@ -263,7 +264,7 @@ export function WikitextTemplate({
     case "smaller":
       return (
         <small>
-          {node.children.map((c, i) => (
+          {node.parameters.map((c, i) => (
             <Wikitext key={i} wikitext={c.value} />
           ))}
         </small>
@@ -286,9 +287,9 @@ export function WikitextTemplate({
       // TODO: support signalling language in some way
       return (
         <span>
-          {node.children.length > 2
-            ? node.children[2].value
-            : node.children[1].value}
+          {node.parameters.length > 2
+            ? node.parameters[2].value
+            : node.parameters[1].value}
         </span>
       );
     case "use_dmy_dates":
