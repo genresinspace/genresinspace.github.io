@@ -49,6 +49,7 @@ export function WikitextTemplate({
     case "anchor":
       // We don't need to emit anchors in our output
       return null;
+    case "quote":
     case "blockquote":
     case "cquote":
       return <Cquote node={node} />;
@@ -249,6 +250,7 @@ export function WikitextTemplate({
     case "refn":
     case "rp":
     case "sfn":
+    case "sfnp":
     case "#tag:ref":
       // Don't care about references
       return null;
