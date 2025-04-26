@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { WikitextSimplifiedNode } from "frontend_wasm";
 import { wikimediaCommmonsAssetUrl } from "../urls";
 import { Wikitext } from "../wikitexts/Wikitext";
+import { templateToObject } from "./util";
 
 interface AudioPlayerProps {
   filename: string;
@@ -145,11 +146,7 @@ export function Listen({
 }: {
   node: Extract<WikitextSimplifiedNode, { type: "template" }>;
 }) {
-  // Extract parameters from the template
-  const getParam = (name: string): string | undefined => {
-    const param = node.parameters.find((param) => param.name === name);
-    return param?.value;
-  };
+  const params = templateToObject(node);
 
   // Get all the numbered parameters for multiple files
   const getNumberedParams = (): {
@@ -161,29 +158,29 @@ export function Listen({
     const files = [];
 
     // Get the first file (no number)
-    const filename = getParam("filename");
-    const title = getParam("title");
+    const filename = params["filename"];
+    const title = params["title"];
     if (filename && title) {
       files.push({
         filename,
         title,
-        description: getParam("description"),
-        start: getParam("start"),
+        description: params["description"],
+        start: params["start"],
       });
     }
 
     // Check for additional files (filename2, filename3, etc.)
     // Use a for loop with a reasonable upper limit instead of while(true)
     for (let i = 2; i <= 10; i++) {
-      const filenameN = getParam(`filename${i}`);
-      const titleN = getParam(`title${i}`);
+      const filenameN = params[`filename${i}`];
+      const titleN = params[`title${i}`];
 
       if (filenameN && titleN) {
         files.push({
           filename: filenameN,
           title: titleN,
-          description: getParam(`description${i}`),
-          start: getParam(`start${i}`),
+          description: params[`description${i}`],
+          start: params[`start${i}`],
         });
       } else {
         // No more files found, exit the loop
@@ -197,10 +194,10 @@ export function Listen({
   const files = getNumberedParams();
   if (files.length === 0) return null;
 
-  const header = getParam("header");
-  const type = getParam("type") || "sound";
-  const plain = getParam("plain") === "yes";
-  const embed = getParam("embed") === "yes";
+  const header = params["header"];
+  const type = params["type"] || "sound";
+  const plain = params["plain"] === "yes";
+  const embed = params["embed"] === "yes";
 
   // Determine icon based on type
   let icon = "🔊"; // default sound icon
@@ -208,7 +205,7 @@ export function Listen({
   if (type === "speech") icon = "🎤";
 
   // Custom image can override default icon
-  const customImage = getParam("image");
+  const customImage = params["image"];
   const showIcon = customImage !== "none";
 
   // Plain style removes borders and backgrounds

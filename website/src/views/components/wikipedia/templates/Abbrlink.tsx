@@ -1,5 +1,6 @@
 import { WikitextSimplifiedNode } from "frontend_wasm";
 import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
+import { templateToObject } from "./util";
 
 /**
  * Renders the abbrlink template.
@@ -11,8 +12,9 @@ export function Abbrlink({
   node: Extract<WikitextSimplifiedNode, { type: "template" }>;
   templateName: string;
 }) {
-  const abbr = node.parameters[0].value;
-  const phrase = node.parameters[1]?.value;
+  const params = templateToObject(node);
+  const abbr = params["1"];
+  const phrase = params["2"];
   const jsx = <abbr title={phrase}>{abbr}</abbr>;
   if (templateName === "abbrlink") {
     return (

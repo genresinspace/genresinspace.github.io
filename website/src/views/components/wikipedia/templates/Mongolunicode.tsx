@@ -1,5 +1,6 @@
 import { WikitextSimplifiedNode } from "frontend_wasm";
 import { Wikitext } from "../wikitexts/Wikitext";
+import { templateToObject } from "./util";
 
 /**
  * Renders the mongolunicode template.
@@ -9,21 +10,18 @@ export function Mongolunicode({
 }: {
   node: Extract<WikitextSimplifiedNode, { type: "template" }>;
 }) {
-  const text = node.parameters.find((p) => p.name === "1");
+  const params = templateToObject(node);
+
+  const text = params["1"];
   if (!text) return null;
 
-  const direction =
-    node.parameters.find((p) => p.name === "2")?.value === "h"
-      ? "horizontal-tb"
-      : "vertical-rl";
+  const direction = params["2"] === "h" ? "horizontal-tb" : "vertical-rl";
   // We don't currently do anything to handle fonts, but we could in the future
-  // const lang = node.parameters.find((p) => p.name === "lang")?.value || "mn";
-  const style = node.parameters.find((p) => p.name === "style")?.value || "";
-  const fontSize = node.parameters.find((p) => p.name === "font-size")?.value;
-  const lineHeight = node.parameters.find(
-    (p) => p.name === "line-height"
-  )?.value;
-  const display = node.parameters.find((p) => p.name === "display")?.value;
+  // const lang = params["lang"] || "mn";
+  const style = params["style"] || "";
+  const fontSize = params["font-size"];
+  const lineHeight = params["line-height"];
+  const display = params["display"];
 
   return (
     <span
@@ -35,7 +33,7 @@ export function Mongolunicode({
         ...(style && { style }),
       }}
     >
-      <Wikitext wikitext={text.value} />
+      <Wikitext wikitext={text} />
     </span>
   );
 }
