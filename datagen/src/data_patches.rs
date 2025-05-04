@@ -16,10 +16,19 @@ pub fn all() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
 pub fn pages_to_ignore() -> Vec<PageName> {
     [
         // Redefines jazz as a genre; redundant with the "Jazz" article
-        "Outline of jazz",
+        ("Outline of jazz", None),
+        // The "Styles of pop music" page redefined these genres instead of linking to
+        // dedicated articles with subsections describing them (including their infoboxes).
+        // I've fixed this in <https://en.wikipedia.org/w/index.php?title=Styles_of_pop_music&oldid=1288729877>,
+        // but I'm explicitly ignoring them here so that we have a solution until the next dump (after 2025-05-04).
+        //
+        // Redefines pop soul, which already has a subarticle.
+        ("Styles of pop music", Some("Pop soul / Motown")),
+        // Redefines street pop, which already has a subarticle.
+        ("Styles of pop music", Some("Street pop")),
     ]
     .into_iter()
-    .map(|page| PageName::new(page, None))
+    .map(|(page, subheading)| PageName::new(page, subheading.map(String::from)))
     .collect()
 }
 
