@@ -45,12 +45,6 @@ fn fixed_already() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
             name: "Romanian popcorn",
             _link: "https://en.wikipedia.org/w/index.php?title=Popcorn_(Romanian_music_style)&oldid=1287525657",
         },
-        WikipediaFix {
-            timestamp: "2025-04-26T20:32:00Z",
-            page: ("Popcorn (Belgian music style)", None),
-            name: "Belgian popcorn",
-            _link: "https://en.wikipedia.org/w/index.php?title=Popcorn_(Belgian_music_style)&oldid=1287525762",
-        },
     ];
 
     FIXES
@@ -85,6 +79,13 @@ fn unclear_fixes() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
         UnclearFix {
             page: ("Brega pop", None),
             name: "Brega-pop",
+        },
+        // HACK: There are two genres referred to as "Popcorn" on Wikipedia. I've updated the Romanian version to "Romanian popcorn" and
+        // the Belgian version to "Belgian popcorn", but my change to the Belgian version was reverted. As a result, I've had to move it
+        // to an ambiguity fix.
+        UnclearFix {
+            page: ("Popcorn (Belgian music style)", None),
+            name: "Belgian popcorn",
         },
     ];
 
