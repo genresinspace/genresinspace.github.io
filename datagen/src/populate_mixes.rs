@@ -94,6 +94,7 @@ pub fn run(
                 format!("\"{genre_name}\" music mix")
             })
             .replace(" ", "%20")
+            .replace("&", "%26")
         );
         open::that(link)?;
 
