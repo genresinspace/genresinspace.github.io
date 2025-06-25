@@ -59,13 +59,14 @@ fn main() -> anyhow::Result<()> {
     let output_path = Path::new("output").join(dump_date.to_string());
     let start = std::time::Instant::now();
 
-    let (dump_meta, genres, all_redirects) = extract::genres_and_all_redirects(
+    let (dump_meta, genres, _artists, all_redirects) = extract::genres_artists_and_all_redirects(
         &config,
         start,
         dump_date,
         &output_path.join("offsets.txt"),
         &output_path.join("meta.toml"),
         &output_path.join("genres"),
+        &output_path.join("artists"),
         &output_path.join("all_redirects.toml"),
     )?;
 

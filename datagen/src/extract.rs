@@ -25,6 +25,16 @@ impl GenrePages {
     }
 }
 
+/// A map of musical artist page names to their output file paths.
+#[derive(Clone, Default)]
+pub struct MusicalArtistPages(pub HashMap<PageName, PathBuf>);
+impl MusicalArtistPages {
+    /// Iterate over all musical artist pages.
+    pub fn iter(&self) -> impl Iterator<Item = (&PageName, &PathBuf)> {
+        self.0.iter()
+    }
+}
+
 /// All redirects on Wikipedia. Yes, all of them.
 pub enum AllRedirects {
     /// All redirects in memory.
@@ -67,20 +77,25 @@ pub struct DumpMeta {
     pub dump_date: jiff::civil::Date,
 }
 
-/// Given a Wikipedia dump, extract genres and all redirects.
+/// Given a Wikipedia dump, extract genres, musical artists, and all redirects.
 ///
 /// We extract all redirects as we may need to resolve redirects to redirects.
-pub fn genres_and_all_redirects(
+pub fn genres_artists_and_all_redirects(
     config: &Config,
     start: std::time::Instant,
     dump_date: jiff::civil::Date,
     offsets_path: &Path,
     meta_path: &Path,
     genres_path: &Path,
+    artists_path: &Path,
     redirects_path: &Path,
-) -> anyhow::Result<(DumpMeta, GenrePages, AllRedirects)> {
+) -> anyhow::Result<(DumpMeta, GenrePages, MusicalArtistPages, AllRedirects)> {
     // Already exists, just load from file
-    if genres_path.is_dir() && redirects_path.is_file() && meta_path.is_file() {
+    if genres_path.is_dir()
+        && artists_path.is_dir()
+        && redirects_path.is_file()
+        && meta_path.is_file()
+    {
         let mut genre_pages = HashMap::default();
         for entry in std::fs::read_dir(genres_path)? {
             let path = entry?.path();
@@ -90,9 +105,23 @@ pub fn genres_and_all_redirects(
             genre_pages.insert(PageName::unsanitize(&file_stem.to_string_lossy()), path);
         }
         println!(
-            "{:.2}s: loaded all {} pages",
+            "{:.2}s: loaded all {} genre pages",
             start.elapsed().as_secs_f32(),
             genre_pages.len()
+        );
+
+        let mut artist_pages = HashMap::default();
+        for entry in std::fs::read_dir(artists_path)? {
+            let path = entry?.path();
+            let Some(file_stem) = path.file_stem() else {
+                continue;
+            };
+            artist_pages.insert(PageName::unsanitize(&file_stem.to_string_lossy()), path);
+        }
+        println!(
+            "{:.2}s: loaded all {} artist pages",
+            start.elapsed().as_secs_f32(),
+            artist_pages.len()
         );
 
         let meta = toml::from_str(&std::fs::read_to_string(meta_path)?)?;
@@ -100,16 +129,18 @@ pub fn genres_and_all_redirects(
         return Ok((
             meta,
             GenrePages(genre_pages),
+            MusicalArtistPages(artist_pages),
             AllRedirects::LazyLoad(redirects_path.to_owned(), start),
         ));
     }
 
     println!(
-        "Genres directory or redirects file or meta does not exist, extracting from Wikipedia dump"
+        "Genres/artists directories or redirects file or meta does not exist, extracting from Wikipedia dump"
     );
     let now = std::time::Instant::now();
 
     std::fs::create_dir_all(genres_path).context("Failed to create genres directory")?;
+    std::fs::create_dir_all(artists_path).context("Failed to create artists directory")?;
 
     // Load offsets to allow for multithreaded read
     let offsets = if offsets_path.exists() {
@@ -221,17 +252,18 @@ pub fn genres_and_all_redirects(
         (wikipedia_domain, wikipedia_db_name)
     };
 
-    // Iterate over each offset (we'll make this multithreaded later)
-    let (genre_pages, all_redirects) = offsets
+    // Iterate over each offset
+    let (genre_pages, artist_pages, all_redirects) = offsets
         .par_iter()
         .fold(
             || {
                 (
                     HashMap::<PageName, PathBuf>::default(),
+                    HashMap::<PageName, PathBuf>::default(),
                     HashMap::<PageName, PageName>::default(),
                 )
             },
-            |(mut genre_pages, mut all_redirects), &offset| {
+            |(mut genre_pages, mut artist_pages, mut all_redirects), &offset| {
                 let mut reader = quick_xml::reader::Reader::from_reader(std::io::BufReader::new(
                     // We use an open-ended slice because BzDecoder will terminate after end of stream
                     bzip2::bufread::BzDecoder::new(&dump_file[offset..]),
@@ -295,40 +327,40 @@ pub fn genres_and_all_redirects(
                                             eprintln!("Error parsing redirect: {e:?}");
                                         }
                                     }
-                                } else if text.contains("nfobox music genre") {
-                                    if title.contains(":") {
-                                        continue;
+                                } else {
+                                    let is_genre = text.contains("nfobox music genre");
+                                    let is_artist = text.contains("nfobox musical artist");
+
+                                    if is_genre || is_artist {
+                                        let (output_path, page_type, output_collection) =
+                                            if is_genre {
+                                                (genres_path, "genre", &mut genre_pages)
+                                            } else {
+                                                (artists_path, "artist", &mut artist_pages)
+                                            };
+
+                                        match save_wikitext_page(
+                                            &page,
+                                            &text,
+                                            &timestamp,
+                                            output_path,
+                                            page_type,
+                                            start,
+                                        ) {
+                                            Ok(Some(output_file_path)) => {
+                                                output_collection
+                                                    .insert(page.clone(), output_file_path);
+                                            }
+                                            Ok(None) => {
+                                                // Page was skipped (e.g., namespace page)
+                                            }
+                                            Err(e) => {
+                                                eprintln!(
+                                                    "Error saving {page_type} page {page}: {e:?}"
+                                                );
+                                            }
+                                        }
                                     }
-
-                                    let timestamp = timestamp
-                                        .parse::<jiff::Timestamp>()
-                                        .with_context(|| {
-                                            format!(
-                                                "Failed to parse timestamp {timestamp} for {page}"
-                                            )
-                                        })
-                                        .unwrap();
-
-                                    let output_file_path = genres_path
-                                        .join(format!("{}.wikitext", PageName::sanitize(&page)));
-                                    let output_file = std::fs::File::create(&output_file_path)
-                                        .with_context(|| {
-                                            format!("Failed to create output file for {page}")
-                                        })
-                                        .unwrap();
-                                    let mut output_file = std::io::BufWriter::new(output_file);
-
-                                    writeln!(
-                                        output_file,
-                                        "{}",
-                                        serde_json::to_string(&WikitextHeader { timestamp })
-                                            .unwrap()
-                                    )
-                                    .unwrap();
-                                    write!(output_file, "{text}").unwrap();
-
-                                    genre_pages.insert(page.clone(), output_file_path);
-                                    println!("{:.2}s: {page}", start.elapsed().as_secs_f32());
                                 }
                             }
                         }
@@ -337,20 +369,23 @@ pub fn genres_and_all_redirects(
                     buf.clear();
                 }
 
-                (genre_pages, all_redirects)
+                (genre_pages, artist_pages, all_redirects)
             },
         )
         .reduce(
             || {
                 (
                     HashMap::<PageName, PathBuf>::default(),
+                    HashMap::<PageName, PathBuf>::default(),
                     HashMap::<PageName, PageName>::default(),
                 )
             },
-            |(mut genre_pages, mut all_redirects), (new_genre_pages, new_all_redirects)| {
+            |(mut genre_pages, mut artist_pages, mut all_redirects),
+             (new_genre_pages, new_artist_pages, new_all_redirects)| {
                 genre_pages.extend(new_genre_pages);
+                artist_pages.extend(new_artist_pages);
                 all_redirects.extend(new_all_redirects);
-                (genre_pages, all_redirects)
+                (genre_pages, artist_pages, all_redirects)
             },
         );
 
@@ -368,15 +403,55 @@ pub fn genres_and_all_redirects(
     std::fs::write(meta_path, toml::to_string_pretty(&meta)?).context("Failed to write meta")?;
 
     println!(
-        "Extracted genres and redirects and meta in {:?}",
+        "Extracted genres, artists, redirects and meta in {:?}",
         now.elapsed()
     );
 
     Ok((
         meta,
         GenrePages(genre_pages),
+        MusicalArtistPages(artist_pages),
         AllRedirects::InMemory(all_redirects),
     ))
+}
+
+/// Shared logic for saving a wikitext page to disk.
+/// Returns the output file path if successful, None if the page should be skipped.
+fn save_wikitext_page(
+    page: &PageName,
+    text: &str,
+    timestamp_str: &str,
+    output_dir: &Path,
+    page_type: &str,
+    start: std::time::Instant,
+) -> anyhow::Result<Option<PathBuf>> {
+    // Skip pages with colons (namespace pages)
+    if page.name.contains(":") {
+        return Ok(None);
+    }
+
+    let timestamp = timestamp_str
+        .parse::<jiff::Timestamp>()
+        .with_context(|| format!("Failed to parse timestamp {timestamp_str} for {page}"))?;
+
+    let output_file_path = output_dir.join(format!("{}.wikitext", PageName::sanitize(page)));
+    let output_file = std::fs::File::create(&output_file_path)
+        .with_context(|| format!("Failed to create output file for {page}"))?;
+    let mut output_file = std::io::BufWriter::new(output_file);
+
+    writeln!(
+        output_file,
+        "{}",
+        serde_json::to_string(&WikitextHeader { timestamp })
+            .context("Failed to serialize WikitextHeader")?
+    )
+    .context("Failed to write header to output file")?;
+
+    write!(output_file, "{text}").context("Failed to write text to output file")?;
+
+    println!("{:.2}s: {page_type} {page}", start.elapsed().as_secs_f32());
+
+    Ok(Some(output_file_path))
 }
 
 #[derive(Debug)]
