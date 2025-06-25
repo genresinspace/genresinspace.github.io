@@ -78,19 +78,53 @@ pub struct DumpMeta {
     pub dump_date: jiff::civil::Date,
 }
 
+/// Result of extracting data from the Wikipedia dump.
+pub struct ExtractedData {
+    /// Metadata about the Wikipedia dump.
+    pub dump_meta: DumpMeta,
+    /// All genre pages extracted from the dump.
+    pub genres: GenrePages,
+    /// All musical artist pages extracted from the dump.
+    pub artists: MusicalArtistPages,
+    /// All redirects found in the dump.
+    pub redirects: AllRedirects,
+}
+
+/// Intermediate data collected during parallel processing.
+#[derive(Clone, Default)]
+struct IntermediateData {
+    /// Genre pages found so far.
+    genre_pages: HashMap<PageName, PathBuf>,
+    /// Artist pages found so far.
+    artist_pages: HashMap<PageName, PathBuf>,
+    /// Redirects found so far.
+    redirects: HashMap<PageName, PageName>,
+}
+impl IntermediateData {
+    /// Merge another intermediate data into this one.
+    fn merge(&mut self, other: IntermediateData) {
+        self.genre_pages.extend(other.genre_pages);
+        self.artist_pages.extend(other.artist_pages);
+        self.redirects.extend(other.redirects);
+    }
+}
+
 /// Given a Wikipedia dump, extract genres, musical artists, and all redirects.
 ///
 /// We extract all redirects as we may need to resolve redirects to redirects.
-pub fn genres_artists_and_all_redirects(
+pub fn from_data_dump(
     config: &Config,
     start: std::time::Instant,
     dump_date: jiff::civil::Date,
-    offsets_path: &Path,
-    meta_path: &Path,
-    genres_path: &Path,
-    artists_path: &Path,
-    redirects_path: &Path,
-) -> anyhow::Result<(DumpMeta, GenrePages, MusicalArtistPages, AllRedirects)> {
+    output_path: &Path,
+) -> anyhow::Result<ExtractedData> {
+    // Construct paths from the output path
+    let offsets_path = output_path.join("offsets.txt");
+    let meta_path = output_path.join("meta.toml");
+    let genres_path = output_path.join("genres");
+    let artists_path = output_path.join("artists");
+    let redirects_path = output_path.join("all_redirects.toml");
+
     // Already exists, just load from file
     if genres_path.is_dir()
         && artists_path.is_dir()
@@ -98,7 +132,7 @@ pub fn genres_artists_and_all_redirects(
         && meta_path.is_file()
     {
         let mut genre_pages = HashMap::default();
-        for entry in std::fs::read_dir(genres_path)? {
+        for entry in std::fs::read_dir(&genres_path)? {
             let path = entry?.path();
             let Some(file_stem) = path.file_stem() else {
                 continue;
@@ -112,7 +146,7 @@ pub fn genres_artists_and_all_redirects(
         );
 
         let mut artist_pages = HashMap::default();
-        for entry in std::fs::read_dir(artists_path)? {
+        for entry in std::fs::read_dir(&artists_path)? {
             let path = entry?.path();
             let Some(file_stem) = path.file_stem() else {
                 continue;
@@ -125,14 +159,14 @@ pub fn genres_artists_and_all_redirects(
             artist_pages.len()
         );
 
-        let meta = toml::from_str(&std::fs::read_to_string(meta_path)?)?;
+        let meta = toml::from_str(&std::fs::read_to_string(&meta_path)?)?;
 
-        return Ok((
-            meta,
-            GenrePages(genre_pages),
-            MusicalArtistPages(artist_pages),
-            AllRedirects::LazyLoad(redirects_path.to_owned(), start),
-        ));
+        return Ok(ExtractedData {
+            dump_meta: meta,
+            genres: GenrePages(genre_pages),
+            artists: MusicalArtistPages(artist_pages),
+            redirects: AllRedirects::LazyLoad(redirects_path, start),
+        });
     }
 
     println!(
@@ -140,13 +174,13 @@ pub fn genres_artists_and_all_redirects(
     );
     let now = std::time::Instant::now();
 
-    std::fs::create_dir_all(genres_path).context("Failed to create genres directory")?;
-    std::fs::create_dir_all(artists_path).context("Failed to create artists directory")?;
+    std::fs::create_dir_all(&genres_path).context("Failed to create genres directory")?;
+    std::fs::create_dir_all(&artists_path).context("Failed to create artists directory")?;
 
     // Load offsets to allow for multithreaded read
     let offsets = if offsets_path.exists() {
         let offsets_str =
-            std::fs::read_to_string(offsets_path).context("Failed to read offsets file")?;
+            std::fs::read_to_string(&offsets_path).context("Failed to read offsets file")?;
         let offsets: Vec<usize> = offsets_str
             .lines()
             .map(|line| line.parse().unwrap())
@@ -169,7 +203,7 @@ pub fn genres_artists_and_all_redirects(
         }
         let offsets: Vec<_> = offsets.into_iter().collect();
         let mut file =
-            std::fs::File::create(offsets_path).context("Failed to create offsets file")?;
+            std::fs::File::create(&offsets_path).context("Failed to create offsets file")?;
         for offset in &offsets {
             writeln!(file, "{}", offset).context("Failed to write offset to file")?;
         }
@@ -256,151 +290,28 @@ pub fn genres_artists_and_all_redirects(
     // Iterate over each offset
     let artist_counter = AtomicUsize::new(0);
 
-    let (genre_pages, artist_pages, all_redirects) = offsets
+    let intermediate_data = offsets
         .par_iter()
-        .fold(
-            || {
-                (
-                    HashMap::<PageName, PathBuf>::default(),
-                    HashMap::<PageName, PathBuf>::default(),
-                    HashMap::<PageName, PageName>::default(),
-                )
-            },
-            |(mut genre_pages, mut artist_pages, mut all_redirects), &offset| {
-                let mut reader = quick_xml::reader::Reader::from_reader(std::io::BufReader::new(
-                    // We use an open-ended slice because BzDecoder will terminate after end of stream
-                    bzip2::bufread::BzDecoder::new(&dump_file[offset..]),
-                ));
-                reader.config_mut().trim_text(true);
-
-                let mut buf = vec![];
-
-                let mut title = String::new();
-                let mut recording_title = false;
-
-                let mut text = String::new();
-                let mut recording_text = false;
-
-                let mut timestamp = String::new();
-                let mut recording_timestamp = false;
-
-                loop {
-                    match reader.read_event_into(&mut buf) {
-                        Ok(Event::Eof) => break,
-                        Ok(Event::Start(e)) => {
-                            let name = e.name().0;
-                            if name == b"title" {
-                                title.clear();
-                                recording_title = true;
-                            } else if name == b"text" {
-                                text.clear();
-                                recording_text = true;
-                            } else if name == b"timestamp" {
-                                timestamp.clear();
-                                recording_timestamp = true;
-                            }
-                        }
-                        Ok(Event::Text(e)) => {
-                            if recording_title {
-                                title.push_str(&e.unescape().unwrap());
-                            } else if recording_text {
-                                text.push_str(&e.unescape().unwrap());
-                            } else if recording_timestamp {
-                                timestamp.push_str(&e.unescape().unwrap());
-                            }
-                        }
-                        Ok(Event::End(e)) => {
-                            if e.name().0 == b"title" {
-                                recording_title = false;
-                            } else if e.name().0 == b"text" {
-                                recording_text = false;
-                            } else if e.name().0 == b"timestamp" {
-                                recording_timestamp = false;
-                            } else if e.name().0 == b"page" {
-                                let page = PageName {
-                                    name: title.clone(),
-                                    heading: None,
-                                };
-                                if text.starts_with("#REDIRECT") {
-                                    match parse_redirect_text(&wikipedia_domain, &text) {
-                                        Ok(redirect) => {
-                                            all_redirects.insert(page.clone(), redirect);
-                                        }
-                                        Err(e) => {
-                                            eprintln!("Error parsing redirect: {e:?}");
-                                        }
-                                    }
-                                } else {
-                                    let is_genre = text.contains("nfobox music genre");
-                                    let is_artist = text.contains("nfobox musical artist");
-
-                                    if is_genre || is_artist {
-                                        let (output_path, page_type, output_collection, counter) =
-                                            if is_genre {
-                                                (genres_path, "genre", &mut genre_pages, None)
-                                            } else {
-                                                (
-                                                    artists_path,
-                                                    "artist",
-                                                    &mut artist_pages,
-                                                    Some(&artist_counter),
-                                                )
-                                            };
-
-                                        match save_wikitext_page(
-                                            &page,
-                                            &text,
-                                            &timestamp,
-                                            output_path,
-                                            page_type,
-                                            counter,
-                                            start,
-                                        ) {
-                                            Ok(Some(output_file_path)) => {
-                                                output_collection
-                                                    .insert(page.clone(), output_file_path);
-                                            }
-                                            Ok(None) => {
-                                                // Page was skipped (e.g., namespace page)
-                                            }
-                                            Err(e) => {
-                                                eprintln!(
-                                                    "Error saving {page_type} page {page}: {e:?}"
-                                                );
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        _ => {}
-                    }
-                    buf.clear();
-                }
-
-                (genre_pages, artist_pages, all_redirects)
-            },
-        )
-        .reduce(
-            || {
-                (
-                    HashMap::<PageName, PathBuf>::default(),
-                    HashMap::<PageName, PathBuf>::default(),
-                    HashMap::<PageName, PageName>::default(),
-                )
-            },
-            |(mut genre_pages, mut artist_pages, mut all_redirects),
-             (new_genre_pages, new_artist_pages, new_all_redirects)| {
-                genre_pages.extend(new_genre_pages);
-                artist_pages.extend(new_artist_pages);
-                all_redirects.extend(new_all_redirects);
-                (genre_pages, artist_pages, all_redirects)
-            },
-        );
+        .fold(IntermediateData::default, |acc, offset| {
+            process_offset_slice(
+                &dump_file,
+                &wikipedia_domain,
+                &genres_path,
+                &artists_path,
+                &artist_counter,
+                start,
+                acc,
+                offset,
+            )
+        })
+        .reduce(IntermediateData::default, |mut acc, data| {
+            acc.merge(data);
+            acc
+        });
 
     std::fs::write(
-        redirects_path,
-        toml::to_string_pretty(&all_redirects)?.as_bytes(),
+        &redirects_path,
+        toml::to_string_pretty(&intermediate_data.redirects)?.as_bytes(),
     )
     .context("Failed to write redirects")?;
 
@@ -409,19 +320,144 @@ pub fn genres_artists_and_all_redirects(
         wikipedia_db_name,
         dump_date,
     };
-    std::fs::write(meta_path, toml::to_string_pretty(&meta)?).context("Failed to write meta")?;
+    std::fs::write(&meta_path, toml::to_string_pretty(&meta)?).context("Failed to write meta")?;
 
     println!(
         "Extracted genres, artists, redirects and meta in {:?}",
         now.elapsed()
     );
 
-    Ok((
-        meta,
-        GenrePages(genre_pages),
-        MusicalArtistPages(artist_pages),
-        AllRedirects::InMemory(all_redirects),
-    ))
+    Ok(ExtractedData {
+        dump_meta: meta,
+        genres: GenrePages(intermediate_data.genre_pages),
+        artists: MusicalArtistPages(intermediate_data.artist_pages),
+        redirects: AllRedirects::InMemory(intermediate_data.redirects),
+    })
+}
+
+/// Process a slice of the Wikipedia dump to extract its redirects, genres, and artists.
+///
+/// Returns the intermediate data collected during the processing.
+fn process_offset_slice(
+    dump_file: &[u8],
+    wikipedia_domain: &str,
+    genres_path: &Path,
+    artists_path: &Path,
+    artist_counter: &AtomicUsize,
+    start: std::time::Instant,
+    mut data: IntermediateData,
+    &offset: &usize,
+) -> IntermediateData {
+    let mut reader = quick_xml::reader::Reader::from_reader(std::io::BufReader::new(
+        // We use an open-ended slice because BzDecoder will terminate after end of stream
+        bzip2::bufread::BzDecoder::new(&dump_file[offset..]),
+    ));
+    reader.config_mut().trim_text(true);
+
+    let mut buf = vec![];
+
+    let mut title = String::new();
+    let mut recording_title = false;
+
+    let mut text = String::new();
+    let mut recording_text = false;
+
+    let mut timestamp = String::new();
+    let mut recording_timestamp = false;
+
+    loop {
+        match reader.read_event_into(&mut buf) {
+            Ok(Event::Eof) => break,
+            Ok(Event::Start(e)) => {
+                let name = e.name().0;
+                if name == b"title" {
+                    title.clear();
+                    recording_title = true;
+                } else if name == b"text" {
+                    text.clear();
+                    recording_text = true;
+                } else if name == b"timestamp" {
+                    timestamp.clear();
+                    recording_timestamp = true;
+                }
+            }
+            Ok(Event::Text(e)) => {
+                if recording_title {
+                    title.push_str(&e.unescape().unwrap());
+                } else if recording_text {
+                    text.push_str(&e.unescape().unwrap());
+                } else if recording_timestamp {
+                    timestamp.push_str(&e.unescape().unwrap());
+                }
+            }
+            Ok(Event::End(e)) => {
+                let tag_name = e.name().0;
+                if tag_name == b"title" {
+                    recording_title = false;
+                } else if tag_name == b"text" {
+                    recording_text = false;
+                } else if tag_name == b"timestamp" {
+                    recording_timestamp = false;
+                } else if tag_name == b"page" {
+                    let page = PageName {
+                        name: title.clone(),
+                        heading: None,
+                    };
+                    if text.starts_with("#REDIRECT") {
+                        // Parse the redirect and add it to the redirects map
+                        match parse_redirect_text(&wikipedia_domain, &text) {
+                            Ok(redirect) => {
+                                data.redirects.insert(page.clone(), redirect);
+                            }
+                            Err(e) => {
+                                eprintln!("Error parsing redirect: {e:?}");
+                            }
+                        }
+                        continue;
+                    }
+
+                    let is_genre = text.contains("nfobox music genre");
+                    let is_artist = text.contains("nfobox musical artist");
+
+                    if !(is_genre || is_artist) {
+                        continue;
+                    }
+
+                    // This is a genre or an artist page, so save it to disk
+                    let (output_path, page_type, output_collection, counter) = if is_genre {
+                        (&genres_path, "genre", &mut data.genre_pages, None)
+                    } else {
+                        let ac = artist_counter;
+                        (&artists_path, "artist", &mut data.artist_pages, Some(ac))
+                    };
+
+                    match save_wikitext_page(
+                        &page,
+                        &text,
+                        &timestamp,
+                        output_path,
+                        page_type,
+                        counter,
+                        start,
+                    ) {
+                        Ok(Some(output_file_path)) => {
+                            output_collection.insert(page.clone(), output_file_path);
+                        }
+                        Ok(None) => {
+                            // Page was skipped (e.g., namespace page)
+                        }
+                        Err(e) => {
+                            eprintln!("Error saving {page_type} page {page}: {e:?}");
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+        buf.clear();
+    }
+
+    data
 }
 
 /// Shared logic for saving a wikitext page to disk.

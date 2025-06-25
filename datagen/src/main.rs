@@ -59,29 +59,24 @@ fn main() -> anyhow::Result<()> {
     let output_path = Path::new("output").join(dump_date.to_string());
     let start = std::time::Instant::now();
 
-    let (dump_meta, genres, _artists, all_redirects) = extract::genres_artists_and_all_redirects(
-        &config,
-        start,
-        dump_date,
-        &output_path.join("offsets.txt"),
-        &output_path.join("meta.toml"),
-        &output_path.join("genres"),
-        &output_path.join("artists"),
-        &output_path.join("all_redirects.toml"),
-    )?;
+    let extracted_data = extract::from_data_dump(&config, start, dump_date, &output_path)?;
 
-    let processed_genres = process::genres(start, &genres, &output_path.join("processed"))?;
+    let processed_genres = process::genres(
+        start,
+        &extracted_data.genres,
+        &output_path.join("processed"),
+    )?;
 
     let mixes_path = Path::new("mixes");
     if std::env::args().any(|arg| arg == "--populate-mixes") {
-        populate_mixes::run(mixes_path, &dump_meta, &processed_genres)?;
+        populate_mixes::run(mixes_path, &extracted_data.dump_meta, &processed_genres)?;
     }
 
     let links_to_articles = links::resolve(
         start,
         &output_path.join("links_to_articles.toml"),
         &processed_genres,
-        all_redirects,
+        extracted_data.redirects,
     )?;
 
     let website_path = Path::new("website");
@@ -99,7 +94,7 @@ fn main() -> anyhow::Result<()> {
 
     output::produce_data_json(
         start,
-        &dump_meta,
+        &extracted_data.dump_meta,
         mixes_path,
         &website_public_path.join("data.json"),
         &links_to_articles,
