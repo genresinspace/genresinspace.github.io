@@ -20,6 +20,21 @@ pub struct PageName {
     /// The heading of the page, if any.
     pub heading: Option<String>,
 }
+
+/// Character substitutions for making page names safe for Windows filenames.
+/// Each tuple contains (original_char, safe_replacement).
+const FILENAME_SUBSTITUTIONS: &[(&str, &str)] = &[
+    ("/", "⧸"),  // BIG SOLIDUS
+    ("\\", "⧵"), // REVERSE SOLIDUS OPERATOR
+    (":", "∶"),  // RATIO
+    ("*", "✱"),  // HEAVY ASTERISK
+    ("?", "？"), // FULLWIDTH QUESTION MARK
+    ("\"", "❞"), // HEAVY DOUBLE TURNED COMMA QUOTATION MARK ORNAMENT
+    ("<", "❮"),  // HEAVY LEFT-POINTING ANGLE QUOTATION MARK ORNAMENT
+    (">", "❯"),  // HEAVY RIGHT-POINTING ANGLE QUOTATION MARK ORNAMENT
+    ("|", "❘"),  // LIGHT VERTICAL BAR
+];
+
 impl PageName {
     /// Create a new page name.
     pub fn new(name: impl Into<String>, heading: impl Into<Option<String>>) -> Self {
@@ -47,18 +62,25 @@ impl PageName {
 
     /// Makes a Wikipedia page name safe to store on disk.
     pub fn sanitize(&self) -> String {
-        // We use BIG SOLIDUS (⧸) as it's unlikely to be used in a page name
-        // but still looks like a slash
+        // We use Unicode characters that look similar but are safe for Windows filenames
         let mut output = self.name.clone();
         if let Some(heading) = &self.heading {
             output.push_str(&format!("#{heading}"));
         }
-        output.replace("/", "⧸")
+
+        for (original, replacement) in FILENAME_SUBSTITUTIONS {
+            output = output.replace(original, replacement);
+        }
+        output
     }
 
     /// Reverses [`Self::sanitize`].
     pub fn unsanitize(title: &str) -> PageName {
-        let output = title.replace("⧸", "/");
+        let mut output = title.to_string();
+        for (original, replacement) in FILENAME_SUBSTITUTIONS {
+            output = output.replace(replacement, original);
+        }
+
         if let Some((name, heading)) = output.split_once('#') {
             PageName {
                 name: name.to_string(),
