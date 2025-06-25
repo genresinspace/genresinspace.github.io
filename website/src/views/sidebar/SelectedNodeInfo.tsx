@@ -14,7 +14,7 @@ import {
   fusionGenreColour,
   subgenreColour,
 } from "../../settings";
-import { stripGenreNamePrefixFromDescription } from "../../util";
+import { stripGenreNamePrefixFromDescription } from "../../util/stripGenreNamePrefixFromDescription";
 
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { Notice } from "../components/Notice";

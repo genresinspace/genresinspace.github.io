@@ -9,7 +9,7 @@ import {
   useDataContext,
 } from "../../data";
 import { VISIBLE_TYPES, VisibleTypes } from "../../settings";
-import { stripGenreNamePrefixFromDescription } from "../../util";
+import { stripGenreNamePrefixFromDescription } from "../../util/stripGenreNamePrefixFromDescription";
 
 import { FAQ } from "./FAQ";
 

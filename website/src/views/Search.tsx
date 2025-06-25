@@ -1,7 +1,7 @@
 import { Dispatch, useReducer } from "react";
 
 import { EdgeData, NodeData, nodeIdToInt, useDataContext } from "../data";
-import { stripGenreNamePrefixFromDescription } from "../util";
+import { stripGenreNamePrefixFromDescription } from "../util/stripGenreNamePrefixFromDescription";
 
 import { GenreLink } from "./components/links/GenreLink";
 import { WikitextTruncateAtLength } from "./components/wikipedia/wikitexts/WikitextTruncateAtLength";

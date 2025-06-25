@@ -1,4 +1,4 @@
-import { stripGenreNamePrefixFromDescription } from "./util";
+import { stripGenreNamePrefixFromDescription } from "./stripGenreNamePrefixFromDescription";
 
 describe("stripGenreNamePrefixFromDescription", () => {
   test('removes "Hip house" prefix from description', () => {
