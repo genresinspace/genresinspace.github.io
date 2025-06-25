@@ -1,3 +1,14 @@
+/**
+ * Romanizes a Hangul (Korean) string using either Revised Romanization (default) or McCune–Reischauer.
+ *
+ * - If the input string starts with the '^' character, the first letter of the result will be capitalized.
+ * - The '%' and '^' control symbols are removed before romanization.
+ * - Only a basic set of Hangul syllables are mapped; unmapped characters are returned as-is.
+ *
+ * @param {string} hangul - The Hangul string to romanize. May include control symbols ('^' for capitalization, '%' for other control).
+ * @param {boolean} [isRevisedRomanization=true] - If true, use Revised Romanization; if false, use McCune–Reischauer.
+ * @returns {string} The romanized string, with optional capitalization if '^' is present.
+ */
 // Basic Hangul romanization - simplified implementation
 export function romanizeHangul(
   hangul: string,
