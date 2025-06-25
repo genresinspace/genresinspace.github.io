@@ -49,6 +49,8 @@ export function WikitextTemplate({
     case "anchor":
       // We don't need to emit anchors in our output
       return null;
+    case "better_source":
+      return <sup>[better source]</sup>;
     case "by_whom":
       return <sup>[by whom?]</sup>;
     case "quote":
