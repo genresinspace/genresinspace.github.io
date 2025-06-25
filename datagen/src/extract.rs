@@ -338,6 +338,7 @@ pub fn from_data_dump(
 /// Process a slice of the Wikipedia dump to extract its redirects, genres, and artists.
 ///
 /// Returns the intermediate data collected during the processing.
+#[allow(clippy::too_many_arguments)]
 fn process_offset_slice(
     dump_file: &[u8],
     wikipedia_domain: &str,
@@ -405,7 +406,7 @@ fn process_offset_slice(
                     };
                     if text.starts_with("#REDIRECT") {
                         // Parse the redirect and add it to the redirects map
-                        match parse_redirect_text(&wikipedia_domain, &text) {
+                        match parse_redirect_text(wikipedia_domain, &text) {
                             Ok(redirect) => {
                                 data.redirects.insert(page.clone(), redirect);
                             }
