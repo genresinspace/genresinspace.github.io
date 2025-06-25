@@ -3083,8 +3083,7 @@
         2342,
         2400,
         3026,
-        3716,
-        5238
+        3716
       ]
     },
     {
@@ -13647,6 +13646,7 @@
         3212,
         3213,
         3214,
+        3218,
         3562,
         4305,
         4642,
@@ -13662,8 +13662,7 @@
       "edges": [
         1999,
         2547,
-        3200,
-        3218
+        3200
       ]
     },
     {
@@ -26312,6 +26311,7 @@
         2423,
         2602,
         2838,
+        5238,
         5539,
         5622
       ]
@@ -43477,7 +43477,7 @@
     },
     {
       "source": "620",
-      "target": "618",
+      "target": "617",
       "ty": "Derivative"
     },
     {
@@ -53577,7 +53577,7 @@
     },
     {
       "source": "1125",
-      "target": "155",
+      "target": "1224",
       "ty": "Derivative"
     },
     {
@@ -57422,7 +57422,7 @@
     "cumbia villera": "308",
     "cute metal": "648",
     "cuá": "142",
-    "cyber metal": "587",
+    "cyber metal": "585",
     "cyber-metal": "585",
     "cybermetal": "585",
     "cŵl cymru": "279",
@@ -57641,7 +57641,7 @@
     "dokudenpa": "337",
     "dolewave": "352",
     "dominican dembow": "353",
-    "donk (music)": "155",
+    "donk (music)": "1224",
     "doo wop": "354",
     "doo-wop": "354",
     "doo-wop music": "354",
@@ -57813,7 +57813,7 @@
     "egyptian heavy metal music": "542",
     "ekpili": "380",
     "el pasito de durango": "372",
-    "el pasito duranguense": "372",
+    "el pasito duranguense": "774",
     "electric blues": "381",
     "electric blues (disambiguation)": "381",
     "electric folk": "169",
@@ -59054,7 +59054,7 @@
     "jazz hardcore": "967",
     "jazz hop": "621",
     "jazz manouche": "521",
-    "jazz metal": "618",
+    "jazz metal": "617",
     "jazz music": "616",
     "jazz music history": "616",
     "jazz orchestra": "120",
@@ -59527,7 +59527,7 @@
     "melocore music": "736",
     "melodeath metal": "735",
     "melodeth": "735",
-    "melodic black metal": "133",
+    "melodic black metal": "131",
     "melodic black-death": "133",
     "melodic black/death": "133",
     "melodic black/death metal": "133",
@@ -59946,7 +59946,7 @@
     "new music (music industry)": "820",
     "new music (style)": "820",
     "new musick": "930",
-    "new new wave": "826",
+    "new new wave": "391",
     "new orleans blues": "812",
     "new orleans hip hop": "1116",
     "new orleans hip-hop": "813",
@@ -60624,7 +60624,7 @@
     "progressive breaks": "941",
     "progressive country": "939",
     "progressive dance music": "941",
-    "progressive deathcore": "330",
+    "progressive deathcore": "943",
     "progressive edm": "941",
     "progressive folk": "940",
     "progressive hardcore": "926",
