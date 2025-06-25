@@ -3,6 +3,7 @@ use std::{
     collections::{BTreeSet, HashMap},
     io::{BufRead as _, Write as _},
     path::{Path, PathBuf},
+    sync::atomic::{AtomicUsize, Ordering},
 };
 
 use anyhow::Context;
@@ -253,6 +254,8 @@ pub fn genres_artists_and_all_redirects(
     };
 
     // Iterate over each offset
+    let artist_counter = AtomicUsize::new(0);
+
     let (genre_pages, artist_pages, all_redirects) = offsets
         .par_iter()
         .fold(
@@ -332,11 +335,16 @@ pub fn genres_artists_and_all_redirects(
                                     let is_artist = text.contains("nfobox musical artist");
 
                                     if is_genre || is_artist {
-                                        let (output_path, page_type, output_collection) =
+                                        let (output_path, page_type, output_collection, counter) =
                                             if is_genre {
-                                                (genres_path, "genre", &mut genre_pages)
+                                                (genres_path, "genre", &mut genre_pages, None)
                                             } else {
-                                                (artists_path, "artist", &mut artist_pages)
+                                                (
+                                                    artists_path,
+                                                    "artist",
+                                                    &mut artist_pages,
+                                                    Some(&artist_counter),
+                                                )
                                             };
 
                                         match save_wikitext_page(
@@ -345,6 +353,7 @@ pub fn genres_artists_and_all_redirects(
                                             &timestamp,
                                             output_path,
                                             page_type,
+                                            counter,
                                             start,
                                         ) {
                                             Ok(Some(output_file_path)) => {
@@ -423,6 +432,7 @@ fn save_wikitext_page(
     timestamp_str: &str,
     output_dir: &Path,
     page_type: &str,
+    counter: Option<&AtomicUsize>,
     start: std::time::Instant,
 ) -> anyhow::Result<Option<PathBuf>> {
     // Skip pages with colons (namespace pages)
@@ -449,7 +459,17 @@ fn save_wikitext_page(
 
     write!(output_file, "{text}").context("Failed to write text to output file")?;
 
-    println!("{:.2}s: {page_type} {page}", start.elapsed().as_secs_f32());
+    if let Some(counter) = counter {
+        let count = counter.fetch_add(1, Ordering::Relaxed) + 1;
+        if count % 5000 == 0 {
+            println!(
+                "{:.2}s: processed {count} {page_type}s",
+                start.elapsed().as_secs_f32()
+            );
+        }
+    } else {
+        println!("{:.2}s: {page_type} {page}", start.elapsed().as_secs_f32());
+    }
 
     Ok(Some(output_file_path))
 }
