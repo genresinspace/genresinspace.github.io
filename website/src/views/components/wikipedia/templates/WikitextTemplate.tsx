@@ -14,6 +14,7 @@ import { Langx } from "./Langx";
 import { Langnf } from "./Langnf";
 import { Nihongo } from "./Nihongo";
 import { IPAcEn } from "./IPAc-en";
+import { KoreanAuto } from "./KoreanAuto";
 
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
@@ -143,6 +144,8 @@ export function WikitextTemplate({
     case "korean":
       // TODO: support hanja/rr/etc, instead of assuming hangul
       return <span>Korean: {node.parameters[0].value}</span>;
+    case "korean/auto":
+      return <KoreanAuto node={node} />;
     case "lang":
       // TODO: indicate language to browser / support rtl+italic+size
       return (
