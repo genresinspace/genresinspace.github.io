@@ -207,7 +207,7 @@ pub fn from_data_dump(
         let mut file =
             std::fs::File::create(&offsets_path).context("Failed to create offsets file")?;
         for offset in &offsets {
-            writeln!(file, "{}", offset).context("Failed to write offset to file")?;
+            writeln!(file, "{offset}").context("Failed to write offset to file")?;
         }
         println!(
             "{:.2}s: Extracted {} offsets from index and saved to file",
@@ -392,11 +392,9 @@ fn process_offset_slice(
                 } else if name == b"page" {
                     // Reset the page ID when we see a new page
                     page_id.clear();
-                } else if name == b"id" {
-                    if page_id.is_empty() {
-                        // Don't start recording if we've already seen an ID
-                        recording_page_id = true;
-                    }
+                } else if name == b"id" && page_id.is_empty() {
+                    // Don't start recording if we've already seen an ID
+                    recording_page_id = true;
                 }
             }
             Ok(Event::Text(e)) => {
@@ -485,6 +483,7 @@ fn process_offset_slice(
 
 /// Shared logic for saving a wikitext page to disk.
 /// Returns the output file path if successful, None if the page should be skipped.
+#[allow(clippy::too_many_arguments)]
 fn save_wikitext_page(
     page: &PageName,
     text: &str,
@@ -548,10 +547,10 @@ impl std::fmt::Display for RedirectParseError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             RedirectParseError::InvalidRedirect { text } => {
-                write!(f, "Invalid redirect format: {}", text)
+                write!(f, "Invalid redirect format: {text}")
             }
             RedirectParseError::ExternalLinkNotOnThisWiki { text } => {
-                write!(f, "External link not on this wiki: {}", text)
+                write!(f, "External link not on this wiki: {text}")
             }
         }
     }

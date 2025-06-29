@@ -79,7 +79,7 @@ pub fn run(
             wikipedia_page_link,
             description,
             if index > 0 {
-                format!(" ({})", avg_response_time)
+                format!(" ({avg_response_time})")
             } else {
                 String::new()
             }
