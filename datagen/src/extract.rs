@@ -65,6 +65,8 @@ impl TryFrom<AllRedirects> for HashMap<PageName, PageName> {
 pub struct WikitextHeader {
     /// The timestamp of the page when it was last edited.
     pub timestamp: jiff::Timestamp,
+    /// The ID of the page.
+    pub id: u64,
 }
 
 /// Metadata about the Wikipedia dump.
@@ -366,6 +368,13 @@ fn process_offset_slice(
     let mut timestamp = String::new();
     let mut recording_timestamp = false;
 
+    // We have to special case how we detect IDs as there are multiple "ID" tags per page
+    // (there's the page ID, and then there's the revision / contributor ID).
+    //
+    // We just take the first ID after the page tag.
+    let mut page_id = String::new();
+    let mut recording_page_id = false;
+
     loop {
         match reader.read_event_into(&mut buf) {
             Ok(Event::Eof) => break,
@@ -380,6 +389,14 @@ fn process_offset_slice(
                 } else if name == b"timestamp" {
                     timestamp.clear();
                     recording_timestamp = true;
+                } else if name == b"page" {
+                    // Reset the page ID when we see a new page
+                    page_id.clear();
+                } else if name == b"id" {
+                    if page_id.is_empty() {
+                        // Don't start recording if we've already seen an ID
+                        recording_page_id = true;
+                    }
                 }
             }
             Ok(Event::Text(e)) => {
@@ -389,6 +406,8 @@ fn process_offset_slice(
                     text.push_str(&e.unescape().unwrap());
                 } else if recording_timestamp {
                     timestamp.push_str(&e.unescape().unwrap());
+                } else if recording_page_id {
+                    page_id.push_str(&e.unescape().unwrap());
                 }
             }
             Ok(Event::End(e)) => {
@@ -399,6 +418,8 @@ fn process_offset_slice(
                     recording_text = false;
                 } else if tag_name == b"timestamp" {
                     recording_timestamp = false;
+                } else if tag_name == b"id" {
+                    recording_page_id = false;
                 } else if tag_name == b"page" {
                     let page = PageName {
                         name: title.clone(),
@@ -436,6 +457,7 @@ fn process_offset_slice(
                         &page,
                         &text,
                         &timestamp,
+                        &page_id,
                         output_path,
                         page_type,
                         counter,
@@ -467,6 +489,7 @@ fn save_wikitext_page(
     page: &PageName,
     text: &str,
     timestamp_str: &str,
+    id_str: &str,
     output_dir: &Path,
     page_type: &str,
     counter: Option<&AtomicUsize>,
@@ -489,8 +512,13 @@ fn save_wikitext_page(
     writeln!(
         output_file,
         "{}",
-        serde_json::to_string(&WikitextHeader { timestamp })
-            .context("Failed to serialize WikitextHeader")?
+        serde_json::to_string(&WikitextHeader {
+            timestamp,
+            id: id_str
+                .parse()
+                .with_context(|| format!("Failed to parse ID {id_str} for {page}"))?,
+        })
+        .context("Failed to serialize WikitextHeader")?
     )
     .context("Failed to write header to output file")?;
 
