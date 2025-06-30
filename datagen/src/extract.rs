@@ -90,6 +90,8 @@ pub struct ExtractedData {
     pub artists: MusicalArtistPages,
     /// All redirects found in the dump.
     pub redirects: AllRedirects,
+    /// All Wikipedia page IDs to page names.
+    pub id_to_page_names: HashMap<u64, PageName>,
 }
 
 /// Intermediate data collected during parallel processing.
@@ -101,6 +103,8 @@ struct IntermediateData {
     artist_pages: HashMap<PageName, PathBuf>,
     /// Redirects found so far.
     redirects: HashMap<PageName, PageName>,
+    /// Page IDs to page names
+    id_to_page_names: HashMap<u64, PageName>,
 }
 impl IntermediateData {
     /// Merge another intermediate data into this one.
@@ -108,6 +112,7 @@ impl IntermediateData {
         self.genre_pages.extend(other.genre_pages);
         self.artist_pages.extend(other.artist_pages);
         self.redirects.extend(other.redirects);
+        self.id_to_page_names.extend(other.id_to_page_names);
     }
 }
 
@@ -126,13 +131,17 @@ pub fn from_data_dump(
     let genres_path = output_path.join("genres");
     let artists_path = output_path.join("artists");
     let redirects_path = output_path.join("all_redirects.toml");
+    let id_to_page_names_path = output_path.join("id_to_page_names.json");
 
     // Already exists, just load from file
     if genres_path.is_dir()
         && artists_path.is_dir()
         && redirects_path.is_file()
+        && id_to_page_names_path.is_file()
         && meta_path.is_file()
     {
+        let meta = toml::from_str(&std::fs::read_to_string(&meta_path)?)?;
+
         let mut genre_pages = HashMap::default();
         for entry in std::fs::read_dir(&genres_path)? {
             let path = entry?.path();
@@ -161,13 +170,15 @@ pub fn from_data_dump(
             artist_pages.len()
         );
 
-        let meta = toml::from_str(&std::fs::read_to_string(&meta_path)?)?;
+        let id_to_page_names =
+            serde_json::from_str(&std::fs::read_to_string(&id_to_page_names_path)?)?;
 
         return Ok(ExtractedData {
             dump_meta: meta,
             genres: GenrePages(genre_pages),
             artists: MusicalArtistPages(artist_pages),
             redirects: AllRedirects::LazyLoad(redirects_path, start),
+            id_to_page_names,
         });
     }
 
@@ -313,9 +324,15 @@ pub fn from_data_dump(
 
     std::fs::write(
         &redirects_path,
-        toml::to_string_pretty(&intermediate_data.redirects)?.as_bytes(),
+        &toml::to_string_pretty(&intermediate_data.redirects)?,
     )
     .context("Failed to write redirects")?;
+
+    std::fs::write(
+        &id_to_page_names_path,
+        &serde_json::to_string_pretty(&intermediate_data.id_to_page_names)?,
+    )
+    .context("Failed to write id_to_page_names")?;
 
     let meta = DumpMeta {
         wikipedia_domain,
@@ -334,6 +351,7 @@ pub fn from_data_dump(
         genres: GenrePages(intermediate_data.genre_pages),
         artists: MusicalArtistPages(intermediate_data.artist_pages),
         redirects: AllRedirects::InMemory(intermediate_data.redirects),
+        id_to_page_names: intermediate_data.id_to_page_names,
     })
 }
 
@@ -451,26 +469,62 @@ fn process_offset_slice(
                         (&artists_path, "artist", &mut data.artist_pages, Some(ac))
                     };
 
-                    match save_wikitext_page(
-                        &page,
-                        &text,
-                        &timestamp,
-                        &page_id,
-                        output_path,
-                        page_type,
-                        counter,
-                        start,
-                    ) {
-                        Ok(Some(output_file_path)) => {
-                            output_collection.insert(page.clone(), output_file_path);
-                        }
-                        Ok(None) => {
-                            // Page was skipped (e.g., namespace page)
-                        }
-                        Err(e) => {
-                            eprintln!("Error saving {page_type} page {page}: {e:?}");
-                        }
+                    // Skip pages with colons (namespace pages)
+                    if page.name.contains(":") {
+                        continue;
                     }
+
+                    let timestamp = timestamp
+                        .parse::<jiff::Timestamp>()
+                        .with_context(|| {
+                            format!("Failed to parse timestamp {timestamp} for {page}")
+                        })
+                        .unwrap();
+
+                    let output_file_path =
+                        output_path.join(format!("{}.wikitext", PageName::sanitize(&page)));
+                    let output_file = std::fs::File::create(&output_file_path)
+                        .with_context(|| format!("Failed to create output file for {page}"))
+                        .unwrap();
+                    let mut output_file = std::io::BufWriter::new(output_file);
+
+                    let page_id = page_id
+                        .parse()
+                        .with_context(|| format!("Failed to parse ID {page_id} for {page}"))
+                        .unwrap();
+
+                    data.id_to_page_names.insert(page_id, page.clone());
+
+                    writeln!(
+                        output_file,
+                        "{}",
+                        serde_json::to_string(&WikitextHeader {
+                            timestamp,
+                            id: page_id,
+                        })
+                        .context("Failed to serialize WikitextHeader")
+                        .unwrap()
+                    )
+                    .context("Failed to write header to output file")
+                    .unwrap();
+
+                    write!(output_file, "{text}")
+                        .context("Failed to write text to output file")
+                        .unwrap();
+
+                    if let Some(counter) = counter {
+                        let count = counter.fetch_add(1, Ordering::Relaxed) + 1;
+                        if count % 5000 == 0 {
+                            println!(
+                                "{:.2}s: processed {count} {page_type}s",
+                                start.elapsed().as_secs_f32()
+                            );
+                        }
+                    } else {
+                        println!("{:.2}s: {page_type} {page}", start.elapsed().as_secs_f32());
+                    }
+
+                    output_collection.insert(page.clone(), output_file_path);
                 }
             }
             _ => {}
@@ -479,63 +533,6 @@ fn process_offset_slice(
     }
 
     data
-}
-
-/// Shared logic for saving a wikitext page to disk.
-/// Returns the output file path if successful, None if the page should be skipped.
-#[allow(clippy::too_many_arguments)]
-fn save_wikitext_page(
-    page: &PageName,
-    text: &str,
-    timestamp_str: &str,
-    id_str: &str,
-    output_dir: &Path,
-    page_type: &str,
-    counter: Option<&AtomicUsize>,
-    start: std::time::Instant,
-) -> anyhow::Result<Option<PathBuf>> {
-    // Skip pages with colons (namespace pages)
-    if page.name.contains(":") {
-        return Ok(None);
-    }
-
-    let timestamp = timestamp_str
-        .parse::<jiff::Timestamp>()
-        .with_context(|| format!("Failed to parse timestamp {timestamp_str} for {page}"))?;
-
-    let output_file_path = output_dir.join(format!("{}.wikitext", PageName::sanitize(page)));
-    let output_file = std::fs::File::create(&output_file_path)
-        .with_context(|| format!("Failed to create output file for {page}"))?;
-    let mut output_file = std::io::BufWriter::new(output_file);
-
-    writeln!(
-        output_file,
-        "{}",
-        serde_json::to_string(&WikitextHeader {
-            timestamp,
-            id: id_str
-                .parse()
-                .with_context(|| format!("Failed to parse ID {id_str} for {page}"))?,
-        })
-        .context("Failed to serialize WikitextHeader")?
-    )
-    .context("Failed to write header to output file")?;
-
-    write!(output_file, "{text}").context("Failed to write text to output file")?;
-
-    if let Some(counter) = counter {
-        let count = counter.fetch_add(1, Ordering::Relaxed) + 1;
-        if count % 5000 == 0 {
-            println!(
-                "{:.2}s: processed {count} {page_type}s",
-                start.elapsed().as_secs_f32()
-            );
-        }
-    } else {
-        println!("{:.2}s: {page_type} {page}", start.elapsed().as_secs_f32());
-    }
-
-    Ok(Some(output_file_path))
 }
 
 #[derive(Debug)]
