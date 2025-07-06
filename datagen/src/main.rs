@@ -7,6 +7,7 @@ use std::path::Path;
 
 pub mod data_patches;
 pub mod extract;
+pub mod link_counts;
 pub mod links;
 pub mod output;
 pub mod populate_mixes;
@@ -60,6 +61,13 @@ fn main() -> anyhow::Result<()> {
     let start = std::time::Instant::now();
 
     let extracted_data = extract::from_data_dump(&config, start, dump_date, &output_path)?;
+
+    let _page_inbound_link_counts = link_counts::read(
+        start,
+        &config.wikipedia_links_path,
+        &extracted_data.id_to_page_names,
+        &output_path,
+    )?;
 
     let processed_genres = process::genres(
         start,
