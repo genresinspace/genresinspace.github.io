@@ -197,3 +197,46 @@ fn parse_tuple_byte_stream(
 
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::io::Cursor;
+
+    #[test]
+    fn test_parse_simple_tuple() {
+        let mut output = HashMap::from_iter([(123, 0)]);
+        let data = "(1,0,123)";
+        let mut stream = Cursor::new(data.as_bytes());
+        parse_tuple_byte_stream(&mut stream, std::time::Instant::now(), &mut output).unwrap();
+        assert_eq!(output.get(&123), Some(&1));
+    }
+
+    #[test]
+    fn test_parse_multiple_tuples_with_extra_data() {
+        let mut output = HashMap::from_iter([(123, 0), (456, 0), (789, 0)]);
+        let data = b"INSERT INTO `pagelinks` VALUES (1,0,123),(2,0,456),(3,0,789);";
+        let mut stream = Cursor::new(data);
+        // We need to skip the INSERT statement prefix
+        let mut buffer = vec![0u8; 29];
+        stream.read_exact(&mut buffer).unwrap();
+        parse_tuple_byte_stream(&mut stream, std::time::Instant::now(), &mut output).unwrap();
+        assert_eq!(output.get(&123), Some(&1));
+        assert_eq!(output.get(&456), Some(&1));
+        assert_eq!(output.get(&789), Some(&1));
+    }
+
+    #[test]
+    fn test_parse_tuples_with_untracked_pages() {
+        let mut output = HashMap::from_iter([(123, 0), (789, 0)]);
+        let data = b"INSERT INTO `pagelinks` VALUES (1,0,123),(2,0,456),(3,0,789);";
+        let mut stream = Cursor::new(data);
+        // We need to skip the INSERT statement prefix
+        let mut buffer = vec![0u8; 29];
+        stream.read_exact(&mut buffer).unwrap();
+        parse_tuple_byte_stream(&mut stream, std::time::Instant::now(), &mut output).unwrap();
+        assert_eq!(output.get(&123), Some(&1));
+        assert_eq!(output.get(&456), None);
+        assert_eq!(output.get(&789), Some(&1));
+    }
+}
