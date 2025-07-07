@@ -64,8 +64,9 @@ fn main() -> anyhow::Result<()> {
 
     let _page_inbound_link_counts = link_counts::read(
         start,
+        &config.wikipedia_linktargets_path,
         &config.wikipedia_links_path,
-        &extracted_data.id_to_page_names,
+        &extracted_data.artists.0,
         &output_path,
     )?;
 

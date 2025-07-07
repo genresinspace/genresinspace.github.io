@@ -10,6 +10,8 @@ pub struct Config {
     pub wikipedia_dump_path: PathBuf,
     /// The path to the Wikipedia index.
     pub wikipedia_index_path: PathBuf,
+    /// The path to the Wikipedia link targets SQL dump.
+    pub wikipedia_linktargets_path: PathBuf,
     /// The path to the Wikipedia links SQL dump.
     pub wikipedia_links_path: PathBuf,
 }
