@@ -558,8 +558,12 @@ fn remove_comments_from_wikitext_the_painful_way(
     page: &PageName,
     wikitext: &str,
 ) -> String {
+    // HACK: Replace `{{end}}` with `|}` because Wikipedia is demented and uses `{{end}}`
+    // to end tables.
+    let wikitext = wikitext.replace("{{end}}", "|}");
+
     let parsed_wikitext = pwt_configuration
-        .parse_with_timeout(wikitext, std::time::Duration::from_secs(1))
+        .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
         .unwrap_or_else(|e| panic!("failed to parse wikitext ({page}): {e:?}"));
 
     let mut new_wikitext = wikitext.to_string();
@@ -567,7 +571,7 @@ fn remove_comments_from_wikitext_the_painful_way(
 
     if dump_page.is_some_and(|s| s == page.name) {
         println!("--- BEFORE ---");
-        dump_page_nodes(wikitext, &parsed_wikitext.nodes, 0);
+        dump_page_nodes(&wikitext, &parsed_wikitext.nodes, 0);
     }
 
     for node in &parsed_wikitext.nodes {
@@ -579,6 +583,7 @@ fn remove_comments_from_wikitext_the_painful_way(
     for (start, end) in comment_ranges.into_iter().rev() {
         new_wikitext.replace_range(start..end, "");
     }
+
     new_wikitext
 }
 
