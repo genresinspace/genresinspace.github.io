@@ -107,6 +107,9 @@ export function GenreLink({
               wikitext={node.wikitext_description}
               length={100}
             />
+            <small className="block mt-2 text-xs text-gray-500 dark:text-gray-400">
+              Last updated: {new Date(node.last_revision_date).toLocaleString()}
+            </small>
           </DisableTooltips>
         </Tooltip>
       )}

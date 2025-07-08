@@ -126,7 +126,7 @@ function GenreHeader({
           <small className="text-neutral-400 text-xs flex items-center px-3">
             Updated:{" "}
             <em className="ml-1">
-              {new Date(node.last_revision_date).toLocaleDateString()}
+              {new Date(node.last_revision_date).toLocaleString()}
             </em>
           </small>
 
