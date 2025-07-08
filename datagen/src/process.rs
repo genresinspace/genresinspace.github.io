@@ -367,9 +367,34 @@ fn process_pages<T: ProcessedPage>(
                     }
                     last_end = Some(*end);
 
-                    if template_name_found != template_name {
+                    // Check for direct template match or nested template in module parameter
+                    let target_parameters = if template_name_found == template_name {
+                        // Direct match - use the template's parameters directly
+                        Some(parameters_to_map(parameters))
+                    } else {
+                        // Check if this template has a "module" parameter with our target template
+                        let parameters_map = parameters_to_map(parameters);
+                        if let Some(module_nodes) = parameters_map.get("module") {
+                            // Look for our target template within the module parameter
+                            let mut found_nested_parameters = None;
+                            for node in *module_nodes {
+                                if let pwt::Node::Template { name: nested_name, parameters: nested_parameters, .. } = node {
+                                    let nested_template_name = nodes_inner_text(nested_name).to_lowercase();
+                                    if nested_template_name == template_name {
+                                        found_nested_parameters = Some(parameters_to_map(nested_parameters));
+                                        break;
+                                    }
+                                }
+                            }
+                            found_nested_parameters
+                        } else {
+                            None
+                        }
+                    };
+
+                    let Some(target_parameters) = target_parameters else {
                         continue;
-                    }
+                    };
 
                     // If we already have a processed item, save it
                     if let Some(mut processed_item) = processed_item.take() {
@@ -391,11 +416,9 @@ fn process_pages<T: ProcessedPage>(
                         }
                     }
 
-                    let parameters = parameters_to_map(parameters);
-
                     // Let the closure handle the specific processing
                     processed_item = Some(process_template(
-                        parameters,
+                        target_parameters,
                         original_page,
                         last_heading.clone(),
                         wikitext_header.timestamp,
