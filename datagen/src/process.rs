@@ -18,7 +18,21 @@ use crate::{
 };
 
 trait ProcessedPage {
+    type NameType: Clone;
     fn name(&self) -> &PageName;
+    fn update_description(&mut self, description: String);
+    fn get_display_name(&self) -> String;
+
+    fn save(&self, processed_path: &Path) -> anyhow::Result<()>
+    where
+        Self: serde::Serialize,
+    {
+        std::fs::write(
+            processed_path.join(format!("{}.json", PageName::sanitize(self.name()))),
+            serde_json::to_string_pretty(self)?,
+        )?;
+        Ok(())
+    }
 }
 
 /// A processed genre containing all the information we can extract from the infobox.
@@ -49,8 +63,15 @@ pub struct ProcessedGenre {
     pub fusion_genres: Vec<String>,
 }
 impl ProcessedPage for ProcessedGenre {
+    type NameType = GenreName;
     fn name(&self) -> &PageName {
         &self.page
+    }
+    fn update_description(&mut self, description: String) {
+        self.wikitext_description = Some(description.trim().to_string());
+    }
+    fn get_display_name(&self) -> String {
+        self.name.0.clone()
     }
 }
 impl ProcessedGenre {
@@ -60,18 +81,6 @@ impl ProcessedGenre {
             + self.derivatives.len()
             + self.subgenres.len()
             + self.fusion_genres.len()
-    }
-    /// Update the description of the genre.
-    pub fn update_description(&mut self, description: String) {
-        self.wikitext_description = Some(description.trim().to_string());
-    }
-    /// Save the processed genre to a file.
-    pub fn save(&self, processed_genres_path: &Path) -> anyhow::Result<()> {
-        std::fs::write(
-            processed_genres_path.join(format!("{}.json", PageName::sanitize(&self.page))),
-            serde_json::to_string_pretty(self)?,
-        )?;
-        Ok(())
     }
 }
 
@@ -83,310 +92,65 @@ pub fn genres(
     genres: &extract::GenrePages,
     processed_genres_path: &Path,
 ) -> anyhow::Result<ProcessedGenres> {
-    if processed_genres_path.is_dir() {
-        let mut processed_genres = HashMap::default();
-        for entry in std::fs::read_dir(processed_genres_path)? {
-            let path = entry?.path();
-            let Some(file_stem) = path.file_stem() else {
-                continue;
-            };
-            processed_genres.insert(
-                PageName::unsanitize(&file_stem.to_string_lossy()),
-                serde_json::from_str(&std::fs::read_to_string(path)?)?,
-            );
-        }
-        let mut output = ProcessedGenres(processed_genres);
-        remove_ignored_pages_and_detect_duplicates(&mut output.0);
-        return Ok(output);
-    }
-
-    println!("Processed genres do not exist, generating from raw genres");
-
-    std::fs::create_dir_all(processed_genres_path)?;
-
-    let pwt_configuration = wikipedia_pwt_configuration();
     let all_patches = data_patches::genre_all();
 
-    let mut processed_genres = HashMap::default();
-    let mut genre_count = 0usize;
-    let mut stylistic_origin_count = 0usize;
-    let mut derivative_count = 0usize;
+    let genre_processor = |parameters: HashMap<String, &[pwt::Node]>,
+                           original_page: &PageName,
+                           last_heading: Option<String>,
+                           timestamp: jiff::Timestamp|
+     -> ProcessedGenre {
+        let mut name = extract_name_from_parameter(parameters.get("name").copied(), original_page);
 
-    let dump_page = std::env::var("DUMP_PAGE").ok();
-
-    for (original_page, path) in genres.iter() {
-        let wikitext = std::fs::read_to_string(path)?;
-        let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
-        let wikitext_header: extract::WikitextHeader = serde_json::from_str(wikitext_header)?;
-
-        let wikitext = remove_comments_from_wikitext_the_painful_way(
-            &pwt_configuration,
-            dump_page.as_deref(),
-            original_page,
-            wikitext,
-        );
-        let parsed_wikitext = pwt_configuration
-            .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
-            .unwrap_or_else(|e| panic!("failed to parse wikitext ({original_page}): {e:?}"));
-        if dump_page
-            .as_deref()
-            .is_some_and(|s| s == original_page.name)
-        {
-            println!("--- AFTER ---");
-            dump_page_nodes(&wikitext, &parsed_wikitext.nodes, 0);
-        }
-
-        let mut description: Option<String> = None;
-        let mut pause_recording_description = false;
-        // The `start` of a node doesn't always correspond to the `end` of the last node,
-        // so we always save the `end` to allow for full reconstruction in the description.
-        let mut last_end = None;
-        fn start_including_last_end(last_end: &mut Option<usize>, start: usize) -> usize {
-            last_end.take().filter(|&end| end < start).unwrap_or(start)
-        }
-        let mut last_heading = None;
-
-        let mut processed_genre: Option<ProcessedGenre> = None;
-
-        for node in &parsed_wikitext.nodes {
-            match node {
-                pwt::Node::Template {
-                    name,
-                    parameters,
-                    start,
-                    end,
-                    ..
-                } => {
-                    let template_name = nodes_inner_text(name).to_lowercase();
-
-                    // If we're recording the description and there are non-whitespace characters,
-                    // this template can be recorded (i.e. "a {{blah}}" is acceptable, "{{blah}}" is not).
-                    //
-                    // Alternatively, a select list of acceptable templates can be included in the capture,
-                    // regardless of the existing description.
-                    //
-                    // However, there are also some templates where we really don't care about preserving them.
-                    if let Some(description) = &mut description {
-                        fn is_acceptable_template(template_name: &str) -> bool {
-                            static ACCEPTABLE_TEMPLATES: LazyLock<HashSet<&'static str>> =
-                                LazyLock::new(|| {
-                                    HashSet::from_iter([
-                                        "nihongo",
-                                        "transliteration",
-                                        "tlit",
-                                        "transl",
-                                        "lang",
-                                    ])
-                                });
-                            ACCEPTABLE_TEMPLATES.contains(template_name)
-                        }
-
-                        fn is_ignorable_template(template_name: &str) -> bool {
-                            template_name.starts_with("use")
-                        }
-
-                        if !pause_recording_description
-                            && (!description.trim().is_empty()
-                                || is_acceptable_template(&template_name))
-                            && !is_ignorable_template(&template_name)
-                        {
-                            description.push_str(
-                                &wikitext[start_including_last_end(&mut last_end, *start)..*end],
-                            );
-                        }
-                    }
-                    last_end = Some(*end);
-
-                    if template_name != "infobox music genre" {
-                        continue;
-                    }
-
-                    // If we already have a processed genre, save it
-                    if let Some(mut processed_genre) = processed_genre.take() {
-                        let new_page = processed_genre.page.clone();
-                        if let Some(description) = description.take() {
-                            processed_genre.update_description(description);
-                        }
-                        processed_genres.insert(new_page.clone(), processed_genre.clone());
-                        processed_genre.save(processed_genres_path)?;
-                        if dump_page
-                            .as_deref()
-                            .is_some_and(|s| s == original_page.name)
-                        {
-                            println!(
-                                "Saving due to new genre: {new_page:?} | {}",
-                                processed_genre.name
-                            );
-                            println!("Description: {:?}", processed_genre.wikitext_description);
-                        }
-                    }
-
-                    let parameters = parameters_to_map(parameters);
-                    let original_page_name = original_page
-                        .heading
-                        .as_ref()
-                        .unwrap_or(&original_page.name);
-                    let mut name = GenreName(match parameters.get("name") {
-                        None | Some([]) => original_page_name.clone(),
-                        Some(nodes) => {
-                            let name = nodes_inner_text_with_config(
-                                nodes,
-                                InnerTextConfig {
-                                    // Some genre headings have a `<br>` tag, followed by another name.
-                                    // We only want the first name, so stop after the first `<br>`.
-                                    stop_after_br: true,
-                                },
-                            );
-                            if name.is_empty() {
-                                original_page_name.clone()
-                            } else {
-                                name
-                            }
-                        }
-                    });
-                    if let Some((timestamp, new_name)) = all_patches.get(original_page) {
-                        // Check whether the article has been updated since the last revision date
-                        // with one minute of leeway. If it has, don't apply the patch.
-                        if timestamp
-                            .map(|ts| wikitext_header.timestamp.saturating_add(1.minute()) < ts)
-                            .unwrap_or(true)
-                        {
-                            name = new_name.clone();
-                        }
-                    }
-
-                    let stylistic_origins = parameters
-                        .get("stylistic_origins")
-                        .map(|ns| get_links_from_nodes(ns))
-                        .unwrap_or_default();
-                    let derivatives = parameters
-                        .get("derivatives")
-                        .map(|ns| get_links_from_nodes(ns))
-                        .unwrap_or_default();
-                    let subgenres = parameters
-                        .get("subgenres")
-                        .map(|ns| get_links_from_nodes(ns))
-                        .unwrap_or_default();
-                    let fusion_genres = parameters
-                        .get("fusiongenres")
-                        .map(|ns| get_links_from_nodes(ns))
-                        .unwrap_or_default();
-
-                    genre_count += 1;
-                    stylistic_origin_count += stylistic_origins.len();
-                    derivative_count += derivatives.len();
-
-                    processed_genre = Some(ProcessedGenre {
-                        name: name.clone(),
-                        page: original_page.with_opt_heading(last_heading.clone()),
-                        wikitext_description: None,
-                        last_revision_date: wikitext_header.timestamp,
-                        stylistic_origins,
-                        derivatives,
-                        subgenres,
-                        fusion_genres,
-                    });
-                    description = Some(String::new());
-                }
-                pwt::Node::StartTag { name, end, .. } if name == "ref" => {
-                    pause_recording_description = true;
-                    last_end = Some(*end);
-                }
-                pwt::Node::EndTag { name, end, .. } if name == "ref" => {
-                    pause_recording_description = false;
-                    last_end = Some(*end);
-                }
-                pwt::Node::Tag { name, end, .. } if name == "ref" => {
-                    // Explicitly ignore body of a ref tag
-                    last_end = Some(*end);
-                }
-                pwt::Node::Bold { end, start }
-                | pwt::Node::BoldItalic { end, start }
-                | pwt::Node::Category { end, start, .. }
-                | pwt::Node::CharacterEntity { end, start, .. }
-                | pwt::Node::DefinitionList { end, start, .. }
-                | pwt::Node::ExternalLink { end, start, .. }
-                | pwt::Node::HorizontalDivider { end, start }
-                | pwt::Node::Italic { end, start }
-                | pwt::Node::Link { end, start, .. }
-                | pwt::Node::MagicWord { end, start }
-                | pwt::Node::OrderedList { end, start, .. }
-                | pwt::Node::ParagraphBreak { end, start }
-                | pwt::Node::Parameter { end, start, .. }
-                | pwt::Node::Preformatted { end, start, .. }
-                | pwt::Node::Redirect { end, start, .. }
-                | pwt::Node::StartTag { end, start, .. }
-                | pwt::Node::EndTag { end, start, .. }
-                | pwt::Node::Table { end, start, .. }
-                | pwt::Node::Tag { end, start, .. }
-                | pwt::Node::Text { end, start, .. }
-                | pwt::Node::UnorderedList { end, start, .. } => {
-                    if !pause_recording_description {
-                        if let Some(description) = &mut description {
-                            let new_start = start_including_last_end(&mut last_end, *start);
-                            let new_fragment = &wikitext[new_start..*end];
-                            if dump_page
-                                .as_deref()
-                                .is_some_and(|s| s == original_page.name)
-                            {
-                                println!("Description: {description:?}");
-                                println!("New fragment: {new_fragment:?}");
-                                println!("New start: {new_start} vs start: {start}");
-                                println!("End: {end}");
-                                println!();
-                            }
-                            description.push_str(new_fragment);
-                        }
-                    }
-                    last_end = Some(*end);
-                }
-                pwt::Node::Heading { nodes, end, .. } => {
-                    if let Some(processed_genre) = &mut processed_genre {
-                        // We continue going if the description so far is empty: some infoboxes are placed
-                        // before a heading, with the content following after the heading, so we offer
-                        // this as an opportunity to capture that content.
-                        if description.as_ref().is_some_and(|s| !s.trim().is_empty()) {
-                            processed_genre.update_description(description.take().unwrap());
-                            processed_genre.page =
-                                processed_genre.page.with_opt_heading(last_heading.clone());
-                        } else {
-                            last_end = Some(*end);
-                        }
-                    }
-
-                    last_heading = Some(nodes_inner_text(nodes));
-                }
-                pwt::Node::Image { end, .. } | pwt::Node::Comment { end, .. } => {
-                    last_end = Some(*end);
-                }
-            }
-        }
-
-        if let Some(processed_genre) = &mut processed_genre {
-            let new_page = processed_genre.page.clone();
-            if let Some(description) = description.take() {
-                processed_genre.update_description(description);
-            }
-            processed_genres.insert(new_page.clone(), processed_genre.clone());
-            processed_genre.save(processed_genres_path)?;
-            if dump_page
-                .as_deref()
-                .is_some_and(|s| s == original_page.name)
+        if let Some((patch_timestamp, new_name)) = all_patches.get(original_page) {
+            // Check whether the article has been updated since the last revision date
+            // with one minute of leeway. If it has, don't apply the patch.
+            if patch_timestamp
+                .map(|ts| timestamp.saturating_add(1.minute()) < ts)
+                .unwrap_or(true)
             {
-                println!("End-of-page save: {new_page:?} | {}", processed_genre.name);
-                println!("Description: {:?}", processed_genre.wikitext_description);
+                name = new_name.0.clone();
             }
         }
-    }
 
-    println!(
-        "{:.2}s: Processed all {genre_count} genres, {stylistic_origin_count} stylistic origins, {derivative_count} derivatives",
-        start.elapsed().as_secs_f32()
-    );
+        let stylistic_origins = parameters
+            .get("stylistic_origins")
+            .map(|ns| get_links_from_nodes(ns))
+            .unwrap_or_default();
+        let derivatives = parameters
+            .get("derivatives")
+            .map(|ns| get_links_from_nodes(ns))
+            .unwrap_or_default();
+        let subgenres = parameters
+            .get("subgenres")
+            .map(|ns| get_links_from_nodes(ns))
+            .unwrap_or_default();
+        let fusion_genres = parameters
+            .get("fusiongenres")
+            .map(|ns| get_links_from_nodes(ns))
+            .unwrap_or_default();
 
-    let mut output = ProcessedGenres(processed_genres);
-    remove_ignored_pages_and_detect_duplicates(&mut output.0);
-    Ok(output)
+        ProcessedGenre {
+            name: GenreName(name),
+            page: original_page.with_opt_heading(last_heading),
+            wikitext_description: None,
+            last_revision_date: timestamp,
+            stylistic_origins,
+            derivatives,
+            subgenres,
+            fusion_genres,
+        }
+    };
+
+    let processed_genres = process_pages(
+        start,
+        &genres.0,
+        processed_genres_path,
+        "infobox music genre",
+        genre_processor,
+        "genre",
+    )?;
+
+    Ok(ProcessedGenres(processed_genres))
 }
 
 /// A processed artist containing all the information we can extract from the infobox.
@@ -411,22 +175,15 @@ pub struct ProcessedArtist {
     pub genres: Vec<String>,
 }
 impl ProcessedPage for ProcessedArtist {
+    type NameType = ArtistName;
     fn name(&self) -> &PageName {
         &self.page
     }
-}
-impl ProcessedArtist {
-    /// Update the description of the artist.
-    pub fn update_description(&mut self, description: String) {
+    fn update_description(&mut self, description: String) {
         self.wikitext_description = Some(description.trim().to_string());
     }
-    /// Save the processed artist to a file.
-    pub fn save(&self, processed_artists_path: &Path) -> anyhow::Result<()> {
-        std::fs::write(
-            processed_artists_path.join(format!("{}.json", PageName::sanitize(&self.page))),
-            serde_json::to_string_pretty(self)?,
-        )?;
-        Ok(())
+    fn get_display_name(&self) -> String {
+        self.name.0.clone()
     }
 }
 
@@ -438,36 +195,97 @@ pub fn artists(
     artists: &extract::ArtistPages,
     processed_artists_path: &Path,
 ) -> anyhow::Result<ProcessedArtists> {
-    if processed_artists_path.is_dir() {
-        let mut processed_artists = HashMap::default();
-        for entry in std::fs::read_dir(processed_artists_path)? {
+    let all_patches = data_patches::artist_all();
+
+    let artist_processor = |parameters: HashMap<String, &[pwt::Node]>,
+                            original_page: &PageName,
+                            last_heading: Option<String>,
+                            timestamp: jiff::Timestamp|
+     -> ProcessedArtist {
+        let mut name = extract_name_from_parameter(parameters.get("name").copied(), original_page);
+
+        if let Some((patch_timestamp, new_name)) = all_patches.get(original_page) {
+            // Check whether the article has been updated since the last revision date
+            // with one minute of leeway. If it has, don't apply the patch.
+            if patch_timestamp
+                .map(|ts| timestamp.saturating_add(1.minute()) < ts)
+                .unwrap_or(true)
+            {
+                name = new_name.0.clone();
+            }
+        }
+
+        let genres = parameters
+            .get("genre")
+            .map(|ns| get_links_from_nodes(ns))
+            .unwrap_or_default();
+
+        ProcessedArtist {
+            name: ArtistName(name),
+            page: original_page.with_opt_heading(last_heading),
+            wikitext_description: None,
+            last_revision_date: timestamp,
+            genres,
+        }
+    };
+
+    let processed_artists = process_pages(
+        start,
+        &artists.0,
+        processed_artists_path,
+        "infobox musical artist",
+        artist_processor,
+        "artist",
+    )?;
+
+    Ok(ProcessedArtists(processed_artists))
+}
+
+/// Generic function to process pages and extract infobox information.
+fn process_pages<
+    T: ProcessedPage + Clone + serde::Serialize + for<'de> serde::Deserialize<'de> + std::fmt::Debug,
+>(
+    start: std::time::Instant,
+    pages: &HashMap<PageName, std::path::PathBuf>,
+    processed_path: &Path,
+    template_name: &str,
+    process_template: impl Fn(
+        HashMap<String, &[pwt::Node]>,
+        &PageName,
+        Option<String>,
+        jiff::Timestamp,
+    ) -> T,
+    entity_type: &str,
+) -> anyhow::Result<HashMap<PageName, T>> {
+    if processed_path.is_dir() {
+        let mut processed_items = HashMap::default();
+        for entry in std::fs::read_dir(processed_path)? {
             let path = entry?.path();
             let Some(file_stem) = path.file_stem() else {
                 continue;
             };
-            processed_artists.insert(
+            processed_items.insert(
                 PageName::unsanitize(&file_stem.to_string_lossy()),
                 serde_json::from_str(&std::fs::read_to_string(path)?)?,
             );
         }
-        let mut output = ProcessedArtists(processed_artists);
-        remove_ignored_pages_and_detect_duplicates(&mut output.0);
+        let mut output = processed_items;
+        remove_ignored_pages_and_detect_duplicates(&mut output);
         return Ok(output);
     }
 
-    println!("Processed artists do not exist, generating from raw artists");
+    println!("Processed {entity_type}s do not exist, generating from raw {entity_type}s");
 
-    std::fs::create_dir_all(processed_artists_path)?;
+    std::fs::create_dir_all(processed_path)?;
 
     let pwt_configuration = wikipedia_pwt_configuration();
-    let all_patches = data_patches::artist_all();
 
-    let mut processed_artists = HashMap::default();
-    let mut artist_count = 0usize;
+    let mut processed_items = HashMap::default();
+    let mut item_count = 0usize;
 
     let dump_page = std::env::var("DUMP_PAGE").ok();
 
-    for (original_page, path) in artists.iter() {
+    for (original_page, path) in pages.iter() {
         let wikitext = std::fs::read_to_string(path)?;
         let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
         let wikitext_header: extract::WikitextHeader = serde_json::from_str(wikitext_header)?;
@@ -499,7 +317,7 @@ pub fn artists(
         }
         let mut last_heading = None;
 
-        let mut processed_artist: Option<ProcessedArtist> = None;
+        let mut processed_item: Option<T> = None;
 
         for node in &parsed_wikitext.nodes {
             match node {
@@ -510,7 +328,7 @@ pub fn artists(
                     end,
                     ..
                 } => {
-                    let template_name = nodes_inner_text(name).to_lowercase();
+                    let template_name_found = nodes_inner_text(name).to_lowercase();
 
                     // If we're recording the description and there are non-whitespace characters,
                     // this template can be recorded (i.e. "a {{blah}}" is acceptable, "{{blah}}" is not).
@@ -540,8 +358,8 @@ pub fn artists(
 
                         if !pause_recording_description
                             && (!description.trim().is_empty()
-                                || is_acceptable_template(&template_name))
-                            && !is_ignorable_template(&template_name)
+                                || is_acceptable_template(&template_name_found))
+                            && !is_ignorable_template(&template_name_found)
                         {
                             description.push_str(
                                 &wikitext[start_including_last_end(&mut last_end, *start)..*end],
@@ -550,79 +368,41 @@ pub fn artists(
                     }
                     last_end = Some(*end);
 
-                    if template_name != "infobox musical artist" {
+                    if template_name_found != template_name {
                         continue;
                     }
 
-                    // If we already have a processed genre, save it
-                    if let Some(mut processed_artist) = processed_artist.take() {
-                        let new_page = processed_artist.page.clone();
+                    // If we already have a processed item, save it
+                    if let Some(mut processed_item) = processed_item.take() {
+                        let new_page = processed_item.name().clone();
                         if let Some(description) = description.take() {
-                            processed_artist.update_description(description);
+                            processed_item.update_description(description);
                         }
-                        processed_artists.insert(new_page.clone(), processed_artist.clone());
-                        processed_artist.save(processed_artists_path)?;
+                        processed_items.insert(new_page.clone(), processed_item.clone());
+                        processed_item.save(processed_path)?;
                         if dump_page
                             .as_deref()
                             .is_some_and(|s| s == original_page.name)
                         {
                             println!(
-                                "Saving due to new genre: {new_page:?} | {}",
-                                processed_artist.name
+                                "Saving due to new {entity_type}: {new_page:?} | {}",
+                                processed_item.get_display_name()
                             );
-                            println!("Description: {:?}", processed_artist.wikitext_description);
+                            println!("Description: {processed_item:?}");
                         }
                     }
 
                     let parameters = parameters_to_map(parameters);
-                    let original_page_name = original_page
-                        .heading
-                        .as_ref()
-                        .unwrap_or(&original_page.name);
-                    let mut name = ArtistName(match parameters.get("name") {
-                        None | Some([]) => original_page_name.clone(),
-                        Some(nodes) => {
-                            let name = nodes_inner_text_with_config(
-                                nodes,
-                                InnerTextConfig {
-                                    // Some genre headings have a `<br>` tag, followed by another name.
-                                    // We only want the first name, so stop after the first `<br>`.
-                                    stop_after_br: true,
-                                },
-                            );
-                            if name.is_empty() {
-                                original_page_name.clone()
-                            } else {
-                                name
-                            }
-                        }
-                    });
-                    if let Some((timestamp, new_name)) = all_patches.get(original_page) {
-                        // Check whether the article has been updated since the last revision date
-                        // with one minute of leeway. If it has, don't apply the patch.
-                        if timestamp
-                            .map(|ts| wikitext_header.timestamp.saturating_add(1.minute()) < ts)
-                            .unwrap_or(true)
-                        {
-                            name = new_name.clone();
-                        }
-                    }
 
-                    let genres = parameters
-                        .get("genre")
-                        .map(|ns| get_links_from_nodes(ns))
-                        .unwrap_or_default();
-
-                    artist_count += 1;
-
-                    processed_artist = Some(ProcessedArtist {
-                        name: name.clone(),
-                        page: original_page.with_opt_heading(last_heading.clone()),
-                        wikitext_description: None,
-                        last_revision_date: wikitext_header.timestamp,
-                        genres,
-                    });
+                    // Let the closure handle the specific processing
+                    processed_item = Some(process_template(
+                        parameters,
+                        original_page,
+                        last_heading.clone(),
+                        wikitext_header.timestamp,
+                    ));
                     description = Some(String::new());
+                    item_count += 1;
                 }
                 pwt::Node::StartTag { name, end, .. } if name == "ref" => {
                     pause_recording_description = true;
@@ -677,14 +457,12 @@ pub fn artists(
                     last_end = Some(*end);
                 }
                 pwt::Node::Heading { nodes, end, .. } => {
-                    if let Some(processed_artist) = &mut processed_artist {
+                    if let Some(processed_item) = &mut processed_item {
                         // We continue going if the description so far is empty: some infoboxes are placed
                         // before a heading, with the content following after the heading, so we offer
                         // this as an opportunity to capture that content.
                         if description.as_ref().is_some_and(|s| !s.trim().is_empty()) {
-                            processed_artist.update_description(description.take().unwrap());
-                            processed_artist.page =
-                                processed_artist.page.with_opt_heading(last_heading.clone());
+                            processed_item.update_description(description.take().unwrap());
                         } else {
                             last_end = Some(*end);
                         }
@@ -698,30 +476,32 @@ pub fn artists(
             }
         }
 
-        if let Some(processed_artist) = &mut processed_artist {
-            let new_page = processed_artist.page.clone();
+        if let Some(processed_item) = &mut processed_item {
+            let new_page = processed_item.name().clone();
             if let Some(description) = description.take() {
-                processed_artist.update_description(description);
+                processed_item.update_description(description);
             }
-            processed_artists.insert(new_page.clone(), processed_artist.clone());
-            processed_artist.save(processed_artists_path)?;
+            processed_items.insert(new_page.clone(), processed_item.clone());
+            processed_item.save(processed_path)?;
             if dump_page
                 .as_deref()
                 .is_some_and(|s| s == original_page.name)
             {
-                println!("End-of-page save: {new_page:?} | {}", processed_artist.name);
-                println!("Description: {:?}", processed_artist.wikitext_description);
+                println!(
+                    "End-of-page save: {new_page:?} | {}",
+                    processed_item.get_display_name()
+                );
             }
         }
     }
 
     println!(
-        "{:.2}s: Processed all {artist_count} artists",
+        "{:.2}s: Processed all {item_count} {entity_type}s",
         start.elapsed().as_secs_f32()
     );
 
-    let mut output = ProcessedArtists(processed_artists);
-    remove_ignored_pages_and_detect_duplicates(&mut output.0);
+    let mut output = processed_items;
+    remove_ignored_pages_and_detect_duplicates(&mut output);
     Ok(output)
 }
 
@@ -904,4 +684,33 @@ fn parameters_to_map<'a>(
         .iter()
         .filter_map(|p| Some((nodes_inner_text(p.name.as_deref()?), p.value.as_slice())))
         .collect()
+}
+
+/// Extract the name from a template parameter, falling back to the page name if not specified.
+fn extract_name_from_parameter(
+    name_parameter: Option<&[pwt::Node]>,
+    original_page: &PageName,
+) -> String {
+    let original_page_name = original_page
+        .heading
+        .as_ref()
+        .unwrap_or(&original_page.name);
+    match name_parameter {
+        None | Some([]) => original_page_name.clone(),
+        Some(nodes) => {
+            let name = nodes_inner_text_with_config(
+                nodes,
+                InnerTextConfig {
+                    // Some genre headings have a `<br>` tag, followed by another name.
+                    // We only want the first name, so stop after the first `<br>`.
+                    stop_after_br: true,
+                },
+            );
+            if name.is_empty() {
+                original_page_name.clone()
+            } else {
+                name
+            }
+        }
+    }
 }
