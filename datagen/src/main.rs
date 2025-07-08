@@ -7,6 +7,7 @@ use std::path::Path;
 
 pub mod data_patches;
 pub mod extract;
+pub mod genre_top_artists;
 pub mod link_counts;
 pub mod links;
 pub mod output;
@@ -62,7 +63,7 @@ fn main() -> anyhow::Result<()> {
 
     let extracted_data = extract::from_data_dump(&config, start, dump_date, &output_path)?;
 
-    let _page_inbound_link_counts = link_counts::read(
+    let artist_inbound_link_counts = link_counts::read(
         start,
         &config.wikipedia_linktargets_path,
         &config.wikipedia_links_path,
@@ -76,7 +77,7 @@ fn main() -> anyhow::Result<()> {
         &output_path.join("processed_genres"),
     )?;
 
-    let _processed_artists = process::artists(
+    let processed_artists = process::artists(
         start,
         &extracted_data.artists,
         &output_path.join("processed_artists"),
@@ -92,6 +93,14 @@ fn main() -> anyhow::Result<()> {
         &output_path.join("links_to_articles.toml"),
         &processed_genres,
         extracted_data.redirects,
+    )?;
+
+    let _genre_top_artists = genre_top_artists::calculate(
+        start,
+        &processed_artists,
+        &artist_inbound_link_counts,
+        &links_to_articles,
+        &output_path.join("genre_top_artists.json"),
     )?;
 
     let website_path = Path::new("website");
