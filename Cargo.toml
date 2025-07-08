@@ -1,5 +1,5 @@
 [workspace]
-members = ["datagen", "frontend_wasm"]
+members = ["datagen", "frontend_wasm", "shared"]
 resolver = "2"
 
 [workspace.dependencies]

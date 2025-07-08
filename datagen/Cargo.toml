@@ -21,3 +21,5 @@ toml = "0.8.19"
 serde = { workspace = true }
 wikitext_util = { workspace = true }
 flate2 = "1.1.2"
+
+shared = { path = "../shared" }

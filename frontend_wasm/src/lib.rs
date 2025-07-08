@@ -1,4 +1,4 @@
-use std::sync::LazyLock;
+use std::{str::FromStr as _, sync::LazyLock};
 
 use wasm_bindgen::prelude::*;
 
@@ -13,4 +13,9 @@ pub fn parse_and_simplify_wikitext(
 
     let output = PWT_CONFIGURATION.parse(wikitext).unwrap();
     wikitext_simplified::simplify_wikitext_nodes(wikitext, &output.nodes).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn page_name_to_filename(page_name: &str) -> String {
+    shared::PageName::from_str(page_name).unwrap().sanitize()
 }

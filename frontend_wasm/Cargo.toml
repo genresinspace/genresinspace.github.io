@@ -21,3 +21,5 @@ console_error_panic_hook = { version = "0.1.7", optional = true }
 
 wikitext_util = { workspace = true }
 wikitext_simplified = { workspace = true, features = ["wasm"] }
+
+shared = { path = "../shared" }
