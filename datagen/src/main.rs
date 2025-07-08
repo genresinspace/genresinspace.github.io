@@ -116,11 +116,11 @@ fn main() -> anyhow::Result<()> {
             .save(website_public_path.join("favicon.ico"))?;
     }
 
-    output::produce_data_json(
+    output::produce(
         start,
         &extracted_data.dump_meta,
         mixes_path,
-        &website_public_path.join("data.json"),
+        &website_public_path,
         &links_to_articles,
         &processed_genres,
         &processed_artists,

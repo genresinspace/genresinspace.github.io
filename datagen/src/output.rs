@@ -23,7 +23,6 @@ struct FrontendData {
     /// redirects, which we wouldn't know about on the client
     links_to_page_ids: BTreeMap<String, PageDataId>,
     max_degree: usize,
-    artists: HashMap<PageName, ArtistData>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 struct NodeData {
@@ -141,11 +140,11 @@ struct EdgeData {
 
 /// Given processed genres, produce a graph and save it to `data.json` to be rendered by the website.
 #[allow(clippy::too_many_arguments)]
-pub fn produce_data_json(
+pub fn produce(
     start: std::time::Instant,
     dump_meta: &extract::DumpMeta,
     mixes_path: &Path,
-    data_path: &Path,
+    output_path: &Path,
     links_to_articles: &links::LinksToArticles,
     processed_genres: &process::ProcessedGenres,
     processed_artists: &process::ProcessedArtists,
@@ -159,7 +158,6 @@ pub fn produce_data_json(
         edges: BTreeSet::new(),
         links_to_page_ids: BTreeMap::new(),
         max_degree: 0,
-        artists: HashMap::new(),
     };
 
     let mut node_order = processed_genres.0.keys().cloned().collect::<Vec<_>>();
@@ -330,22 +328,27 @@ pub fn produce_data_json(
             .filter_map(|(link, page)| page_to_id.get(page).map(|id| (link.clone(), *id))),
     );
 
-    // Sixth pass (over artists): copy artist data
-    for artist in artists_to_copy {
-        if let Some(artist_data) = processed_artists.0.get(&artist) {
-            graph.artists.insert(
-                artist.clone(),
-                ArtistData {
-                    page_title: artist,
-                    last_revision_date: artist_data.last_revision_date,
-                    description: artist_data.wikitext_description.clone(),
-                },
-            );
-        }
-    }
-
+    let data_path = output_path.join("data.json");
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
     println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());
+
+    // Copy artist data
+    let artists_path = output_path.join("artists");
+    std::fs::create_dir_all(&artists_path)?;
+    for artist in artists_to_copy {
+        if let Some(artist_data) = processed_artists.0.get(&artist) {
+            let data = ArtistData {
+                page_title: artist.clone(),
+                last_revision_date: artist_data.last_revision_date,
+                description: artist_data.wikitext_description.clone(),
+            };
+            std::fs::write(
+                artists_path.join(format!("{}.json", PageName::sanitize(&artist))),
+                serde_json::to_string_pretty(&data)?,
+            )?;
+        }
+    }
+    println!("{:.2}s: Saved artists", start.elapsed().as_secs_f32());
 
     Ok(())
 }
