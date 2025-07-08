@@ -12,7 +12,7 @@ pub fn calculate(
     artist_inbound_link_counts: &HashMap<types::PageName, usize>,
     links_to_articles: &links::LinksToArticles,
     output_path: &Path,
-) -> anyhow::Result<HashMap<types::PageName, Vec<(types::ArtistName, usize)>>> {
+) -> anyhow::Result<HashMap<types::PageName, Vec<(types::PageName, usize)>>> {
     if output_path.exists() {
         return Ok(serde_json::from_slice(
             &std::fs::read(output_path).context("Failed to read genre top artists")?,
@@ -25,7 +25,7 @@ pub fn calculate(
         start.elapsed().as_secs_f32(),
     );
 
-    let mut result = HashMap::<types::PageName, Vec<(types::ArtistName, usize)>>::new();
+    let mut result = HashMap::<types::PageName, Vec<(types::PageName, usize)>>::new();
 
     for (artist_page, artist) in &processed_artists.0 {
         for genre in &artist.genres {
@@ -33,7 +33,7 @@ pub fn calculate(
                 continue;
             };
             result.entry(page_name).or_default().push((
-                artist.name.clone(),
+                artist_page.clone(),
                 artist_inbound_link_counts
                     .get(&artist_page)
                     .copied()

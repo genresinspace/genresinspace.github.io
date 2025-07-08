@@ -1,6 +1,6 @@
 //! Produces the data.json file for the frontend.
 use std::{
-    collections::{BTreeMap, BTreeSet, HashMap},
+    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
     path::Path,
 };
 
@@ -23,6 +23,7 @@ struct FrontendData {
     /// redirects, which we wouldn't know about on the client
     links_to_page_ids: BTreeMap<String, PageDataId>,
     max_degree: usize,
+    artists: HashMap<PageName, ArtistData>,
 }
 #[derive(Debug, Serialize, Deserialize)]
 struct NodeData {
@@ -34,6 +35,14 @@ struct NodeData {
     #[serde(skip_serializing_if = "Option::is_none")]
     mixes: Option<GenreMixes>,
     edges: BTreeSet<usize>,
+    top_artists: Vec<PageName>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct ArtistData {
+    page_title: PageName,
+    description: Option<String>,
+    last_revision_date: jiff::Timestamp,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -131,6 +140,7 @@ struct EdgeData {
 }
 
 /// Given processed genres, produce a graph and save it to `data.json` to be rendered by the website.
+#[allow(clippy::too_many_arguments)]
 pub fn produce_data_json(
     start: std::time::Instant,
     dump_meta: &extract::DumpMeta,
@@ -138,6 +148,8 @@ pub fn produce_data_json(
     data_path: &Path,
     links_to_articles: &links::LinksToArticles,
     processed_genres: &process::ProcessedGenres,
+    processed_artists: &process::ProcessedArtists,
+    genre_top_artists: &HashMap<PageName, Vec<(PageName, usize)>>,
 ) -> anyhow::Result<()> {
     let mut graph = FrontendData {
         wikipedia_domain: dump_meta.wikipedia_domain.clone(),
@@ -147,12 +159,15 @@ pub fn produce_data_json(
         edges: BTreeSet::new(),
         links_to_page_ids: BTreeMap::new(),
         max_degree: 0,
+        artists: HashMap::new(),
     };
 
     let mut node_order = processed_genres.0.keys().cloned().collect::<Vec<_>>();
     node_order.sort();
 
     let mut page_to_id = HashMap::new();
+
+    let mut artists_to_copy = HashSet::new();
 
     // First pass: create nodes
     for page in &node_order {
@@ -163,6 +178,19 @@ pub fn produce_data_json(
             .ok()
             .map(|f| GenreMixes::parse(&f));
 
+        let top_artists: Vec<PageName> = genre_top_artists
+            .get(page)
+            .map(|artists| {
+                artists
+                    .iter()
+                    .map(|(artist, _)| artist.clone())
+                    .take(10)
+                    .collect()
+            })
+            .unwrap_or_default();
+
+        artists_to_copy.extend(top_artists.iter().cloned());
+
         let node = NodeData {
             id,
             page_title: page.clone(),
@@ -171,6 +199,7 @@ pub fn produce_data_json(
             last_revision_date: processed_genre.last_revision_date,
             mixes,
             edges: BTreeSet::new(),
+            top_artists,
         };
 
         graph.nodes.push(node);
@@ -300,6 +329,20 @@ pub fn produce_data_json(
             .iter()
             .filter_map(|(link, page)| page_to_id.get(page).map(|id| (link.clone(), *id))),
     );
+
+    // Sixth pass (over artists): copy artist data
+    for artist in artists_to_copy {
+        if let Some(artist_data) = processed_artists.0.get(&artist) {
+            graph.artists.insert(
+                artist.clone(),
+                ArtistData {
+                    page_title: artist,
+                    last_revision_date: artist_data.last_revision_date,
+                    description: artist_data.wikitext_description.clone(),
+                },
+            );
+        }
+    }
 
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
     println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());
