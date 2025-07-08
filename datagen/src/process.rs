@@ -2,10 +2,11 @@
 use std::{
     collections::{HashMap, HashSet},
     path::Path,
-    sync::LazyLock,
+    sync::{atomic::AtomicUsize, LazyLock},
 };
 
 use jiff::ToSpan as _;
+use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use wikitext_util::{
     nodes_inner_text, nodes_inner_text_with_config, parse_wiki_text_2 as pwt,
@@ -17,16 +18,15 @@ use crate::{
     types::{ArtistName, GenreName, PageName},
 };
 
-trait ProcessedPage {
+trait ProcessedPage:
+    Send + Sync + Clone + std::fmt::Debug + serde::Serialize + for<'de> serde::Deserialize<'de>
+{
     type NameType: Clone;
     fn name(&self) -> &PageName;
     fn update_description(&mut self, description: String);
     fn get_display_name(&self) -> String;
 
-    fn save(&self, processed_path: &Path) -> anyhow::Result<()>
-    where
-        Self: serde::Serialize,
-    {
+    fn save(&self, processed_path: &Path) -> anyhow::Result<()> {
         std::fs::write(
             processed_path.join(format!("{}.json", PageName::sanitize(self.name()))),
             serde_json::to_string_pretty(self)?,
@@ -242,19 +242,14 @@ pub fn artists(
 }
 
 /// Generic function to process pages and extract infobox information.
-fn process_pages<
-    T: ProcessedPage + Clone + serde::Serialize + for<'de> serde::Deserialize<'de> + std::fmt::Debug,
->(
+fn process_pages<T: ProcessedPage>(
     start: std::time::Instant,
     pages: &HashMap<PageName, std::path::PathBuf>,
     processed_path: &Path,
     template_name: &str,
-    process_template: impl Fn(
-        HashMap<String, &[pwt::Node]>,
-        &PageName,
-        Option<String>,
-        jiff::Timestamp,
-    ) -> T,
+    process_template: impl Fn(HashMap<String, &[pwt::Node]>, &PageName, Option<String>, jiff::Timestamp) -> T
+        + Send
+        + Sync,
     entity_type: &str,
 ) -> anyhow::Result<HashMap<PageName, T>> {
     if processed_path.is_dir() {
@@ -280,21 +275,24 @@ fn process_pages<
 
     let pwt_configuration = wikipedia_pwt_configuration();
 
-    let mut processed_items = HashMap::default();
-    let mut item_count = 0usize;
+    let item_count = AtomicUsize::new(0);
+    let total_pages = pages.len();
+    let progress_increment = (total_pages / 10).max(1); // 10% increments, minimum 1
+    let last_reported_milestone = AtomicUsize::new(0);
+    let start_time = start; // Capture start time to avoid shadowing in closure
 
     let dump_page = std::env::var("DUMP_PAGE").ok();
 
-    for (original_page, path) in pages.iter() {
-        let wikitext = std::fs::read_to_string(path)?;
+    let processed_items: HashMap<PageName, T> = pages.par_iter().flat_map(|(original_page, path)| {
+        let wikitext = std::fs::read_to_string(path).unwrap();
         let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
-        let wikitext_header: extract::WikitextHeader = serde_json::from_str(wikitext_header)?;
+        let wikitext_header: extract::WikitextHeader = serde_json::from_str(wikitext_header).unwrap();
 
         let wikitext = remove_comments_from_wikitext_the_painful_way(
             &pwt_configuration,
             dump_page.as_deref(),
             original_page,
-            wikitext,
+            &wikitext,
         );
         let parsed_wikitext = pwt_configuration
             .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
@@ -318,6 +316,7 @@ fn process_pages<
         let mut last_heading = None;
 
         let mut processed_item: Option<T> = None;
+        let mut page_results = Vec::new();
 
         for node in &parsed_wikitext.nodes {
             match node {
@@ -378,8 +377,8 @@ fn process_pages<
                         if let Some(description) = description.take() {
                             processed_item.update_description(description);
                         }
-                        processed_items.insert(new_page.clone(), processed_item.clone());
-                        processed_item.save(processed_path)?;
+                        page_results.push((new_page.clone(), processed_item.clone()));
+                        processed_item.save(processed_path).unwrap();
                         if dump_page
                             .as_deref()
                             .is_some_and(|s| s == original_page.name)
@@ -402,7 +401,25 @@ fn process_pages<
                         wikitext_header.timestamp,
                     ));
                     description = Some(String::new());
-                    item_count += 1;
+                    let current_count = item_count.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
+
+                    // Check if we've hit a new milestone
+                    let current_milestone = current_count / progress_increment;
+                    let last_milestone = last_reported_milestone.load(std::sync::atomic::Ordering::Relaxed);
+                    if current_milestone > last_milestone && current_count > 0 {
+                        if last_reported_milestone.compare_exchange_weak(
+                            last_milestone,
+                            current_milestone,
+                            std::sync::atomic::Ordering::Relaxed,
+                            std::sync::atomic::Ordering::Relaxed,
+                        ).is_ok() {
+                            let percentage = ((current_count * 100) / total_pages).min(100);
+                            println!(
+                                "{:.2}s: Processed {current_count}/{total_pages} {entity_type}s ({percentage}%)",
+                                start_time.elapsed().as_secs_f32()
+                            );
+                        }
+                    }
                 }
                 pwt::Node::StartTag { name, end, .. } if name == "ref" => {
                     pause_recording_description = true;
@@ -481,8 +498,8 @@ fn process_pages<
             if let Some(description) = description.take() {
                 processed_item.update_description(description);
             }
-            processed_items.insert(new_page.clone(), processed_item.clone());
-            processed_item.save(processed_path)?;
+            page_results.push((new_page.clone(), processed_item.clone()));
+            processed_item.save(processed_path).unwrap();
             if dump_page
                 .as_deref()
                 .is_some_and(|s| s == original_page.name)
@@ -493,11 +510,14 @@ fn process_pages<
                 );
             }
         }
-    }
+
+        page_results
+    }).collect();
 
     println!(
-        "{:.2}s: Processed all {item_count} {entity_type}s",
-        start.elapsed().as_secs_f32()
+        "{:.2}s: Processed all {} {entity_type}s",
+        start.elapsed().as_secs_f32(),
+        item_count.load(std::sync::atomic::Ordering::Relaxed)
     );
 
     let mut output = processed_items;
