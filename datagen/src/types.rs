@@ -172,3 +172,12 @@ impl std::fmt::Display for GenreName {
         write!(f, "genre:{}", self.0)
     }
 }
+
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
+/// A newtype for an artist name.
+pub struct ArtistName(pub String);
+impl std::fmt::Display for ArtistName {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "artist:{}", self.0)
+    }
+}

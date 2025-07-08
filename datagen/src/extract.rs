@@ -28,8 +28,8 @@ impl GenrePages {
 
 /// A map of musical artist page names to their output file paths.
 #[derive(Clone, Default)]
-pub struct MusicalArtistPages(pub HashMap<PageName, PathBuf>);
-impl MusicalArtistPages {
+pub struct ArtistPages(pub HashMap<PageName, PathBuf>);
+impl ArtistPages {
     /// Iterate over all musical artist pages.
     pub fn iter(&self) -> impl Iterator<Item = (&PageName, &PathBuf)> {
         self.0.iter()
@@ -87,7 +87,7 @@ pub struct ExtractedData {
     /// All genre pages extracted from the dump.
     pub genres: GenrePages,
     /// All musical artist pages extracted from the dump.
-    pub artists: MusicalArtistPages,
+    pub artists: ArtistPages,
     /// All redirects found in the dump.
     pub redirects: AllRedirects,
     /// All Wikipedia page IDs to page names.
@@ -176,7 +176,7 @@ pub fn from_data_dump(
         return Ok(ExtractedData {
             dump_meta: meta,
             genres: GenrePages(genre_pages),
-            artists: MusicalArtistPages(artist_pages),
+            artists: ArtistPages(artist_pages),
             redirects: AllRedirects::LazyLoad(redirects_path, start),
             id_to_page_names,
         });
@@ -349,7 +349,7 @@ pub fn from_data_dump(
     Ok(ExtractedData {
         dump_meta: meta,
         genres: GenrePages(intermediate_data.genre_pages),
-        artists: MusicalArtistPages(intermediate_data.artist_pages),
+        artists: ArtistPages(intermediate_data.artist_pages),
         redirects: AllRedirects::InMemory(intermediate_data.redirects),
         id_to_page_names: intermediate_data.id_to_page_names,
     })

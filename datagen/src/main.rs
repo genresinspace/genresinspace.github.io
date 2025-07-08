@@ -73,7 +73,13 @@ fn main() -> anyhow::Result<()> {
     let processed_genres = process::genres(
         start,
         &extracted_data.genres,
-        &output_path.join("processed"),
+        &output_path.join("processed_genres"),
+    )?;
+
+    let _processed_artists = process::artists(
+        start,
+        &extracted_data.artists,
+        &output_path.join("processed_artists"),
     )?;
 
     let mixes_path = Path::new("mixes");

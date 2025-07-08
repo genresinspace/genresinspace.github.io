@@ -5,12 +5,7 @@ use std::{collections::HashMap, str::FromStr};
 
 use jiff::Timestamp;
 
-use crate::types::{GenreName, PageName};
-
-/// All data patches.
-pub fn all() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
-    fixed_already().into_iter().chain(unclear_fixes()).collect()
-}
+use crate::types::{ArtistName, GenreName, PageName};
 
 /// Pages to ignore when processing Wikipedia.
 pub fn pages_to_ignore() -> Vec<PageName> {
@@ -32,9 +27,22 @@ pub fn pages_to_ignore() -> Vec<PageName> {
     .collect()
 }
 
+/// All artist data patches.
+pub fn artist_all() -> HashMap<PageName, (Option<Timestamp>, ArtistName)> {
+    HashMap::new()
+}
+
+/// All genre data patches.
+pub fn genre_all() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
+    genre_fixed_already()
+        .into_iter()
+        .chain(genre_unclear_fixes())
+        .collect()
+}
+
 /// Patches that have already been applied to Wikipedia, but may not be
 /// in the dump being processed.
-fn fixed_already() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
+fn genre_fixed_already() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
     /// Represents a fix that has already been applied to Wikipedia
     /// but may not be in the dump being processed.
     struct WikipediaFix {
@@ -72,7 +80,7 @@ fn fixed_already() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
 
 /// Patches to resolve ambiguity in the source data. I don't feel confident in making
 /// these changes myself, so I'm disambiguating them here.
-fn unclear_fixes() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
+fn genre_unclear_fixes() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
     /// Represents a fix to resolve ambiguity in the source data
     struct UnclearFix {
         /// Page name and optional heading
