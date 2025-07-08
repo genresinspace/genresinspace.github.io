@@ -292,7 +292,7 @@ fn process_pages<T: ProcessedPage>(
             &pwt_configuration,
             dump_page.as_deref(),
             original_page,
-            &wikitext,
+            wikitext,
         );
         let parsed_wikitext = pwt_configuration
             .parse_with_timeout(&wikitext, std::time::Duration::from_secs(1))
@@ -429,8 +429,8 @@ fn process_pages<T: ProcessedPage>(
                     // Check if we've hit a new milestone
                     let current_milestone = current_count / progress_increment;
                     let last_milestone = last_reported_milestone.load(std::sync::atomic::Ordering::Relaxed);
-                    if current_milestone > last_milestone && current_count > 0 {
-                        if last_reported_milestone.compare_exchange_weak(
+                    if current_milestone > last_milestone && current_count > 0
+                        && last_reported_milestone.compare_exchange_weak(
                             last_milestone,
                             current_milestone,
                             std::sync::atomic::Ordering::Relaxed,
@@ -442,7 +442,6 @@ fn process_pages<T: ProcessedPage>(
                                 start_time.elapsed().as_secs_f32()
                             );
                         }
-                    }
                 }
                 pwt::Node::StartTag { name, end, .. } if name == "ref" => {
                     pause_recording_description = true;

@@ -14,10 +14,10 @@ pub fn calculate(
     output_path: &Path,
 ) -> anyhow::Result<HashMap<types::PageName, Vec<(types::PageName, usize)>>> {
     if output_path.exists() {
-        return Ok(serde_json::from_slice(
+        return serde_json::from_slice(
             &std::fs::read(output_path).context("Failed to read genre top artists")?,
         )
-        .context("Failed to parse genre top artists")?);
+        .context("Failed to parse genre top artists");
     }
 
     println!(
@@ -29,13 +29,13 @@ pub fn calculate(
 
     for (artist_page, artist) in &processed_artists.0 {
         for genre in &artist.genres {
-            let Some(page_name) = links_to_articles.map(&genre) else {
+            let Some(page_name) = links_to_articles.map(genre) else {
                 continue;
             };
             result.entry(page_name).or_default().push((
                 artist_page.clone(),
                 artist_inbound_link_counts
-                    .get(&artist_page)
+                    .get(artist_page)
                     .copied()
                     .unwrap_or(0),
             ));
