@@ -19,6 +19,7 @@ struct FrontendData {
     dump_date: String,
     nodes: Vec<NodeData>,
     edges: BTreeSet<EdgeData>,
+    artists: BTreeMap<PageDataId, ArtistHighLevelData>,
     /// This is a separate field as `LinksToArticles` has already resolved
     /// redirects, which we wouldn't know about on the client
     links_to_page_ids: BTreeMap<String, PageDataId>,
@@ -34,17 +35,18 @@ struct NodeData {
     #[serde(skip_serializing_if = "Option::is_none")]
     mixes: Option<GenreMixes>,
     edges: BTreeSet<usize>,
-    top_artists: Vec<GenreArtist>,
+    top_artists: Vec<PageDataId>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct GenreArtist {
-    id: PageDataId,
+struct ArtistHighLevelData {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    page: Option<PageName>,
     name: ArtistName,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct ArtistData {
+struct ArtistFileData {
     page_title: PageName,
     description: Option<String>,
     last_revision_date: jiff::Timestamp,
@@ -167,6 +169,7 @@ pub fn produce(
         dump_date: dump_meta.dump_date.to_string(),
         nodes: vec![],
         edges: BTreeSet::new(),
+        artists: BTreeMap::new(),
         links_to_page_ids: BTreeMap::new(),
         max_degree: 0,
     };
@@ -209,16 +212,7 @@ pub fn produce(
                 last_artist_id += 1;
                 artist_id
             };
-            let artist_name = processed_artists
-                .0
-                .get(&artist_page)
-                .unwrap_or_else(|| panic!("Missing artist `{artist_page}` in `{page}`"))
-                .name
-                .clone();
-            top_artists.push(GenreArtist {
-                id: artist_id,
-                name: artist_name,
-            });
+            top_artists.push(artist_id);
         }
 
         let node = NodeData {
@@ -369,19 +363,26 @@ pub fn produce(
             .filter_map(|(link, page)| page_to_id.get(page).map(|id| (link.clone(), *id))),
     );
 
-    let data_path = output_path.join("data.json");
-    std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
-    println!("{:.2}s: saved data.json", start.elapsed().as_secs_f32());
-
     // Copy artist data
     let artists_path = output_path.join("artists");
     std::fs::create_dir_all(&artists_path)?;
-    for (artist_name, artist_id) in &artists_to_copy {
-        if let Some(artist_data) = processed_artists.0.get(&artist_name) {
-            let data = ArtistData {
-                page_title: artist_name.clone(),
-                last_revision_date: artist_data.last_revision_date,
-                description: artist_data.wikitext_description.clone(),
+    for (artist_page, artist_id) in &artists_to_copy {
+        if let Some(artist) = processed_artists.0.get(&artist_page) {
+            graph.artists.insert(
+                *artist_id,
+                ArtistHighLevelData {
+                    page: if artist_page.name == artist.name.0 {
+                        None
+                    } else {
+                        Some(artist_page.clone())
+                    },
+                    name: artist.name.clone(),
+                },
+            );
+            let data = ArtistFileData {
+                page_title: artist_page.clone(),
+                last_revision_date: artist.last_revision_date,
+                description: artist.wikitext_description.clone(),
             };
             std::fs::write(
                 artists_path.join(format!("{}.json", artist_id.0)),
@@ -394,6 +395,10 @@ pub fn produce(
         start.elapsed().as_secs_f32(),
         artists_to_copy.len()
     );
+
+    let data_path = output_path.join("data.json");
+    std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
+    println!("{:.2}s: saved data.json", start.elapsed().as_secs_f32());
 
     Ok(())
 }
