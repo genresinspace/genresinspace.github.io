@@ -248,20 +248,19 @@ function HelpNeededForMix({ reason }: { reason: string | null }) {
 }
 
 function TopArtists({ node }: { node: NodeData }) {
-  const { artists } = useDataContext();
+  const { artist_page_to_name } = useDataContext();
 
   return (
     <Section heading="Top Artists" icon={<MusicIcon />}>
       {node.top_artists && node.top_artists.length > 0 ? (
         <ul className="list-disc list-inside p-3 space-y-1 pl-8">
-          {node.top_artists.map((artistId, index) => {
-            const artist = artists[artistId];
-            if (!artist) return null;
+          {node.top_artists.map((artistPage, index) => {
+            const artistName = artist_page_to_name[artistPage] || artistPage;
 
             return (
               <li key={index}>
-                <WikipediaLink pageTitle={artist.page || artist.name}>
-                  {artist.name}
+                <WikipediaLink pageTitle={artistPage}>
+                  {artistName}
                 </WikipediaLink>
               </li>
             );

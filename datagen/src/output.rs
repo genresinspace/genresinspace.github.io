@@ -1,6 +1,6 @@
 //! Produces the data.json file for the frontend.
 use std::{
-    collections::{BTreeMap, BTreeSet, HashMap},
+    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
     path::Path,
 };
 
@@ -19,7 +19,9 @@ struct FrontendData {
     dump_date: String,
     nodes: Vec<NodeData>,
     edges: BTreeSet<EdgeData>,
-    artists: BTreeMap<PageDataId, ArtistHighLevelData>,
+    /// If the artist's name is different from the page name, this maps the page name to the name.
+    /// Otherwise, the names are the same.
+    artist_page_to_name: BTreeMap<PageName, ArtistName>,
     /// This is a separate field as `LinksToArticles` has already resolved
     /// redirects, which we wouldn't know about on the client
     links_to_page_ids: BTreeMap<String, PageDataId>,
@@ -35,14 +37,7 @@ struct NodeData {
     #[serde(skip_serializing_if = "Option::is_none")]
     mixes: Option<GenreMixes>,
     edges: BTreeSet<usize>,
-    top_artists: Vec<PageDataId>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct ArtistHighLevelData {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    page: Option<PageName>,
-    name: ArtistName,
+    top_artists: Vec<PageName>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -169,7 +164,7 @@ pub fn produce(
         dump_date: dump_meta.dump_date.to_string(),
         nodes: vec![],
         edges: BTreeSet::new(),
-        artists: BTreeMap::new(),
+        artist_page_to_name: BTreeMap::new(),
         links_to_page_ids: BTreeMap::new(),
         max_degree: 0,
     };
@@ -179,8 +174,7 @@ pub fn produce(
 
     let mut page_to_id = HashMap::new();
 
-    let mut artists_to_copy = HashMap::<PageName, PageDataId>::new();
-    let mut last_artist_id = 0usize;
+    let mut artists_to_copy = HashSet::new();
 
     // First pass: create nodes
     for page in &node_order {
@@ -204,15 +198,8 @@ pub fn produce(
 
         let mut top_artists = vec![];
         for artist_page in top_artist_pages {
-            let artist_id = if let Some(artist_id) = artists_to_copy.get(&artist_page) {
-                *artist_id
-            } else {
-                let artist_id = PageDataId(last_artist_id);
-                artists_to_copy.insert(artist_page.clone(), artist_id);
-                last_artist_id += 1;
-                artist_id
-            };
-            top_artists.push(artist_id);
+            artists_to_copy.insert(artist_page.clone());
+            top_artists.push(artist_page);
         }
 
         let node = NodeData {
@@ -366,26 +353,18 @@ pub fn produce(
     // Copy artist data
     let artists_path = output_path.join("artists");
     std::fs::create_dir_all(&artists_path)?;
-    for (artist_page, artist_id) in &artists_to_copy {
+    for artist_page in &artists_to_copy {
         if let Some(artist) = processed_artists.0.get(&artist_page) {
-            graph.artists.insert(
-                *artist_id,
-                ArtistHighLevelData {
-                    page: if artist_page.name == artist.name.0 {
-                        None
-                    } else {
-                        Some(artist_page.clone())
-                    },
-                    name: artist.name.clone(),
-                },
-            );
+            if artist_page.name != artist.name.0 {
+                graph.artist_page_to_name.insert(artist_page.clone(), artist.name.clone());
+            }
             let data = ArtistFileData {
                 page_title: artist_page.clone(),
                 last_revision_date: artist.last_revision_date,
                 description: artist.wikitext_description.clone(),
             };
             std::fs::write(
-                artists_path.join(format!("{}.json", artist_id.0)),
+                artists_path.join(format!("{}.json", PageName::sanitize(artist_page))),
                 serde_json::to_string_pretty(&data)?,
             )?;
         }
