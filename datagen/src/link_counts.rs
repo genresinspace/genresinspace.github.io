@@ -635,7 +635,7 @@ mod links {
                         tuples_parsed += 1;
                         if tuples_parsed % 100_000_000 == 0 {
                             println!(
-                                "{:.2}s: parsed {tuples_parsed} tuples",
+                                "{:.2}s: parsed {tuples_parsed} pagelink tuples",
                                 start.elapsed().as_secs_f32(),
                             );
                         }
