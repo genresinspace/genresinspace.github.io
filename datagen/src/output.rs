@@ -151,7 +151,7 @@ pub fn produce(
     links_to_articles: &links::LinksToArticles,
     processed_genres: &process::ProcessedGenres,
     processed_artists: &process::ProcessedArtists,
-    genre_top_artists: &HashMap<PageName, Vec<(PageName, usize)>>,
+    genre_top_artists: &HashMap<PageName, Vec<(PageName, f32)>>,
 ) -> anyhow::Result<()> {
     println!(
         "{:.2}s: producing output data",

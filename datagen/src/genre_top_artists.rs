@@ -12,7 +12,7 @@ pub fn calculate(
     artist_inbound_link_counts: &HashMap<types::PageName, usize>,
     links_to_articles: &links::LinksToArticles,
     output_path: &Path,
-) -> anyhow::Result<HashMap<types::PageName, Vec<(types::PageName, usize)>>> {
+) -> anyhow::Result<HashMap<types::PageName, Vec<(types::PageName, f32)>>> {
     if output_path.exists() {
         println!(
             "{:.2}s: loading genre top artists",
@@ -29,26 +29,41 @@ pub fn calculate(
         start.elapsed().as_secs_f32(),
     );
 
-    let mut result = HashMap::<types::PageName, Vec<(types::PageName, usize)>>::new();
+    let mut result = HashMap::<types::PageName, Vec<(types::PageName, f32)>>::new();
 
     for (artist_page, artist) in &processed_artists.0 {
-        for genre in &artist.genres {
+        let link_count = artist_inbound_link_counts
+            .get(artist_page)
+            .copied()
+            .unwrap_or(0) as f32;
+
+        for (genre_index, genre) in artist.genres.iter().enumerate() {
             let Some(page_name) = links_to_articles.map(genre) else {
                 continue;
             };
-            result.entry(page_name).or_default().push((
-                artist_page.clone(),
-                artist_inbound_link_counts
-                    .get(artist_page)
-                    .copied()
-                    .unwrap_or(0),
-            ));
+
+            // Calculate weight based on genre position
+            // First genre gets full weight (1.0), last genre gets minimal weight (0.1)
+            // Use exponential decay: weight = 0.1 + 0.9 * (0.5 ^ (index / (total_genres - 1)))
+            let total_genres = artist.genres.len();
+            let weight = if total_genres == 1 {
+                1.0
+            } else {
+                let normalized_index = genre_index as f32 / (total_genres - 1) as f32;
+                0.1 + 0.9 * (0.5_f32.powf(normalized_index))
+            };
+
+            let weighted_score = link_count * weight;
+
+            result
+                .entry(page_name)
+                .or_default()
+                .push((artist_page.clone(), weighted_score));
         }
     }
 
     for artists in result.values_mut() {
-        artists.sort_by_key(|(_, count)| *count);
-        artists.reverse();
+        artists.sort_by(|(_, score_a), (_, score_b)| score_b.partial_cmp(score_a).unwrap());
     }
 
     std::fs::write(output_path, serde_json::to_string_pretty(&result)?)?;
