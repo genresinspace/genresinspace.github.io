@@ -183,50 +183,14 @@ pub fn from_data_dump(
     }
 
     println!(
-        "{:.2}s: genres/artists directories or redirects file or meta does not exist, extracting from Wikipedia dump",
+        "{:.2}s: extraction results missing; beginning extraction from Wikipedia dump",
         start.elapsed().as_secs_f32()
     );
 
-    std::fs::create_dir_all(&genres_path).context("Failed to create genres directory")?;
-    std::fs::create_dir_all(&artists_path).context("Failed to create artists directory")?;
+    std::fs::create_dir_all(output_path).context("Failed to create output directory")?;
 
     // Load offsets to allow for multithreaded read
-    let offsets = if offsets_path.exists() {
-        let offsets_str =
-            std::fs::read_to_string(&offsets_path).context("Failed to read offsets file")?;
-        let offsets: Vec<usize> = offsets_str
-            .lines()
-            .map(|line| line.parse().unwrap())
-            .collect();
-        println!(
-            "{:.2}s: loaded {} offsets from file",
-            start.elapsed().as_secs_f32(),
-            offsets.len(),
-        );
-        offsets
-    } else {
-        let index_file = std::fs::read(&config.wikipedia_index_path)
-            .context("Failed to open Wikipedia index file")?;
-        let index_file = std::io::BufReader::new(bzip2::bufread::BzDecoder::new(&index_file[..]));
-        let mut offsets = BTreeSet::<usize>::new();
-        for line in index_file.lines() {
-            let line = line.context("Failed to read line from Wikipedia index file")?;
-            let (offset, _) = line.split_once(':').context("Failed to split line")?;
-            offsets.insert(offset.parse().unwrap());
-        }
-        let offsets: Vec<_> = offsets.into_iter().collect();
-        let mut file =
-            std::fs::File::create(&offsets_path).context("Failed to create offsets file")?;
-        for offset in &offsets {
-            writeln!(file, "{offset}").context("Failed to write offset to file")?;
-        }
-        println!(
-            "{:.2}s: extracted {} offsets from index and saved to file",
-            start.elapsed().as_secs_f32(),
-            offsets.len(),
-        );
-        offsets
-    };
+    let offsets = load_offsets(start, config, &offsets_path)?;
 
     // Memory-map dump into memory and hope the OS will evict the pages once we're done looking at them
     let dump_file = std::fs::File::open(&config.wikipedia_dump_path)
@@ -240,69 +204,14 @@ pub fn from_data_dump(
     );
 
     // Read the header of the file to extract the domain
-    let (wikipedia_domain, wikipedia_db_name) = {
-        let mut reader = quick_xml::reader::Reader::from_reader(std::io::BufReader::new(
-            bzip2::bufread::BzDecoder::new(&dump_file[0..offsets[0]]),
-        ));
-        reader.config_mut().trim_text(true);
+    let (wikipedia_domain, wikipedia_db_name) = extract_wikipedia_meta(&dump_file, &offsets)?;
 
-        let mut buf = vec![];
-
-        let mut wikipedia_domain: String = String::new();
-        let mut recording_wikipedia_domain = false;
-
-        let mut wikipedia_db_name: String = String::new();
-        let mut recording_wikipedia_db_name = false;
-
-        loop {
-            match reader.read_event_into(&mut buf) {
-                Ok(Event::Eof) => break,
-                Ok(Event::Start(e)) => {
-                    let name = e.name().0;
-                    if name == b"base" {
-                        wikipedia_domain.clear();
-                        recording_wikipedia_domain = true;
-                    } else if name == b"dbname" {
-                        wikipedia_db_name.clear();
-                        recording_wikipedia_db_name = true;
-                    }
-                }
-                Ok(Event::Text(e)) => {
-                    if recording_wikipedia_domain {
-                        wikipedia_domain.push_str(&e.unescape().unwrap());
-                    } else if recording_wikipedia_db_name {
-                        wikipedia_db_name.push_str(&e.unescape().unwrap());
-                    }
-                }
-                Ok(Event::End(e)) => {
-                    if e.name().0 == b"base" {
-                        recording_wikipedia_domain = false;
-                        wikipedia_domain = util::extract_domain(&wikipedia_domain)
-                            .expect("wikipedia_domain could not be extracted")
-                            .to_string();
-                    } else if e.name().0 == b"dbname" {
-                        recording_wikipedia_db_name = false;
-                    }
-                }
-                _ => {}
-            }
-            buf.clear();
-        }
-
-        if wikipedia_domain.is_empty() {
-            anyhow::bail!("Failed to extract Wikipedia domain from dump");
-        }
-
-        if wikipedia_db_name.is_empty() {
-            anyhow::bail!("Failed to extract Wikipedia db name from dump");
-        }
-
-        (wikipedia_domain, wikipedia_db_name)
-    };
+    // Create directories for genres and artists
+    std::fs::create_dir_all(&genres_path).context("Failed to create genres directory")?;
+    std::fs::create_dir_all(&artists_path).context("Failed to create artists directory")?;
 
     // Iterate over each offset
     let artist_counter = AtomicUsize::new(0);
-
     let intermediate_data = offsets
         .par_iter()
         .fold(IntermediateData::default, |acc, offset| {
@@ -353,6 +262,108 @@ pub fn from_data_dump(
         redirects: AllRedirects::InMemory(intermediate_data.redirects),
         id_to_page_names: intermediate_data.id_to_page_names,
     })
+}
+
+/// Load the offsets from the Wikipedia index file.
+fn load_offsets(
+    start: std::time::Instant,
+    config: &Config,
+    offsets_path: &Path,
+) -> anyhow::Result<Vec<usize>> {
+    if offsets_path.exists() {
+        let offsets_str =
+            std::fs::read_to_string(&offsets_path).context("Failed to read offsets file")?;
+        let offsets: Vec<usize> = offsets_str
+            .lines()
+            .map(|line| line.parse().unwrap())
+            .collect();
+        println!(
+            "{:.2}s: loaded {} offsets from file",
+            start.elapsed().as_secs_f32(),
+            offsets.len(),
+        );
+        return Ok(offsets);
+    }
+
+    let index_file = std::fs::read(&config.wikipedia_index_path)
+        .context("Failed to open Wikipedia index file")?;
+    let index_file = std::io::BufReader::new(bzip2::bufread::BzDecoder::new(&index_file[..]));
+    let mut offsets = BTreeSet::<usize>::new();
+    for line in index_file.lines() {
+        let line = line.context("Failed to read line from Wikipedia index file")?;
+        let (offset, _) = line.split_once(':').context("Failed to split line")?;
+        offsets.insert(offset.parse().unwrap());
+    }
+    let offsets: Vec<_> = offsets.into_iter().collect();
+    let mut file = std::fs::File::create(&offsets_path).context("Failed to create offsets file")?;
+    for offset in &offsets {
+        writeln!(file, "{offset}").context("Failed to write offset to file")?;
+    }
+    println!(
+        "{:.2}s: extracted {} offsets from index and saved to file",
+        start.elapsed().as_secs_f32(),
+        offsets.len(),
+    );
+
+    Ok(offsets)
+}
+
+/// Extract the Wikipedia domain and database name from the Wikipedia dump.
+fn extract_wikipedia_meta(
+    dump_file: &memmap2::Mmap,
+    offsets: &[usize],
+) -> anyhow::Result<(String, String)> {
+    let first_slice = &dump_file[0..offsets[0]];
+    let mut reader = quick_xml::reader::Reader::from_reader(std::io::BufReader::new(
+        bzip2::bufread::BzDecoder::new(first_slice),
+    ));
+    reader.config_mut().trim_text(true);
+    let mut buf = vec![];
+    let mut wikipedia_domain: String = String::new();
+    let mut recording_wikipedia_domain = false;
+    let mut wikipedia_db_name: String = String::new();
+    let mut recording_wikipedia_db_name = false;
+    loop {
+        match reader.read_event_into(&mut buf) {
+            Ok(Event::Eof) => break,
+            Ok(Event::Start(e)) => {
+                let name = e.name().0;
+                if name == b"base" {
+                    wikipedia_domain.clear();
+                    recording_wikipedia_domain = true;
+                } else if name == b"dbname" {
+                    wikipedia_db_name.clear();
+                    recording_wikipedia_db_name = true;
+                }
+            }
+            Ok(Event::Text(e)) => {
+                if recording_wikipedia_domain {
+                    wikipedia_domain.push_str(&e.unescape().unwrap());
+                } else if recording_wikipedia_db_name {
+                    wikipedia_db_name.push_str(&e.unescape().unwrap());
+                }
+            }
+            Ok(Event::End(e)) => {
+                if e.name().0 == b"base" {
+                    recording_wikipedia_domain = false;
+                    wikipedia_domain = util::extract_domain(&wikipedia_domain)
+                        .expect("wikipedia_domain could not be extracted")
+                        .to_string();
+                } else if e.name().0 == b"dbname" {
+                    recording_wikipedia_db_name = false;
+                }
+            }
+            _ => {}
+        }
+        buf.clear();
+    }
+    if wikipedia_domain.is_empty() {
+        anyhow::bail!("Failed to extract Wikipedia domain from dump");
+    }
+    if wikipedia_db_name.is_empty() {
+        anyhow::bail!("Failed to extract Wikipedia db name from dump");
+    }
+    Ok((wikipedia_domain, wikipedia_db_name))
 }
 
 /// Process a slice of the Wikipedia dump to extract its redirects, genres, and artists.
