@@ -49,7 +49,7 @@ impl TryFrom<AllRedirects> for HashMap<PageName, PageName> {
         match value {
             AllRedirects::InMemory(value) => Ok(value),
             AllRedirects::LazyLoad(path, start) => {
-                let value = toml::from_str(&std::fs::read_to_string(path)?)?;
+                let value = serde_json::from_slice(&std::fs::read(path)?)?;
                 println!(
                     "{:.2}s: loaded all redirects",
                     start.elapsed().as_secs_f32()
@@ -130,7 +130,7 @@ pub fn from_data_dump(
     let meta_path = output_path.join("meta.toml");
     let genres_path = output_path.join("genres");
     let artists_path = output_path.join("artists");
-    let redirects_path = output_path.join("all_redirects.toml");
+    let redirects_path = output_path.join("all_redirects.json");
     let id_to_page_names_path = output_path.join("id_to_page_names.json");
 
     // Already exists, just load from file
@@ -324,7 +324,7 @@ pub fn from_data_dump(
 
     std::fs::write(
         &redirects_path,
-        &toml::to_string_pretty(&intermediate_data.redirects)?,
+        &serde_json::to_string_pretty(&intermediate_data.redirects)?,
     )
     .context("Failed to write redirects")?;
 
