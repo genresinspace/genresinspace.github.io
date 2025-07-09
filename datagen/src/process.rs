@@ -259,19 +259,27 @@ fn process_pages<T: ProcessedPage>(
         );
 
         let mut processed_items = HashMap::default();
-        for entry in std::fs::read_dir(processed_path)? {
-            let path = entry?.path();
-            let Some(file_stem) = path.file_stem() else {
-                continue;
-            };
-            processed_items.insert(
-                PageName::unsanitize(&file_stem.to_string_lossy()),
-                serde_json::from_str(&std::fs::read_to_string(path)?)?,
-            );
-        }
-        let mut output = processed_items;
-        remove_ignored_pages_and_detect_duplicates(&mut output);
-        return Ok(output);
+        let entries: Vec<_> = std::fs::read_dir(processed_path)?.collect::<Result<Vec<_>, _>>()?;
+
+        let loaded_items: Vec<(PageName, T)> = entries
+            .par_iter()
+            .filter_map(|entry| {
+                let path = entry.path();
+                let file_stem = path.file_stem()?;
+                let page_name = PageName::unsanitize(&file_stem.to_string_lossy());
+                let item: T = serde_json::from_slice(&std::fs::read(&path).ok()?).ok()?;
+                Some((page_name, item))
+            })
+            .collect();
+
+        processed_items.extend(loaded_items);
+        remove_ignored_pages_and_detect_duplicates(&mut processed_items);
+
+        println!(
+            "{:.2}s: Loaded processed {entity_type}s",
+            start.elapsed().as_secs_f32()
+        );
+        return Ok(processed_items);
     }
 
     println!(
