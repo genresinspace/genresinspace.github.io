@@ -253,6 +253,11 @@ fn process_pages<T: ProcessedPage>(
     entity_type: &str,
 ) -> anyhow::Result<HashMap<PageName, T>> {
     if processed_path.is_dir() {
+        println!(
+            "{:.2}s: Loading processed {entity_type}s from {processed_path:?}",
+            start.elapsed().as_secs_f32()
+        );
+
         let mut processed_items = HashMap::default();
         for entry in std::fs::read_dir(processed_path)? {
             let path = entry?.path();
@@ -269,7 +274,10 @@ fn process_pages<T: ProcessedPage>(
         return Ok(output);
     }
 
-    println!("Processed {entity_type}s do not exist, generating from raw {entity_type}s");
+    println!(
+        "{:.2}s: Processed {entity_type}s do not exist, generating from raw {entity_type}s",
+        start.elapsed().as_secs_f32()
+    );
 
     std::fs::create_dir_all(processed_path)?;
 

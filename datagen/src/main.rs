@@ -114,6 +114,11 @@ fn main() -> anyhow::Result<()> {
 
         icon.resize(32, 32, image::imageops::FilterType::Lanczos3)
             .save(website_public_path.join("favicon.ico"))?;
+
+        println!(
+            "{:.2}s: Generated website assets",
+            start.elapsed().as_secs_f32()
+        );
     }
 
     output::produce(

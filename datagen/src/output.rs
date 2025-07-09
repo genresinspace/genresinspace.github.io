@@ -150,6 +150,11 @@ pub fn produce(
     processed_artists: &process::ProcessedArtists,
     genre_top_artists: &HashMap<PageName, Vec<(PageName, usize)>>,
 ) -> anyhow::Result<()> {
+    println!(
+        "{:.2}s: Producing output data",
+        start.elapsed().as_secs_f32()
+    );
+
     let mut graph = FrontendData {
         wikipedia_domain: dump_meta.wikipedia_domain.clone(),
         wikipedia_db_name: dump_meta.wikipedia_db_name.clone(),

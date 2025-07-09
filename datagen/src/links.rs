@@ -37,6 +37,11 @@ pub fn resolve(
         return Ok(LinksToArticles(links_to_articles));
     }
 
+    println!(
+        "{:.2}s: Resolving links to articles",
+        start.elapsed().as_secs_f32()
+    );
+
     let all_redirects: HashMap<_, _> = all_redirects.try_into()?;
 
     let now = std::time::Instant::now();
@@ -81,7 +86,10 @@ pub fn resolve(
         toml::to_string_pretty(&links_to_articles)?.as_bytes(),
     )
     .context("Failed to write links to articles")?;
-    println!("Saved links to articles in {:?}", now.elapsed());
+    println!(
+        "{:.2}s: Saved links to articles",
+        now.elapsed().as_secs_f32()
+    );
 
     Ok(LinksToArticles(links_to_articles))
 }
