@@ -27,7 +27,8 @@ export function Sidebar({
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "settings"
   >("information");
-  const [width, setWidth] = useState("20%");
+  const minWidth = 300;
+  const [width, setWidth] = useState(`${minWidth}px`);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const sidebarContentRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
@@ -37,7 +38,6 @@ export function Sidebar({
       if (!isResizing) return;
 
       const newWidth = window.innerWidth - e.clientX;
-      const minWidth = 300;
       const maxWidth = window.innerWidth * 0.4; // 40% max width
 
       setWidth(`${Math.min(Math.max(newWidth, minWidth), maxWidth)}px`);
