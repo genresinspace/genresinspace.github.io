@@ -224,6 +224,7 @@ pub fn produce(
 
         fn get_id_for_page(
             links_to_articles: &links::LinksToArticles,
+            processed_genres: &process::ProcessedGenres,
             page_to_id: &HashMap<PageName, PageDataId>,
             source_page: &process::ProcessedGenre,
             ty: &str,
@@ -233,6 +234,10 @@ pub fn produce(
             let Some(page) = links_to_articles.map(link) else {
                 return Ok(None);
             };
+            if !processed_genres.0.contains_key(&page) {
+                // This isn't a genre, so we don't need to get its ID
+                return Ok(None);
+            }
             Ok(Some(page_to_id.get(&page).copied().with_context(|| {
                 format!("{}: Missing page ID for {ty} `{link}`", source_page.page)
             })?))
@@ -241,6 +246,7 @@ pub fn produce(
         for stylistic_origin in &processed_genre.stylistic_origins {
             if let Some(source_id) = get_id_for_page(
                 links_to_articles,
+                processed_genres,
                 &page_to_id,
                 processed_genre,
                 "stylistic origin",
@@ -256,6 +262,7 @@ pub fn produce(
         for derivative in &processed_genre.derivatives {
             if let Some(target_id) = get_id_for_page(
                 links_to_articles,
+                processed_genres,
                 &page_to_id,
                 processed_genre,
                 "derivative",
@@ -271,6 +278,7 @@ pub fn produce(
         for subgenre in &processed_genre.subgenres {
             if let Some(target_id) = get_id_for_page(
                 links_to_articles,
+                processed_genres,
                 &page_to_id,
                 processed_genre,
                 "subgenre",
@@ -286,6 +294,7 @@ pub fn produce(
         for fusion_genre in &processed_genre.fusion_genres {
             if let Some(target_id) = get_id_for_page(
                 links_to_articles,
+                processed_genres,
                 &page_to_id,
                 processed_genre,
                 "fusion genre",
