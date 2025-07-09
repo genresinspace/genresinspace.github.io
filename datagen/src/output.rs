@@ -1,6 +1,6 @@
 //! Produces the data.json file for the frontend.
 use std::{
-    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
+    collections::{BTreeMap, BTreeSet, HashMap},
     path::Path,
 };
 
@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     extract, links, process,
-    types::{GenreName, PageDataId, PageName},
+    types::{ArtistName, GenreName, PageDataId, PageName},
 };
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -34,7 +34,13 @@ struct NodeData {
     #[serde(skip_serializing_if = "Option::is_none")]
     mixes: Option<GenreMixes>,
     edges: BTreeSet<usize>,
-    top_artists: Vec<PageName>,
+    top_artists: Vec<GenreArtist>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct GenreArtist {
+    id: PageDataId,
+    name: ArtistName,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -170,7 +176,8 @@ pub fn produce(
 
     let mut page_to_id = HashMap::new();
 
-    let mut artists_to_copy = HashSet::new();
+    let mut artists_to_copy = HashMap::<PageName, PageDataId>::new();
+    let mut last_artist_id = 0usize;
 
     // First pass: create nodes
     for page in &node_order {
@@ -181,7 +188,7 @@ pub fn produce(
             .ok()
             .map(|f| GenreMixes::parse(&f));
 
-        let top_artists: Vec<PageName> = genre_top_artists
+        let top_artist_pages: Vec<PageName> = genre_top_artists
             .get(page)
             .map(|artists| {
                 artists
@@ -192,7 +199,27 @@ pub fn produce(
             })
             .unwrap_or_default();
 
-        artists_to_copy.extend(top_artists.iter().cloned());
+        let mut top_artists = vec![];
+        for artist_page in top_artist_pages {
+            let artist_id = if let Some(artist_id) = artists_to_copy.get(&artist_page) {
+                *artist_id
+            } else {
+                let artist_id = PageDataId(last_artist_id);
+                artists_to_copy.insert(artist_page.clone(), artist_id);
+                last_artist_id += 1;
+                artist_id
+            };
+            let artist_name = processed_artists
+                .0
+                .get(&artist_page)
+                .unwrap_or_else(|| panic!("Missing artist `{artist_page}` in `{page}`"))
+                .name
+                .clone();
+            top_artists.push(GenreArtist {
+                id: artist_id,
+                name: artist_name,
+            });
+        }
 
         let node = NodeData {
             id,
@@ -349,15 +376,15 @@ pub fn produce(
     // Copy artist data
     let artists_path = output_path.join("artists");
     std::fs::create_dir_all(&artists_path)?;
-    for artist in artists_to_copy {
-        if let Some(artist_data) = processed_artists.0.get(&artist) {
+    for (artist_name, artist_id) in artists_to_copy {
+        if let Some(artist_data) = processed_artists.0.get(&artist_name) {
             let data = ArtistData {
-                page_title: artist.clone(),
+                page_title: artist_name.clone(),
                 last_revision_date: artist_data.last_revision_date,
                 description: artist_data.wikitext_description.clone(),
             };
             std::fs::write(
-                artists_path.join(format!("{}.json", PageName::sanitize(&artist))),
+                artists_path.join(format!("{}.json", artist_id.0)),
                 serde_json::to_string_pretty(&data)?,
             )?;
         }
