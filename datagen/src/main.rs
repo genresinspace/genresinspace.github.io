@@ -106,6 +106,11 @@ fn main() -> anyhow::Result<()> {
     let website_path = Path::new("website");
     let website_public_path = website_path.join("public");
 
+    std::fs::remove_dir_all(&website_public_path).ok();
+    std::fs::create_dir_all(&website_public_path)?;
+
+    std::fs::write(website_public_path.join("CNAME"), "genresin.space")?;
+
     {
         let icon = image::open(Path::new("assets/icon.png"))?;
 
