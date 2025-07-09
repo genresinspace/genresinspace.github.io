@@ -354,7 +354,7 @@ pub fn produce(
     let artists_path = output_path.join("artists");
     std::fs::create_dir_all(&artists_path)?;
     for artist_page in &artists_to_copy {
-        if let Some(artist) = processed_artists.0.get(&artist_page) {
+        if let Some(artist) = processed_artists.0.get(artist_page) {
             if artist_page.name != artist.name.0 {
                 graph.artist_page_to_name.insert(artist_page.clone(), artist.name.clone());
             }

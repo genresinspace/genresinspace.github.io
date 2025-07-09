@@ -272,7 +272,7 @@ fn load_offsets(
 ) -> anyhow::Result<Vec<usize>> {
     if offsets_path.exists() {
         let offsets_str =
-            std::fs::read_to_string(&offsets_path).context("Failed to read offsets file")?;
+            std::fs::read_to_string(offsets_path).context("Failed to read offsets file")?;
         let offsets: Vec<usize> = offsets_str
             .lines()
             .map(|line| line.parse().unwrap())
@@ -295,7 +295,7 @@ fn load_offsets(
         offsets.insert(offset.parse().unwrap());
     }
     let offsets: Vec<_> = offsets.into_iter().collect();
-    let mut file = std::fs::File::create(&offsets_path).context("Failed to create offsets file")?;
+    let mut file = std::fs::File::create(offsets_path).context("Failed to create offsets file")?;
     for offset in &offsets {
         writeln!(file, "{offset}").context("Failed to write offset to file")?;
     }
