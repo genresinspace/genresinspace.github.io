@@ -15,7 +15,7 @@ pub fn calculate(
 ) -> anyhow::Result<HashMap<types::PageName, Vec<(types::PageName, usize)>>> {
     if output_path.exists() {
         println!(
-            "{:.2}s: loading genre top artists from {output_path:?}",
+            "{:.2}s: loading genre top artists",
             start.elapsed().as_secs_f32(),
         );
         return serde_json::from_slice(

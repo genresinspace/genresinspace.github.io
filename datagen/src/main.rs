@@ -116,7 +116,7 @@ fn main() -> anyhow::Result<()> {
             .save(website_public_path.join("favicon.ico"))?;
 
         println!(
-            "{:.2}s: Generated website assets",
+            "{:.2}s: generated website assets",
             start.elapsed().as_secs_f32()
         );
     }

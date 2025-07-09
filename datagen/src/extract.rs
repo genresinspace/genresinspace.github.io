@@ -183,9 +183,9 @@ pub fn from_data_dump(
     }
 
     println!(
-        "Genres/artists directories or redirects file or meta does not exist, extracting from Wikipedia dump"
+        "{:.2}s: genres/artists directories or redirects file or meta does not exist, extracting from Wikipedia dump",
+        start.elapsed().as_secs_f32()
     );
-    let now = std::time::Instant::now();
 
     std::fs::create_dir_all(&genres_path).context("Failed to create genres directory")?;
     std::fs::create_dir_all(&artists_path).context("Failed to create artists directory")?;
@@ -199,7 +199,7 @@ pub fn from_data_dump(
             .map(|line| line.parse().unwrap())
             .collect();
         println!(
-            "{:.2}s: Loaded {} offsets from file",
+            "{:.2}s: loaded {} offsets from file",
             start.elapsed().as_secs_f32(),
             offsets.len(),
         );
@@ -221,7 +221,7 @@ pub fn from_data_dump(
             writeln!(file, "{offset}").context("Failed to write offset to file")?;
         }
         println!(
-            "{:.2}s: Extracted {} offsets from index and saved to file",
+            "{:.2}s: extracted {} offsets from index and saved to file",
             start.elapsed().as_secs_f32(),
             offsets.len(),
         );
@@ -342,8 +342,8 @@ pub fn from_data_dump(
     std::fs::write(&meta_path, toml::to_string_pretty(&meta)?).context("Failed to write meta")?;
 
     println!(
-        "Extracted genres, artists, redirects and meta in {:?}",
-        now.elapsed()
+        "{:.2}s: extracted genres, artists, redirects and meta",
+        start.elapsed().as_secs_f32()
     );
 
     Ok(ExtractedData {
@@ -443,14 +443,10 @@ fn process_offset_slice(
                     };
                     if text.starts_with("#REDIRECT") {
                         // Parse the redirect and add it to the redirects map
-                        match parse_redirect_text(wikipedia_domain, &text) {
-                            Ok(redirect) => {
-                                data.redirects.insert(page.clone(), redirect);
-                            }
-                            Err(e) => {
-                                eprintln!("Error parsing redirect: {e:?}");
-                            }
-                        }
+                        let redirect = parse_redirect_text(wikipedia_domain, &text)
+                            .with_context(|| format!("Failed to parse redirect for {page}: {text}"))
+                            .unwrap();
+                        data.redirects.insert(page.clone(), redirect);
                         continue;
                     }
 

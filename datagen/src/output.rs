@@ -157,7 +157,7 @@ pub fn produce(
     genre_top_artists: &HashMap<PageName, Vec<(PageName, usize)>>,
 ) -> anyhow::Result<()> {
     println!(
-        "{:.2}s: Producing output data",
+        "{:.2}s: producing output data",
         start.elapsed().as_secs_f32()
     );
 
@@ -371,12 +371,12 @@ pub fn produce(
 
     let data_path = output_path.join("data.json");
     std::fs::write(data_path, serde_json::to_string_pretty(&graph)?)?;
-    println!("{:.2}s: Saved data.json", start.elapsed().as_secs_f32());
+    println!("{:.2}s: saved data.json", start.elapsed().as_secs_f32());
 
     // Copy artist data
     let artists_path = output_path.join("artists");
     std::fs::create_dir_all(&artists_path)?;
-    for (artist_name, artist_id) in artists_to_copy {
+    for (artist_name, artist_id) in &artists_to_copy {
         if let Some(artist_data) = processed_artists.0.get(&artist_name) {
             let data = ArtistData {
                 page_title: artist_name.clone(),
@@ -389,7 +389,11 @@ pub fn produce(
             )?;
         }
     }
-    println!("{:.2}s: Saved artists", start.elapsed().as_secs_f32());
+    println!(
+        "{:.2}s: saved {} artists",
+        start.elapsed().as_secs_f32(),
+        artists_to_copy.len()
+    );
 
     Ok(())
 }

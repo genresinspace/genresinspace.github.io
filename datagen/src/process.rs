@@ -254,7 +254,7 @@ fn process_pages<T: ProcessedPage>(
 ) -> anyhow::Result<HashMap<PageName, T>> {
     if processed_path.is_dir() {
         println!(
-            "{:.2}s: Loading processed {entity_type}s from {processed_path:?}",
+            "{:.2}s: loading processed {entity_type}s",
             start.elapsed().as_secs_f32()
         );
 
@@ -276,14 +276,15 @@ fn process_pages<T: ProcessedPage>(
         remove_ignored_pages_and_detect_duplicates(&mut processed_items);
 
         println!(
-            "{:.2}s: Loaded processed {entity_type}s",
-            start.elapsed().as_secs_f32()
+            "{:.2}s: loaded processed {} {entity_type}s",
+            start.elapsed().as_secs_f32(),
+            processed_items.len()
         );
         return Ok(processed_items);
     }
 
     println!(
-        "{:.2}s: Processed {entity_type}s do not exist, generating from raw {entity_type}s",
+        "{:.2}s: processed {entity_type}s do not exist, generating from raw {entity_type}s",
         start.elapsed().as_secs_f32()
     );
 
@@ -454,7 +455,7 @@ fn process_pages<T: ProcessedPage>(
                         ).is_ok() {
                             let percentage = ((current_count * 100) / total_pages).min(100);
                             println!(
-                                "{:.2}s: Processed {current_count}/{total_pages} {entity_type}s ({percentage}%)",
+                                "{:.2}s: processed {current_count}/{total_pages} {entity_type}s ({percentage}%)",
                                 start_time.elapsed().as_secs_f32()
                             );
                         }
@@ -553,7 +554,7 @@ fn process_pages<T: ProcessedPage>(
     }).collect();
 
     println!(
-        "{:.2}s: Processed all {} {entity_type}s",
+        "{:.2}s: processed all {} {entity_type}s",
         start.elapsed().as_secs_f32(),
         item_count.load(std::sync::atomic::Ordering::Relaxed)
     );

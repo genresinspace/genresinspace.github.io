@@ -40,7 +40,7 @@ pub fn resolve<'a>(
     }
 
     println!(
-        "{:.2}s: Resolving links to articles",
+        "{:.2}s: resolving links to articles",
         start.elapsed().as_secs_f32()
     );
 
@@ -87,7 +87,7 @@ pub fn resolve<'a>(
     )
     .context("Failed to write links to articles")?;
     println!(
-        "{:.2}s: Saved links to articles",
+        "{:.2}s: saved links to articles",
         now.elapsed().as_secs_f32()
     );
 
