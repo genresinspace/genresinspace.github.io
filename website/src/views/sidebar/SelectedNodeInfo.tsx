@@ -72,6 +72,8 @@ export function SelectedNodeInfo({
         <GenreDescription description={node.wikitext_description} />
       )}
 
+      <TopArtists node={node} />
+
       <Connections
         node={node}
         nodes={nodes}
@@ -242,6 +244,38 @@ function HelpNeededForMix({ reason }: { reason: string | null }) {
         </p>
       )}
     </Notice>
+  );
+}
+
+function TopArtists({ node }: { node: NodeData }) {
+  const { artists } = useDataContext();
+
+  return (
+    <Section heading="Top Artists" icon={<MusicIcon />}>
+      {node.top_artists && node.top_artists.length > 0 ? (
+        <ul className="list-disc list-inside p-3 space-y-1 pl-8">
+          {node.top_artists.map((artistId, index) => {
+            const artist = artists[artistId];
+            if (!artist) return null;
+
+            return (
+              <li key={index}>
+                <WikipediaLink pageTitle={artist.page || artist.name}>
+                  {artist.name}
+                </WikipediaLink>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <Notice colour="blue">
+          <p>
+            There are no artists on Wikipedia that are associated with this
+            genre. If you know of an artist, please update their Wikipedia page!
+          </p>
+        </Notice>
+      )}
+    </Section>
   );
 }
 

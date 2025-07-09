@@ -12,6 +12,8 @@ export type Data = {
   nodes: NodeData[];
   /** The edges in the graph. */
   edges: EdgeData[];
+  /** A map of artist IDs to high-level artist data. */
+  artists: Record<string, ArtistHighLevelData>;
   /** A map of links to page IDs. */
   links_to_page_ids: Record<string, string>;
   /** The maximum degree of any node in the graph. */
@@ -44,6 +46,16 @@ export type NodeData = {
     | { video: string; note?: string }[];
   /** The node's edges. */
   edges: number[];
+  /** The node's top artists. */
+  top_artists: string[];
+};
+
+/** High-level artist data. */
+export type ArtistHighLevelData = {
+  /** The artist's Wikipedia page title. If not present, the page is the same as the name. */
+  page?: string;
+  /** The artist's name. */
+  name: string;
 };
 
 /** Convert a node ID (integer as a string) to an integer. */
