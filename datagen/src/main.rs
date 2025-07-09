@@ -90,8 +90,8 @@ fn main() -> anyhow::Result<()> {
 
     let links_to_articles = links::resolve(
         start,
-        &output_path.join("links_to_articles.toml"),
-        &processed_genres,
+        &output_path.join("links_to_articles.json"),
+        processed_genres.0.keys().chain(processed_artists.0.keys()),
         extracted_data.redirects,
     )?;
 

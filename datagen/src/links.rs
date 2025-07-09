@@ -3,7 +3,7 @@ use std::{collections::HashMap, path::Path};
 
 use anyhow::Context as _;
 
-use crate::{extract, process, types::PageName};
+use crate::{extract, types::PageName};
 
 /// A map of links to page names.
 pub struct LinksToArticles(pub HashMap<String, PageName>);
@@ -14,21 +14,23 @@ impl LinksToArticles {
     }
 }
 
-/// Construct a map of links (lower-case page names and redirects) to processed genres.
+/// Construct a map of links (lower-case page names and redirects) to pages.
 ///
-/// We use processed genres to ensure that we're capturing subgenres / headings-under-genres as well.
+/// We use pages to ensure that we're capturing subgenres / headings-under-pages as well.
 ///
-/// This will loop over all redirects and find redirects to already-resolved genres, adding them to the map.
+/// This will loop over all redirects and find redirects to already-resolved pages, adding them to the map.
 /// It will continue to do this until no new links are found.
-pub fn resolve(
+pub fn resolve<'a>(
     start: std::time::Instant,
     links_to_articles_path: &Path,
-    processed_genres: &process::ProcessedGenres,
+    pages: impl Iterator<Item = &'a PageName>,
     all_redirects: extract::AllRedirects,
 ) -> anyhow::Result<LinksToArticles> {
     if links_to_articles_path.is_file() {
-        let links_to_articles: HashMap<String, PageName> =
-            toml::from_str(&std::fs::read_to_string(links_to_articles_path)?)?;
+        let links_to_articles: HashMap<String, PageName> = serde_json::from_slice(
+            &std::fs::read(links_to_articles_path).context("Failed to read links to articles")?,
+        )
+        .context("Failed to parse links to articles")?;
         println!(
             "{:.2}s: loaded all {} links to articles",
             start.elapsed().as_secs_f32(),
@@ -46,9 +48,7 @@ pub fn resolve(
 
     let now = std::time::Instant::now();
 
-    let mut links_to_articles: HashMap<String, PageName> = processed_genres
-        .0
-        .keys()
+    let mut links_to_articles: HashMap<String, PageName> = pages
         .map(|s| (s.to_string().to_lowercase(), s.clone()))
         .collect();
 
@@ -83,7 +83,7 @@ pub fn resolve(
     // Save links to articles to file
     std::fs::write(
         links_to_articles_path,
-        toml::to_string_pretty(&links_to_articles)?.as_bytes(),
+        serde_json::to_string_pretty(&links_to_articles)?,
     )
     .context("Failed to write links to articles")?;
     println!(
