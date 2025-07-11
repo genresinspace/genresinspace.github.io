@@ -241,10 +241,16 @@ export function WikitextTemplate({
     case "proper_name":
       return <>{node.parameters.map((c) => c.value).join("")}</>;
     case "noitalic":
-      return <span className="not-italic">{node.parameters[0].value}</span>;
+      return (
+        <span className="not-italic">
+          <Wikitext wikitext={node.parameters[0].value} />
+        </span>
+      );
     case "nowrap":
       return (
-        <span className="whitespace-nowrap">{node.parameters[0].value}</span>
+        <span className="whitespace-nowrap">
+          <Wikitext wikitext={node.parameters[0].value} />
+        </span>
       );
     case "page_needed":
       return <sup>[page needed]</sup>;
