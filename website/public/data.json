@@ -20493,7 +20493,7 @@
       "label": "Kroncong",
       "last_revision_date": "2025-05-12T19:33:28Z",
       "mixes": {
-        "help_reason": "I couldn't find a mix/playlist for this, and I don't know what to look for."
+        "help_reason": null
       },
       "edges": [
         1208,
@@ -20695,7 +20695,7 @@
       "label": "Ladishah",
       "last_revision_date": "2025-06-06T17:28:54Z",
       "mixes": {
-        "help_reason": "I was unable to find a mix or a playlist for this."
+        "help_reason": null
       },
       "edges": [
         883
@@ -24021,7 +24021,7 @@
       "label": "Neo-bop jazz",
       "last_revision_date": "2024-01-22T01:09:05Z",
       "mixes": {
-        "help_reason": "I was unable to find a mix or playlist for neo-bop; it seems poorly attested."
+        "help_reason": null
       },
       "edges": [
         363,
@@ -30941,7 +30941,7 @@
       "label": "Risecore",
       "last_revision_date": "2025-06-19T18:05:23Z",
       "mixes": {
-        "help_reason": "I couldn't find a playlist or a mix for this; from a cursory glance, it doesn't seem like there was much classification of music as risecore after the fact."
+        "help_reason": null
       },
       "edges": [
         1783,
@@ -32093,7 +32093,7 @@
       "label": "Sanaa",
       "last_revision_date": "2025-05-28T16:00:37Z",
       "mixes": {
-        "help_reason": "No immediate results, and it doesn't seem like a genre with \"artists\" per se."
+        "help_reason": null
       },
       "edges": [
         4976
@@ -34493,7 +34493,7 @@
       "label": "House-pop",
       "last_revision_date": "2025-05-04T13:54:37Z",
       "mixes": {
-        "help_reason": "I was unable to find anything; this doesn't appear to be particularly well-attested."
+        "help_reason": null
       },
       "edges": [
         1164,
