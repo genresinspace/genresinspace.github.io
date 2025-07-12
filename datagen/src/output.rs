@@ -64,7 +64,7 @@ enum GenreMix {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
 enum GenreMixes {
-    Help { help_reason: String },
+    Help { help_reason: Option<String> },
     Mixes(Vec<GenreMix>),
 }
 impl GenreMixes {
@@ -73,8 +73,10 @@ impl GenreMixes {
 
         if let Some(help_reason) = input.strip_prefix("help:") {
             return GenreMixes::Help {
-                help_reason: help_reason.trim().to_string(),
+                help_reason: Some(help_reason.trim().to_string()),
             };
+        } else if input.trim() == "help" {
+            return GenreMixes::Help { help_reason: None };
         }
 
         let mut mixes = vec![];
@@ -356,7 +358,9 @@ pub fn produce(
     for artist_page in &artists_to_copy {
         if let Some(artist) = processed_artists.0.get(artist_page) {
             if artist_page.name != artist.name.0 {
-                graph.artist_page_to_name.insert(artist_page.clone(), artist.name.clone());
+                graph
+                    .artist_page_to_name
+                    .insert(artist_page.clone(), artist.name.clone());
             }
             let data = ArtistFileData {
                 page_title: artist_page.clone(),
@@ -391,10 +395,15 @@ mod tests {
         assert_eq!(
             GenreMixes::parse("help: not ready"),
             GenreMixes::Help {
-                help_reason: "not ready".to_string()
+                help_reason: Some("not ready".to_string())
             }
         );
+        assert_eq!(
+            GenreMixes::parse("help"),
+            GenreMixes::Help { help_reason: None }
+        );
     }
+
     #[test]
     fn test_mixes() {
         assert_eq!(

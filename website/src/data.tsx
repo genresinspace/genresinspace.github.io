@@ -42,7 +42,7 @@ export type NodeData = {
   last_revision_date: string;
   /** The node's mixes. */
   mixes?:
-    | { help_reason: string }
+    | { help_reason: string | null }
     | { playlist: string; note?: string }[]
     | { video: string; note?: string }[];
   /** The node's edges. */

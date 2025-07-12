@@ -472,7 +472,9 @@
       "wikitext_description": "'''Afro''' is a genre of [[Music in Cuba|Cuban popular music]] with African themes which gained prominence during the [[afrocubanismo]] movement in the early 20th century. It originated in the late 19th century Cuban [[blackface]] theatre, where some elements from Afro-Cuban music traditions such as [[Santería]] and [[Palo (religion)|Palo]] were incorporated into a secular context. As a result, black themes were occasionally portrayed in a stereotypical and derogatory manner. Nonetheless, many afros accurately depicted the working-class life of black communities in Cuba.\n\nAfros are sung in a creolized form of Spanish, often similar to [[Bozal Spanish|bozal]]. In the 1940s and 1950s, the genre reached its peak of popularity often mixing with [[son cubano]] giving rise to the hybrid style known as '''afro-son''' (or son-afro). Compositions not based on the son structure were often labelled as ''canción afro'' (afro-song) or ''canción de cuna afro'' (afro-[[lullaby]]); the latter became a popular form, especially due to the popularity of Ernesto Grenet's \"''Drume negrita''\". Among the most notable singers of afro were [[Rita Montaner]], [[Bola de Nieve]], [[Desi Arnaz]] and [[Merceditas Valdés]].",
       "label": "Afro",
       "last_revision_date": "2024-02-05T14:31:34Z",
-      "mixes": [],
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [
         5071
       ],
@@ -2739,7 +2741,9 @@
       "wikitext_description": "'''Bandana thrash''' is a movement within [[thrashcore]], that is sometimes associated with [[powerviolence]] that explored their debt to an earlier form of extreme [[punk rock]]. The term is in reference to the [[Kerchief|headgear preferred]] by many of the performers. The ideology of bandana thrash is [[DIY ethic]], in many cases [[straight edge]], street life, anticonsumerism, and worldwide unity, the latter is referred in many songs like \"Bandana United Us\" by GxHx, \"Intercontinental Bandana Union\", by [[What Happens Next? (band)|What Happens Next?]], as well in the manifesto in Conquest for Death's ''Many Nations, One Underground''\". The style was prominent into the early to mid 2000s.",
       "label": "Bandana thrash",
       "last_revision_date": "2024-08-21T13:57:27Z",
-      "mixes": [],
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [
         4227,
         5488,
@@ -6338,7 +6342,9 @@
       "wikitext_description": "'''Chanté mas''' (''masquerade song'') and '''Lapo kabrit''' is a form of [[Carnival]] [[music of Dominica]]. It is performed by masquerading partygoers in a two-day parade, with a lead vocalist (''chantwèl''), who is followed by the [[call and response (music)|responsorial]] chorus (''lavwa''), with drummers and dancers dancing backwards in front of the drummer on a [[tambou lélé]]. The Carnival has African and French roots and is otherwise known as ''Mas Dominik'', the most original Carnival in the Caribbean.\n\nCarnival in Dominica is held in the capital city of [[Roseau]], and takes elements of carnival that can be seen in the neighbouring French islands of [[Martinique]] and [[Guadeloupe]], as well as [[Trinidad and Tobago Carnival]]. Notable events that take place during the season leading up to carnival include \"[[j'ouvert]]\" the opening of Carnival celebrations, the calypso Monarch music competition, the queen of Carnival Beauty Pageant and [[bouyon music]] bands. Celebrations last for the Monday and Tuesday before Ash Wednesday. Dominica's carnival is known to be the most original and least commercialized in the Caribbean giving the carnival its name the original mas",
       "label": "Chanté mas",
       "last_revision_date": "2025-06-03T04:16:03Z",
-      "mixes": [],
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [
         769,
         770
@@ -14045,7 +14051,9 @@
       "wikitext_description": "'''Funk''' '''''ousadia''''',{{efn|name=\"Ousadia\"|Loosely translated as \"''daring funk''\"}} also referred to as '''funk''' '''''picante''''',{{efn|name=\"Picante\"|Loosely translated as \"''spicy funk''\"}} is a subgenre of the wider [[Funk carioca|Brazilian funk]] scene, originating around 2013 in the city of [[São Paulo]] as an offshoot of the [[Funk ostentação|funk ''ostentação'']] movement. Its lyrical matter is based upon [[Erotica|erotic]]-themed songs with [[double entendre]]s and humorous [[pun]]s.",
       "label": "Funk ousadia",
       "last_revision_date": "2024-11-19T17:26:06Z",
-      "mixes": [],
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [
         2122,
         2128,
@@ -17239,7 +17247,9 @@
       "wikitext_description": "'''Hori''' refers to a genre of folk songs in [[Braj Bhasha|Braj Bhasa]] and  [[Awadhi language|Awadhi]] traditionally sung during the [[Holi]] festival, particularly in the [[Braj|Braj region]] of [[Uttar Pradesh]] in India. These songs are an integral part of the [[Holi]] festivities and contribute significantly to the celebratory atmosphere.",
       "label": "Hori",
       "last_revision_date": "2025-04-30T00:03:16Z",
-      "mixes": [],
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [],
       "top_artists": []
     },
@@ -18669,7 +18679,9 @@
       "wikitext_description": "'''Italian occult psychedelia''' ('''IOP''') is a subgenre of Italian [[psychedelic music]] characterized by obscure atmospheres. Italian occult psychedelia was coined by journalist [[Antonio Ciarletta]] in an article published by Italian music magazine ''Blow Up'', in January 2012.\nA festival called Thalassa has occurred in Rome since 2013 to celebrate Italian occult psychedelia bands.",
       "label": "Italian occult psychedelia",
       "last_revision_date": "2025-05-12T20:07:42Z",
-      "mixes": [],
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [
         4179,
         4264
@@ -20036,7 +20048,9 @@
       "wikitext_description": "'''Kattaikkuttu''' is a rural theatre form practised in the State of [[Tamil Nadu]] in South [[India]]. It is a form of [[Koothu]], a folk art originated from the early [[Tamilakam]], The performers&nbsp;– by tradition only men&nbsp;– sing, act and dance and the musicians accompany them on the [[Pump organ|harmonium]], the ''[[mridangam]]'' and the ''mukavinai''. The terms '''[[Terukkuttu]]''' and Kattaikkuttu are often used interchangeably. However, historically the two terms appear to have distinguished, at least in certain villages, between two different kinds of performance: while ''Terukkuttu'' referred to mobile performances by two actors participating in a procession for the village deity [[Mariamman]], ''Kattaikkuttu'' denotes overnight, narrative performances at a fixed performance space acted by an ensemble of about fifteen actors and musicians.",
       "label": "Kattaikkuttu",
       "last_revision_date": "2025-06-11T14:06:25Z",
-      "mixes": [],
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [
         3307
       ],
