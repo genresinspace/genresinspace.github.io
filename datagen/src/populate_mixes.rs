@@ -103,10 +103,21 @@ pub fn run(
 
         let start_time = Instant::now();
         let mut line = String::new();
-        std::io::stdin().read_line(&mut line)?;
 
-        if line.trim() == "finish" {
-            break;
+        loop {
+            line.clear();
+            std::io::stdin().read_line(&mut line)?;
+
+            if line.trim() == "finish" {
+                break;
+            }
+
+            if !line.trim().is_empty() {
+                break;
+            }
+
+            print!("> ");
+            std::io::stdout().flush()?;
         }
 
         let response_time = start_time.elapsed();
