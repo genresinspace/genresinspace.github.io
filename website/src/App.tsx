@@ -124,6 +124,9 @@ function LoadedApp({ data }: { data: Data }) {
                 searchDispatch={searchDispatch}
                 visibleTypes={settings.visibleTypes}
                 setSelectedId={setSelectedId}
+                experimentalPathfinding={
+                  settings.general.experimentalPathfinding
+                }
               />
             </div>
           </div>
@@ -161,13 +164,18 @@ function useSelectedIdAndFilterAndFocus(
     data.nodes,
     data.edges,
     settings.visibleTypes,
-    selectedId
+    selectedId,
+    settings.general.experimentalPathfinding
   );
 
   useEffect(() => {
     // Ensure the path is rebuilt when the visible types change
     searchDispatch({ type: "path:rebuild" });
-  }, [searchDispatch, settings.visibleTypes]);
+  }, [
+    searchDispatch,
+    settings.visibleTypes,
+    settings.general.experimentalPathfinding,
+  ]);
 
   // Focus
   const [focusedId, setFocusedRawId] = useState<string | null>(null);

@@ -1,4 +1,4 @@
-import { Dispatch, useReducer } from "react";
+import { Dispatch, useReducer, useEffect } from "react";
 
 import { EdgeData, NodeData, nodeIdToInt, useDataContext } from "../data";
 import { stripGenreNamePrefixFromDescription } from "../util/stripGenreNamePrefixFromDescription";
@@ -83,6 +83,10 @@ export type SearchAction =
   | {
       // `path`: some global state has changed; rebuild the path, stay in `path` state
       type: "path:rebuild";
+    }
+  | {
+      // `path`: experimental pathfinding was disabled, transition into `selected` state
+      type: "path:disable-experimental";
     };
 
 /** Search dropdown that searches over genres and shows results */
@@ -93,6 +97,7 @@ export function Search({
   searchState,
   searchDispatch,
   visibleTypes,
+  experimentalPathfinding,
 }: {
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
@@ -100,6 +105,7 @@ export function Search({
   searchState: SearchState;
   searchDispatch: Dispatch<SearchAction>;
   visibleTypes: VisibleTypes;
+  experimentalPathfinding: boolean;
 }) {
   switch (searchState.type) {
     case "initial":
@@ -116,6 +122,7 @@ export function Search({
           searchState={searchState}
           searchDispatch={searchDispatch}
           setFocusedId={setFocusedId}
+          experimentalPathfinding={experimentalPathfinding}
         />
       );
     case "path":
@@ -127,6 +134,7 @@ export function Search({
           selectedId={selectedId}
           setSelectedId={setSelectedId}
           visibleTypes={visibleTypes}
+          experimentalPathfinding={experimentalPathfinding}
         />
       );
   }
@@ -180,10 +188,12 @@ function SearchSelected({
   searchState,
   searchDispatch,
   setFocusedId,
+  experimentalPathfinding,
 }: {
   searchState: Extract<SearchState, { type: "selected" }>;
   searchDispatch: Dispatch<SearchAction>;
   setFocusedId: (id: string | null) => void;
+  experimentalPathfinding: boolean;
 }) {
   const { nodes } = useDataContext();
 
@@ -200,40 +210,46 @@ function SearchSelected({
             })
           }
         />
-        <SearchInput
-          placeholder="Destination..."
-          value={searchState.destinationQuery}
-          onChange={(value) =>
-            searchDispatch({
-              type: "selected|path:set-destination-query",
-              destinationQuery: value,
-            })
-          }
-          onClear={() => {
-            searchDispatch({
-              type: "selected|path:set-destination-query",
-              destinationQuery: "",
-            });
-          }}
-        />
-      </SearchBar>
-
-      <GenreResultsList>
-        {searchState.destinationResults.map(({ node, strippedDescription }) => (
-          <GenreResultItem
-            key={node.id}
-            node={node}
-            description={strippedDescription}
-            setFocusedId={setFocusedId}
-            onClick={() => {
+        {experimentalPathfinding && (
+          <SearchInput
+            placeholder="Destination..."
+            value={searchState.destinationQuery}
+            onChange={(value) =>
               searchDispatch({
-                type: "selected:select-destination",
-                destinationId: node.id,
+                type: "selected|path:set-destination-query",
+                destinationQuery: value,
+              })
+            }
+            onClear={() => {
+              searchDispatch({
+                type: "selected|path:set-destination-query",
+                destinationQuery: "",
               });
             }}
           />
-        ))}
-      </GenreResultsList>
+        )}
+      </SearchBar>
+
+      {experimentalPathfinding && (
+        <GenreResultsList>
+          {searchState.destinationResults.map(
+            ({ node, strippedDescription }) => (
+              <GenreResultItem
+                key={node.id}
+                node={node}
+                description={strippedDescription}
+                setFocusedId={setFocusedId}
+                onClick={() => {
+                  searchDispatch({
+                    type: "selected:select-destination",
+                    destinationId: node.id,
+                  });
+                }}
+              />
+            )
+          )}
+        </GenreResultsList>
+      )}
     </div>
   );
 }
@@ -245,6 +261,7 @@ function SearchPath({
   selectedId,
   setSelectedId,
   visibleTypes,
+  experimentalPathfinding,
 }: {
   searchState: Extract<SearchState, { type: "path" }>;
   searchDispatch: Dispatch<SearchAction>;
@@ -252,8 +269,14 @@ function SearchPath({
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
   visibleTypes: VisibleTypes;
+  experimentalPathfinding: boolean;
 }) {
   const { nodes } = useDataContext();
+
+  // If experimental pathfinding is disabled, don't render anything while transitioning
+  if (!experimentalPathfinding) {
+    return null;
+  }
 
   return (
     <div>
@@ -492,7 +515,8 @@ export function useSearchState(
   nodes: NodeData[],
   edges: EdgeData[],
   visibleTypes: VisibleTypes,
-  selectedId: string | null
+  selectedId: string | null,
+  experimentalPathfinding: boolean
 ): [SearchState, Dispatch<SearchAction>] {
   const [state, dispatch] = useReducer(
     (prevState: SearchState, action: SearchAction): SearchState => {
@@ -594,6 +618,13 @@ export function useSearchState(
             return prevState;
           }
           return buildPathState(prevState.sourceId, prevState.destinationId);
+        case "path:disable-experimental":
+          if (prevState.type !== "path") {
+            throw new Error(
+              `path:disable-experimental from non-path state (${prevState.type})`
+            );
+          }
+          return buildSelectedState(prevState.sourceId, "");
         default:
           return action satisfies never;
       }
@@ -604,6 +635,13 @@ export function useSearchState(
       sourceResults: [],
     }
   );
+
+  // Effect to handle when experimentalPathfinding is disabled while in path state
+  useEffect(() => {
+    if (!experimentalPathfinding && state.type === "path") {
+      dispatch({ type: "path:disable-experimental" });
+    }
+  }, [experimentalPathfinding, state.type, dispatch]);
 
   return [state, dispatch];
 }

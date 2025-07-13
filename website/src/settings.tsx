@@ -8,6 +8,7 @@ export type SettingsData = {
     autoplayMixes: boolean;
     maxInfluenceDistance: number;
     arrowSizeScale: number;
+    experimentalPathfinding: boolean;
   };
   simulation: SimulationParams;
 };
@@ -156,6 +157,14 @@ export const GENERAL_CONTROLS: GeneralControlDesc[] = [
     max: 3,
     step: 0.1,
     default: 1.5,
+  },
+  {
+    type: "boolean",
+    name: "experimentalPathfinding",
+    label: "Experimental Pathfinding",
+    description:
+      "I'm working on letting you find the path between two genres (i.e. all of the intermediate genres of influence between them). I'm still working on making it work well, but you can play around with it if you'd like.",
+    default: false,
   },
 ];
 
