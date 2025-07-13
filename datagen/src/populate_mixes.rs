@@ -136,7 +136,7 @@ pub fn run(
 
     let remaining = needs_filling.len().saturating_sub(MAX_MIXES);
     if remaining > 0 {
-        println!("{} genres still need mixes.", remaining);
+        println!("{remaining} genres still need mixes.");
     }
 
     Ok(())
