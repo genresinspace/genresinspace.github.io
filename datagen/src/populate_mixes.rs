@@ -44,8 +44,9 @@ pub fn run(
     );
 
     let mut total_response_time = Duration::new(0, 0);
+    const MAX_MIXES: usize = 25;
 
-    for (index, pg) in needs_filling.iter().enumerate() {
+    for (index, pg) in needs_filling.iter().enumerate().take(MAX_MIXES) {
         let mut description = nodes_inner_text_with_config(
             &pwt_configuration
                 .parse(pg.wikitext_description.as_deref().unwrap_or_default())
@@ -131,6 +132,11 @@ pub fn run(
 
         let mix_path = mixes_path.join(PageName::sanitize(&pg.page));
         std::fs::write(mix_path, line)?;
+    }
+
+    let remaining = needs_filling.len().saturating_sub(MAX_MIXES);
+    if remaining > 0 {
+        println!("{} genres still need mixes.", remaining);
     }
 
     Ok(())
