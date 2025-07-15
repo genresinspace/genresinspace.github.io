@@ -20,6 +20,19 @@ import { Music } from "./music/Music";
 import { Listen } from "./Listen";
 
 /**
+ * Custom error class for missing templates
+ */
+export class MissingTemplateError extends Error {
+  constructor(
+    public templateName: string,
+    public wikiUrl: string | undefined
+  ) {
+    super(`Unknown template: ${wikiUrl ?? ""}/Template:${templateName}`);
+    this.name = "MissingTemplateError";
+  }
+}
+
+/**
  * Renders a Wikitext simplified template node, including implementations for all supported templates.
  */
 export function WikitextTemplate({
@@ -327,8 +340,6 @@ export function WikitextTemplate({
     case "zh":
       return <Zh node={node} />;
     default:
-      throw new Error(
-        `Unknown template: ${wikiUrl ?? ""}/Template:${templateName}`
-      );
+      throw new MissingTemplateError(templateName, wikiUrl ?? undefined);
   }
 }
