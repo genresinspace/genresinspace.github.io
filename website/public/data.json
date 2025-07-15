@@ -604,6 +604,11 @@
       "wikitext_description": "'''Afro-Caribbean music''' is a broad term for music styles originating in the [[Caribbean]] from the [[African diaspora]]. These types of music usually have [[West African]]/Central African influence because of the presence and history of [[Ethnic groups of Africa|African people]] and their [[Lineal descendant|descendant]]s living in the Caribbean, as a result of the [[trans-Atlantic slave trade]]. These distinctive musical art forms came about from the cultural mingling of African, Indigenous, and European inhabitants. Characteristically, Afro-Caribbean music incorporates components, instruments and influences from a variety of African cultures, as well as Indigenous and European cultures. \n\nAfro-Caribbean music has been influenced by historical and stylistic influences. Historically, Afro-Caribbean music was influenced by the transatlantic slave trade and later, by the resistance and emancipation of slaves. Stylistically, afro-Caribbean music has been influenced by various African, European and Indigenous Latin American influences. African influences are reflected by many of the [[Rhythm]]s, vocal characteristics and instruments that are used in afro-Caribbean music. Afro-Caribbean music shares many commonalities with traditional European style music, using many European instruments, harmonies and melodies in music of the genre. Indigenous Latin American influence can be seen through the use of percussive instruments and certain vocal techniques. Afro-Caribbean music has many common musical characteristics, including the use of [[Polyrhythm]]s, [[Call and response (music)|call-and-response]] invocations and a variety of instruments. Instruments commonly used in afro-Caribbean music include drums, other percussion instruments, and guitars. \n\nAlthough the roots of afro-Caribbean music go back to the 15th century, the official local industry only began in the 1920s. Following this, afro-Caribbean music gained global popularity throughout the 20th century. As afro-Caribbean music gained popularity, many sub-genres began to emerge. These sub-genres include: [[son cubano]], [[Salsa music|salsa]], [[Calypso music|calypso]], [[Soca music|soca]], [[mento]], [[ska]], [[reggae]] and [[Merengue music|merengue]].",
       "label": "Afro-Caribbean music",
       "last_revision_date": "2025-06-08T16:37:38Z",
+      "mixes": [
+        {
+          "playlist": "PLcfugGOIl2zbvXX9Rap4wp6n0vW3ZNphY"
+        }
+      ],
       "edges": [],
       "top_artists": [
         "Taina Asili",
@@ -839,6 +844,11 @@
       "wikitext_description": "'''Ahidus''' ({{Langx|ber|ⴰⵃⵉⴷⵓⵙ|aḥidous}}), also sometimes called '''ahidous,''' '''haidous, tahidoust or hidoussi''', is a [[Berbers|Berber]] style of collective performance in [[Morocco]]. It is the traditional dance in many [[Berbers|Berber]] tribes and is known to be the favorite entertainment of these tribes.",
       "label": "Ahidus",
       "last_revision_date": "2025-04-27T10:30:35Z",
+      "mixes": [
+        {
+          "playlist": "PLMg35jOt7RdtDwQx-BWu_tzfIwiBQkkxC"
+        }
+      ],
       "edges": [],
       "top_artists": []
     },
@@ -2956,6 +2966,9 @@
       "wikitext_description": "'''Bantowbol''' or '''bantubol''' is a style of [[music of Cameroon|music]] from [[Cameroon]]. The genre is derived from Cameroonian folk music. The name ''bantowbol'' is partially derived from ''bal'', a term for [[accordion]] playing. The principal musicians of bantowbol are [[Gibraltar Drakus]] and [[Nkondo Si Tony]].",
       "label": "Bantowbol",
       "last_revision_date": "2022-05-24T17:41:03Z",
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [],
       "top_artists": []
     },
@@ -2965,6 +2978,11 @@
       "wikitext_description": "'''Barbershop''' [[vocal harmony]] is a style of [[a cappella]] [[close harmony]], or unaccompanied [[vocal music]], characterized by [[consonance and dissonance|consonant]] four-part [[chord (music)|chord]]s for every melody note in a primarily [[homorhythmic]] texture.{{sfn|Committee|2020|p=2-1}} Each of the four parts has its own role: generally, the [[Lead singer|lead]] sings the melody, the [[tenor]] harmonizes above the melody, the [[Bass (vocal range)|bass]] sings the lowest harmonizing notes, and the [[baritone]] completes the chord, usually below the lead. The melody is not usually sung by the tenor or baritone, except for an infrequent note or two to avoid awkward [[voice leading]], in [[Tag (Barbershop)|tags]] or [[Coda (music)|codas]], or when some appropriate [[ornament (music)|embellishment]] can be created.  One characteristic feature of barbershop harmony is the use of what is known as \"snakes\" and \"swipes\". This is when a chord is altered by a change in one or more non-melodic voices.  Occasional passages may be sung by fewer than four voice parts.\n\nBarbershop music is generally performed by either a '''[[barbershop quartet]]''', a group of four typically male singers with one on each vocal part, or a '''barbershop chorus''', which closely resembles a [[choir]] with the notable exception of the genre of music.\n\nAccording to the [[Barbershop Harmony Society]] (BHS), \"Barbershop music features songs with understandable lyrics and easily singable melodies, whose tones clearly define a tonal center and imply major and minor chords and barbershop (dominant and secondary dominant) seventh chords that resolve primarily around the [[circle of fifths]], while making frequent use of other resolutions.\" Slower barbershop songs, especially ballads, often eschew a continuous beat, and notes are often held (or sped up) [[ad libitum]].\n\nAside from the [[Bass (voice type)|bass]], the voice parts in barbershop singing do not correspond closely to their classical music counterparts; the tenor range and [[tessitura]] are similar to those of the classical [[countertenor]] (including the fact that they sing their highest notes primarily in [[falsetto]], as a countertenor would), the baritone resembles a high [[lyric baritone]] in range and a [[tenor]] in tessitura, and the lead generally corresponds to the [[tenor]] of classical repertoire, with some singers possessing a tessitura more similar to that of a [[Baritenor|high baritone]]. Barbershop singing is performed both by men's and women's groups; the elements of the barbershop style and the names of the voice parts are the same for both.",
       "label": "Barbershop music",
       "last_revision_date": "2025-06-12T18:26:46Z",
+      "mixes": [
+        {
+          "playlist": "PLcwXdNVvSNbjfMAxEycPuQEP5zC0UwuTf"
+        }
+      ],
       "edges": [
         8
       ],
@@ -3102,6 +3120,9 @@
       "wikitext_description": "'''Batrelaky'''  is a music style from southeastearn part of Madagascar especially between [[Manakara]] and [[Farafangana]]. This musical genre is mainly played with an accordion,\nguitar, bass and drums. It is a mostly traditional Malagasy genre.\n\nIn gatherings to celebrate it, the multi-ethnic crowds don ''Firake'' (for the women) and ''salaka'' (for the men).",
       "label": "Batrelaky",
       "last_revision_date": "2025-05-01T16:52:35Z",
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [],
       "top_artists": []
     },
@@ -3136,6 +3157,11 @@
       "wikitext_description": "The '''batuque''' is a music and dance genre from [[Cape Verde]]. \n\n{{Music of Cape Verde}}",
       "label": "Batuque",
       "last_revision_date": "2025-04-21T04:50:56Z",
+      "mixes": [
+        {
+          "playlist": "PLTqL0gf1J3BNSOsaxISrt_RxkKpU9GH6l"
+        }
+      ],
       "edges": [
         341
       ],
@@ -3639,6 +3665,11 @@
       "wikitext_description": "'''Bikutsi''' is a [[musical genre]] from [[Cameroon]]. It developed from the traditional styles of the [[Beti people|Beti]], or Ewondo, people, who live around the city of [[Yaoundé]]. It was popular in the middle of the 20th century in West Africa. It is primarily [[dance music]].",
       "label": "Bikutsi",
       "last_revision_date": "2024-04-19T05:00:54Z",
+      "mixes": [
+        {
+          "playlist": "PLPy-muJ5BdqTpfmW6hasBqUgFN92GTod-"
+        }
+      ],
       "edges": [],
       "top_artists": [
         "Lady Ponce",
@@ -4222,6 +4253,11 @@
       "wikitext_description": "'''Bọ̀lọ̀jọ̀''' is an African dancing and popular musical style among the [[Yewa]] Yoruba clans situated in the western regions of [[Ogun State]], [[Nigeria]] and other closely linked [[Yoruba people|Yoruba]] subgroups in the nearby [[Plateau Department]] of  [[Benin]].\n\nIt is mostly featured in festivals, parties and in [[Gelede]] shows.\n\nBeninese singer [[Zeynab Habib]] is also known for her popular recreation of Bolojo dances.",
       "label": "Bolojo",
       "last_revision_date": "2022-06-03T22:51:54Z",
+      "mixes": [
+        {
+          "playlist": "PL3AXEEnsKxx4iOAirsX0fyTsBufRlUqjp"
+        }
+      ],
       "edges": [],
       "top_artists": []
     },
@@ -4673,6 +4709,11 @@
       "wikitext_description": "'''Brazilian gaucho music''' (in Portuguese ''música gaúcha brasileira'' or ''música nativista'') denotes the traditional music of [[Río Grande do Sul]], [[Santa Catarina (state)|Santa Catarina]] and [[Paraná (state)|Paraná]] states, whose population has a strong ancestry of European countries like Portugal, Spain, Italy and Germany. The word ''[[gaucho]]'' refers to the countryside and farm people.",
       "label": "Brazilian gaucho music",
       "last_revision_date": "2024-04-16T22:20:22Z",
+      "mixes": [
+        {
+          "playlist": "PLzsokIDS2_HHH7bASIo31cXMjhWlc2CKr"
+        }
+      ],
       "edges": [],
       "top_artists": [
         "Teixeirinha",
@@ -5515,6 +5556,11 @@
       "wikitext_description": "'''Bullerengue''' is a traditional musical genre and dance from the [[Caribbean region of Colombia]] and the [[Darién Province]] in [[Panama]]. It is sung and preserved primarily by elderly women, accompanied by local artisan drums, and developed in the Palenques or Maroon communities.\n\nSome renowned bullerengue singers are Graciela Salgado, [[Petrona Martínez]], Irene Martinez, Emilia Herrera, Estefanía Caycedo, Etelvina Maldonado, and Ceferina Banquez. In recent decades, Petrona Martínez and [[Totó la Momposina]] have increased bullerengue's international popularity and success, the former having been granted the [[Latin Grammy Award for Best Folk Album]].",
       "label": "Bullerengue",
       "last_revision_date": "2025-04-08T23:49:14Z",
+      "mixes": [
+        {
+          "playlist": "PL1HVA3FfblPFmOhwIwTlKd72xW5nBuS3Y"
+        }
+      ],
       "edges": [
         688
       ],
@@ -5607,6 +5653,11 @@
       "wikitext_description": "'''Cachaca''' or '''kchaka''' ({{IPA|es|kaˈt͡ʃa.ka}}) is a musical genre that originated in [[Paraguay]] in the late 1970s and early 1980s. It is descended from [[Cumbia (Colombia)|Colombian cumbia]], [[Mexican cumbia]], [[Grupero|grupera music]], and [[Tecnocumbia]].",
       "label": "Cachaca",
       "last_revision_date": "2025-04-25T07:20:26Z",
+      "mixes": [
+        {
+          "playlist": "PLF8Iovbi2bhgfm7uaSqpvEYDFzBq5F-vK"
+        }
+      ],
       "edges": [],
       "top_artists": []
     },
@@ -5949,6 +6000,11 @@
       "wikitext_description": "'''''Candombe''''' is a style of music and dance that originated in [[Uruguay]] among the descendants of liberated [[Atlantic slave trade|African slaves]]. In 2009, the [[UNESCO|United Nations Educational, Scientific and Cultural Organization]] (UNESCO) inscribed ''candombe'' in its [[UNESCO Intangible Cultural Heritage Lists|Representative List of the Intangible Cultural Heritage of Humanity]].\n\nTo a lesser extent, ''candombe'' is practiced in [[Argentina]], [[Paraguay]], and [[Brazil]]. In Argentina, it can be found in [[Buenos Aires]], [[Santa Fe, Argentina|Santa Fe]], [[Paraná, Entre Ríos|Paraná]], and [[Corrientes]]. In Paraguay, this tradition continues in Camba Cuá and in [[Fernando de la Mora, Paraguay|Fernando de la Mora]] near [[Asunción]]. In Brazil, ''candombe'' retains its religious character and can be found in the states of [[Minas Gerais]] and Rio Grande do Sul.\n\nThis Uruguayan music style is based on three different drums: chico, repique, and piano drums. It is usually played in February during [[Uruguayan Carnival|carnival in Montevideo]] at dance parades called ''llamadas'' and ''desfile inaugural del carnaval''.",
       "label": "Candombe",
       "last_revision_date": "2025-01-23T01:07:02Z",
+      "mixes": [
+        {
+          "playlist": "PLTMut6RmT578-FCKZldXnwdeYbZbF__4F"
+        }
+      ],
       "edges": [
         748,
         749,
@@ -6066,6 +6122,11 @@
       "wikitext_description": "'''Cape Breton fiddling''' is a regional [[violin]] style which falls within the [[Celtic music]] idiom. The more predominant style in [[Cape Breton Island]]'s fiddle music was brought to North America by [[Scotland|Scottish]] [[immigrant]]s during the [[Highland Clearances]]. These Scottish immigrants were primarily from [[Scottish Gaelic language|Gaelic]]-speaking regions in the [[Scottish Highlands]] and the [[Outer Hebrides]].  Although fiddling has changed since this time in Scotland, it is widely held{{Who|date=February 2010}} that the tradition of [[Scottish fiddling|Scottish fiddle music]] has been better preserved in Cape Breton. While there is a similar tradition from the Irish-style fiddling, that style is overlooked as a result of the Scottish presence in the area.\n\nIn the span of the 1920s to the 70s, Cape Breton's fiddling style faced decline. \n\nDance styles associated with the music are Cape Breton [[step dancing]], Cape Breton [[square dancing]] ([[Iona, Nova Scotia|Iona]] style and [[Inverness County, Nova Scotia|Inverness]] style), and [[highland dancing]].\n\nIn 2005, as a tribute to the area's [[traditional music]], the construction of a tourism center and the world's largest fiddle and bow was completed on the waterfront in [[Sydney, Nova Scotia]].",
       "label": "Cape Breton fiddling",
       "last_revision_date": "2025-05-14T23:40:54Z",
+      "mixes": [
+        {
+          "playlist": "PL54A9rnuvQ_5FqPLE-AWc8L8narnilTqJ"
+        }
+      ],
       "edges": [],
       "top_artists": [
         "Natalie MacMaster",
@@ -7765,6 +7826,9 @@
       "wikitext_description": "'''Colá''' is a musical genre of [[Music of Cape Verde|Cape Verdean music]].",
       "label": "Colá",
       "last_revision_date": "2025-06-09T01:47:20Z",
+      "mixes": {
+        "help_reason": null
+      },
       "edges": [],
       "top_artists": [
         "Mayra Andrade",
@@ -11389,6 +11453,11 @@
       "wikitext_description": "'''''Dwijendrageeti''''' ({{langx|bn|দ্বিজেন্দ্রগীতি}}) refers to the songs written and composed by [[Dwijendralal Ray]]. These songs hold a special place in the world of [[Music of Bengal|Bengali music]]. Dwijendralal Ray wrote and composed nearly 500 songs, which are widely popular in [[Bengal]]. Some of the most notable Dwijendrageeti include ''Dhono Dhanno Pushpe Bhora Amader Ei Boshundhora'', ''Banga Amar! Janani Amar! Dhatri Amar! Amar Desh'', ''Jedin Sunil Jaladhi Haite Uṭhile Janani Bharatabarṣa'' and ''Oi Mahasindhur Opar Hote'', which are Patriotic songs.",
       "label": "Dwijendrageeti",
       "last_revision_date": "2024-11-06T04:37:05Z",
+      "mixes": [
+        {
+          "video": "LGqL-dh9oaE"
+        }
+      ],
       "edges": [],
       "top_artists": []
     },
@@ -13795,6 +13864,11 @@
       "wikitext_description": "The term '''forró''' ({{IPA|pt-BR|fɔˈʁɔ}}) refers to a musical genre, a rhythm, a dance and the event itself where forró music is played and danced. Forró is an important part of the culture of the [[Northeastern Brazil|Northeastern Region of Brazil]]. It encompasses various [[dance]] types as well as a number of different musical genres. Their music genres and dances have gained widespread popularity in all regions of Brazil, especially during the Brazilian [[Festa Junina|June Festivals]]. Forró has also become increasingly popular all over the world, with a well-established forró scene in Europe.",
       "label": "Forró",
       "last_revision_date": "2025-06-14T22:49:33Z",
+      "mixes": [
+        {
+          "video": "YVEYtLg5Plk"
+        }
+      ],
       "edges": [
         1992,
         1993,
@@ -14139,6 +14213,11 @@
       "wikitext_description": "The '''''funaná''''' {{IPA|pt|funɐˈna|}} is a music and dance genre from [[Cape Verde]]. ''Funaná'' is an accordion-based music. The rhythm is usually provided by the '''''[[ferrinho]]''''' much like the use of [[washboard (musical instrument)|washboard]]s in zydeco, the saw in Caribbean [[ripsaw music]]{{Citation needed|date=April 2013}}, the [[Scraper (instrument)|scraper]] in Sub-Saharan African music{{Citation needed|date=April 2013}} and the [[güiro]] in Latin and Pre-Columbian music{{Citation needed|date=April 2013}}.",
       "label": "Funaná",
       "last_revision_date": "2024-09-27T03:37:06Z",
+      "mixes": [
+        {
+          "playlist": "PLEMbnmlvLFtGs0rImkhtqGDbfgeCBZCwl"
+        }
+      ],
       "edges": [],
       "top_artists": [
         "Mayra Andrade",
@@ -14872,6 +14951,11 @@
       "wikitext_description": "'''Gaelic folk music''' or '''Gaelic traditional music''' is the folk music of [[Goidelic languages|Goidelic]]-speaking communities in Ireland, Scotland, and the Isle of Man, often including lyrics in those languages. Characteristic forms of Gaelic music include [[Sean-nós singing|sean-nós]] and [[puirt à beul]] singing, [[piobaireachd]], [[jig]]s, [[reel (dance)|reels]], and [[strathspey (dance)|strathspeys]].",
       "label": "Gaelic folk music",
       "last_revision_date": "2025-03-04T02:11:12Z",
+      "mixes": [
+        {
+          "playlist": "PLEWQde21smG8QM5M8VPnkQ6qEV4Qg-Qj2"
+        }
+      ],
       "edges": [],
       "top_artists": [
         "Capercaillie (band)"
@@ -14883,6 +14967,11 @@
       "wikitext_description": "The '''galerón''' are two genres of [[Venezuela]]n typical song. The Eastern galerón is sung in improvised ten-line stanzas. Generally, it is accompanied by [[mandolin]], [[cuatro (instrument)|cuatro]], and [[guitar]]. It is normally played in the Cruz de Mayo celebrations, the improvised lyrics honoring the Cross. It is related to the [[guajiro]] (Cuba), [[torbellino]] (Colombia), and [[trova]] (Puerto Rico).\n\nThe other galerón is sung in the Center-Western region of Venezuela, more specifically in [[Lara State]]. It is part of The [[Tamunangue]], a ritual religious celebration honoring [[Saint Anthony of Padua]]. It is one of the Sones de Negros suite, which includes [[La Bella]], [[La Juruminga]], [[El Poco a Poco]], [[El Yiyivamos]], [[La Perrendenga]], [[El Galerón]], y [[El Seis Figureao]]. It is played with cuatro, cinco y medio, also known as [[Tiple#Tiple Venezolano|tiple venezolano]], and guitar and sung in two voices.",
       "label": "Galerón",
       "last_revision_date": "2025-03-18T18:39:57Z",
+      "mixes": [
+        {
+          "playlist": "PL407215D48586997B"
+        }
+      ],
       "edges": [],
       "top_artists": []
     },
@@ -16226,6 +16315,11 @@
       "wikitext_description": "The '''guaracha''' ({{IPA|es|ɡwaˈɾatʃa}}) is a genre of music that originated in [[Cuba]], of rapid tempo and comic or picaresque lyrics. The word has been used in this sense at least since the late 18th and early 19th century. Guarachas were played and sung in [[Cuban musical theatre|musical theatres]] and in working-class dance salons. They became an integral part of [[Music of Cuba#Bufo theatre|bufo]] comic theatre in the mid-19th century. During the later 19th and the early 20th century the guaracha was a favourite musical form in the brothels of [[Havana]]. The guaracha survives today in the repertoires of some [[trova]] musicians, [[conjunto]]s and Cuban-style big bands.",
       "label": "Guaracha",
       "last_revision_date": "2025-05-30T11:23:34Z",
+      "mixes": [
+        {
+          "playlist": "PLsoUeMZHoPE2gw5ZuK6D53O95WJi3PwxO"
+        }
+      ],
       "edges": [
         2342,
         3438,
