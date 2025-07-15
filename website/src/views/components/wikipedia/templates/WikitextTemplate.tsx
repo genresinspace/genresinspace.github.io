@@ -60,13 +60,17 @@ export function WikitextTemplate({
     case "abbrlink":
       return <Abbrlink node={node} templateName={templateName} />;
     case "according_to_whom":
-      return <Fix>according to whom</Fix>;
+    case "according_to_whom?":
+      return <Fix>according to whom?</Fix>;
     case "anchor":
       // We don't need to emit anchors in our output
       return null;
     case "better_source":
       return <Fix>better source</Fix>;
+    case "broken_anchor":
+      return <Fix>broken anchor</Fix>;
     case "by_whom":
+    case "by_whom?":
       return <Fix>by whom?</Fix>;
     case "quote":
     case "blockquote":
@@ -77,7 +81,11 @@ export function WikitextTemplate({
     case "cn":
     case "fact":
     case "citesource":
+    case "facts":
       return <Fix>citation needed</Fix>;
+    case "citation_needed_lead":
+    case "not_verified_in_body":
+      return <Fix>not verified in body</Fix>;
     case "clarify":
     case "clarification_needed":
       return <Fix>clarification needed</Fix>;
@@ -101,6 +109,8 @@ export function WikitextTemplate({
     case "culture_of_peru":
       // Category box: don't care
       return null;
+    case "deprecated_source":
+      return <Fix>deprecated source?</Fix>;
     case "disputed":
       // Don't care about this notice
       return null;
@@ -129,7 +139,10 @@ export function WikitextTemplate({
     case "ndash":
       return <>–</>;
     case "failed_verification":
+    case "not_in_ref":
       return <Fix>failed verification</Fix>;
+    case "full_citation_needed":
+      return <Fix>full citation needed</Fix>;
     case "igbo_topics":
       // Category box: don't care
       return null;
@@ -266,11 +279,18 @@ export function WikitextTemplate({
           <Wikitext wikitext={node.parameters[0].value} />
         </span>
       );
+    case "original_research_inline":
+      return <Fix>original research?</Fix>;
     case "page_needed":
       return <Fix>page needed</Fix>;
+    case "primary_source_inline":
+      return <Fix>non-primary source needed</Fix>;
     case "pronunciation":
       // TODO: implement, this could be quite important for this use case
       return null;
+    case "pronunciation?":
+    case "pronunciation_needed":
+      return <Fix>pronunciation?</Fix>;
     case "r":
     case "ref label":
     case "ref_label":
@@ -287,6 +307,8 @@ export function WikitextTemplate({
           {node.parameters.map((c) => c.value).join("-")}
         </span>
       );
+    case "self-published_inline":
+      return <Fix>self-published source?</Fix>;
     case "sic":
       return <>[sic]</>;
     case "small":
@@ -303,6 +325,8 @@ export function WikitextTemplate({
     case "sources_exist":
       // Don't care about this notice
       return null;
+    case "technical_inline":
+      return <Fix>jargon</Fix>;
     case "text-source_inline":
       return <Fix>text–source integrity?</Fix>;
     case "toc_limit":
@@ -321,15 +345,26 @@ export function WikitextTemplate({
             : node.parameters[1].value}
         </span>
       );
+    case "update_inline":
+      return <Fix>needs update</Fix>;
+    case "unreliable_source":
+    case "unreliable_source?":
+    case "unreliable_source_inline":
+      return <Fix>unreliable source?</Fix>;
     case "use_dmy_dates":
     case "use_indian_english":
       // Don't care about these notices
       return null;
     case "verification_needed":
       return <Fix>verification needed</Fix>;
+    case "what":
+    case "what?":
+      return <Fix>what?</Fix>;
     case "when":
+    case "when?":
       return <Fix>when?</Fix>;
     case "which":
+    case "which?":
       return <Fix>which?</Fix>;
     case "who":
     case "who?":
