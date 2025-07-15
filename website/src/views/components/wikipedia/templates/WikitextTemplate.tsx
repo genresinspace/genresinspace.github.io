@@ -48,8 +48,6 @@ export function WikitextTemplate({
     .replace(/ /g, "_")
     .toLowerCase();
   switch (templateName) {
-    case "nihongo":
-      return <Nihongo node={node} />;
     case "'":
       return <>'</>;
     case `"'`:
@@ -64,6 +62,10 @@ export function WikitextTemplate({
       return <>'"</>;
     case `-"`:
       return <>"</>;
+    case "aka":
+    case "also_known_as":
+    case "a.k.a.":
+      return <>"a.k.a."</>;
     case "abbr":
     case "abbrlink":
       return <Abbrlink node={node} templateName={templateName} />;
@@ -73,27 +75,47 @@ export function WikitextTemplate({
     case "anchor":
       // We don't need to emit anchors in our output
       return null;
+    case "authority_control":
+      // Don't care about this
+      return null;
     case "better_source":
+    case "better_source_needed":
       return <Fix>better source</Fix>;
     case "broken_anchor":
       return <Fix>broken anchor</Fix>;
     case "by_whom":
     case "by_whom?":
       return <Fix>by whom?</Fix>;
+    case "cbignore":
+      // Don't care about this
+      return null;
+    case "certification_cite_ref":
+      // Don't care about this
+      return null;
     case "quote":
     case "blockquote":
     case "cquote":
       return <Cquote node={node} />;
+    case "chabad_(rebbes_and_chasidim)":
+      // Sidebar; we don't care about this
+      return null;
+    case "cita_requerida":
     case "citation_needed":
-    case "source_needed":
+    case "citesource":
     case "cn":
     case "fact":
-    case "citesource":
     case "facts":
+    case "source_needed":
       return <Fix>citation needed</Fix>;
     case "citation_needed_lead":
     case "not_verified_in_body":
       return <Fix>not verified in body</Fix>;
+    case "cite_web":
+      // Don't care about this
+      return null;
+    case "circa":
+    case "c.":
+      return <>"c."</>;
     case "clarify":
     case "clarification_needed":
       return <Fix>clarification needed</Fix>;
@@ -101,6 +123,9 @@ export function WikitextTemplate({
       return <Fix>clarify</Fix>;
     case "clear":
       // Not semantically meaningful
+      return null;
+    case "commons":
+      // Don't care about this
       return null;
     case "contradiction-inline":
     case "contradictory_inline":
@@ -131,6 +156,9 @@ export function WikitextTemplate({
           <Wikitext wikitext={node.parameters[0].value} />
         </Footnote>
       );
+    case "efn_portuguese_name":
+      // Don't care about this
+      return null;
     case "em":
       return (
         <em>
@@ -141,16 +169,37 @@ export function WikitextTemplate({
       );
     case "em_dash":
     case "emdash":
+    case "mdash":
       return <>—</>;
     case "en_dash":
     case "endash":
     case "ndash":
       return <>–</>;
+    case "esccnty":
+      return <>{node.parameters[0].value}</>;
+    case "escyr":
+      return <>{node.parameters[2].value || node.parameters[0].value}</>;
     case "failed_verification":
     case "not_in_ref":
       return <Fix>failed verification</Fix>;
+    case "family_name_footnote":
+      // Don't care about this
+      return null;
     case "full_citation_needed":
       return <Fix>full citation needed</Fix>;
+    case "hair_space":
+    case "hairsp":
+      return <>&hairsp;</>;
+    case "iast":
+      return (
+        <Wikitext
+          wikitext={`{{Transliteration|sa|IAST|${node.parameters[0].value}}}`}
+        />
+      );
+    case "iast3":
+      return (
+        <Wikitext wikitext={`[[IAST]]: {{IAST|${node.parameters[0].value}}}`} />
+      );
     case "igbo_topics":
       // Category box: don't care
       return null;
@@ -173,21 +222,26 @@ export function WikitextTemplate({
       // when I started this project. Unfortunately, this means we still have to handle it.
       return <code>{node.parameters[0].value}</code>;
     case "ipac-en":
+    case "ipa-cen":
       return <IPAcEn node={node} />;
     case "irrelevant_citation":
       return <Fix>irrelevant citation</Fix>;
     case "korean":
+    case "ko-hhrm":
       // TODO: support hanja/rr/etc, instead of assuming hangul
       return <span>Korean: {node.parameters[0].value}</span>;
     case "korean/auto":
       return <KoreanAuto node={node} />;
     case "lang":
+    case "lang-latn":
       // TODO: indicate language to browser / support rtl+italic+size
       return (
         <span>
           <Wikitext wikitext={node.parameters[1].value} />
         </span>
       );
+    case "lang-ka":
+      return <span>Georgian: {node.parameters[0].value}</span>;
     case "lang-rus":
       return (
         <span>
@@ -196,11 +250,23 @@ export function WikitextTemplate({
             `, romanized: ${node.parameters[1].value}`}
         </span>
       );
+    case "lang-sr-cyr":
     case "lang-sr-cyrl":
       return <span>Serbian Cyrillic: {node.parameters[0].value}</span>;
     case "lang-su-fonts":
     case "sund":
       return <Wikitext wikitext={node.parameters[0].value} />;
+    case "langr":
+    case "lang_unset_italics":
+      return (
+        <WikitextTemplate
+          node={{
+            type: "template",
+            name: "lang",
+            parameters: [...node.parameters, { name: "i", value: "unset" }],
+          }}
+        />
+      );
     case "langx":
       return <Langx node={node} />;
     case "language_with_name/for":
@@ -241,6 +307,8 @@ export function WikitextTemplate({
         </span>
       );
     }
+    case "lrm":
+      return <>&lrm;</>;
     case "mongolunicode":
       return <Mongolunicode node={node} />;
     case "multiple_image":
@@ -272,7 +340,21 @@ export function WikitextTemplate({
       return null;
     case "nbsp":
       return <>&nbsp;</>;
+    case "ne":
+    case "né":
+      return <>né</>;
+    case "nee":
+    case "née":
+      return <>née</>;
+    case "nihongo":
+      return <Nihongo node={node} />;
+    case "nihongo2":
+      return <>{node.parameters[0].value}</>;
+    case "notetag":
+      // Don't care about this
+      return null;
     case "not_a_typo":
+    case "notatypo":
     case "proper_name":
       return <>{node.parameters.map((c) => c.value).join("")}</>;
     case "noitalic":
@@ -282,22 +364,29 @@ export function WikitextTemplate({
         </span>
       );
     case "nowrap":
+    case "nobr":
       return (
         <span className="whitespace-nowrap">
           <Wikitext wikitext={node.parameters[0].value} />
         </span>
       );
+    case "okina":
+      return <>ʻ</>;
     case "original_research_inline":
       return <Fix>original research?</Fix>;
     case "page_needed":
       return <Fix>page needed</Fix>;
+    case "phillippine_peso":
+    case "₱":
+      return <>₱{node.parameters.length > 0 ? node.parameters[0].value : ""}</>;
     case "primary_source_inline":
       return <Fix>non-primary source needed</Fix>;
     case "pronunciation":
       // TODO: implement, this could be quite important for this use case
       return null;
-    case "pronunciation?":
     case "pronunciation_needed":
+    case "pronunciation?":
+    case "pron":
       return <Fix>pronunciation?</Fix>;
     case "r":
     case "ref label":
@@ -306,8 +395,12 @@ export function WikitextTemplate({
     case "rp":
     case "sfn":
     case "sfnp":
+    case "snf":
     case "#tag:ref":
       // Don't care about references
+      return null;
+    case "rembetika":
+      // Category box: don't care
       return null;
     case "respell":
       return (
@@ -315,8 +408,28 @@ export function WikitextTemplate({
           {node.parameters.map((c) => c.value).join("-")}
         </span>
       );
+    case "rock-band-stub":
+    // Stub notice: don't care
+    case "ruby": {
+      const lower = node.parameters[0].value;
+      const upper = node.parameters[1].value;
+      return (
+        <ruby>
+          {lower}
+          <rp>(</rp>
+          <rt>{upper}</rt>
+          <rp>)</rp>
+        </ruby>
+      );
+    }
+    case "sans-serif":
+      return <Wikitext wikitext={node.parameters[0].value} />;
     case "self-published_inline":
+    case "sps":
       return <Fix>self-published source?</Fix>;
+    case "short_description":
+      // Don't care about this
+      return null;
     case "sic":
       return <>[sic]</>;
     case "small":
@@ -328,8 +441,20 @@ export function WikitextTemplate({
           ))}
         </small>
       );
+    case "spaced_en_dash":
     case "snd":
-      return <> – </>;
+    case "spaced_ndash":
+    case "spnd":
+      return <>&nbsp;&ndash; </>;
+    case "spaced_en_dash_space":
+    case "snds":
+      return <>&nbsp;&ndash;&nbsp;</>;
+    case "sup":
+      return (
+        <sup>
+          <Wikitext wikitext={node.parameters[0].value} />
+        </sup>
+      );
     case "sources_exist":
       // Don't care about this notice
       return null;
@@ -353,12 +478,28 @@ export function WikitextTemplate({
             : node.parameters[1].value}
         </span>
       );
+    case "two_pixel_space":
+    case "px2":
+      return (
+        <span
+          style={{
+            visibility: "hidden",
+            color: "transparent",
+            paddingLeft: "2px",
+          }}
+        >
+          &zwj;
+        </span>
+      );
     case "update_inline":
       return <Fix>needs update</Fix>;
     case "unreliable_source":
     case "unreliable_source?":
     case "unreliable_source_inline":
       return <Fix>unreliable source?</Fix>;
+    case "us$":
+    case "us_dollar":
+      return <>${node.parameters[0].value}</>;
     case "use_dmy_dates":
     case "use_indian_english":
       // Don't care about these notices
