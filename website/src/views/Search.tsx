@@ -117,6 +117,7 @@ export function Search({
           searchState={searchState}
           searchDispatch={searchDispatch}
           setFocusedId={setFocusedId}
+          setSelectedId={setSelectedId}
         />
       );
     case "selected":
@@ -147,10 +148,12 @@ function SearchInitial({
   searchState,
   searchDispatch,
   setFocusedId,
+  setSelectedId,
 }: {
   searchState: Extract<SearchState, { type: "initial" }>;
   searchDispatch: Dispatch<SearchAction>;
   setFocusedId: (id: string | null) => void;
+  setSelectedId: (id: string | null) => void;
 }) {
   return (
     <div>
@@ -176,10 +179,7 @@ function SearchInitial({
             description={strippedDescription}
             setFocusedId={setFocusedId}
             onClick={() => {
-              searchDispatch({
-                type: "select-node",
-                nodeId: node.id,
-              });
+              setSelectedId(node.id);
             }}
           />
         ))}

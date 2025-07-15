@@ -217,7 +217,7 @@ function useSelectedIdAndFilterAndFocus(
         window.history.pushState(null, "", window.location.pathname);
       }
     },
-    [data, setFocusedId]
+    [data, setFocusedId, searchDispatch]
   );
 
   // Handle hash changes
