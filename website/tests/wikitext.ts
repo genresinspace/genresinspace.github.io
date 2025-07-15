@@ -25,13 +25,19 @@ global.window = dom.window as unknown as Window & typeof globalThis;
 global.document = dom.window.document;
 
 const filterPageTitle = process.argv[2];
-const errors: Array<{
+const renderingErrors: Array<{
   pageTitle: string;
   error: string;
   wikitext: string;
   type: "genre" | "artist";
 }> = [];
-const missingTemplates = new Set<string>();
+const missingTemplateErrors: Array<{
+  pageTitle: string;
+  templateName: string;
+  error: string;
+  wikitext: string;
+  type: "genre" | "artist";
+}> = [];
 
 const resolvedWikiUrl = wikiUrl(data.wikipedia_domain);
 
@@ -55,15 +61,15 @@ function renderWikitext(
     );
   } catch (err) {
     if (err instanceof MissingTemplateError) {
-      missingTemplates.add(err.templateName);
-      errors.push({
+      missingTemplateErrors.push({
         pageTitle,
+        templateName: err.templateName,
         error: err.message,
         wikitext: wikitext,
         type,
       });
     } else {
-      errors.push({
+      renderingErrors.push({
         pageTitle,
         error: err instanceof Error ? err.message : String(err),
         wikitext: wikitext,
@@ -106,9 +112,27 @@ try {
     console.warn("Could not read artists directory:", err);
   }
 
-  if (errors.length > 0) {
-    console.log(`\n=== RENDERING ERRORS (${errors.length}) ===`);
-    errors.forEach(({ pageTitle, error, wikitext, type }) => {
+  if (missingTemplateErrors.length > 0) {
+    const templates = {};
+    for (const error of missingTemplateErrors) {
+      if (!(error.templateName in templates)) {
+        templates[error.templateName] = [];
+      }
+      templates[error.templateName].push(error.pageTitle);
+    }
+    const sortedTemplates = Object.keys(templates).sort();
+
+    console.log(`\n=== MISSING TEMPLATES (${sortedTemplates.length}) ===`);
+    sortedTemplates.forEach((template) => {
+      const templateUrl = `${resolvedWikiUrl}/Template:${template}`;
+      console.log(`- ${template}: ${templateUrl}`);
+      console.log(`\t${templates[template].join(", ")}`);
+    });
+  }
+
+  if (renderingErrors.length > 0) {
+    console.log(`\n=== RENDERING ERRORS (${renderingErrors.length}) ===`);
+    renderingErrors.forEach(({ pageTitle, error, wikitext, type }) => {
       console.log(
         `[${type.toUpperCase()}] ${pageTitle} (${wikiPageUrl(
           resolvedWikiUrl,
@@ -120,16 +144,11 @@ try {
     });
   }
 
-  if (missingTemplates.size > 0) {
-    console.log(`\n=== MISSING TEMPLATES (${missingTemplates.size}) ===`);
-    const sortedTemplates = Array.from(missingTemplates).sort();
-    sortedTemplates.forEach((template) => {
-      const templateUrl = `${resolvedWikiUrl}/Template:${template}`;
-      console.log(`- ${template}: ${templateUrl}`);
-    });
-  }
-
-  if (errors.length > 0) {
+  // Determine if we should exit with error code
+  if (
+    renderingErrors.length > 0 ||
+    missingTemplateErrors.some((error) => error.type === "genre")
+  ) {
     process.exit(1);
   } else {
     const message = filterPageTitle
