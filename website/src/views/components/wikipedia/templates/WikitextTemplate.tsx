@@ -9,6 +9,7 @@ import { Wikitext } from "../wikitexts/Wikitext";
 import { Zh } from "./Zh";
 import { Mongolunicode } from "./Mongolunicode";
 import { Abbrlink } from "./Abbrlink";
+import { AsOf } from "./AsOf";
 import { Cquote } from "./Cquote";
 import { Langx } from "./Langx";
 import { Langnf } from "./Langnf";
@@ -75,6 +76,8 @@ export function WikitextTemplate({
     case "anchor":
       // We don't need to emit anchors in our output
       return null;
+    case "as_of":
+      return <AsOf node={node} />;
     case "authority_control":
       // Don't care about this
       return null;
