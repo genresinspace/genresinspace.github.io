@@ -52,6 +52,14 @@ export function WikitextTemplate({
       return <Nihongo node={node} />;
     case "'":
       return <>'</>;
+    case `"'`:
+      return <>'"'</>;
+    case `'"`:
+      return <>'"'</>;
+    case `'s`:
+      return <>'s</>;
+    case "`":
+      return <>'</>;
     case `'_"`:
       return <>'"</>;
     case `-"`:
