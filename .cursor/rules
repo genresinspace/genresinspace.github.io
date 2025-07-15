@@ -1,0 +1,27 @@
+---
+description: NPM Script Guidelines
+alwaysApply: true
+---
+
+# NPM Script Guidelines
+
+## Commands to Avoid
+
+- **Never run `npm run dev`** - This starts the development server which is not needed for most tasks
+- **Never run `npm run build`** - This builds the production version which is not needed for development tasks
+
+## Preferred Commands
+
+- **Use `npm run lint`** for type checking - This runs both TypeScript checking (`tsc --noEmit`) and ESLint
+
+## Development Workflow
+
+- Always run `npm run lint` before suggesting code changes to ensure type safety
+- Use `npm run test` for running tests
+
+## When to Use Each Command
+
+- **Type checking**: `npm run lint` (includes both TypeScript and ESLint)
+- **Testing**: `npm run test`
+- **Formatting**: `npm run format`
+- **Production build**: Only when specifically asked to build for deployment
