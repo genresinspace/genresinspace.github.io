@@ -74,12 +74,15 @@ export function Zh({
       );
     })
     .filter((t) => t !== null)
-    .reduce((prev, curr, i) => (
-      <React.Fragment key={i}>
-        {prev}
-        {i > 0 && "; "}
-        {curr}
-      </React.Fragment>
-    ));
+    .reduce(
+      (prev, curr, i) => (
+        <React.Fragment key={i}>
+          {prev}
+          {i > 0 && "; "}
+          {curr}
+        </React.Fragment>
+      ),
+      <></>
+    );
   return <span>{texts}</span>;
 }

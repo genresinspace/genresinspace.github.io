@@ -28,6 +28,7 @@ const filterPageTitle = process.argv[2];
 const renderingErrors: Array<{
   pageTitle: string;
   error: string;
+  callstack: string;
   wikitext: string;
   type: "genre" | "artist";
 }> = [];
@@ -72,6 +73,7 @@ function renderWikitext(
       renderingErrors.push({
         pageTitle,
         error: err instanceof Error ? err.message : String(err),
+        callstack: (err instanceof Error && err.stack) || "",
         wikitext: wikitext,
         type,
       });
@@ -123,16 +125,22 @@ try {
     const sortedTemplates = Object.keys(templates).sort();
 
     console.log(`\n=== MISSING TEMPLATES (${sortedTemplates.length}) ===`);
-    sortedTemplates.forEach((template) => {
+    for (const template of sortedTemplates) {
       const templateUrl = `${resolvedWikiUrl}/Template:${template}`;
       console.log(`- ${template}: ${templateUrl}`);
-      console.log(`\t${templates[template].join(", ")}`);
-    });
+      console.log(`\t${templates[template].join(", ")}\n`);
+    }
   }
 
   if (renderingErrors.length > 0) {
     console.log(`\n=== RENDERING ERRORS (${renderingErrors.length}) ===`);
-    renderingErrors.forEach(({ pageTitle, error, wikitext, type }) => {
+    for (const {
+      pageTitle,
+      error,
+      callstack,
+      wikitext,
+      type,
+    } of renderingErrors) {
       console.log(
         `[${type.toUpperCase()}] ${pageTitle} (${wikiPageUrl(
           resolvedWikiUrl,
@@ -140,8 +148,9 @@ try {
         )}): Wikitext: ${wikitext.slice(0, 100)}...`
       );
       console.log(`Error: ${error}`);
+      console.log(`Callstack: ${callstack}`);
       console.log();
-    });
+    }
   }
 
   // Determine if we should exit with error code

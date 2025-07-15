@@ -178,7 +178,7 @@ export function WikitextTemplate({
     case "esccnty":
       return <>{node.parameters[0].value}</>;
     case "escyr":
-      return <>{node.parameters[2].value || node.parameters[0].value}</>;
+      return <>{node.parameters[2]?.value || node.parameters[0].value}</>;
     case "failed_verification":
     case "not_in_ref":
       return <Fix>failed verification</Fix>;
@@ -409,7 +409,8 @@ export function WikitextTemplate({
         </span>
       );
     case "rock-band-stub":
-    // Stub notice: don't care
+      // Stub notice: don't care
+      return null;
     case "ruby": {
       const lower = node.parameters[0].value;
       const upper = node.parameters[1].value;
