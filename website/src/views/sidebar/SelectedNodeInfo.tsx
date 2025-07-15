@@ -19,7 +19,9 @@ import { stripGenreNamePrefixFromDescription } from "../../util/stripGenreNamePr
 import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { Notice } from "../components/Notice";
 
-import { DisableTooltips, GenreLink } from "../components/links/GenreLink";
+import { GenreLink } from "../components/links/GenreLink";
+import { ArtistLink } from "../components/links/ArtistLink";
+import { DisableTooltips } from "../components/Tooltip";
 
 import { WikipediaLink } from "../components/wikipedia/links/WikipediaLink";
 import { Wikitext } from "../components/wikipedia/wikitexts/Wikitext";
@@ -248,23 +250,15 @@ function HelpNeededForMix({ reason }: { reason: string | null }) {
 }
 
 function TopArtists({ node }: { node: NodeData }) {
-  const { artist_page_to_name } = useDataContext();
-
   return (
     <Section heading="Top Artists" icon={<MusicIcon />}>
       {node.top_artists && node.top_artists.length > 0 ? (
         <ul className="list-disc list-inside p-3 space-y-1 pl-8">
-          {node.top_artists.map((artistPage, index) => {
-            const artistName = artist_page_to_name[artistPage] || artistPage;
-
-            return (
-              <li key={index}>
-                <WikipediaLink pageTitle={artistPage}>
-                  {artistName}
-                </WikipediaLink>
-              </li>
-            );
-          })}
+          {node.top_artists.map((artistPage, index) => (
+            <li key={index}>
+              <ArtistLink artistPage={artistPage} key={artistPage} />
+            </li>
+          ))}
         </ul>
       ) : (
         <Notice colour="blue">

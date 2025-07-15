@@ -101,6 +101,16 @@ export type EdgeData = {
   ty: "Derivative" | "Subgenre" | "FusionGenre";
 };
 
+/** Artist data from the artist JSON files. */
+export type ArtistData = {
+  /** The artist's Wikipedia page title. */
+  page_title: string;
+  /** The artist's description (wikitext). */
+  description?: string;
+  /** The artist's last revision date (ISO 8601). */
+  last_revision_date: string;
+};
+
 // Ideally, we could integrate this into `commit.json`, but getting the "safe" URL from the checkout
 // that GHA does is a bit tricky (we don't necessarily know what the remote's name is in that environment,
 // and we'd have to convert the git@ URL to https://).

@@ -4,22 +4,8 @@ import {
   NodeData,
   useDataContext,
 } from "../../../data";
-import { useState, useRef, createContext, useContext } from "react";
-import { Tooltip } from "../../components/Tooltip";
-import { WikitextTruncateAtLength } from "../wikipedia/wikitexts/WikitextTruncateAtLength";
-
-/** A context to track tooltip nesting. */
-export const TooltipContext = createContext(false);
-
-/**
- * Component that disables tooltips for all child components.
- * Useful for preventing recursive tooltips or simplifying UI in certain areas.
- */
-export function DisableTooltips({ children }: { children: React.ReactNode }) {
-  return (
-    <TooltipContext.Provider value={true}>{children}</TooltipContext.Provider>
-  );
-}
+import { Tooltip, useTooltip } from "../Tooltip";
+import { WikitextTooltipContent } from "../Tooltip";
 
 /**
  * A link to a genre.
@@ -39,45 +25,24 @@ export function GenreLink({
   onMouseLeave?: () => void;
 }) {
   const { max_degree: maxDegree } = useDataContext();
-  const [showPreview, setShowPreview] = useState(false);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  const tooltipHoveredRef = useRef(false);
 
-  // Check if we're already inside a tooltip
-  const insideTooltip = useContext(TooltipContext);
+  const {
+    showPreview,
+    tooltipPosition,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleTooltipMouseEnter,
+    handleTooltipMouseLeave,
+  } = useTooltip({
+    hoverPreview,
+    onMouseEnter: onMouseEnterProp,
+    onMouseLeave: onMouseLeaveProp,
+  });
 
   const [genreColour, genreColourHover] = [
     NodeColourLightness.LinkText,
     NodeColourLightness.LinkTextHover,
   ].map((lightness) => nodeColour(node, maxDegree, lightness, 30));
-
-  const handleMouseEnter = (e: React.MouseEvent) => {
-    // Only show preview if we're not already inside a tooltip
-    if (hoverPreview && !insideTooltip) {
-      setTooltipPosition({ x: e.clientX, y: e.clientY });
-      setShowPreview(true);
-    }
-    onMouseEnterProp?.();
-  };
-
-  const handleMouseLeave = () => {
-    // Use setTimeout to allow checking if the cursor moved to the tooltip
-    setTimeout(() => {
-      if (!tooltipHoveredRef.current) {
-        setShowPreview(false);
-      }
-      onMouseLeaveProp?.();
-    }, 100);
-  };
-
-  const handleTooltipMouseEnter = () => {
-    tooltipHoveredRef.current = true;
-  };
-
-  const handleTooltipMouseLeave = () => {
-    tooltipHoveredRef.current = false;
-    setShowPreview(false);
-  };
 
   return (
     <>
@@ -102,15 +67,10 @@ export function GenreLink({
           onMouseEnter={handleTooltipMouseEnter}
           onMouseLeave={handleTooltipMouseLeave}
         >
-          <DisableTooltips>
-            <WikitextTruncateAtLength
-              wikitext={node.wikitext_description}
-              length={100}
-            />
-            <small className="block mt-2 text-xs text-gray-500 dark:text-gray-400">
-              Last updated: {new Date(node.last_revision_date).toLocaleString()}
-            </small>
-          </DisableTooltips>
+          <WikitextTooltipContent
+            description={node.wikitext_description}
+            last_revision_date={node.last_revision_date}
+          />
         </Tooltip>
       )}
     </>
