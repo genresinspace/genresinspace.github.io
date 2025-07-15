@@ -15,6 +15,7 @@ import { Langnf } from "./Langnf";
 import { Nihongo } from "./Nihongo";
 import { IPAcEn } from "./IPAc-en";
 import { KoreanAuto } from "./KoreanAuto";
+import { Fix } from "./Fix";
 
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
@@ -59,14 +60,14 @@ export function WikitextTemplate({
     case "abbrlink":
       return <Abbrlink node={node} templateName={templateName} />;
     case "according_to_whom":
-      return <sup>[according to whom]</sup>;
+      return <Fix>according to whom</Fix>;
     case "anchor":
       // We don't need to emit anchors in our output
       return null;
     case "better_source":
-      return <sup>[better source]</sup>;
+      return <Fix>better source</Fix>;
     case "by_whom":
-      return <sup>[by whom?]</sup>;
+      return <Fix>by whom?</Fix>;
     case "quote":
     case "blockquote":
     case "cquote":
@@ -76,18 +77,18 @@ export function WikitextTemplate({
     case "cn":
     case "fact":
     case "citesource":
-      return <sup>[citation needed]</sup>;
+      return <Fix>citation needed</Fix>;
     case "clarify":
     case "clarification_needed":
-      return <sup>[clarification needed]</sup>;
+      return <Fix>clarification needed</Fix>;
     case "clarify_span":
-      return <sup>[clarify]</sup>;
+      return <Fix>clarify</Fix>;
     case "clear":
       // Not semantically meaningful
       return null;
     case "contradiction-inline":
     case "contradictory_inline":
-      return <sup>[contradiction]</sup>;
+      return <Fix>contradiction</Fix>;
     case "convert":
       // TODO: consider actually doing the conversion at some point
       return (
@@ -104,7 +105,7 @@ export function WikitextTemplate({
       // Don't care about this notice
       return null;
     case "disputed_inline":
-      return <sup>[disputed]</sup>;
+      return <Fix>disputed</Fix>;
     case "efn":
     case "efn-ua":
       return (
@@ -128,7 +129,7 @@ export function WikitextTemplate({
     case "ndash":
       return <>–</>;
     case "failed_verification":
-      return <sup>[failed verification]</sup>;
+      return <Fix>failed verification</Fix>;
     case "igbo_topics":
       // Category box: don't care
       return null;
@@ -153,7 +154,7 @@ export function WikitextTemplate({
     case "ipac-en":
       return <IPAcEn node={node} />;
     case "irrelevant_citation":
-      return <sup>[irrelevant citation]</sup>;
+      return <Fix>irrelevant citation</Fix>;
     case "korean":
       // TODO: support hanja/rr/etc, instead of assuming hangul
       return <span>Korean: {node.parameters[0].value}</span>;
@@ -266,7 +267,7 @@ export function WikitextTemplate({
         </span>
       );
     case "page_needed":
-      return <sup>[page needed]</sup>;
+      return <Fix>page needed</Fix>;
     case "pronunciation":
       // TODO: implement, this could be quite important for this use case
       return null;
@@ -303,7 +304,7 @@ export function WikitextTemplate({
       // Don't care about this notice
       return null;
     case "text-source_inline":
-      return <sup>[text–source integrity?]</sup>;
+      return <Fix>text–source integrity?</Fix>;
     case "toc_limit":
     case "toclimit":
       return null;
@@ -325,14 +326,14 @@ export function WikitextTemplate({
       // Don't care about these notices
       return null;
     case "verification_needed":
-      return <sup>[verification needed]</sup>;
+      return <Fix>verification needed</Fix>;
     case "when":
-      return <sup>[when?]</sup>;
+      return <Fix>when?</Fix>;
     case "which":
-      return <sup>[which?]</sup>;
+      return <Fix>which?</Fix>;
     case "who":
     case "who?":
-      return <sup>[who?]</sup>;
+      return <Fix>who?</Fix>;
     case "wikibooks":
       // Book links not relevant to a description
       return null;
