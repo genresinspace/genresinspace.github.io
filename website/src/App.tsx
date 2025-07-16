@@ -14,6 +14,9 @@ import { Data, nodeIdToInt, DataContext } from "./data";
 
 import { Sidebar } from "./views/sidebar/Sidebar";
 
+// Global constant for arrow key navigation (developer tool)
+const ENABLE_ARROW_KEY_NAVIGATION = import.meta.env.DEV;
+
 /** The main app component */
 function App() {
   const loading = useData();
@@ -103,6 +106,50 @@ function LoadedApp({ data }: { data: Data }) {
     searchState,
     searchDispatch,
   } = useSelectedIdAndFilterAndFocus(data, settings);
+
+  // Arrow key navigation handler
+  useEffect(() => {
+    if (!ENABLE_ARROW_KEY_NAVIGATION) return;
+
+    const nodeIds = Object.keys(data.nodes);
+    const nodeCount = nodeIds.length;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!selectedId) return;
+
+      // Don't interfere with text input
+      const target = event.target as HTMLElement;
+      if (
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.contentEditable === "true"
+      ) {
+        return;
+      }
+
+      const currentIndex = parseInt(selectedId);
+
+      if (isNaN(currentIndex)) return;
+
+      let newIndex: number;
+
+      switch (event.key) {
+        case "ArrowLeft":
+          newIndex = (currentIndex - 1 + nodeCount) % nodeCount;
+          setSelectedId(newIndex.toString());
+          break;
+        case "ArrowRight":
+          newIndex = (currentIndex + 1) % nodeCount;
+          setSelectedId(newIndex.toString());
+          break;
+        default:
+          return;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedId, data.nodes, setSelectedId]);
 
   return (
     <DataContext.Provider value={data}>
