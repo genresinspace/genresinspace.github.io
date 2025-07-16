@@ -103,6 +103,13 @@ export function WikitextTemplate({
     case "better_source":
     case "better_source_needed":
       return <Fix>better source</Fix>;
+    case "bracket": {
+      if (!node.parameters || node.parameters.length === 0) {
+        return <>[</>;
+      }
+      const content = node.parameters[0].value;
+      return <>[<Wikitext wikitext={content} />]</>;
+    }
     case "broken_anchor":
       return <Fix>broken anchor</Fix>;
     case "by_whom":
