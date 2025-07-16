@@ -523,10 +523,16 @@ export function WikitextTemplate({
     case "rembetika":
       // Category box: don't care
       return null;
+    case "respelling":
     case "respell":
       return (
         <span className="italic">
-          {node.parameters.map((c) => c.value).join("-")}
+          {node.parameters.map((p, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && "-"}
+              <Wikitext wikitext={p.value} />
+            </React.Fragment>
+          ))}
         </span>
       );
     case "rock-band-stub":
