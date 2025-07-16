@@ -19,6 +19,7 @@ import { Nihongo } from "./Nihongo";
 import { IPAcEn } from "./IPAc-en";
 import { KoreanAuto } from "./KoreanAuto";
 import { Fix } from "./Fix";
+import { PostNominals } from "./PostNominals";
 
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
@@ -388,6 +389,15 @@ export function WikitextTemplate({
     case "phillippine_peso":
     case "₱":
       return <>₱{node.parameters.length > 0 ? node.parameters[0].value : ""}</>;
+
+    case "post_nominals":
+    case "post-nominal_styles":
+    case "post-nominal":
+    case "post-nominals":
+    case "postnom":
+    case "postnominal":
+    case "postnominals":
+      return <PostNominals node={node} />;
     case "primary_source_inline":
       return <Fix>non-primary source needed</Fix>;
     case "pronunciation":
