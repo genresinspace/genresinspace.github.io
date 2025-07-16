@@ -19,6 +19,7 @@ import { IPAcEn } from "./IPAc-en";
 import { KoreanAuto } from "./KoreanAuto";
 import { Fix } from "./Fix";
 import { PostNominals } from "./PostNominals";
+import { BirthBasedOnAgeAsOfDate } from "./BirthBasedOnAgeAsOfDate";
 
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
@@ -94,6 +95,8 @@ export function WikitextTemplate({
     case "authority_control":
       // Don't care about this
       return null;
+    case "birth_based_on_age_as_of_date":
+      return <BirthBasedOnAgeAsOfDate node={node} />;
     case "better_source":
     case "better_source_needed":
       return <Fix>better source</Fix>;
