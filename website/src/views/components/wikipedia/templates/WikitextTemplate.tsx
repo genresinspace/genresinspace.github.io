@@ -21,6 +21,7 @@ import { Fix } from "./Fix";
 import { PostNominals } from "./PostNominals";
 import { BirthBasedOnAgeAsOfDate } from "./BirthBasedOnAgeAsOfDate";
 import { BirthDate } from "./BirthDate";
+import { StartDate } from "./StartDate";
 
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
@@ -515,6 +516,8 @@ export function WikitextTemplate({
           ))}
         </small>
       );
+    case "start_date":
+      return <StartDate node={node} />;
     case "spaced_en_dash":
     case "snd":
     case "spaced_ndash":
