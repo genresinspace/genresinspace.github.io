@@ -175,6 +175,10 @@ export function WikitextTemplate({
     case "culture_of_peru":
       // Category box: don't care
       return null;
+    case "currentyear":
+      return <>{new Date().getFullYear()}</>;
+    case "currentmonthname":
+      return <>{new Date().toLocaleString("en-US", { month: "long" })}</>;
     case "cyrl":
       return <>Cyrillic: {node.parameters[0].value}</>;
     case "deprecated_source":
