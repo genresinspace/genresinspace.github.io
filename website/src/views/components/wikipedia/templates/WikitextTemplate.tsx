@@ -230,6 +230,9 @@ export function WikitextTemplate({
       return <>{node.parameters[0].value}</>;
     case "escyr":
       return <>{node.parameters[2]?.value || node.parameters[0].value}</>;
+    case "external_media":
+      // We generally avoid embedding media, aside from stuff Wikipedia owns and is relevant (audio, etc)
+      return null;
     case "failed_verification":
     case "not_in_ref":
       return <Fix>failed verification</Fix>;
@@ -238,6 +241,9 @@ export function WikitextTemplate({
       return null;
     case "full_citation_needed":
       return <Fix>full citation needed</Fix>;
+    case "greece-singer-stub":
+      // Stub notice: don't care
+      return null;
     case "hair_space":
     case "hairsp":
       return <>&hairsp;</>;
