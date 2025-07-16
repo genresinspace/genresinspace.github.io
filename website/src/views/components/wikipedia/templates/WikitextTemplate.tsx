@@ -23,6 +23,7 @@ import { PostNominals } from "./PostNominals";
 
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
+import { WikipediaLink } from "../links/WikipediaLink";
 
 /**
  * Custom error class for missing templates
@@ -436,6 +437,15 @@ export function WikitextTemplate({
     case "rock-band-stub":
       // Stub notice: don't care
       return null;
+    case "rtgs":
+      return (
+        <>
+          <WikipediaLink pageTitle="Royal Thai General System of Transcription">
+            RTGS
+          </WikipediaLink>
+          : <Wikitext wikitext={node.parameters[0].value} />
+        </>
+      );
     case "ruby": {
       const lower = node.parameters[0].value;
       const upper = node.parameters[1].value;
