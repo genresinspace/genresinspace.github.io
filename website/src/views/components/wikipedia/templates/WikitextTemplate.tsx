@@ -445,6 +445,7 @@ export function WikitextTemplate({
     case "née":
       return <>née</>;
     case "nihongo":
+    case "nihongo4":
       return <Nihongo node={node} />;
     case "nihongo2":
       return <>{node.parameters[0].value}</>;
