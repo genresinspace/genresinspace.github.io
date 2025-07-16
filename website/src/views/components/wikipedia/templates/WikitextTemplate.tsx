@@ -22,6 +22,7 @@ import { PostNominals } from "./PostNominals";
 import { BirthBasedOnAgeAsOfDate } from "./BirthBasedOnAgeAsOfDate";
 import { BirthDate } from "./BirthDate";
 import { StartDate } from "./StartDate";
+import { WiktLang } from "./WiktLang";
 
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
@@ -699,6 +700,9 @@ export function WikitextTemplate({
     case "who":
     case "who?":
       return <Fix>who?</Fix>;
+    case "wikt-lang":
+    case "wt":
+      return <WiktLang node={node} />;
     case "wikibooks":
       // Book links not relevant to a description
       return null;
