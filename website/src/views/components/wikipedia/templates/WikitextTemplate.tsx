@@ -436,6 +436,19 @@ export function WikitextTemplate({
     case "nq":
       // Requesting a particular choice of fonts: not sure how to support
       return null;
+    case "numero": {
+      const isPlural = node.parameters.some((p) => p.name === "plural");
+      const text = isPlural ? "Nos." : "No.";
+      const number = node.parameters[0]?.value;
+      if (number) {
+        return (
+          <>
+            {text} <Wikitext wikitext={number} />
+          </>
+        );
+      }
+      return <>{text}</>;
+    }
     case "nbsp":
       return <>&nbsp;</>;
     case "ne":
