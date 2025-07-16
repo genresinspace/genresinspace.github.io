@@ -3,7 +3,6 @@ import React from "react";
 
 import { useWikiUrl } from "../urls";
 import { Footnote } from "../../Footnote";
-import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
 import { Wikitext } from "../wikitexts/Wikitext";
 
 import { Zh } from "./Zh";
@@ -24,6 +23,7 @@ import { PostNominals } from "./PostNominals";
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
 import { WikipediaLink } from "../links/WikipediaLink";
+import { InterlanguageLink } from "./InterlanguageLink";
 
 /**
  * Custom error class for missing templates
@@ -220,14 +220,10 @@ export function WikitextTemplate({
     case "igbo_topics":
       // Category box: don't care
       return null;
-    case "ill": {
-      const pageTitle = node.parameters[0].value;
-      return (
-        <WikipediaMaybeGenreLink pageTitle={pageTitle}>
-          {pageTitle}
-        </WikipediaMaybeGenreLink>
-      );
-    }
+    case "interlanguage_link":
+    case "interlanguage_link_multi":
+    case "ill":
+      return <InterlanguageLink node={node} />;
     case "ipa": {
       const ipa =
         node.parameters.length > 1 ? node.parameters[1] : node.parameters[0];
