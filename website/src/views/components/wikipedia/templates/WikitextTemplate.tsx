@@ -11,6 +11,7 @@ import { Mongolunicode } from "./Mongolunicode";
 import { Abbrlink } from "./Abbrlink";
 import { Age } from "./Age";
 import { AsOf } from "./AsOf";
+import { Audio } from "./Audio";
 import { Cquote } from "./Cquote";
 import { Langx } from "./Langx";
 import { Langnf } from "./Langnf";
@@ -73,6 +74,8 @@ export function WikitextTemplate({
       return <Abbrlink node={node} templateName={templateName} />;
     case "age":
       return <Age node={node} />;
+    case "audio":
+      return <Audio node={node} />;
     case "according_to_whom":
     case "according_to_whom?":
       return <Fix>according to whom?</Fix>;
