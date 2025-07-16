@@ -181,6 +181,17 @@ export function WikitextTemplate({
       return <>{new Date().toLocaleString("en-US", { month: "long" })}</>;
     case "cyrl":
       return <>Cyrillic: {node.parameters[0].value}</>;
+    case "date2":
+      return (
+        <>
+          {node.parameters.map((p, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && " "}
+              <Wikitext wikitext={p.value} />
+            </React.Fragment>
+          ))}
+        </>
+      );
     case "deprecated_source":
       return <Fix>deprecated source?</Fix>;
     case "disputed":
