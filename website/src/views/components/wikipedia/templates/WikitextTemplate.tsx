@@ -185,6 +185,7 @@ export function WikitextTemplate({
     case "em_dash":
     case "emdash":
     case "mdash":
+    case "--":
       return <>—</>;
     case "en_dash":
     case "endash":
