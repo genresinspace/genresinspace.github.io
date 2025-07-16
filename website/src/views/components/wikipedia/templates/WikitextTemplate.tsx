@@ -51,6 +51,11 @@ export function WikitextTemplate({
     .replace(/^template:/, "")
     .replace(/ /g, "_")
     .toLowerCase();
+
+  if (templateName.startsWith("defaultsort")) {
+    return null;
+  }
+
   switch (templateName) {
     case "'":
       return <>'</>;
