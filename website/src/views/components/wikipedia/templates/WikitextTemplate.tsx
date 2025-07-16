@@ -536,6 +536,22 @@ export function WikitextTemplate({
       return <Fix>jargon</Fix>;
     case "text-source_inline":
       return <Fix>text–source integrity?</Fix>;
+    case "thin_space":
+    case "thinspace":
+    case "thinsp": {
+      if (node.parameters.length == 0) {
+        return <>&thinsp;</>;
+      } else if (node.parameters.length == 1) {
+        return <>&thinsp;{node.parameters[0].value}&thinsp;</>;
+      } else {
+        return node.parameters.map((p, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && "&thinsp;"}
+            <Wikitext wikitext={p.value} />
+          </React.Fragment>
+        ));
+      }
+    }
     case "toc_limit":
     case "toclimit":
       return null;
