@@ -36,7 +36,7 @@ export function AsOf({
   const bare = params["bare"];
 
   // Build the date string
-  let dateParts: string[] = [];
+  const dateParts: string[] = [];
 
   if (month) {
     dateParts.push(month);
@@ -92,7 +92,7 @@ export function AsOf({
   }
 
   // Build the final text
-  let displayText = `${prefix} ${dateString}`;
+  const displayText = `${prefix} ${dateString}`;
 
   return (
     <span>
