@@ -300,6 +300,9 @@ export function WikitextTemplate({
     case "igbo_topics":
       // Category box: don't care
       return null;
+    case "inflation":
+      // This is not relevant to us
+      return null;
     case "interlanguage_link":
     case "interlanguage_link_multi":
     case "ill":
