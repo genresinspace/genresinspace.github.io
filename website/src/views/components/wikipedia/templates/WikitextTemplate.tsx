@@ -242,6 +242,45 @@ export function WikitextTemplate({
       return null;
     case "full_citation_needed":
       return <Fix>full citation needed</Fix>;
+    case "frac": {
+      const p = node.parameters;
+      if (p.length === 0) return <>&frasl;</>;
+      if (p.length === 1) {
+        return (
+          <>
+            <sup>1</sup>&frasl;
+            <sub>
+              <Wikitext wikitext={p[0].value} />
+            </sub>
+          </>
+        );
+      }
+      if (p.length === 2) {
+        return (
+          <>
+            <sup>
+              <Wikitext wikitext={p[0].value} />
+            </sup>
+            &frasl;
+            <sub>
+              <Wikitext wikitext={p[1].value} />
+            </sub>
+          </>
+        );
+      }
+      return (
+        <>
+          <Wikitext wikitext={p[0].value} />{" "}
+          <sup>
+            <Wikitext wikitext={p[1].value} />
+          </sup>
+          &frasl;
+          <sub>
+            <Wikitext wikitext={p[2].value} />
+          </sub>
+        </>
+      );
+    }
     case "greece-singer-stub":
       // Stub notice: don't care
       return null;
