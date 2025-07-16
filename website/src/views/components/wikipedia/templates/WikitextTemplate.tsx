@@ -108,7 +108,11 @@ export function WikitextTemplate({
         return <>[</>;
       }
       const content = node.parameters[0].value;
-      return <>[<Wikitext wikitext={content} />]</>;
+      return (
+        <>
+          [<Wikitext wikitext={content} />]
+        </>
+      );
     }
     case "broken_anchor":
       return <Fix>broken anchor</Fix>;
@@ -276,6 +280,8 @@ export function WikitextTemplate({
             `, romanized: ${node.parameters[1].value}`}
         </span>
       );
+    case "lang-sh-cyrl":
+      return <span>Serbo-Croatian Cyrillic: {node.parameters[0].value}</span>;
     case "lang-sr-cyr":
     case "lang-sr-cyrl":
       return <span>Serbian Cyrillic: {node.parameters[0].value}</span>;
