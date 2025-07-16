@@ -651,7 +651,10 @@ export function WikitextTemplate({
       // TODO: support meaning/second meaning/sortable/italic/literal
       return <span>transl.</span>;
     case "transliteration":
+    case "tlit":
+    case "translit":
     case "transl":
+    case "xlit":
       // TODO: support signalling language in some way
       return (
         <span>
