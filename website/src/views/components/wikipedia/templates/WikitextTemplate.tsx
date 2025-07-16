@@ -685,6 +685,19 @@ export function WikitextTemplate({
     case "us$":
     case "us_dollar":
       return <>${node.parameters[0].value}</>;
+    case "uss": {
+      if (node.parameters.length === 0) {
+        return <>USS</>;
+      } else if (node.parameters.length === 1) {
+        return <>USS {node.parameters[0].value}</>;
+      } else {
+        return (
+          <>
+            USS {node.parameters[0].value} ({node.parameters[1].value})
+          </>
+        );
+      }
+    }
     case "use_dmy_dates":
     case "use_indian_english":
       // Don't care about these notices
