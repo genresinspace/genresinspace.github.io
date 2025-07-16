@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import { useCosmograph } from "@cosmograph/react";
 
 import {
@@ -8,7 +8,9 @@ import {
   nodeColour,
   NodeColourLightness,
   useDataContext,
+  ArtistData,
 } from "../../data";
+import { page_name_to_filename } from "frontend_wasm";
 import {
   derivativeColour,
   fusionGenreColour,
@@ -20,7 +22,6 @@ import { YouTubeEmbed } from "../components/YouTubeEmbed";
 import { Notice } from "../components/Notice";
 
 import { GenreLink } from "../components/links/GenreLink";
-import { ArtistLink } from "../components/links/ArtistLink";
 import { DisableTooltips } from "../components/Tooltip";
 
 import { WikipediaLink } from "../components/wikipedia/links/WikipediaLink";
@@ -253,13 +254,15 @@ function TopArtists({ node }: { node: NodeData }) {
   return (
     <Section heading="Top Artists" icon={<MusicIcon />}>
       {node.top_artists && node.top_artists.length > 0 ? (
-        <ul className="list-disc list-inside p-3 space-y-1 pl-8">
+        <div className="flex flex-col gap-3 p-3">
           {node.top_artists.map((artistPage, index) => (
-            <li key={index}>
-              <ArtistLink artistPage={artistPage} key={artistPage} />
-            </li>
+            <Artist
+              artistPage={artistPage}
+              key={artistPage}
+              isLast={index === node.top_artists.length - 1}
+            />
           ))}
-        </ul>
+        </div>
       ) : (
         <Notice colour="blue">
           <p>
@@ -269,6 +272,59 @@ function TopArtists({ node }: { node: NodeData }) {
         </Notice>
       )}
     </Section>
+  );
+}
+
+function Artist({
+  artistPage,
+  isLast,
+}: {
+  artistPage: string;
+  isLast: boolean;
+}) {
+  const { artist_page_to_name } = useDataContext();
+  const [artistData, setArtistData] = useState<ArtistData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const artistName = artist_page_to_name[artistPage] || artistPage;
+
+  const fetchArtistData = useCallback(async () => {
+    if (artistData || isLoading) return;
+    setIsLoading(true);
+    try {
+      const filename = page_name_to_filename(artistPage);
+      const response = await fetch(`/artists/${filename}.json`);
+      if (response.ok) {
+        const data: ArtistData = await response.json();
+        setArtistData(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch artist data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [artistPage, artistData, isLoading]);
+
+  useEffect(() => {
+    fetchArtistData();
+  }, [fetchArtistData]);
+
+  return (
+    <div className={!isLast ? "pb-3 border-b border-neutral-700" : ""}>
+      <WikipediaLink pageTitle={artistPage}>{artistName}</WikipediaLink>
+      <div className="ml-4 text-xs text-neutral-400">
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : artistData?.description ? (
+          <WikitextTruncateAtLength
+            wikitext={artistData.description}
+            length={200}
+          />
+        ) : (
+          !isLoading && <div>No description available.</div>
+        )}
+      </div>
+    </div>
   );
 }
 
