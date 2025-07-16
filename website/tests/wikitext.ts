@@ -154,10 +154,7 @@ try {
   }
 
   // Determine if we should exit with error code
-  if (
-    renderingErrors.length > 0 ||
-    missingTemplateErrors.some((error) => error.type === "genre")
-  ) {
+  if (renderingErrors.length > 0 || missingTemplateErrors.length > 0) {
     process.exit(1);
   } else {
     const message = filterPageTitle

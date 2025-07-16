@@ -562,6 +562,10 @@ export function WikitextTemplate({
     }
     case "sans-serif":
       return <Wikitext wikitext={node.parameters[0].value} />;
+    case "script":
+      return <Wikitext wikitext={node.parameters[1].value} />;
+    case "script/hebrew":
+      return <Wikitext wikitext={node.parameters[0].value} />;
     case "self-published_inline":
     case "sps":
       return <Fix>self-published source?</Fix>;
