@@ -175,6 +175,8 @@ export function WikitextTemplate({
     case "culture_of_peru":
       // Category box: don't care
       return null;
+    case "cyrl":
+      return <>Cyrillic: {node.parameters[0].value}</>;
     case "deprecated_source":
       return <Fix>deprecated source?</Fix>;
     case "disputed":
