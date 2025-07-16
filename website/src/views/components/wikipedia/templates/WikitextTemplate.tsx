@@ -9,6 +9,7 @@ import { Wikitext } from "../wikitexts/Wikitext";
 import { Zh } from "./Zh";
 import { Mongolunicode } from "./Mongolunicode";
 import { Abbrlink } from "./Abbrlink";
+import { Age } from "./Age";
 import { AsOf } from "./AsOf";
 import { Cquote } from "./Cquote";
 import { Langx } from "./Langx";
@@ -70,6 +71,8 @@ export function WikitextTemplate({
     case "abbr":
     case "abbrlink":
       return <Abbrlink node={node} templateName={templateName} />;
+    case "age":
+      return <Age node={node} />;
     case "according_to_whom":
     case "according_to_whom?":
       return <Fix>according to whom?</Fix>;
