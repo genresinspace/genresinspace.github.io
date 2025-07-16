@@ -561,6 +561,32 @@ export function WikitextTemplate({
       );
     case "start_date":
       return <StartDate node={node} />;
+    case "spaces": {
+      const numSpaces = parseInt(node.parameters[0]?.value) || 1;
+      const type = node.parameters[1]?.value;
+      let spaceChar;
+      switch (type) {
+        case "em":
+          spaceChar = "\u2003"; // &emsp;
+          break;
+        case "en":
+          spaceChar = "\u2002"; // &ensp;
+          break;
+        case "thin":
+          spaceChar = "\u2009"; // &thinsp;
+          break;
+        case "hair":
+          spaceChar = "\u200A"; // &hairsp;
+          break;
+        case "fig":
+          spaceChar = "\u2007"; // figure space
+          break;
+        default:
+          spaceChar = "\u00A0"; // &nbsp;
+          break;
+      }
+      return <>{Array(numSpaces).fill(spaceChar).join("")}</>;
+    }
     case "spaced_en_dash":
     case "snd":
     case "spaced_ndash":
