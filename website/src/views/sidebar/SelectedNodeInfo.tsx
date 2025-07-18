@@ -31,7 +31,6 @@ import { Collapsible } from "../components/Collapsible";
 import { Section } from "../components/Section";
 
 import {
-  SearchIcon,
   MusicIcon,
   DocumentIcon,
   ArrowUpIcon,
@@ -127,40 +126,14 @@ function GenreHeader({
           {node.label}
         </WikipediaLink>
 
-        <div className="flex justify-between items-center bg-neutral-800">
-          <small className="text-neutral-400 text-xs flex items-center px-3">
-            Updated:{" "}
+        <div className="text-neutral-400 text-xs flex items-center bg-neutral-800 px-3 py-2">
+          Last updated:{" "}
             <em className="ml-1">
               {new Date(node.last_revision_date).toLocaleString()}
             </em>
-          </small>
-
-          <ZoomToNodeButton node={node} />
         </div>
       </div>
     </div>
-  );
-}
-
-/** Button to zoom to the selected node in the graph */
-function ZoomToNodeButton({ node }: { node: NodeData }) {
-  const cosmograph = useCosmograph();
-
-  return (
-    <button
-      className="px-3 py-1.5 hover:bg-neutral-700 text-white text-xs transition-colors duration-200 flex items-center gap-1"
-      onClick={() => {
-        if (cosmograph) {
-          const targetNodeData = cosmograph.nodes?.[nodeIdToInt(node.id)];
-          if (targetNodeData) {
-            cosmograph.cosmograph?.zoomToNode(targetNodeData);
-          }
-        }
-      }}
-    >
-      <SearchIcon />
-      Zoom to node
-    </button>
   );
 }
 
