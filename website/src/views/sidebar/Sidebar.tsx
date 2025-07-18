@@ -57,7 +57,7 @@ export function Sidebar({
     <div className="relative h-full overflow-visible">
       {/* Resize handle positioned outside the sidebar */}
       <div
-        className={`absolute -left-2 top-1/2 transform -translate-y-1/2 w-4 h-8 bg-neutral-700 hover:bg-neutral-600 cursor-ew-resize flex items-center justify-center z-20 ${
+        className={`absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-8 bg-neutral-700 hover:bg-neutral-600 cursor-ew-resize flex items-center justify-center z-20 ${
           isResizing ? "bg-neutral-600" : ""
         }`}
         onMouseDown={() => setIsResizing(true)}
