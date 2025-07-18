@@ -33,7 +33,6 @@ import { Section } from "../components/Section";
 import {
   MusicIcon,
   DocumentIcon,
-  ArrowUpIcon,
   DerivativeIcon,
   SubgenreIcon,
   FusionGenreIcon,
@@ -74,9 +73,7 @@ export function SelectedNodeInfo({
         <GenreDescription description={node.wikitext_description} />
       )}
 
-      <TopArtists node={node} />
-
-      <Connections
+      <ConnectionsAndArtists
         node={node}
         nodes={nodes}
         edges={edges}
@@ -128,9 +125,9 @@ function GenreHeader({
 
         <div className="text-neutral-400 text-xs flex items-center bg-neutral-800 px-3 py-2">
           Last updated:{" "}
-            <em className="ml-1">
-              {new Date(node.last_revision_date).toLocaleString()}
-            </em>
+          <em className="ml-1">
+            {new Date(node.last_revision_date).toLocaleString()}
+          </em>
         </div>
       </div>
     </div>
@@ -223,9 +220,70 @@ function HelpNeededForMix({ reason }: { reason: string | null }) {
   );
 }
 
+function ConnectionsAndArtists({
+  node,
+  nodes,
+  edges,
+  selectedId,
+  setFocusedId,
+}: {
+  node: NodeData;
+  nodes: NodeData[];
+  edges: EdgeData[];
+  selectedId: string | null;
+  setFocusedId: (id: string | null) => void;
+}) {
+  const [activeTab, setActiveTab] = useState<"connections" | "artists">(
+    "connections"
+  );
+
+  return (
+    <div className="space-y-3">
+      {/* Tab switcher */}
+      <div className="flex">
+        {[
+          {
+            id: "connections" as const,
+            label: "Connections",
+          },
+          {
+            id: "artists" as const,
+            label: "Top Artists",
+          },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            className={`flex-1 px-3 py-1.5 text-white cursor-pointer flex items-center justify-center ${
+              activeTab === tab.id
+                ? "bg-violet-600 font-bold"
+                : "bg-gray-700 hover:bg-gray-600"
+            } transition-colors duration-200`}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      {activeTab === "connections" ? (
+        <Connections
+          node={node}
+          nodes={nodes}
+          edges={edges}
+          selectedId={selectedId}
+          setFocusedId={setFocusedId}
+        />
+      ) : (
+        <TopArtists node={node} />
+      )}
+    </div>
+  );
+}
+
 function TopArtists({ node }: { node: NodeData }) {
   return (
-    <Section heading="Top Artists" icon={<MusicIcon />}>
+    <>
       {node.top_artists && node.top_artists.length > 0 ? (
         <div className="flex flex-col gap-3 p-3">
           {node.top_artists.map((artistPage, index) => (
@@ -244,7 +302,7 @@ function TopArtists({ node }: { node: NodeData }) {
           </p>
         </Notice>
       )}
-    </Section>
+    </>
   );
 }
 
@@ -428,7 +486,7 @@ function Connections({
   }
 
   return (
-    <Section heading="Connections" icon={<ArrowUpIcon />}>
+    <>
       {connections.map(({ textParts, type, nodes }, index) => (
         <Collapsible
           title={<ConnectionHeading textParts={textParts} type={type} />}
@@ -472,7 +530,7 @@ function Connections({
           </div>
         </Collapsible>
       ))}
-    </Section>
+    </>
   );
 }
 
