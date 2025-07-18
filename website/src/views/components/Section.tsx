@@ -14,9 +14,7 @@ export function Section({
   return (
     <section>
       <SectionHeading icon={icon}>{heading}</SectionHeading>
-      <div className="border-b border-l border-r border-neutral-800">
-        {children}
-      </div>
+      <div>{children}</div>
     </section>
   );
 }
