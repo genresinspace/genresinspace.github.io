@@ -343,7 +343,7 @@ function Artist({
   return (
     <div className={!isLast ? "pb-3 border-b border-neutral-700" : ""}>
       <WikipediaLink pageTitle={artistPage}>{artistName}</WikipediaLink>
-      <div className="ml-4 text-xs text-neutral-400">
+      <div className="text-xs text-neutral-400">
         {isLoading ? (
           <div>Loading...</div>
         ) : artistData?.description ? (
@@ -515,7 +515,7 @@ function Connections({
                       {otherNode.label || otherNode.id}
                     </GenreLink>
                     {shortDescription && (
-                      <small className="block text-xs text-neutral-400 ml-4">
+                      <small className="block text-xs text-neutral-400">
                         <DisableTooltips>
                           <WikitextTruncateAtLength
                             wikitext={shortDescription}
