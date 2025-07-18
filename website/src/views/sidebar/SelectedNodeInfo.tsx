@@ -1,5 +1,4 @@
 import { useMemo, useState, useCallback, useEffect } from "react";
-import { useCosmograph } from "@cosmograph/react";
 
 import {
   NodeData,
