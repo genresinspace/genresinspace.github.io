@@ -40,7 +40,7 @@ export function ProjectInformation({
   } = useDataContext();
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col">
       <Section heading="About" icon={<InfoIcon />}>
         <div className="flex flex-col gap-2 p-3">
           <p>
@@ -97,33 +97,51 @@ function RandomGenre({
     maxDegree,
     NodeColourLightness.Background
   );
+  const randomNodeHoveredColour = nodeColour(
+    randomNode,
+    maxDegree,
+    NodeColourLightness.HoveredBackground
+  );
+  const randomNodeDarkerColour = nodeColour(
+    randomNode,
+    maxDegree,
+    NodeColourLightness.DarkerBackground
+  );
 
   return (
     <span className="flex flex-col w-full">
       <span className="flex flex-row">
         <button
-          onClick={() => (window.location.hash = `${randomId}`)}
-          className="flex-1 min-h-[2rem] text-left cursor-pointer"
-          style={{
-            ["--node-color" as string]: randomNodeColour,
-          }}
-          onMouseEnter={() => setFocusedId(randomNode.id)}
-          onMouseLeave={() => setFocusedId(null)}
-        >
-          <span className="font-bold block p-2 bg-[var(--node-color)] hover:filter hover:brightness-[1.6] text-white transition-all duration-250">
-            {randomNode.label}
-          </span>
-        </button>
-        <button
           onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
-          className="p-1 bg-neutral-800 hover:bg-neutral-700 w-8 flex items-center justify-center text-white transition-colors"
+          className="p-1 bg-slate-700 hover:bg-slate-600 w-8 flex items-center justify-center text-white transition-colors"
           title="Get another random genre"
         >
           🎲
         </button>
+        <button
+          onClick={() => (window.location.hash = `${randomId}`)}
+          className="flex-1 min-h-[2rem] text-left cursor-pointer"
+          onMouseEnter={() => setFocusedId(randomNode.id)}
+          onMouseLeave={() => setFocusedId(null)}
+        >
+          <span
+            className="font-bold block px-2 py-1 bg-[var(--node-color)] hover:bg-[var(--node-hovered-color)] text-white transition-all duration-250"
+            style={{
+              ["--node-color" as string]: randomNodeColour,
+              ["--node-hovered-color" as string]: randomNodeHoveredColour,
+            }}
+          >
+            {randomNode.label}
+          </span>
+        </button>
       </span>
       {randomNode.wikitext_description && (
-        <span className="block text-xs p-2 border-b border-l border-r border-neutral-800">
+        <span
+          className="block text-xs p-2 bg-[var(--node-color)]"
+          style={{
+            ["--node-color" as string]: randomNodeDarkerColour,
+          }}
+        >
           <WikitextTruncateAtLength
             wikitext={stripGenreNamePrefixFromDescription(
               randomNode.label,
