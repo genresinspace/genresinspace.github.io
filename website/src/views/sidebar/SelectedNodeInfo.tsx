@@ -238,7 +238,7 @@ function ConnectionsAndArtists({
   );
 
   return (
-    <div className="space-y-3">
+    <div>
       {/* Tab switcher */}
       <div className="flex">
         {[
@@ -277,84 +277,6 @@ function ConnectionsAndArtists({
       ) : (
         <TopArtists node={node} />
       )}
-    </div>
-  );
-}
-
-function TopArtists({ node }: { node: NodeData }) {
-  return (
-    <>
-      {node.top_artists && node.top_artists.length > 0 ? (
-        <div className="flex flex-col gap-3 p-3">
-          {node.top_artists.map((artistPage, index) => (
-            <Artist
-              artistPage={artistPage}
-              key={artistPage}
-              isLast={index === node.top_artists.length - 1}
-            />
-          ))}
-        </div>
-      ) : (
-        <Notice colour="blue">
-          <p>
-            There are no artists on Wikipedia that are associated with this
-            genre. If you know of an artist, please update their Wikipedia page!
-          </p>
-        </Notice>
-      )}
-    </>
-  );
-}
-
-function Artist({
-  artistPage,
-  isLast,
-}: {
-  artistPage: string;
-  isLast: boolean;
-}) {
-  const { artist_page_to_name } = useDataContext();
-  const [artistData, setArtistData] = useState<ArtistData | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const artistName = artist_page_to_name[artistPage] || artistPage;
-
-  const fetchArtistData = useCallback(async () => {
-    if (artistData || isLoading) return;
-    setIsLoading(true);
-    try {
-      const filename = page_name_to_filename(artistPage);
-      const response = await fetch(`/artists/${filename}.json`);
-      if (response.ok) {
-        const data: ArtistData = await response.json();
-        setArtistData(data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch artist data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [artistPage, artistData, isLoading]);
-
-  useEffect(() => {
-    fetchArtistData();
-  }, [fetchArtistData]);
-
-  return (
-    <div className={!isLast ? "pb-3 border-b border-neutral-700" : ""}>
-      <WikipediaLink pageTitle={artistPage}>{artistName}</WikipediaLink>
-      <div className="text-xs text-neutral-400">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : artistData?.description ? (
-          <WikitextTruncateAtLength
-            wikitext={artistData.description}
-            length={200}
-          />
-        ) : (
-          !isLoading && <div>No description available.</div>
-        )}
-      </div>
     </div>
   );
 }
@@ -494,7 +416,7 @@ function Connections({
           key={index}
           showBorder={false}
         >
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
             {nodes.map(
               ({ node: otherNode, shortDescription }, index) =>
                 otherNode && (
@@ -593,6 +515,84 @@ function ConnectionHeading({
           ) : (
             part.content
           )
+        )}
+      </div>
+    </div>
+  );
+}
+
+function TopArtists({ node }: { node: NodeData }) {
+  return (
+    <>
+      {node.top_artists && node.top_artists.length > 0 ? (
+        <div className="flex flex-col gap-3 p-3">
+          {node.top_artists.map((artistPage, index) => (
+            <Artist
+              artistPage={artistPage}
+              key={artistPage}
+              isLast={index === node.top_artists.length - 1}
+            />
+          ))}
+        </div>
+      ) : (
+        <Notice colour="blue">
+          <p>
+            There are no artists on Wikipedia that are associated with this
+            genre. If you know of an artist, please update their Wikipedia page!
+          </p>
+        </Notice>
+      )}
+    </>
+  );
+}
+
+function Artist({
+  artistPage,
+  isLast,
+}: {
+  artistPage: string;
+  isLast: boolean;
+}) {
+  const { artist_page_to_name } = useDataContext();
+  const [artistData, setArtistData] = useState<ArtistData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const artistName = artist_page_to_name[artistPage] || artistPage;
+
+  const fetchArtistData = useCallback(async () => {
+    if (artistData || isLoading) return;
+    setIsLoading(true);
+    try {
+      const filename = page_name_to_filename(artistPage);
+      const response = await fetch(`/artists/${filename}.json`);
+      if (response.ok) {
+        const data: ArtistData = await response.json();
+        setArtistData(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch artist data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [artistPage, artistData, isLoading]);
+
+  useEffect(() => {
+    fetchArtistData();
+  }, [fetchArtistData]);
+
+  return (
+    <div className={!isLast ? "pb-3 border-b border-neutral-700" : ""}>
+      <WikipediaLink pageTitle={artistPage}>{artistName}</WikipediaLink>
+      <div className="text-xs text-neutral-400">
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : artistData?.description ? (
+          <WikitextTruncateAtLength
+            wikitext={artistData.description}
+            length={200}
+          />
+        ) : (
+          !isLoading && <div>No description available.</div>
         )}
       </div>
     </div>
