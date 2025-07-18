@@ -24,13 +24,8 @@ export function Sidebar({
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
 }) {
-  const [activeTab, setActiveTab] = useState<
-    "information" | "selected" | "settings"
-  >("information");
   const minWidth = 300;
   const [width, setWidth] = useState(`${minWidth}px`);
-  const sidebarRef = useRef<HTMLDivElement>(null);
-  const sidebarContentRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
@@ -58,6 +53,52 @@ export function Sidebar({
     };
   }, [isResizing]);
 
+  return (
+    <div className="relative h-full overflow-visible">
+      {/* Resize handle positioned outside the sidebar */}
+      <div
+        className={`absolute -left-2 top-1/2 transform -translate-y-1/2 w-4 h-8 bg-neutral-700 hover:bg-neutral-600 cursor-ew-resize flex items-center justify-center z-20 ${
+          isResizing ? "bg-neutral-600" : ""
+        }`}
+        onMouseDown={() => setIsResizing(true)}
+      >
+        <ResizeHandleIcon className="text-neutral-400 w-3 h-3" />
+      </div>
+
+      <div
+        style={{ userSelect: isResizing ? "none" : "auto" }}
+        className="h-full"
+      >
+        <SidebarContent
+          settings={settings}
+          setSettings={setSettings}
+          selectedId={selectedId}
+          setFocusedId={setFocusedId}
+          width={width}
+        />
+      </div>
+    </div>
+  );
+}
+
+function SidebarContent({
+  settings,
+  setSettings,
+  selectedId,
+  setFocusedId,
+  width,
+}: {
+  settings: SettingsData;
+  setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
+  selectedId: string | null;
+  setFocusedId: (id: string | null) => void;
+  width: string;
+}) {
+  const [activeTab, setActiveTab] = useState<
+    "information" | "selected" | "settings"
+  >("information");
+  const sidebarContentRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (selectedId) {
       setActiveTab("selected");
@@ -69,9 +110,8 @@ export function Sidebar({
 
   return (
     <div
-      ref={sidebarRef}
-      style={{ width, userSelect: isResizing ? "none" : "auto" }}
-      className="h-full bg-neutral-900 text-white box-border flex flex-col"
+      style={{ width, userSelect: "auto" }}
+      className="h-full bg-neutral-900 text-white box-border flex flex-col overflow-hidden"
     >
       {/* Fixed navigation bar at top */}
       <div className="flex shrink-0">
@@ -113,37 +153,25 @@ export function Sidebar({
       </div>
 
       {/* Scrollable content area */}
-      <div className="flex overflow-y-auto flex-1" ref={sidebarContentRef}>
-        <div
-          className={`h-auto w-4 cursor-ew-resize hover:bg-neutral-700 ${
-            isResizing ? "bg-neutral-700" : ""
-          } select-none flex items-center justify-center shrink-0 sticky top-0`}
-          onMouseDown={() => setIsResizing(true)}
-        >
-          <ResizeHandleIcon className="text-neutral-500" />
-        </div>
-        <div className="flex-1">
-          <div className="pr-4 py-4">
-            {activeTab === "information" ? (
-              <ProjectInformation
-                visibleTypes={settings.visibleTypes}
-                setVisibleTypes={(visibleTypes) =>
-                  setSettings((prev) => ({ ...prev, visibleTypes }))
-                }
-                setFocusedId={setFocusedId}
-              />
-            ) : activeTab === "selected" ? (
-              <SelectedNodeInfo
-                selectedId={selectedId}
-                setFocusedId={setFocusedId}
-                shouldShowMixes={settings.general.showMixes}
-                shouldAutoplayMixes={settings.general.autoplayMixes}
-              />
-            ) : (
-              <Settings settings={settings} setSettings={setSettings} />
-            )}
-          </div>
-        </div>
+      <div className="flex-1 overflow-y-auto min-h-0" ref={sidebarContentRef}>
+        {activeTab === "information" ? (
+          <ProjectInformation
+            visibleTypes={settings.visibleTypes}
+            setVisibleTypes={(visibleTypes) =>
+              setSettings((prev) => ({ ...prev, visibleTypes }))
+            }
+            setFocusedId={setFocusedId}
+          />
+        ) : activeTab === "selected" ? (
+          <SelectedNodeInfo
+            selectedId={selectedId}
+            setFocusedId={setFocusedId}
+            shouldShowMixes={settings.general.showMixes}
+            shouldAutoplayMixes={settings.general.autoplayMixes}
+          />
+        ) : (
+          <Settings settings={settings} setSettings={setSettings} />
+        )}
       </div>
     </div>
   );
