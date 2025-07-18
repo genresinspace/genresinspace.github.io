@@ -29,7 +29,7 @@ pub fn calculate(
         start.elapsed().as_secs_f32(),
     );
 
-    let mut result = HashMap::<types::PageName, Vec<(types::PageName, f32)>>::new();
+    let mut intermediate_result = HashMap::<types::PageName, HashMap<types::PageName, f32>>::new();
 
     for (artist_page, artist) in &processed_artists.0 {
         let link_count = artist_inbound_link_counts
@@ -55,12 +55,18 @@ pub fn calculate(
 
             let weighted_score = link_count * weight;
 
-            result
+            *intermediate_result
                 .entry(page_name)
                 .or_default()
-                .push((artist_page.clone(), weighted_score));
+                .entry(artist_page.clone())
+                .or_default() += weighted_score;
         }
     }
+
+    let mut result: HashMap<types::PageName, Vec<(types::PageName, f32)>> = intermediate_result
+        .into_iter()
+        .map(|(genre, artists)| (genre, artists.into_iter().collect::<Vec<_>>()))
+        .collect();
 
     for artists in result.values_mut() {
         artists.sort_by(|(_, score_a), (_, score_b)| score_b.partial_cmp(score_a).unwrap());
