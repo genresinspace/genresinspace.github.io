@@ -28,11 +28,8 @@ import { WikipediaLink } from "../components/wikipedia/links/WikipediaLink";
 import { Wikitext } from "../components/wikipedia/wikitexts/Wikitext";
 import { WikitextTruncateAtNewline } from "../components/wikipedia/wikitexts/WikitextTruncateAtNewline";
 import { Collapsible } from "../components/Collapsible";
-import { Section } from "../components/Section";
 
 import {
-  MusicIcon,
-  DocumentIcon,
   DerivativeIcon,
   SubgenreIcon,
   FusionGenreIcon,
@@ -62,7 +59,7 @@ export function SelectedNodeInfo({
   if (!node) return null;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col">
       <GenreHeader node={node} maxDegree={maxDegree} />
 
       {shouldShowMixes && (
@@ -142,26 +139,24 @@ function FeaturedMix({
   node: NodeData;
   shouldAutoplayMixes: boolean;
 }) {
-  return (
-    <Section heading="Featured Mix" icon={<MusicIcon />}>
-      {node.mixes ? (
-        "help_reason" in node.mixes ? (
-          <HelpNeededForMix reason={node.mixes.help_reason} />
-        ) : (
-          node.mixes.map((mix, i) => (
-            <MixItem key={i} mix={mix} autoplay={shouldAutoplayMixes} />
-          ))
-        )
-      ) : (
-        <Notice colour="red">
-          <p>
-            There's no mix selected for this genre yet. If you know of a good
-            mix or playlist that represents this genre well, please let me know
-            - see the FAQ on how to contribute!
-          </p>
-        </Notice>
-      )}
-    </Section>
+  return node.mixes ? (
+    "help_reason" in node.mixes ? (
+      <HelpNeededForMix reason={node.mixes.help_reason} />
+    ) : (
+      <div>
+        {node.mixes.map((mix, i) => (
+          <MixItem key={i} mix={mix} autoplay={shouldAutoplayMixes} />
+        ))}
+      </div>
+    )
+  ) : (
+    <Notice colour="red">
+      <p>
+        There's no mix selected for this genre yet. If you know of a good mix or
+        playlist that represents this genre well, please let me know - see the
+        FAQ on how to contribute!
+      </p>
+    </Notice>
   );
 }
 
@@ -192,13 +187,11 @@ function MixItem({
 /** Genre description section */
 function GenreDescription({ description }: { description: string }) {
   return (
-    <Section heading="Description" icon={<DocumentIcon />}>
-      <WikitextTruncateAtNewline
-        wikitext={description}
-        expandable={true}
-        className="p-3"
-      />
-    </Section>
+    <WikitextTruncateAtNewline
+      wikitext={description}
+      expandable={true}
+      className="p-3"
+    />
   );
 }
 
