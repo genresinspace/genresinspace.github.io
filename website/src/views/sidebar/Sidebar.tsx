@@ -139,10 +139,10 @@ function SidebarContent({
           .map((tab) => (
             <button
               key={tab.id}
-              className={`flex-1 px-2 py-2 border-b-6 text-white cursor-pointer flex items-center justify-center ${
+              className={`flex-1 p-2 text-white cursor-pointer flex items-center justify-center ${
                 activeTab === tab.id
-                  ? "bg-violet-600 font-bold border-violet-500"
-                  : "bg-gray-700 hover:bg-gray-600 border-gray-600"
+                  ? "bg-amber-800 font-bold"
+                  : "bg-neutral-900 hover:bg-neutral-800"
               } transition-colors duration-200`}
               onClick={() => setActiveTab(tab.id as typeof activeTab)}
             >
