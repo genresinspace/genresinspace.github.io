@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     extract, links, process,
-    types::{ArtistName, GenreName, PageDataId, PageName},
+    types::{GenreName, PageDataId, PageName},
 };
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -19,9 +19,6 @@ struct FrontendData {
     dump_date: String,
     nodes: Vec<NodeData>,
     edges: BTreeSet<EdgeData>,
-    /// If the artist's name is different from the page name, this maps the page name to the name.
-    /// Otherwise, the names are the same.
-    artist_page_to_name: BTreeMap<PageName, ArtistName>,
     /// This is a separate field as `LinksToArticles` has already resolved
     /// redirects, which we wouldn't know about on the client
     links_to_page_ids: BTreeMap<String, PageDataId>,
@@ -47,6 +44,7 @@ struct GenreFileData {
 
 #[derive(Debug, Serialize, Deserialize)]
 struct ArtistFileData {
+    name: String,
     description: Option<String>,
     last_revision_date: jiff::Timestamp,
 }
@@ -170,7 +168,6 @@ pub fn produce(
         dump_date: dump_meta.dump_date.to_string(),
         nodes: vec![],
         edges: BTreeSet::new(),
-        artist_page_to_name: BTreeMap::new(),
         links_to_page_ids: BTreeMap::new(),
         max_degree: 0,
     };
@@ -373,12 +370,8 @@ pub fn produce(
     std::fs::create_dir_all(&artists_path)?;
     for artist_page in &artists_to_copy {
         if let Some(artist) = processed_artists.0.get(artist_page) {
-            if artist_page.name != artist.name.0 {
-                graph
-                    .artist_page_to_name
-                    .insert(artist_page.clone(), artist.name.clone());
-            }
             let data = ArtistFileData {
+                name: artist.name.0.clone(),
                 last_revision_date: artist.last_revision_date,
                 description: artist.wikitext_description.clone(),
             };

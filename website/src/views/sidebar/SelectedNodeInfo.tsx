@@ -569,27 +569,29 @@ function Artist({
   artistPage: string;
   isLast: boolean;
 }) {
-  const { artist_page_to_name } = useDataContext();
   const artistData = useArtist(artistPage);
-  const artistName = artist_page_to_name[artistPage] || artistPage;
 
   return (
     <div className={!isLast ? "pb-3 border-b border-neutral-700" : ""}>
-      <WikipediaLink pageTitle={artistPage}>{artistName}</WikipediaLink>
-      <div className="text-xs text-neutral-400">
-        {artistData ? (
-          artistData?.description ? (
-            <WikitextTruncateAtLength
-              wikitext={artistData.description}
-              length={200}
-            />
-          ) : (
-            "No description available."
-          )
-        ) : (
-          "Loading..."
-        )}
-      </div>
+      {artistData ? (
+        <>
+          <WikipediaLink pageTitle={artistPage}>
+            {artistData.name}
+          </WikipediaLink>
+          <div className="text-xs text-neutral-400">
+            {artistData?.description ? (
+              <WikitextTruncateAtLength
+                wikitext={artistData.description}
+                length={200}
+              />
+            ) : (
+              "No description available."
+            )}
+          </div>
+        </>
+      ) : (
+        "Loading..."
+      )}
     </div>
   );
 }

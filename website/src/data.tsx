@@ -12,9 +12,6 @@ export type Data = {
   nodes: NodeData[];
   /** The edges in the graph. */
   edges: EdgeData[];
-  /** If the artist's name is different from the page name, this maps the page name to the name.
-   * Otherwise, the names are the same. */
-  artist_page_to_name: Record<string, string>;
   /** A map of links to page IDs. */
   links_to_page_ids: Record<string, string>;
   /** The maximum degree of any node in the graph. */
@@ -111,6 +108,8 @@ export type EdgeData = {
 
 /** Artist data from the artist JSON files. */
 export type ArtistFileData = {
+  /** The artist's name. */
+  name: string;
   /** The artist's description (wikitext). */
   description?: string;
   /** The artist's last revision date (ISO 8601). */
