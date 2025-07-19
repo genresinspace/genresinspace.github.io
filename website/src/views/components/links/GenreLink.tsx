@@ -4,6 +4,7 @@ import {
   NodeData,
   useDataContext,
 } from "../../../data";
+import { useGenre } from "../../../services/genreCache";
 import { Tooltip, useTooltip } from "../Tooltip";
 import { WikitextTooltipContent } from "../Tooltip";
 
@@ -25,6 +26,7 @@ export function GenreLink({
   onMouseLeave?: () => void;
 }) {
   const { max_degree: maxDegree } = useDataContext();
+  const genreData = useGenre(node.page_title);
 
   const {
     showPreview,
@@ -60,7 +62,7 @@ export function GenreLink({
         ♪ {props.children}
       </a>
 
-      {node.wikitext_description && showPreview && (
+      {genreData?.description && showPreview && (
         <Tooltip
           position={tooltipPosition}
           isOpen={showPreview}
@@ -68,7 +70,7 @@ export function GenreLink({
           onMouseLeave={handleTooltipMouseLeave}
         >
           <WikitextTooltipContent
-            description={node.wikitext_description}
+            description={genreData.description}
             last_revision_date={node.last_revision_date}
           />
         </Tooltip>

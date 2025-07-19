@@ -1,4 +1,4 @@
-import { Dispatch, useReducer, useEffect, useRef } from "react";
+import { Dispatch, useReducer, useEffect, useRef, useMemo } from "react";
 
 import { EdgeData, NodeData, nodeIdToInt, useDataContext } from "../data";
 import { stripGenreNamePrefixFromDescription } from "../util/stripGenreNamePrefixFromDescription";
@@ -10,12 +10,7 @@ import { SwapIcon } from "./components/icons/SwapIcon";
 import { CloseIcon } from "./components/icons/CloseIcon";
 import { VISIBLE_TYPES_BY_TYPE, VisibleTypes } from "../settings";
 import React from "react";
-
-/** Represents a search result with node data and description */
-type SearchResult = {
-  node: NodeData;
-  strippedDescription: string;
-};
+import { useGenre } from "../services/genreCache";
 
 /** The state of the search component */
 export type SearchState =
@@ -23,7 +18,7 @@ export type SearchState =
       // node not selected, search for a node
       type: "initial";
       sourceQuery: string;
-      sourceResults: SearchResult[];
+      sourceResults: NodeData[];
       focusTarget?: "source";
     }
   | {
@@ -31,7 +26,7 @@ export type SearchState =
       type: "selected";
       sourceId: string;
       destinationQuery: string;
-      destinationResults: SearchResult[];
+      destinationResults: NodeData[];
       focusTarget?: "source" | "destination";
     }
   | {
@@ -172,11 +167,10 @@ function SearchInitial({
       </SearchBar>
 
       <GenreResultsList>
-        {searchState.sourceResults.map(({ node, strippedDescription }) => (
+        {searchState.sourceResults.map((node) => (
           <GenreResultItem
             key={node.id}
             node={node}
-            description={strippedDescription}
             setFocusedId={setFocusedId}
             onClick={() => {
               setSelectedId(node.id);
@@ -238,22 +232,19 @@ function SearchSelected({
 
       {experimentalPathfinding && (
         <GenreResultsList>
-          {searchState.destinationResults.map(
-            ({ node, strippedDescription }) => (
-              <GenreResultItem
-                key={node.id}
-                node={node}
-                description={strippedDescription}
-                setFocusedId={setFocusedId}
-                onClick={() => {
-                  searchDispatch({
-                    type: "selected:select-destination",
-                    destinationId: node.id,
-                  });
-                }}
-              />
-            )
-          )}
+          {searchState.destinationResults.map((node) => (
+            <GenreResultItem
+              key={node.id}
+              node={node}
+              setFocusedId={setFocusedId}
+              onClick={() => {
+                searchDispatch({
+                  type: "selected:select-destination",
+                  destinationId: node.id,
+                });
+              }}
+            />
+          ))}
         </GenreResultsList>
       )}
     </div>
@@ -332,29 +323,17 @@ function SearchPath({
 
       {searchState.path ? (
         <GenreResultsList>
-          {searchState.path.map((nodeId) => {
-            const node = nodes[nodeIdToInt(nodeId)];
-            const isSelected = nodeId === selectedId;
-            return (
-              <GenreResultItem
-                key={nodeId}
-                node={node}
-                description={
-                  node.wikitext_description
-                    ? stripGenreNamePrefixFromDescription(
-                        node.label,
-                        node.wikitext_description
-                      )
-                    : ""
-                }
-                setFocusedId={setFocusedId}
-                isSelected={isSelected}
-                onClick={() => {
-                  setSelectedId(nodeId);
-                }}
-              />
-            );
-          })}
+          {searchState.path.map((nodeId) => (
+            <GenreResultItem
+              key={nodeId}
+              node={nodes[nodeIdToInt(nodeId)]}
+              setFocusedId={setFocusedId}
+              isSelected={nodeId === selectedId}
+              onClick={() => {
+                setSelectedId(nodeId);
+              }}
+            />
+          ))}
         </GenreResultsList>
       ) : (
         <div className="mt-2 text-sm text-neutral-400">
@@ -378,7 +357,6 @@ function SearchPath({
 }
 
 // Reusable components
-
 function SearchInput({
   placeholder,
   value,
@@ -444,17 +422,24 @@ function SearchBar({ children }: { children: React.ReactNode }) {
 
 function GenreResultItem({
   node,
-  description,
   setFocusedId,
   onClick,
   isSelected,
 }: {
   node: NodeData;
-  description: string;
   setFocusedId: (id: string | null) => void;
   onClick?: () => void;
   isSelected?: boolean;
 }) {
+  const genreData = useGenre(node.page_title);
+  const strippedDescription = useMemo(() => {
+    if (!genreData?.description) return null;
+    return stripGenreNamePrefixFromDescription(
+      node.label,
+      genreData.description
+    );
+  }, [node.label, genreData]);
+
   return (
     <div
       className={`p-2 bg-neutral-900 hover:bg-neutral-700 transition-colors ${
@@ -467,11 +452,20 @@ function GenreResultItem({
       <GenreLink node={node} hoverPreview={false}>
         {node.label}
       </GenreLink>
-      {description && (
-        <small className="block">
-          <WikitextTruncateAtLength wikitext={description} length={100} />
-        </small>
-      )}
+      <small className="block">
+        {genreData ? (
+          strippedDescription ? (
+            <WikitextTruncateAtLength
+              wikitext={strippedDescription}
+              length={100}
+            />
+          ) : (
+            "No description available."
+          )
+        ) : (
+          "Loading..."
+        )}
+      </small>
     </div>
   );
 }
@@ -711,14 +705,7 @@ function getFilteredResults(
       }
       // Then alphabetically
       return a.label.localeCompare(b.label);
-    })
-    .map((node) => ({
-      node,
-      strippedDescription: stripGenreNamePrefixFromDescription(
-        node.label,
-        node.wikitext_description ?? ""
-      ),
-    }));
+    });
 }
 
 function computePath(

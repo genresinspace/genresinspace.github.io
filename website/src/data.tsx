@@ -34,8 +34,6 @@ export type NodeData = {
   id: string;
   /** The node's Wikipedia page title. */
   page_title: string;
-  /** The node's Wikipedia wikitext description. */
-  wikitext_description?: string;
   /** The node's label. */
   label: string;
   /** The node's last revision date (ISO 8601). */
@@ -49,6 +47,12 @@ export type NodeData = {
   edges: number[];
   /** The node's top artists, as page names. */
   top_artists: string[];
+};
+
+/** Genre data from the genre JSON files. */
+export type GenreFileData = {
+  /** The genre's Wikipedia wikitext description. */
+  description?: string;
 };
 
 /** Convert a node ID (integer as a string) to an integer. */

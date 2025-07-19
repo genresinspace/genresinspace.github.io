@@ -34,6 +34,7 @@ import {
 
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { useArtist } from "../../services/artistCache";
+import { useGenre } from "../../services/genreCache";
 
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
@@ -54,6 +55,7 @@ export function SelectedNodeInfo({
   }
 
   const node = nodes[nodeIdToInt(selectedId)];
+  const genreData = useGenre(node?.page_title);
   if (!node) return null;
 
   return (
@@ -64,9 +66,20 @@ export function SelectedNodeInfo({
         <FeaturedMix node={node} shouldAutoplayMixes={shouldAutoplayMixes} />
       )}
 
-      {node.wikitext_description && (
-        <GenreDescription description={node.wikitext_description} />
-      )}
+      <div className="p-3">
+        {genreData ? (
+          genreData.description ? (
+            <WikitextTruncateAtNewline
+              wikitext={genreData.description}
+              expandable={true}
+            />
+          ) : (
+            "No description available."
+          )
+        ) : (
+          "Loading..."
+        )}
+      </div>
 
       <ConnectionsAndArtists
         node={node}
@@ -182,17 +195,6 @@ function MixItem({
   );
 }
 
-/** Genre description section */
-function GenreDescription({ description }: { description: string }) {
-  return (
-    <WikitextTruncateAtNewline
-      wikitext={description}
-      expandable={true}
-      className="p-3"
-    />
-  );
-}
-
 function HelpNeededForMix({ reason }: { reason: string | null }) {
   return (
     <Notice colour="blue">
@@ -285,7 +287,7 @@ function Connections({
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
 }) {
-  const connectionDescriptions = useMemo(
+  const connectionCategories = useMemo(
     () => [
       {
         type: "Derivative" as const,
@@ -354,7 +356,7 @@ function Connections({
     const inbound = getConnections(node, edges, true);
     const outbound = getConnections(node, edges, false);
 
-    return connectionDescriptions.flatMap(
+    return connectionCategories.flatMap(
       ({ type, inbound: inboundDesc, outbound: outboundDesc }) => {
         const createConnectionItem = (
           nodeIds: string[] | undefined,
@@ -366,18 +368,7 @@ function Connections({
             {
               textParts,
               type,
-              nodes: nodeIds.map((id) => {
-                const connectedNode = nodes[nodeIdToInt(id)];
-                return {
-                  node: connectedNode,
-                  shortDescription: connectedNode.wikitext_description
-                    ? stripGenreNamePrefixFromDescription(
-                        connectedNode.label,
-                        connectedNode.wikitext_description
-                      )
-                    : "",
-                };
-              }),
+              nodes: nodeIds.map((id) => nodes[nodeIdToInt(id)]),
             },
           ];
         };
@@ -388,7 +379,7 @@ function Connections({
         ];
       }
     );
-  }, [connectionDescriptions, node, edges, selectedId, nodes]);
+  }, [connectionCategories, node, edges, selectedId, nodes]);
 
   if (connections.length === 0) {
     return (
@@ -409,41 +400,67 @@ function Connections({
         >
           <div className="flex flex-col gap-2">
             {nodes.map(
-              ({ node: otherNode, shortDescription }, index) =>
+              (otherNode, index) =>
                 otherNode && (
-                  <div
+                  <ConnectionItem
                     key={otherNode.id}
-                    className={
-                      index !== nodes.length - 1
-                        ? "pb-3 border-b border-neutral-700"
-                        : ""
-                    }
-                  >
-                    <GenreLink
-                      node={otherNode}
-                      hoverPreview={false}
-                      onMouseEnter={() => setFocusedId(otherNode.id)}
-                      onMouseLeave={() => setFocusedId(null)}
-                    >
-                      {otherNode.label || otherNode.id}
-                    </GenreLink>
-                    {shortDescription && (
-                      <small className="block text-xs text-neutral-400">
-                        <DisableTooltips>
-                          <WikitextTruncateAtLength
-                            wikitext={shortDescription}
-                            length={200}
-                          />
-                        </DisableTooltips>
-                      </small>
-                    )}
-                  </div>
+                    node={otherNode}
+                    isLast={index === nodes.length - 1}
+                    setFocusedId={setFocusedId}
+                  />
                 )
             )}
           </div>
         </Collapsible>
       ))}
     </>
+  );
+}
+
+function ConnectionItem({
+  node,
+  isLast,
+  setFocusedId,
+}: {
+  node: NodeData;
+  isLast: boolean;
+  setFocusedId: (id: string | null) => void;
+}) {
+  const genreData = useGenre(node.page_title);
+  const shortDescription = genreData?.description
+    ? stripGenreNamePrefixFromDescription(node.label, genreData.description)
+    : null;
+
+  return (
+    <div
+      key={node.id}
+      className={!isLast ? "pb-3 border-b border-neutral-700" : ""}
+    >
+      <GenreLink
+        node={node}
+        hoverPreview={false}
+        onMouseEnter={() => setFocusedId(node.id)}
+        onMouseLeave={() => setFocusedId(null)}
+      >
+        {node.label || node.id}
+      </GenreLink>
+      <small className="block text-xs text-neutral-400">
+        {genreData ? (
+          shortDescription ? (
+            <DisableTooltips>
+              <WikitextTruncateAtLength
+                wikitext={shortDescription}
+                length={200}
+              />
+            </DisableTooltips>
+          ) : (
+            "No description available."
+          )
+        ) : (
+          "Loading..."
+        )}
+      </small>
+    </div>
   );
 }
 
@@ -554,11 +571,11 @@ function Artist({
       <div className="text-xs text-neutral-400">
         {artistData ? (
           artistData?.description ? (
-          <WikitextTruncateAtLength
-            wikitext={artistData.description}
-            length={200}
-          />
-        ) : (
+            <WikitextTruncateAtLength
+              wikitext={artistData.description}
+              length={200}
+            />
+          ) : (
             "No description available."
           )
         ) : (

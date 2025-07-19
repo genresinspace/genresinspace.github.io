@@ -20,6 +20,7 @@ import { dumpUrl } from "../components/wikipedia/urls";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { Section } from "../components/Section";
 import { InfoIcon, MapIcon, QuestionIcon } from "../components/icons";
+import { useGenre } from "../../services/genreCache";
 
 /** The sidebar panel for information about the project. */
 export function ProjectInformation({
@@ -92,6 +93,8 @@ function RandomGenre({
     Math.floor(Math.random() * nodes.length)
   );
   const randomNode = nodes[randomId];
+  const genreData = useGenre(randomNode.page_title);
+
   const randomNodeColour = nodeColour(
     randomNode,
     maxDegree,
@@ -135,7 +138,7 @@ function RandomGenre({
           </span>
         </button>
       </span>
-      {randomNode.wikitext_description && (
+      {genreData?.description && (
         <span
           className="block text-xs p-2 bg-[var(--node-color)]"
           style={{
@@ -145,7 +148,7 @@ function RandomGenre({
           <WikitextTruncateAtLength
             wikitext={stripGenreNamePrefixFromDescription(
               randomNode.label,
-              randomNode.wikitext_description
+              genreData.description
             )}
             length={100}
           />

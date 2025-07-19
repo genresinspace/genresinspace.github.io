@@ -5,7 +5,7 @@ import data from "../public/data.json";
 import { readFile, readdir } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { Data, DataContext } from "../src/data";
+import { ArtistFileData, Data, DataContext, GenreFileData } from "../src/data";
 import { initWasm } from "../src/views/components/wikipedia";
 import { wikiPageUrl, wikiUrl } from "../src/views/components/wikipedia/urls";
 import { Wikitext } from "../src/views/components/wikipedia/wikitexts/Wikitext";
@@ -83,12 +83,18 @@ function renderWikitext(
 
 try {
   // Test genre descriptions
+  const genresDir = join(__dirname, "../public/genres");
   for (const genre of Object.values(data.nodes)) {
     if (filterPageTitle && genre.page_title !== filterPageTitle) {
       continue;
     }
 
-    const wikitext = genre.wikitext_description || "";
+    const genrePath = join(genresDir, genre.page_title + ".json");
+    const genreData: GenreFileData = JSON.parse(
+      await readFile(genrePath, "utf-8")
+    );
+
+    const wikitext = genreData.description || "";
     renderWikitext(wikitext, genre.page_title, "genre");
   }
 
@@ -101,14 +107,12 @@ try {
       if (!artistFile.endsWith(".json")) continue;
 
       const artistPath = join(artistsDir, artistFile);
-      const artistData = JSON.parse(await readFile(artistPath, "utf-8"));
-
-      if (filterPageTitle && artistData.page_title !== filterPageTitle) {
-        continue;
-      }
+      const artistData: ArtistFileData = JSON.parse(
+        await readFile(artistPath, "utf-8")
+      );
 
       const wikitext = artistData.description || "";
-      renderWikitext(wikitext, artistData.page_title, "artist");
+      renderWikitext(wikitext, artistFile, "artist");
     }
   } catch (err) {
     console.warn("Could not read artists directory:", err);

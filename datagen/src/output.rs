@@ -32,13 +32,17 @@ struct FrontendData {
 struct NodeData {
     id: PageDataId,
     page_title: PageName,
-    wikitext_description: Option<String>,
     label: GenreName,
     last_revision_date: jiff::Timestamp,
     #[serde(skip_serializing_if = "Option::is_none")]
     mixes: Option<GenreMixes>,
     edges: BTreeSet<usize>,
     top_artists: Vec<PageName>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct GenreFileData {
+    description: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -178,6 +182,9 @@ pub fn produce(
 
     let mut artists_to_copy = HashSet::new();
 
+    let genres_path = output_path.join("genres");
+    std::fs::create_dir_all(&genres_path)?;
+
     // First pass: create nodes
     for page in &node_order {
         let processed_genre = &processed_genres.0[page];
@@ -207,7 +214,6 @@ pub fn produce(
         let node = NodeData {
             id,
             page_title: page.clone(),
-            wikitext_description: processed_genre.wikitext_description.clone(),
             label: processed_genre.name.clone(),
             last_revision_date: processed_genre.last_revision_date,
             mixes,
@@ -220,6 +226,13 @@ pub fn produce(
         let page_without_heading = page.with_opt_heading(None);
         // Add fallback page ID for pages where the main music box is under a heading
         page_to_id.entry(page_without_heading).or_insert(id);
+
+        std::fs::write(
+            genres_path.join(format!("{}.json", PageName::sanitize(page))),
+            serde_json::to_string_pretty(&GenreFileData {
+                description: processed_genre.wikitext_description.clone(),
+            })?,
+        )?;
     }
 
     // Second pass: create edges
