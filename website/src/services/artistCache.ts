@@ -64,6 +64,7 @@ export const useArtist = (artistPage: string | null): ArtistFileData | null => {
   const [artist, setArtist] = useState<ArtistFileData | null>(null);
   useEffect(() => {
     if (!artistPage) return;
+    setArtist(null);
     artistCache.get(artistPage).then(setArtist);
   }, [artistPage]);
   return artist;
