@@ -107,8 +107,6 @@ export type EdgeData = {
 
 /** Artist data from the artist JSON files. */
 export type ArtistData = {
-  /** The artist's Wikipedia page title. */
-  page_title: string;
   /** The artist's description (wikitext). */
   description?: string;
   /** The artist's last revision date (ISO 8601). */

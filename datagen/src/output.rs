@@ -27,6 +27,7 @@ struct FrontendData {
     links_to_page_ids: BTreeMap<String, PageDataId>,
     max_degree: usize,
 }
+
 #[derive(Debug, Serialize, Deserialize)]
 struct NodeData {
     id: PageDataId,
@@ -42,7 +43,6 @@ struct NodeData {
 
 #[derive(Debug, Serialize, Deserialize)]
 struct ArtistFileData {
-    page_title: PageName,
     description: Option<String>,
     last_revision_date: jiff::Timestamp,
 }
@@ -363,7 +363,6 @@ pub fn produce(
                     .insert(artist_page.clone(), artist.name.clone());
             }
             let data = ArtistFileData {
-                page_title: artist_page.clone(),
                 last_revision_date: artist.last_revision_date,
                 description: artist.wikitext_description.clone(),
             };
