@@ -6,7 +6,8 @@ import { ArtistFileData, GenreFileData } from "../data";
  * A cache for data.
  */
 export class DataCache {
-  private cache: Map<string, Map<string, unknown>> = new Map();
+  private cache: Map<string, Map<string, unknown | Promise<unknown>>> =
+    new Map();
 
   constructor() {
     this.cache.set("artists", new Map());
@@ -18,10 +19,30 @@ export class DataCache {
     page: string
   ): Promise<T | null> {
     const directoryCache = this.cache.get(directory)!;
-    if (!directoryCache.has(page)) {
-      directoryCache.set(page, await fetchDatum(directory, page));
+    const cached = directoryCache.get(page);
+
+    // If we have a cached value (not a promise), return it
+    if (cached && !(cached instanceof Promise)) {
+      return cached as T | null;
     }
-    return directoryCache.get(page) as T | null;
+
+    // If we have a promise in flight, wait for it
+    if (cached instanceof Promise) {
+      const result = await cached;
+      return result as T | null;
+    }
+
+    // No cached value or promise, start a new request
+    const requestPromise = fetchDatum(directory, page).then((result) => {
+      // Replace the promise with the actual result
+      directoryCache.set(page, result);
+      return result;
+    });
+
+    // Store the promise in the cache
+    directoryCache.set(page, requestPromise);
+
+    return (await requestPromise) as T | null;
   }
 }
 
