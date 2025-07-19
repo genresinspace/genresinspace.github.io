@@ -587,6 +587,12 @@ function Artist({
             ) : (
               "No description available."
             )}
+            <div className="text-[0.9em] leading-none mt-1">
+              Last updated:{" "}
+              <em>
+                {new Date(artistData.last_revision_date).toLocaleString()}
+              </em>
+            </div>
           </div>
         </>
       ) : (
