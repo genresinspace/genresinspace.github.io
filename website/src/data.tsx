@@ -33,13 +33,6 @@ export type NodeData = {
   page_title: string;
   /** The node's label. */
   label: string;
-  /** The node's last revision date (ISO 8601). */
-  last_revision_date: string;
-  /** The node's mixes. */
-  mixes?:
-    | { help_reason: string | null }
-    | { playlist: string; note?: string }[]
-    | { video: string; note?: string }[];
   /** The node's edges. */
   edges: number[];
 };
@@ -48,6 +41,13 @@ export type NodeData = {
 export type GenreFileData = {
   /** The genre's Wikipedia wikitext description. */
   description?: string;
+  /** The node's last revision date (ISO 8601). */
+  last_revision_date: string;
+  /** The node's mixes. */
+  mixes?:
+    | { help_reason: string | null }
+    | { playlist: string; note?: string }[]
+    | { video: string; note?: string }[];
   /** The node's top artists, as page names. */
   top_artists: string[];
 };

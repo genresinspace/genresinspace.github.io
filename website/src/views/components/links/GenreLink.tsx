@@ -71,7 +71,7 @@ export function GenreLink({
         >
           <WikitextTooltipContent
             description={genreData.description}
-            last_revision_date={node.last_revision_date}
+            last_revision_date={genreData.last_revision_date}
           />
         </Tooltip>
       )}

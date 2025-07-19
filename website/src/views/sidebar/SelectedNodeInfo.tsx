@@ -62,13 +62,13 @@ export function SelectedNodeInfo({
 
   return (
     <div className="flex flex-col">
-      <GenreHeader node={node} maxDegree={maxDegree} />
+      <GenreHeader node={node} genreData={genreData} maxDegree={maxDegree} />
 
-      {genreData ? (
+      {genreData && (
         <>
           {shouldShowMixes && (
             <FeaturedMix
-              node={node}
+              genreData={genreData}
               shouldAutoplayMixes={shouldAutoplayMixes}
             />
           )}
@@ -99,8 +99,6 @@ export function SelectedNodeInfo({
             setActiveTab={setActiveTab}
           />
         </>
-      ) : (
-        <Notice colour="yellow">Loading...</Notice>
       )}
     </div>
   );
@@ -120,9 +118,11 @@ function EmptyState() {
 /** Header section with genre title and controls */
 function GenreHeader({
   node,
+  genreData,
   maxDegree,
 }: {
   node: NodeData;
+  genreData: GenreFileData | null;
   maxDegree: number;
 }) {
   const selectedNodeColour = nodeColour(
@@ -146,10 +146,16 @@ function GenreHeader({
         </WikipediaLink>
 
         <div className="text-neutral-400 text-xs flex items-center bg-neutral-800 px-3 py-2">
-          Last updated:{" "}
-          <em className="ml-1">
-            {new Date(node.last_revision_date).toLocaleString()}
-          </em>
+          {genreData ? (
+            <>
+              Last updated:{" "}
+              <em className="ml-1">
+                {new Date(genreData.last_revision_date).toLocaleString()}
+              </em>
+            </>
+          ) : (
+            "Loading..."
+          )}
         </div>
       </div>
     </div>
@@ -158,18 +164,19 @@ function GenreHeader({
 
 /** Featured mix section */
 function FeaturedMix({
-  node,
+  genreData,
   shouldAutoplayMixes,
 }: {
-  node: NodeData;
+  genreData: GenreFileData;
   shouldAutoplayMixes: boolean;
 }) {
-  return node.mixes ? (
-    "help_reason" in node.mixes ? (
-      <HelpNeededForMix reason={node.mixes.help_reason} />
+  const mixes = genreData.mixes;
+  return mixes ? (
+    "help_reason" in mixes ? (
+      <HelpNeededForMix reason={mixes.help_reason} />
     ) : (
       <div>
-        {node.mixes.map((mix, i) => (
+        {mixes.map((mix, i) => (
           <MixItem key={i} mix={mix} autoplay={shouldAutoplayMixes} />
         ))}
       </div>

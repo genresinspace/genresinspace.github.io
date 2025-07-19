@@ -30,15 +30,15 @@ struct NodeData {
     id: PageDataId,
     page_title: PageName,
     label: GenreName,
-    last_revision_date: jiff::Timestamp,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    mixes: Option<GenreMixes>,
     edges: BTreeSet<usize>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 struct GenreFileData {
     description: Option<String>,
+    last_revision_date: jiff::Timestamp,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    mixes: Option<GenreMixes>,
     top_artists: Vec<PageName>,
 }
 
@@ -195,8 +195,6 @@ pub fn produce(
             id,
             page_title: page.clone(),
             label: processed_genre.name.clone(),
-            last_revision_date: processed_genre.last_revision_date,
-            mixes,
             edges: BTreeSet::new(),
         };
 
@@ -230,6 +228,8 @@ pub fn produce(
             genres_path.join(format!("{}.json", PageName::sanitize(page))),
             serde_json::to_string_pretty(&GenreFileData {
                 description: processed_genre.wikitext_description.clone(),
+                last_revision_date: processed_genre.last_revision_date,
+                mixes,
                 top_artists,
             })?,
         )?;

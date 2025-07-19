@@ -1,5 +1,9 @@
 {
   "description": "'''Toi music''' ('''Той''') is a genre of [[Popular music|popular]] [[folk music]] originated from Central Asia. This genre of music is popular in countries like [[Uzbekistan]], [[Kazakhstan]] and [[Kyrgyzstan]].",
+  "last_revision_date": "2025-05-28T08:39:56Z",
+  "mixes": {
+    "help_reason": "There just isn't much information about this on the web (the Wikipedia article itself is quite short). Please help out if you know more!"
+  },
   "top_artists": [
     "Kairat Nurtas"
   ]
