@@ -399,9 +399,9 @@ function Connections({
 
   if (connections.length === 0) {
     return (
-      <div className="text-neutral-400 text-sm p-3 border border-dashed border-neutral-700 text-center">
+      <Notice colour="blue">
         This genre has no documented connections to other genres.
-      </div>
+      </Notice>
     );
   }
 
