@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useState } from "react";
 
 import {
   NodeData,
@@ -7,7 +7,6 @@ import {
   nodeColour,
   NodeColourLightness,
   useDataContext,
-  ArtistData,
 } from "../../data";
 import {
   derivativeColour,
@@ -34,7 +33,7 @@ import {
 } from "../components/icons";
 
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
-import { useArtistCache } from "../../services/artistCache";
+import { useArtist } from "../../services/artistCache";
 
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
@@ -546,42 +545,24 @@ function Artist({
   isLast: boolean;
 }) {
   const { artist_page_to_name } = useDataContext();
-  const [artistData, setArtistData] = useState<ArtistData | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const artistCache = useArtistCache();
-
+  const artistData = useArtist(artistPage);
   const artistName = artist_page_to_name[artistPage] || artistPage;
-
-  const fetchArtistData = useCallback(async () => {
-    if (artistData || isLoading) return;
-    setIsLoading(true);
-    try {
-      const data = await artistCache.get(artistPage);
-      setArtistData(data);
-    } catch (error) {
-      console.error("Failed to fetch artist data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [artistPage, artistData, isLoading, artistCache]);
-
-  useEffect(() => {
-    fetchArtistData();
-  }, [fetchArtistData]);
 
   return (
     <div className={!isLast ? "pb-3 border-b border-neutral-700" : ""}>
       <WikipediaLink pageTitle={artistPage}>{artistName}</WikipediaLink>
       <div className="text-xs text-neutral-400">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : artistData?.description ? (
+        {artistData ? (
+          artistData?.description ? (
           <WikitextTruncateAtLength
             wikitext={artistData.description}
             length={200}
           />
         ) : (
-          !isLoading && <div>No description available.</div>
+            "No description available."
+          )
+        ) : (
+          "Loading..."
         )}
       </div>
     </div>

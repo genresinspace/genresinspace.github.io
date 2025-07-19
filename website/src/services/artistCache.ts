@@ -1,14 +1,14 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { page_name_to_filename } from "frontend_wasm";
-import { ArtistData } from "../data";
+import { ArtistFileData } from "../data";
 
 /**
  * A cache for artist data.
  */
 export class ArtistCache {
-  private cache: Map<string, Promise<ArtistData | null>> = new Map();
+  private cache: Map<string, Promise<ArtistFileData | null>> = new Map();
 
-  get(artistPage: string): Promise<ArtistData | null> {
+  get(artistPage: string): Promise<ArtistFileData | null> {
     if (!this.cache.has(artistPage)) {
       this.cache.set(artistPage, fetchArtistData(artistPage));
     }
@@ -16,17 +16,19 @@ export class ArtistCache {
   }
 }
 
-async function fetchArtistData(artistPage: string): Promise<ArtistData | null> {
+async function fetchArtistData(
+  artistPage: string
+): Promise<ArtistFileData | null> {
   try {
     const filename = page_name_to_filename(artistPage);
     const response = await fetch(`/artists/${filename}.json`);
     if (response.ok) {
-      const data: ArtistData = await response.json();
-      return data;
+      return await response.json();
+    } else {
+      throw new Error(response.statusText);
     }
-    return null;
   } catch (error) {
-    console.error("Failed to fetch artist data:", error);
+    console.error(`Failed to fetch artist data for ${artistPage}:`, error);
     return null;
   }
 }
@@ -40,7 +42,7 @@ export const ArtistCacheContext = createContext<ArtistCache | null>(null);
  * A hook to access the artist cache.
  * @returns The artist cache.
  */
-export const useArtistCache = () => {
+const useArtistCache = () => {
   const context = useContext(ArtistCacheContext);
   if (!context) {
     throw new Error(
@@ -48,4 +50,21 @@ export const useArtistCache = () => {
     );
   }
   return context;
+};
+
+/**
+ * A hook to get the artist data for a given artist page.
+ *
+ * Will fetch the artist data if it is not already in the cache.
+ * @param artistPage The page name of the artist.
+ * @returns The artist data.
+ */
+export const useArtist = (artistPage: string | null): ArtistFileData | null => {
+  const artistCache = useArtistCache();
+  const [artist, setArtist] = useState<ArtistFileData | null>(null);
+  useEffect(() => {
+    if (!artistPage) return;
+    artistCache.get(artistPage).then(setArtist);
+  }, [artistPage]);
+  return artist;
 };
