@@ -138,13 +138,14 @@ function RandomGenre({
           </span>
         </button>
       </span>
-      {genreData?.description && (
         <span
           className="block text-xs p-2 bg-[var(--node-color)]"
           style={{
             ["--node-color" as string]: randomNodeDarkerColour,
           }}
         >
+        {genreData ? (
+          genreData.description ? (
           <WikitextTruncateAtLength
             wikitext={stripGenreNamePrefixFromDescription(
               randomNode.label,
@@ -152,8 +153,13 @@ function RandomGenre({
             )}
             length={100}
           />
+          ) : (
+            "No description available."
+          )
+        ) : (
+          "Loading..."
+        )}
         </span>
-      )}
     </span>
   );
 }
