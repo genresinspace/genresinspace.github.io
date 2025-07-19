@@ -1,3 +1,15 @@
 {
-  "description": "'''Thai rock''' ({{langx|th|ไทยร็อก}}) is [[rock music]] from [[Thailand]]. Thai rock was influenced by rock bands from the United States and United Kingdom. Emerging in the 1980s it flourished with bands like [[Asanee–Wasan]], [[Carabao (band)|Carabao]] and [[Micro (Thai band)|Micro]]. It became widely popular in the 1990s."
+  "description": "'''Thai rock''' ({{langx|th|ไทยร็อก}}) is [[rock music]] from [[Thailand]]. Thai rock was influenced by rock bands from the United States and United Kingdom. Emerging in the 1980s it flourished with bands like [[Asanee–Wasan]], [[Carabao (band)|Carabao]] and [[Micro (Thai band)|Micro]]. It became widely popular in the 1990s.",
+  "top_artists": [
+    "Potato (band)",
+    "Aed Carabao",
+    "The Impossibles (Thai band)",
+    "Endorphine (band)",
+    "Thanapol Intharit",
+    "Thierry Mekwattana",
+    "Preecha Chanapai",
+    "Pathompong Sombatpiboon",
+    "Taitosmith",
+    "Itti Balangura"
+  ]
 }

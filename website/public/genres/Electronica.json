@@ -1,3 +1,15 @@
 {
-  "description": "'''Electronica''' is both a broad group of [[electronic music|electronic]]-based music styles intended for listening rather than strictly for dancing and a music scene that came to prominence in the early [[1990s in music|1990s]] in the United Kingdom. In the United States, the term is mostly used to refer to electronic music generally."
+  "description": "'''Electronica''' is both a broad group of [[electronic music|electronic]]-based music styles intended for listening rather than strictly for dancing and a music scene that came to prominence in the early [[1990s in music|1990s]] in the United Kingdom. In the United States, the term is mostly used to refer to electronic music generally.",
+  "top_artists": [
+    "Madonna",
+    "Project Pitchfork",
+    "Radiohead",
+    "Alanis Morissette",
+    "Sia",
+    "Moby",
+    "Bebe Rexha",
+    "Thom Yorke",
+    "Owl City",
+    "Gary Numan"
+  ]
 }

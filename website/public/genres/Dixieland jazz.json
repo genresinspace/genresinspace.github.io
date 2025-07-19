@@ -1,3 +1,15 @@
 {
-  "description": "'''Dixieland jazz''', also referred to as '''traditional jazz''', '''hot jazz''', or simply '''Dixieland''', is a style of [[jazz]] based on the music that developed in [[New Orleans]] at the start of the 20th century. The 1917 recordings by the [[Original Dixieland Jass Band]] (which shortly thereafter changed the spelling of its name to \"Original Dixieland Jazz Band\") fostered awareness of this new style of music."
+  "description": "'''Dixieland jazz''', also referred to as '''traditional jazz''', '''hot jazz''', or simply '''Dixieland''', is a style of [[jazz]] based on the music that developed in [[New Orleans]] at the start of the 20th century. The 1917 recordings by the [[Original Dixieland Jass Band]] (which shortly thereafter changed the spelling of its name to \"Original Dixieland Jazz Band\") fostered awareness of this new style of music.",
+  "top_artists": [
+    "Louis Armstrong",
+    "Wynton Marsalis",
+    "Gene Krupa",
+    "Pee Wee Russell",
+    "Jelly Roll Morton",
+    "Jimmy Dorsey",
+    "Preservation Hall Jazz Band",
+    "Bob Crosby",
+    "Mezz Mezzrow",
+    "Steve Lacy (saxophonist)"
+  ]
 }

@@ -1,3 +1,15 @@
 {
-  "description": "'''Latin jazz''' is a genre of [[jazz]] with [[Latin America]]n rhythms. The two main categories are [[Afro-Cuban jazz]], rhythmically based on Cuban popular dance music, with a rhythm section employing [[ostinato]] patterns or a [[clave (rhythm)|clave]], and Afro-Brazilian jazz, which includes [[samba]] and [[bossa nova]]."
+  "description": "'''Latin jazz''' is a genre of [[jazz]] with [[Latin America]]n rhythms. The two main categories are [[Afro-Cuban jazz]], rhythmically based on Cuban popular dance music, with a rhythm section employing [[ostinato]] patterns or a [[clave (rhythm)|clave]], and Afro-Brazilian jazz, which includes [[samba]] and [[bossa nova]].",
+  "top_artists": [
+    "Armando Peraza",
+    "Chick Corea",
+    "Tito Puente",
+    "Peggy Lee",
+    "Pat Metheny",
+    "Cal Tjader",
+    "Arturo Sandoval",
+    "Roy Hargrove",
+    "Eddie Palmieri",
+    "Esperanza Spalding"
+  ]
 }

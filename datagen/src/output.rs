@@ -37,12 +37,12 @@ struct NodeData {
     #[serde(skip_serializing_if = "Option::is_none")]
     mixes: Option<GenreMixes>,
     edges: BTreeSet<usize>,
-    top_artists: Vec<PageName>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 struct GenreFileData {
     description: Option<String>,
+    top_artists: Vec<PageName>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -194,23 +194,6 @@ pub fn produce(
             .ok()
             .map(|f| GenreMixes::parse(&f));
 
-        let top_artist_pages: Vec<PageName> = genre_top_artists
-            .get(page)
-            .map(|artists| {
-                artists
-                    .iter()
-                    .map(|(artist, _)| artist.clone())
-                    .take(10)
-                    .collect()
-            })
-            .unwrap_or_default();
-
-        let mut top_artists = vec![];
-        for artist_page in top_artist_pages {
-            artists_to_copy.insert(artist_page.clone());
-            top_artists.push(artist_page);
-        }
-
         let node = NodeData {
             id,
             page_title: page.clone(),
@@ -218,7 +201,6 @@ pub fn produce(
             last_revision_date: processed_genre.last_revision_date,
             mixes,
             edges: BTreeSet::new(),
-            top_artists,
         };
 
         graph.nodes.push(node);
@@ -227,10 +209,31 @@ pub fn produce(
         // Add fallback page ID for pages where the main music box is under a heading
         page_to_id.entry(page_without_heading).or_insert(id);
 
+        let top_artists = {
+            let top_artist_pages: Vec<PageName> = genre_top_artists
+                .get(page)
+                .map(|artists| {
+                    artists
+                        .iter()
+                        .map(|(artist, _)| artist.clone())
+                        .take(10)
+                        .collect()
+                })
+                .unwrap_or_default();
+
+            let mut top_artists = vec![];
+            for artist_page in top_artist_pages {
+                artists_to_copy.insert(artist_page.clone());
+                top_artists.push(artist_page);
+            }
+            top_artists
+        };
+
         std::fs::write(
             genres_path.join(format!("{}.json", PageName::sanitize(page))),
             serde_json::to_string_pretty(&GenreFileData {
                 description: processed_genre.wikitext_description.clone(),
+                top_artists,
             })?,
         )?;
     }

@@ -7,6 +7,7 @@ import {
   nodeColour,
   NodeColourLightness,
   useDataContext,
+  GenreFileData,
 } from "../../data";
 import {
   derivativeColour,
@@ -61,32 +62,42 @@ export function SelectedNodeInfo({
     <div className="flex flex-col">
       <GenreHeader node={node} maxDegree={maxDegree} />
 
-      {shouldShowMixes && (
-        <FeaturedMix node={node} shouldAutoplayMixes={shouldAutoplayMixes} />
-      )}
-
-      <div className="p-3">
-        {genreData ? (
-          genreData.description ? (
-            <WikitextTruncateAtNewline
-              wikitext={genreData.description}
-              expandable={true}
+      {genreData ? (
+        <>
+          {shouldShowMixes && (
+            <FeaturedMix
+              node={node}
+              shouldAutoplayMixes={shouldAutoplayMixes}
             />
-          ) : (
-            "No description available."
-          )
-        ) : (
-          "Loading..."
-        )}
-      </div>
+          )}
 
-      <ConnectionsAndArtists
-        node={node}
-        nodes={nodes}
-        edges={edges}
-        selectedId={selectedId}
-        setFocusedId={setFocusedId}
-      />
+          <div className="p-3">
+            {genreData ? (
+              genreData.description ? (
+                <WikitextTruncateAtNewline
+                  wikitext={genreData.description}
+                  expandable={true}
+                />
+              ) : (
+                "No description available."
+              )
+            ) : (
+              "Loading..."
+            )}
+          </div>
+
+          <ConnectionsAndArtists
+            node={node}
+            genreData={genreData}
+            nodes={nodes}
+            edges={edges}
+            selectedId={selectedId}
+            setFocusedId={setFocusedId}
+          />
+        </>
+      ) : (
+        <Notice colour="yellow">Loading...</Notice>
+      )}
     </div>
   );
 }
@@ -214,12 +225,14 @@ function HelpNeededForMix({ reason }: { reason: string | null }) {
 
 function ConnectionsAndArtists({
   node,
+  genreData,
   nodes,
   edges,
   selectedId,
   setFocusedId,
 }: {
   node: NodeData;
+  genreData: GenreFileData;
   nodes: NodeData[];
   edges: EdgeData[];
   selectedId: string | null;
@@ -267,7 +280,7 @@ function ConnectionsAndArtists({
           setFocusedId={setFocusedId}
         />
       ) : (
-        <TopArtists node={node} />
+        <TopArtists genreData={genreData} />
       )}
     </div>
   );
@@ -528,28 +541,24 @@ function ConnectionHeading({
   );
 }
 
-function TopArtists({ node }: { node: NodeData }) {
-  return (
-    <>
-      {node.top_artists && node.top_artists.length > 0 ? (
-        <div className="flex flex-col gap-3 p-3">
-          {node.top_artists.map((artistPage, index) => (
-            <Artist
-              artistPage={artistPage}
-              key={artistPage}
-              isLast={index === node.top_artists.length - 1}
-            />
-          ))}
-        </div>
-      ) : (
-        <Notice colour="blue">
-          <p>
-            There are no artists on Wikipedia that are associated with this
-            genre. If you know of an artist, please update their Wikipedia page!
-          </p>
-        </Notice>
-      )}
-    </>
+function TopArtists({ genreData }: { genreData: GenreFileData }) {
+  return genreData.top_artists && genreData.top_artists.length > 0 ? (
+    <div className="flex flex-col gap-3 p-3">
+      {genreData.top_artists.map((artistPage, index) => (
+        <Artist
+          artistPage={artistPage}
+          key={artistPage}
+          isLast={index === genreData.top_artists.length - 1}
+        />
+      ))}
+    </div>
+  ) : (
+    <Notice colour="blue">
+      <p>
+        There are no artists on Wikipedia that are associated with this genre.
+        If you know of an artist, please update their Wikipedia page!
+      </p>
+    </Notice>
   );
 }
 

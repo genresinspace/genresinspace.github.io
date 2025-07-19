@@ -1,3 +1,15 @@
 {
-  "description": "'''Psychedelic pop''' (or '''acid pop''') is a genre of [[pop music]] that contains musical characteristics associated with [[psychedelic music]]. Developing in the mid-to-late 1960s, elements included \"[[acid trip|trippy]]\" features such as [[fuzz guitar]]s, tape manipulation, backwards recording, [[sitar]]s, and [[The Beach Boys|Beach Boys]]-style harmonies, wedded to melodic songs with tight song structures. The style lasted into the early 1970s. It has seen revivals in subsequent decades by [[neo-psychedelic]] artists."
+  "description": "'''Psychedelic pop''' (or '''acid pop''') is a genre of [[pop music]] that contains musical characteristics associated with [[psychedelic music]]. Developing in the mid-to-late 1960s, elements included \"[[acid trip|trippy]]\" features such as [[fuzz guitar]]s, tape manipulation, backwards recording, [[sitar]]s, and [[The Beach Boys|Beach Boys]]-style harmonies, wedded to melodic songs with tight song structures. The style lasted into the early 1970s. It has seen revivals in subsequent decades by [[neo-psychedelic]] artists.",
+  "top_artists": [
+    "Syd Barrett",
+    "Tame Impala",
+    "MGMT",
+    "Animal Collective",
+    "Of Montreal",
+    "The Zombies",
+    "Portugal. The Man",
+    "Traffic (band)",
+    "Glass Animals",
+    "King Gizzard & the Lizard Wizard"
+  ]
 }

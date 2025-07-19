@@ -1,3 +1,15 @@
 {
-  "description": "'''College rock''' is [[Rock music|rock]] music played on student-run university and college [[campus radio]] stations located in the [[Higher education in the United States|United States]] and [[Higher education in Canada|Canada]] in the 1980s and 1990s. The stations' playlists were often created by students who avoided the mainstream rock played on commercial radio stations."
+  "description": "'''College rock''' is [[Rock music|rock]] music played on student-run university and college [[campus radio]] stations located in the [[Higher education in the United States|United States]] and [[Higher education in Canada|Canada]] in the 1980s and 1990s. The stations' playlists were often created by students who avoided the mainstream rock played on commercial radio stations.",
+  "top_artists": [
+    "R.E.M.",
+    "Hoodoo Gurus",
+    "The Replacements (band)",
+    "Mike Mills",
+    "The Smithereens",
+    "Bill Berry",
+    "Camper Van Beethoven",
+    "Marshall Crenshaw",
+    "Was (Not Was)",
+    "The dB's"
+  ]
 }

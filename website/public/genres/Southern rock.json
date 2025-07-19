@@ -1,3 +1,15 @@
 {
-  "description": "'''Southern rock''' is a subgenre of [[rock music]] and a genre of [[Americana (music)|Americana]]. It developed in the [[Southern United States]] from [[rock and roll]], [[country music|country]] and [[blues]], and is focused generally on [[electric guitar]]s and vocals."
+  "description": "'''Southern rock''' is a subgenre of [[rock music]] and a genre of [[Americana (music)|Americana]]. It developed in the [[Southern United States]] from [[rock and roll]], [[country music|country]] and [[blues]], and is focused generally on [[electric guitar]]s and vocals.",
+  "top_artists": [
+    "Lynyrd Skynyrd",
+    "Kings of Leon",
+    "The Allman Brothers Band",
+    "Charlie Daniels",
+    "Tom Petty",
+    "ZZ Top",
+    "Creedence Clearwater Revival",
+    "The Black Crowes",
+    "Little Feat",
+    "Zac Brown Band"
+  ]
 }

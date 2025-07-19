@@ -1,3 +1,8 @@
 {
-  "description": "'''Scam rap''' is a subgenre of [[hip hop]] that emerged in [[Detroit]] during the mid to late 2010s. It is characterized by lyrics that focus on various forms of [[Fraud|fraudulent activities]], particularly those conducted in the digital realm, such as [[Internet fraud|online scams]], [[security hacker|hacking]], the [[dark web]] and [[cybercrime]]. Artists like [[Punchmade Dev]], [[Teejayx6]] and [[BabyTron]] are largely credited with popularizing the subgenre."
+  "description": "'''Scam rap''' is a subgenre of [[hip hop]] that emerged in [[Detroit]] during the mid to late 2010s. It is characterized by lyrics that focus on various forms of [[Fraud|fraudulent activities]], particularly those conducted in the digital realm, such as [[Internet fraud|online scams]], [[security hacker|hacking]], the [[dark web]] and [[cybercrime]]. Artists like [[Punchmade Dev]], [[Teejayx6]] and [[BabyTron]] are largely credited with popularizing the subgenre.",
+  "top_artists": [
+    "BabyTron",
+    "Teejayx6",
+    "Punchmade Dev"
+  ]
 }

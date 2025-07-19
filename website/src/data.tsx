@@ -45,14 +45,14 @@ export type NodeData = {
     | { video: string; note?: string }[];
   /** The node's edges. */
   edges: number[];
-  /** The node's top artists, as page names. */
-  top_artists: string[];
 };
 
 /** Genre data from the genre JSON files. */
 export type GenreFileData = {
   /** The genre's Wikipedia wikitext description. */
   description?: string;
+  /** The node's top artists, as page names. */
+  top_artists: string[];
 };
 
 /** Convert a node ID (integer as a string) to an integer. */

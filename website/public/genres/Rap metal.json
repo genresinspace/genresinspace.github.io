@@ -1,3 +1,15 @@
 {
-  "description": "'''Rap metal''' is a fusion genre that combines [[hip hop music|hip hop]] with [[heavy metal music|heavy metal]]. It usually consists of heavy metal guitar [[riff]]s, [[funk metal]] elements, [[Rapping|rapped]] vocals and sometimes [[turntablism|turntables]]."
+  "description": "'''Rap metal''' is a fusion genre that combines [[hip hop music|hip hop]] with [[heavy metal music|heavy metal]]. It usually consists of heavy metal guitar [[riff]]s, [[funk metal]] elements, [[Rapping|rapped]] vocals and sometimes [[turntablism|turntables]].",
+  "top_artists": [
+    "Rage Against the Machine",
+    "Limp Bizkit",
+    "Ice-T",
+    "Tom Morello",
+    "Papa Roach",
+    "Vanilla Ice",
+    "Zack de la Rocha",
+    "Chuck D",
+    "Tommy Lee",
+    "Fred Durst"
+  ]
 }

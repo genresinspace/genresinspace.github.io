@@ -1,3 +1,15 @@
 {
-  "description": "'''Israeli rock''' ({{langx|he|רוק ישראלי}}, ''Rok Yisra'eli'') is [[rock music]] created by [[Israel]]i bands and singers."
+  "description": "'''Israeli rock''' ({{langx|he|רוק ישראלי}}, ''Rok Yisra'eli'') is [[rock music]] created by [[Israel]]i bands and singers.",
+  "top_artists": [
+    "Kaveret",
+    "Arik Einstein",
+    "Gidi Gov",
+    "Yehoram Gaon",
+    "Uzi Hitman",
+    "Diana Golbi",
+    "Shoshana Damari",
+    "Etti Ankri",
+    "Ehud Banai",
+    "Yossi Banai"
+  ]
 }

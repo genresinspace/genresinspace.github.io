@@ -1,3 +1,15 @@
 {
-  "description": "'''Comedy rock''' is a genre of rock music that is [[Comedy music|comedic]] in nature. It is often mixed with [[satirical music|satire]] or irony."
+  "description": "'''Comedy rock''' is a genre of rock music that is [[Comedy music|comedic]] in nature. It is often mixed with [[satirical music|satire]] or irony.",
+  "top_artists": [
+    "Jack Black",
+    "Tenacious D",
+    "Macaulay Culkin",
+    "Barenaked Ladies",
+    "Tim Minchin",
+    "Flight of the Conchords",
+    "Warren Zevon",
+    "Bill Paxton",
+    "Bloodhound Gang",
+    "Rambo Amadeus"
+  ]
 }

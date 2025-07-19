@@ -1,3 +1,15 @@
 {
-  "description": "'''Geek rock''' is a musical subgenre derived from [[pop rock]] and [[alternative rock]] within the [[nerd music]] group. It is characterized by the standard instruments of rock music often combined with electronic and unusual instruments, references to geek culture and specialized yet mundane interests, whimsy, and offbeat humor in general."
+  "description": "'''Geek rock''' is a musical subgenre derived from [[pop rock]] and [[alternative rock]] within the [[nerd music]] group. It is characterized by the standard instruments of rock music often combined with electronic and unusual instruments, references to geek culture and specialized yet mundane interests, whimsy, and offbeat humor in general.",
+  "top_artists": [
+    "Weezer",
+    "\"Weird Al\" Yankovic",
+    "Devo",
+    "They Might Be Giants",
+    "Rivers Cuomo",
+    "Fountains of Wayne",
+    "Jonathan Coulton",
+    "Lemon Demon",
+    "Harry and the Potters",
+    "Brian Bell"
+  ]
 }

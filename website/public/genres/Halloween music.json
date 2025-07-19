@@ -1,3 +1,7 @@
 {
-  "description": "'''Halloween music''' is a [[music genre]] defined by themes of [[Horror fiction|horror]] and popularity in association with the holiday of [[Halloween]]."
+  "description": "'''Halloween music''' is a [[music genre]] defined by themes of [[Horror fiction|horror]] and popularity in association with the holiday of [[Halloween]].",
+  "top_artists": [
+    "Midnight Syndicate",
+    "Nox Arcana"
+  ]
 }

@@ -1,3 +1,15 @@
 {
-  "description": "'''Plena''' is a [[music genre|genre]] of [[music]] and dance native to [[Puerto Rico]]."
+  "description": "'''Plena''' is a [[music genre|genre]] of [[music]] and dance native to [[Puerto Rico]].",
+  "top_artists": [
+    "Daniel Santos (singer)",
+    "Yomo Toro",
+    "Rafael Cortijo",
+    "Plena Libre",
+    "Julio Alvarado Tricoche",
+    "Lucas Sugo",
+    "Sonora Borinquen",
+    "Luana Persíncula",
+    "Pijuán",
+    "Juanchín Ramírez"
+  ]
 }

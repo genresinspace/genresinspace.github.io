@@ -1,3 +1,15 @@
 {
-  "description": "'''Latin music''' ([[Portuguese language|Portuguese]] and {{langx|es|música latina}}) is a term used by the [[music industry]] as a catch-all category for various styles of music from [[Ibero-America]], which encompasses [[Music of Latin America|Latin America]], [[Music of Spain|Spain]], [[Music of Portugal|Portugal]], and the [[Latino (demonym)|Latino]] population in [[Latin music in Canada|Canada]] and the [[Latin American music in the United States|United States]], as well as music that is sung in either [[Spanish language|Spanish]] and/or [[Portuguese language|Portuguese]]. It may also include music from other territories where Spanish- and Portuguese-language music is made."
+  "description": "'''Latin music''' ([[Portuguese language|Portuguese]] and {{langx|es|música latina}}) is a term used by the [[music industry]] as a catch-all category for various styles of music from [[Ibero-America]], which encompasses [[Music of Latin America|Latin America]], [[Music of Spain|Spain]], [[Music of Portugal|Portugal]], and the [[Latino (demonym)|Latino]] population in [[Latin music in Canada|Canada]] and the [[Latin American music in the United States|United States]], as well as music that is sung in either [[Spanish language|Spanish]] and/or [[Portuguese language|Portuguese]]. It may also include music from other territories where Spanish- and Portuguese-language music is made.",
+  "top_artists": [
+    "Jennifer Lopez",
+    "Julio Iglesias",
+    "Marc Anthony",
+    "Linda Ronstadt",
+    "Joan Baez",
+    "Nelly Furtado",
+    "Paulina Rubio",
+    "Becky G",
+    "Miami Sound Machine",
+    "Ivan Lins"
+  ]
 }

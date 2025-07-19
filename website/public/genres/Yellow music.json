@@ -1,3 +1,9 @@
 {
-  "description": "'''Yellow Music''' is a genre of [[popular music]]. The term has been used in China and [[Vietnam]] to describe types of music that have separate origins."
+  "description": "'''Yellow Music''' is a genre of [[popular music]]. The term has been used in China and [[Vietnam]] to describe types of music that have separate origins.",
+  "top_artists": [
+    "Lê Dinh",
+    "Hà Phương",
+    "Quang Lê",
+    "Minh Tuyết"
+  ]
 }
