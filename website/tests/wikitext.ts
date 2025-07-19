@@ -10,6 +10,9 @@ import { initWasm } from "../src/views/components/wikipedia";
 import { wikiPageUrl, wikiUrl } from "../src/views/components/wikipedia/urls";
 import { Wikitext } from "../src/views/components/wikipedia/wikitexts/Wikitext";
 import { MissingTemplateError } from "../src/views/components/wikipedia/templates/WikitextTemplate";
+import { page_name_to_filename } from "frontend_wasm";
+import { GenreCache, GenreCacheContext } from "../src/services/genreCache";
+import { ArtistCache, ArtistCacheContext } from "../src/services/artistCache";
 
 // Get the directory path of the current file
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -55,9 +58,21 @@ function renderWikitext(
         {
           value: data as Data,
         },
-        React.createElement(Wikitext, {
-          wikitext: wikitext,
-        })
+        React.createElement(
+          GenreCacheContext.Provider,
+          {
+            value: new GenreCache(),
+          },
+          React.createElement(
+            ArtistCacheContext.Provider,
+            {
+              value: new ArtistCache(),
+            },
+            React.createElement(Wikitext, {
+              wikitext: wikitext,
+            })
+          )
+        )
       )
     );
   } catch (err) {
@@ -89,7 +104,10 @@ try {
       continue;
     }
 
-    const genrePath = join(genresDir, genre.page_title + ".json");
+    const genrePath = join(
+      genresDir,
+      page_name_to_filename(genre.page_title) + ".json"
+    );
     const genreData: GenreFileData = JSON.parse(
       await readFile(genrePath, "utf-8")
     );
