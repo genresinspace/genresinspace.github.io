@@ -49,14 +49,16 @@ export function SelectedNodeInfo({
   shouldAutoplayMixes: boolean;
 }) {
   const { nodes, edges, max_degree: maxDegree } = useDataContext();
+  const [activeTab, setActiveTab] = useState<"connections" | "artists">(
+    "connections"
+  );
 
-  if (!selectedId) {
+  const node = selectedId ? nodes[nodeIdToInt(selectedId)] : null;
+  const genreData = useGenre(node?.page_title ?? null);
+
+  if (!node) {
     return <EmptyState />;
   }
-
-  const node = nodes[nodeIdToInt(selectedId)];
-  const genreData = useGenre(node?.page_title);
-  if (!node) return null;
 
   return (
     <div className="flex flex-col">
@@ -93,6 +95,8 @@ export function SelectedNodeInfo({
             edges={edges}
             selectedId={selectedId}
             setFocusedId={setFocusedId}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
           />
         </>
       ) : (
@@ -230,6 +234,8 @@ function ConnectionsAndArtists({
   edges,
   selectedId,
   setFocusedId,
+  activeTab,
+  setActiveTab,
 }: {
   node: NodeData;
   genreData: GenreFileData;
@@ -237,11 +243,9 @@ function ConnectionsAndArtists({
   edges: EdgeData[];
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
+  activeTab: "connections" | "artists";
+  setActiveTab: (tab: "connections" | "artists") => void;
 }) {
-  const [activeTab, setActiveTab] = useState<"connections" | "artists">(
-    "connections"
-  );
-
   return (
     <div>
       {/* Tab switcher */}
