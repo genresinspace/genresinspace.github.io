@@ -9,7 +9,6 @@ import {
   useDataContext,
   ArtistData,
 } from "../../data";
-import { page_name_to_filename } from "frontend_wasm";
 import {
   derivativeColour,
   fusionGenreColour,
@@ -35,6 +34,7 @@ import {
 } from "../components/icons";
 
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
+import { useArtistCache } from "../../services/artistCache";
 
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
@@ -548,6 +548,7 @@ function Artist({
   const { artist_page_to_name } = useDataContext();
   const [artistData, setArtistData] = useState<ArtistData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const artistCache = useArtistCache();
 
   const artistName = artist_page_to_name[artistPage] || artistPage;
 
@@ -555,18 +556,14 @@ function Artist({
     if (artistData || isLoading) return;
     setIsLoading(true);
     try {
-      const filename = page_name_to_filename(artistPage);
-      const response = await fetch(`/artists/${filename}.json`);
-      if (response.ok) {
-        const data: ArtistData = await response.json();
-        setArtistData(data);
-      }
+      const data = await artistCache.get(artistPage);
+      setArtistData(data);
     } catch (error) {
       console.error("Failed to fetch artist data:", error);
     } finally {
       setIsLoading(false);
     }
-  }, [artistPage, artistData, isLoading]);
+  }, [artistPage, artistData, isLoading, artistCache]);
 
   useEffect(() => {
     fetchArtistData();
