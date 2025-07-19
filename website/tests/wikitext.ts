@@ -11,8 +11,7 @@ import { wikiPageUrl, wikiUrl } from "../src/views/components/wikipedia/urls";
 import { Wikitext } from "../src/views/components/wikipedia/wikitexts/Wikitext";
 import { MissingTemplateError } from "../src/views/components/wikipedia/templates/WikitextTemplate";
 import { page_name_to_filename } from "frontend_wasm";
-import { GenreCache, GenreCacheContext } from "../src/services/genreCache";
-import { ArtistCache, ArtistCacheContext } from "../src/services/artistCache";
+import { DataCache, DataCacheContext } from "../src/services/dataCache";
 
 // Get the directory path of the current file
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -59,19 +58,13 @@ function renderWikitext(
           value: data as Data,
         },
         React.createElement(
-          GenreCacheContext.Provider,
+          DataCacheContext.Provider,
           {
-            value: new GenreCache(),
+            value: new DataCache(),
           },
-          React.createElement(
-            ArtistCacheContext.Provider,
-            {
-              value: new ArtistCache(),
-            },
-            React.createElement(Wikitext, {
-              wikitext: wikitext,
-            })
-          )
+          React.createElement(Wikitext, {
+            wikitext: wikitext,
+          })
         )
       )
     );

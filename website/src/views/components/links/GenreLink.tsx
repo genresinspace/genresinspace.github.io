@@ -4,7 +4,7 @@ import {
   NodeData,
   useDataContext,
 } from "../../../data";
-import { useGenre } from "../../../services/genreCache";
+import { useGenre } from "../../../services/dataCache";
 import { Tooltip, useTooltip } from "../Tooltip";
 import { WikitextTooltipContent } from "../Tooltip";
 

@@ -10,7 +10,7 @@ import { SwapIcon } from "./components/icons/SwapIcon";
 import { CloseIcon } from "./components/icons/CloseIcon";
 import { VISIBLE_TYPES_BY_TYPE, VisibleTypes } from "../settings";
 import React from "react";
-import { useGenre } from "../services/genreCache";
+import { useGenre } from "../services/dataCache";
 
 /** The state of the search component */
 export type SearchState =

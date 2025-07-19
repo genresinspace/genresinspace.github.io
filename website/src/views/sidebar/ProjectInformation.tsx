@@ -20,7 +20,7 @@ import { dumpUrl } from "../components/wikipedia/urls";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { Section } from "../components/Section";
 import { InfoIcon, MapIcon, QuestionIcon } from "../components/icons";
-import { useGenre } from "../../services/genreCache";
+import { useGenre } from "../../services/dataCache";
 
 /** The sidebar panel for information about the project. */
 export function ProjectInformation({

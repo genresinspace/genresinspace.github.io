@@ -13,8 +13,7 @@ import { DEFAULT_SETTINGS, SettingsData } from "./settings";
 import { Data, nodeIdToInt, DataContext } from "./data";
 
 import { Sidebar } from "./views/sidebar/Sidebar";
-import { ArtistCache, ArtistCacheContext } from "./services/artistCache";
-import { GenreCache, GenreCacheContext } from "./services/genreCache";
+import { DataCache, DataCacheContext } from "./services/dataCache";
 
 // Global constant for arrow key navigation (developer tool)
 const ENABLE_ARROW_KEY_NAVIGATION = import.meta.env.DEV;
@@ -22,8 +21,7 @@ const ENABLE_ARROW_KEY_NAVIGATION = import.meta.env.DEV;
 /** The main app component */
 function App() {
   const loading = useData();
-  const [genreCache] = useState(() => new GenreCache());
-  const [artistCache] = useState(() => new ArtistCache());
+  const [dataCache] = useState(() => new DataCache());
 
   if (loading.state === "loading") {
     return (
@@ -38,11 +36,9 @@ function App() {
     );
   } else {
     return (
-      <GenreCacheContext.Provider value={genreCache}>
-        <ArtistCacheContext.Provider value={artistCache}>
-          <LoadedApp data={loading.data} />
-        </ArtistCacheContext.Provider>
-      </GenreCacheContext.Provider>
+      <DataCacheContext.Provider value={dataCache}>
+        <LoadedApp data={loading.data} />
+      </DataCacheContext.Provider>
     );
   }
 }

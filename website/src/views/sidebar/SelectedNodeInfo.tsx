@@ -33,8 +33,7 @@ import {
 } from "../components/icons";
 
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
-import { useArtist } from "../../services/artistCache";
-import { useGenre } from "../../services/genreCache";
+import { useArtist, useGenre } from "../../services/dataCache";
 
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
