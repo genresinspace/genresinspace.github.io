@@ -28,9 +28,7 @@ function App() {
       <div className="flex w-screen h-screen items-center justify-center bg-neutral-900 text-white">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-neutral-600 border-t-white rounded-full animate-spin" />
-          {loading.progress > 0 && (
-            <div>Loading... {Math.round(loading.progress * 100)}%</div>
-          )}
+          <div>Loading...</div>
         </div>
       </div>
     );
@@ -43,50 +41,14 @@ function App() {
   }
 }
 
-function useData():
-  | { state: "loading"; progress: number }
-  | { state: "loaded"; data: Data } {
+function useData(): { state: "loading" } | { state: "loaded"; data: Data } {
   const [data, setData] = useState<Data | undefined>();
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch("/data.json");
-        const reader = response.body?.getReader();
-        const contentLength = +(response.headers.get("Content-Length") ?? 0);
-
-        if (!reader) {
-          const data = await response.json();
-          setData(data);
-          return;
-        }
-
-        let receivedLength = 0;
-        const chunks = [];
-
-        // eslint-disable-next-line no-constant-condition
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          chunks.push(value);
-          receivedLength += value.length;
-
-          setProgress(
-            Math.min(1, contentLength ? receivedLength / contentLength : 0)
-          );
-        }
-
-        const chunksAll = new Uint8Array(receivedLength);
-        let position = 0;
-        for (const chunk of chunks) {
-          chunksAll.set(chunk, position);
-          position += chunk.length;
-        }
-
-        const result = new TextDecoder("utf-8").decode(chunksAll);
-        const data = JSON.parse(result);
+        const data = await response.json();
         setData(data);
       } catch (error) {
         console.error("Error loading data:", error);
@@ -96,7 +58,7 @@ function useData():
   }, []);
 
   if (!data) {
-    return { state: "loading", progress };
+    return { state: "loading" };
   } else {
     return { state: "loaded", data };
   }
