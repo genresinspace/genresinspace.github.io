@@ -1,5 +1,6 @@
 {
   "files.exclude": {
-    "website/public/artists": true
+    "website/public/artists": true,
+    "website/public/genres": true
   }
 }
