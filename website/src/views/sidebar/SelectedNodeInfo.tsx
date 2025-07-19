@@ -8,6 +8,7 @@ import {
   NodeColourLightness,
   useDataContext,
   GenreFileData,
+  nodePageTitle,
 } from "../../data";
 import {
   derivativeColour,
@@ -54,7 +55,7 @@ export function SelectedNodeInfo({
   );
 
   const node = selectedId ? nodes[nodeIdToInt(selectedId)] : null;
-  const genreData = useGenre(node?.page_title ?? null);
+  const genreData = useGenre(node ? nodePageTitle(node) : null);
 
   if (!node) {
     return <EmptyState />;
@@ -135,7 +136,7 @@ function GenreHeader({
     <div className="space-y-4">
       <div className="overflow-hidden">
         <WikipediaLink
-          pageTitle={node.page_title}
+          pageTitle={nodePageTitle(node)}
           className="bg-[var(--node-color)] hover:filter hover:brightness-[1.6] text-white p-2 block text-3xl font-bold text-center transition-all duration-200"
           nostyle={true}
           style={{
@@ -449,7 +450,7 @@ function ConnectionItem({
   isLast: boolean;
   setFocusedId: (id: string | null) => void;
 }) {
-  const genreData = useGenre(node.page_title);
+  const genreData = useGenre(nodePageTitle(node));
   const shortDescription = genreData?.description
     ? stripGenreNamePrefixFromDescription(node.label, genreData.description)
     : null;

@@ -6,6 +6,7 @@ import {
   NodeData,
   REPO_LINK,
   nodeColour,
+  nodePageTitle,
   useDataContext,
 } from "../../data";
 import { VISIBLE_TYPES, VisibleTypes } from "../../settings";
@@ -93,7 +94,7 @@ function RandomGenre({
     Math.floor(Math.random() * nodes.length)
   );
   const randomNode = nodes[randomId];
-  const genreData = useGenre(randomNode.page_title);
+  const genreData = useGenre(nodePageTitle(randomNode));
 
   const randomNodeColour = nodeColour(
     randomNode,
@@ -138,28 +139,28 @@ function RandomGenre({
           </span>
         </button>
       </span>
-        <span
-          className="block text-xs p-2 bg-[var(--node-color)]"
-          style={{
-            ["--node-color" as string]: randomNodeDarkerColour,
-          }}
-        >
+      <span
+        className="block text-xs p-2 bg-[var(--node-color)]"
+        style={{
+          ["--node-color" as string]: randomNodeDarkerColour,
+        }}
+      >
         {genreData ? (
           genreData.description ? (
-          <WikitextTruncateAtLength
-            wikitext={stripGenreNamePrefixFromDescription(
-              randomNode.label,
-              genreData.description
-            )}
-            length={100}
-          />
+            <WikitextTruncateAtLength
+              wikitext={stripGenreNamePrefixFromDescription(
+                randomNode.label,
+                genreData.description
+              )}
+              length={100}
+            />
           ) : (
             "No description available."
           )
         ) : (
           "Loading..."
         )}
-        </span>
+      </span>
     </span>
   );
 }

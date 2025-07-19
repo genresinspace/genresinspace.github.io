@@ -5,7 +5,6 @@
   "nodes": [
     {
       "id": "0",
-      "page_title": "2-step garage",
       "label": "2-step garage",
       "edges": [
         0,
@@ -27,7 +26,6 @@
     },
     {
       "id": "1",
-      "page_title": "A cappella",
       "label": "A cappella",
       "edges": [
         8,
@@ -50,7 +48,6 @@
     },
     {
       "id": "3",
-      "page_title": "Acid house",
       "label": "Acid house",
       "edges": [
         11,
@@ -93,7 +90,6 @@
     },
     {
       "id": "4",
-      "page_title": "Acid jazz",
       "label": "Acid jazz",
       "edges": [
         14,
@@ -113,7 +109,6 @@
     },
     {
       "id": "5",
-      "page_title": "Acid rock",
       "label": "Acid rock",
       "edges": [
         50,
@@ -138,7 +133,6 @@
     },
     {
       "id": "6",
-      "page_title": "Acid techno",
       "label": "Acid techno",
       "edges": [
         12,
@@ -151,7 +145,6 @@
     },
     {
       "id": "7",
-      "page_title": "Acid trance",
       "label": "Acid trance",
       "edges": [
         13,
@@ -165,7 +158,6 @@
     },
     {
       "id": "8",
-      "page_title": "Acoustic music",
       "label": "Acoustic music",
       "edges": []
     },
@@ -203,7 +195,6 @@
     },
     {
       "id": "11",
-      "page_title": "African blues",
       "label": "African blues",
       "edges": [
         67,
@@ -214,7 +205,6 @@
     },
     {
       "id": "12",
-      "page_title": "African heavy metal",
       "label": "African heavy metal",
       "edges": [
         2505
@@ -250,7 +240,6 @@
     },
     {
       "id": "16",
-      "page_title": "Afro fusion",
       "label": "Afro fusion",
       "edges": [
         3060,
@@ -260,7 +249,6 @@
     },
     {
       "id": "17",
-      "page_title": "Afro house",
       "label": "Afro house",
       "edges": [
         71,
@@ -277,7 +265,6 @@
     },
     {
       "id": "18",
-      "page_title": "Afro tech",
       "label": "Afro tech",
       "edges": [
         71,
@@ -289,13 +276,11 @@
     },
     {
       "id": "19",
-      "page_title": "Afro-Caribbean music",
       "label": "Afro-Caribbean music",
       "edges": []
     },
     {
       "id": "20",
-      "page_title": "Afro-Cuban jazz",
       "label": "Afro-Cuban jazz",
       "edges": [
         75,
@@ -308,7 +293,6 @@
     },
     {
       "id": "21",
-      "page_title": "Afro-punk",
       "label": "Afro-punk",
       "edges": [
         114,
@@ -317,7 +301,6 @@
     },
     {
       "id": "22",
-      "page_title": "Afro-soul",
       "label": "Afro-soul",
       "edges": [
         2253,
@@ -343,7 +326,6 @@
     },
     {
       "id": "24",
-      "page_title": "Afrobeat",
       "label": "Afrobeat",
       "edges": [
         80,
@@ -359,7 +341,6 @@
     },
     {
       "id": "25",
-      "page_title": "Afrobeats",
       "label": "Afrobeats",
       "edges": [
         80,
@@ -381,7 +362,6 @@
     },
     {
       "id": "26",
-      "page_title": "Afroswing",
       "label": "Afroswing",
       "edges": [
         82,
@@ -395,7 +375,6 @@
     },
     {
       "id": "27",
-      "page_title": "Ahidus",
       "label": "Ahidus",
       "edges": []
     },
@@ -413,7 +392,6 @@
     },
     {
       "id": "30",
-      "page_title": "Akishibu-kei",
       "label": "Akishibu-kei",
       "edges": [
         3412,
@@ -423,7 +401,6 @@
     },
     {
       "id": "31",
-      "page_title": "Al Jeel",
       "label": "Al Jeel",
       "edges": [
         252,
@@ -435,7 +412,6 @@
     },
     {
       "id": "32",
-      "page_title": "Alaskan hip-hop",
       "label": "Alaskan hip-hop",
       "edges": [
         1406,
@@ -448,7 +424,6 @@
     },
     {
       "id": "33",
-      "page_title": "Alpine folk music",
       "label": "Alpine folk music",
       "edges": [
         86,
@@ -458,7 +433,6 @@
     },
     {
       "id": "34",
-      "page_title": "Alternative R&B",
       "label": "Alternative R&B",
       "edges": [
         88,
@@ -476,7 +450,6 @@
     },
     {
       "id": "35",
-      "page_title": "Alternative country",
       "label": "Alternative country",
       "edges": [
         117,
@@ -498,7 +471,6 @@
     },
     {
       "id": "36",
-      "page_title": "Alternative dance",
       "label": "Alternative dance",
       "edges": [
         90,
@@ -524,7 +496,6 @@
     },
     {
       "id": "37",
-      "page_title": "Alternative hip-hop",
       "label": "Alternative hip-hop",
       "edges": [
         95,
@@ -548,7 +519,6 @@
     },
     {
       "id": "38",
-      "page_title": "Alternative metal",
       "label": "Alternative metal",
       "edges": [
         103,
@@ -569,7 +539,6 @@
     },
     {
       "id": "39",
-      "page_title": "Alternative reggaeton",
       "label": "Alternative reggaeton",
       "edges": [
         123,
@@ -580,7 +549,6 @@
     },
     {
       "id": "40",
-      "page_title": "Alternative rock",
       "label": "Alternative rock",
       "edges": [
         113,
@@ -676,7 +644,6 @@
     },
     {
       "id": "42",
-      "page_title": "Alté",
       "label": "Alté",
       "edges": [
         84,
@@ -697,7 +664,6 @@
     },
     {
       "id": "44",
-      "page_title": "Amapiano",
       "label": "Amapiano",
       "edges": [
         1269,
@@ -721,7 +687,6 @@
     },
     {
       "id": "46",
-      "page_title": "Ambient house",
       "label": "Ambient house",
       "edges": [
         17,
@@ -742,7 +707,6 @@
     },
     {
       "id": "47",
-      "page_title": "Ambient music",
       "label": "Ambient music",
       "edges": [
         187,
@@ -792,7 +756,6 @@
     },
     {
       "id": "48",
-      "page_title": "Ambient techno",
       "label": "Ambient techno",
       "edges": [
         18,
@@ -810,7 +773,6 @@
     },
     {
       "id": "49",
-      "page_title": "American classical guitar music",
       "label": "American classical guitar music",
       "edges": [
         223
@@ -818,7 +780,6 @@
     },
     {
       "id": "50",
-      "page_title": "American primitive guitar",
       "label": "American primitive guitar",
       "edges": [
         967,
@@ -852,7 +813,6 @@
     },
     {
       "id": "52",
-      "page_title": "Anarcho-punk",
       "label": "Anarcho-punk",
       "edges": [
         233,
@@ -869,7 +829,6 @@
     },
     {
       "id": "53",
-      "page_title": "Anatolian blues",
       "label": "Anatolian blues",
       "edges": [
         439
@@ -877,7 +836,6 @@
     },
     {
       "id": "54",
-      "page_title": "Anatolian rock",
       "label": "Anatolian rock",
       "edges": [
         1958,
@@ -888,7 +846,6 @@
     },
     {
       "id": "55",
-      "page_title": "Anime song",
       "label": "Anime song",
       "edges": [
         240,
@@ -911,13 +868,11 @@
     },
     {
       "id": "57",
-      "page_title": "Apala",
       "label": "Apala",
       "edges": []
     },
     {
       "id": "58",
-      "page_title": "Appalachian music",
       "label": "Appalachian music",
       "edges": [
         86,
@@ -952,7 +907,6 @@
     },
     {
       "id": "61",
-      "page_title": "Arena rock",
       "label": "Arena rock",
       "edges": [
         253,
@@ -979,7 +933,6 @@
     },
     {
       "id": "63",
-      "page_title": "Art pop",
       "label": "Art pop",
       "edges": [
         256,
@@ -994,7 +947,6 @@
     },
     {
       "id": "64",
-      "page_title": "Art punk",
       "label": "Art punk",
       "edges": [
         262,
@@ -1006,7 +958,6 @@
     },
     {
       "id": "65",
-      "page_title": "Art rock",
       "label": "Art rock",
       "edges": [
         263,
@@ -1052,13 +1003,11 @@
     },
     {
       "id": "69",
-      "page_title": "Athabaskan fiddle",
       "label": "Athabaskan fiddle",
       "edges": []
     },
     {
       "id": "70",
-      "page_title": "Atlanta blues",
       "label": "Atlanta blues",
       "edges": [
         440,
@@ -1067,7 +1016,6 @@
     },
     {
       "id": "71",
-      "page_title": "Australian hip-hop",
       "label": "Australian hip-hop",
       "edges": [
         387,
@@ -1084,7 +1032,6 @@
     },
     {
       "id": "72",
-      "page_title": "Austropop",
       "label": "Austropop",
       "edges": [
         3937,
@@ -1093,7 +1040,6 @@
     },
     {
       "id": "73",
-      "page_title": "Avant-funk",
       "label": "Avant-funk",
       "edges": [
         263,
@@ -1115,7 +1061,6 @@
     },
     {
       "id": "74",
-      "page_title": "Avant-garde jazz",
       "label": "Avant-garde jazz",
       "edges": [
         275,
@@ -1130,7 +1075,6 @@
     },
     {
       "id": "75",
-      "page_title": "Avant-garde metal",
       "label": "Avant-garde metal",
       "edges": [
         279,
@@ -1180,7 +1124,6 @@
     },
     {
       "id": "77",
-      "page_title": "Avant-prog",
       "label": "Avant-prog",
       "edges": [
         288,
@@ -1190,7 +1133,6 @@
     },
     {
       "id": "78",
-      "page_title": "Avant-punk",
       "label": "Avant-punk",
       "edges": [
         289,
@@ -1200,7 +1142,6 @@
     },
     {
       "id": "79",
-      "page_title": "Axé",
       "label": "Axé",
       "edges": [
         310,
@@ -1213,7 +1154,6 @@
     },
     {
       "id": "80",
-      "page_title": "Azerbaijani pop music",
       "label": "Azerbaijani pop music",
       "edges": [
         1827,
@@ -1234,7 +1174,6 @@
     },
     {
       "id": "82",
-      "page_title": "Bachatón",
       "label": "Bachatón",
       "edges": [
         311,
@@ -1246,13 +1185,11 @@
     },
     {
       "id": "83",
-      "page_title": "Bagad",
       "label": "Bagad",
       "edges": []
     },
     {
       "id": "84",
-      "page_title": "Baggy",
       "label": "Baggy",
       "edges": [
         19,
@@ -1269,7 +1206,6 @@
     },
     {
       "id": "85",
-      "page_title": "Bahamian Rhyming Spiritual",
       "label": "Bahamian Rhyming Spiritual",
       "edges": [
         314,
@@ -1284,7 +1220,6 @@
     },
     {
       "id": "87",
-      "page_title": "Bakersfield sound",
       "label": "Bakersfield sound",
       "edges": [
         315,
@@ -1299,7 +1234,6 @@
     },
     {
       "id": "88",
-      "page_title": "Balearic beat",
       "label": "Balearic beat",
       "edges": [
         320,
@@ -1316,7 +1250,6 @@
     },
     {
       "id": "89",
-      "page_title": "Balearic trance",
       "label": "Balearic trance",
       "edges": [
         320,
@@ -1350,7 +1283,6 @@
     },
     {
       "id": "92",
-      "page_title": "Baltimore club",
       "label": "Baltimore club",
       "edges": [
         327,
@@ -1374,7 +1306,6 @@
     },
     {
       "id": "94",
-      "page_title": "Banda music",
       "label": "Banda music",
       "edges": [
         329,
@@ -1386,7 +1317,6 @@
     },
     {
       "id": "95",
-      "page_title": "Bandana thrash",
       "label": "Bandana thrash",
       "edges": [
         4227,
@@ -1397,7 +1327,6 @@
     },
     {
       "id": "96",
-      "page_title": "Bangladeshi heavy metal",
       "label": "Bangladeshi heavy metal",
       "edges": [
         333,
@@ -1437,7 +1366,6 @@
     },
     {
       "id": "99",
-      "page_title": "Banjo music",
       "label": "Banjo music",
       "edges": [
         243,
@@ -1451,13 +1379,11 @@
     },
     {
       "id": "100",
-      "page_title": "Bantowbol",
       "label": "Bantowbol",
       "edges": []
     },
     {
       "id": "101",
-      "page_title": "Barbershop music",
       "label": "Barbershop music",
       "edges": [
         8
@@ -1474,7 +1400,6 @@
     },
     {
       "id": "103",
-      "page_title": "Bardcore",
       "label": "Bardcore",
       "edges": [
         1622,
@@ -1485,7 +1410,6 @@
     },
     {
       "id": "104",
-      "page_title": "Baroque pop",
       "label": "Baroque pop",
       "edges": [
         336,
@@ -1515,13 +1439,11 @@
     },
     {
       "id": "106",
-      "page_title": "Batrelaky",
       "label": "Batrelaky",
       "edges": []
     },
     {
       "id": "107",
-      "page_title": "Battle rap",
       "label": "Battle rap",
       "edges": []
     },
@@ -1535,7 +1457,6 @@
     },
     {
       "id": "109",
-      "page_title": "Bay Area thrash metal",
       "label": "Bay Area thrash metal",
       "edges": [
         342,
@@ -1589,7 +1510,6 @@
     },
     {
       "id": "112",
-      "page_title": "Beatdown hardcore",
       "label": "Beatdown hardcore",
       "edges": [
         358,
@@ -1604,7 +1524,6 @@
     },
     {
       "id": "113",
-      "page_title": "Bebop",
       "label": "Bebop",
       "edges": [
         359,
@@ -1622,7 +1541,6 @@
     },
     {
       "id": "114",
-      "page_title": "Belgian hardcore techno",
       "label": "Belgian hardcore techno",
       "edges": [
         20,
@@ -1664,13 +1582,11 @@
     },
     {
       "id": "117",
-      "page_title": "Bertitik",
       "label": "Bertitik",
       "edges": []
     },
     {
       "id": "118",
-      "page_title": "Bećarac",
       "label": "Bećarac",
       "edges": []
     },
@@ -1687,7 +1603,6 @@
     },
     {
       "id": "120",
-      "page_title": "Big band",
       "label": "Big band",
       "edges": [
         378,
@@ -1706,7 +1621,6 @@
     },
     {
       "id": "121",
-      "page_title": "Big beat",
       "label": "Big beat",
       "edges": [
         21,
@@ -1728,7 +1642,6 @@
     },
     {
       "id": "122",
-      "page_title": "Big room house",
       "label": "Big room house",
       "edges": [
         390,
@@ -1749,7 +1662,6 @@
     },
     {
       "id": "123",
-      "page_title": "Biguine",
       "label": "Biguine",
       "edges": [
         391,
@@ -1763,7 +1675,6 @@
     },
     {
       "id": "124",
-      "page_title": "Biker metal",
       "label": "Biker metal",
       "edges": [
         395,
@@ -1779,13 +1690,11 @@
     },
     {
       "id": "125",
-      "page_title": "Bikutsi",
       "label": "Bikutsi",
       "edges": []
     },
     {
       "id": "126",
-      "page_title": "Birmingham sound",
       "label": "Birmingham sound",
       "edges": [
         5387,
@@ -1803,7 +1712,6 @@
     },
     {
       "id": "128",
-      "page_title": "Bitpop",
       "label": "Bitpop",
       "edges": [
         399,
@@ -1829,13 +1737,11 @@
     },
     {
       "id": "130",
-      "page_title": "Black MIDI",
       "label": "Black MIDI",
       "edges": []
     },
     {
       "id": "131",
-      "page_title": "Black metal",
       "label": "Black metal",
       "edges": [
         402,
@@ -1866,7 +1772,6 @@
     },
     {
       "id": "132",
-      "page_title": "Blackened death metal",
       "label": "Blackened death metal",
       "edges": [
         402,
@@ -1909,7 +1814,6 @@
     },
     {
       "id": "135",
-      "page_title": "Blackgaze",
       "label": "Blackgaze",
       "edges": [
         407,
@@ -1923,7 +1827,6 @@
     },
     {
       "id": "136",
-      "page_title": "Bleep techno",
       "label": "Bleep techno",
       "edges": [
         22,
@@ -1968,7 +1871,6 @@
     },
     {
       "id": "138",
-      "page_title": "Blues",
       "label": "Blues",
       "edges": [
         436,
@@ -2067,7 +1969,6 @@
     },
     {
       "id": "139",
-      "page_title": "Blues rock",
       "label": "Blues rock",
       "edges": [
         447,
@@ -2094,7 +1995,6 @@
     },
     {
       "id": "140",
-      "page_title": "Bolero",
       "label": "Bolero",
       "edges": [
         539,
@@ -2115,7 +2015,6 @@
     },
     {
       "id": "141",
-      "page_title": "Bolojo",
       "label": "Bolojo",
       "edges": []
     },
@@ -2130,13 +2029,11 @@
     },
     {
       "id": "143",
-      "page_title": "Bongai",
       "label": "Bongai",
       "edges": []
     },
     {
       "id": "144",
-      "page_title": "Bongo Flava",
       "label": "Bongo Flava",
       "edges": [
         551,
@@ -2148,7 +2045,6 @@
     },
     {
       "id": "145",
-      "page_title": "Boogaloo",
       "label": "Boogaloo",
       "edges": [
         3434,
@@ -2180,7 +2076,6 @@
     },
     {
       "id": "147",
-      "page_title": "Boogie rock",
       "label": "Boogie rock",
       "edges": [
         528,
@@ -2191,7 +2086,6 @@
     },
     {
       "id": "148",
-      "page_title": "Boogie-woogie",
       "label": "Boogie-woogie",
       "edges": [
         449,
@@ -2209,7 +2103,6 @@
     },
     {
       "id": "149",
-      "page_title": "Boom bap",
       "label": "Boom bap",
       "edges": [
         569,
@@ -2222,7 +2115,6 @@
     },
     {
       "id": "150",
-      "page_title": "Boomba music",
       "label": "Boomba music",
       "edges": [
         572,
@@ -2233,7 +2125,6 @@
     },
     {
       "id": "151",
-      "page_title": "Borgeet",
       "label": "Borgeet",
       "edges": []
     },
@@ -2245,7 +2136,6 @@
     },
     {
       "id": "153",
-      "page_title": "Bossa nova",
       "label": "Bossa nova",
       "edges": [
         573,
@@ -2290,7 +2180,6 @@
     },
     {
       "id": "155",
-      "page_title": "Bouncy techno",
       "label": "Bouncy techno",
       "edges": [
         23,
@@ -2335,13 +2224,11 @@
     },
     {
       "id": "158",
-      "page_title": "Brazilian gaucho music",
       "label": "Brazilian gaucho music",
       "edges": []
     },
     {
       "id": "159",
-      "page_title": "Brazilian rock",
       "label": "Brazilian rock",
       "edges": [
         451,
@@ -2355,7 +2242,6 @@
     },
     {
       "id": "160",
-      "page_title": "Breakbeat",
       "label": "Breakbeat",
       "edges": [
         601,
@@ -2392,7 +2278,6 @@
     },
     {
       "id": "161",
-      "page_title": "Breakbeat hardcore",
       "label": "Breakbeat hardcore",
       "edges": [
         24,
@@ -2420,7 +2305,6 @@
     },
     {
       "id": "162",
-      "page_title": "Breakcore",
       "label": "Breakcore",
       "edges": [
         608,
@@ -2443,7 +2327,6 @@
     },
     {
       "id": "163",
-      "page_title": "Breakstep",
       "label": "Breakstep",
       "edges": [
         0,
@@ -2484,7 +2367,6 @@
     },
     {
       "id": "166",
-      "page_title": "Brisbane punk rock",
       "label": "Brisbane punk rock",
       "edges": [
         2180,
@@ -2496,7 +2378,6 @@
     },
     {
       "id": "167",
-      "page_title": "Brit funk",
       "label": "Brit funk",
       "edges": [
         929,
@@ -2510,7 +2391,6 @@
     },
     {
       "id": "168",
-      "page_title": "British blues",
       "label": "British blues",
       "edges": [
         452,
@@ -2522,7 +2402,6 @@
     },
     {
       "id": "169",
-      "page_title": "British folk rock",
       "label": "British folk rock",
       "edges": [
         648,
@@ -2539,7 +2418,6 @@
     },
     {
       "id": "170",
-      "page_title": "British rhythm and blues",
       "label": "British rhythm and blues",
       "edges": [
         654,
@@ -2555,7 +2433,6 @@
     },
     {
       "id": "171",
-      "page_title": "British rock and roll",
       "label": "British rock and roll",
       "edges": [
         660,
@@ -2566,7 +2443,6 @@
     },
     {
       "id": "172",
-      "page_title": "British soul",
       "label": "British soul",
       "edges": [
         453,
@@ -2578,7 +2454,6 @@
     },
     {
       "id": "173",
-      "page_title": "Britpop",
       "label": "Britpop",
       "edges": [
         127,
@@ -2600,7 +2475,6 @@
     },
     {
       "id": "174",
-      "page_title": "Bro-country",
       "label": "Bro-country",
       "edges": [
         930,
@@ -2613,7 +2487,6 @@
     },
     {
       "id": "175",
-      "page_title": "Broken beat",
       "label": "Broken beat",
       "edges": [
         46,
@@ -2632,7 +2505,6 @@
     },
     {
       "id": "176",
-      "page_title": "Brooklyn drill",
       "label": "Brooklyn drill",
       "edges": [
         670,
@@ -2661,7 +2533,6 @@
     },
     {
       "id": "178",
-      "page_title": "Brostep",
       "label": "Brostep",
       "edges": [
         388,
@@ -2680,7 +2551,6 @@
     },
     {
       "id": "179",
-      "page_title": "Brukdown",
       "label": "Brukdown",
       "edges": [
         3280
@@ -2688,7 +2558,6 @@
     },
     {
       "id": "180",
-      "page_title": "Brutal death metal",
       "label": "Brutal death metal",
       "edges": [
         675,
@@ -2742,7 +2611,6 @@
     },
     {
       "id": "183",
-      "page_title": "Budots",
       "label": "Budots",
       "edges": [
         1598,
@@ -2765,7 +2633,6 @@
     },
     {
       "id": "185",
-      "page_title": "Bullerengue",
       "label": "Bullerengue",
       "edges": [
         688
@@ -2773,7 +2640,6 @@
     },
     {
       "id": "186",
-      "page_title": "Burban",
       "label": "Burban",
       "edges": [
         377,
@@ -2785,7 +2651,6 @@
     },
     {
       "id": "187",
-      "page_title": "Bélé",
       "label": "Bélé",
       "edges": [
         689,
@@ -2802,7 +2667,6 @@
     },
     {
       "id": "188",
-      "page_title": "C-pop",
       "label": "C-pop",
       "edges": [
         699,
@@ -2818,7 +2682,6 @@
     },
     {
       "id": "190",
-      "page_title": "Cadence rampa",
       "label": "Cadence rampa",
       "edges": [
         702,
@@ -2829,7 +2692,6 @@
     },
     {
       "id": "191",
-      "page_title": "Cadence-lypso",
       "label": "Cadence-lypso",
       "edges": [
         702,
@@ -2859,7 +2721,6 @@
     },
     {
       "id": "193",
-      "page_title": "Cajun fiddle",
       "label": "Cajun fiddle",
       "edges": [
         713,
@@ -2869,7 +2730,6 @@
     },
     {
       "id": "194",
-      "page_title": "Cajun music",
       "label": "Cajun music",
       "edges": [
         715,
@@ -2885,7 +2745,6 @@
     },
     {
       "id": "195",
-      "page_title": "Cakewalk",
       "label": "Cakewalk",
       "edges": [
         723
@@ -2924,7 +2783,6 @@
     },
     {
       "id": "197",
-      "page_title": "Cambodian rock (1960s–1970s)",
       "label": "Cambodian rock (1960s–1970s)",
       "edges": [
         454,
@@ -2949,7 +2807,6 @@
     },
     {
       "id": "199",
-      "page_title": "Canadian blues",
       "label": "Canadian blues",
       "edges": [
         455,
@@ -2961,7 +2818,6 @@
     },
     {
       "id": "200",
-      "page_title": "Canadian heavy metal",
       "label": "Canadian heavy metal",
       "edges": [
         2516
@@ -2969,7 +2825,6 @@
     },
     {
       "id": "201",
-      "page_title": "Canción melódica",
       "label": "Canción melódica",
       "edges": [
         540,
@@ -2980,7 +2835,6 @@
     },
     {
       "id": "202",
-      "page_title": "Candombe",
       "label": "Candombe",
       "edges": [
         748,
@@ -2990,13 +2844,11 @@
     },
     {
       "id": "203",
-      "page_title": "Cante Alentejano",
       "label": "Cante Alentejano",
       "edges": []
     },
     {
       "id": "204",
-      "page_title": "Canterbury scene",
       "label": "Canterbury scene",
       "edges": [
         290,
@@ -3008,7 +2860,6 @@
     },
     {
       "id": "205",
-      "page_title": "Cantopop",
       "label": "Cantopop",
       "edges": [
         699,
@@ -3027,13 +2878,11 @@
     },
     {
       "id": "207",
-      "page_title": "Cape Breton fiddling",
       "label": "Cape Breton fiddling",
       "edges": []
     },
     {
       "id": "208",
-      "page_title": "Cape jazz",
       "label": "Cape jazz",
       "edges": [
         3081
@@ -3041,7 +2890,6 @@
     },
     {
       "id": "209",
-      "page_title": "Capoeira music",
       "label": "Capoeira music",
       "edges": [
         4943
@@ -3049,7 +2897,6 @@
     },
     {
       "id": "210",
-      "page_title": "Car song",
       "label": "Car song",
       "edges": [
         456,
@@ -3066,7 +2913,6 @@
     },
     {
       "id": "211",
-      "page_title": "Cello rock",
       "label": "Cello rock",
       "edges": [
         264,
@@ -3078,7 +2924,6 @@
     },
     {
       "id": "212",
-      "page_title": "Celtic fusion",
       "label": "Celtic fusion",
       "edges": [
         752,
@@ -3088,7 +2933,6 @@
     },
     {
       "id": "213",
-      "page_title": "Celtic metal",
       "label": "Celtic metal",
       "edges": [
         408,
@@ -3102,7 +2946,6 @@
     },
     {
       "id": "214",
-      "page_title": "Celtic rock",
       "label": "Celtic rock",
       "edges": [
         648,
@@ -3142,7 +2985,6 @@
     },
     {
       "id": "217",
-      "page_title": "Chalga",
       "label": "Chalga",
       "edges": [
         249,
@@ -3153,7 +2995,6 @@
     },
     {
       "id": "218",
-      "page_title": "Chamamé",
       "label": "Chamamé",
       "edges": [
         762,
@@ -3162,7 +3003,6 @@
     },
     {
       "id": "219",
-      "page_title": "Chamber jazz",
       "label": "Chamber jazz",
       "edges": [
         3082,
@@ -3173,7 +3013,6 @@
     },
     {
       "id": "220",
-      "page_title": "Chamber pop",
       "label": "Chamber pop",
       "edges": [
         337,
@@ -3186,7 +3025,6 @@
     },
     {
       "id": "221",
-      "page_title": "Champeta",
       "label": "Champeta",
       "edges": [
         688,
@@ -3201,7 +3039,6 @@
     },
     {
       "id": "222",
-      "page_title": "Chanson",
       "label": "Chanson",
       "edges": [
         763,
@@ -3213,7 +3050,6 @@
     },
     {
       "id": "223",
-      "page_title": "Chanson franco-orientale",
       "label": "Chanson franco-orientale",
       "edges": [
         542,
@@ -3224,7 +3060,6 @@
     },
     {
       "id": "224",
-      "page_title": "Chanson réaliste",
       "label": "Chanson réaliste",
       "edges": [
         768,
@@ -3233,7 +3068,6 @@
     },
     {
       "id": "225",
-      "page_title": "Chanté mas",
       "label": "Chanté mas",
       "edges": [
         769,
@@ -3242,7 +3076,6 @@
     },
     {
       "id": "226",
-      "page_title": "Chap hop",
       "label": "Chap hop",
       "edges": [
         877,
@@ -3252,7 +3085,6 @@
     },
     {
       "id": "227",
-      "page_title": "Chicago blues",
       "label": "Chicago blues",
       "edges": [
         771,
@@ -3262,7 +3094,6 @@
     },
     {
       "id": "228",
-      "page_title": "Chicago house",
       "label": "Chicago house",
       "edges": [
         772,
@@ -3288,7 +3119,6 @@
     },
     {
       "id": "229",
-      "page_title": "Chicago soul",
       "label": "Chicago soul",
       "edges": [
         457,
@@ -3300,7 +3130,6 @@
     },
     {
       "id": "230",
-      "page_title": "Chicano rap",
       "label": "Chicano rap",
       "edges": [
         785,
@@ -3310,7 +3139,6 @@
     },
     {
       "id": "231",
-      "page_title": "Children's music",
       "label": "Children's music",
       "edges": [
         1533
@@ -3329,7 +3157,6 @@
     },
     {
       "id": "233",
-      "page_title": "Chillwave",
       "label": "Chillwave",
       "edges": [
         191,
@@ -3362,7 +3189,6 @@
     },
     {
       "id": "235",
-      "page_title": "Chiptune",
       "label": "Chiptune",
       "edges": [
         790,
@@ -3401,7 +3227,6 @@
     },
     {
       "id": "236",
-      "page_title": "Chopped and screwed",
       "label": "Chopped and screwed",
       "edges": [
         584,
@@ -3440,13 +3265,11 @@
     },
     {
       "id": "239",
-      "page_title": "Chorale motet",
       "label": "Chorale motet",
       "edges": []
     },
     {
       "id": "240",
-      "page_title": "Choro",
       "label": "Choro",
       "edges": [
         341,
@@ -3461,7 +3284,6 @@
     },
     {
       "id": "241",
-      "page_title": "Chouval bwa",
       "label": "Chouval bwa",
       "edges": [
         693,
@@ -3485,7 +3307,6 @@
     },
     {
       "id": "243",
-      "page_title": "Christian adult contemporary",
       "label": "Christian adult contemporary",
       "edges": [
         64,
@@ -3517,7 +3338,6 @@
     },
     {
       "id": "245",
-      "page_title": "Christian country music",
       "label": "Christian country music",
       "edges": [
         836,
@@ -3533,7 +3353,6 @@
     },
     {
       "id": "246",
-      "page_title": "Christian death metal",
       "label": "Christian death metal",
       "edges": [
         840,
@@ -3564,7 +3383,6 @@
     },
     {
       "id": "248",
-      "page_title": "Christian hardcore",
       "label": "Christian hardcore",
       "edges": [
         845,
@@ -3577,7 +3395,6 @@
     },
     {
       "id": "249",
-      "page_title": "Christian hip-hop",
       "label": "Christian hip-hop",
       "edges": [
         838,
@@ -3589,7 +3406,6 @@
     },
     {
       "id": "250",
-      "page_title": "Christian metal",
       "label": "Christian metal",
       "edges": [
         840,
@@ -3605,7 +3421,6 @@
     },
     {
       "id": "251",
-      "page_title": "Christian punk",
       "label": "Christian punk",
       "edges": [
         844,
@@ -3619,7 +3434,6 @@
     },
     {
       "id": "252",
-      "page_title": "Christian rock",
       "label": "Christian rock",
       "edges": [
         847,
@@ -3637,7 +3451,6 @@
     },
     {
       "id": "253",
-      "page_title": "Christian ska",
       "label": "Christian ska",
       "edges": [
         835,
@@ -3665,7 +3478,6 @@
     },
     {
       "id": "255",
-      "page_title": "Chutney parang",
       "label": "Chutney parang",
       "edges": [
         854,
@@ -3680,7 +3492,6 @@
     },
     {
       "id": "256",
-      "page_title": "Chutney soca",
       "label": "Chutney soca",
       "edges": [
         728,
@@ -3693,7 +3504,6 @@
     },
     {
       "id": "257",
-      "page_title": "Cinematic soul",
       "label": "Cinematic soul",
       "edges": [
         4357,
@@ -3703,7 +3513,6 @@
     },
     {
       "id": "258",
-      "page_title": "City pop",
       "label": "City pop",
       "edges": [
         553,
@@ -3727,7 +3536,6 @@
     },
     {
       "id": "259",
-      "page_title": "Classic female blues",
       "label": "Classic female blues",
       "edges": [
         458,
@@ -3736,7 +3544,6 @@
     },
     {
       "id": "260",
-      "page_title": "Classical music in hip-hop",
       "label": "Classical music in hip-hop",
       "edges": [
         864,
@@ -3745,7 +3552,6 @@
     },
     {
       "id": "261",
-      "page_title": "Cloud rap",
       "label": "Cloud rap",
       "edges": [
         787,
@@ -3762,7 +3568,6 @@
     },
     {
       "id": "262",
-      "page_title": "Coladeira",
       "label": "Coladeira",
       "edges": [
         705,
@@ -3788,7 +3593,6 @@
     },
     {
       "id": "264",
-      "page_title": "College rock",
       "label": "College rock",
       "edges": [
         131,
@@ -3804,7 +3608,6 @@
     },
     {
       "id": "265",
-      "page_title": "Collegiate a cappella",
       "label": "Collegiate a cappella",
       "edges": [
         9,
@@ -3813,7 +3616,6 @@
     },
     {
       "id": "266",
-      "page_title": "Colá",
       "label": "Colá",
       "edges": []
     },
@@ -3831,7 +3633,6 @@
     },
     {
       "id": "268",
-      "page_title": "Comedy music",
       "label": "Comedy music",
       "edges": [
         879,
@@ -3845,7 +3646,6 @@
     },
     {
       "id": "269",
-      "page_title": "Comedy rock",
       "label": "Comedy rock",
       "edges": [
         881,
@@ -3856,7 +3656,6 @@
     },
     {
       "id": "270",
-      "page_title": "Compas",
       "label": "Compas",
       "edges": [
         695,
@@ -3885,7 +3684,6 @@
     },
     {
       "id": "272",
-      "page_title": "Congolese rumba",
       "label": "Congolese rumba",
       "edges": [
         898,
@@ -3899,7 +3697,6 @@
     },
     {
       "id": "273",
-      "page_title": "Contemporary Christian music",
       "label": "Contemporary Christian music",
       "edges": [
         833,
@@ -3928,7 +3725,6 @@
     },
     {
       "id": "274",
-      "page_title": "Contemporary R&B",
       "label": "Contemporary R&B",
       "edges": [
         829,
@@ -3994,7 +3790,6 @@
     },
     {
       "id": "275",
-      "page_title": "Contemporary folk music",
       "label": "Contemporary folk music",
       "edges": [
         245,
@@ -4055,7 +3850,6 @@
     },
     {
       "id": "277",
-      "page_title": "Contemporary worship music",
       "label": "Contemporary worship music",
       "edges": [
         913,
@@ -4066,7 +3860,6 @@
     },
     {
       "id": "278",
-      "page_title": "Contradanza",
       "label": "Contradanza",
       "edges": [
         1003,
@@ -4079,7 +3872,6 @@
     },
     {
       "id": "279",
-      "page_title": "Cool Cymru",
       "label": "Cool Cymru",
       "edges": [
         132,
@@ -4089,7 +3881,6 @@
     },
     {
       "id": "280",
-      "page_title": "Cool jazz",
       "label": "Cool jazz",
       "edges": [
         360,
@@ -4104,13 +3895,11 @@
     },
     {
       "id": "281",
-      "page_title": "Coon song",
       "label": "Coon song",
       "edges": []
     },
     {
       "id": "282",
-      "page_title": "Copy thachin",
       "label": "Copy thachin",
       "edges": [
         4319
@@ -4118,7 +3907,6 @@
     },
     {
       "id": "283",
-      "page_title": "Corridos tumbados",
       "label": "Corridos tumbados",
       "edges": [
         1011,
@@ -4143,7 +3931,6 @@
     },
     {
       "id": "285",
-      "page_title": "Country and Irish",
       "label": "Country and Irish",
       "edges": [
         1034
@@ -4151,7 +3938,6 @@
     },
     {
       "id": "286",
-      "page_title": "Country blues",
       "label": "Country blues",
       "edges": [
         460,
@@ -4259,7 +4045,6 @@
     },
     {
       "id": "288",
-      "page_title": "Country pop",
       "label": "Country pop",
       "edges": [
         1035,
@@ -4276,7 +4061,6 @@
     },
     {
       "id": "289",
-      "page_title": "Country rap",
       "label": "Country rap",
       "edges": [
         1037,
@@ -4287,7 +4071,6 @@
     },
     {
       "id": "290",
-      "page_title": "Country rock",
       "label": "Country rock",
       "edges": [
         315,
@@ -4317,7 +4100,6 @@
     },
     {
       "id": "292",
-      "page_title": "Coupé-décalé",
       "label": "Coupé-décalé",
       "edges": [
         1099,
@@ -4331,7 +4113,6 @@
     },
     {
       "id": "293",
-      "page_title": "Cowboy pop",
       "label": "Cowboy pop",
       "edges": [
         1042,
@@ -4347,7 +4128,6 @@
     },
     {
       "id": "294",
-      "page_title": "Cowpunk",
       "label": "Cowpunk",
       "edges": [
         1043,
@@ -4376,7 +4156,6 @@
     },
     {
       "id": "296",
-      "page_title": "Cringe pop",
       "label": "Cringe pop",
       "edges": [
         3955
@@ -4400,7 +4179,6 @@
     },
     {
       "id": "298",
-      "page_title": "Crossover thrash",
       "label": "Crossover thrash",
       "edges": [
         1107,
@@ -4414,7 +4192,6 @@
     },
     {
       "id": "299",
-      "page_title": "Crunk",
       "label": "Crunk",
       "edges": [
         585,
@@ -4438,7 +4215,6 @@
     },
     {
       "id": "300",
-      "page_title": "Crunkcore",
       "label": "Crunkcore",
       "edges": [
         1109,
@@ -4456,7 +4232,6 @@
     },
     {
       "id": "301",
-      "page_title": "Crust punk",
       "label": "Crust punk",
       "edges": [
         233,
@@ -4471,7 +4246,6 @@
     },
     {
       "id": "302",
-      "page_title": "Cuarteto",
       "label": "Cuarteto",
       "edges": [
         3602
@@ -4501,13 +4275,11 @@
     },
     {
       "id": "305",
-      "page_title": "Cumbia (Panama)",
       "label": "Cumbia (Panama)",
       "edges": []
     },
     {
       "id": "306",
-      "page_title": "Cumbia pop",
       "label": "Cumbia pop",
       "edges": [
         3383,
@@ -4516,7 +4288,6 @@
     },
     {
       "id": "307",
-      "page_title": "Cumbia santafesina",
       "label": "Cumbia santafesina",
       "edges": [
         1123
@@ -4524,7 +4295,6 @@
     },
     {
       "id": "308",
-      "page_title": "Cumbia villera",
       "label": "Cumbia villera",
       "edges": [
         1124,
@@ -4534,7 +4304,6 @@
     },
     {
       "id": "309",
-      "page_title": "D-beat",
       "label": "D-beat",
       "edges": [
         235,
@@ -4547,7 +4316,6 @@
     },
     {
       "id": "310",
-      "page_title": "DMV hip-hop",
       "label": "DMV hip-hop",
       "edges": [
         1518,
@@ -4557,7 +4325,6 @@
     },
     {
       "id": "311",
-      "page_title": "Dance music",
       "label": "Dance music",
       "edges": [
         1130,
@@ -4581,7 +4348,6 @@
     },
     {
       "id": "312",
-      "page_title": "Dance-pop",
       "label": "Dance-pop",
       "edges": [
         678,
@@ -4620,7 +4386,6 @@
     },
     {
       "id": "313",
-      "page_title": "Dance-punk",
       "label": "Dance-punk",
       "edges": [
         1169,
@@ -4643,7 +4408,6 @@
     },
     {
       "id": "314",
-      "page_title": "Dance-rock",
       "label": "Dance-rock",
       "edges": [
         1173,
@@ -4663,7 +4427,6 @@
     },
     {
       "id": "315",
-      "page_title": "Dancehall",
       "label": "Dancehall",
       "edges": [
         1177,
@@ -4703,7 +4466,6 @@
     },
     {
       "id": "316",
-      "page_title": "Dancehall pop",
       "label": "Dancehall pop",
       "edges": [
         935,
@@ -4718,7 +4480,6 @@
     },
     {
       "id": "317",
-      "page_title": "Dangdut",
       "label": "Dangdut",
       "edges": [
         1204,
@@ -4731,7 +4492,6 @@
     },
     {
       "id": "318",
-      "page_title": "Danger music",
       "label": "Danger music",
       "edges": [
         291,
@@ -4755,7 +4515,6 @@
     },
     {
       "id": "320",
-      "page_title": "Danzón",
       "label": "Danzón",
       "edges": [
         1004,
@@ -4775,7 +4534,6 @@
     },
     {
       "id": "322",
-      "page_title": "Dark ambient",
       "label": "Dark ambient",
       "edges": [
         192,
@@ -4807,7 +4565,6 @@
     },
     {
       "id": "324",
-      "page_title": "Dark cabaret",
       "label": "Dark cabaret",
       "edges": [
         1222,
@@ -4818,7 +4575,6 @@
     },
     {
       "id": "325",
-      "page_title": "Dark wave",
       "label": "Dark wave",
       "edges": [
         1221,
@@ -4837,7 +4593,6 @@
     },
     {
       "id": "326",
-      "page_title": "Darkcore",
       "label": "Darkcore",
       "edges": [
         628,
@@ -4849,7 +4604,6 @@
     },
     {
       "id": "327",
-      "page_title": "Death 'n' roll",
       "label": "Death 'n' roll",
       "edges": [
         1232,
@@ -4863,7 +4617,6 @@
     },
     {
       "id": "328",
-      "page_title": "Death metal",
       "label": "Death metal",
       "edges": [
         1233,
@@ -4906,7 +4659,6 @@
     },
     {
       "id": "329",
-      "page_title": "Death-doom",
       "label": "Death-doom",
       "edges": [
         1245,
@@ -4921,7 +4673,6 @@
     },
     {
       "id": "330",
-      "page_title": "Deathcore",
       "label": "Deathcore",
       "edges": [
         677,
@@ -4937,7 +4688,6 @@
     },
     {
       "id": "331",
-      "page_title": "Deathgrind",
       "label": "Deathgrind",
       "edges": [
         1249,
@@ -4949,7 +4699,6 @@
     },
     {
       "id": "332",
-      "page_title": "Deathrock",
       "label": "Deathrock",
       "edges": [
         2226,
@@ -4962,7 +4711,6 @@
     },
     {
       "id": "333",
-      "page_title": "Deconstructed club",
       "label": "Deconstructed club",
       "edges": [
         326,
@@ -4976,7 +4724,6 @@
     },
     {
       "id": "334",
-      "page_title": "Deep funk",
       "label": "Deep funk",
       "edges": [
         1267,
@@ -4986,7 +4733,6 @@
     },
     {
       "id": "335",
-      "page_title": "Deep house",
       "label": "Deep house",
       "edges": [
         775,
@@ -5011,7 +4757,6 @@
     },
     {
       "id": "336",
-      "page_title": "Delta blues",
       "label": "Delta blues",
       "edges": [
         464,
@@ -5024,7 +4769,6 @@
     },
     {
       "id": "337",
-      "page_title": "Denpa song",
       "label": "Denpa song",
       "edges": [
         240,
@@ -5038,7 +4782,6 @@
     },
     {
       "id": "338",
-      "page_title": "Descarga",
       "label": "Descarga",
       "edges": [
         1121,
@@ -5048,7 +4791,6 @@
     },
     {
       "id": "339",
-      "page_title": "Desert blues",
       "label": "Desert blues",
       "edges": [
         466,
@@ -5058,7 +4800,6 @@
     },
     {
       "id": "340",
-      "page_title": "Desgarrada",
       "label": "Desgarrada",
       "edges": []
     },
@@ -5075,7 +4816,6 @@
     },
     {
       "id": "342",
-      "page_title": "Detroit drill",
       "label": "Detroit drill",
       "edges": [
         1411,
@@ -5087,7 +4827,6 @@
     },
     {
       "id": "343",
-      "page_title": "Detroit techno",
       "label": "Detroit techno",
       "edges": [
         776,
@@ -5115,7 +4854,6 @@
     },
     {
       "id": "345",
-      "page_title": "Digital hardcore",
       "label": "Digital hardcore",
       "edges": [
         236,
@@ -5138,7 +4876,6 @@
     },
     {
       "id": "346",
-      "page_title": "Dirty rap",
       "label": "Dirty rap",
       "edges": [
         586,
@@ -5152,7 +4889,6 @@
     },
     {
       "id": "347",
-      "page_title": "Disco",
       "label": "Disco",
       "edges": [
         679,
@@ -5221,7 +4957,6 @@
     },
     {
       "id": "348",
-      "page_title": "Disco polo",
       "label": "Disco polo",
       "edges": [
         1311,
@@ -5232,7 +4967,6 @@
     },
     {
       "id": "349",
-      "page_title": "Diva house",
       "label": "Diva house",
       "edges": [
         937,
@@ -5268,7 +5002,6 @@
     },
     {
       "id": "351",
-      "page_title": "Djent",
       "label": "Djent",
       "edges": [
         279,
@@ -5282,7 +5015,6 @@
     },
     {
       "id": "352",
-      "page_title": "Dolewave",
       "label": "Dolewave",
       "edges": [
         1505,
@@ -5295,7 +5027,6 @@
     },
     {
       "id": "353",
-      "page_title": "Dominican dembow",
       "label": "Dominican dembow",
       "edges": [
         1182,
@@ -5308,7 +5039,6 @@
     },
     {
       "id": "354",
-      "page_title": "Doo-wop",
       "label": "Doo-wop",
       "edges": [
         1365,
@@ -5329,7 +5059,6 @@
     },
     {
       "id": "355",
-      "page_title": "Doom metal",
       "label": "Doom metal",
       "edges": [
         468,
@@ -5353,7 +5082,6 @@
     },
     {
       "id": "356",
-      "page_title": "Downtempo",
       "label": "Downtempo",
       "edges": [
         195,
@@ -5370,7 +5098,6 @@
     },
     {
       "id": "357",
-      "page_title": "Dream pop",
       "label": "Dream pop",
       "edges": [
         134,
@@ -5390,7 +5117,6 @@
     },
     {
       "id": "358",
-      "page_title": "Dream trance",
       "label": "Dream trance",
       "edges": [
         1399,
@@ -5405,7 +5131,6 @@
     },
     {
       "id": "359",
-      "page_title": "Dreampunk",
       "label": "Dreampunk",
       "edges": [
         196,
@@ -5426,7 +5151,6 @@
     },
     {
       "id": "360",
-      "page_title": "Drill 'n' bass",
       "label": "Drill 'n' bass",
       "edges": [
         613,
@@ -5441,7 +5165,6 @@
     },
     {
       "id": "361",
-      "page_title": "Drill music",
       "label": "Drill music",
       "edges": [
         1406,
@@ -5468,7 +5191,6 @@
     },
     {
       "id": "362",
-      "page_title": "Drone metal",
       "label": "Drone metal",
       "edges": [
         1379,
@@ -5481,7 +5203,6 @@
     },
     {
       "id": "363",
-      "page_title": "Drone music",
       "label": "Drone music",
       "edges": [
         197,
@@ -5503,7 +5224,6 @@
     },
     {
       "id": "364",
-      "page_title": "Drum and bass",
       "label": "Drum and bass",
       "edges": [
         198,
@@ -5596,7 +5316,6 @@
     },
     {
       "id": "366",
-      "page_title": "Dub poetry",
       "label": "Dub poetry",
       "edges": [
         1465,
@@ -5605,7 +5324,6 @@
     },
     {
       "id": "367",
-      "page_title": "Dub techno",
       "label": "Dub techno",
       "edges": [
         200,
@@ -5618,7 +5336,6 @@
     },
     {
       "id": "368",
-      "page_title": "Dubstep",
       "label": "Dubstep",
       "edges": [
         1,
@@ -5653,7 +5370,6 @@
     },
     {
       "id": "369",
-      "page_title": "Dubtronica",
       "label": "Dubtronica",
       "edges": [
         1470,
@@ -5664,7 +5380,6 @@
     },
     {
       "id": "370",
-      "page_title": "Dunedin sound",
       "label": "Dunedin sound",
       "edges": [
         136,
@@ -5681,7 +5396,6 @@
     },
     {
       "id": "371",
-      "page_title": "Dungeon synth",
       "label": "Dungeon synth",
       "edges": [
         409,
@@ -5691,7 +5405,6 @@
     },
     {
       "id": "372",
-      "page_title": "Duranguense",
       "label": "Duranguense",
       "edges": [
         329,
@@ -5701,13 +5414,11 @@
     },
     {
       "id": "373",
-      "page_title": "Dwijendrageeti",
       "label": "Dwijendrageeti",
       "edges": []
     },
     {
       "id": "374",
-      "page_title": "EDM trap music",
       "label": "EDM trap music",
       "edges": [
         390,
@@ -5745,7 +5456,6 @@
     },
     {
       "id": "376",
-      "page_title": "East Coast hip-hop",
       "label": "East Coast hip-hop",
       "edges": [
         938,
@@ -5779,7 +5489,6 @@
     },
     {
       "id": "377",
-      "page_title": "Easy listening",
       "label": "Easy listening",
       "edges": [
         378,
@@ -5801,7 +5510,6 @@
     },
     {
       "id": "378",
-      "page_title": "Edo Funk",
       "label": "Edo Funk",
       "edges": [
         1136
@@ -5809,7 +5517,6 @@
     },
     {
       "id": "379",
-      "page_title": "Egg punk",
       "label": "Egg punk",
       "edges": [
         1743,
@@ -5821,13 +5528,11 @@
     },
     {
       "id": "380",
-      "page_title": "Ekpili",
       "label": "Ekpili",
       "edges": []
     },
     {
       "id": "381",
-      "page_title": "Electric blues",
       "label": "Electric blues",
       "edges": [
         469,
@@ -5906,7 +5611,6 @@
     },
     {
       "id": "384",
-      "page_title": "Electro house",
       "label": "Electro house",
       "edges": [
         25,
@@ -5993,7 +5697,6 @@
     },
     {
       "id": "389",
-      "page_title": "Electro swing",
       "label": "Electro swing",
       "edges": [
         1567,
@@ -6007,7 +5710,6 @@
     },
     {
       "id": "390",
-      "page_title": "Electro-industrial",
       "label": "Electro-industrial",
       "edges": [
         1603,
@@ -6021,7 +5723,6 @@
     },
     {
       "id": "391",
-      "page_title": "Electroclash",
       "label": "Electroclash",
       "edges": [
         92,
@@ -6076,7 +5777,6 @@
     },
     {
       "id": "393",
-      "page_title": "Electronic dance music",
       "label": "Electronic dance music",
       "edges": [
         1137,
@@ -6124,7 +5824,6 @@
     },
     {
       "id": "394",
-      "page_title": "Electronic music",
       "label": "Electronic music",
       "edges": [
         1652,
@@ -6209,7 +5908,6 @@
     },
     {
       "id": "395",
-      "page_title": "Electronic rock",
       "label": "Electronic rock",
       "edges": [
         265,
@@ -6260,7 +5958,6 @@
     },
     {
       "id": "398",
-      "page_title": "Electronica",
       "label": "Electronica",
       "edges": [
         201,
@@ -6291,7 +5988,6 @@
     },
     {
       "id": "399",
-      "page_title": "Electronicore",
       "label": "Electronicore",
       "edges": [
         1677,
@@ -6303,7 +5999,6 @@
     },
     {
       "id": "400",
-      "page_title": "Electropop",
       "label": "Electropop",
       "edges": [
         1678,
@@ -6326,7 +6021,6 @@
     },
     {
       "id": "401",
-      "page_title": "Emo",
       "label": "Emo",
       "edges": [
         137,
@@ -6350,7 +6044,6 @@
     },
     {
       "id": "402",
-      "page_title": "Emo pop",
       "label": "Emo pop",
       "edges": [
         1778,
@@ -6363,7 +6056,6 @@
     },
     {
       "id": "403",
-      "page_title": "Emo rap",
       "label": "Emo rap",
       "edges": [
         865,
@@ -6381,7 +6073,6 @@
     },
     {
       "id": "404",
-      "page_title": "Emo revival",
       "label": "Emo revival",
       "edges": [
         1789,
@@ -6395,7 +6086,6 @@
     },
     {
       "id": "405",
-      "page_title": "Enka",
       "label": "Enka",
       "edges": [
         471,
@@ -6408,13 +6098,11 @@
     },
     {
       "id": "406",
-      "page_title": "Eshuva",
       "label": "Eshuva",
       "edges": []
     },
     {
       "id": "407",
-      "page_title": "Ethereal wave",
       "label": "Ethereal wave",
       "edges": [
         1223,
@@ -6430,7 +6118,6 @@
     },
     {
       "id": "408",
-      "page_title": "Ethio-jazz",
       "label": "Ethio-jazz",
       "edges": [
         81,
@@ -6463,7 +6150,6 @@
     },
     {
       "id": "411",
-      "page_title": "Ethnic electronica",
       "label": "Ethnic electronica",
       "edges": [
         1679,
@@ -6475,7 +6161,6 @@
     },
     {
       "id": "412",
-      "page_title": "Eurobeat",
       "label": "Eurobeat",
       "edges": [
         1153,
@@ -6489,7 +6174,6 @@
     },
     {
       "id": "413",
-      "page_title": "Eurodance",
       "label": "Eurodance",
       "edges": [
         1154,
@@ -6519,7 +6203,6 @@
     },
     {
       "id": "414",
-      "page_title": "Eurodisco",
       "label": "Eurodisco",
       "edges": [
         1316,
@@ -6544,7 +6227,6 @@
     },
     {
       "id": "415",
-      "page_title": "Europop",
       "label": "Europop",
       "edges": [
         1139,
@@ -6567,7 +6249,6 @@
     },
     {
       "id": "416",
-      "page_title": "Exotica",
       "label": "Exotica",
       "edges": [
         1535,
@@ -6582,7 +6263,6 @@
     },
     {
       "id": "417",
-      "page_title": "Experimental pop",
       "label": "Experimental pop",
       "edges": [
         294,
@@ -6593,7 +6273,6 @@
     },
     {
       "id": "418",
-      "page_title": "Experimental rock",
       "label": "Experimental rock",
       "edges": [
         295,
@@ -6620,7 +6299,6 @@
     },
     {
       "id": "419",
-      "page_title": "Extreme metal",
       "label": "Extreme metal",
       "edges": [
         396,
@@ -6694,7 +6372,6 @@
     },
     {
       "id": "420",
-      "page_title": "Fado",
       "label": "Fado",
       "edges": [
         1920
@@ -6702,7 +6379,6 @@
     },
     {
       "id": "421",
-      "page_title": "Festejo",
       "label": "Festejo",
       "edges": [
         3668,
@@ -6717,7 +6393,6 @@
     },
     {
       "id": "423",
-      "page_title": "Filk music",
       "label": "Filk music",
       "edges": [
         974,
@@ -6726,13 +6401,11 @@
     },
     {
       "id": "424",
-      "page_title": "Finnish tango",
       "label": "Finnish tango",
       "edges": []
     },
     {
       "id": "425",
-      "page_title": "First-wave black metal",
       "label": "First-wave black metal",
       "edges": [
         1119,
@@ -6745,7 +6418,6 @@
     },
     {
       "id": "426",
-      "page_title": "Flamenco",
       "label": "Flamenco",
       "edges": [
         1925,
@@ -6759,7 +6431,6 @@
     },
     {
       "id": "427",
-      "page_title": "Flamenco rock",
       "label": "Flamenco rock",
       "edges": [
         1925,
@@ -6769,7 +6440,6 @@
     },
     {
       "id": "428",
-      "page_title": "Florida breaks",
       "label": "Florida breaks",
       "edges": [
         616,
@@ -6783,7 +6453,6 @@
     },
     {
       "id": "429",
-      "page_title": "Florida death metal",
       "label": "Florida death metal",
       "edges": [
         1251,
@@ -6793,7 +6462,6 @@
     },
     {
       "id": "430",
-      "page_title": "Folk baroque",
       "label": "Folk baroque",
       "edges": [
         472,
@@ -6806,7 +6474,6 @@
     },
     {
       "id": "431",
-      "page_title": "Folk jazz",
       "label": "Folk jazz",
       "edges": [
         1932,
@@ -6817,7 +6484,6 @@
     },
     {
       "id": "432",
-      "page_title": "Folk metal",
       "label": "Folk metal",
       "edges": [
         649,
@@ -6857,7 +6523,6 @@
     },
     {
       "id": "434",
-      "page_title": "Folk punk",
       "label": "Folk punk",
       "edges": [
         650,
@@ -6873,7 +6538,6 @@
     },
     {
       "id": "435",
-      "page_title": "Folk rock",
       "label": "Folk rock",
       "edges": [
         225,
@@ -6916,7 +6580,6 @@
     },
     {
       "id": "436",
-      "page_title": "Folk-pop",
       "label": "Folk-pop",
       "edges": [
         226,
@@ -6931,13 +6594,11 @@
     },
     {
       "id": "437",
-      "page_title": "Folkhop",
       "label": "Folkhop",
       "edges": []
     },
     {
       "id": "438",
-      "page_title": "Folktronica",
       "label": "Folktronica",
       "edges": [
         982,
@@ -6996,7 +6657,6 @@
     },
     {
       "id": "442",
-      "page_title": "Forró",
       "label": "Forró",
       "edges": [
         1992,
@@ -7008,7 +6668,6 @@
     },
     {
       "id": "443",
-      "page_title": "Freakbeat",
       "label": "Freakbeat",
       "edges": [
         345,
@@ -7020,7 +6679,6 @@
     },
     {
       "id": "444",
-      "page_title": "Free funk",
       "label": "Free funk",
       "edges": [
         275,
@@ -7037,7 +6695,6 @@
     },
     {
       "id": "445",
-      "page_title": "Free improvisation",
       "label": "Free improvisation",
       "edges": [
         276,
@@ -7049,7 +6706,6 @@
     },
     {
       "id": "446",
-      "page_title": "Free jazz",
       "label": "Free jazz",
       "edges": [
         277,
@@ -7106,7 +6762,6 @@
     },
     {
       "id": "449",
-      "page_title": "French house",
       "label": "French house",
       "edges": [
         1319,
@@ -7134,7 +6789,6 @@
     },
     {
       "id": "451",
-      "page_title": "Frenchcore",
       "label": "Frenchcore",
       "edges": [
         2147,
@@ -7156,13 +6810,11 @@
     },
     {
       "id": "453",
-      "page_title": "Funaná",
       "label": "Funaná",
       "edges": []
     },
     {
       "id": "454",
-      "page_title": "Funeral doom",
       "label": "Funeral doom",
       "edges": [
         1216,
@@ -7175,7 +6827,6 @@
     },
     {
       "id": "455",
-      "page_title": "Funk",
       "label": "Funk",
       "edges": [
         400,
@@ -7280,7 +6931,6 @@
     },
     {
       "id": "456",
-      "page_title": "Funk carioca",
       "label": "Funk carioca",
       "edges": [
         1574,
@@ -7303,7 +6953,6 @@
     },
     {
       "id": "457",
-      "page_title": "Funk melody",
       "label": "Funk melody",
       "edges": [
         1156,
@@ -7316,7 +6965,6 @@
     },
     {
       "id": "458",
-      "page_title": "Funk metal",
       "label": "Funk metal",
       "edges": [
         103,
@@ -7336,7 +6984,6 @@
     },
     {
       "id": "459",
-      "page_title": "Funk ostentação",
       "label": "Funk ostentação",
       "edges": [
         2120,
@@ -7348,7 +6995,6 @@
     },
     {
       "id": "460",
-      "page_title": "Funk ousadia",
       "label": "Funk ousadia",
       "edges": [
         2122,
@@ -7359,7 +7005,6 @@
     },
     {
       "id": "461",
-      "page_title": "Funk rock",
       "label": "Funk rock",
       "edges": [
         2058,
@@ -7377,7 +7022,6 @@
     },
     {
       "id": "462",
-      "page_title": "Funkot",
       "label": "Funkot",
       "edges": [
         1204,
@@ -7390,7 +7034,6 @@
     },
     {
       "id": "463",
-      "page_title": "Funkstep",
       "label": "Funkstep",
       "edges": [
         1442,
@@ -7400,7 +7043,6 @@
     },
     {
       "id": "464",
-      "page_title": "Future bass",
       "label": "Future bass",
       "edges": [
         799,
@@ -7436,7 +7078,6 @@
     },
     {
       "id": "467",
-      "page_title": "Future garage",
       "label": "Future garage",
       "edges": [
         2,
@@ -7456,7 +7097,6 @@
     },
     {
       "id": "468",
-      "page_title": "Future house",
       "label": "Future house",
       "edges": [
         778,
@@ -7469,7 +7109,6 @@
     },
     {
       "id": "469",
-      "page_title": "Future rave",
       "label": "Future rave",
       "edges": [
         221,
@@ -7480,7 +7119,6 @@
     },
     {
       "id": "470",
-      "page_title": "Future soul",
       "label": "Future soul",
       "edges": [
         1498,
@@ -7492,7 +7130,6 @@
     },
     {
       "id": "471",
-      "page_title": "Futurepop",
       "label": "Futurepop",
       "edges": [
         1612,
@@ -7504,7 +7141,6 @@
     },
     {
       "id": "472",
-      "page_title": "G-funk",
       "label": "G-funk",
       "edges": [
         96,
@@ -7521,13 +7157,11 @@
     },
     {
       "id": "473",
-      "page_title": "Gaana",
       "label": "Gaana",
       "edges": []
     },
     {
       "id": "474",
-      "page_title": "Gabber",
       "label": "Gabber",
       "edges": [
         28,
@@ -7550,13 +7184,11 @@
     },
     {
       "id": "475",
-      "page_title": "Gaelic folk music",
       "label": "Gaelic folk music",
       "edges": []
     },
     {
       "id": "476",
-      "page_title": "Galerón",
       "label": "Galerón",
       "edges": []
     },
@@ -7568,7 +7200,6 @@
     },
     {
       "id": "478",
-      "page_title": "Gangsta rap",
       "label": "Gangsta rap",
       "edges": [
         1520,
@@ -7596,7 +7227,6 @@
     },
     {
       "id": "479",
-      "page_title": "Garage house",
       "label": "Garage house",
       "edges": [
         1321,
@@ -7632,7 +7262,6 @@
     },
     {
       "id": "481",
-      "page_title": "Garage rock",
       "label": "Garage rock",
       "edges": [
         347,
@@ -7676,7 +7305,6 @@
     },
     {
       "id": "482",
-      "page_title": "Garifuna music",
       "label": "Garifuna music",
       "edges": [
         2206
@@ -7684,7 +7312,6 @@
     },
     {
       "id": "483",
-      "page_title": "Geek rock",
       "label": "Geek rock",
       "edges": [
         139,
@@ -7699,7 +7326,6 @@
     },
     {
       "id": "484",
-      "page_title": "Genge",
       "label": "Genge",
       "edges": [
         1185,
@@ -7727,7 +7353,6 @@
     },
     {
       "id": "487",
-      "page_title": "Ghetto house",
       "label": "Ghetto house",
       "edges": [
         779,
@@ -7741,7 +7366,6 @@
     },
     {
       "id": "488",
-      "page_title": "Ghettotech",
       "label": "Ghettotech",
       "edges": [
         1291,
@@ -7756,7 +7380,6 @@
     },
     {
       "id": "489",
-      "page_title": "Glam metal",
       "label": "Glam metal",
       "edges": [
         680,
@@ -7776,7 +7399,6 @@
     },
     {
       "id": "490",
-      "page_title": "Glam punk",
       "label": "Glam punk",
       "edges": [
         2220,
@@ -7792,7 +7414,6 @@
     },
     {
       "id": "491",
-      "page_title": "Glam rock",
       "label": "Glam rock",
       "edges": [
         256,
@@ -7844,13 +7465,11 @@
     },
     {
       "id": "493",
-      "page_title": "Gnawa music",
       "label": "Gnawa music",
       "edges": []
     },
     {
       "id": "494",
-      "page_title": "Go-go",
       "label": "Go-go",
       "edges": [
         2063,
@@ -7862,7 +7481,6 @@
     },
     {
       "id": "495",
-      "page_title": "Goa trance",
       "label": "Goa trance",
       "edges": [
         29,
@@ -7892,13 +7510,11 @@
     },
     {
       "id": "497",
-      "page_title": "Gombhira",
       "label": "Gombhira",
       "edges": []
     },
     {
       "id": "498",
-      "page_title": "Goregrind",
       "label": "Goregrind",
       "edges": [
         1253,
@@ -7911,7 +7527,6 @@
     },
     {
       "id": "499",
-      "page_title": "Gospel blues",
       "label": "Gospel blues",
       "edges": [
         474,
@@ -7921,7 +7536,6 @@
     },
     {
       "id": "500",
-      "page_title": "Gospel music",
       "label": "Gospel music",
       "edges": [
         314,
@@ -7965,7 +7579,6 @@
     },
     {
       "id": "501",
-      "page_title": "Gospel trap",
       "label": "Gospel trap",
       "edges": [
         839,
@@ -7977,7 +7590,6 @@
     },
     {
       "id": "502",
-      "page_title": "Gothabilly",
       "label": "Gothabilly",
       "edges": [
         1046,
@@ -7989,7 +7601,6 @@
     },
     {
       "id": "503",
-      "page_title": "Gothic country",
       "label": "Gothic country",
       "edges": [
         227,
@@ -8004,7 +7615,6 @@
     },
     {
       "id": "504",
-      "page_title": "Gothic metal",
       "label": "Gothic metal",
       "edges": [
         1265,
@@ -8021,7 +7631,6 @@
     },
     {
       "id": "505",
-      "page_title": "Gothic rock",
       "label": "Gothic rock",
       "edges": [
         1225,
@@ -8048,7 +7657,6 @@
     },
     {
       "id": "506",
-      "page_title": "Gqom",
       "label": "Gqom",
       "edges": [
         73,
@@ -8082,7 +7690,6 @@
     },
     {
       "id": "508",
-      "page_title": "Greek punk",
       "label": "Greek punk",
       "edges": [
         237,
@@ -8123,7 +7730,6 @@
     },
     {
       "id": "510",
-      "page_title": "Grindcore",
       "label": "Grindcore",
       "edges": [
         1120,
@@ -8150,7 +7756,6 @@
     },
     {
       "id": "511",
-      "page_title": "Grindie",
       "label": "Grindie",
       "edges": [
         97,
@@ -8167,7 +7772,6 @@
     },
     {
       "id": "512",
-      "page_title": "Groove metal",
       "label": "Groove metal",
       "edges": [
         342,
@@ -8186,7 +7790,6 @@
     },
     {
       "id": "513",
-      "page_title": "Group sounds",
       "label": "Group sounds",
       "edges": [
         348,
@@ -8199,7 +7802,6 @@
     },
     {
       "id": "514",
-      "page_title": "Grunge",
       "label": "Grunge",
       "edges": [
         142,
@@ -8223,7 +7825,6 @@
     },
     {
       "id": "515",
-      "page_title": "Grupera",
       "label": "Grupera",
       "edges": [
         2340,
@@ -8237,7 +7838,6 @@
     },
     {
       "id": "516",
-      "page_title": "Guaracha",
       "label": "Guaracha",
       "edges": [
         2342,
@@ -8247,7 +7847,6 @@
     },
     {
       "id": "517",
-      "page_title": "Guitar solo",
       "label": "Guitar solo",
       "edges": [
         476,
@@ -8257,7 +7856,6 @@
     },
     {
       "id": "518",
-      "page_title": "Guitarrada",
       "label": "Guitarrada",
       "edges": [
         543,
@@ -8271,7 +7869,6 @@
     },
     {
       "id": "519",
-      "page_title": "Gumbe",
       "label": "Gumbe",
       "edges": [
         5726
@@ -8279,7 +7876,6 @@
     },
     {
       "id": "520",
-      "page_title": "Gwo ka",
       "label": "Gwo ka",
       "edges": [
         2344,
@@ -8288,7 +7884,6 @@
     },
     {
       "id": "521",
-      "page_title": "Gypsy jazz",
       "label": "Gypsy jazz",
       "edges": [
         3101,
@@ -8297,7 +7892,6 @@
     },
     {
       "id": "522",
-      "page_title": "Gypsy punk",
       "label": "Gypsy punk",
       "edges": [
         1952,
@@ -8310,7 +7904,6 @@
     },
     {
       "id": "523",
-      "page_title": "Halloween music",
       "label": "Halloween music",
       "edges": [
         477
@@ -8318,7 +7911,6 @@
     },
     {
       "id": "524",
-      "page_title": "Hapa haole music",
       "label": "Hapa haole music",
       "edges": [
         4496
@@ -8326,7 +7918,6 @@
     },
     {
       "id": "525",
-      "page_title": "Happy hardcore",
       "label": "Happy hardcore",
       "edges": [
         593,
@@ -8347,7 +7938,6 @@
     },
     {
       "id": "526",
-      "page_title": "Hard NRG",
       "label": "Hard NRG",
       "edges": [
         369,
@@ -8360,7 +7950,6 @@
     },
     {
       "id": "527",
-      "page_title": "Hard bop",
       "label": "Hard bop",
       "edges": [
         361,
@@ -8376,7 +7965,6 @@
     },
     {
       "id": "528",
-      "page_title": "Hard rock",
       "label": "Hard rock",
       "edges": [
         50,
@@ -8425,7 +8013,6 @@
     },
     {
       "id": "529",
-      "page_title": "Hard trance",
       "label": "Hard trance",
       "edges": [
         60,
@@ -8447,7 +8034,6 @@
     },
     {
       "id": "530",
-      "page_title": "Hardbag",
       "label": "Hardbag",
       "edges": [
         1157,
@@ -8463,7 +8049,6 @@
     },
     {
       "id": "531",
-      "page_title": "Hardbass",
       "label": "Hardbass",
       "edges": [
         594,
@@ -8529,7 +8114,6 @@
     },
     {
       "id": "534",
-      "page_title": "Hardcore hip-hop",
       "label": "Hardcore hip-hop",
       "edges": [
         569,
@@ -8548,7 +8132,6 @@
     },
     {
       "id": "535",
-      "page_title": "Hardcore punk",
       "label": "Hardcore punk",
       "edges": [
         397,
@@ -8615,7 +8198,6 @@
     },
     {
       "id": "536",
-      "page_title": "Hardstep",
       "label": "Hardstep",
       "edges": [
         633,
@@ -8627,7 +8209,6 @@
     },
     {
       "id": "537",
-      "page_title": "Hardstyle",
       "label": "Hardstyle",
       "edges": [
         2393,
@@ -8652,7 +8233,6 @@
     },
     {
       "id": "538",
-      "page_title": "Hardvapour",
       "label": "Hardvapour",
       "edges": [
         32,
@@ -8677,7 +8257,6 @@
     },
     {
       "id": "539",
-      "page_title": "Harsh noise wall",
       "label": "Harsh noise wall",
       "edges": [
         3054,
@@ -8687,13 +8266,11 @@
     },
     {
       "id": "540",
-      "page_title": "Hawfi",
       "label": "Hawfi",
       "edges": []
     },
     {
       "id": "541",
-      "page_title": "Heartland rock",
       "label": "Heartland rock",
       "edges": [
         1095,
@@ -8807,7 +8384,6 @@
     },
     {
       "id": "543",
-      "page_title": "Hi-NRG",
       "label": "Hi-NRG",
       "edges": [
         77,
@@ -8835,7 +8411,6 @@
     },
     {
       "id": "544",
-      "page_title": "Highlife",
       "label": "Highlife",
       "edges": [
         2607,
@@ -8852,7 +8427,6 @@
     },
     {
       "id": "545",
-      "page_title": "Hill country blues",
       "label": "Hill country blues",
       "edges": [
         479,
@@ -8861,7 +8435,6 @@
     },
     {
       "id": "546",
-      "page_title": "Hip house",
       "label": "Hip house",
       "edges": [
         33,
@@ -8875,7 +8448,6 @@
     },
     {
       "id": "547",
-      "page_title": "Hip-hop",
       "label": "Hip-hop",
       "edges": [
         1267,
@@ -9034,7 +8606,6 @@
     },
     {
       "id": "548",
-      "page_title": "Hip-hop in the Pacific Northwest",
       "label": "Hip-hop in the Pacific Northwest",
       "edges": [
         2066,
@@ -9072,7 +8643,6 @@
     },
     {
       "id": "551",
-      "page_title": "Hipco",
       "label": "Hipco",
       "edges": [
         2680
@@ -9080,7 +8650,6 @@
     },
     {
       "id": "552",
-      "page_title": "Hiplife",
       "label": "Hiplife",
       "edges": [
         2611,
@@ -9093,7 +8662,6 @@
     },
     {
       "id": "553",
-      "page_title": "Hipster hop",
       "label": "Hipster hop",
       "edges": [
         98,
@@ -9110,7 +8678,6 @@
     },
     {
       "id": "555",
-      "page_title": "Hookah rap",
       "label": "Hookah rap",
       "edges": [
         1272,
@@ -9128,7 +8695,6 @@
     },
     {
       "id": "557",
-      "page_title": "Horror punk",
       "label": "Horror punk",
       "edges": [
         1372,
@@ -9140,7 +8706,6 @@
     },
     {
       "id": "558",
-      "page_title": "Horrorcore",
       "label": "Horrorcore",
       "edges": [
         2162,
@@ -9151,7 +8716,6 @@
     },
     {
       "id": "559",
-      "page_title": "House music",
       "label": "House music",
       "edges": [
         274,
@@ -9251,7 +8815,6 @@
     },
     {
       "id": "560",
-      "page_title": "Huayno",
       "label": "Huayno",
       "edges": [
         2844,
@@ -9260,7 +8823,6 @@
     },
     {
       "id": "561",
-      "page_title": "Hyperpop",
       "label": "Hyperpop",
       "edges": [
         297,
@@ -9286,7 +8848,6 @@
     },
     {
       "id": "562",
-      "page_title": "Hyphy",
       "label": "Hyphy",
       "edges": [
         587,
@@ -9309,7 +8870,6 @@
     },
     {
       "id": "563",
-      "page_title": "Hypnagogic pop",
       "label": "Hypnagogic pop",
       "edges": [
         1424,
@@ -9329,7 +8889,6 @@
     },
     {
       "id": "564",
-      "page_title": "Igbo Christian music",
       "label": "Igbo Christian music",
       "edges": [
         2274,
@@ -9339,7 +8898,6 @@
     },
     {
       "id": "565",
-      "page_title": "Igbo highlife",
       "label": "Igbo highlife",
       "edges": [
         2612,
@@ -9354,7 +8912,6 @@
     },
     {
       "id": "566",
-      "page_title": "Igbo rap",
       "label": "Igbo rap",
       "edges": [
         2685,
@@ -9364,13 +8921,11 @@
     },
     {
       "id": "567",
-      "page_title": "Ikorodo",
       "label": "Ikorodo",
       "edges": []
     },
     {
       "id": "568",
-      "page_title": "Ikwokirikwo",
       "label": "Ikwokirikwo",
       "edges": [
         2859,
@@ -9379,7 +8934,6 @@
     },
     {
       "id": "569",
-      "page_title": "Illbient",
       "label": "Illbient",
       "edges": [
         204,
@@ -9408,7 +8962,6 @@
     },
     {
       "id": "571",
-      "page_title": "Indian pop",
       "label": "Indian pop",
       "edges": [
         2867,
@@ -9417,7 +8970,6 @@
     },
     {
       "id": "572",
-      "page_title": "Indian rock",
       "label": "Indian rock",
       "edges": [
         2868,
@@ -9428,7 +8980,6 @@
     },
     {
       "id": "573",
-      "page_title": "Indie folk",
       "label": "Indie folk",
       "edges": [
         144,
@@ -9444,7 +8995,6 @@
     },
     {
       "id": "574",
-      "page_title": "Indie pop",
       "label": "Indie pop",
       "edges": [
         2872,
@@ -9468,7 +9018,6 @@
     },
     {
       "id": "575",
-      "page_title": "Indie rock",
       "label": "Indie rock",
       "edges": [
         145,
@@ -9541,7 +9090,6 @@
     },
     {
       "id": "577",
-      "page_title": "Indigenous music of North America",
       "label": "Indigenous music of North America",
       "edges": [
         2929,
@@ -9552,7 +9100,6 @@
     },
     {
       "id": "578",
-      "page_title": "Indo jazz",
       "label": "Indo jazz",
       "edges": [
         3109,
@@ -9574,7 +9121,6 @@
     },
     {
       "id": "580",
-      "page_title": "Indonesian heavy metal",
       "label": "Indonesian heavy metal",
       "edges": [
         105,
@@ -9612,7 +9158,6 @@
     },
     {
       "id": "582",
-      "page_title": "Indorock",
       "label": "Indorock",
       "edges": [
         373,
@@ -9627,7 +9172,6 @@
     },
     {
       "id": "583",
-      "page_title": "Industrial folk music",
       "label": "Industrial folk music",
       "edges": []
     },
@@ -9647,7 +9191,6 @@
     },
     {
       "id": "585",
-      "page_title": "Industrial metal",
       "label": "Industrial metal",
       "edges": [
         1615,
@@ -9749,7 +9292,6 @@
     },
     {
       "id": "589",
-      "page_title": "Industrial rock",
       "label": "Industrial rock",
       "edges": [
         1617,
@@ -9768,7 +9310,6 @@
     },
     {
       "id": "590",
-      "page_title": "Industrial techno",
       "label": "Industrial techno",
       "edges": [
         1692,
@@ -9782,7 +9323,6 @@
     },
     {
       "id": "591",
-      "page_title": "Instrumental rock",
       "label": "Instrumental rock",
       "edges": [
         2998,
@@ -9795,7 +9335,6 @@
     },
     {
       "id": "592",
-      "page_title": "Intelligent dance music",
       "label": "Intelligent dance music",
       "edges": [
         35,
@@ -9824,7 +9363,6 @@
     },
     {
       "id": "593",
-      "page_title": "Iranian alternative rock",
       "label": "Iranian alternative rock",
       "edges": [
         147,
@@ -9834,7 +9372,6 @@
     },
     {
       "id": "594",
-      "page_title": "Iranian rock",
       "label": "Iranian rock",
       "edges": [
         2191,
@@ -9853,7 +9390,6 @@
     },
     {
       "id": "596",
-      "page_title": "Irish showband",
       "label": "Irish showband",
       "edges": [
         379,
@@ -9864,7 +9400,6 @@
     },
     {
       "id": "597",
-      "page_title": "Isicathamiya",
       "label": "Isicathamiya",
       "edges": [
         3013,
@@ -9873,7 +9408,6 @@
     },
     {
       "id": "598",
-      "page_title": "Iso-Polyphony",
       "label": "Iso-Polyphony",
       "edges": []
     },
@@ -9888,7 +9422,6 @@
     },
     {
       "id": "600",
-      "page_title": "Israeli rock",
       "label": "Israeli rock",
       "edges": [
         2370,
@@ -9899,13 +9432,11 @@
     },
     {
       "id": "601",
-      "page_title": "Istrian scale",
       "label": "Istrian scale",
       "edges": []
     },
     {
       "id": "602",
-      "page_title": "Italian occult psychedelia",
       "label": "Italian occult psychedelia",
       "edges": [
         4179,
@@ -9914,7 +9445,6 @@
     },
     {
       "id": "603",
-      "page_title": "Italian popular music",
       "label": "Italian popular music",
       "edges": [
         1760,
@@ -9927,7 +9457,6 @@
     },
     {
       "id": "604",
-      "page_title": "Italo dance",
       "label": "Italo dance",
       "edges": [
         1809,
@@ -9939,7 +9468,6 @@
     },
     {
       "id": "605",
-      "page_title": "Italo disco",
       "label": "Italo disco",
       "edges": [
         1158,
@@ -9979,7 +9507,6 @@
     },
     {
       "id": "607",
-      "page_title": "Italo house",
       "label": "Italo house",
       "edges": [
         79,
@@ -9999,7 +9526,6 @@
     },
     {
       "id": "608",
-      "page_title": "J-core",
       "label": "J-core",
       "edges": [
         241,
@@ -10010,7 +9536,6 @@
     },
     {
       "id": "609",
-      "page_title": "J-pop",
       "label": "J-pop",
       "edges": [
         1800,
@@ -10029,7 +9554,6 @@
     },
     {
       "id": "610",
-      "page_title": "Jaiva",
       "label": "Jaiva",
       "edges": [
         3337,
@@ -10039,7 +9563,6 @@
     },
     {
       "id": "611",
-      "page_title": "Jam band",
       "label": "Jam band",
       "edges": [
         429,
@@ -10058,7 +9581,6 @@
     },
     {
       "id": "612",
-      "page_title": "Jangle pop",
       "label": "Jangle pop",
       "edges": [
         148,
@@ -10100,7 +9622,6 @@
     },
     {
       "id": "615",
-      "page_title": "Japanoise",
       "label": "Japanoise",
       "edges": [
         3054,
@@ -10113,7 +9634,6 @@
     },
     {
       "id": "616",
-      "page_title": "Jazz",
       "label": "Jazz",
       "edges": [
         480,
@@ -10263,7 +9783,6 @@
     },
     {
       "id": "617",
-      "page_title": "Jazz fusion",
       "label": "Jazz fusion",
       "edges": [
         362,
@@ -10347,7 +9866,6 @@
     },
     {
       "id": "621",
-      "page_title": "Jazz rap",
       "label": "Jazz rap",
       "edges": [
         47,
@@ -10369,7 +9887,6 @@
     },
     {
       "id": "622",
-      "page_title": "Jazz-funk",
       "label": "Jazz-funk",
       "edges": [
         2070,
@@ -10397,7 +9914,6 @@
     },
     {
       "id": "624",
-      "page_title": "Jersey club",
       "label": "Jersey club",
       "edges": [
         328,
@@ -10427,7 +9943,6 @@
     },
     {
       "id": "626",
-      "page_title": "Jesus music",
       "label": "Jesus music",
       "edges": [
         1971,
@@ -10453,7 +9968,6 @@
     },
     {
       "id": "628",
-      "page_title": "Jewish rock",
       "label": "Jewish rock",
       "edges": [
         3043,
@@ -10463,7 +9977,6 @@
     },
     {
       "id": "629",
-      "page_title": "Jing ping",
       "label": "Jing ping",
       "edges": [
         3246,
@@ -10473,7 +9986,6 @@
     },
     {
       "id": "630",
-      "page_title": "Jinku",
       "label": "Jinku",
       "edges": [
         1946
@@ -10481,7 +9993,6 @@
     },
     {
       "id": "631",
-      "page_title": "Jit",
       "label": "Jit",
       "edges": [
         789,
@@ -10498,7 +10009,6 @@
     },
     {
       "id": "633",
-      "page_title": "Joropo",
       "label": "Joropo",
       "edges": [
         3249,
@@ -10509,7 +10019,6 @@
     },
     {
       "id": "634",
-      "page_title": "Jovem Guarda",
       "label": "Jovem Guarda",
       "edges": [
         3251,
@@ -10520,7 +10029,6 @@
     },
     {
       "id": "635",
-      "page_title": "Jump blues",
       "label": "Jump blues",
       "edges": [
         481,
@@ -10541,7 +10049,6 @@
     },
     {
       "id": "636",
-      "page_title": "Jumpstyle",
       "label": "Jumpstyle",
       "edges": [
         2149,
@@ -10588,7 +10095,6 @@
     },
     {
       "id": "638",
-      "page_title": "K-pop",
       "label": "K-pop",
       "edges": [
         944,
@@ -10605,7 +10111,6 @@
     },
     {
       "id": "639",
-      "page_title": "Kadongo Kamu",
       "label": "Kadongo Kamu",
       "edges": [
         3279
@@ -10613,7 +10118,6 @@
     },
     {
       "id": "640",
-      "page_title": "Kaiso",
       "label": "Kaiso",
       "edges": [
         3280,
@@ -10632,7 +10136,6 @@
     },
     {
       "id": "641",
-      "page_title": "Kansas City jazz",
       "label": "Kansas City jazz",
       "edges": [
         380,
@@ -10652,7 +10155,6 @@
     },
     {
       "id": "643",
-      "page_title": "Kaseko",
       "label": "Kaseko",
       "edges": [
         729,
@@ -10664,13 +10166,11 @@
     },
     {
       "id": "644",
-      "page_title": "Kasékò",
       "label": "Kasékò",
       "edges": []
     },
     {
       "id": "645",
-      "page_title": "Kattaikkuttu",
       "label": "Kattaikkuttu",
       "edges": [
         3307
@@ -10684,13 +10184,11 @@
     },
     {
       "id": "647",
-      "page_title": "Kavishari",
       "label": "Kavishari",
       "edges": []
     },
     {
       "id": "648",
-      "page_title": "Kawaii metal",
       "label": "Kawaii metal",
       "edges": [
         683,
@@ -10713,7 +10211,6 @@
     },
     {
       "id": "650",
-      "page_title": "Kayōkyoku",
       "label": "Kayōkyoku",
       "edges": [
         484,
@@ -10747,7 +10244,6 @@
     },
     {
       "id": "652",
-      "page_title": "Kidandali",
       "label": "Kidandali",
       "edges": [
         1189,
@@ -10757,7 +10253,6 @@
     },
     {
       "id": "653",
-      "page_title": "Kizomba",
       "label": "Kizomba",
       "edges": [
         706,
@@ -10767,13 +10262,11 @@
     },
     {
       "id": "654",
-      "page_title": "Klapa",
       "label": "Klapa",
       "edges": []
     },
     {
       "id": "655",
-      "page_title": "Klezmer",
       "label": "Klezmer",
       "edges": [
         3302,
@@ -10785,13 +10278,11 @@
     },
     {
       "id": "656",
-      "page_title": "Koli Geet",
       "label": "Koli Geet",
       "edges": []
     },
     {
       "id": "657",
-      "page_title": "Koothu",
       "label": "Koothu",
       "edges": [
         3307,
@@ -10800,7 +10291,6 @@
     },
     {
       "id": "658",
-      "page_title": "Koplo",
       "label": "Koplo",
       "edges": [
         1206,
@@ -10819,7 +10309,6 @@
     },
     {
       "id": "660",
-      "page_title": "Korean court music",
       "label": "Korean court music",
       "edges": []
     },
@@ -10834,7 +10323,6 @@
     },
     {
       "id": "662",
-      "page_title": "Krautrock",
       "label": "Krautrock",
       "edges": [
         52,
@@ -10883,7 +10371,6 @@
     },
     {
       "id": "664",
-      "page_title": "Kroncong",
       "label": "Kroncong",
       "edges": [
         1208,
@@ -10895,7 +10382,6 @@
     },
     {
       "id": "665",
-      "page_title": "Kuduro",
       "label": "Kuduro",
       "edges": [
         707,
@@ -10917,7 +10403,6 @@
     },
     {
       "id": "667",
-      "page_title": "Kundiman",
       "label": "Kundiman",
       "edges": [
         3332,
@@ -10926,7 +10411,6 @@
     },
     {
       "id": "668",
-      "page_title": "Kwaito",
       "label": "Kwaito",
       "edges": [
         1328,
@@ -10947,7 +10431,6 @@
     },
     {
       "id": "669",
-      "page_title": "Könsrock",
       "label": "Könsrock",
       "edges": [
         885,
@@ -10958,7 +10441,6 @@
     },
     {
       "id": "670",
-      "page_title": "LGBTQ music",
       "label": "LGBTQ music",
       "edges": [
         3339,
@@ -10984,7 +10466,6 @@
     },
     {
       "id": "672",
-      "page_title": "Ladishah",
       "label": "Ladishah",
       "edges": [
         883
@@ -10992,13 +10473,11 @@
     },
     {
       "id": "673",
-      "page_title": "Lambadão cuiabano",
       "label": "Lambadão cuiabano",
       "edges": []
     },
     {
       "id": "674",
-      "page_title": "Lao pop",
       "label": "Lao pop",
       "edges": [
         1641,
@@ -11009,7 +10488,6 @@
     },
     {
       "id": "675",
-      "page_title": "Latin Christian music",
       "label": "Latin Christian music",
       "edges": [
         915,
@@ -11023,7 +10501,6 @@
     },
     {
       "id": "676",
-      "page_title": "Latin R&B",
       "label": "Latin R&B",
       "edges": [
         946,
@@ -11037,7 +10514,6 @@
     },
     {
       "id": "677",
-      "page_title": "Latin ballad",
       "label": "Latin ballad",
       "edges": [
         544,
@@ -11069,7 +10545,6 @@
     },
     {
       "id": "679",
-      "page_title": "Latin jazz",
       "label": "Latin jazz",
       "edges": [
         3124,
@@ -11083,7 +10558,6 @@
     },
     {
       "id": "680",
-      "page_title": "Latin metal",
       "label": "Latin metal",
       "edges": [
         2553,
@@ -11097,7 +10571,6 @@
     },
     {
       "id": "681",
-      "page_title": "Latin music",
       "label": "Latin music",
       "edges": [
         3349,
@@ -11126,7 +10599,6 @@
     },
     {
       "id": "682",
-      "page_title": "Latin pop",
       "label": "Latin pop",
       "edges": [
         759,
@@ -11147,7 +10619,6 @@
     },
     {
       "id": "683",
-      "page_title": "Latin rock",
       "label": "Latin rock",
       "edges": [
         2074,
@@ -11167,7 +10638,6 @@
     },
     {
       "id": "684",
-      "page_title": "Latin soul",
       "label": "Latin soul",
       "edges": [
         3362,
@@ -11179,7 +10649,6 @@
     },
     {
       "id": "685",
-      "page_title": "Latin trap",
       "label": "Latin trap",
       "edges": [
         3356,
@@ -11194,13 +10663,11 @@
     },
     {
       "id": "686",
-      "page_title": "Lavani",
       "label": "Lavani",
       "edges": []
     },
     {
       "id": "687",
-      "page_title": "Laïko",
       "label": "Laïko",
       "edges": [
         3398,
@@ -11211,7 +10678,6 @@
     },
     {
       "id": "688",
-      "page_title": "Lento violento",
       "label": "Lento violento",
       "edges": [
         61,
@@ -11225,7 +10691,6 @@
     },
     {
       "id": "689",
-      "page_title": "Levenslied",
       "label": "Levenslied",
       "edges": [
         2937,
@@ -11238,7 +10703,6 @@
     },
     {
       "id": "690",
-      "page_title": "Light music",
       "label": "Light music",
       "edges": [
         3403,
@@ -11250,7 +10714,6 @@
     },
     {
       "id": "691",
-      "page_title": "Liquid funk",
       "label": "Liquid funk",
       "edges": [
         48,
@@ -11282,13 +10745,11 @@
     },
     {
       "id": "693",
-      "page_title": "Long song",
       "label": "Long song",
       "edges": []
     },
     {
       "id": "694",
-      "page_title": "Louisiana blues",
       "label": "Louisiana blues",
       "edges": [
         485,
@@ -11302,7 +10763,6 @@
     },
     {
       "id": "695",
-      "page_title": "Lounge music",
       "label": "Lounge music",
       "edges": [
         381,
@@ -11330,7 +10790,6 @@
     },
     {
       "id": "696",
-      "page_title": "Lovers rock",
       "label": "Lovers rock",
       "edges": [
         3422,
@@ -11344,7 +10803,6 @@
     },
     {
       "id": "697",
-      "page_title": "Low bap",
       "label": "Low bap",
       "edges": [
         2700
@@ -11352,7 +10810,6 @@
     },
     {
       "id": "698",
-      "page_title": "Lowend",
       "label": "Lowend",
       "edges": [
         590,
@@ -11374,7 +10831,6 @@
     },
     {
       "id": "700",
-      "page_title": "Luk thung",
       "label": "Luk thung",
       "edges": [
         3425
@@ -11382,7 +10838,6 @@
     },
     {
       "id": "701",
-      "page_title": "Lăutărească music",
       "label": "Lăutărească music",
       "edges": [
         3426,
@@ -11391,7 +10846,6 @@
     },
     {
       "id": "702",
-      "page_title": "Mahraganat",
       "label": "Mahraganat",
       "edges": [
         2314,
@@ -11403,13 +10857,11 @@
     },
     {
       "id": "703",
-      "page_title": "Mahāgīta",
       "label": "Mahāgīta",
       "edges": []
     },
     {
       "id": "704",
-      "page_title": "Mainstream hardcore",
       "label": "Mainstream hardcore",
       "edges": [
         2150,
@@ -11422,7 +10874,6 @@
     },
     {
       "id": "705",
-      "page_title": "Makossa",
       "label": "Makossa",
       "edges": [
         180,
@@ -11446,7 +10897,6 @@
     },
     {
       "id": "707",
-      "page_title": "Malaysian popular music",
       "label": "Malaysian popular music",
       "edges": [
         948,
@@ -11459,7 +10909,6 @@
     },
     {
       "id": "708",
-      "page_title": "Malhun",
       "label": "Malhun",
       "edges": [
         3432
@@ -11467,13 +10916,11 @@
     },
     {
       "id": "709",
-      "page_title": "Malipenga",
       "label": "Malipenga",
       "edges": []
     },
     {
       "id": "710",
-      "page_title": "Mallsoft",
       "label": "Mallsoft",
       "edges": [
         210,
@@ -11483,7 +10930,6 @@
     },
     {
       "id": "711",
-      "page_title": "Maloya",
       "label": "Maloya",
       "edges": []
     },
@@ -11514,7 +10960,6 @@
     },
     {
       "id": "713",
-      "page_title": "Mandopop",
       "label": "Mandopop",
       "edges": [
         700,
@@ -11527,7 +10972,6 @@
     },
     {
       "id": "714",
-      "page_title": "Manele",
       "label": "Manele",
       "edges": [
         250,
@@ -11538,7 +10982,6 @@
     },
     {
       "id": "715",
-      "page_title": "Mangue bit",
       "label": "Mangue bit",
       "edges": [
         149,
@@ -11553,7 +10996,6 @@
     },
     {
       "id": "716",
-      "page_title": "Manila sound",
       "label": "Manila sound",
       "edges": [
         1330,
@@ -11570,7 +11012,6 @@
     },
     {
       "id": "717",
-      "page_title": "Marabi",
       "label": "Marabi",
       "edges": [
         486,
@@ -11584,7 +11025,6 @@
     },
     {
       "id": "718",
-      "page_title": "Mariachi",
       "label": "Mariachi",
       "edges": [
         3450,
@@ -11598,7 +11038,6 @@
     },
     {
       "id": "719",
-      "page_title": "Marinera",
       "label": "Marinera",
       "edges": [
         748,
@@ -11610,13 +11049,11 @@
     },
     {
       "id": "720",
-      "page_title": "Marrabenta",
       "label": "Marrabenta",
       "edges": []
     },
     {
       "id": "721",
-      "page_title": "Martial industrial",
       "label": "Martial industrial",
       "edges": [
         1217,
@@ -11640,7 +11077,6 @@
     },
     {
       "id": "723",
-      "page_title": "Maskandi",
       "label": "Maskandi",
       "edges": [
         3448,
@@ -11655,7 +11091,6 @@
     },
     {
       "id": "725",
-      "page_title": "Math rock",
       "label": "Math rock",
       "edges": [
         150,
@@ -11674,7 +11109,6 @@
     },
     {
       "id": "726",
-      "page_title": "Mathcore",
       "label": "Mathcore",
       "edges": [
         280,
@@ -11707,7 +11141,6 @@
     },
     {
       "id": "729",
-      "page_title": "Mbaqanga",
       "label": "Mbaqanga",
       "edges": [
         3449,
@@ -11729,7 +11162,6 @@
     },
     {
       "id": "731",
-      "page_title": "Medieval folk rock",
       "label": "Medieval folk rock",
       "edges": [
         652,
@@ -11745,7 +11177,6 @@
     },
     {
       "id": "732",
-      "page_title": "Medieval metal",
       "label": "Medieval metal",
       "edges": [
         1936,
@@ -11756,7 +11187,6 @@
     },
     {
       "id": "733",
-      "page_title": "Megamix",
       "label": "Megamix",
       "edges": [
         1331,
@@ -11774,7 +11204,6 @@
     },
     {
       "id": "735",
-      "page_title": "Melodic death metal",
       "label": "Melodic death metal",
       "edges": [
         1257,
@@ -11790,7 +11219,6 @@
     },
     {
       "id": "736",
-      "page_title": "Melodic hardcore",
       "label": "Melodic hardcore",
       "edges": [
         2461,
@@ -11803,7 +11231,6 @@
     },
     {
       "id": "737",
-      "page_title": "Melodic metalcore",
       "label": "Melodic metalcore",
       "edges": [
         1896,
@@ -11815,7 +11242,6 @@
     },
     {
       "id": "738",
-      "page_title": "Memphis blues",
       "label": "Memphis blues",
       "edges": [
         487,
@@ -11825,7 +11251,6 @@
     },
     {
       "id": "739",
-      "page_title": "Memphis rap",
       "label": "Memphis rap",
       "edges": [
         1579,
@@ -11845,7 +11270,6 @@
     },
     {
       "id": "740",
-      "page_title": "Memphis soul",
       "label": "Memphis soul",
       "edges": [
         488,
@@ -11859,7 +11283,6 @@
     },
     {
       "id": "741",
-      "page_title": "Mento",
       "label": "Mento",
       "edges": [
         730,
@@ -11890,7 +11313,6 @@
     },
     {
       "id": "743",
-      "page_title": "Merenhouse",
       "label": "Merenhouse",
       "edges": [
         1191,
@@ -11902,7 +11324,6 @@
     },
     {
       "id": "744",
-      "page_title": "Metalcore",
       "label": "Metalcore",
       "edges": [
         1108,
@@ -11967,13 +11388,11 @@
     },
     {
       "id": "746",
-      "page_title": "Međimurska popevka",
       "label": "Međimurska popevka",
       "edges": []
     },
     {
       "id": "747",
-      "page_title": "Miami bass",
       "label": "Miami bass",
       "edges": [
         623,
@@ -11994,7 +11413,6 @@
     },
     {
       "id": "748",
-      "page_title": "Microhouse",
       "label": "Microhouse",
       "edges": [
         36,
@@ -12011,7 +11429,6 @@
     },
     {
       "id": "749",
-      "page_title": "Midwest emo",
       "label": "Midwest emo",
       "edges": [
         1782,
@@ -12043,7 +11460,6 @@
     },
     {
       "id": "752",
-      "page_title": "Mini-jazz",
       "label": "Mini-jazz",
       "edges": [
         893,
@@ -12054,7 +11470,6 @@
     },
     {
       "id": "753",
-      "page_title": "Minimal music",
       "label": "Minimal music",
       "edges": [
         303,
@@ -12075,7 +11490,6 @@
     },
     {
       "id": "754",
-      "page_title": "Minimal techno",
       "label": "Minimal techno",
       "edges": [
         37,
@@ -12094,7 +11508,6 @@
     },
     {
       "id": "755",
-      "page_title": "Minimal wave",
       "label": "Minimal wave",
       "edges": [
         872,
@@ -12120,7 +11533,6 @@
     },
     {
       "id": "757",
-      "page_title": "Mizrahi music",
       "label": "Mizrahi music",
       "edges": [
         3558
@@ -12128,7 +11540,6 @@
     },
     {
       "id": "758",
-      "page_title": "Mobb music",
       "label": "Mobb music",
       "edges": [
         2079,
@@ -12142,7 +11553,6 @@
     },
     {
       "id": "759",
-      "page_title": "Mod revival",
       "label": "Mod revival",
       "edges": [
         3134,
@@ -12163,7 +11573,6 @@
     },
     {
       "id": "760",
-      "page_title": "Modal jazz",
       "label": "Modal jazz",
       "edges": [
         1008,
@@ -12174,7 +11583,6 @@
     },
     {
       "id": "761",
-      "page_title": "Moombahton",
       "label": "Moombahton",
       "edges": [
         1192,
@@ -12193,7 +11601,6 @@
     },
     {
       "id": "762",
-      "page_title": "Morenada",
       "label": "Morenada",
       "edges": []
     },
@@ -12207,7 +11614,6 @@
     },
     {
       "id": "764",
-      "page_title": "Moroccan pop",
       "label": "Moroccan pop",
       "edges": [
         3996
@@ -12225,7 +11631,6 @@
     },
     {
       "id": "766",
-      "page_title": "Motswako",
       "label": "Motswako",
       "edges": [
         1448,
@@ -12236,7 +11641,6 @@
     },
     {
       "id": "767",
-      "page_title": "Mugham",
       "label": "Mugham",
       "edges": [
         3573,
@@ -12245,7 +11649,6 @@
     },
     {
       "id": "768",
-      "page_title": "Muliza",
       "label": "Muliza",
       "edges": [
         2844
@@ -12253,7 +11656,6 @@
     },
     {
       "id": "769",
-      "page_title": "Mumble rap",
       "label": "Mumble rap",
       "edges": [
         1415,
@@ -12266,13 +11668,11 @@
     },
     {
       "id": "770",
-      "page_title": "Murder ballad",
       "label": "Murder ballad",
       "edges": []
     },
     {
       "id": "771",
-      "page_title": "Music hall",
       "label": "Music hall",
       "edges": [
         3576,
@@ -12302,7 +11702,6 @@
     },
     {
       "id": "774",
-      "page_title": "Music of Latin America",
       "label": "Music of Latin America",
       "edges": [
         3585,
@@ -12412,7 +11811,6 @@
     },
     {
       "id": "778",
-      "page_title": "Mákina",
       "label": "Mákina",
       "edges": [
         595,
@@ -12425,7 +11823,6 @@
     },
     {
       "id": "779",
-      "page_title": "Méringue",
       "label": "Méringue",
       "edges": [
         3660,
@@ -12440,7 +11837,6 @@
     },
     {
       "id": "780",
-      "page_title": "Métis fiddle",
       "label": "Métis fiddle",
       "edges": []
     },
@@ -12475,13 +11871,11 @@
     },
     {
       "id": "783",
-      "page_title": "Naattupurapaattu",
       "label": "Naattupurapaattu",
       "edges": []
     },
     {
       "id": "784",
-      "page_title": "Nagoya kei",
       "label": "Nagoya kei",
       "edges": [
         151,
@@ -12490,7 +11884,6 @@
     },
     {
       "id": "785",
-      "page_title": "Narcocorrido",
       "label": "Narcocorrido",
       "edges": [
         331,
@@ -12503,7 +11896,6 @@
     },
     {
       "id": "786",
-      "page_title": "Nashville sound",
       "label": "Nashville sound",
       "edges": [
         1052,
@@ -12513,7 +11905,6 @@
     },
     {
       "id": "787",
-      "page_title": "National Socialist black metal",
       "label": "National Socialist black metal",
       "edges": [
         411,
@@ -12525,7 +11916,6 @@
     },
     {
       "id": "788",
-      "page_title": "Nazi punk",
       "label": "Nazi punk",
       "edges": [
         3678,
@@ -12540,7 +11930,6 @@
     },
     {
       "id": "790",
-      "page_title": "Ndombolo",
       "label": "Ndombolo",
       "edges": [
         901,
@@ -12552,7 +11941,6 @@
     },
     {
       "id": "791",
-      "page_title": "Nederbeat",
       "label": "Nederbeat",
       "edges": [
         349,
@@ -12564,7 +11952,6 @@
     },
     {
       "id": "792",
-      "page_title": "Nederpop",
       "label": "Nederpop",
       "edges": [
         2938,
@@ -12579,7 +11966,6 @@
     },
     {
       "id": "793",
-      "page_title": "Neo soul",
       "label": "Neo soul",
       "edges": [
         951,
@@ -12616,7 +12002,6 @@
     },
     {
       "id": "795",
-      "page_title": "Neo-prog",
       "label": "Neo-prog",
       "edges": [
         1847,
@@ -12629,7 +12014,6 @@
     },
     {
       "id": "796",
-      "page_title": "Neo-psychedelia",
       "label": "Neo-psychedelia",
       "edges": [
         152,
@@ -12651,7 +12035,6 @@
     },
     {
       "id": "797",
-      "page_title": "Neoclassical metal",
       "label": "Neoclassical metal",
       "edges": [
         1900,
@@ -12667,7 +12050,6 @@
     },
     {
       "id": "798",
-      "page_title": "Neofolk",
       "label": "Neofolk",
       "edges": [
         988,
@@ -12684,7 +12066,6 @@
     },
     {
       "id": "799",
-      "page_title": "Neomelodic music",
       "label": "Neomelodic music",
       "edges": [
         3014
@@ -12692,7 +12073,6 @@
     },
     {
       "id": "800",
-      "page_title": "Neoperreo",
       "label": "Neoperreo",
       "edges": [
         2712,
@@ -12707,7 +12087,6 @@
     },
     {
       "id": "801",
-      "page_title": "Neotraditional country",
       "label": "Neotraditional country",
       "edges": [
         316,
@@ -12728,7 +12107,6 @@
     },
     {
       "id": "802",
-      "page_title": "Nerdcore",
       "label": "Nerdcore",
       "edges": [
         102,
@@ -12737,7 +12115,6 @@
     },
     {
       "id": "803",
-      "page_title": "Neue Deutsche Härte",
       "label": "Neue Deutsche Härte",
       "edges": [
         106,
@@ -12750,7 +12127,6 @@
     },
     {
       "id": "804",
-      "page_title": "Neue Deutsche Todeskunst",
       "label": "Neue Deutsche Todeskunst",
       "edges": [
         1227,
@@ -12760,7 +12136,6 @@
     },
     {
       "id": "805",
-      "page_title": "Neue Deutsche Welle",
       "label": "Neue Deutsche Welle",
       "edges": [
         3314,
@@ -12773,7 +12148,6 @@
     },
     {
       "id": "806",
-      "page_title": "Neue Volksmusik",
       "label": "Neue Volksmusik",
       "edges": [
         87,
@@ -12786,7 +12160,6 @@
     },
     {
       "id": "807",
-      "page_title": "Neurofunk",
       "label": "Neurofunk",
       "edges": [
         1220,
@@ -12814,7 +12187,6 @@
     },
     {
       "id": "809",
-      "page_title": "New Jersey sound",
       "label": "New Jersey sound",
       "edges": [
         1273,
@@ -12827,7 +12199,6 @@
     },
     {
       "id": "810",
-      "page_title": "New Mexico music",
       "label": "New Mexico music",
       "edges": [
         332,
@@ -12849,7 +12220,6 @@
     },
     {
       "id": "811",
-      "page_title": "New Orleans Soul",
       "label": "New Orleans Soul",
       "edges": [
         564,
@@ -12861,7 +12231,6 @@
     },
     {
       "id": "812",
-      "page_title": "New Orleans blues",
       "label": "New Orleans blues",
       "edges": [
         490,
@@ -12873,7 +12242,6 @@
     },
     {
       "id": "813",
-      "page_title": "New Orleans hip-hop",
       "label": "New Orleans hip-hop",
       "edges": [
         2714,
@@ -12883,7 +12251,6 @@
     },
     {
       "id": "814",
-      "page_title": "New Orleans rhythm and blues",
       "label": "New Orleans rhythm and blues",
       "edges": [
         3716,
@@ -12894,7 +12261,6 @@
     },
     {
       "id": "815",
-      "page_title": "New Weird America",
       "label": "New Weird America",
       "edges": [
         1975,
@@ -12905,7 +12271,6 @@
     },
     {
       "id": "816",
-      "page_title": "New York soul",
       "label": "New York soul",
       "edges": [
         4661,
@@ -12914,7 +12279,6 @@
     },
     {
       "id": "817",
-      "page_title": "New beat",
       "label": "New beat",
       "edges": [
         38,
@@ -12939,7 +12303,6 @@
     },
     {
       "id": "818",
-      "page_title": "New flamenco",
       "label": "New flamenco",
       "edges": [
         491,
@@ -12953,7 +12316,6 @@
     },
     {
       "id": "819",
-      "page_title": "New jack swing",
       "label": "New jack swing",
       "edges": [
         952,
@@ -12970,7 +12332,6 @@
     },
     {
       "id": "820",
-      "page_title": "New pop",
       "label": "New pop",
       "edges": [
         1169,
@@ -12983,7 +12344,6 @@
     },
     {
       "id": "821",
-      "page_title": "New rave",
       "label": "New rave",
       "edges": [
         94,
@@ -13057,7 +12417,6 @@
     },
     {
       "id": "823",
-      "page_title": "New wave of American heavy metal",
       "label": "New wave of American heavy metal",
       "edges": [
         108,
@@ -13069,7 +12428,6 @@
     },
     {
       "id": "824",
-      "page_title": "New wave of British heavy metal",
       "label": "New wave of British heavy metal",
       "edges": [
         2374,
@@ -13090,7 +12448,6 @@
     },
     {
       "id": "825",
-      "page_title": "New wave of classic rock",
       "label": "New wave of classic rock",
       "edges": [
         533,
@@ -13100,7 +12457,6 @@
     },
     {
       "id": "826",
-      "page_title": "New wave of new wave",
       "label": "New wave of new wave",
       "edges": [
         153,
@@ -13113,7 +12469,6 @@
     },
     {
       "id": "827",
-      "page_title": "New wave of traditional heavy metal",
       "label": "New wave of traditional heavy metal",
       "edges": [
         2559,
@@ -13172,7 +12527,6 @@
     },
     {
       "id": "831",
-      "page_title": "Nightcore",
       "label": "Nightcore",
       "edges": [
         1811,
@@ -13185,7 +12539,6 @@
     },
     {
       "id": "832",
-      "page_title": "Nintendocore",
       "label": "Nintendocore",
       "edges": [
         808,
@@ -13204,7 +12557,6 @@
     },
     {
       "id": "833",
-      "page_title": "Nitzhonot",
       "label": "Nitzhonot",
       "edges": [
         39,
@@ -13217,7 +12569,6 @@
     },
     {
       "id": "834",
-      "page_title": "Njuup",
       "label": "Njuup",
       "edges": [
         3795
@@ -13225,7 +12576,6 @@
     },
     {
       "id": "835",
-      "page_title": "No wave",
       "label": "No wave",
       "edges": [
         268,
@@ -13247,7 +12597,6 @@
     },
     {
       "id": "836",
-      "page_title": "Noise music",
       "label": "Noise music",
       "edges": [
         1706,
@@ -13282,7 +12631,6 @@
     },
     {
       "id": "837",
-      "page_title": "Noise pop",
       "label": "Noise pop",
       "edges": [
         154,
@@ -13299,7 +12647,6 @@
     },
     {
       "id": "838",
-      "page_title": "Noise rock",
       "label": "Noise rock",
       "edges": [
         53,
@@ -13333,7 +12680,6 @@
     },
     {
       "id": "840",
-      "page_title": "Nortec",
       "label": "Nortec",
       "edges": [
         3836,
@@ -13362,7 +12708,6 @@
     },
     {
       "id": "842",
-      "page_title": "Norteño-sax",
       "label": "Norteño-sax",
       "edges": [
         3837
@@ -13370,7 +12715,6 @@
     },
     {
       "id": "843",
-      "page_title": "Novelty piano",
       "label": "Novelty piano",
       "edges": [
         3842,
@@ -13394,7 +12738,6 @@
     },
     {
       "id": "845",
-      "page_title": "Nu gaze",
       "label": "Nu gaze",
       "edges": [
         156,
@@ -13426,7 +12769,6 @@
     },
     {
       "id": "847",
-      "page_title": "Nu metal",
       "label": "Nu metal",
       "edges": [
         109,
@@ -13454,7 +12796,6 @@
     },
     {
       "id": "848",
-      "page_title": "Nu metalcore",
       "label": "Nu metalcore",
       "edges": [
         1904,
@@ -13466,7 +12807,6 @@
     },
     {
       "id": "849",
-      "page_title": "Nu-disco",
       "label": "Nu-disco",
       "edges": [
         558,
@@ -13480,7 +12820,6 @@
     },
     {
       "id": "850",
-      "page_title": "Nueva canción",
       "label": "Nueva canción",
       "edges": [
         3628
@@ -13488,7 +12827,6 @@
     },
     {
       "id": "851",
-      "page_title": "Nueva canción chilena",
       "label": "Nueva canción chilena",
       "edges": [
         3629
@@ -13496,7 +12834,6 @@
     },
     {
       "id": "852",
-      "page_title": "Nueva ola",
       "label": "Nueva ola",
       "edges": [
         350,
@@ -13507,7 +12844,6 @@
     },
     {
       "id": "853",
-      "page_title": "Occult rock",
       "label": "Occult rock",
       "edges": [
         492,
@@ -13540,7 +12876,6 @@
     },
     {
       "id": "856",
-      "page_title": "Oi!",
       "label": "Oi!",
       "edges": [
         3564,
@@ -13558,7 +12893,6 @@
     },
     {
       "id": "857",
-      "page_title": "Ojkanje",
       "label": "Ojkanje",
       "edges": []
     },
@@ -13580,7 +12914,6 @@
     },
     {
       "id": "859",
-      "page_title": "Old-time music",
       "label": "Old-time music",
       "edges": [
         228,
@@ -13598,7 +12931,6 @@
     },
     {
       "id": "860",
-      "page_title": "Onkyokei",
       "label": "Onkyokei",
       "edges": [
         1708,
@@ -13610,7 +12942,6 @@
     },
     {
       "id": "861",
-      "page_title": "Operatic pop",
       "label": "Operatic pop",
       "edges": [
         4007,
@@ -13628,7 +12959,6 @@
     },
     {
       "id": "863",
-      "page_title": "Orchestral pop",
       "label": "Orchestral pop",
       "edges": [
         3880,
@@ -13639,7 +12969,6 @@
     },
     {
       "id": "864",
-      "page_title": "Organic house",
       "label": "Organic house",
       "edges": [
         74,
@@ -13650,7 +12979,6 @@
     },
     {
       "id": "865",
-      "page_title": "Orthodox pop",
       "label": "Orthodox pop",
       "edges": [
         3149,
@@ -13659,7 +12987,6 @@
     },
     {
       "id": "866",
-      "page_title": "Outlaw country",
       "label": "Outlaw country",
       "edges": [
         317,
@@ -13678,7 +13005,6 @@
     },
     {
       "id": "867",
-      "page_title": "Outsider house",
       "label": "Outsider house",
       "edges": [
         213,
@@ -13690,7 +13016,6 @@
     },
     {
       "id": "868",
-      "page_title": "Owerri Bongo",
       "label": "Owerri Bongo",
       "edges": [
         2861,
@@ -13699,7 +13024,6 @@
     },
     {
       "id": "869",
-      "page_title": "Pachanga",
       "label": "Pachanga",
       "edges": [
         3499,
@@ -13709,7 +13033,6 @@
     },
     {
       "id": "870",
-      "page_title": "Pagan metal",
       "label": "Pagan metal",
       "edges": [
         412,
@@ -13723,7 +13046,6 @@
     },
     {
       "id": "871",
-      "page_title": "Pagan rock",
       "label": "Pagan rock",
       "edges": [
         1794,
@@ -13733,7 +13055,6 @@
     },
     {
       "id": "872",
-      "page_title": "Pagode baiano",
       "label": "Pagode baiano",
       "edges": [
         4946,
@@ -13742,7 +13063,6 @@
     },
     {
       "id": "873",
-      "page_title": "Paisley Underground",
       "label": "Paisley Underground",
       "edges": [
         157,
@@ -13785,7 +13105,6 @@
     },
     {
       "id": "877",
-      "page_title": "Palm Desert Scene",
       "label": "Palm Desert Scene",
       "edges": [
         54,
@@ -13801,7 +13120,6 @@
     },
     {
       "id": "878",
-      "page_title": "Palm-wine music",
       "label": "Palm-wine music",
       "edges": [
         733,
@@ -13821,7 +13139,6 @@
     },
     {
       "id": "880",
-      "page_title": "Pambiche",
       "label": "Pambiche",
       "edges": [
         3500,
@@ -13830,7 +13147,6 @@
     },
     {
       "id": "881",
-      "page_title": "Paraguayan polka",
       "label": "Paraguayan polka",
       "edges": [
         3890,
@@ -13848,7 +13164,6 @@
     },
     {
       "id": "883",
-      "page_title": "Parang",
       "label": "Parang",
       "edges": [
         3250,
@@ -13860,13 +13175,11 @@
     },
     {
       "id": "884",
-      "page_title": "Parlour music",
       "label": "Parlour music",
       "edges": []
     },
     {
       "id": "885",
-      "page_title": "Partido alto",
       "label": "Partido alto",
       "edges": [
         3923,
@@ -13876,25 +13189,21 @@
     },
     {
       "id": "886",
-      "page_title": "Partyschlager",
       "label": "Partyschlager",
       "edges": []
     },
     {
       "id": "887",
-      "page_title": "Patua Sangeet",
       "label": "Patua Sangeet",
       "edges": []
     },
     {
       "id": "888",
-      "page_title": "Peking opera",
       "label": "Peking opera",
       "edges": []
     },
     {
       "id": "889",
-      "page_title": "Peruvian cumbia",
       "label": "Peruvian cumbia",
       "edges": [
         3893,
@@ -13920,7 +13229,6 @@
     },
     {
       "id": "891",
-      "page_title": "Philadelphia soul",
       "label": "Philadelphia soul",
       "edges": [
         339,
@@ -13934,7 +13242,6 @@
     },
     {
       "id": "892",
-      "page_title": "Philippine folk music",
       "label": "Philippine folk music",
       "edges": [
         3901,
@@ -13946,7 +13253,6 @@
     },
     {
       "id": "893",
-      "page_title": "Phleng phuea chiwit",
       "label": "Phleng phuea chiwit",
       "edges": [
         991,
@@ -13960,7 +13266,6 @@
     },
     {
       "id": "894",
-      "page_title": "Phonk",
       "label": "Phonk",
       "edges": [
         818,
@@ -13975,7 +13280,6 @@
     },
     {
       "id": "895",
-      "page_title": "Piedmont blues",
       "label": "Piedmont blues",
       "edges": [
         494,
@@ -13994,7 +13298,6 @@
     },
     {
       "id": "897",
-      "page_title": "Pinoy pop",
       "label": "Pinoy pop",
       "edges": [
         3041,
@@ -14006,7 +13309,6 @@
     },
     {
       "id": "898",
-      "page_title": "Pinoy reggae",
       "label": "Pinoy reggae",
       "edges": [
         3903,
@@ -14016,7 +13318,6 @@
     },
     {
       "id": "899",
-      "page_title": "Pinoy rock",
       "label": "Pinoy rock",
       "edges": [
         3446,
@@ -14030,7 +13331,6 @@
     },
     {
       "id": "900",
-      "page_title": "Pirate metal",
       "label": "Pirate metal",
       "edges": [
         1939,
@@ -14041,13 +13341,11 @@
     },
     {
       "id": "901",
-      "page_title": "Pirekua",
       "label": "Pirekua",
       "edges": []
     },
     {
       "id": "902",
-      "page_title": "Pisadinha",
       "label": "Pisadinha",
       "edges": [
         1994,
@@ -14056,7 +13354,6 @@
     },
     {
       "id": "903",
-      "page_title": "Plena",
       "label": "Plena",
       "edges": [
         3634,
@@ -14065,7 +13362,6 @@
     },
     {
       "id": "904",
-      "page_title": "Plugg music",
       "label": "Plugg music",
       "edges": [
         810,
@@ -14079,7 +13375,6 @@
     },
     {
       "id": "905",
-      "page_title": "Plunderphonics",
       "label": "Plunderphonics",
       "edges": [
         1709,
@@ -14102,7 +13397,6 @@
     },
     {
       "id": "907",
-      "page_title": "Polka",
       "label": "Polka",
       "edges": [
         3917,
@@ -14118,7 +13412,6 @@
     },
     {
       "id": "908",
-      "page_title": "Pop kreatif",
       "label": "Pop kreatif",
       "edges": [
         559,
@@ -14136,7 +13429,6 @@
     },
     {
       "id": "909",
-      "page_title": "Pop melankolis",
       "label": "Pop melankolis",
       "edges": [
         1059,
@@ -14145,7 +13437,6 @@
     },
     {
       "id": "910",
-      "page_title": "Pop melayu",
       "label": "Pop melayu",
       "edges": [
         159,
@@ -14159,7 +13450,6 @@
     },
     {
       "id": "911",
-      "page_title": "Pop metal",
       "label": "Pop metal",
       "edges": [
         253,
@@ -14178,7 +13468,6 @@
     },
     {
       "id": "912",
-      "page_title": "Pop music",
       "label": "Pop music",
       "edges": [
         992,
@@ -14321,7 +13610,6 @@
     },
     {
       "id": "913",
-      "page_title": "Pop rap",
       "label": "Pop rap",
       "edges": [
         2724,
@@ -14336,7 +13624,6 @@
     },
     {
       "id": "914",
-      "page_title": "Pop rock",
       "label": "Pop rock",
       "edges": [
         1373,
@@ -14384,7 +13671,6 @@
     },
     {
       "id": "915",
-      "page_title": "Pop-punk",
       "label": "Pop-punk",
       "edges": [
         4019,
@@ -14449,7 +13735,6 @@
     },
     {
       "id": "920",
-      "page_title": "Pornogrind",
       "label": "Pornogrind",
       "edges": [
         1232,
@@ -14463,7 +13748,6 @@
     },
     {
       "id": "921",
-      "page_title": "Porro",
       "label": "Porro",
       "edges": [
         3635
@@ -14471,7 +13755,6 @@
     },
     {
       "id": "922",
-      "page_title": "Positive hardcore",
       "label": "Positive hardcore",
       "edges": [
         2471,
@@ -14481,7 +13764,6 @@
     },
     {
       "id": "923",
-      "page_title": "Post-Britpop",
       "label": "Post-Britpop",
       "edges": [
         160,
@@ -14493,7 +13775,6 @@
     },
     {
       "id": "924",
-      "page_title": "Post-disco",
       "label": "Post-disco",
       "edges": [
         1341,
@@ -14530,7 +13811,6 @@
     },
     {
       "id": "925",
-      "page_title": "Post-grunge",
       "label": "Post-grunge",
       "edges": [
         162,
@@ -14541,7 +13821,6 @@
     },
     {
       "id": "926",
-      "page_title": "Post-hardcore",
       "label": "Post-hardcore",
       "edges": [
         2472,
@@ -14570,7 +13849,6 @@
     },
     {
       "id": "927",
-      "page_title": "Post-metal",
       "label": "Post-metal",
       "edges": [
         281,
@@ -14585,7 +13863,6 @@
     },
     {
       "id": "928",
-      "page_title": "Post-no wave",
       "label": "Post-no wave",
       "edges": [
         1853,
@@ -14596,7 +13873,6 @@
     },
     {
       "id": "929",
-      "page_title": "Post-progressive",
       "label": "Post-progressive",
       "edges": [
         214,
@@ -14615,7 +13891,6 @@
     },
     {
       "id": "930",
-      "page_title": "Post-punk",
       "label": "Post-punk",
       "edges": [
         259,
@@ -14688,7 +13963,6 @@
     },
     {
       "id": "931",
-      "page_title": "Post-punk revival",
       "label": "Post-punk revival",
       "edges": [
         164,
@@ -14710,7 +13984,6 @@
     },
     {
       "id": "932",
-      "page_title": "Post-rock",
       "label": "Post-rock",
       "edges": [
         166,
@@ -14753,7 +14026,6 @@
     },
     {
       "id": "934",
-      "page_title": "Power metal",
       "label": "Power metal",
       "edges": [
         1910,
@@ -14773,7 +14045,6 @@
     },
     {
       "id": "935",
-      "page_title": "Power noise",
       "label": "Power noise",
       "edges": [
         1606,
@@ -14789,7 +14060,6 @@
     },
     {
       "id": "936",
-      "page_title": "Power pop",
       "label": "Power pop",
       "edges": [
         352,
@@ -14815,7 +14085,6 @@
     },
     {
       "id": "937",
-      "page_title": "Powerviolence",
       "label": "Powerviolence",
       "edges": [
         2473,
@@ -14839,7 +14108,6 @@
     },
     {
       "id": "939",
-      "page_title": "Progressive country",
       "label": "Progressive country",
       "edges": [
         318,
@@ -14859,7 +14127,6 @@
     },
     {
       "id": "940",
-      "page_title": "Progressive folk",
       "label": "Progressive folk",
       "edges": [
         993,
@@ -14873,7 +14140,6 @@
     },
     {
       "id": "941",
-      "page_title": "Progressive house",
       "label": "Progressive house",
       "edges": [
         40,
@@ -14897,7 +14163,6 @@
     },
     {
       "id": "942",
-      "page_title": "Progressive metal",
       "label": "Progressive metal",
       "edges": [
         2567,
@@ -14917,7 +14182,6 @@
     },
     {
       "id": "943",
-      "page_title": "Progressive metalcore",
       "label": "Progressive metalcore",
       "edges": [
         1911,
@@ -14929,7 +14193,6 @@
     },
     {
       "id": "944",
-      "page_title": "Progressive pop",
       "label": "Progressive pop",
       "edges": [
         4022,
@@ -14940,7 +14203,6 @@
     },
     {
       "id": "945",
-      "page_title": "Progressive rap",
       "label": "Progressive rap",
       "edges": [
         308,
@@ -14954,7 +14216,6 @@
     },
     {
       "id": "946",
-      "page_title": "Progressive rock",
       "label": "Progressive rock",
       "edges": [
         55,
@@ -15001,7 +14262,6 @@
     },
     {
       "id": "947",
-      "page_title": "Progressive soul",
       "label": "Progressive soul",
       "edges": [
         2091,
@@ -15029,7 +14289,6 @@
     },
     {
       "id": "949",
-      "page_title": "Proto-prog",
       "label": "Proto-prog",
       "edges": [
         4340,
@@ -15038,7 +14297,6 @@
     },
     {
       "id": "950",
-      "page_title": "Proto-punk",
       "label": "Proto-punk",
       "edges": [
         2197,
@@ -15057,7 +14315,6 @@
     },
     {
       "id": "951",
-      "page_title": "Psychedelic folk",
       "label": "Psychedelic folk",
       "edges": [
         995,
@@ -15079,7 +14336,6 @@
     },
     {
       "id": "953",
-      "page_title": "Psychedelic funk",
       "label": "Psychedelic funk",
       "edges": [
         56,
@@ -15096,7 +14352,6 @@
     },
     {
       "id": "954",
-      "page_title": "Psychedelic pop",
       "label": "Psychedelic pop",
       "edges": [
         4023,
@@ -15109,7 +14364,6 @@
     },
     {
       "id": "955",
-      "page_title": "Psychedelic rap",
       "label": "Psychedelic rap",
       "edges": [
         2094,
@@ -15122,7 +14376,6 @@
     },
     {
       "id": "956",
-      "page_title": "Psychedelic rock",
       "label": "Psychedelic rock",
       "edges": [
         353,
@@ -15186,7 +14439,6 @@
     },
     {
       "id": "957",
-      "page_title": "Psychedelic soul",
       "label": "Psychedelic soul",
       "edges": [
         4345,
@@ -15205,7 +14457,6 @@
     },
     {
       "id": "958",
-      "page_title": "Psychedelic trance",
       "label": "Psychedelic trance",
       "edges": [
         41,
@@ -15231,7 +14482,6 @@
     },
     {
       "id": "959",
-      "page_title": "Psychobilly",
       "label": "Psychobilly",
       "edges": [
         1062,
@@ -15244,7 +14494,6 @@
     },
     {
       "id": "960",
-      "page_title": "Psydub",
       "label": "Psydub",
       "edges": [
         184,
@@ -15303,7 +14552,6 @@
     },
     {
       "id": "964",
-      "page_title": "Punk blues",
       "label": "Punk blues",
       "edges": [
         497,
@@ -15317,7 +14565,6 @@
     },
     {
       "id": "965",
-      "page_title": "Punk funk",
       "label": "Punk funk",
       "edges": [
         1171,
@@ -15330,7 +14577,6 @@
     },
     {
       "id": "966",
-      "page_title": "Punk jazz",
       "label": "Punk jazz",
       "edges": [
         2010,
@@ -15359,7 +14605,6 @@
     },
     {
       "id": "968",
-      "page_title": "Punk pathetique",
       "label": "Punk pathetique",
       "edges": [
         2236,
@@ -15373,7 +14618,6 @@
     },
     {
       "id": "969",
-      "page_title": "Punk rap",
       "label": "Punk rap",
       "edges": [
         2570,
@@ -15386,7 +14630,6 @@
     },
     {
       "id": "970",
-      "page_title": "Punk rock",
       "label": "Punk rock",
       "edges": [
         685,
@@ -15501,7 +14744,6 @@
     },
     {
       "id": "971",
-      "page_title": "Punta",
       "label": "Punta",
       "edges": [
         3636,
@@ -15511,7 +14753,6 @@
     },
     {
       "id": "972",
-      "page_title": "Punta rock",
       "label": "Punta rock",
       "edges": [
         734,
@@ -15528,7 +14769,6 @@
     },
     {
       "id": "974",
-      "page_title": "Q-pop",
       "label": "Q-pop",
       "edges": [
         954,
@@ -15547,7 +14787,6 @@
     },
     {
       "id": "976",
-      "page_title": "Queercore",
       "label": "Queercore",
       "edges": [
         2477,
@@ -15559,7 +14798,6 @@
     },
     {
       "id": "977",
-      "page_title": "Quiet storm",
       "label": "Quiet storm",
       "edges": [
         955,
@@ -15588,7 +14826,6 @@
     },
     {
       "id": "979",
-      "page_title": "Rabòday",
       "label": "Rabòday",
       "edges": [
         4518,
@@ -15603,7 +14840,6 @@
     },
     {
       "id": "981",
-      "page_title": "Raga rock",
       "label": "Raga rock",
       "edges": [
         374,
@@ -15635,7 +14871,6 @@
     },
     {
       "id": "983",
-      "page_title": "Ragga",
       "label": "Ragga",
       "edges": [
         1194,
@@ -15652,7 +14887,6 @@
     },
     {
       "id": "984",
-      "page_title": "Raglife",
       "label": "Raglife",
       "edges": [
         1195,
@@ -15666,7 +14900,6 @@
     },
     {
       "id": "985",
-      "page_title": "Ragtime",
       "label": "Ragtime",
       "edges": [
         499,
@@ -15687,19 +14920,16 @@
     },
     {
       "id": "986",
-      "page_title": "Rake-and-scrape",
       "label": "Rake-and-scrape",
       "edges": []
     },
     {
       "id": "987",
-      "page_title": "Ramprasadi",
       "label": "Ramprasadi",
       "edges": []
     },
     {
       "id": "988",
-      "page_title": "Ranchera",
       "label": "Ranchera",
       "edges": [
         3453,
@@ -15714,7 +14944,6 @@
     },
     {
       "id": "989",
-      "page_title": "Rap metal",
       "label": "Rap metal",
       "edges": [
         111,
@@ -15747,7 +14976,6 @@
     },
     {
       "id": "991",
-      "page_title": "Rap rock",
       "label": "Rap rock",
       "edges": [
         1528,
@@ -15762,7 +14990,6 @@
     },
     {
       "id": "992",
-      "page_title": "Rapso",
       "label": "Rapso",
       "edges": [
         735,
@@ -15774,7 +15001,6 @@
     },
     {
       "id": "993",
-      "page_title": "Raptor house",
       "label": "Raptor house",
       "edges": [
         1764,
@@ -15788,7 +15014,6 @@
     },
     {
       "id": "994",
-      "page_title": "Rara tech",
       "label": "Rara tech",
       "edges": [
         2829
@@ -15796,7 +15021,6 @@
     },
     {
       "id": "995",
-      "page_title": "Rasin",
       "label": "Rasin",
       "edges": [
         2382,
@@ -15807,13 +15031,11 @@
     },
     {
       "id": "996",
-      "page_title": "Rasiya",
       "label": "Rasiya",
       "edges": []
     },
     {
       "id": "997",
-      "page_title": "Rasteirinha",
       "label": "Rasteirinha",
       "edges": [
         310,
@@ -15824,7 +15046,6 @@
     },
     {
       "id": "998",
-      "page_title": "Raï",
       "label": "Raï",
       "edges": [
         375,
@@ -15833,7 +15054,6 @@
     },
     {
       "id": "999",
-      "page_title": "Rebetiko",
       "label": "Rebetiko",
       "edges": [
         179,
@@ -15863,7 +15083,6 @@
     },
     {
       "id": "1002",
-      "page_title": "Recession pop",
       "label": "Recession pop",
       "edges": [
         1162,
@@ -15891,13 +15110,11 @@
     },
     {
       "id": "1004",
-      "page_title": "Reggada",
       "label": "Reggada",
       "edges": []
     },
     {
       "id": "1005",
-      "page_title": "Reggae",
       "label": "Reggae",
       "edges": [
         737,
@@ -15961,7 +15178,6 @@
     },
     {
       "id": "1006",
-      "page_title": "Reggae en Español",
       "label": "Reggae en Español",
       "edges": [
         1196,
@@ -15974,7 +15190,6 @@
     },
     {
       "id": "1007",
-      "page_title": "Reggae fusion",
       "label": "Reggae fusion",
       "edges": [
         1197,
@@ -16013,7 +15228,6 @@
     },
     {
       "id": "1008",
-      "page_title": "Reggae punk",
       "label": "Reggae punk",
       "edges": [
         3423,
@@ -16026,7 +15240,6 @@
     },
     {
       "id": "1009",
-      "page_title": "Reggae rock",
       "label": "Reggae rock",
       "edges": [
         4559,
@@ -16041,7 +15254,6 @@
     },
     {
       "id": "1010",
-      "page_title": "Reggaestep",
       "label": "Reggaestep",
       "edges": [
         674,
@@ -16056,7 +15268,6 @@
     },
     {
       "id": "1011",
-      "page_title": "Reggaeton",
       "label": "Reggaeton",
       "edges": [
         708,
@@ -16097,7 +15308,6 @@
     },
     {
       "id": "1012",
-      "page_title": "Regional Mexican",
       "label": "Regional Mexican",
       "edges": [
         3380,
@@ -16121,7 +15331,6 @@
     },
     {
       "id": "1014",
-      "page_title": "Rhumba",
       "label": "Rhumba",
       "edges": [
         897,
@@ -16132,7 +15341,6 @@
     },
     {
       "id": "1015",
-      "page_title": "Rhythm and blues",
       "label": "Rhythm and blues",
       "edges": [
         67,
@@ -16245,7 +15453,6 @@
     },
     {
       "id": "1017",
-      "page_title": "Ringbang",
       "label": "Ringbang",
       "edges": [
         740,
@@ -16256,7 +15463,6 @@
     },
     {
       "id": "1018",
-      "page_title": "Riot grrrl",
       "label": "Riot grrrl",
       "edges": [
         167,
@@ -16270,7 +15476,6 @@
     },
     {
       "id": "1019",
-      "page_title": "Risecore",
       "label": "Risecore",
       "edges": [
         1783,
@@ -16281,7 +15486,6 @@
     },
     {
       "id": "1020",
-      "page_title": "RnBass",
       "label": "RnBass",
       "edges": [
         956,
@@ -16297,7 +15501,6 @@
     },
     {
       "id": "1021",
-      "page_title": "Rock Against Communism",
       "label": "Rock Against Communism",
       "edges": [
         3679,
@@ -16308,7 +15511,6 @@
     },
     {
       "id": "1022",
-      "page_title": "Rock and roll",
       "label": "Rock and roll",
       "edges": [
         68,
@@ -16396,7 +15598,6 @@
     },
     {
       "id": "1023",
-      "page_title": "Rock kapak",
       "label": "Rock kapak",
       "edges": [
         254,
@@ -16413,7 +15614,6 @@
     },
     {
       "id": "1024",
-      "page_title": "Rock music",
       "label": "Rock music",
       "edges": [
         503,
@@ -16554,7 +15754,6 @@
     },
     {
       "id": "1025",
-      "page_title": "Rock music in Australia",
       "label": "Rock music in Australia",
       "edges": [
         4746,
@@ -16575,7 +15774,6 @@
     },
     {
       "id": "1027",
-      "page_title": "Rock music in Ireland",
       "label": "Rock music in Ireland",
       "edges": [
         4748,
@@ -16584,7 +15782,6 @@
     },
     {
       "id": "1028",
-      "page_title": "Rock music in New Zealand",
       "label": "Rock music in New Zealand",
       "edges": [
         4749,
@@ -16593,7 +15790,6 @@
     },
     {
       "id": "1029",
-      "page_title": "Rock music in Slovenia",
       "label": "Rock music in Slovenia",
       "edges": [
         4750,
@@ -16602,7 +15798,6 @@
     },
     {
       "id": "1030",
-      "page_title": "Rockabilly",
       "label": "Rockabilly",
       "edges": [
         433,
@@ -16642,7 +15837,6 @@
     },
     {
       "id": "1031",
-      "page_title": "Rocksteady",
       "label": "Rocksteady",
       "edges": [
         4915,
@@ -16661,7 +15855,6 @@
     },
     {
       "id": "1032",
-      "page_title": "Romo",
       "label": "Romo",
       "edges": [
         958,
@@ -16674,7 +15867,6 @@
     },
     {
       "id": "1033",
-      "page_title": "Roots reggae",
       "label": "Roots reggae",
       "edges": [
         4565,
@@ -16687,7 +15879,6 @@
     },
     {
       "id": "1034",
-      "page_title": "Roots rock",
       "label": "Roots rock",
       "edges": [
         232,
@@ -16707,7 +15898,6 @@
     },
     {
       "id": "1035",
-      "page_title": "Rumba flamenca",
       "label": "Rumba flamenca",
       "edges": [
         1122,
@@ -16719,7 +15909,6 @@
     },
     {
       "id": "1036",
-      "page_title": "Russ music",
       "label": "Russ music",
       "edges": [
         1298,
@@ -16733,7 +15922,6 @@
     },
     {
       "id": "1037",
-      "page_title": "Russian chanson",
       "label": "Russian chanson",
       "edges": [
         334,
@@ -16754,7 +15942,6 @@
     },
     {
       "id": "1039",
-      "page_title": "Ryūkōka",
       "label": "Ryūkōka",
       "edges": [
         505,
@@ -16773,7 +15960,6 @@
     },
     {
       "id": "1041",
-      "page_title": "Sakara music",
       "label": "Sakara music",
       "edges": [
         4937
@@ -16801,7 +15987,6 @@
     },
     {
       "id": "1043",
-      "page_title": "Samba",
       "label": "Samba",
       "edges": [
         3641,
@@ -16838,7 +16023,6 @@
     },
     {
       "id": "1044",
-      "page_title": "Samba de breque",
       "label": "Samba de breque",
       "edges": [
         4950,
@@ -16847,7 +16031,6 @@
     },
     {
       "id": "1045",
-      "page_title": "Samba funk",
       "label": "Samba funk",
       "edges": [
         2098,
@@ -16870,7 +16053,6 @@
     },
     {
       "id": "1047",
-      "page_title": "Samba rock",
       "label": "Samba rock",
       "edges": [
         506,
@@ -16889,7 +16071,6 @@
     },
     {
       "id": "1048",
-      "page_title": "Samba-canção",
       "label": "Samba-canção",
       "edges": [
         4956,
@@ -16899,7 +16080,6 @@
     },
     {
       "id": "1049",
-      "page_title": "Samba-choro",
       "label": "Samba-choro",
       "edges": [
         826,
@@ -16918,7 +16098,6 @@
     },
     {
       "id": "1051",
-      "page_title": "Samba-jazz",
       "label": "Samba-jazz",
       "edges": [
         580,
@@ -16929,7 +16108,6 @@
     },
     {
       "id": "1052",
-      "page_title": "Samba-sincopado",
       "label": "Samba-sincopado",
       "edges": [
         4964,
@@ -16938,7 +16116,6 @@
     },
     {
       "id": "1053",
-      "page_title": "Sambass",
       "label": "Sambass",
       "edges": [
         581,
@@ -16949,7 +16126,6 @@
     },
     {
       "id": "1054",
-      "page_title": "Sampledelia",
       "label": "Sampledelia",
       "edges": [
         271,
@@ -16964,13 +16140,11 @@
     },
     {
       "id": "1055",
-      "page_title": "Samul nori",
       "label": "Samul nori",
       "edges": []
     },
     {
       "id": "1056",
-      "page_title": "San Francisco sound",
       "label": "San Francisco sound",
       "edges": [
         4871
@@ -16986,19 +16160,16 @@
     },
     {
       "id": "1058",
-      "page_title": "Sanedo",
       "label": "Sanedo",
       "edges": []
     },
     {
       "id": "1059",
-      "page_title": "Sangeet Natak",
       "label": "Sangeet Natak",
       "edges": []
     },
     {
       "id": "1060",
-      "page_title": "Santé engagé",
       "label": "Santé engagé",
       "edges": [
         4986,
@@ -17007,7 +16178,6 @@
     },
     {
       "id": "1061",
-      "page_title": "Sapphic pop",
       "label": "Sapphic pop",
       "edges": [
         169,
@@ -17024,7 +16194,6 @@
     },
     {
       "id": "1063",
-      "page_title": "Scam rap",
       "label": "Scam rap",
       "edges": [
         2737,
@@ -17033,7 +16202,6 @@
     },
     {
       "id": "1064",
-      "page_title": "Schaffel",
       "label": "Schaffel",
       "edges": [
         3553,
@@ -17061,7 +16229,6 @@
     },
     {
       "id": "1066",
-      "page_title": "Scottish Gaelic punk",
       "label": "Scottish Gaelic punk",
       "edges": [
         238,
@@ -17081,7 +16248,6 @@
     },
     {
       "id": "1068",
-      "page_title": "Screamo",
       "label": "Screamo",
       "edges": [
         1784,
@@ -17094,7 +16260,6 @@
     },
     {
       "id": "1069",
-      "page_title": "Scrumpy and Western",
       "label": "Scrumpy and Western",
       "edges": [
         1069,
@@ -17103,7 +16268,6 @@
     },
     {
       "id": "1070",
-      "page_title": "Sea shanty",
       "label": "Sea shanty",
       "edges": [
         4983,
@@ -17113,13 +16277,11 @@
     },
     {
       "id": "1071",
-      "page_title": "Sean-nós singing",
       "label": "Sean-nós singing",
       "edges": []
     },
     {
       "id": "1072",
-      "page_title": "Seapunk",
       "label": "Seapunk",
       "edges": [
         811,
@@ -17146,7 +16308,6 @@
     },
     {
       "id": "1074",
-      "page_title": "Sega tambour Chagos",
       "label": "Sega tambour Chagos",
       "edges": [
         4988
@@ -17211,13 +16372,11 @@
     },
     {
       "id": "1081",
-      "page_title": "Seto leelo",
       "label": "Seto leelo",
       "edges": []
     },
     {
       "id": "1082",
-      "page_title": "Sevillanas",
       "label": "Sevillanas",
       "edges": [
         1929,
@@ -17226,7 +16385,6 @@
     },
     {
       "id": "1083",
-      "page_title": "Shangaan electro",
       "label": "Shangaan electro",
       "edges": [
         1718,
@@ -17236,13 +16394,11 @@
     },
     {
       "id": "1084",
-      "page_title": "Shashmaqam",
       "label": "Shashmaqam",
       "edges": []
     },
     {
       "id": "1085",
-      "page_title": "Shibuya-kei",
       "label": "Shibuya-kei",
       "edges": [
         582,
@@ -17265,7 +16421,6 @@
     },
     {
       "id": "1086",
-      "page_title": "Shock rock",
       "label": "Shock rock",
       "edges": [
         2240,
@@ -17281,7 +16436,6 @@
     },
     {
       "id": "1087",
-      "page_title": "Shoegaze",
       "label": "Shoegaze",
       "edges": [
         170,
@@ -17309,7 +16463,6 @@
     },
     {
       "id": "1088",
-      "page_title": "Sigilkore",
       "label": "Sigilkore",
       "edges": [
         820,
@@ -17322,7 +16475,6 @@
     },
     {
       "id": "1089",
-      "page_title": "Singeli",
       "label": "Singeli",
       "edges": [
         551,
@@ -17332,7 +16484,6 @@
     },
     {
       "id": "1090",
-      "page_title": "Ska",
       "label": "Ska",
       "edges": [
         741,
@@ -17366,7 +16517,6 @@
     },
     {
       "id": "1091",
-      "page_title": "Ska punk",
       "label": "Ska punk",
       "edges": [
         2480,
@@ -17383,7 +16533,6 @@
     },
     {
       "id": "1092",
-      "page_title": "Skate punk",
       "label": "Skate punk",
       "edges": [
         2481,
@@ -17396,7 +16545,6 @@
     },
     {
       "id": "1093",
-      "page_title": "Skiffle",
       "label": "Skiffle",
       "edges": [
         434,
@@ -17413,7 +16561,6 @@
     },
     {
       "id": "1094",
-      "page_title": "Skiladiko",
       "label": "Skiladiko",
       "edges": [
         172,
@@ -17425,7 +16572,6 @@
     },
     {
       "id": "1095",
-      "page_title": "Skweee",
       "label": "Skweee",
       "edges": [
         812,
@@ -17441,7 +16587,6 @@
     },
     {
       "id": "1096",
-      "page_title": "Slacker rock",
       "label": "Slacker rock",
       "edges": [
         2921,
@@ -17450,7 +16595,6 @@
     },
     {
       "id": "1097",
-      "page_title": "Slowcore",
       "label": "Slowcore",
       "edges": [
         1001,
@@ -17460,7 +16604,6 @@
     },
     {
       "id": "1098",
-      "page_title": "Sludge metal",
       "label": "Sludge metal",
       "edges": [
         1384,
@@ -17475,7 +16618,6 @@
     },
     {
       "id": "1099",
-      "page_title": "Smooth jazz",
       "label": "Smooth jazz",
       "edges": [
         3172,
@@ -17493,7 +16635,6 @@
     },
     {
       "id": "1100",
-      "page_title": "Smooth soul",
       "label": "Smooth soul",
       "edges": [
         2104,
@@ -17506,7 +16647,6 @@
     },
     {
       "id": "1101",
-      "page_title": "Snap music",
       "label": "Snap music",
       "edges": [
         1113,
@@ -17517,7 +16657,6 @@
     },
     {
       "id": "1102",
-      "page_title": "Soca music",
       "label": "Soca music",
       "edges": [
         709,
@@ -17565,7 +16704,6 @@
     },
     {
       "id": "1104",
-      "page_title": "Soft rock",
       "label": "Soft rock",
       "edges": [
         645,
@@ -17590,7 +16728,6 @@
     },
     {
       "id": "1105",
-      "page_title": "Son cubano",
       "label": "Son cubano",
       "edges": [
         549,
@@ -17615,7 +16752,6 @@
     },
     {
       "id": "1106",
-      "page_title": "Son huasteco",
       "label": "Son huasteco",
       "edges": [
         5083,
@@ -17624,7 +16760,6 @@
     },
     {
       "id": "1107",
-      "page_title": "Son jarocho",
       "label": "Son jarocho",
       "edges": [
         3644,
@@ -17634,7 +16769,6 @@
     },
     {
       "id": "1108",
-      "page_title": "Son montuno",
       "label": "Son montuno",
       "edges": [
         3443,
@@ -17650,7 +16784,6 @@
     },
     {
       "id": "1109",
-      "page_title": "Sophisti-pop",
       "label": "Sophisti-pop",
       "edges": [
         3173,
@@ -17663,7 +16796,6 @@
     },
     {
       "id": "1110",
-      "page_title": "Soukous",
       "label": "Soukous",
       "edges": [
         902,
@@ -17679,7 +16811,6 @@
     },
     {
       "id": "1111",
-      "page_title": "Soul blues",
       "label": "Soul blues",
       "edges": [
         508,
@@ -17691,7 +16822,6 @@
     },
     {
       "id": "1112",
-      "page_title": "Soul jazz",
       "label": "Soul jazz",
       "edges": [
         509,
@@ -17806,7 +16936,6 @@
     },
     {
       "id": "1114",
-      "page_title": "Sound collage",
       "label": "Sound collage",
       "edges": [
         3456,
@@ -17817,7 +16946,6 @@
     },
     {
       "id": "1115",
-      "page_title": "Southern gospel",
       "label": "Southern gospel",
       "edges": [
         5191,
@@ -17830,7 +16958,6 @@
     },
     {
       "id": "1116",
-      "page_title": "Southern hip-hop",
       "label": "Southern hip-hop",
       "edges": [
         1529,
@@ -17862,7 +16989,6 @@
     },
     {
       "id": "1117",
-      "page_title": "Southern rock",
       "label": "Southern rock",
       "edges": [
         538,
@@ -17890,7 +17016,6 @@
     },
     {
       "id": "1119",
-      "page_title": "Southern soul",
       "label": "Southern soul",
       "edges": [
         510,
@@ -17905,7 +17030,6 @@
     },
     {
       "id": "1120",
-      "page_title": "Sovietwave",
       "label": "Sovietwave",
       "edges": [
         4198,
@@ -17917,7 +17041,6 @@
     },
     {
       "id": "1121",
-      "page_title": "Space age pop",
       "label": "Space age pop",
       "edges": [
         383,
@@ -17944,7 +17067,6 @@
     },
     {
       "id": "1122",
-      "page_title": "Space music",
       "label": "Space music",
       "edges": [
         217,
@@ -17964,7 +17086,6 @@
     },
     {
       "id": "1123",
-      "page_title": "Space rock",
       "label": "Space rock",
       "edges": [
         4281,
@@ -17978,13 +17099,11 @@
     },
     {
       "id": "1124",
-      "page_title": "Spanish traditional Christian music",
       "label": "Spanish traditional Christian music",
       "edges": []
     },
     {
       "id": "1125",
-      "page_title": "Speed garage",
       "label": "Speed garage",
       "edges": [
         4,
@@ -17997,7 +17116,6 @@
     },
     {
       "id": "1126",
-      "page_title": "Speed metal",
       "label": "Speed metal",
       "edges": [
         398,
@@ -18020,7 +17138,6 @@
     },
     {
       "id": "1127",
-      "page_title": "Speedcore",
       "label": "Speedcore",
       "edges": [
         641,
@@ -18032,7 +17149,6 @@
     },
     {
       "id": "1128",
-      "page_title": "Spiritual jazz",
       "label": "Spiritual jazz",
       "edges": [
         2011,
@@ -18063,7 +17179,6 @@
     },
     {
       "id": "1130",
-      "page_title": "Spouge",
       "label": "Spouge",
       "edges": [
         745,
@@ -18092,7 +17207,6 @@
     },
     {
       "id": "1132",
-      "page_title": "Sri Metal",
       "label": "Sri Metal",
       "edges": [
         3856
@@ -18100,19 +17214,16 @@
     },
     {
       "id": "1133",
-      "page_title": "Stadium house",
       "label": "Stadium house",
       "edges": []
     },
     {
       "id": "1134",
-      "page_title": "Starogradska muzika",
       "label": "Starogradska muzika",
       "edges": []
     },
     {
       "id": "1135",
-      "page_title": "Stoner rock",
       "label": "Stoner rock",
       "edges": [
         58,
@@ -18130,7 +17241,6 @@
     },
     {
       "id": "1136",
-      "page_title": "Straight-ahead jazz",
       "label": "Straight-ahead jazz",
       "edges": [
         364,
@@ -18144,7 +17254,6 @@
     },
     {
       "id": "1137",
-      "page_title": "Street punk",
       "label": "Street punk",
       "edges": [
         2485,
@@ -18169,7 +17278,6 @@
     },
     {
       "id": "1139",
-      "page_title": "Stronda",
       "label": "Stronda",
       "edges": [
         1299,
@@ -18215,7 +17323,6 @@
     },
     {
       "id": "1143",
-      "page_title": "Sufi rock",
       "label": "Sufi rock",
       "edges": [
         376,
@@ -18225,7 +17332,6 @@
     },
     {
       "id": "1144",
-      "page_title": "Sunshine pop",
       "label": "Sunshine pop",
       "edges": [
         646,
@@ -18240,7 +17346,6 @@
     },
     {
       "id": "1145",
-      "page_title": "Suomisaundi",
       "label": "Suomisaundi",
       "edges": [
         2248,
@@ -18249,7 +17354,6 @@
     },
     {
       "id": "1146",
-      "page_title": "Surf music",
       "label": "Surf music",
       "edges": [
         511,
@@ -18276,7 +17380,6 @@
     },
     {
       "id": "1147",
-      "page_title": "Swamp blues",
       "label": "Swamp blues",
       "edges": [
         512,
@@ -18292,7 +17395,6 @@
     },
     {
       "id": "1148",
-      "page_title": "Swamp pop",
       "label": "Swamp pop",
       "edges": [
         713,
@@ -18309,7 +17411,6 @@
     },
     {
       "id": "1149",
-      "page_title": "Swamp rock",
       "label": "Swamp rock",
       "edges": [
         355,
@@ -18363,7 +17464,6 @@
     },
     {
       "id": "1151",
-      "page_title": "Swing revival",
       "label": "Swing revival",
       "edges": [
         385,
@@ -18380,7 +17480,6 @@
     },
     {
       "id": "1152",
-      "page_title": "Symphonic black metal",
       "label": "Symphonic black metal",
       "edges": [
         414,
@@ -18393,7 +17492,6 @@
     },
     {
       "id": "1153",
-      "page_title": "Symphonic metal",
       "label": "Symphonic metal",
       "edges": [
         2288,
@@ -18446,7 +17544,6 @@
     },
     {
       "id": "1157",
-      "page_title": "Synth-pop",
       "label": "Synth-pop",
       "edges": [
         260,
@@ -18501,7 +17598,6 @@
     },
     {
       "id": "1158",
-      "page_title": "Synthwave",
       "label": "Synthwave",
       "edges": [
         814,
@@ -18518,7 +17614,6 @@
     },
     {
       "id": "1159",
-      "page_title": "Tabanka",
       "label": "Tabanka",
       "edges": []
     },
@@ -18530,7 +17625,6 @@
     },
     {
       "id": "1161",
-      "page_title": "Tahona",
       "label": "Tahona",
       "edges": [
         5597
@@ -18538,7 +17632,6 @@
     },
     {
       "id": "1162",
-      "page_title": "Takamba",
       "label": "Takamba",
       "edges": []
     },
@@ -18550,7 +17643,6 @@
     },
     {
       "id": "1164",
-      "page_title": "Tallava",
       "label": "Tallava",
       "edges": [
         1144,
@@ -18559,7 +17651,6 @@
     },
     {
       "id": "1165",
-      "page_title": "Tamborera",
       "label": "Tamborera",
       "edges": [
         1212
@@ -18600,7 +17691,6 @@
     },
     {
       "id": "1169",
-      "page_title": "Taqwacore",
       "label": "Taqwacore",
       "edges": [
         2585,
@@ -18619,7 +17709,6 @@
     },
     {
       "id": "1171",
-      "page_title": "Tech house",
       "label": "Tech house",
       "edges": [
         1277,
@@ -18643,7 +17732,6 @@
     },
     {
       "id": "1172",
-      "page_title": "Tech trance",
       "label": "Tech trance",
       "edges": [
         2397,
@@ -18658,7 +17746,6 @@
     },
     {
       "id": "1173",
-      "page_title": "Technical death metal",
       "label": "Technical death metal",
       "edges": [
         282,
@@ -18672,7 +17759,6 @@
     },
     {
       "id": "1174",
-      "page_title": "Techno",
       "label": "Techno",
       "edges": [
         42,
@@ -18774,7 +17860,6 @@
     },
     {
       "id": "1175",
-      "page_title": "Techstep",
       "label": "Techstep",
       "edges": [
         5,
@@ -18794,7 +17879,6 @@
     },
     {
       "id": "1176",
-      "page_title": "Tecno brega",
       "label": "Tecno brega",
       "edges": [
         1995,
@@ -18805,7 +17889,6 @@
     },
     {
       "id": "1177",
-      "page_title": "Tecnocumbia",
       "label": "Tecnocumbia",
       "edges": [
         1126,
@@ -18817,7 +17900,6 @@
     },
     {
       "id": "1178",
-      "page_title": "Teen pop",
       "label": "Teen pop",
       "edges": [
         686,
@@ -18839,7 +17921,6 @@
     },
     {
       "id": "1179",
-      "page_title": "Tejano music",
       "label": "Tejano music",
       "edges": [
         514,
@@ -18861,7 +17942,6 @@
     },
     {
       "id": "1180",
-      "page_title": "Terukkuttu",
       "label": "Terukkuttu",
       "edges": [
         3308
@@ -18869,7 +17949,6 @@
     },
     {
       "id": "1181",
-      "page_title": "Teutonic thrash metal",
       "label": "Teutonic thrash metal",
       "edges": [
         2486,
@@ -18880,7 +17959,6 @@
     },
     {
       "id": "1182",
-      "page_title": "Texas blues",
       "label": "Texas blues",
       "edges": [
         515,
@@ -18892,7 +17970,6 @@
     },
     {
       "id": "1183",
-      "page_title": "Texas country music",
       "label": "Texas country music",
       "edges": [
         1080,
@@ -18931,7 +18008,6 @@
     },
     {
       "id": "1186",
-      "page_title": "Thai rock",
       "label": "Thai rock",
       "edges": [
         4756,
@@ -18941,7 +18017,6 @@
     },
     {
       "id": "1187",
-      "page_title": "Third stream",
       "label": "Third stream",
       "edges": [
         3185,
@@ -18951,7 +18026,6 @@
     },
     {
       "id": "1188",
-      "page_title": "Thrash metal",
       "label": "Thrash metal",
       "edges": [
         1129,
@@ -18982,7 +18056,6 @@
     },
     {
       "id": "1189",
-      "page_title": "Thrashcore",
       "label": "Thrashcore",
       "edges": [
         2488,
@@ -18996,7 +18069,6 @@
     },
     {
       "id": "1190",
-      "page_title": "Tierra Caliente music",
       "label": "Tierra Caliente music",
       "edges": [
         3648
@@ -19004,7 +18076,6 @@
     },
     {
       "id": "1191",
-      "page_title": "Timba",
       "label": "Timba",
       "edges": [
         75,
@@ -19018,7 +18089,6 @@
     },
     {
       "id": "1192",
-      "page_title": "Time Lord rock",
       "label": "Time Lord rock",
       "edges": [
         175,
@@ -19037,7 +18107,6 @@
     },
     {
       "id": "1194",
-      "page_title": "Tough guy hardcore",
       "label": "Tough guy hardcore",
       "edges": [
         2490,
@@ -19054,7 +18123,6 @@
     },
     {
       "id": "1195",
-      "page_title": "Township music",
       "label": "Township music",
       "edges": [
         5498,
@@ -19063,7 +18131,6 @@
     },
     {
       "id": "1196",
-      "page_title": "Toytown techno",
       "label": "Toytown techno",
       "edges": [
         636,
@@ -19075,7 +18142,6 @@
     },
     {
       "id": "1197",
-      "page_title": "Trad jazz",
       "label": "Trad jazz",
       "edges": [
         3187
@@ -19097,7 +18163,6 @@
     },
     {
       "id": "1199",
-      "page_title": "Traditional bluegrass",
       "label": "Traditional bluegrass",
       "edges": [
         248,
@@ -19109,7 +18174,6 @@
     },
     {
       "id": "1200",
-      "page_title": "Traditional pop",
       "label": "Traditional pop",
       "edges": [
         386,
@@ -19131,7 +18195,6 @@
     },
     {
       "id": "1201",
-      "page_title": "Trallpunk",
       "label": "Trallpunk",
       "edges": [
         239,
@@ -19196,7 +18259,6 @@
     },
     {
       "id": "1203",
-      "page_title": "Trap music",
       "label": "Trap music",
       "edges": [
         591,
@@ -19255,7 +18317,6 @@
     },
     {
       "id": "1204",
-      "page_title": "Tribal guarachero",
       "label": "Tribal guarachero",
       "edges": [
         1596,
@@ -19265,7 +18326,6 @@
     },
     {
       "id": "1205",
-      "page_title": "Tribal house",
       "label": "Tribal house",
       "edges": [
         1278,
@@ -19279,7 +18339,6 @@
     },
     {
       "id": "1206",
-      "page_title": "Trip hop",
       "label": "Trip hop",
       "edges": [
         176,
@@ -19309,7 +18368,6 @@
     },
     {
       "id": "1207",
-      "page_title": "Tropical house",
       "label": "Tropical house",
       "edges": [
         322,
@@ -19324,7 +18382,6 @@
     },
     {
       "id": "1208",
-      "page_title": "Tropicália",
       "label": "Tropicália",
       "edges": [
         340,
@@ -19339,7 +18396,6 @@
     },
     {
       "id": "1209",
-      "page_title": "Tropipop",
       "label": "Tropipop",
       "edges": [
         2113,
@@ -19364,7 +18420,6 @@
     },
     {
       "id": "1211",
-      "page_title": "Truck-driving country",
       "label": "Truck-driving country",
       "edges": [
         1082,
@@ -19373,7 +18428,6 @@
     },
     {
       "id": "1212",
-      "page_title": "Trønder rock",
       "label": "Trønder rock",
       "edges": [
         1981,
@@ -19382,13 +18436,11 @@
     },
     {
       "id": "1213",
-      "page_title": "Tsugaru-jamisen",
       "label": "Tsugaru-jamisen",
       "edges": []
     },
     {
       "id": "1214",
-      "page_title": "Tulsa sound",
       "label": "Tulsa sound",
       "edges": [
         519,
@@ -19401,7 +18453,6 @@
     },
     {
       "id": "1215",
-      "page_title": "Tumba francesa",
       "label": "Tumba francesa",
       "edges": [
         5597
@@ -19409,7 +18460,6 @@
     },
     {
       "id": "1216",
-      "page_title": "Turbo-folk",
       "label": "Turbo-folk",
       "edges": [
         5452
@@ -19417,7 +18467,6 @@
     },
     {
       "id": "1217",
-      "page_title": "Twee pop",
       "label": "Twee pop",
       "edges": [
         687,
@@ -19449,7 +18498,6 @@
     },
     {
       "id": "1219",
-      "page_title": "Twoubadou",
       "label": "Twoubadou",
       "edges": [
         696,
@@ -19458,7 +18506,6 @@
     },
     {
       "id": "1220",
-      "page_title": "UK bass",
       "label": "UK bass",
       "edges": [
         7,
@@ -19475,7 +18522,6 @@
     },
     {
       "id": "1221",
-      "page_title": "UK drill",
       "label": "UK drill",
       "edges": [
         1416,
@@ -19490,7 +18536,6 @@
     },
     {
       "id": "1222",
-      "page_title": "UK garage",
       "label": "UK garage",
       "edges": [
         425,
@@ -19562,7 +18607,6 @@
     },
     {
       "id": "1225",
-      "page_title": "UK rap",
       "label": "UK rap",
       "edges": [
         1488,
@@ -19579,7 +18623,6 @@
     },
     {
       "id": "1226",
-      "page_title": "Ukrainian metal",
       "label": "Ukrainian metal",
       "edges": [
         2587
@@ -19599,7 +18642,6 @@
     },
     {
       "id": "1228",
-      "page_title": "Unblack metal",
       "label": "Unblack metal",
       "edges": [
         416,
@@ -19610,7 +18652,6 @@
     },
     {
       "id": "1229",
-      "page_title": "Uplifting trance",
       "label": "Uplifting trance",
       "edges": [
         323,
@@ -19626,7 +18667,6 @@
     },
     {
       "id": "1230",
-      "page_title": "Urban Pasifika",
       "label": "Urban Pasifika",
       "edges": [
         2114,
@@ -19639,7 +18679,6 @@
     },
     {
       "id": "1231",
-      "page_title": "Urban champeta",
       "label": "Urban champeta",
       "edges": [
         5646
@@ -19683,7 +18722,6 @@
     },
     {
       "id": "1234",
-      "page_title": "Uruguayan rock",
       "label": "Uruguayan rock",
       "edges": [
         520,
@@ -19693,7 +18731,6 @@
     },
     {
       "id": "1235",
-      "page_title": "V-pop",
       "label": "V-pop",
       "edges": [
         1651,
@@ -19705,7 +18742,6 @@
     },
     {
       "id": "1236",
-      "page_title": "Vallenato",
       "label": "Vallenato",
       "edges": [
         3651,
@@ -19714,7 +18750,6 @@
     },
     {
       "id": "1237",
-      "page_title": "Vaporwave",
       "label": "Vaporwave",
       "edges": [
         261,
@@ -19742,7 +18777,6 @@
     },
     {
       "id": "1238",
-      "page_title": "Vaudeville in the Philippines",
       "label": "Vaudeville in the Philippines",
       "edges": [
         3905
@@ -19750,7 +18784,6 @@
     },
     {
       "id": "1239",
-      "page_title": "Venezuelan rock",
       "label": "Venezuelan rock",
       "edges": [
         521,
@@ -19760,13 +18793,11 @@
     },
     {
       "id": "1240",
-      "page_title": "Vigilante rap",
       "label": "Vigilante rap",
       "edges": []
     },
     {
       "id": "1241",
-      "page_title": "Viking metal",
       "label": "Viking metal",
       "edges": [
         417,
@@ -19780,7 +18811,6 @@
     },
     {
       "id": "1242",
-      "page_title": "Viking rock",
       "label": "Viking rock",
       "edges": [
         2388,
@@ -19793,7 +18823,6 @@
     },
     {
       "id": "1243",
-      "page_title": "Visayan pop",
       "label": "Visayan pop",
       "edges": [
         4055,
@@ -19805,7 +18834,6 @@
     },
     {
       "id": "1244",
-      "page_title": "Vispop",
       "label": "Vispop",
       "edges": [
         1982,
@@ -19814,7 +18842,6 @@
     },
     {
       "id": "1245",
-      "page_title": "Visual kei",
       "label": "Visual kei",
       "edges": [
         178,
@@ -19831,7 +18858,6 @@
     },
     {
       "id": "1246",
-      "page_title": "Wabap",
       "label": "Wabap",
       "edges": [
         76,
@@ -19843,7 +18869,6 @@
     },
     {
       "id": "1247",
-      "page_title": "Wangga",
       "label": "Wangga",
       "edges": []
     },
@@ -19882,7 +18907,6 @@
     },
     {
       "id": "1250",
-      "page_title": "West Coast blues",
       "label": "West Coast blues",
       "edges": [
         522,
@@ -19892,7 +18916,6 @@
     },
     {
       "id": "1251",
-      "page_title": "West Coast hip-hop",
       "label": "West Coast hip-hop",
       "edges": [
         1106,
@@ -19916,7 +18939,6 @@
     },
     {
       "id": "1252",
-      "page_title": "West Coast jazz",
       "label": "West Coast jazz",
       "edges": [
         366,
@@ -19948,7 +18970,6 @@
     },
     {
       "id": "1254",
-      "page_title": "Western swing",
       "label": "Western swing",
       "edges": [
         523,
@@ -20003,7 +19024,6 @@
     },
     {
       "id": "1257",
-      "page_title": "Wizard rock",
       "label": "Wizard rock",
       "edges": [
         2208,
@@ -20013,7 +19033,6 @@
     },
     {
       "id": "1258",
-      "page_title": "Wong shadow",
       "label": "Wong shadow",
       "edges": [
         356,
@@ -20048,7 +19067,6 @@
     },
     {
       "id": "1260",
-      "page_title": "Wonky pop",
       "label": "Wonky pop",
       "edges": [
         1172,
@@ -20071,7 +19089,6 @@
     },
     {
       "id": "1262",
-      "page_title": "World music",
       "label": "World music",
       "edges": [
         1951,
@@ -20095,7 +19112,6 @@
     },
     {
       "id": "1263",
-      "page_title": "Worldbeat",
       "label": "Worldbeat",
       "edges": [
         4058,
@@ -20108,19 +19124,16 @@
     },
     {
       "id": "1264",
-      "page_title": "Xi'an guyue",
       "label": "Xi'an guyue",
       "edges": []
     },
     {
       "id": "1265",
-      "page_title": "Xoan singing",
       "label": "Xoan singing",
       "edges": []
     },
     {
       "id": "1266",
-      "page_title": "Xuc",
       "label": "Xuc",
       "edges": [
         3652
@@ -20128,7 +19141,6 @@
     },
     {
       "id": "1267",
-      "page_title": "Yacht rock",
       "label": "Yacht rock",
       "edges": [
         1352,
@@ -20147,7 +19159,6 @@
     },
     {
       "id": "1268",
-      "page_title": "Yellow music",
       "label": "Yellow music",
       "edges": [
         5709,
@@ -20157,7 +19168,6 @@
     },
     {
       "id": "1269",
-      "page_title": "Youth crew",
       "label": "Youth crew",
       "edges": [
         2493,
@@ -20176,7 +19186,6 @@
     },
     {
       "id": "1271",
-      "page_title": "Yé-yé",
       "label": "Yé-yé",
       "edges": [
         357,
@@ -20201,7 +19210,6 @@
     },
     {
       "id": "1273",
-      "page_title": "Zamrock",
       "label": "Zamrock",
       "edges": [
         524,
@@ -20214,7 +19222,6 @@
     },
     {
       "id": "1274",
-      "page_title": "Zeuhl",
       "label": "Zeuhl",
       "edges": [
         3218,
@@ -20243,7 +19250,6 @@
     },
     {
       "id": "1277",
-      "page_title": "Zoblazo",
       "label": "Zoblazo",
       "edges": [
         1146,
@@ -20252,7 +19258,6 @@
     },
     {
       "id": "1278",
-      "page_title": "Zouglou",
       "label": "Zouglou",
       "edges": [
         1099,
@@ -20262,7 +19267,6 @@
     },
     {
       "id": "1279",
-      "page_title": "Zouk",
       "label": "Zouk",
       "edges": [
         393,
@@ -20288,7 +19292,6 @@
     },
     {
       "id": "1280",
-      "page_title": "Zydeco",
       "label": "Zydeco",
       "edges": [
         525,
@@ -20308,7 +19311,6 @@
     },
     {
       "id": "1281",
-      "page_title": "Éntekhno",
       "label": "Éntekhno",
       "edges": [
         272,

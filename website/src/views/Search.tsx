@@ -1,6 +1,12 @@
 import { Dispatch, useReducer, useEffect, useRef, useMemo } from "react";
 
-import { EdgeData, NodeData, nodeIdToInt, useDataContext } from "../data";
+import {
+  EdgeData,
+  NodeData,
+  nodeIdToInt,
+  nodePageTitle,
+  useDataContext,
+} from "../data";
 import { stripGenreNamePrefixFromDescription } from "../util/stripGenreNamePrefixFromDescription";
 
 import { GenreLink } from "./components/links/GenreLink";
@@ -431,7 +437,7 @@ function GenreResultItem({
   onClick?: () => void;
   isSelected?: boolean;
 }) {
-  const genreData = useGenre(node.page_title);
+  const genreData = useGenre(nodePageTitle(node));
   const strippedDescription = useMemo(() => {
     if (!genreData?.description) return null;
     return stripGenreNamePrefixFromDescription(

@@ -2,6 +2,7 @@ import {
   nodeColour,
   NodeColourLightness,
   NodeData,
+  nodePageTitle,
   useDataContext,
 } from "../../../data";
 import { useGenre } from "../../../services/dataCache";
@@ -26,7 +27,7 @@ export function GenreLink({
   onMouseLeave?: () => void;
 }) {
   const { max_degree: maxDegree } = useDataContext();
-  const genreData = useGenre(node.page_title);
+  const genreData = useGenre(nodePageTitle(node));
 
   const {
     showPreview,

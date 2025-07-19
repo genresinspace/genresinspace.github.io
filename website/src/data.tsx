@@ -29,13 +29,19 @@ export const useDataContext = () => useContext(DataContext) || ({} as Data);
 export type NodeData = {
   /** The node's ID (integer as a string). Consider using {@link nodeDataId} or {@link nodeIdToInt} instead. */
   id: string;
-  /** The node's Wikipedia page title. */
-  page_title: string;
+  /** The node's Wikipedia page title. When not present, the same as {@link label}. */
+  page_title?: string;
   /** The node's label. */
   label: string;
   /** The node's edges. */
   edges: number[];
 };
+/** Convert a node ID (integer as a string) to an integer. */
+export const nodeIdToInt = (id: string) => parseInt(id, 10);
+/** Get the integer ID of a node. */
+export const nodeDataId = (data: NodeData) => nodeIdToInt(data.id);
+/** Get the page title of a node. */
+export const nodePageTitle = (data: NodeData) => data.page_title ?? data.label;
 
 /** Genre data from the genre JSON files. */
 export type GenreFileData = {
@@ -51,11 +57,6 @@ export type GenreFileData = {
   /** The node's top artists, as page names. */
   top_artists: string[];
 };
-
-/** Convert a node ID (integer as a string) to an integer. */
-export const nodeIdToInt = (id: string) => parseInt(id, 10);
-/** Get the integer ID of a node. */
-export const nodeDataId = (data: NodeData) => nodeIdToInt(data.id);
 
 /** Values for node colour lightness in different contexts */
 export const NodeColourLightness = {
