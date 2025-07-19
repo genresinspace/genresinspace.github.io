@@ -23,6 +23,7 @@ const FILENAME_SUBSTITUTIONS: &[(&str, &str)] = &[
     ("<", "❮"),  // HEAVY LEFT-POINTING ANGLE QUOTATION MARK ORNAMENT
     (">", "❯"),  // HEAVY RIGHT-POINTING ANGLE QUOTATION MARK ORNAMENT
     ("|", "❘"),  // LIGHT VERTICAL BAR
+    ("#", "❏"),  // HEAVY BALLOT X
 ];
 
 impl PageName {
