@@ -72,15 +72,13 @@ export type NodeOnDiskData = {
 
 /** A node in the graph. */
 export type NodeData = NodeOnDiskData & {
-  /** The node's ID (integer as a string). Consider using {@link nodeDataId} or {@link nodeIdToInt} instead. */
+  /** The node's ID (integer as a string). Consider using {@link nodeIdToInt} instead. */
   id: string;
   /** The node's edges. */
   edges: number[];
 };
 /** Convert a node ID (integer as a string) to an integer. */
 export const nodeIdToInt = (id: string) => parseInt(id, 10);
-/** Get the integer ID of a node. */
-export const nodeDataId = (data: NodeData) => nodeIdToInt(data.id);
 /** Get the page title of a node. */
 export const nodePageTitle = (data: NodeData) => data.page_title ?? data.label;
 
