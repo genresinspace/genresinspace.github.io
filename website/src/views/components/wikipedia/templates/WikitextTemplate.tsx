@@ -343,8 +343,11 @@ export function WikitextTemplate({
       return (
         <span>
           Russian: {node.parameters[0].value}
-          {node.parameters.length > 1 &&
-            `, romanized: ${node.parameters[1].value}`}
+          {node.parameters.length > 1 && (
+            <>
+              ", romanized: <Wikitext wikitext={node.parameters[1].value} />
+            </>
+          )}
         </span>
       );
     case "lang-sh-cyrl":
