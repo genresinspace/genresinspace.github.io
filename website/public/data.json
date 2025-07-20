@@ -4,5415 +4,4133 @@
   "dump_date": "2025-06-20",
   "nodes": [
     {
-      "id": "0",
       "label": "2-step garage"
     },
     {
-      "id": "1",
       "label": "A cappella"
     },
     {
-      "id": "2",
       "page_title": "Acid (electronic music)",
       "label": "Acid"
     },
     {
-      "id": "3",
       "label": "Acid house"
     },
     {
-      "id": "4",
       "label": "Acid jazz"
     },
     {
-      "id": "5",
       "label": "Acid rock"
     },
     {
-      "id": "6",
       "label": "Acid techno"
     },
     {
-      "id": "7",
       "label": "Acid trance"
     },
     {
-      "id": "8",
       "label": "Acoustic music"
     },
     {
-      "id": "9",
       "page_title": "Adult album alternative",
       "label": "Adult alternative"
     },
     {
-      "id": "10",
       "page_title": "Adult contemporary music",
       "label": "Adult contemporary"
     },
     {
-      "id": "11",
       "label": "African blues"
     },
     {
-      "id": "12",
       "label": "African heavy metal"
     },
     {
-      "id": "13",
       "page_title": "African hip-hop",
       "label": "African hip hop"
     },
     {
-      "id": "14",
       "page_title": "African hip-hop#Street pop",
       "label": "Street hop"
     },
     {
-      "id": "15",
       "page_title": "Afro (genre)",
       "label": "Afro"
     },
     {
-      "id": "16",
       "label": "Afro fusion"
     },
     {
-      "id": "17",
       "label": "Afro house"
     },
     {
-      "id": "18",
       "label": "Afro tech"
     },
     {
-      "id": "19",
       "label": "Afro-Caribbean music"
     },
     {
-      "id": "20",
       "label": "Afro-Cuban jazz"
     },
     {
-      "id": "21",
       "label": "Afro-punk"
     },
     {
-      "id": "22",
       "label": "Afro-soul"
     },
     {
-      "id": "23",
       "page_title": "Afro/cosmic music",
       "label": "Afro/cosmic"
     },
     {
-      "id": "24",
       "label": "Afrobeat"
     },
     {
-      "id": "25",
       "label": "Afrobeats"
     },
     {
-      "id": "26",
       "label": "Afroswing"
     },
     {
-      "id": "27",
       "label": "Ahidus"
     },
     {
-      "id": "28",
       "page_title": "Ahwash",
       "label": "Aḥwash"
     },
     {
-      "id": "29",
       "page_title": "Aita (Morocco)",
       "label": "Aita"
     },
     {
-      "id": "30",
       "label": "Akishibu-kei"
     },
     {
-      "id": "31",
       "label": "Al Jeel"
     },
     {
-      "id": "32",
       "label": "Alaskan hip-hop"
     },
     {
-      "id": "33",
       "label": "Alpine folk music"
     },
     {
-      "id": "34",
       "label": "Alternative R&B"
     },
     {
-      "id": "35",
       "label": "Alternative country"
     },
     {
-      "id": "36",
       "label": "Alternative dance"
     },
     {
-      "id": "37",
       "label": "Alternative hip-hop"
     },
     {
-      "id": "38",
       "label": "Alternative metal"
     },
     {
-      "id": "39",
       "label": "Alternative reggaeton"
     },
     {
-      "id": "40",
       "label": "Alternative rock"
     },
     {
-      "id": "41",
       "page_title": "Alternative rock#Alternative pop",
       "label": "Alternative pop"
     },
     {
-      "id": "42",
       "label": "Alté"
     },
     {
-      "id": "43",
       "page_title": "Amanes (Music genre)",
       "label": "Amanes"
     },
     {
-      "id": "44",
       "label": "Amapiano"
     },
     {
-      "id": "45",
       "page_title": "Ambasse bey",
       "label": "Ambasse-bey"
     },
     {
-      "id": "46",
       "label": "Ambient house"
     },
     {
-      "id": "47",
       "label": "Ambient music"
     },
     {
-      "id": "48",
       "label": "Ambient techno"
     },
     {
-      "id": "49",
       "label": "American classical guitar music"
     },
     {
-      "id": "50",
       "label": "American primitive guitar"
     },
     {
-      "id": "51",
       "page_title": "Americana music",
       "label": "Americana"
     },
     {
-      "id": "52",
       "label": "Anarcho-punk"
     },
     {
-      "id": "53",
       "label": "Anatolian blues"
     },
     {
-      "id": "54",
       "label": "Anatolian rock"
     },
     {
-      "id": "55",
       "label": "Anime song"
     },
     {
-      "id": "56",
       "page_title": "Anti-folk",
       "label": "Antifolk"
     },
     {
-      "id": "57",
       "label": "Apala"
     },
     {
-      "id": "58",
       "label": "Appalachian music"
     },
     {
-      "id": "59",
       "page_title": "Arabesque (Turkish music)",
       "label": "Arabesque music"
     },
     {
-      "id": "60",
       "page_title": "Arabic pop",
       "label": "Arabic pop music"
     },
     {
-      "id": "61",
       "label": "Arena rock"
     },
     {
-      "id": "62",
       "page_title": "Armenian rock",
       "label": "Armenian Rock"
     },
     {
-      "id": "63",
       "label": "Art pop"
     },
     {
-      "id": "64",
       "label": "Art punk"
     },
     {
-      "id": "65",
       "label": "Art rock"
     },
     {
-      "id": "66",
       "page_title": "Ashiqs of Azerbaijan",
       "label": "Azerbaijani Ashiq music"
     },
     {
-      "id": "67",
       "page_title": "Asian American hip-hop",
       "label": "Asian American hip hop"
     },
     {
-      "id": "68",
       "page_title": "Asian hip-hop",
       "label": "Asian hip hop"
     },
     {
-      "id": "69",
       "label": "Athabaskan fiddle"
     },
     {
-      "id": "70",
       "label": "Atlanta blues"
     },
     {
-      "id": "71",
       "label": "Australian hip-hop"
     },
     {
-      "id": "72",
       "label": "Austropop"
     },
     {
-      "id": "73",
       "label": "Avant-funk"
     },
     {
-      "id": "74",
       "label": "Avant-garde jazz"
     },
     {
-      "id": "75",
       "label": "Avant-garde metal"
     },
     {
-      "id": "76",
       "page_title": "Avant-garde music",
       "label": "Avant-garde"
     },
     {
-      "id": "77",
       "label": "Avant-prog"
     },
     {
-      "id": "78",
       "label": "Avant-punk"
     },
     {
-      "id": "79",
       "label": "Axé"
     },
     {
-      "id": "80",
       "label": "Azerbaijani pop music"
     },
     {
-      "id": "81",
       "page_title": "Bachata (music)",
       "label": "Bachata"
     },
     {
-      "id": "82",
       "label": "Bachatón"
     },
     {
-      "id": "83",
       "label": "Bagad"
     },
     {
-      "id": "84",
       "label": "Baggy"
     },
     {
-      "id": "85",
       "label": "Bahamian Rhyming Spiritual"
     },
     {
-      "id": "86",
       "page_title": "Baithak Gana",
       "label": "Baithak gana"
     },
     {
-      "id": "87",
       "label": "Bakersfield sound"
     },
     {
-      "id": "88",
       "label": "Balearic beat"
     },
     {
-      "id": "89",
       "label": "Balearic trance"
     },
     {
-      "id": "90",
       "page_title": "Balkan brass",
       "label": "Balkan brass music"
     },
     {
-      "id": "91",
       "page_title": "Ball culture#Music",
       "label": "Ballroom music"
     },
     {
-      "id": "92",
       "label": "Baltimore club"
     },
     {
-      "id": "93",
       "page_title": "Bambuco",
       "label": "Danza Del Bambuco"
     },
     {
-      "id": "94",
       "label": "Banda music"
     },
     {
-      "id": "95",
       "label": "Bandana thrash"
     },
     {
-      "id": "96",
       "label": "Bangladeshi heavy metal"
     },
     {
-      "id": "97",
       "page_title": "Bangladeshi hip-hop",
       "label": "Bangladeshi hip hop"
     },
     {
-      "id": "98",
       "page_title": "Bangladeshi rock",
       "label": "Bangladeshi rock music"
     },
     {
-      "id": "99",
       "label": "Banjo music"
     },
     {
-      "id": "100",
       "label": "Bantowbol"
     },
     {
-      "id": "101",
       "label": "Barbershop music"
     },
     {
-      "id": "102",
       "page_title": "Bard (Soviet Union)",
       "label": "Author song"
     },
     {
-      "id": "103",
       "label": "Bardcore"
     },
     {
-      "id": "104",
       "label": "Baroque pop"
     },
     {
-      "id": "105",
       "page_title": "Bassline (music genre)",
       "label": "Bassline"
     },
     {
-      "id": "106",
       "label": "Batrelaky"
     },
     {
-      "id": "107",
       "label": "Battle rap"
     },
     {
-      "id": "108",
       "page_title": "Batuque (Cape Verde)",
       "label": "Batuque"
     },
     {
-      "id": "109",
       "label": "Bay Area thrash metal"
     },
     {
-      "id": "110",
       "page_title": "Beach music",
       "label": "Beach"
     },
     {
-      "id": "111",
       "page_title": "Beat music",
       "label": "Beat"
     },
     {
-      "id": "112",
       "label": "Beatdown hardcore"
     },
     {
-      "id": "113",
       "label": "Bebop"
     },
     {
-      "id": "114",
       "label": "Belgian hardcore techno"
     },
     {
-      "id": "115",
       "page_title": "Benga music",
       "label": "Benga"
     },
     {
-      "id": "116",
       "page_title": "Bengali Rock music (India)",
       "label": "Bengali Rock music"
     },
     {
-      "id": "117",
       "label": "Bertitik"
     },
     {
-      "id": "118",
       "label": "Bećarac"
     },
     {
-      "id": "119",
       "page_title": "Bhangra (music)",
       "label": "Bhangra"
     },
     {
-      "id": "120",
       "label": "Big band"
     },
     {
-      "id": "121",
       "label": "Big beat"
     },
     {
-      "id": "122",
       "label": "Big room house"
     },
     {
-      "id": "123",
       "label": "Biguine"
     },
     {
-      "id": "124",
       "label": "Biker metal"
     },
     {
-      "id": "125",
       "label": "Bikutsi"
     },
     {
-      "id": "126",
       "label": "Birmingham sound"
     },
     {
-      "id": "127",
       "page_title": "Bisrock",
       "label": "BisRock"
     },
     {
-      "id": "128",
       "label": "Bitpop"
     },
     {
-      "id": "129",
       "page_title": "Black Gospel music",
       "label": "Black gospel music"
     },
     {
-      "id": "130",
       "label": "Black MIDI"
     },
     {
-      "id": "131",
       "label": "Black metal"
     },
     {
-      "id": "132",
       "label": "Blackened death metal"
     },
     {
-      "id": "133",
       "page_title": "Blackened death metal#Melodic black-death",
       "label": "Melodic black-death"
     },
     {
-      "id": "134",
       "page_title": "Blackened death metal#War metal",
       "label": "War metal"
     },
     {
-      "id": "135",
       "label": "Blackgaze"
     },
     {
-      "id": "136",
       "label": "Bleep techno"
     },
     {
-      "id": "137",
       "page_title": "Bluegrass music",
       "label": "Bluegrass"
     },
     {
-      "id": "138",
       "label": "Blues"
     },
     {
-      "id": "139",
       "label": "Blues rock"
     },
     {
-      "id": "140",
       "label": "Bolero"
     },
     {
-      "id": "141",
       "label": "Bolojo"
     },
     {
-      "id": "142",
       "page_title": "Bomba (Puerto Rico)",
       "label": "Bomba"
     },
     {
-      "id": "143",
       "label": "Bongai"
     },
     {
-      "id": "144",
       "label": "Bongo Flava"
     },
     {
-      "id": "145",
       "label": "Boogaloo"
     },
     {
-      "id": "146",
       "page_title": "Boogie (genre)",
       "label": "Boogie"
     },
     {
-      "id": "147",
       "label": "Boogie rock"
     },
     {
-      "id": "148",
       "label": "Boogie-woogie"
     },
     {
-      "id": "149",
       "label": "Boom bap"
     },
     {
-      "id": "150",
       "label": "Boomba music"
     },
     {
-      "id": "151",
       "label": "Borgeet"
     },
     {
-      "id": "152",
       "page_title": "Boria (theatre)",
       "label": "Boria"
     },
     {
-      "id": "153",
       "label": "Bossa nova"
     },
     {
-      "id": "154",
       "page_title": "Bounce music",
       "label": "Bounce"
     },
     {
-      "id": "155",
       "label": "Bouncy techno"
     },
     {
-      "id": "156",
       "page_title": "Bouyon music",
       "label": "Bouyon"
     },
     {
-      "id": "157",
       "page_title": "Bouyon soca",
       "label": "Bouyon Music"
     },
     {
-      "id": "158",
       "label": "Brazilian gaucho music"
     },
     {
-      "id": "159",
       "label": "Brazilian rock"
     },
     {
-      "id": "160",
       "label": "Breakbeat"
     },
     {
-      "id": "161",
       "label": "Breakbeat hardcore"
     },
     {
-      "id": "162",
       "label": "Breakcore"
     },
     {
-      "id": "163",
       "label": "Breakstep"
     },
     {
-      "id": "164",
       "page_title": "Brega pop",
       "label": "Brega-pop"
     },
     {
-      "id": "165",
       "page_title": "Brill Building (genre)",
       "label": "Brill Building"
     },
     {
-      "id": "166",
       "label": "Brisbane punk rock"
     },
     {
-      "id": "167",
       "label": "Brit funk"
     },
     {
-      "id": "168",
       "label": "British blues"
     },
     {
-      "id": "169",
       "label": "British folk rock"
     },
     {
-      "id": "170",
       "label": "British rhythm and blues"
     },
     {
-      "id": "171",
       "label": "British rock and roll"
     },
     {
-      "id": "172",
       "label": "British soul"
     },
     {
-      "id": "173",
       "label": "Britpop"
     },
     {
-      "id": "174",
       "label": "Bro-country"
     },
     {
-      "id": "175",
       "label": "Broken beat"
     },
     {
-      "id": "176",
       "label": "Brooklyn drill"
     },
     {
-      "id": "177",
       "page_title": "Brooklyn drill#Bronx drill",
       "label": "Bronx drill"
     },
     {
-      "id": "178",
       "label": "Brostep"
     },
     {
-      "id": "179",
       "label": "Brukdown"
     },
     {
-      "id": "180",
       "label": "Brutal death metal"
     },
     {
-      "id": "181",
       "page_title": "Brutal death metal#Slam death metal",
       "label": "Slam death metal"
     },
     {
-      "id": "182",
       "page_title": "Bubblegum music",
       "label": "Bubblegum"
     },
     {
-      "id": "183",
       "label": "Budots"
     },
     {
-      "id": "184",
       "page_title": "Bulgarian hip-hop",
       "label": "Bulgarian hip hop"
     },
     {
-      "id": "185",
       "label": "Bullerengue"
     },
     {
-      "id": "186",
       "label": "Burban"
     },
     {
-      "id": "187",
       "label": "Bélé"
     },
     {
-      "id": "188",
       "label": "C-pop"
     },
     {
-      "id": "189",
       "page_title": "Cachaca (musical genre)",
       "label": "Cachaca"
     },
     {
-      "id": "190",
       "label": "Cadence rampa"
     },
     {
-      "id": "191",
       "label": "Cadence-lypso"
     },
     {
-      "id": "192",
       "page_title": "Caipira music",
       "label": "Caipira"
     },
     {
-      "id": "193",
       "label": "Cajun fiddle"
     },
     {
-      "id": "194",
       "label": "Cajun music"
     },
     {
-      "id": "195",
       "label": "Cakewalk"
     },
     {
-      "id": "196",
       "page_title": "Calypso music",
       "label": "Calypso"
     },
     {
-      "id": "197",
       "label": "Cambodian rock (1960s–1970s)"
     },
     {
-      "id": "198",
       "page_title": "Campus folk song",
       "label": "Taiwanese campus folk song"
     },
     {
-      "id": "199",
       "label": "Canadian blues"
     },
     {
-      "id": "200",
       "label": "Canadian heavy metal"
     },
     {
-      "id": "201",
       "label": "Canción melódica"
     },
     {
-      "id": "202",
       "label": "Candombe"
     },
     {
-      "id": "203",
       "label": "Cante Alentejano"
     },
     {
-      "id": "204",
       "label": "Canterbury scene"
     },
     {
-      "id": "205",
       "label": "Cantopop"
     },
     {
-      "id": "206",
       "page_title": "Cantu a tenore",
       "label": "Cantu a tenòre"
     },
     {
-      "id": "207",
       "label": "Cape Breton fiddling"
     },
     {
-      "id": "208",
       "label": "Cape jazz"
     },
     {
-      "id": "209",
       "label": "Capoeira music"
     },
     {
-      "id": "210",
       "label": "Car song"
     },
     {
-      "id": "211",
       "label": "Cello rock"
     },
     {
-      "id": "212",
       "label": "Celtic fusion"
     },
     {
-      "id": "213",
       "label": "Celtic metal"
     },
     {
-      "id": "214",
       "label": "Celtic rock"
     },
     {
-      "id": "215",
       "page_title": "Cha-cha-chá (music)",
       "label": "Cha-cha-chá"
     },
     {
-      "id": "216",
       "page_title": "Chaabi (Algeria)",
       "label": "Chaabi"
     },
     {
-      "id": "217",
       "label": "Chalga"
     },
     {
-      "id": "218",
       "label": "Chamamé"
     },
     {
-      "id": "219",
       "label": "Chamber jazz"
     },
     {
-      "id": "220",
       "label": "Chamber pop"
     },
     {
-      "id": "221",
       "label": "Champeta"
     },
     {
-      "id": "222",
       "label": "Chanson"
     },
     {
-      "id": "223",
       "label": "Chanson franco-orientale"
     },
     {
-      "id": "224",
       "label": "Chanson réaliste"
     },
     {
-      "id": "225",
       "label": "Chanté mas"
     },
     {
-      "id": "226",
       "label": "Chap hop"
     },
     {
-      "id": "227",
       "label": "Chicago blues"
     },
     {
-      "id": "228",
       "label": "Chicago house"
     },
     {
-      "id": "229",
       "label": "Chicago soul"
     },
     {
-      "id": "230",
       "label": "Chicano rap"
     },
     {
-      "id": "231",
       "label": "Children's music"
     },
     {
-      "id": "232",
       "page_title": "Chilean rock",
       "label": "Rock music in Chile"
     },
     {
-      "id": "233",
       "label": "Chillwave"
     },
     {
-      "id": "234",
       "page_title": "Chimurenga music",
       "label": "Chimurenga"
     },
     {
-      "id": "235",
       "label": "Chiptune"
     },
     {
-      "id": "236",
       "label": "Chopped and screwed"
     },
     {
-      "id": "237",
       "page_title": "Chopped and screwed#Slowed and reverb",
       "label": "Slowed and reverb"
     },
     {
-      "id": "238",
       "page_title": "Chopper (rap)",
       "label": "Chopper"
     },
     {
-      "id": "239",
       "label": "Chorale motet"
     },
     {
-      "id": "240",
       "label": "Choro"
     },
     {
-      "id": "241",
       "label": "Chouval bwa"
     },
     {
-      "id": "242",
       "page_title": "Christian R&B",
       "label": "Christian rhythm and blues"
     },
     {
-      "id": "243",
       "label": "Christian adult contemporary"
     },
     {
-      "id": "244",
       "page_title": "Christian alternative rock",
       "label": "Christian alternative music"
     },
     {
-      "id": "245",
       "label": "Christian country music"
     },
     {
-      "id": "246",
       "label": "Christian death metal"
     },
     {
-      "id": "247",
       "page_title": "Christian electronic dance music",
       "label": "CEDM"
     },
     {
-      "id": "248",
       "label": "Christian hardcore"
     },
     {
-      "id": "249",
       "label": "Christian hip-hop"
     },
     {
-      "id": "250",
       "label": "Christian metal"
     },
     {
-      "id": "251",
       "label": "Christian punk"
     },
     {
-      "id": "252",
       "label": "Christian rock"
     },
     {
-      "id": "253",
       "label": "Christian ska"
     },
     {
-      "id": "254",
       "page_title": "Chutney music",
       "label": "Chutney"
     },
     {
-      "id": "255",
       "label": "Chutney parang"
     },
     {
-      "id": "256",
       "label": "Chutney soca"
     },
     {
-      "id": "257",
       "label": "Cinematic soul"
     },
     {
-      "id": "258",
       "label": "City pop"
     },
     {
-      "id": "259",
       "label": "Classic female blues"
     },
     {
-      "id": "260",
       "label": "Classical music in hip-hop"
     },
     {
-      "id": "261",
       "label": "Cloud rap"
     },
     {
-      "id": "262",
       "label": "Coladeira"
     },
     {
-      "id": "263",
       "page_title": "Cold wave (music)",
       "label": "Cold wave"
     },
     {
-      "id": "264",
       "label": "College rock"
     },
     {
-      "id": "265",
       "label": "Collegiate a cappella"
     },
     {
-      "id": "266",
       "label": "Colá"
     },
     {
-      "id": "267",
       "page_title": "Comedy hip-hop",
       "label": "Comedic hip-hop"
     },
     {
-      "id": "268",
       "label": "Comedy music"
     },
     {
-      "id": "269",
       "label": "Comedy rock"
     },
     {
-      "id": "270",
       "label": "Compas"
     },
     {
-      "id": "271",
       "page_title": "Conga (music)",
       "label": "Conga"
     },
     {
-      "id": "272",
       "label": "Congolese rumba"
     },
     {
-      "id": "273",
       "label": "Contemporary Christian music"
     },
     {
-      "id": "274",
       "label": "Contemporary R&B"
     },
     {
-      "id": "275",
       "label": "Contemporary folk music"
     },
     {
-      "id": "276",
       "page_title": "Contemporary folk music#Country folk",
       "label": "Country folk"
     },
     {
-      "id": "277",
       "label": "Contemporary worship music"
     },
     {
-      "id": "278",
       "label": "Contradanza"
     },
     {
-      "id": "279",
       "label": "Cool Cymru"
     },
     {
-      "id": "280",
       "label": "Cool jazz"
     },
     {
-      "id": "281",
       "label": "Coon song"
     },
     {
-      "id": "282",
       "label": "Copy thachin"
     },
     {
-      "id": "283",
       "label": "Corridos tumbados"
     },
     {
-      "id": "284",
       "page_title": "Country Funk 1969–1975#Background",
       "label": "Country funk"
     },
     {
-      "id": "285",
       "label": "Country and Irish"
     },
     {
-      "id": "286",
       "label": "Country blues"
     },
     {
-      "id": "287",
       "page_title": "Country music",
       "label": "Country"
     },
     {
-      "id": "288",
       "label": "Country pop"
     },
     {
-      "id": "289",
       "label": "Country rap"
     },
     {
-      "id": "290",
       "label": "Country rock"
     },
     {
-      "id": "291",
       "page_title": "Country rock#Country metal",
       "label": "Country metal"
     },
     {
-      "id": "292",
       "label": "Coupé-décalé"
     },
     {
-      "id": "293",
       "label": "Cowboy pop"
     },
     {
-      "id": "294",
       "label": "Cowpunk"
     },
     {
-      "id": "295",
       "page_title": "Creole music",
       "label": "Creole music of Louisiana"
     },
     {
-      "id": "296",
       "label": "Cringe pop"
     },
     {
-      "id": "297",
       "page_title": "Croatian hip-hop",
       "label": "Croatian hip hop"
     },
     {
-      "id": "298",
       "label": "Crossover thrash"
     },
     {
-      "id": "299",
       "label": "Crunk"
     },
     {
-      "id": "300",
       "label": "Crunkcore"
     },
     {
-      "id": "301",
       "label": "Crust punk"
     },
     {
-      "id": "302",
       "label": "Cuarteto"
     },
     {
-      "id": "303",
       "page_title": "Cuban rumba",
       "label": "Rumba"
     },
     {
-      "id": "304",
       "page_title": "Cumbia (Colombia)",
       "label": "Cumbia"
     },
     {
-      "id": "305",
       "label": "Cumbia (Panama)"
     },
     {
-      "id": "306",
       "label": "Cumbia pop"
     },
     {
-      "id": "307",
       "label": "Cumbia santafesina"
     },
     {
-      "id": "308",
       "label": "Cumbia villera"
     },
     {
-      "id": "309",
       "label": "D-beat"
     },
     {
-      "id": "310",
       "label": "DMV hip-hop"
     },
     {
-      "id": "311",
       "label": "Dance music"
     },
     {
-      "id": "312",
       "label": "Dance-pop"
     },
     {
-      "id": "313",
       "label": "Dance-punk"
     },
     {
-      "id": "314",
       "label": "Dance-rock"
     },
     {
-      "id": "315",
       "label": "Dancehall"
     },
     {
-      "id": "316",
       "label": "Dancehall pop"
     },
     {
-      "id": "317",
       "label": "Dangdut"
     },
     {
-      "id": "318",
       "label": "Danger music"
     },
     {
-      "id": "319",
       "page_title": "Dansband",
       "label": "Dansbandsmusik"
     },
     {
-      "id": "320",
       "label": "Danzón"
     },
     {
-      "id": "321",
       "page_title": "Dappankuthu",
       "label": "Dappan Kuthu"
     },
     {
-      "id": "322",
       "label": "Dark ambient"
     },
     {
-      "id": "323",
       "page_title": "Dark ambient#Isolationism",
       "label": "Isolationism"
     },
     {
-      "id": "324",
       "label": "Dark cabaret"
     },
     {
-      "id": "325",
       "label": "Dark wave"
     },
     {
-      "id": "326",
       "label": "Darkcore"
     },
     {
-      "id": "327",
       "label": "Death 'n' roll"
     },
     {
-      "id": "328",
       "label": "Death metal"
     },
     {
-      "id": "329",
       "label": "Death-doom"
     },
     {
-      "id": "330",
       "label": "Deathcore"
     },
     {
-      "id": "331",
       "label": "Deathgrind"
     },
     {
-      "id": "332",
       "label": "Deathrock"
     },
     {
-      "id": "333",
       "label": "Deconstructed club"
     },
     {
-      "id": "334",
       "label": "Deep funk"
     },
     {
-      "id": "335",
       "label": "Deep house"
     },
     {
-      "id": "336",
       "label": "Delta blues"
     },
     {
-      "id": "337",
       "label": "Denpa song"
     },
     {
-      "id": "338",
       "label": "Descarga"
     },
     {
-      "id": "339",
       "label": "Desert blues"
     },
     {
-      "id": "340",
       "label": "Desgarrada"
     },
     {
-      "id": "341",
       "page_title": "Desi hip-hop",
       "label": "Desi hip hop (DHH)"
     },
     {
-      "id": "342",
       "label": "Detroit drill"
     },
     {
-      "id": "343",
       "label": "Detroit techno"
     },
     {
-      "id": "344",
       "page_title": "Deuda (genre)",
       "label": "Deuda"
     },
     {
-      "id": "345",
       "label": "Digital hardcore"
     },
     {
-      "id": "346",
       "label": "Dirty rap"
     },
     {
-      "id": "347",
       "label": "Disco"
     },
     {
-      "id": "348",
       "label": "Disco polo"
     },
     {
-      "id": "349",
       "label": "Diva house"
     },
     {
-      "id": "350",
       "page_title": "Dixieland jazz",
       "label": "Dixieland"
     },
     {
-      "id": "351",
       "label": "Djent"
     },
     {
-      "id": "352",
       "label": "Dolewave"
     },
     {
-      "id": "353",
       "label": "Dominican dembow"
     },
     {
-      "id": "354",
       "label": "Doo-wop"
     },
     {
-      "id": "355",
       "label": "Doom metal"
     },
     {
-      "id": "356",
       "label": "Downtempo"
     },
     {
-      "id": "357",
       "label": "Dream pop"
     },
     {
-      "id": "358",
       "label": "Dream trance"
     },
     {
-      "id": "359",
       "label": "Dreampunk"
     },
     {
-      "id": "360",
       "label": "Drill 'n' bass"
     },
     {
-      "id": "361",
       "label": "Drill music"
     },
     {
-      "id": "362",
       "label": "Drone metal"
     },
     {
-      "id": "363",
       "label": "Drone music"
     },
     {
-      "id": "364",
       "label": "Drum and bass"
     },
     {
-      "id": "365",
       "page_title": "Dub music",
       "label": "Dub"
     },
     {
-      "id": "366",
       "label": "Dub poetry"
     },
     {
-      "id": "367",
       "label": "Dub techno"
     },
     {
-      "id": "368",
       "label": "Dubstep"
     },
     {
-      "id": "369",
       "label": "Dubtronica"
     },
     {
-      "id": "370",
       "label": "Dunedin sound"
     },
     {
-      "id": "371",
       "label": "Dungeon synth"
     },
     {
-      "id": "372",
       "label": "Duranguense"
     },
     {
-      "id": "373",
       "label": "Dwijendrageeti"
     },
     {
-      "id": "374",
       "label": "EDM trap music"
     },
     {
-      "id": "375",
       "page_title": "Early Norwegian black metal scene",
       "label": "Norwegian black metal"
     },
     {
-      "id": "376",
       "label": "East Coast hip-hop"
     },
     {
-      "id": "377",
       "label": "Easy listening"
     },
     {
-      "id": "378",
       "label": "Edo Funk"
     },
     {
-      "id": "379",
       "label": "Egg punk"
     },
     {
-      "id": "380",
       "label": "Ekpili"
     },
     {
-      "id": "381",
       "label": "Electric blues"
     },
     {
-      "id": "382",
       "page_title": "Electro (music)",
       "label": "Electro"
     },
     {
-      "id": "383",
       "page_title": "Electro (music)#Electro-soul",
       "label": "Electro-soul"
     },
     {
-      "id": "384",
       "label": "Electro house"
     },
     {
-      "id": "385",
       "page_title": "Electro house#Complextro",
       "label": "Complextro"
     },
     {
-      "id": "386",
       "page_title": "Electro house#Dutch house",
       "label": "Dutch house"
     },
     {
-      "id": "387",
       "page_title": "Electro house#Fidget house",
       "label": "Fidget house"
     },
     {
-      "id": "388",
       "page_title": "Electro house#Melbourne bounce",
       "label": "Melbourne bounce"
     },
     {
-      "id": "389",
       "label": "Electro swing"
     },
     {
-      "id": "390",
       "label": "Electro-industrial"
     },
     {
-      "id": "391",
       "label": "Electroclash"
     },
     {
-      "id": "392",
       "page_title": "Electronic body music",
       "label": "EBM"
     },
     {
-      "id": "393",
       "label": "Electronic dance music"
     },
     {
-      "id": "394",
       "label": "Electronic music"
     },
     {
-      "id": "395",
       "label": "Electronic rock"
     },
     {
-      "id": "396",
       "page_title": "Electronic rock#Synth-metal",
       "label": "Synth-metal"
     },
     {
-      "id": "397",
       "page_title": "Electronic rock#Synth-punk",
       "label": "Synth-punk"
     },
     {
-      "id": "398",
       "label": "Electronica"
     },
     {
-      "id": "399",
       "label": "Electronicore"
     },
     {
-      "id": "400",
       "label": "Electropop"
     },
     {
-      "id": "401",
       "label": "Emo"
     },
     {
-      "id": "402",
       "label": "Emo pop"
     },
     {
-      "id": "403",
       "label": "Emo rap"
     },
     {
-      "id": "404",
       "label": "Emo revival"
     },
     {
-      "id": "405",
       "label": "Enka"
     },
     {
-      "id": "406",
       "label": "Eshuva"
     },
     {
-      "id": "407",
       "label": "Ethereal wave"
     },
     {
-      "id": "408",
       "label": "Ethio-jazz"
     },
     {
-      "id": "409",
       "page_title": "Ethiopian chant",
       "label": "Ethiopian liturgical chant"
     },
     {
-      "id": "410",
       "page_title": "Ethiopian hip-hop music",
       "label": "Ethiopian hip hop music"
     },
     {
-      "id": "411",
       "label": "Ethnic electronica"
     },
     {
-      "id": "412",
       "label": "Eurobeat"
     },
     {
-      "id": "413",
       "label": "Eurodance"
     },
     {
-      "id": "414",
       "label": "Eurodisco"
     },
     {
-      "id": "415",
       "label": "Europop"
     },
     {
-      "id": "416",
       "label": "Exotica"
     },
     {
-      "id": "417",
       "label": "Experimental pop"
     },
     {
-      "id": "418",
       "label": "Experimental rock"
     },
     {
-      "id": "419",
       "label": "Extreme metal"
     },
     {
-      "id": "420",
       "label": "Fado"
     },
     {
-      "id": "421",
       "label": "Festejo"
     },
     {
-      "id": "422",
       "page_title": "Fijiri",
       "label": "Fijiri / fijri / fidjeri / fjiri"
     },
     {
-      "id": "423",
       "label": "Filk music"
     },
     {
-      "id": "424",
       "label": "Finnish tango"
     },
     {
-      "id": "425",
       "label": "First-wave black metal"
     },
     {
-      "id": "426",
       "label": "Flamenco"
     },
     {
-      "id": "427",
       "label": "Flamenco rock"
     },
     {
-      "id": "428",
       "label": "Florida breaks"
     },
     {
-      "id": "429",
       "label": "Florida death metal"
     },
     {
-      "id": "430",
       "label": "Folk baroque"
     },
     {
-      "id": "431",
       "label": "Folk jazz"
     },
     {
-      "id": "432",
       "label": "Folk metal"
     },
     {
-      "id": "433",
       "page_title": "Folk music#Traditional folk music",
       "label": "Traditional folk music"
     },
     {
-      "id": "434",
       "label": "Folk punk"
     },
     {
-      "id": "435",
       "label": "Folk rock"
     },
     {
-      "id": "436",
       "label": "Folk-pop"
     },
     {
-      "id": "437",
       "label": "Folkhop"
     },
     {
-      "id": "438",
       "label": "Folktronica"
     },
     {
-      "id": "439",
       "page_title": "Footwork (genre)",
       "label": "Footwork"
     },
     {
-      "id": "440",
       "page_title": "Footwork (genre)#Europe",
       "label": "Footwork in Europe"
     },
     {
-      "id": "441",
       "page_title": "Footwork (genre)#Japan",
       "label": "Japanese juke and footwork"
     },
     {
-      "id": "442",
       "label": "Forró"
     },
     {
-      "id": "443",
       "label": "Freakbeat"
     },
     {
-      "id": "444",
       "label": "Free funk"
     },
     {
-      "id": "445",
       "label": "Free improvisation"
     },
     {
-      "id": "446",
       "label": "Free jazz"
     },
     {
-      "id": "447",
       "page_title": "Freestyle music",
       "label": "Freestyle"
     },
     {
-      "id": "448",
       "page_title": "French Louisiana#Music",
       "label": "Louisiana Creole and Cajun music"
     },
     {
-      "id": "449",
       "label": "French house"
     },
     {
-      "id": "450",
       "page_title": "French pop music",
       "label": "French pop"
     },
     {
-      "id": "451",
       "label": "Frenchcore"
     },
     {
-      "id": "452",
       "page_title": "Fuji music",
       "label": "Fuji"
     },
     {
-      "id": "453",
       "label": "Funaná"
     },
     {
-      "id": "454",
       "label": "Funeral doom"
     },
     {
-      "id": "455",
       "label": "Funk"
     },
     {
-      "id": "456",
       "label": "Funk carioca"
     },
     {
-      "id": "457",
       "label": "Funk melody"
     },
     {
-      "id": "458",
       "label": "Funk metal"
     },
     {
-      "id": "459",
       "label": "Funk ostentação"
     },
     {
-      "id": "460",
       "label": "Funk ousadia"
     },
     {
-      "id": "461",
       "label": "Funk rock"
     },
     {
-      "id": "462",
       "label": "Funkot"
     },
     {
-      "id": "463",
       "label": "Funkstep"
     },
     {
-      "id": "464",
       "label": "Future bass"
     },
     {
-      "id": "465",
       "page_title": "Future bass#J-future core",
       "label": "J-future core"
     },
     {
-      "id": "466",
       "page_title": "Future bass#Kawaii future bass",
       "label": "Kawaii future bass"
     },
     {
-      "id": "467",
       "label": "Future garage"
     },
     {
-      "id": "468",
       "label": "Future house"
     },
     {
-      "id": "469",
       "label": "Future rave"
     },
     {
-      "id": "470",
       "label": "Future soul"
     },
     {
-      "id": "471",
       "label": "Futurepop"
     },
     {
-      "id": "472",
       "label": "G-funk"
     },
     {
-      "id": "473",
       "label": "Gaana"
     },
     {
-      "id": "474",
       "label": "Gabber"
     },
     {
-      "id": "475",
       "label": "Gaelic folk music"
     },
     {
-      "id": "476",
       "label": "Galerón"
     },
     {
-      "id": "477",
       "page_title": "Gamelan",
       "label": "Gamelan ensemble"
     },
     {
-      "id": "478",
       "label": "Gangsta rap"
     },
     {
-      "id": "479",
       "label": "Garage house"
     },
     {
-      "id": "480",
       "page_title": "Garage punk (fusion genre)",
       "label": "Garage punk"
     },
     {
-      "id": "481",
       "label": "Garage rock"
     },
     {
-      "id": "482",
       "label": "Garifuna music"
     },
     {
-      "id": "483",
       "label": "Geek rock"
     },
     {
-      "id": "484",
       "label": "Genge"
     },
     {
-      "id": "485",
       "page_title": "Gh hip-hop",
       "label": "Gh hiphop"
     },
     {
-      "id": "486",
       "page_title": "Gharnati music",
       "label": "Gharnati"
     },
     {
-      "id": "487",
       "label": "Ghetto house"
     },
     {
-      "id": "488",
       "label": "Ghettotech"
     },
     {
-      "id": "489",
       "label": "Glam metal"
     },
     {
-      "id": "490",
       "label": "Glam punk"
     },
     {
-      "id": "491",
       "label": "Glam rock"
     },
     {
-      "id": "492",
       "page_title": "Glitch (music)",
       "label": "Glitch"
     },
     {
-      "id": "493",
       "label": "Gnawa music"
     },
     {
-      "id": "494",
       "label": "Go-go"
     },
     {
-      "id": "495",
       "label": "Goa trance"
     },
     {
-      "id": "496",
       "page_title": "Golden age hip-hop",
       "label": "Golden age hip hop"
     },
     {
-      "id": "497",
       "label": "Gombhira"
     },
     {
-      "id": "498",
       "label": "Goregrind"
     },
     {
-      "id": "499",
       "label": "Gospel blues"
     },
     {
-      "id": "500",
       "label": "Gospel music"
     },
     {
-      "id": "501",
       "label": "Gospel trap"
     },
     {
-      "id": "502",
       "label": "Gothabilly"
     },
     {
-      "id": "503",
       "label": "Gothic country"
     },
     {
-      "id": "504",
       "label": "Gothic metal"
     },
     {
-      "id": "505",
       "label": "Gothic rock"
     },
     {
-      "id": "506",
       "label": "Gqom"
     },
     {
-      "id": "507",
       "page_title": "Grebo (music)",
       "label": "Grebo"
     },
     {
-      "id": "508",
       "label": "Greek punk"
     },
     {
-      "id": "509",
       "page_title": "Grime music",
       "label": "Grime"
     },
     {
-      "id": "510",
       "label": "Grindcore"
     },
     {
-      "id": "511",
       "label": "Grindie"
     },
     {
-      "id": "512",
       "label": "Groove metal"
     },
     {
-      "id": "513",
       "label": "Group sounds"
     },
     {
-      "id": "514",
       "label": "Grunge"
     },
     {
-      "id": "515",
       "label": "Grupera"
     },
     {
-      "id": "516",
       "label": "Guaracha"
     },
     {
-      "id": "517",
       "label": "Guitar solo"
     },
     {
-      "id": "518",
       "label": "Guitarrada"
     },
     {
-      "id": "519",
       "label": "Gumbe"
     },
     {
-      "id": "520",
       "label": "Gwo ka"
     },
     {
-      "id": "521",
       "label": "Gypsy jazz"
     },
     {
-      "id": "522",
       "label": "Gypsy punk"
     },
     {
-      "id": "523",
       "label": "Halloween music"
     },
     {
-      "id": "524",
       "label": "Hapa haole music"
     },
     {
-      "id": "525",
       "label": "Happy hardcore"
     },
     {
-      "id": "526",
       "label": "Hard NRG"
     },
     {
-      "id": "527",
       "label": "Hard bop"
     },
     {
-      "id": "528",
       "label": "Hard rock"
     },
     {
-      "id": "529",
       "label": "Hard trance"
     },
     {
-      "id": "530",
       "label": "Hardbag"
     },
     {
-      "id": "531",
       "label": "Hardbass"
     },
     {
-      "id": "532",
       "page_title": "Hardcore (electronic dance music genre)",
       "label": "Hardcore"
     },
     {
-      "id": "533",
       "page_title": "Hardcore (electronic dance music genre)#Hard dance",
       "label": "Hard dance"
     },
     {
-      "id": "534",
       "label": "Hardcore hip-hop"
     },
     {
-      "id": "535",
       "label": "Hardcore punk"
     },
     {
-      "id": "536",
       "label": "Hardstep"
     },
     {
-      "id": "537",
       "label": "Hardstyle"
     },
     {
-      "id": "538",
       "label": "Hardvapour"
     },
     {
-      "id": "539",
       "label": "Harsh noise wall"
     },
     {
-      "id": "540",
       "label": "Hawfi"
     },
     {
-      "id": "541",
       "label": "Heartland rock"
     },
     {
-      "id": "542",
       "page_title": "Heavy metal music",
       "label": "Heavy metal"
     },
     {
-      "id": "543",
       "label": "Hi-NRG"
     },
     {
-      "id": "544",
       "label": "Highlife"
     },
     {
-      "id": "545",
       "label": "Hill country blues"
     },
     {
-      "id": "546",
       "label": "Hip house"
     },
     {
-      "id": "547",
       "label": "Hip-hop"
     },
     {
-      "id": "548",
       "label": "Hip-hop in the Pacific Northwest"
     },
     {
-      "id": "549",
       "page_title": "Hip-hop soul",
       "label": "Hip hop soul"
     },
     {
-      "id": "550",
       "page_title": "Hip-hop tuga",
       "label": "Hip hop tuga"
     },
     {
-      "id": "551",
       "label": "Hipco"
     },
     {
-      "id": "552",
       "label": "Hiplife"
     },
     {
-      "id": "553",
       "label": "Hipster hop"
     },
     {
-      "id": "554",
       "page_title": "Hokkien pop",
       "label": "Hokkien pop / Taiwanese Hokkien pop / Taiwanese pop"
     },
     {
-      "id": "555",
       "label": "Hookah rap"
     },
     {
-      "id": "556",
       "page_title": "Hori (music)",
       "label": "Hori"
     },
     {
-      "id": "557",
       "label": "Horror punk"
     },
     {
-      "id": "558",
       "label": "Horrorcore"
     },
     {
-      "id": "559",
       "label": "House music"
     },
     {
-      "id": "560",
       "label": "Huayno"
     },
     {
-      "id": "561",
       "label": "Hyperpop"
     },
     {
-      "id": "562",
       "label": "Hyphy"
     },
     {
-      "id": "563",
       "label": "Hypnagogic pop"
     },
     {
-      "id": "564",
       "label": "Igbo Christian music"
     },
     {
-      "id": "565",
       "label": "Igbo highlife"
     },
     {
-      "id": "566",
       "label": "Igbo rap"
     },
     {
-      "id": "567",
       "label": "Ikorodo"
     },
     {
-      "id": "568",
       "label": "Ikwokirikwo"
     },
     {
-      "id": "569",
       "label": "Illbient"
     },
     {
-      "id": "570",
       "page_title": "Indian hip-hop",
       "label": "Indian hip hop"
     },
     {
-      "id": "571",
       "label": "Indian pop"
     },
     {
-      "id": "572",
       "label": "Indian rock"
     },
     {
-      "id": "573",
       "label": "Indie folk"
     },
     {
-      "id": "574",
       "label": "Indie pop"
     },
     {
-      "id": "575",
       "label": "Indie rock"
     },
     {
-      "id": "576",
       "page_title": "Indigenous metal music",
       "label": "Indigenous metal"
     },
     {
-      "id": "577",
       "label": "Indigenous music of North America"
     },
     {
-      "id": "578",
       "label": "Indo jazz"
     },
     {
-      "id": "579",
       "page_title": "Indo pop",
       "label": "Indonesian pop"
     },
     {
-      "id": "580",
       "label": "Indonesian heavy metal"
     },
     {
-      "id": "581",
       "page_title": "Indonesian rock",
       "label": "Indonesian Rock"
     },
     {
-      "id": "582",
       "label": "Indorock"
     },
     {
-      "id": "583",
       "label": "Industrial folk music"
     },
     {
-      "id": "584",
       "page_title": "Industrial hip-hop",
       "label": "Industrial hip hop"
     },
     {
-      "id": "585",
       "label": "Industrial metal"
     },
     {
-      "id": "586",
       "page_title": "Industrial metal#Coldwave",
       "label": "Coldwave"
     },
     {
-      "id": "587",
       "page_title": "Industrial metal#Cyber metal",
       "label": "Cyber metal"
     },
     {
-      "id": "588",
       "page_title": "Industrial music",
       "label": "Industrial"
     },
     {
-      "id": "589",
       "label": "Industrial rock"
     },
     {
-      "id": "590",
       "label": "Industrial techno"
     },
     {
-      "id": "591",
       "label": "Instrumental rock"
     },
     {
-      "id": "592",
       "label": "Intelligent dance music"
     },
     {
-      "id": "593",
       "label": "Iranian alternative rock"
     },
     {
-      "id": "594",
       "label": "Iranian rock"
     },
     {
-      "id": "595",
       "page_title": "Iraqi maqam",
       "label": "Iraqi Maqam"
     },
     {
-      "id": "596",
       "label": "Irish showband"
     },
     {
-      "id": "597",
       "label": "Isicathamiya"
     },
     {
-      "id": "598",
       "label": "Iso-Polyphony"
     },
     {
-      "id": "599",
       "page_title": "Israeli hip-hop",
       "label": "Israeli hip hop"
     },
     {
-      "id": "600",
       "label": "Israeli rock"
     },
     {
-      "id": "601",
       "label": "Istrian scale"
     },
     {
-      "id": "602",
       "label": "Italian occult psychedelia"
     },
     {
-      "id": "603",
       "label": "Italian popular music"
     },
     {
-      "id": "604",
       "label": "Italo dance"
     },
     {
-      "id": "605",
       "label": "Italo disco"
     },
     {
-      "id": "606",
       "page_title": "Italo disco#Space disco",
       "label": "Space disco"
     },
     {
-      "id": "607",
       "label": "Italo house"
     },
     {
-      "id": "608",
       "label": "J-core"
     },
     {
-      "id": "609",
       "label": "J-pop"
     },
     {
-      "id": "610",
       "label": "Jaiva"
     },
     {
-      "id": "611",
       "label": "Jam band"
     },
     {
-      "id": "612",
       "label": "Jangle pop"
     },
     {
-      "id": "613",
       "page_title": "Japanese hip-hop",
       "label": "Japanese hip hop"
     },
     {
-      "id": "614",
       "page_title": "Japanese reggae",
       "label": "J-reggae"
     },
     {
-      "id": "615",
       "label": "Japanoise"
     },
     {
-      "id": "616",
       "label": "Jazz"
     },
     {
-      "id": "617",
       "label": "Jazz fusion"
     },
     {
-      "id": "618",
       "page_title": "Jazz fusion#Jazz metal",
       "label": "Jazz metal"
     },
     {
-      "id": "619",
       "page_title": "Jazz fusion#Jazz pop",
       "label": "Jazz-pop"
     },
     {
-      "id": "620",
       "page_title": "Jazz fusion#Jazz rock",
       "label": "Jazz rock"
     },
     {
-      "id": "621",
       "label": "Jazz rap"
     },
     {
-      "id": "622",
       "label": "Jazz-funk"
     },
     {
-      "id": "623",
       "page_title": "Jerkin'",
       "label": "Jerk"
     },
     {
-      "id": "624",
       "label": "Jersey club"
     },
     {
-      "id": "625",
       "page_title": "Jersey club#Jersey club rap",
       "label": "Jersey club rap"
     },
     {
-      "id": "626",
       "label": "Jesus music"
     },
     {
-      "id": "627",
       "page_title": "Jewish hip-hop",
       "label": "Jewish hip hop"
     },
     {
-      "id": "628",
       "label": "Jewish rock"
     },
     {
-      "id": "629",
       "label": "Jing ping"
     },
     {
-      "id": "630",
       "label": "Jinku"
     },
     {
-      "id": "631",
       "label": "Jit"
     },
     {
-      "id": "632",
       "page_title": "Jor (music)",
       "label": "Jor"
     },
     {
-      "id": "633",
       "label": "Joropo"
     },
     {
-      "id": "634",
       "label": "Jovem Guarda"
     },
     {
-      "id": "635",
       "label": "Jump blues"
     },
     {
-      "id": "636",
       "label": "Jumpstyle"
     },
     {
-      "id": "637",
       "page_title": "Jungle music",
       "label": "Jungle"
     },
     {
-      "id": "638",
       "label": "K-pop"
     },
     {
-      "id": "639",
       "label": "Kadongo Kamu"
     },
     {
-      "id": "640",
       "label": "Kaiso"
     },
     {
-      "id": "641",
       "label": "Kansas City jazz"
     },
     {
-      "id": "642",
       "page_title": "Kanto (music)",
       "label": "Kanto"
     },
     {
-      "id": "643",
       "label": "Kaseko"
     },
     {
-      "id": "644",
       "label": "Kasékò"
     },
     {
-      "id": "645",
       "label": "Kattaikkuttu"
     },
     {
-      "id": "646",
       "page_title": "Kavigan",
       "label": "Kobi Gaan"
     },
     {
-      "id": "647",
       "label": "Kavishari"
     },
     {
-      "id": "648",
       "label": "Kawaii metal"
     },
     {
-      "id": "649",
       "page_title": "Kawina (music)",
       "label": "Kawina"
     },
     {
-      "id": "650",
       "label": "Kayōkyoku"
     },
     {
-      "id": "651",
       "page_title": "Kenyan hip-hop",
       "label": "Kenyan hip hop"
     },
     {
-      "id": "652",
       "label": "Kidandali"
     },
     {
-      "id": "653",
       "label": "Kizomba"
     },
     {
-      "id": "654",
       "label": "Klapa"
     },
     {
-      "id": "655",
       "label": "Klezmer"
     },
     {
-      "id": "656",
       "label": "Koli Geet"
     },
     {
-      "id": "657",
       "label": "Koothu"
     },
     {
-      "id": "658",
       "label": "Koplo"
     },
     {
-      "id": "659",
       "page_title": "Korean ballad",
       "label": "Ballad (Korean music)"
     },
     {
-      "id": "660",
       "label": "Korean court music"
     },
     {
-      "id": "661",
       "page_title": "Korean hip-hop",
       "label": "Korean hip hop"
     },
     {
-      "id": "662",
       "label": "Krautrock"
     },
     {
-      "id": "663",
       "page_title": "Krautrock#Kosmische Musik",
       "label": "Kosmische Musik"
     },
     {
-      "id": "664",
       "label": "Kroncong"
     },
     {
-      "id": "665",
       "label": "Kuduro"
     },
     {
-      "id": "666",
       "page_title": "Kulintang",
       "label": "Kulintang ensemble"
     },
     {
-      "id": "667",
       "label": "Kundiman"
     },
     {
-      "id": "668",
       "label": "Kwaito"
     },
     {
-      "id": "669",
       "label": "Könsrock"
     },
     {
-      "id": "670",
       "label": "LGBTQ music"
     },
     {
-      "id": "671",
       "page_title": "LGBTQ representation in hip-hop",
       "label": "LGBTQ hip-hop"
     },
     {
-      "id": "672",
       "label": "Ladishah"
     },
     {
-      "id": "673",
       "label": "Lambadão cuiabano"
     },
     {
-      "id": "674",
       "label": "Lao pop"
     },
     {
-      "id": "675",
       "label": "Latin Christian music"
     },
     {
-      "id": "676",
       "label": "Latin R&B"
     },
     {
-      "id": "677",
       "label": "Latin ballad"
     },
     {
-      "id": "678",
       "page_title": "Latin hip-hop",
       "label": "Latin hip hop"
     },
     {
-      "id": "679",
       "label": "Latin jazz"
     },
     {
-      "id": "680",
       "label": "Latin metal"
     },
     {
-      "id": "681",
       "label": "Latin music"
     },
     {
-      "id": "682",
       "label": "Latin pop"
     },
     {
-      "id": "683",
       "label": "Latin rock"
     },
     {
-      "id": "684",
       "label": "Latin soul"
     },
     {
-      "id": "685",
       "label": "Latin trap"
     },
     {
-      "id": "686",
       "label": "Lavani"
     },
     {
-      "id": "687",
       "label": "Laïko"
     },
     {
-      "id": "688",
       "label": "Lento violento"
     },
     {
-      "id": "689",
       "label": "Levenslied"
     },
     {
-      "id": "690",
       "label": "Light music"
     },
     {
-      "id": "691",
       "label": "Liquid funk"
     },
     {
-      "id": "692",
       "page_title": "Lofi hip-hop",
       "label": "Lofi hip hop"
     },
     {
-      "id": "693",
       "label": "Long song"
     },
     {
-      "id": "694",
       "label": "Louisiana blues"
     },
     {
-      "id": "695",
       "label": "Lounge music"
     },
     {
-      "id": "696",
       "label": "Lovers rock"
     },
     {
-      "id": "697",
       "label": "Low bap"
     },
     {
-      "id": "698",
       "label": "Lowend"
     },
     {
-      "id": "699",
       "page_title": "Lowercase (music)",
       "label": "Lowercase"
     },
     {
-      "id": "700",
       "label": "Luk thung"
     },
     {
-      "id": "701",
       "label": "Lăutărească music"
     },
     {
-      "id": "702",
       "label": "Mahraganat"
     },
     {
-      "id": "703",
       "label": "Mahāgīta"
     },
     {
-      "id": "704",
       "label": "Mainstream hardcore"
     },
     {
-      "id": "705",
       "label": "Makossa"
     },
     {
-      "id": "706",
       "page_title": "Malaysian hip-hop",
       "label": "Malaysian hip hop"
     },
     {
-      "id": "707",
       "label": "Malaysian popular music"
     },
     {
-      "id": "708",
       "label": "Malhun"
     },
     {
-      "id": "709",
       "label": "Malipenga"
     },
     {
-      "id": "710",
       "label": "Mallsoft"
     },
     {
-      "id": "711",
       "label": "Maloya"
     },
     {
-      "id": "712",
       "page_title": "Mambo (music)",
       "label": "Mambo"
     },
     {
-      "id": "713",
       "label": "Mandopop"
     },
     {
-      "id": "714",
       "label": "Manele"
     },
     {
-      "id": "715",
       "label": "Mangue bit"
     },
     {
-      "id": "716",
       "label": "Manila sound"
     },
     {
-      "id": "717",
       "label": "Marabi"
     },
     {
-      "id": "718",
       "label": "Mariachi"
     },
     {
-      "id": "719",
       "label": "Marinera"
     },
     {
-      "id": "720",
       "label": "Marrabenta"
     },
     {
-      "id": "721",
       "label": "Martial industrial"
     },
     {
-      "id": "722",
       "page_title": "Mashup (music)",
       "label": "Mashup"
     },
     {
-      "id": "723",
       "label": "Maskandi"
     },
     {
-      "id": "724",
       "page_title": "Mata-kantiga",
       "label": "Mata-Kantiga"
     },
     {
-      "id": "725",
       "label": "Math rock"
     },
     {
-      "id": "726",
       "label": "Mathcore"
     },
     {
-      "id": "727",
       "page_title": "Matrouz (music)",
       "label": "Matrouz"
     },
     {
-      "id": "728",
       "page_title": "Mbalax",
       "label": "Mbalax, Senegalese urban dance music"
     },
     {
-      "id": "729",
       "label": "Mbaqanga"
     },
     {
-      "id": "730",
       "page_title": "Mbube (genre)",
       "label": "Mbube"
     },
     {
-      "id": "731",
       "label": "Medieval folk rock"
     },
     {
-      "id": "732",
       "label": "Medieval metal"
     },
     {
-      "id": "733",
       "label": "Megamix"
     },
     {
-      "id": "734",
       "page_title": "Mele (Hawaiian term)",
       "label": "Mele"
     },
     {
-      "id": "735",
       "label": "Melodic death metal"
     },
     {
-      "id": "736",
       "label": "Melodic hardcore"
     },
     {
-      "id": "737",
       "label": "Melodic metalcore"
     },
     {
-      "id": "738",
       "label": "Memphis blues"
     },
     {
-      "id": "739",
       "label": "Memphis rap"
     },
     {
-      "id": "740",
       "label": "Memphis soul"
     },
     {
-      "id": "741",
       "label": "Mento"
     },
     {
-      "id": "742",
       "page_title": "Merengue music",
       "label": "Merengue"
     },
     {
-      "id": "743",
       "label": "Merenhouse"
     },
     {
-      "id": "744",
       "label": "Metalcore"
     },
     {
-      "id": "745",
       "page_title": "Mexican pop music",
       "label": "Mexican pop"
     },
     {
-      "id": "746",
       "label": "Međimurska popevka"
     },
     {
-      "id": "747",
       "label": "Miami bass"
     },
     {
-      "id": "748",
       "label": "Microhouse"
     },
     {
-      "id": "749",
       "label": "Midwest emo"
     },
     {
-      "id": "750",
       "page_title": "Milonga (music)",
       "label": "Milonga"
     },
     {
-      "id": "751",
       "page_title": "Milwaukee hip-hop",
       "label": "Milwaukee hip hop"
     },
     {
-      "id": "752",
       "label": "Mini-jazz"
     },
     {
-      "id": "753",
       "label": "Minimal music"
     },
     {
-      "id": "754",
       "label": "Minimal techno"
     },
     {
-      "id": "755",
       "label": "Minimal wave"
     },
     {
-      "id": "756",
       "page_title": "Minneapolis sound",
       "label": "Minneapolis Sound"
     },
     {
-      "id": "757",
       "label": "Mizrahi music"
     },
     {
-      "id": "758",
       "label": "Mobb music"
     },
     {
-      "id": "759",
       "label": "Mod revival"
     },
     {
-      "id": "760",
       "label": "Modal jazz"
     },
     {
-      "id": "761",
       "label": "Moombahton"
     },
     {
-      "id": "762",
       "label": "Morenada"
     },
     {
-      "id": "763",
       "page_title": "Morna (music)",
       "label": "Morna"
     },
     {
-      "id": "764",
       "label": "Moroccan pop"
     },
     {
-      "id": "765",
       "page_title": "Motown#Motown sound",
       "label": "Motown sound"
     },
     {
-      "id": "766",
       "label": "Motswako"
     },
     {
-      "id": "767",
       "label": "Mugham"
     },
     {
-      "id": "768",
       "label": "Muliza"
     },
     {
-      "id": "769",
       "label": "Mumble rap"
     },
     {
-      "id": "770",
       "label": "Murder ballad"
     },
     {
-      "id": "771",
       "label": "Music hall"
     },
     {
-      "id": "772",
       "page_title": "Music of Eritrea",
       "label": "Eritrean music"
     },
     {
-      "id": "773",
       "page_title": "Music of Ethiopia",
       "label": "Ethiopian music"
     },
     {
-      "id": "774",
       "label": "Music of Latin America"
     },
     {
-      "id": "775",
       "page_title": "Music of North Korea#Pop music",
       "label": "DPRK-pop"
     },
     {
-      "id": "776",
       "page_title": "Mustard (record producer)#Production style",
       "label": "Ratchet music"
     },
     {
-      "id": "777",
       "page_title": "Muziki wa dansi",
       "label": "Muziki wa Dansi"
     },
     {
-      "id": "778",
       "label": "Mákina"
     },
     {
-      "id": "779",
       "label": "Méringue"
     },
     {
-      "id": "780",
       "label": "Métis fiddle"
     },
     {
-      "id": "781",
       "page_title": "Música criolla",
       "label": "Criolla music"
     },
     {
-      "id": "782",
       "page_title": "Música popular brasileira",
       "label": "Brazilian popular music"
     },
     {
-      "id": "783",
       "label": "Naattupurapaattu"
     },
     {
-      "id": "784",
       "label": "Nagoya kei"
     },
     {
-      "id": "785",
       "label": "Narcocorrido"
     },
     {
-      "id": "786",
       "label": "Nashville sound"
     },
     {
-      "id": "787",
       "label": "National Socialist black metal"
     },
     {
-      "id": "788",
       "label": "Nazi punk"
     },
     {
-      "id": "789",
       "page_title": "Nazrul Geeti",
       "label": "Nazrul Sangeet"
     },
     {
-      "id": "790",
       "label": "Ndombolo"
     },
     {
-      "id": "791",
       "label": "Nederbeat"
     },
     {
-      "id": "792",
       "label": "Nederpop"
     },
     {
-      "id": "793",
       "label": "Neo soul"
     },
     {
-      "id": "794",
       "page_title": "Neo-bop",
       "label": "Neo-bop jazz"
     },
     {
-      "id": "795",
       "label": "Neo-prog"
     },
     {
-      "id": "796",
       "label": "Neo-psychedelia"
     },
     {
-      "id": "797",
       "label": "Neoclassical metal"
     },
     {
-      "id": "798",
       "label": "Neofolk"
     },
     {
-      "id": "799",
       "label": "Neomelodic music"
     },
     {
-      "id": "800",
       "label": "Neoperreo"
     },
     {
-      "id": "801",
       "label": "Neotraditional country"
     },
     {
-      "id": "802",
       "label": "Nerdcore"
     },
     {
-      "id": "803",
       "label": "Neue Deutsche Härte"
     },
     {
-      "id": "804",
       "label": "Neue Deutsche Todeskunst"
     },
     {
-      "id": "805",
       "label": "Neue Deutsche Welle"
     },
     {
-      "id": "806",
       "label": "Neue Volksmusik"
     },
     {
-      "id": "807",
       "label": "Neurofunk"
     },
     {
-      "id": "808",
       "page_title": "New Chilean cumbia",
       "label": "New Chilean Cumbia"
     },
     {
-      "id": "809",
       "label": "New Jersey sound"
     },
     {
-      "id": "810",
       "label": "New Mexico music"
     },
     {
-      "id": "811",
       "label": "New Orleans Soul"
     },
     {
-      "id": "812",
       "label": "New Orleans blues"
     },
     {
-      "id": "813",
       "label": "New Orleans hip-hop"
     },
     {
-      "id": "814",
       "label": "New Orleans rhythm and blues"
     },
     {
-      "id": "815",
       "label": "New Weird America"
     },
     {
-      "id": "816",
       "label": "New York soul"
     },
     {
-      "id": "817",
       "label": "New beat"
     },
     {
-      "id": "818",
       "label": "New flamenco"
     },
     {
-      "id": "819",
       "label": "New jack swing"
     },
     {
-      "id": "820",
       "label": "New pop"
     },
     {
-      "id": "821",
       "label": "New rave"
     },
     {
-      "id": "822",
       "page_title": "New wave music",
       "label": "New wave"
     },
     {
-      "id": "823",
       "label": "New wave of American heavy metal"
     },
     {
-      "id": "824",
       "label": "New wave of British heavy metal"
     },
     {
-      "id": "825",
       "label": "New wave of classic rock"
     },
     {
-      "id": "826",
       "label": "New wave of new wave"
     },
     {
-      "id": "827",
       "label": "New wave of traditional heavy metal"
     },
     {
-      "id": "828",
       "page_title": "New-age music",
       "label": "New-age"
     },
     {
-      "id": "829",
       "page_title": "New-school hip-hop",
       "label": "New-school hip hop"
     },
     {
-      "id": "830",
       "page_title": "Ngano (Tshivenda narrative song)",
       "label": "Ngano"
     },
     {
-      "id": "831",
       "label": "Nightcore"
     },
     {
-      "id": "832",
       "label": "Nintendocore"
     },
     {
-      "id": "833",
       "label": "Nitzhonot"
     },
     {
-      "id": "834",
       "label": "Njuup"
     },
     {
-      "id": "835",
       "label": "No wave"
     },
     {
-      "id": "836",
       "label": "Noise music"
     },
     {
-      "id": "837",
       "label": "Noise pop"
     },
     {
-      "id": "838",
       "label": "Noise rock"
     },
     {
-      "id": "839",
       "page_title": "Noisecore (music genre)",
       "label": "Noisecore"
     },
     {
-      "id": "840",
       "label": "Nortec"
     },
     {
-      "id": "841",
       "page_title": "Norteño (music)",
       "label": "Norteño"
     },
     {
-      "id": "842",
       "label": "Norteño-sax"
     },
     {
-      "id": "843",
       "label": "Novelty piano"
     },
     {
-      "id": "844",
       "page_title": "Novelty song",
       "label": "Novelty songs"
     },
     {
-      "id": "845",
       "label": "Nu gaze"
     },
     {
-      "id": "846",
       "page_title": "Nu jazz",
       "label": "Nu Jazz"
     },
     {
-      "id": "847",
       "label": "Nu metal"
     },
     {
-      "id": "848",
       "label": "Nu metalcore"
     },
     {
-      "id": "849",
       "label": "Nu-disco"
     },
     {
-      "id": "850",
       "label": "Nueva canción"
     },
     {
-      "id": "851",
       "label": "Nueva canción chilena"
     },
     {
-      "id": "852",
       "label": "Nueva ola"
     },
     {
-      "id": "853",
       "label": "Occult rock"
     },
     {
-      "id": "854",
       "page_title": "Odi Pop",
       "label": "Odi pop"
     },
     {
-      "id": "855",
       "page_title": "Odumodu music",
       "label": "Odumodu"
     },
     {
-      "id": "856",
       "label": "Oi!"
     },
     {
-      "id": "857",
       "label": "Ojkanje"
     },
     {
-      "id": "858",
       "page_title": "Old-school hip-hop",
       "label": "Old-school hip hop"
     },
     {
-      "id": "859",
       "label": "Old-time music"
     },
     {
-      "id": "860",
       "label": "Onkyokei"
     },
     {
-      "id": "861",
       "label": "Operatic pop"
     },
     {
-      "id": "862",
       "page_title": "Orchestral jazz",
       "label": "Orchestral Jazz"
     },
     {
-      "id": "863",
       "label": "Orchestral pop"
     },
     {
-      "id": "864",
       "label": "Organic house"
     },
     {
-      "id": "865",
       "label": "Orthodox pop"
     },
     {
-      "id": "866",
       "label": "Outlaw country"
     },
     {
-      "id": "867",
       "label": "Outsider house"
     },
     {
-      "id": "868",
       "label": "Owerri Bongo"
     },
     {
-      "id": "869",
       "label": "Pachanga"
     },
     {
-      "id": "870",
       "label": "Pagan metal"
     },
     {
-      "id": "871",
       "label": "Pagan rock"
     },
     {
-      "id": "872",
       "label": "Pagode baiano"
     },
     {
-      "id": "873",
       "label": "Paisley Underground"
     },
     {
-      "id": "874",
       "page_title": "Pakistani hip-hop",
       "label": "Pakistani hip hop"
     },
     {
-      "id": "875",
       "page_title": "Palam (music)",
       "label": "Palam"
     },
     {
-      "id": "876",
       "page_title": "Palingsound",
       "label": "Palingpop"
     },
     {
-      "id": "877",
       "label": "Palm Desert Scene"
     },
     {
-      "id": "878",
       "label": "Palm-wine music"
     },
     {
-      "id": "879",
       "page_title": "Palo music",
       "label": "Palo"
     },
     {
-      "id": "880",
       "label": "Pambiche"
     },
     {
-      "id": "881",
       "label": "Paraguayan polka"
     },
     {
-      "id": "882",
       "page_title": "Paranda (music)",
       "label": "Paranda"
     },
     {
-      "id": "883",
       "label": "Parang"
     },
     {
-      "id": "884",
       "label": "Parlour music"
     },
     {
-      "id": "885",
       "label": "Partido alto"
     },
     {
-      "id": "886",
       "label": "Partyschlager"
     },
     {
-      "id": "887",
       "label": "Patua Sangeet"
     },
     {
-      "id": "888",
       "label": "Peking opera"
     },
     {
-      "id": "889",
       "label": "Peruvian cumbia"
     },
     {
-      "id": "890",
       "page_title": "Peruvian waltz",
       "label": "Peruvian Creole Waltz"
     },
     {
-      "id": "891",
       "label": "Philadelphia soul"
     },
     {
-      "id": "892",
       "label": "Philippine folk music"
     },
     {
-      "id": "893",
       "label": "Phleng phuea chiwit"
     },
     {
-      "id": "894",
       "label": "Phonk"
     },
     {
-      "id": "895",
       "label": "Piedmont blues"
     },
     {
-      "id": "896",
       "page_title": "Pinoy hip-hop",
       "label": "Pinoy hip hop"
     },
     {
-      "id": "897",
       "label": "Pinoy pop"
     },
     {
-      "id": "898",
       "label": "Pinoy reggae"
     },
     {
-      "id": "899",
       "label": "Pinoy rock"
     },
     {
-      "id": "900",
       "label": "Pirate metal"
     },
     {
-      "id": "901",
       "label": "Pirekua"
     },
     {
-      "id": "902",
       "label": "Pisadinha"
     },
     {
-      "id": "903",
       "label": "Plena"
     },
     {
-      "id": "904",
       "label": "Plugg music"
     },
     {
-      "id": "905",
       "label": "Plunderphonics"
     },
     {
-      "id": "906",
       "page_title": "Political hip-hop",
       "label": "Political hip hop"
     },
     {
-      "id": "907",
       "label": "Polka"
     },
     {
-      "id": "908",
       "label": "Pop kreatif"
     },
     {
-      "id": "909",
       "label": "Pop melankolis"
     },
     {
-      "id": "910",
       "label": "Pop melayu"
     },
     {
-      "id": "911",
       "label": "Pop metal"
     },
     {
-      "id": "912",
       "label": "Pop music"
     },
     {
-      "id": "913",
       "label": "Pop rap"
     },
     {
-      "id": "914",
       "label": "Pop rock"
     },
     {
-      "id": "915",
       "label": "Pop-punk"
     },
     {
-      "id": "916",
       "page_title": "Pop-punk#Easycore",
       "label": "Easycore"
     },
     {
-      "id": "917",
       "page_title": "Pop-punk#Neon pop-punk",
       "label": "Neon pop-punk"
     },
     {
-      "id": "918",
       "page_title": "Popcorn (Belgian music style)",
       "label": "Belgian popcorn"
     },
     {
-      "id": "919",
       "page_title": "Popcorn (Romanian music style)",
       "label": "Romanian popcorn"
     },
     {
-      "id": "920",
       "label": "Pornogrind"
     },
     {
-      "id": "921",
       "label": "Porro"
     },
     {
-      "id": "922",
       "label": "Positive hardcore"
     },
     {
-      "id": "923",
       "label": "Post-Britpop"
     },
     {
-      "id": "924",
       "label": "Post-disco"
     },
     {
-      "id": "925",
       "label": "Post-grunge"
     },
     {
-      "id": "926",
       "label": "Post-hardcore"
     },
     {
-      "id": "927",
       "label": "Post-metal"
     },
     {
-      "id": "928",
       "label": "Post-no wave"
     },
     {
-      "id": "929",
       "label": "Post-progressive"
     },
     {
-      "id": "930",
       "label": "Post-punk"
     },
     {
-      "id": "931",
       "label": "Post-punk revival"
     },
     {
-      "id": "932",
       "label": "Post-rock"
     },
     {
-      "id": "933",
       "page_title": "Power electronics (music genre)",
       "label": "Power electronics"
     },
     {
-      "id": "934",
       "label": "Power metal"
     },
     {
-      "id": "935",
       "label": "Power noise"
     },
     {
-      "id": "936",
       "label": "Power pop"
     },
     {
-      "id": "937",
       "label": "Powerviolence"
     },
     {
-      "id": "938",
       "page_title": "Preaching chords",
       "label": "Preaching Chords"
     },
     {
-      "id": "939",
       "label": "Progressive country"
     },
     {
-      "id": "940",
       "label": "Progressive folk"
     },
     {
-      "id": "941",
       "label": "Progressive house"
     },
     {
-      "id": "942",
       "label": "Progressive metal"
     },
     {
-      "id": "943",
       "label": "Progressive metalcore"
     },
     {
-      "id": "944",
       "label": "Progressive pop"
     },
     {
-      "id": "945",
       "label": "Progressive rap"
     },
     {
-      "id": "946",
       "label": "Progressive rock"
     },
     {
-      "id": "947",
       "label": "Progressive soul"
     },
     {
-      "id": "948",
       "page_title": "Proibidão",
       "label": "Funk proibidão"
     },
     {
-      "id": "949",
       "label": "Proto-prog"
     },
     {
-      "id": "950",
       "label": "Proto-punk"
     },
     {
-      "id": "951",
       "label": "Psychedelic folk"
     },
     {
-      "id": "952",
       "page_title": "Psychedelic folk#Freak folk",
       "label": "Freak folk"
     },
     {
-      "id": "953",
       "label": "Psychedelic funk"
     },
     {
-      "id": "954",
       "label": "Psychedelic pop"
     },
     {
-      "id": "955",
       "label": "Psychedelic rap"
     },
     {
-      "id": "956",
       "label": "Psychedelic rock"
     },
     {
-      "id": "957",
       "label": "Psychedelic soul"
     },
     {
-      "id": "958",
       "label": "Psychedelic trance"
     },
     {
-      "id": "959",
       "label": "Psychobilly"
     },
     {
-      "id": "960",
       "label": "Psydub"
     },
     {
-      "id": "961",
       "page_title": "Pub rock (Australia)",
       "label": "Australian pub rock"
     },
     {
-      "id": "962",
       "page_title": "Pub rock (United Kingdom)",
       "label": "Pub rock"
     },
     {
-      "id": "963",
       "page_title": "Puerto Rican hip-hop",
       "label": "Puerto Rican Hip-hop"
     },
     {
-      "id": "964",
       "label": "Punk blues"
     },
     {
-      "id": "965",
       "label": "Punk funk"
     },
     {
-      "id": "966",
       "label": "Punk jazz"
     },
     {
-      "id": "967",
       "page_title": "Punk jazz#Jazzcore",
       "label": "Jazzcore"
     },
     {
-      "id": "968",
       "label": "Punk pathetique"
     },
     {
-      "id": "969",
       "label": "Punk rap"
     },
     {
-      "id": "970",
       "label": "Punk rock"
     },
     {
-      "id": "971",
       "label": "Punta"
     },
     {
-      "id": "972",
       "label": "Punta rock"
     },
     {
-      "id": "973",
       "page_title": "Punto (Venezuela)",
       "label": "Punto"
     },
     {
-      "id": "974",
       "label": "Q-pop"
     },
     {
-      "id": "975",
       "page_title": "Qudud Halabiya",
       "label": "Qudud Al-Halabiya"
     },
     {
-      "id": "976",
       "label": "Queercore"
     },
     {
-      "id": "977",
       "label": "Quiet storm"
     },
     {
-      "id": "978",
       "page_title": "Rabiz (music genre)",
       "label": "Rabiz"
     },
     {
-      "id": "979",
       "label": "Rabòday"
     },
     {
-      "id": "980",
       "page_title": "Radif (music)",
       "label": "Radif"
     },
     {
-      "id": "981",
       "label": "Raga rock"
     },
     {
-      "id": "982",
       "page_title": "Rage (music genre)",
       "label": "Rage"
     },
     {
-      "id": "983",
       "label": "Ragga"
     },
     {
-      "id": "984",
       "label": "Raglife"
     },
     {
-      "id": "985",
       "label": "Ragtime"
     },
     {
-      "id": "986",
       "label": "Rake-and-scrape"
     },
     {
-      "id": "987",
       "label": "Ramprasadi"
     },
     {
-      "id": "988",
       "label": "Ranchera"
     },
     {
-      "id": "989",
       "label": "Rap metal"
     },
     {
-      "id": "990",
       "page_title": "Rap metal#Trap metal",
       "label": "Trap metal"
     },
     {
-      "id": "991",
       "label": "Rap rock"
     },
     {
-      "id": "992",
       "label": "Rapso"
     },
     {
-      "id": "993",
       "label": "Raptor house"
     },
     {
-      "id": "994",
       "label": "Rara tech"
     },
     {
-      "id": "995",
       "label": "Rasin"
     },
     {
-      "id": "996",
       "label": "Rasiya"
     },
     {
-      "id": "997",
       "label": "Rasteirinha"
     },
     {
-      "id": "998",
       "label": "Raï"
     },
     {
-      "id": "999",
       "label": "Rebetiko"
     },
     {
-      "id": "1000",
       "page_title": "Rebetiko#Rebetiko rock",
       "label": "Rebetiko rock"
     },
     {
-      "id": "1001",
       "page_title": "Rebetiko#Smyrna style  (Smyrneïko)",
       "label": "Smyrna style rebetiko (Smyrneïko)"
     },
     {
-      "id": "1002",
       "label": "Recession pop"
     },
     {
-      "id": "1003",
       "page_title": "Red dirt music",
       "label": "Red dirt"
     },
     {
-      "id": "1004",
       "label": "Reggada"
     },
     {
-      "id": "1005",
       "label": "Reggae"
     },
     {
-      "id": "1006",
       "label": "Reggae en Español"
     },
     {
-      "id": "1007",
       "label": "Reggae fusion"
     },
     {
-      "id": "1008",
       "label": "Reggae punk"
     },
     {
-      "id": "1009",
       "label": "Reggae rock"
     },
     {
-      "id": "1010",
       "label": "Reggaestep"
     },
     {
-      "id": "1011",
       "label": "Reggaeton"
     },
     {
-      "id": "1012",
       "label": "Regional Mexican"
     },
     {
-      "id": "1013",
       "page_title": "Retro-soul",
       "label": "Retro soul"
     },
     {
-      "id": "1014",
       "label": "Rhumba"
     },
     {
-      "id": "1015",
       "label": "Rhythm and blues"
     },
     {
-      "id": "1016",
       "page_title": "Riddim (genre)",
       "label": "Riddim"
     },
     {
-      "id": "1017",
       "label": "Ringbang"
     },
     {
-      "id": "1018",
       "label": "Riot grrrl"
     },
     {
-      "id": "1019",
       "label": "Risecore"
     },
     {
-      "id": "1020",
       "label": "RnBass"
     },
     {
-      "id": "1021",
       "label": "Rock Against Communism"
     },
     {
-      "id": "1022",
       "label": "Rock and roll"
     },
     {
-      "id": "1023",
       "label": "Rock kapak"
     },
     {
-      "id": "1024",
       "label": "Rock music"
     },
     {
-      "id": "1025",
       "label": "Rock music in Australia"
     },
     {
-      "id": "1026",
       "page_title": "Rock music in Greece",
       "label": "Greek rock"
     },
     {
-      "id": "1027",
       "label": "Rock music in Ireland"
     },
     {
-      "id": "1028",
       "label": "Rock music in New Zealand"
     },
     {
-      "id": "1029",
       "label": "Rock music in Slovenia"
     },
     {
-      "id": "1030",
       "label": "Rockabilly"
     },
     {
-      "id": "1031",
       "label": "Rocksteady"
     },
     {
-      "id": "1032",
       "label": "Romo"
     },
     {
-      "id": "1033",
       "label": "Roots reggae"
     },
     {
-      "id": "1034",
       "label": "Roots rock"
     },
     {
-      "id": "1035",
       "label": "Rumba flamenca"
     },
     {
-      "id": "1036",
       "label": "Russ music"
     },
     {
-      "id": "1037",
       "label": "Russian chanson"
     },
     {
-      "id": "1038",
       "page_title": "Russian pop",
       "label": "Russian pop music"
     },
     {
-      "id": "1039",
       "label": "Ryūkōka"
     },
     {
-      "id": "1040",
       "page_title": "Sadra (music)",
       "label": "Sadra"
     },
     {
-      "id": "1041",
       "label": "Sakara music"
     },
     {
-      "id": "1042",
       "page_title": "Salsa music",
       "label": "Salsa"
     },
     {
-      "id": "1043",
       "label": "Samba"
     },
     {
-      "id": "1044",
       "label": "Samba de breque"
     },
     {
-      "id": "1045",
       "label": "Samba funk"
     },
     {
-      "id": "1046",
       "page_title": "Samba reggae",
       "label": "Samba-reggae"
     },
     {
-      "id": "1047",
       "label": "Samba rock"
     },
     {
-      "id": "1048",
       "label": "Samba-canção"
     },
     {
-      "id": "1049",
       "label": "Samba-choro"
     },
     {
-      "id": "1050",
       "page_title": "Samba-enredo",
       "label": "Samba de enredo"
     },
     {
-      "id": "1051",
       "label": "Samba-jazz"
     },
     {
-      "id": "1052",
       "label": "Samba-sincopado"
     },
     {
-      "id": "1053",
       "label": "Sambass"
     },
     {
-      "id": "1054",
       "label": "Sampledelia"
     },
     {
-      "id": "1055",
       "label": "Samul nori"
     },
     {
-      "id": "1056",
       "label": "San Francisco sound"
     },
     {
-      "id": "1057",
       "page_title": "Sanaa (music)",
       "label": "Sanaa"
     },
     {
-      "id": "1058",
       "label": "Sanedo"
     },
     {
-      "id": "1059",
       "label": "Sangeet Natak"
     },
     {
-      "id": "1060",
       "label": "Santé engagé"
     },
     {
-      "id": "1061",
       "label": "Sapphic pop"
     },
     {
-      "id": "1062",
       "page_title": "Satirical music#History",
       "label": "Satire in contemporary music"
     },
     {
-      "id": "1063",
       "label": "Scam rap"
     },
     {
-      "id": "1064",
       "label": "Schaffel"
     },
     {
-      "id": "1065",
       "page_title": "Schlager music",
       "label": "Schlager"
     },
     {
-      "id": "1066",
       "label": "Scottish Gaelic punk"
     },
     {
-      "id": "1067",
       "page_title": "Scottish hip-hop",
       "label": "Scottish hip hop"
     },
     {
-      "id": "1068",
       "label": "Screamo"
     },
     {
-      "id": "1069",
       "label": "Scrumpy and Western"
     },
     {
-      "id": "1070",
       "label": "Sea shanty"
     },
     {
-      "id": "1071",
       "label": "Sean-nós singing"
     },
     {
-      "id": "1072",
       "label": "Seapunk"
     },
     {
-      "id": "1073",
       "page_title": "Sega (genre)",
       "label": "Sega"
     },
     {
-      "id": "1074",
       "label": "Sega tambour Chagos"
     },
     {
-      "id": "1075",
       "page_title": "Sega tambour of Rodrigues Island",
       "label": "Sega tambour"
     },
     {
-      "id": "1076",
       "page_title": "Senja (genre)",
       "label": "Senja songs"
     },
     {
-      "id": "1077",
       "page_title": "Sentimental ballad#Power ballads",
       "label": "Power ballad"
     },
     {
-      "id": "1078",
       "page_title": "Serbian hip-hop",
       "label": "Serbian hip hop"
     },
     {
-      "id": "1079",
       "page_title": "Seresta (music)",
       "label": "Seresta"
     },
     {
-      "id": "1080",
       "page_title": "Sertanejo music",
       "label": "Sertanejo"
     },
     {
-      "id": "1081",
       "label": "Seto leelo"
     },
     {
-      "id": "1082",
       "label": "Sevillanas"
     },
     {
-      "id": "1083",
       "label": "Shangaan electro"
     },
     {
-      "id": "1084",
       "label": "Shashmaqam"
     },
     {
-      "id": "1085",
       "label": "Shibuya-kei"
     },
     {
-      "id": "1086",
       "label": "Shock rock"
     },
     {
-      "id": "1087",
       "label": "Shoegaze"
     },
     {
-      "id": "1088",
       "label": "Sigilkore"
     },
     {
-      "id": "1089",
       "label": "Singeli"
     },
     {
-      "id": "1090",
       "label": "Ska"
     },
     {
-      "id": "1091",
       "label": "Ska punk"
     },
     {
-      "id": "1092",
       "label": "Skate punk"
     },
     {
-      "id": "1093",
       "label": "Skiffle"
     },
     {
-      "id": "1094",
       "label": "Skiladiko"
     },
     {
-      "id": "1095",
       "label": "Skweee"
     },
     {
-      "id": "1096",
       "label": "Slacker rock"
     },
     {
-      "id": "1097",
       "label": "Slowcore"
     },
     {
-      "id": "1098",
       "label": "Sludge metal"
     },
     {
-      "id": "1099",
       "label": "Smooth jazz"
     },
     {
-      "id": "1100",
       "label": "Smooth soul"
     },
     {
-      "id": "1101",
       "label": "Snap music"
     },
     {
-      "id": "1102",
       "label": "Soca music"
     },
     {
-      "id": "1103",
       "page_title": "Soft grunge#Music",
       "label": "Soft grunge"
     },
     {
-      "id": "1104",
       "label": "Soft rock"
     },
     {
-      "id": "1105",
       "label": "Son cubano"
     },
     {
-      "id": "1106",
       "label": "Son huasteco"
     },
     {
-      "id": "1107",
       "label": "Son jarocho"
     },
     {
-      "id": "1108",
       "label": "Son montuno"
     },
     {
-      "id": "1109",
       "label": "Sophisti-pop"
     },
     {
-      "id": "1110",
       "label": "Soukous"
     },
     {
-      "id": "1111",
       "label": "Soul blues"
     },
     {
-      "id": "1112",
       "label": "Soul jazz"
     },
     {
-      "id": "1113",
       "page_title": "Soul music",
       "label": "Soul"
     },
     {
-      "id": "1114",
       "label": "Sound collage"
     },
     {
-      "id": "1115",
       "label": "Southern gospel"
     },
     {
-      "id": "1116",
       "label": "Southern hip-hop"
     },
     {
-      "id": "1117",
       "label": "Southern rock"
     },
     {
-      "id": "1118",
       "page_title": "Southern rock#Southern metal",
       "label": "Southern metal"
     },
     {
-      "id": "1119",
       "label": "Southern soul"
     },
     {
-      "id": "1120",
       "label": "Sovietwave"
     },
     {
-      "id": "1121",
       "label": "Space age pop"
     },
     {
-      "id": "1122",
       "label": "Space music"
     },
     {
-      "id": "1123",
       "label": "Space rock"
     },
     {
-      "id": "1124",
       "label": "Spanish traditional Christian music"
     },
     {
-      "id": "1125",
       "label": "Speed garage"
     },
     {
-      "id": "1126",
       "label": "Speed metal"
     },
     {
-      "id": "1127",
       "label": "Speedcore"
     },
     {
-      "id": "1128",
       "label": "Spiritual jazz"
     },
     {
-      "id": "1129",
       "page_title": "Spirituals",
       "label": "Spiritual"
     },
     {
-      "id": "1130",
       "label": "Spouge"
     },
     {
-      "id": "1131",
       "page_title": "Sri Lankan hip-hop",
       "label": "Sri Lankan Hip Hop"
     },
     {
-      "id": "1132",
       "label": "Sri Metal"
     },
     {
-      "id": "1133",
       "label": "Stadium house"
     },
     {
-      "id": "1134",
       "label": "Starogradska muzika"
     },
     {
-      "id": "1135",
       "label": "Stoner rock"
     },
     {
-      "id": "1136",
       "label": "Straight-ahead jazz"
     },
     {
-      "id": "1137",
       "label": "Street punk"
     },
     {
-      "id": "1138",
       "page_title": "Stride (music)",
       "label": "Stride"
     },
     {
-      "id": "1139",
       "label": "Stronda"
     },
     {
-      "id": "1140",
       "page_title": "Styles of pop music#Dark pop",
       "label": "Dark pop"
     },
     {
-      "id": "1141",
       "page_title": "Styles of pop music#Disco-pop",
       "label": "Disco-pop"
     },
     {
-      "id": "1142",
       "page_title": "Styles of pop music#House-pop",
       "label": "House-pop"
     },
     {
-      "id": "1143",
       "label": "Sufi rock"
     },
     {
-      "id": "1144",
       "label": "Sunshine pop"
     },
     {
-      "id": "1145",
       "label": "Suomisaundi"
     },
     {
-      "id": "1146",
       "label": "Surf music"
     },
     {
-      "id": "1147",
       "label": "Swamp blues"
     },
     {
-      "id": "1148",
       "label": "Swamp pop"
     },
     {
-      "id": "1149",
       "label": "Swamp rock"
     },
     {
-      "id": "1150",
       "page_title": "Swing music",
       "label": "Swing"
     },
     {
-      "id": "1151",
       "label": "Swing revival"
     },
     {
-      "id": "1152",
       "label": "Symphonic black metal"
     },
     {
-      "id": "1153",
       "label": "Symphonic metal"
     },
     {
-      "id": "1154",
       "page_title": "Symphonic metal#Symphonic death metal",
       "label": "Symphonic death metal"
     },
     {
-      "id": "1155",
       "page_title": "Symphonic metal#Symphonic gothic metal",
       "label": "Symphonic gothic metal"
     },
     {
-      "id": "1156",
       "page_title": "Symphonic metal#Symphonic power metal",
       "label": "Symphonic power metal"
     },
     {
-      "id": "1157",
       "label": "Synth-pop"
     },
     {
-      "id": "1158",
       "label": "Synthwave"
     },
     {
-      "id": "1159",
       "label": "Tabanka"
     },
     {
-      "id": "1160",
       "page_title": "Tahitian drumming",
       "label": "Tahitian Drumming"
     },
     {
-      "id": "1161",
       "label": "Tahona"
     },
     {
-      "id": "1162",
       "label": "Takamba"
     },
     {
-      "id": "1163",
       "page_title": "Talempong",
       "label": "Talempong ensemble"
     },
     {
-      "id": "1164",
       "label": "Tallava"
     },
     {
-      "id": "1165",
       "label": "Tamborera"
     },
     {
-      "id": "1166",
       "page_title": "Tambu (music)",
       "label": "Tambu"
     },
     {
-      "id": "1167",
       "page_title": "Tango music",
       "label": "Tango"
     },
     {
-      "id": "1168",
       "page_title": "Tanzanian hip-hop",
       "label": "Tanzania Hip Hop Music"
     },
     {
-      "id": "1169",
       "label": "Taqwacore"
     },
     {
-      "id": "1170",
       "page_title": "Tche music",
       "label": "Tchê music"
     },
     {
-      "id": "1171",
       "label": "Tech house"
     },
     {
-      "id": "1172",
       "label": "Tech trance"
     },
     {
-      "id": "1173",
       "label": "Technical death metal"
     },
     {
-      "id": "1174",
       "label": "Techno"
     },
     {
-      "id": "1175",
       "label": "Techstep"
     },
     {
-      "id": "1176",
       "label": "Tecno brega"
     },
     {
-      "id": "1177",
       "label": "Tecnocumbia"
     },
     {
-      "id": "1178",
       "label": "Teen pop"
     },
     {
-      "id": "1179",
       "label": "Tejano music"
     },
     {
-      "id": "1180",
       "label": "Terukkuttu"
     },
     {
-      "id": "1181",
       "label": "Teutonic thrash metal"
     },
     {
-      "id": "1182",
       "label": "Texas blues"
     },
     {
-      "id": "1183",
       "label": "Texas country music"
     },
     {
-      "id": "1184",
       "page_title": "Thai hip-hop",
       "label": "Thai hip hop"
     },
     {
-      "id": "1185",
       "page_title": "Thai pop music",
       "label": "Thai pop"
     },
     {
-      "id": "1186",
       "label": "Thai rock"
     },
     {
-      "id": "1187",
       "label": "Third stream"
     },
     {
-      "id": "1188",
       "label": "Thrash metal"
     },
     {
-      "id": "1189",
       "label": "Thrashcore"
     },
     {
-      "id": "1190",
       "label": "Tierra Caliente music"
     },
     {
-      "id": "1191",
       "label": "Timba"
     },
     {
-      "id": "1192",
       "label": "Time Lord rock"
     },
     {
-      "id": "1193",
       "page_title": "Toi music",
       "label": "Toi"
     },
     {
-      "id": "1194",
       "label": "Tough guy hardcore"
     },
     {
-      "id": "1195",
       "label": "Township music"
     },
     {
-      "id": "1196",
       "label": "Toytown techno"
     },
     {
-      "id": "1197",
       "label": "Trad jazz"
     },
     {
-      "id": "1198",
       "page_title": "Traditional black gospel",
       "label": "Traditional Black gospel"
     },
     {
-      "id": "1199",
       "label": "Traditional bluegrass"
     },
     {
-      "id": "1200",
       "label": "Traditional pop"
     },
     {
-      "id": "1201",
       "label": "Trallpunk"
     },
     {
-      "id": "1202",
       "page_title": "Trance music",
       "label": "Trance"
     },
     {
-      "id": "1203",
       "label": "Trap music"
     },
     {
-      "id": "1204",
       "label": "Tribal guarachero"
     },
     {
-      "id": "1205",
       "label": "Tribal house"
     },
     {
-      "id": "1206",
       "label": "Trip hop"
     },
     {
-      "id": "1207",
       "label": "Tropical house"
     },
     {
-      "id": "1208",
       "label": "Tropicália"
     },
     {
-      "id": "1209",
       "label": "Tropipop"
     },
     {
-      "id": "1210",
       "page_title": "Trot (music)",
       "label": "Trot"
     },
     {
-      "id": "1211",
       "label": "Truck-driving country"
     },
     {
-      "id": "1212",
       "label": "Trønder rock"
     },
     {
-      "id": "1213",
       "label": "Tsugaru-jamisen"
     },
     {
-      "id": "1214",
       "label": "Tulsa sound"
     },
     {
-      "id": "1215",
       "label": "Tumba francesa"
     },
     {
-      "id": "1216",
       "label": "Turbo-folk"
     },
     {
-      "id": "1217",
       "label": "Twee pop"
     },
     {
-      "id": "1218",
       "page_title": "Two-tone (music genre)",
       "label": "Two-tone"
     },
     {
-      "id": "1219",
       "label": "Twoubadou"
     },
     {
-      "id": "1220",
       "label": "UK bass"
     },
     {
-      "id": "1221",
       "label": "UK drill"
     },
     {
-      "id": "1222",
       "label": "UK garage"
     },
     {
-      "id": "1223",
       "page_title": "UK hard house",
       "label": "Hard house"
     },
     {
-      "id": "1224",
       "page_title": "UK hard house#Donk",
       "label": "Scouse house"
     },
     {
-      "id": "1225",
       "label": "UK rap"
     },
     {
-      "id": "1226",
       "label": "Ukrainian metal"
     },
     {
-      "id": "1227",
       "page_title": "Ultra (music)",
       "label": "Ultra"
     },
     {
-      "id": "1228",
       "label": "Unblack metal"
     },
     {
-      "id": "1229",
       "label": "Uplifting trance"
     },
     {
-      "id": "1230",
       "label": "Urban Pasifika"
     },
     {
-      "id": "1231",
       "label": "Urban champeta"
     },
     {
-      "id": "1232",
       "page_title": "Urban contemporary gospel",
       "label": "Urban/contemporary gospel"
     },
     {
-      "id": "1233",
       "page_title": "Urbano music",
       "label": "Urbano (Música urbana)"
     },
     {
-      "id": "1234",
       "label": "Uruguayan rock"
     },
     {
-      "id": "1235",
       "label": "V-pop"
     },
     {
-      "id": "1236",
       "label": "Vallenato"
     },
     {
-      "id": "1237",
       "label": "Vaporwave"
     },
     {
-      "id": "1238",
       "label": "Vaudeville in the Philippines"
     },
     {
-      "id": "1239",
       "label": "Venezuelan rock"
     },
     {
-      "id": "1240",
       "label": "Vigilante rap"
     },
     {
-      "id": "1241",
       "label": "Viking metal"
     },
     {
-      "id": "1242",
       "label": "Viking rock"
     },
     {
-      "id": "1243",
       "label": "Visayan pop"
     },
     {
-      "id": "1244",
       "label": "Vispop"
     },
     {
-      "id": "1245",
       "label": "Visual kei"
     },
     {
-      "id": "1246",
       "label": "Wabap"
     },
     {
-      "id": "1247",
       "label": "Wangga"
     },
     {
-      "id": "1248",
       "page_title": "Wave music",
       "label": "Wave"
     },
     {
-      "id": "1249",
       "page_title": "Welsh hip-hop",
       "label": "Welsh hip hop"
     },
     {
-      "id": "1250",
       "label": "West Coast blues"
     },
     {
-      "id": "1251",
       "label": "West Coast hip-hop"
     },
     {
-      "id": "1252",
       "label": "West Coast jazz"
     },
     {
-      "id": "1253",
       "page_title": "Western music (North America)",
       "label": "Western music"
     },
     {
-      "id": "1254",
       "label": "Western swing"
     },
     {
-      "id": "1255",
       "page_title": "Windmill scene",
       "label": "Windmill Scene"
     },
     {
-      "id": "1256",
       "page_title": "Witch house (genre)",
       "label": "Witch house"
     },
     {
-      "id": "1257",
       "label": "Wizard rock"
     },
     {
-      "id": "1258",
       "label": "Wong shadow"
     },
     {
-      "id": "1259",
       "page_title": "Wonky (genre)",
       "label": "Wonky"
     },
     {
-      "id": "1260",
       "label": "Wonky pop"
     },
     {
-      "id": "1261",
       "page_title": "Working on Dying#Tread style",
       "label": "Tread"
     },
     {
-      "id": "1262",
       "label": "World music"
     },
     {
-      "id": "1263",
       "label": "Worldbeat"
     },
     {
-      "id": "1264",
       "label": "Xi'an guyue"
     },
     {
-      "id": "1265",
       "label": "Xoan singing"
     },
     {
-      "id": "1266",
       "label": "Xuc"
     },
     {
-      "id": "1267",
       "label": "Yacht rock"
     },
     {
-      "id": "1268",
       "label": "Yellow music"
     },
     {
-      "id": "1269",
       "label": "Youth crew"
     },
     {
-      "id": "1270",
       "page_title": "Yuka (music)",
       "label": "Yuka"
     },
     {
-      "id": "1271",
       "label": "Yé-yé"
     },
     {
-      "id": "1272",
       "page_title": "Zamba (artform)",
       "label": "Zamba"
     },
     {
-      "id": "1273",
       "label": "Zamrock"
     },
     {
-      "id": "1274",
       "label": "Zeuhl"
     },
     {
-      "id": "1275",
       "page_title": "Zhongguo feng (music)",
       "label": "Zhongguo feng"
     },
     {
-      "id": "1276",
       "page_title": "Zimbabwean hip-hop",
       "label": "Zimbabwean hip hop"
     },
     {
-      "id": "1277",
       "label": "Zoblazo"
     },
     {
-      "id": "1278",
       "label": "Zouglou"
     },
     {
-      "id": "1279",
       "label": "Zouk"
     },
     {
-      "id": "1280",
       "label": "Zydeco"
     },
     {
-      "id": "1281",
       "label": "Éntekhno"
     }
   ],

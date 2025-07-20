@@ -24,7 +24,6 @@ struct FrontendData {
 
 #[derive(Debug, Serialize, Deserialize)]
 struct NodeData {
-    id: PageDataId,
     #[serde(skip_serializing_if = "Option::is_none")]
     page_title: Option<String>,
     label: GenreName,
@@ -211,7 +210,6 @@ pub fn produce(
         let page_title = page.to_string();
 
         let node = NodeData {
-            id,
             page_title: (processed_genre.name.0 != page_title).then_some(page_title),
             label: processed_genre.name.clone(),
         };

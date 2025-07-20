@@ -44,7 +44,11 @@ export function postProcessData(data: DataOnDisk): Data {
       target: edge[1].toString(),
       ty: edge[2],
     })),
-    nodes: data.nodes.map((node) => ({ edges: [], ...node })),
+    nodes: data.nodes.map((node, index) => ({
+      id: index.toString(),
+      edges: [],
+      ...node,
+    })),
   };
 
   for (const [index, edge] of newData.edges.entries()) {
@@ -60,8 +64,6 @@ export function postProcessData(data: DataOnDisk): Data {
 
 /** A node in the graph, as stored on disk. */
 export type NodeOnDiskData = {
-  /** The node's ID (integer as a string). Consider using {@link nodeDataId} or {@link nodeIdToInt} instead. */
-  id: string;
   /** The node's Wikipedia page title. When not present, the same as {@link label}. */
   page_title?: string;
   /** The node's label. */
@@ -70,6 +72,8 @@ export type NodeOnDiskData = {
 
 /** A node in the graph. */
 export type NodeData = NodeOnDiskData & {
+  /** The node's ID (integer as a string). Consider using {@link nodeDataId} or {@link nodeIdToInt} instead. */
+  id: string;
   /** The node's edges. */
   edges: number[];
 };
