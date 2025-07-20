@@ -5,14 +5,14 @@ use std::{
 };
 
 use anyhow::Context as _;
-use serde::{Deserialize, Serialize};
+use serde::{ser::SerializeTuple, Deserialize, Serialize};
 
 use crate::{
     extract, links, process,
     types::{GenreName, PageDataId, PageName},
 };
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize)]
 struct FrontendData {
     wikipedia_domain: String,
     wikipedia_db_name: String,
@@ -140,11 +140,27 @@ enum EdgeType {
     Subgenre,
     FusionGenre,
 }
-#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
 struct EdgeData {
     source: PageDataId,
     target: PageDataId,
     ty: EdgeType,
+}
+impl Serialize for EdgeData {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let mut tup = serializer.serialize_tuple(3)?;
+        tup.serialize_element(&self.source.0)?;
+        tup.serialize_element(&self.target.0)?;
+        tup.serialize_element(&match self.ty {
+            EdgeType::Derivative => 0,
+            EdgeType::Subgenre => 1,
+            EdgeType::FusionGenre => 2,
+        })?;
+        tup.end()
+    }
 }
 
 /// Given processed genres, produce a graph and save it to `data.json` to be rendered by the website.

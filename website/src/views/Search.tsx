@@ -2,6 +2,7 @@ import { Dispatch, useReducer, useEffect, useRef, useMemo } from "react";
 
 import {
   EdgeData,
+  EdgeType,
   NodeData,
   nodeIdToInt,
   nodePageTitle,
@@ -487,16 +488,15 @@ function GenreResultsList({ children }: { children: React.ReactNode }) {
 function getFormattedThroughLabels(visibleTypes: VisibleTypes) {
   const labels = Object.entries(visibleTypes)
     .filter(([, visible]) => visible)
-    .map(([label]) => (
+    .map(([key]) => parseInt(key) as EdgeType)
+    .map((key) => (
       <span
-        key={label}
+        key={key}
         style={{
-          color: VISIBLE_TYPES_BY_TYPE[label as keyof VisibleTypes].color,
+          color: VISIBLE_TYPES_BY_TYPE[key].color,
         }}
       >
-        {VISIBLE_TYPES_BY_TYPE[
-          label as keyof VisibleTypes
-        ].label.toLowerCase() + "s"}
+        {VISIBLE_TYPES_BY_TYPE[key].label.toLowerCase() + "s"}
       </span>
     ));
 

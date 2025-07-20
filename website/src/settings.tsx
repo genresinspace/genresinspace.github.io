@@ -1,3 +1,5 @@
+import { EdgeType } from "./data";
+
 /** The settings for the app. Updated by the `Settings` component. */
 export type SettingsData = {
   visibleTypes: VisibleTypes;
@@ -15,9 +17,9 @@ export type SettingsData = {
 
 /** The types of nodes that are visible in the graph. */
 export type VisibleTypes = {
-  Derivative: boolean;
-  Subgenre: boolean;
-  FusionGenre: boolean;
+  [EdgeType.Derivative]: boolean;
+  [EdgeType.Subgenre]: boolean;
+  [EdgeType.FusionGenre]: boolean;
 };
 
 /** A description of a visible type. */
@@ -45,21 +47,21 @@ export const VISIBLE_TYPES: VisibleTypeDesc[] = [
   {
     color: derivativeColour(),
     label: "Derivative",
-    type: "Derivative" as const,
+    type: EdgeType.Derivative,
     description:
       "Genres that use some of the elements inherent to this genre, without being a subgenre.",
   },
   {
     color: subgenreColour(),
     label: "Subgenre",
-    type: "Subgenre" as const,
+    type: EdgeType.Subgenre,
     description:
       "Genres that share characteristics with this genre and fall within its purview.",
   },
   {
     color: fusionGenreColour(),
     label: "Fusion Genre",
-    type: "FusionGenre" as const,
+    type: EdgeType.FusionGenre,
     description:
       "Genres that combine elements of this genre with other genres.",
   },
@@ -68,7 +70,7 @@ export const VISIBLE_TYPES: VisibleTypeDesc[] = [
 /** Map of visible type names to their descriptions */
 export const VISIBLE_TYPES_BY_TYPE = Object.fromEntries(
   VISIBLE_TYPES.map((type) => [type.type, type])
-) as Record<keyof VisibleTypes, VisibleTypeDesc>;
+) as Record<EdgeType, VisibleTypeDesc>;
 
 /** The parameters for the simulation. */
 export type SimulationParams = {
@@ -267,9 +269,9 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
 /** The default settings for the app. */
 export const DEFAULT_SETTINGS: SettingsData = {
   visibleTypes: {
-    Derivative: true,
-    Subgenre: true,
-    FusionGenre: true,
+    [EdgeType.Derivative]: true,
+    [EdgeType.Subgenre]: true,
+    [EdgeType.FusionGenre]: true,
   },
   general: Object.fromEntries(
     GENERAL_CONTROLS.map((control) => [control.name, control.default])

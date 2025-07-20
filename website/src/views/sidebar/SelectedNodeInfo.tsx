@@ -9,6 +9,7 @@ import {
   useDataContext,
   GenreFileData,
   nodePageTitle,
+  EdgeType,
 } from "../../data";
 import {
   derivativeColour,
@@ -314,7 +315,7 @@ function Connections({
   const connectionCategories = useMemo(
     () => [
       {
-        type: "Derivative" as const,
+        type: EdgeType.Derivative,
         inbound: [
           { type: "text", content: "Was " },
           { type: "emphasis", content: "influenced" },
@@ -327,7 +328,7 @@ function Connections({
         ],
       },
       {
-        type: "Subgenre" as const,
+        type: EdgeType.Subgenre,
         inbound: [
           { type: "text", content: "Is a " },
           { type: "emphasis", content: "subgenre" },
@@ -340,7 +341,7 @@ function Connections({
         ],
       },
       {
-        type: "FusionGenre" as const,
+        type: EdgeType.FusionGenre,
         inbound: [
           { type: "text", content: "Is a " },
           { type: "emphasis", content: "fusion genre" },
@@ -497,7 +498,7 @@ function ConnectionHeading({
 }) {
   const getIcon = () => {
     switch (type) {
-      case "Derivative":
+      case EdgeType.Derivative:
         return (
           <DerivativeIcon
             width={16}
@@ -505,7 +506,7 @@ function ConnectionHeading({
             style={{ color: derivativeColour() }}
           />
         );
-      case "Subgenre":
+      case EdgeType.Subgenre:
         return (
           <SubgenreIcon
             width={16}
@@ -513,7 +514,7 @@ function ConnectionHeading({
             style={{ color: subgenreColour() }}
           />
         );
-      case "FusionGenre":
+      case EdgeType.FusionGenre:
         return (
           <FusionGenreIcon
             width={16}
@@ -535,9 +536,9 @@ function ConnectionHeading({
               className="font-bold"
               style={{
                 color:
-                  type === "Derivative"
+                  type === EdgeType.Derivative
                     ? derivativeColour()
-                    : type === "Subgenre"
+                    : type === EdgeType.Subgenre
                       ? subgenreColour()
                       : fusionGenreColour(),
               }}

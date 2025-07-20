@@ -4,6 +4,7 @@ import { Cosmograph, useCosmograph } from "@cosmograph/react";
 
 import {
   EdgeData,
+  EdgeType,
   nodeColour,
   NodeColourLightness,
   NodeData,
@@ -115,9 +116,9 @@ export function Graph({
         }
 
         const colour = (saturation: number, alpha: number) =>
-          d.ty === "Derivative"
+          d.ty === EdgeType.Derivative
             ? derivativeColour(saturation, alpha)
-            : d.ty === "Subgenre"
+            : d.ty === EdgeType.Subgenre
               ? subgenreColour(saturation, alpha)
               : fusionGenreColour(saturation, alpha);
 

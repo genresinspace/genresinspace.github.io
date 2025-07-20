@@ -8,8 +8,6 @@ export type DataShared = {
   wikipedia_db_name: string;
   /** The date of the dump (ISO 8601). */
   dump_date: string;
-  /** The edges in the graph. */
-  edges: EdgeData[];
   /** The maximum degree of any node in the graph. */
   max_degree: number;
 };
@@ -18,12 +16,16 @@ export type DataShared = {
 export type DataOnDisk = DataShared & {
   /** The nodes in the graph. */
   nodes: NodeOnDiskData[];
+  /** The edges in the graph. */
+  edges: EdgeOnDiskData[];
 };
 
 /** The global data made available to the frontend after {@link DataOnDisk} is post-processed by {@link postProcessData}. */
 export type Data = DataShared & {
   /** The nodes in the graph. */
   nodes: NodeData[];
+  /** The edges in the graph. */
+  edges: EdgeData[];
 };
 
 /** Global context for the data. */
@@ -37,6 +39,11 @@ export const useDataContext = () => useContext(DataContext) || ({} as Data);
 export function postProcessData(data: DataOnDisk): Data {
   const newData: Data = {
     ...data,
+    edges: data.edges.map((edge) => ({
+      source: edge[0].toString(),
+      target: edge[1].toString(),
+      ty: edge[2],
+    })),
     nodes: data.nodes.map((node) => ({ edges: [], ...node })),
   };
 
@@ -130,6 +137,26 @@ export function nodeColour(
   return colour;
 }
 
+/** The types of edges in the graph. */
+export const EdgeType = {
+  Derivative: 0,
+  Subgenre: 1,
+  FusionGenre: 2,
+} as const;
+
+/** The types of edges in the graph (typed values of {@link EdgeType}) */
+export type EdgeType = (typeof EdgeType)[keyof typeof EdgeType];
+
+/** An edge in the graph, as stored on disk. */
+export type EdgeOnDiskData = [
+  /** The edge's source node ID */
+  number,
+  /** The edge's target node ID */
+  number,
+  /** The edge's type */
+  EdgeType,
+];
+
 /** An edge in the graph. */
 export type EdgeData = {
   /** The edge's source node ID (integer as a string). Consider using {@link nodeIdToInt} instead. */
@@ -137,7 +164,7 @@ export type EdgeData = {
   /** The edge's target node ID (integer as a string). Consider using {@link nodeIdToInt} instead. */
   target: string;
   /** The edge's type. */
-  ty: "Derivative" | "Subgenre" | "FusionGenre";
+  ty: EdgeType;
 };
 
 /** Artist data from the artist JSON files. */
