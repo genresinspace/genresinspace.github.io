@@ -51,11 +51,11 @@ export function postProcessData(data: DataOnDisk): Data {
     })),
   };
 
-  for (const [index, edge] of newData.edges.entries()) {
-    const source = newData.nodes[nodeIdToInt(edge.source)];
+  for (const [index, edge] of data.edges.entries()) {
+    const source = newData.nodes[edge[0]];
     source.edges.push(index);
 
-    const target = newData.nodes[nodeIdToInt(edge.target)];
+    const target = newData.nodes[edge[1]];
     target.edges.push(index);
   }
 
