@@ -74,6 +74,18 @@ jobs:
         run: npm run lint
 
       # Deploy steps (only run on main or manual trigger)
+      - name: Install jq
+        if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Compact JSON files
+        if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+        working-directory: website
+        run: |
+          find public -name "*.json" -type f -exec sh -c '
+            jq -c . "$1" > "$1.tmp" && mv "$1.tmp" "$1"
+          ' sh {} \;
+
       - name: Build site
         if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
         working-directory: website
