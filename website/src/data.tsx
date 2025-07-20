@@ -10,8 +10,6 @@ export type DataShared = {
   dump_date: string;
   /** The edges in the graph. */
   edges: EdgeData[];
-  /** A map of links to page IDs. */
-  links_to_page_ids: Record<string, string>;
   /** The maximum degree of any node in the graph. */
   max_degree: number;
 };
@@ -89,6 +87,9 @@ export type GenreFileData = {
   /** The node's top artists, as page names. */
   top_artists: string[];
 };
+
+/** A map of links to page IDs. */
+export type LinksToPageIds = Record<string, number>;
 
 /** Values for node colour lightness in different contexts */
 export const NodeColourLightness = {

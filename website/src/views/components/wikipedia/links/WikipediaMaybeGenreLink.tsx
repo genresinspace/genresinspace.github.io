@@ -1,6 +1,7 @@
 import { WikipediaLink } from "./WikipediaLink";
 import { GenreLink } from "../../links/GenreLink";
-import { nodeIdToInt, useDataContext } from "../../../../data";
+import { useDataContext } from "../../../../data";
+import { useLinksToPageIds } from "../../../../services/dataCache";
 
 /**
  * A link to a Wikipedia page, or a genre link if the page title is a genre.
@@ -14,9 +15,14 @@ export function WikipediaMaybeGenreLink({
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
-  const { links_to_page_ids: linksToPageId, nodes } = useDataContext();
-  const nodeId = nodeIdToInt(linksToPageId[pageTitle.toLowerCase()]);
-  const node = nodes[nodeId];
+  const { nodes } = useDataContext();
+  const linksToPageIds = useLinksToPageIds();
+
+  const nodeId = linksToPageIds
+    ? linksToPageIds[pageTitle.toLowerCase()]
+    : null;
+  const node = nodeId ? nodes[nodeId] : null;
+
   if (node) {
     return (
       <GenreLink

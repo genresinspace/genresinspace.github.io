@@ -19,9 +19,6 @@ struct FrontendData {
     dump_date: String,
     nodes: Vec<NodeData>,
     edges: BTreeSet<EdgeData>,
-    /// This is a separate field as `LinksToArticles` has already resolved
-    /// redirects, which we wouldn't know about on the client
-    links_to_page_ids: BTreeMap<String, PageDataId>,
     max_degree: usize,
 }
 
@@ -48,6 +45,11 @@ struct ArtistFileData {
     description: Option<String>,
     last_revision_date: jiff::Timestamp,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(transparent)]
+/// Maps link targets to page IDs.
+struct LinksToPageIds(BTreeMap<String, usize>);
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
@@ -168,7 +170,6 @@ pub fn produce(
         dump_date: dump_meta.dump_date.to_string(),
         nodes: vec![],
         edges: BTreeSet::new(),
-        links_to_page_ids: BTreeMap::new(),
         max_degree: 0,
     };
 
@@ -370,12 +371,15 @@ pub fn produce(
         .unwrap_or(0);
 
     // Fifth pass (over links_to_articles): update links_to_page_ids
-    graph.links_to_page_ids.extend(
-        links_to_articles
-            .0
-            .iter()
-            .filter_map(|(link, page)| page_to_id.get(page).map(|id| (link.clone(), *id))),
-    );
+    std::fs::write(
+        output_path.join("links_to_page_ids.json"),
+        serde_json::to_string_pretty(&LinksToPageIds(BTreeMap::from_iter(
+            links_to_articles
+                .0
+                .iter()
+                .filter_map(|(link, page)| page_to_id.get(page).map(|id| (link.clone(), id.0))),
+        )))?,
+    )?;
 
     // Copy artist data
     let artists_path = output_path.join("artists");

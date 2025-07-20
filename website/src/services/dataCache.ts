@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { page_name_to_filename } from "frontend_wasm";
-import { ArtistFileData, GenreFileData } from "../data";
+import { ArtistFileData, GenreFileData, LinksToPageIds } from "../data";
 
 /**
  * A cache for data.
@@ -8,6 +8,8 @@ import { ArtistFileData, GenreFileData } from "../data";
 export class DataCache {
   private cache: Map<string, Map<string, unknown | Promise<unknown>>> =
     new Map();
+  private linksToPageIds: LinksToPageIds | Promise<LinksToPageIds> | null =
+    null;
 
   constructor() {
     this.cache.set("artists", new Map());
@@ -43,6 +45,44 @@ export class DataCache {
     directoryCache.set(page, requestPromise);
 
     return (await requestPromise) as T | null;
+  }
+
+  /**
+   * Get the links to page IDs.
+   * @returns The links to page IDs.
+   */
+  async getLinksToPageIds(): Promise<LinksToPageIds> {
+    // If we have a cached value (not a promise), return it
+    if (this.linksToPageIds && !(this.linksToPageIds instanceof Promise)) {
+      return this.linksToPageIds;
+    }
+
+    // If we have a promise in flight, wait for it
+    if (this.linksToPageIds instanceof Promise) {
+      return await this.linksToPageIds;
+    }
+
+    // No cached value or promise, start a new request
+    const requestPromise = fetch("/links_to_page_ids.json")
+      .then(async (response) => {
+        if (response.ok) {
+          const result = await response.json();
+          // Replace the promise with the actual result
+          this.linksToPageIds = result;
+          return result;
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch links to page IDs:", error);
+        throw error;
+      });
+
+    // Store the promise in the cache
+    this.linksToPageIds = requestPromise;
+
+    return await requestPromise;
   }
 }
 
@@ -82,7 +122,7 @@ const useDatum = <T>(
   const context = useContext(DataCacheContext);
   const [datum, setDatum] = useState<T | null>(null);
   if (!context) {
-    throw new Error("useDataCache must be used within a DataCacheProvider");
+    throw new Error("useDatum must be used within a DataCacheProvider");
   }
   useEffect(() => {
     if (!page) return;
@@ -112,4 +152,26 @@ export const useGenre = (genrePage: string | null): GenreFileData | null => {
  */
 export const useArtist = (artistPage: string | null): ArtistFileData | null => {
   return useDatum("artists", artistPage);
+};
+
+/**
+ * A hook to get the links to page IDs.
+ * @returns The links to page IDs.
+ */
+export const useLinksToPageIds = (): LinksToPageIds | null => {
+  const context = useContext(DataCacheContext);
+  const [linksToPageIds, setLinksToPageIds] = useState<LinksToPageIds | null>(
+    null
+  );
+  if (!context) {
+    throw new Error(
+      "useLinksToPageIds must be used within a DataCacheProvider"
+    );
+  }
+  useEffect(() => {
+    context
+      .getLinksToPageIds()
+      .then((linksToPageIds) => setLinksToPageIds(linksToPageIds));
+  }, []);
+  return linksToPageIds;
 };
