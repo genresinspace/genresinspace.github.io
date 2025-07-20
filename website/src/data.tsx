@@ -1,21 +1,31 @@
 import { createContext, useContext } from "react";
 
-/** The complete data dump (data.json). */
-export type Data = {
+/** The data that is identical between {@link DataOnDisk} and {@link Data}. */
+export type DataShared = {
   /** The Wikipedia domain. */
   wikipedia_domain: string;
   /** The Wikipedia database name. */
   wikipedia_db_name: string;
   /** The date of the dump (ISO 8601). */
   dump_date: string;
-  /** The nodes in the graph. */
-  nodes: NodeData[];
   /** The edges in the graph. */
   edges: EdgeData[];
   /** A map of links to page IDs. */
   links_to_page_ids: Record<string, string>;
   /** The maximum degree of any node in the graph. */
   max_degree: number;
+};
+
+/** The raw data that we load from the network. */
+export type DataOnDisk = DataShared & {
+  /** The nodes in the graph. */
+  nodes: NodeOnDiskData[];
+};
+
+/** The global data made available to the frontend after {@link DataOnDisk} is post-processed by {@link postProcessData}. */
+export type Data = DataShared & {
+  /** The nodes in the graph. */
+  nodes: NodeData[];
 };
 
 /** Global context for the data. */
@@ -25,14 +35,36 @@ export const DataContext = createContext<Data | null>(null);
  * This assumes the data has already been provided; the result is empty if not. */
 export const useDataContext = () => useContext(DataContext) || ({} as Data);
 
-/** A node in the graph. */
-export type NodeData = {
+/** Post-process the raw data sent to us to make it acceptable for the rest of the frontend. */
+export function postProcessData(data: DataOnDisk): Data {
+  const newData: Data = {
+    ...data,
+    nodes: data.nodes.map((node) => ({ edges: [], ...node })),
+  };
+
+  for (const [index, edge] of newData.edges.entries()) {
+    const source = newData.nodes[nodeIdToInt(edge.source)];
+    source.edges.push(index);
+
+    const target = newData.nodes[nodeIdToInt(edge.target)];
+    target.edges.push(index);
+  }
+
+  return newData;
+}
+
+/** A node in the graph, as stored on disk. */
+export type NodeOnDiskData = {
   /** The node's ID (integer as a string). Consider using {@link nodeDataId} or {@link nodeIdToInt} instead. */
   id: string;
   /** The node's Wikipedia page title. When not present, the same as {@link label}. */
   page_title?: string;
   /** The node's label. */
   label: string;
+};
+
+/** A node in the graph. */
+export type NodeData = NodeOnDiskData & {
   /** The node's edges. */
   edges: number[];
 };

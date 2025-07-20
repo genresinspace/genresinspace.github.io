@@ -31,7 +31,6 @@ struct NodeData {
     #[serde(skip_serializing_if = "Option::is_none")]
     page_title: Option<String>,
     label: GenreName,
-    edges: BTreeSet<usize>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -198,7 +197,6 @@ pub fn produce(
             id,
             page_title: (processed_genre.name.0 != page_title).then_some(page_title),
             label: processed_genre.name.clone(),
-            edges: BTreeSet::new(),
         };
 
         graph.nodes.push(node);
@@ -351,14 +349,25 @@ pub fn produce(
         }
     }
 
-    // Third pass (over edges): update inbound/outbound sets
+    // Third pass (over edges): build node->edges sets for calculating max degree
+    let mut node_to_edges = HashMap::new();
     for (i, edge) in graph.edges.iter().enumerate() {
-        graph.nodes[edge.source.0].edges.insert(i);
-        graph.nodes[edge.target.0].edges.insert(i);
+        node_to_edges
+            .entry(edge.source)
+            .or_insert_with(BTreeSet::new)
+            .insert(i);
+        node_to_edges
+            .entry(edge.target)
+            .or_insert_with(BTreeSet::new)
+            .insert(i);
     }
 
     // Fourth pass: calculate max degree
-    graph.max_degree = graph.nodes.iter().map(|n| n.edges.len()).max().unwrap_or(0);
+    graph.max_degree = node_to_edges
+        .values()
+        .map(|edges| edges.len())
+        .max()
+        .unwrap_or(0);
 
     // Fifth pass (over links_to_articles): update links_to_page_ids
     graph.links_to_page_ids.extend(

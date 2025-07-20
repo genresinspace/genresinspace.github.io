@@ -10,7 +10,13 @@ import {
   useSearchState,
 } from "./views/Search";
 import { DEFAULT_SETTINGS, SettingsData } from "./settings";
-import { Data, nodeIdToInt, DataContext } from "./data";
+import {
+  Data,
+  nodeIdToInt,
+  DataContext,
+  DataOnDisk,
+  postProcessData,
+} from "./data";
 
 import { Sidebar } from "./views/sidebar/Sidebar";
 import { DataCache, DataCacheContext } from "./services/dataCache";
@@ -48,7 +54,8 @@ function useData(): { state: "loading" } | { state: "loaded"; data: Data } {
     async function fetchData() {
       try {
         const response = await fetch("/data.json");
-        const data = await response.json();
+        const dataOnDisk: DataOnDisk = await response.json();
+        const data = postProcessData(dataOnDisk);
         setData(data);
       } catch (error) {
         console.error("Error loading data:", error);
