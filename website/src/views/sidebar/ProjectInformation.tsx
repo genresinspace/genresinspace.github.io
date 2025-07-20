@@ -204,7 +204,7 @@ function Legend({
 
 function CommitFooter() {
   return (
-    <footer className="text-sm text-neutral-500">
+    <footer className="text-sm text-neutral-500 p-3">
       Commit{" "}
       <code>
         <EL href={`${REPO_LINK}/tree/${commit.commit}`}>{commit.commit}</EL>
