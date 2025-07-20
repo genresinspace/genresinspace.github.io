@@ -5,7 +5,13 @@ import data from "../public/data.json";
 import { readFile, readdir } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { ArtistFileData, Data, DataContext, GenreFileData } from "../src/data";
+import {
+  ArtistFileData,
+  Data,
+  DataContext,
+  GenreFileData,
+  nodePageTitle,
+} from "../src/data";
 import { initWasm } from "../src/views/components/wikipedia";
 import { wikiPageUrl, wikiUrl } from "../src/views/components/wikipedia/urls";
 import { Wikitext } from "../src/views/components/wikipedia/wikitexts/Wikitext";
@@ -93,20 +99,21 @@ try {
   // Test genre descriptions
   const genresDir = join(__dirname, "../public/genres");
   for (const genre of Object.values(data.nodes)) {
-    if (filterPageTitle && genre.page_title !== filterPageTitle) {
+    const pageTitle = nodePageTitle(genre);
+    if (filterPageTitle && pageTitle !== filterPageTitle) {
       continue;
     }
 
     const genrePath = join(
       genresDir,
-      page_name_to_filename(genre.page_title) + ".json"
+      page_name_to_filename(pageTitle) + ".json"
     );
     const genreData: GenreFileData = JSON.parse(
       await readFile(genrePath, "utf-8")
     );
 
     const wikitext = genreData.description || "";
-    renderWikitext(wikitext, genre.page_title, "genre");
+    renderWikitext(wikitext, pageTitle, "genre");
   }
 
   // Test artist descriptions
