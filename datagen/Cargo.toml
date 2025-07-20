@@ -23,3 +23,4 @@ wikitext_util = { workspace = true }
 flate2 = "1.1.2"
 
 shared = { path = "../shared" }
+reqwest = { version = "0.12.22", features = ["blocking", "json"] }

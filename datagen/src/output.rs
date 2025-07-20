@@ -9,7 +9,7 @@ use serde::{ser::SerializeTuple, Deserialize, Serialize};
 
 use crate::{
     extract, links, process,
-    types::{GenreName, PageDataId, PageName},
+    types::{GenreMixes, GenreName, PageDataId, PageName},
 };
 
 #[derive(Debug, Serialize)]
@@ -50,89 +50,6 @@ struct ArtistFileData {
 /// Maps link targets to page IDs.
 struct LinksToPageIds(BTreeMap<String, usize>);
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-#[serde(untagged)]
-enum GenreMix {
-    Playlist {
-        playlist: String,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        note: Option<String>,
-    },
-    Video {
-        video: String,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        note: Option<String>,
-    },
-}
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
-#[serde(untagged)]
-enum GenreMixes {
-    Help { help_reason: Option<String> },
-    Mixes(Vec<GenreMix>),
-}
-impl GenreMixes {
-    pub fn parse(input: &str) -> Self {
-        let input = input.trim();
-
-        if let Some(help_reason) = input.strip_prefix("help:") {
-            return GenreMixes::Help {
-                help_reason: Some(help_reason.trim().to_string()),
-            };
-        } else if input.trim() == "help" {
-            return GenreMixes::Help { help_reason: None };
-        }
-
-        let mut mixes = vec![];
-        for line in input.lines() {
-            let line = line.trim();
-            if line.is_empty() {
-                continue;
-            }
-
-            let (url, note) = if let Some((url, comment)) = line.split_once('#') {
-                (url.trim(), Some(comment.trim().to_string()))
-            } else {
-                (line, None)
-            };
-
-            if let Some(playlist_id) = extract_playlist_id(url) {
-                mixes.push(GenreMix::Playlist {
-                    playlist: playlist_id,
-                    note,
-                });
-            } else if let Some(video_id) = extract_video_id(url) {
-                mixes.push(GenreMix::Video {
-                    video: video_id,
-                    note,
-                });
-            }
-        }
-
-        fn extract_playlist_id(url: &str) -> Option<String> {
-            url.find("list=").map(|list| {
-                url[list + 5..]
-                    .split(['&', '#'])
-                    .next()
-                    .unwrap()
-                    .to_string()
-            })
-        }
-
-        fn extract_video_id(url: &str) -> Option<String> {
-            if let Some(v) = url.find("v=") {
-                Some(url[v + 2..].split(['&', '#']).next().unwrap().to_string())
-            } else if url.contains("youtu.be/") {
-                url.split('/')
-                    .next_back()
-                    .map(|s| s.split(['&', '#']).next().unwrap().to_string())
-            } else {
-                None
-            }
-        }
-
-        GenreMixes::Mixes(mixes)
-    }
-}
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 enum EdgeType {
     Derivative,
@@ -422,68 +339,4 @@ pub fn produce(
     println!("{:.2}s: saved data.json", start.elapsed().as_secs_f32());
 
     Ok(())
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_help() {
-        assert_eq!(
-            GenreMixes::parse("help: not ready"),
-            GenreMixes::Help {
-                help_reason: Some("not ready".to_string())
-            }
-        );
-        assert_eq!(
-            GenreMixes::parse("help"),
-            GenreMixes::Help { help_reason: None }
-        );
-    }
-
-    #[test]
-    fn test_mixes() {
-        assert_eq!(
-            GenreMixes::parse(
-                "https://www.youtube.com/playlist?list=PLMC9KNkIncKvYin_USF1qoJQnIyMAfRxl
-                 https://www.youtube.com/playlist?list=PLH22-xSMERQrmeOAp7kJy-0BHfGJbl4Jg # A great mix
-                 https://youtu.be/dQw4w9WgXcQ # You're on your own with finding a mix for this."
-            ),
-            GenreMixes::Mixes(vec![
-                GenreMix::Playlist {
-                    playlist: "PLMC9KNkIncKvYin_USF1qoJQnIyMAfRxl".to_string(),
-                    note: None
-                },
-                GenreMix::Playlist {
-                        playlist: "PLH22-xSMERQrmeOAp7kJy-0BHfGJbl4Jg".to_string(),
-                    note: Some("A great mix".to_string())
-                },
-                GenreMix::Video {
-                    video: "dQw4w9WgXcQ".to_string(),
-                    note: Some("You're on your own with finding a mix for this.".to_string())
-                }
-            ])
-        );
-    }
-
-    #[test]
-    fn test_video_formats() {
-        assert_eq!(
-            GenreMixes::parse(
-                "https://www.youtube.com/watch?v=dQw4w9WgXcQ
-                 https://youtu.be/dQw4w9WgXcQ"
-            ),
-            GenreMixes::Mixes(vec![
-                GenreMix::Video {
-                    video: "dQw4w9WgXcQ".to_string(),
-                    note: None
-                },
-                GenreMix::Video {
-                    video: "dQw4w9WgXcQ".to_string(),
-                    note: None
-                }
-            ])
-        );
-    }
 }

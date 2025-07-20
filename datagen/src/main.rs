@@ -5,6 +5,7 @@ use anyhow::Context;
 
 use std::path::Path;
 
+pub mod check_mixes;
 pub mod data_patches;
 pub mod extract;
 pub mod genre_top_artists;
@@ -77,16 +78,21 @@ fn main() -> anyhow::Result<()> {
         &output_path.join("processed_genres"),
     )?;
 
+    let mixes_path = Path::new("mixes");
+    if std::env::args().any(|arg| arg == "--populate-mixes") {
+        populate_mixes::run(mixes_path, &extracted_data.dump_meta, &processed_genres)?;
+    }
+
+    if std::env::args().any(|arg| arg == "--check-mixes") {
+        check_mixes::run(mixes_path, &config.youtube_api_key)?;
+        return Ok(());
+    }
+
     let processed_artists = process::artists(
         start,
         &extracted_data.artists,
         &output_path.join("processed_artists"),
     )?;
-
-    let mixes_path = Path::new("mixes");
-    if std::env::args().any(|arg| arg == "--populate-mixes") {
-        populate_mixes::run(mixes_path, &extracted_data.dump_meta, &processed_genres)?;
-    }
 
     let links_to_articles = links::resolve(
         start,
