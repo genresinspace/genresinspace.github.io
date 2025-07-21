@@ -178,8 +178,15 @@ function FeaturedMix({
       <HelpNeededForMix reason={mixes.help_reason} />
     ) : (
       <div>
-        {mixes.map((mix, i) => (
-          <MixItem key={i} mix={mix} autoplay={shouldAutoplayMixes} />
+        {mixes.map((mix) => (
+          // We use the mix as the key to force the iframe to be re-rendered when the mix changes,
+          // so that it won't pollute the global history state. (The fact that iframes do this
+          // is insane. I love the web.)
+          <MixItem
+            key={JSON.stringify(mix)}
+            mix={mix}
+            autoplay={shouldAutoplayMixes}
+          />
         ))}
       </div>
     )
