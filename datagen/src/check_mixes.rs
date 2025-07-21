@@ -60,122 +60,144 @@ pub fn run(mixes_path: &Path, key: &str) -> anyhow::Result<()> {
         }
     }
 
-    let mut missing_videos = vec![];
-    let mut not_embeddable = vec![];
-    let mut not_public_videos = vec![];
+    {
+        let mut missing_videos = vec![];
+        let mut not_embeddable = vec![];
+        let mut not_public_videos = vec![];
 
-    for slice in videos.chunks(50) {
-        let yt_videos = list_videos(key, slice.iter().map(|(_, video)| video.as_str()))?;
-        let yt_ids = yt_videos
-            .iter()
-            .map(|v| v.id.as_str())
-            .collect::<HashSet<_>>();
+        for slice in videos.chunks(50) {
+            let yt_videos = list_videos(key, slice.iter().map(|(_, video)| video.as_str()))?;
+            let yt_ids = yt_videos
+                .iter()
+                .map(|v| v.id.as_str())
+                .collect::<HashSet<_>>();
 
-        for (genre, video_id) in slice {
-            if !yt_ids.contains(video_id.as_str()) {
-                missing_videos.push((genre.as_str(), video_id.to_string()));
+            for (genre, video_id) in slice {
+                if !yt_ids.contains(video_id.as_str()) {
+                    missing_videos.push((genre.as_str(), video_id.to_string()));
+                }
+            }
+
+            for yt_video in yt_videos {
+                let genre = video_to_genre.get(yt_video.id.as_str()).unwrap();
+                if !yt_video.status.embeddable {
+                    not_embeddable.push((genre.as_str(), yt_video.id.clone()));
+                }
+                if yt_video.status.privacy_status != VideoPrivacyStatus::Public {
+                    not_public_videos.push((genre.as_str(), yt_video.id.clone()));
+                }
             }
         }
 
-        for yt_video in yt_videos {
-            let genre = video_to_genre.get(yt_video.id.as_str()).unwrap();
-            if !yt_video.status.embeddable {
-                not_embeddable.push((genre.as_str(), yt_video.id.clone()));
+        if !missing_videos.is_empty() {
+            println!("=== VIDEOS: MISSING ===");
+            for (genre, video_id) in missing_videos {
+                println!("- {genre}: {video_id}");
             }
-            if yt_video.status.privacy_status != VideoPrivacyStatus::Public {
-                not_public_videos.push((genre.as_str(), yt_video.id.clone()));
+            println!();
+        }
+
+        if !not_embeddable.is_empty() {
+            println!("=== VIDEOS: NOT EMBEDDABLE ===");
+            for (genre, video_id) in not_embeddable {
+                println!("- {genre}: {video_id}");
             }
+            println!();
         }
-    }
 
-    if !missing_videos.is_empty() {
-        println!("=== VIDEOS: MISSING ===");
-        for (genre, video_id) in missing_videos {
-            println!("- {genre}: {video_id}");
-        }
-        println!();
-    }
-
-    if !not_embeddable.is_empty() {
-        println!("=== VIDEOS: NOT EMBEDDABLE ===");
-        for (genre, video_id) in not_embeddable {
-            println!("- {genre}: {video_id}");
-        }
-        println!();
-    }
-
-    if !not_public_videos.is_empty() {
-        println!("=== VIDEOS: NOT PUBLIC ===");
-        for (genre, video_id) in not_public_videos {
-            println!("- {genre}: {video_id}");
-        }
-        println!();
-    }
-
-    let mut missing_playlists = vec![];
-    let mut not_public_playlists = vec![];
-
-    for slice in playlists.chunks(50) {
-        let yt_playlists =
-            list_playlists(key, slice.iter().map(|(_, playlist)| playlist.as_str()))?;
-        let yt_ids = yt_playlists
-            .iter()
-            .map(|p| p.id.as_str())
-            .collect::<HashSet<_>>();
-
-        for (genre, playlist_id) in slice {
-            if !yt_ids.contains(playlist_id.as_str()) {
-                missing_playlists.push((genre.as_str(), playlist_id.to_string()));
+        if !not_public_videos.is_empty() {
+            println!("=== VIDEOS: NOT PUBLIC ===");
+            for (genre, video_id) in not_public_videos {
+                println!("- {genre}: {video_id}");
             }
+            println!();
         }
+    }
 
-        for yt_playlist in yt_playlists {
-            let genre = playlist_to_genre.get(yt_playlist.id.as_str()).unwrap();
-            if yt_playlist.status.privacy_status != PlaylistPrivacyStatus::Public {
-                not_public_playlists.push((genre.as_str(), yt_playlist.id.clone()));
+    {
+        let mut missing_playlists = vec![];
+        let mut not_public_playlists = vec![];
+
+        for slice in playlists.chunks(50) {
+            let yt_playlists =
+                list_playlists(key, slice.iter().map(|(_, playlist)| playlist.as_str()))?;
+            let yt_ids = yt_playlists
+                .iter()
+                .map(|p| p.id.as_str())
+                .collect::<HashSet<_>>();
+
+            for (genre, playlist_id) in slice {
+                if !yt_ids.contains(playlist_id.as_str()) {
+                    missing_playlists.push((genre.as_str(), playlist_id.to_string()));
+                }
+            }
+
+            for yt_playlist in yt_playlists {
+                let genre = playlist_to_genre.get(yt_playlist.id.as_str()).unwrap();
+                if yt_playlist.status.privacy_status != PlaylistPrivacyStatus::Public {
+                    not_public_playlists.push((genre.as_str(), yt_playlist.id.clone()));
+                }
             }
         }
-    }
 
-    if !missing_playlists.is_empty() {
-        println!("=== PLAYLISTS: MISSING ===");
-        for (genre, playlist_id) in missing_playlists {
-            println!("- {genre}: {playlist_id}");
+        if !missing_playlists.is_empty() {
+            println!("=== PLAYLISTS: MISSING ===");
+            for (genre, playlist_id) in &missing_playlists {
+                println!("- {genre}: {playlist_id}");
+            }
+            println!();
         }
-        println!();
-    }
 
-    if !not_public_playlists.is_empty() {
-        println!("=== PLAYLISTS: NOT PUBLIC ===");
-        for (genre, playlist_id) in not_public_playlists {
-            println!("- {genre}: {playlist_id}");
+        if !not_public_playlists.is_empty() {
+            println!("=== PLAYLISTS: NOT PUBLIC ===");
+            for (genre, playlist_id) in &not_public_playlists {
+                println!("- {genre}: {playlist_id}");
+            }
         }
     }
-
     Ok(())
 }
 
 // https://www.youtube.com/playlist?list=PL037F8CE61D670129: unavailable (no info)
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct Video {
     id: String,
     status: VideoStatus,
+    content_details: VideoContentDetails,
 }
-
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct VideoStatus {
     privacy_status: VideoPrivacyStatus,
     embeddable: bool,
 }
-
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 enum VideoPrivacyStatus {
     Private,
     Public,
     Unlisted,
+}
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct VideoContentDetails {
+    region_restriction: Option<VideoRegionRestriction>,
+}
+impl VideoContentDetails {
+    #[allow(dead_code)]
+    // I tried to use this, but it was a bit too depressing to see the number of region-locked videos,
+    // so I decided to simply ignore it. I'm sure people will let me know if videos don't load for them.
+    fn is_blocked(&self) -> bool {
+        self.region_restriction.is_some()
+    }
+}
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct VideoRegionRestriction {
+    allowed: Option<Vec<String>>,
+    blocked: Option<Vec<String>>,
 }
 
 fn list_videos<'a>(
@@ -191,7 +213,7 @@ fn list_videos<'a>(
         items: Vec<Video>,
     }
     let response = reqwest::blocking::get(format!(
-        "https://www.googleapis.com/youtube/v3/videos?part=status,id&id={ids}&key={key}&maxResults=50"
+        "https://www.googleapis.com/youtube/v3/videos?part=status,id,contentDetails&id={ids}&key={key}&maxResults=50"
     ))?.json::<ListVideosResponse>()?;
 
     Ok(response.items)
