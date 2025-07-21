@@ -208,6 +208,10 @@ pub fn produce(
                 "stylistic origin",
                 stylistic_origin,
             )? {
+                if source_id == genre_id {
+                    continue;
+                }
+
                 graph.edges.insert(EdgeData {
                     source: source_id,
                     target: genre_id,
@@ -224,6 +228,10 @@ pub fn produce(
                 "derivative",
                 derivative,
             )? {
+                if target_id == genre_id {
+                    continue;
+                }
+
                 graph.edges.insert(EdgeData {
                     source: genre_id,
                     target: target_id,
@@ -240,6 +248,10 @@ pub fn produce(
                 "subgenre",
                 subgenre,
             )? {
+                if target_id == genre_id {
+                    continue;
+                }
+
                 graph.edges.insert(EdgeData {
                     source: genre_id,
                     target: target_id,
@@ -256,6 +268,10 @@ pub fn produce(
                 "fusion genre",
                 fusion_genre,
             )? {
+                if target_id == genre_id {
+                    continue;
+                }
+
                 graph.edges.insert(EdgeData {
                     source: genre_id,
                     target: target_id,
