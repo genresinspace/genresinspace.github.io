@@ -10,7 +10,7 @@ use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use wikitext_util::{
     nodes_inner_text, nodes_inner_text_with_config, parse_wiki_text_2 as pwt,
-    wikipedia_pwt_configuration, InnerTextConfig, NodeMetadata,
+    wikipedia_pwt_configuration, InnerTextConfig, NodeMetadata, NodeMetadataType,
 };
 
 use crate::{
@@ -325,10 +325,10 @@ fn process_pages<T: ProcessedPage>(
         let mut description: Option<String> = None;
         let mut pause_recording_description = false;
         // The `start` of a node doesn't always correspond to the `end` of the last node,
-        // so we always save the `end` to allow for full reconstruction in the description.
-        let mut last_end = None;
-        fn start_including_last_end(last_end: &mut Option<usize>, start: usize) -> usize {
-            last_end.take().filter(|&end| end < start).unwrap_or(start)
+        // so we always save the metadata for the last node to allow for full reconstruction in the description.
+        let mut last_node = None;
+        fn start_including_last_node(last_node: &mut Option<NodeMetadata>, start: usize) -> usize {
+            last_node.take().map(|t| t.end).filter(|&end| end < start).unwrap_or(start)
         }
         let mut last_heading = None;
 
@@ -336,6 +336,7 @@ fn process_pages<T: ProcessedPage>(
         let mut page_results = Vec::new();
 
         for node in &parsed_wikitext.nodes {
+            let node_metadata = NodeMetadata::for_node(node);
             match node {
                 pwt::Node::Template {
                     name,
@@ -378,11 +379,11 @@ fn process_pages<T: ProcessedPage>(
                             && !is_ignorable_template(&template_name_found)
                         {
                             description.push_str(
-                                &wikitext[start_including_last_end(&mut last_end, *start)..*end],
+                                &wikitext[start_including_last_node(&mut last_node, *start)..*end],
                             );
                         }
                     }
-                    last_end = Some(*end);
+                    last_node = Some(node_metadata);
 
                     // Check for direct template match or nested template in module parameter
                     let target_parameters = if template_name_found == template_name {
@@ -460,17 +461,17 @@ fn process_pages<T: ProcessedPage>(
                             );
                         }
                 }
-                pwt::Node::StartTag { name, end, .. } if name == "ref" => {
+                pwt::Node::StartTag { name, .. } if name == "ref" => {
                     pause_recording_description = true;
-                    last_end = Some(*end);
+                    last_node = Some(node_metadata);
                 }
-                pwt::Node::EndTag { name, end, .. } if name == "ref" => {
+                pwt::Node::EndTag { name, .. } if name == "ref" => {
                     pause_recording_description = false;
-                    last_end = Some(*end);
+                    last_node = Some(node_metadata);
                 }
-                pwt::Node::Tag { name, end, .. } if name == "ref" => {
+                pwt::Node::Tag { name, .. } if name == "ref" => {
                     // Explicitly ignore body of a ref tag
-                    last_end = Some(*end);
+                    last_node = Some(node_metadata);
                 }
                 pwt::Node::Bold { end, start }
                 | pwt::Node::BoldItalic { end, start }
@@ -495,7 +496,18 @@ fn process_pages<T: ProcessedPage>(
                 | pwt::Node::UnorderedList { end, start, .. } => {
                     if !pause_recording_description {
                         if let Some(description) = &mut description {
-                            let new_start = start_including_last_end(&mut last_end, *start);
+                            let last_node_was_link = last_node.as_ref().is_some_and(|n| n.ty == NodeMetadataType::Link);
+                            let this_node_is_text = matches!(node, pwt::Node::Text { .. });
+
+                            let new_start = if last_node_was_link && this_node_is_text {
+                                // HACK: If the last node was a link and this node is text, skip to the end of the link.
+                                // This is because links can consume the surrounding text to the right through the magic
+                                // of linktrails, and we want to avoid using the text that the link has consumed.
+                                last_node.take().map(|n| n.end).unwrap_or(*start)
+                            } else {
+                                start_including_last_node(&mut last_node, *start)
+                            };
+
                             let new_fragment = &wikitext[new_start..*end];
                             if dump_page
                                 .as_deref()
@@ -510,9 +522,9 @@ fn process_pages<T: ProcessedPage>(
                             description.push_str(new_fragment);
                         }
                     }
-                    last_end = Some(*end);
+                    last_node = Some(node_metadata);
                 }
-                pwt::Node::Heading { nodes, end, .. } => {
+                pwt::Node::Heading { nodes, .. } => {
                     if let Some(processed_item) = &mut processed_item {
                         // We continue going if the description so far is empty: some infoboxes are placed
                         // before a heading, with the content following after the heading, so we offer
@@ -520,14 +532,14 @@ fn process_pages<T: ProcessedPage>(
                         if description.as_ref().is_some_and(|s| !s.trim().is_empty()) {
                             processed_item.update_description(description.take().unwrap());
                         } else {
-                            last_end = Some(*end);
+                            last_node = Some(node_metadata);
                         }
                     }
 
                     last_heading = Some(nodes_inner_text(nodes));
                 }
-                pwt::Node::Image { end, .. } | pwt::Node::Comment { end, .. } => {
-                    last_end = Some(*end);
+                pwt::Node::Image { .. } | pwt::Node::Comment { .. } => {
+                    last_node = Some(node_metadata);
                 }
             }
         }
@@ -569,8 +581,8 @@ fn dump_page_nodes(wikitext: &str, nodes: &[pwt::Node], depth: usize) {
         print!("{:indent$}", "", indent = depth * 2);
         let metadata = NodeMetadata::for_node(node);
         println!(
-            "{}[{}..{}]: {:?}",
-            metadata.name,
+            "{:?}[{}..{}]: {:?}",
+            metadata.ty,
             metadata.start,
             metadata.end,
             &wikitext[metadata.start..metadata.end]

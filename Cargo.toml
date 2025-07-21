@@ -6,3 +6,5 @@ resolver = "2"
 serde = { version = "1.0", features = ["derive"] }
 wikitext_util = { git = "https://github.com/philpax/wikitext_simplified.git" }
 wikitext_simplified = { git = "https://github.com/philpax/wikitext_simplified.git" }
+# wikitext_simplified = { path = "../wikitext_simplified/wikitext_simplified" }
+# wikitext_util = { path = "../wikitext_simplified/wikitext_util" }
