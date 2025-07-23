@@ -48,7 +48,7 @@ struct ArtistFileData {
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(transparent)]
 /// Maps link targets to page IDs.
-struct LinksToPageIds(BTreeMap<String, usize>);
+struct LinksToPageIds(BTreeMap<String, PageDataId>);
 
 #[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
 enum EdgeType {
@@ -68,8 +68,8 @@ impl Serialize for EdgeData {
         S: serde::Serializer,
     {
         let mut tup = serializer.serialize_tuple(3)?;
-        tup.serialize_element(&self.source.0)?;
-        tup.serialize_element(&self.target.0)?;
+        tup.serialize_element(&self.source)?;
+        tup.serialize_element(&self.target)?;
         tup.serialize_element(&match self.ty {
             EdgeType::Derivative => 0,
             EdgeType::Subgenre => 1,
@@ -324,7 +324,7 @@ pub fn produce(
             links_to_articles
                 .0
                 .iter()
-                .filter_map(|(link, page)| page_to_id.get(page).map(|id| (link.clone(), id.0))),
+                .filter_map(|(link, page)| page_to_id.get(page).map(|id| (link.clone(), *id))),
         )))?,
     )?;
 

@@ -20,26 +20,10 @@ pub struct Config {
     pub youtube_api_key: String,
 }
 
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 /// A newtype for an ID assigned to a page for the graph.
+#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+#[serde(transparent)]
 pub struct PageDataId(pub usize);
-impl Serialize for PageDataId {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        serializer.serialize_str(&self.0.to_string())
-    }
-}
-impl<'de> Deserialize<'de> for PageDataId {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        let s = String::deserialize(deserializer)?;
-        Ok(PageDataId(s.parse().map_err(serde::de::Error::custom)?))
-    }
-}
 impl std::fmt::Display for PageDataId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "page_id:{}", self.0)
