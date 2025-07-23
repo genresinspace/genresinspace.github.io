@@ -1,5 +1,10 @@
 {
   "name": "The Books",
   "description": "'''The Books''' were an American-Dutch duo, formed in [[New York City]] in 1999, consisting of guitarist and vocalist [[Zammuto_(band)|Nick Zammuto]] and cellist Paul de Jong. Their music typically incorporated [[Sampling (music)|samples]] of obscure sounds and speech. They released three critically acclaimed albums on the German label Tomlab, and released their fourth studio album, ''[[The Way Out (The Books album)|The Way Out]]'', on [[Temporary Residence Limited]] in July 2010.",
-  "last_revision_date": "2025-06-20T02:05:44Z"
+  "last_revision_date": "2025-06-20T02:05:44Z",
+  "genres": [
+    932,
+    1114,
+    438
+  ]
 }

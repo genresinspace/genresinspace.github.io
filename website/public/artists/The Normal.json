@@ -1,5 +1,10 @@
 {
   "name": "The Normal",
   "description": "'''The Normal''' is the [[recording artist]] name used by English music producer [[Daniel Miller (music producer)|Daniel Miller]], a film editor at the time, who is best known as the founder of the [[record label]] [[Mute Records]].",
-  "last_revision_date": "2024-10-18T07:01:22Z"
+  "last_revision_date": "2024-10-18T07:01:22Z",
+  "genres": [
+    755,
+    588,
+    397
+  ]
 }

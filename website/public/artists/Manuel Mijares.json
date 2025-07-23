@@ -1,5 +1,10 @@
 {
   "name": "Manuel Mijares",
   "description": "'''José Manuel Mijares Morán''' (born 7 February 1958 in [[Mexico City]]) is an adult-contemporary pop singer who is billed as '''Manuel Mijares''' ({{IPA|es|manˈwel miˈxaɾes|pron}}) or simply as '''Mijares'''. He began his career at age 23 and achieved high popularity from the mid-80s to mid 90s in Latin America and Japan mainly. From 1997 to 2011 he was married to Mexican singer/actress [[Lucero (actress)|Lucero]], with whom he has two children.",
-  "last_revision_date": "2025-06-05T12:27:14Z"
+  "last_revision_date": "2025-06-05T12:27:14Z",
+  "genres": [
+    682,
+    718,
+    745
+  ]
 }

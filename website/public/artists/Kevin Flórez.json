@@ -1,5 +1,9 @@
 {
   "name": "Kevin Flórez",
   "description": "'''Kevin Flórez''' (born '''Kevin Rafael Flórez Rodríguez''', August 19, 1991) is a Colombian singer-songwriter. For his work in the urban [[champeta]] genre, he has won several local and national awards. He is known for songs like \"La Invité a Bailar\" (2013), \"Con Ella\" (2013), and \"La Pikotera\" (2019).",
-  "last_revision_date": "2024-11-25T17:28:48Z"
+  "last_revision_date": "2024-11-25T17:28:48Z",
+  "genres": [
+    1110,
+    221
+  ]
 }

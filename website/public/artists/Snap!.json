@@ -1,5 +1,10 @@
 {
   "name": "SNAP!",
   "description": "'''SNAP!''' is a German [[Eurodance]] group formed in 1989 by [[Record producer|producers]] Michael Münzing and Luca Anzilotti. The act has undergone several lineup changes over the years, featuring American singers, songwriters, and rappers such as [[Thea Austin]], [[Turbo B]], [[Niki Haris]], and [[Penny Ford]]. Their most popular hits include \"[[The Power (Snap! song)|The Power]]\" and \"[[Rhythm Is a Dancer]]\", both of which achieved No. 1 status in multiple countries.",
-  "last_revision_date": "2025-05-30T08:26:44Z"
+  "last_revision_date": "2025-05-30T08:26:44Z",
+  "genres": [
+    559,
+    546,
+    413
+  ]
 }

@@ -1,5 +1,8 @@
 {
   "name": "The All-Stars",
   "description": "The '''All-Stars''' were a short-lived English [[blues]] combo active in the early-mid 1960s. Originally known as the '''Cyril Davies (R&B) All-Stars''', their later recordings are often credited to the '''Immediate All-Stars''' due to their releases on [[Immediate Records]]. In 1999, the group reformed as the '''Carlo Little All-Stars'''.",
-  "last_revision_date": "2024-10-18T21:21:20Z"
+  "last_revision_date": "2024-10-18T21:21:20Z",
+  "genres": [
+    168
+  ]
 }

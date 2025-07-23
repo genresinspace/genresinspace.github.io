@@ -1,5 +1,13 @@
 {
   "name": "Lone",
   "description": "'''Matt Cutler''', better known as '''Lone''', is a British [[electronic musician]] from [[Nottingham]], England.",
-  "last_revision_date": "2025-02-14T00:25:29Z"
+  "last_revision_date": "2025-02-14T00:25:29Z",
+  "genres": [
+    592,
+    394,
+    637,
+    559,
+    161,
+    47
+  ]
 }

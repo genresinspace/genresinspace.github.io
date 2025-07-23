@@ -1,5 +1,13 @@
 {
   "name": "Bombs Away",
   "description": "'''Bombs Away''' is an Australian DJ vocal and producer duo consisting of Matthew and Thomas Coleman. They are best known for their top 40 2012 single \"[[Party Bass]]\".",
-  "last_revision_date": "2025-05-18T17:09:28Z"
+  "last_revision_date": "2025-05-18T17:09:28Z",
+  "genres": [
+    636,
+    546,
+    374,
+    941,
+    384,
+    912
+  ]
 }

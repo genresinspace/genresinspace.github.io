@@ -1,5 +1,11 @@
 {
   "name": "Lou Barlow",
   "description": "'''Louis Knox Barlow''' (born July 17, 1966) is an American [[alternative rock]] musician and songwriter. A founding member of the groups [[Dinosaur Jr.]], [[Sebadoh]] and [[The Folk Implosion]], Barlow is credited with helping to pioneer the [[slacker rock|lo-fi style of rock music]] in the late 1980s and early 1990s. His first band, which was formed in [[Amherst, Massachusetts]], was [[Deep Wound]].\n\nBarlow has released four solo albums.",
-  "last_revision_date": "2025-05-26T12:10:24Z"
+  "last_revision_date": "2025-05-26T12:10:24Z",
+  "genres": [
+    535,
+    575,
+    1096,
+    40
+  ]
 }

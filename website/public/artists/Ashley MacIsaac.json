@@ -1,5 +1,9 @@
 {
   "name": "Ashley MacIsaac",
   "description": "'''Ashley Dwayne MacIsaac''' (born February 24, 1975) is a Canadian musician, singer, songwriter and actor from [[Cape Breton Island]].  He has received three [[Juno Awards]], winning for [[Juno Award for New Artist of the Year|Best New Solo Artist]] and [[Juno Award for Roots & Traditional Album of the Year – Solo|Best Roots & Traditional Album – Solo]] at the [[Juno Awards of 1996]], and for Best Instrumental Artist at the [[Juno Awards of 1997]].  His 1995 album ''[[Hi™ How Are You Today?]]'' was a double-platinum selling Canadian record. MacIsaac published an autobiography, ''Fiddling with Disaster'' in 2003.",
-  "last_revision_date": "2025-06-20T14:17:58Z"
+  "last_revision_date": "2025-06-20T14:17:58Z",
+  "genres": [
+    212,
+    1024
+  ]
 }

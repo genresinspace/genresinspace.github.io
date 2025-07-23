@@ -1,5 +1,11 @@
 {
   "name": "Rauw Alejandro",
   "description": "'''Raúl Alejandro Ocasio Ruiz''' (born January 10, 1993), known professionally as '''Rauw Alejandro''', is a Puerto Rican singer. His accolades include two [[Latin Grammy Awards]], two [[Billboard Latin Music Awards|''Billboard'' Latin Music Awards]] and an [[IHeartRadio Music Awards]].",
-  "last_revision_date": "2025-06-11T16:43:10Z"
+  "last_revision_date": "2025-06-11T16:43:10Z",
+  "genres": [
+    685,
+    1233,
+    1011,
+    676
+  ]
 }

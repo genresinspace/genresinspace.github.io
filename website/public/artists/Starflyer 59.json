@@ -1,5 +1,14 @@
 {
   "name": "Starflyer 59",
   "description": "'''Starflyer 59''' is an American [[alternative rock]] band from [[Riverside, California]], that was founded in 1993 by [[Jason Martin (musician)|Jason Martin]], brother of [[Ronnie Martin (musician)|Ronnie Martin]] of [[Joy Electric]]. While Jason Martin has written nearly all of Starflyer 59's songs, the band has included a number of different musicians over the years, including [[Jeff Cloud]], [[Frank Lenz]], and [[Richard Swift (musician)|Richard Swift]]. The band's sound was initially identified as an outgrowth of the [[shoegaze]] movement of the early 1990s, but the band's music has gradually evolved to the point of little resemblance to that of its early days.",
-  "last_revision_date": "2025-06-07T07:39:53Z"
+  "last_revision_date": "2025-06-07T07:39:53Z",
+  "genres": [
+    244,
+    575,
+    357,
+    931,
+    574,
+    40,
+    1087
+  ]
 }

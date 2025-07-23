@@ -1,5 +1,11 @@
 {
   "name": "Peter Rowan",
   "description": "'''Peter Rowan''' (born July 4, 1942) is an American [[bluegrass music|bluegrass]] musician and composer. He plays guitar, fiddle, dobro, banjo, bass, piano and [[mandolin]]. He has a wide vocal range and [[yodeling|yodels]]. He was inducted into the [[International Bluegrass Music Hall of Fame]] in 2022.",
-  "last_revision_date": "2025-06-11T16:17:18Z"
+  "last_revision_date": "2025-06-11T16:17:18Z",
+  "genres": [
+    1179,
+    287,
+    137,
+    956
+  ]
 }

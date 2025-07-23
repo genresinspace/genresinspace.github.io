@@ -1,5 +1,11 @@
 {
   "name": "Nigel Kennedy",
   "description": "'''Nigel Kennedy''' (born 28 December 1956) is an English [[violin]]ist and [[viola|violist]].\n\nHis early career was primarily spent performing [[classical music]], and has since expanded into [[jazz music|jazz]], [[klezmer]], and other music genres.",
-  "last_revision_date": "2025-06-10T10:33:14Z"
+  "last_revision_date": "2025-06-10T10:33:14Z",
+  "genres": [
+    655,
+    1024,
+    616,
+    912
+  ]
 }

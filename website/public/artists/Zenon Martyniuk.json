@@ -1,5 +1,11 @@
 {
   "name": "Zenon Martyniuk",
   "description": "'''Zenon Martyniuk''' (born 23 June 1969) – Polish [[singer]] and [[guitarist]] performing music from the [[disco polo]] genre.",
-  "last_revision_date": "2025-04-17T14:04:21Z"
+  "last_revision_date": "2025-04-17T14:04:21Z",
+  "genres": [
+    413,
+    312,
+    348,
+    414
+  ]
 }

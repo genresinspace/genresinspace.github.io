@@ -1,5 +1,10 @@
 {
   "name": "Derek Bailey",
   "description": "'''Derek Bailey''' (29 January 1930 – 25 December 2005) was an English [[avant-garde]] guitarist and an important figure in the [[free improvisation]] movement. Bailey abandoned conventional performance techniques found in [[jazz]], exploring [[atonality]], [[noise in music|noise]], and whatever unusual sounds he could produce with the guitar. Much of his work was released on his own label [[Incus Records]]. In addition to solo work, Bailey collaborated frequently with other musicians and recorded with collectives such as [[Spontaneous Music Ensemble]] and [[Company (free improvisation group)|Company]].",
-  "last_revision_date": "2025-06-16T12:32:47Z"
+  "last_revision_date": "2025-06-16T12:32:47Z",
+  "genres": [
+    620,
+    445,
+    418
+  ]
 }

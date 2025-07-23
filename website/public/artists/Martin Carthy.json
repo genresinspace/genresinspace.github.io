@@ -1,5 +1,9 @@
 {
   "name": "Martin Carthy",
   "description": "'''Martin Dominic Forbes Carthy''' [[Order of the British Empire|MBE]] (born 21 May 1941) is an English singer and guitarist who has remained one of the most influential figures in [[English folk music]], inspiring contemporaries such as [[Bob Dylan]] and [[Paul Simon]], as well as later artists such as [[Richard Thompson (musician)|Richard Thompson]], since he emerged as a young musician in the early days of the [[British folk revival|folk revival]] in the UK during the 1960s and 1970s.",
-  "last_revision_date": "2025-04-21T23:48:40Z"
+  "last_revision_date": "2025-04-21T23:48:40Z",
+  "genres": [
+    430,
+    169
+  ]
 }

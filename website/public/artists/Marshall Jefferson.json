@@ -1,5 +1,10 @@
 {
   "name": "Marshall Jefferson",
   "description": "'''Marshall Julius Jefferson''' (born September 19, 1959) is an American musician, working in the [[house music]] subgenres of [[Chicago house]] and [[deep house]].",
-  "last_revision_date": "2025-06-09T19:53:09Z"
+  "last_revision_date": "2025-06-09T19:53:09Z",
+  "genres": [
+    335,
+    559,
+    228
+  ]
 }

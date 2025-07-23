@@ -1,5 +1,11 @@
 {
   "name": "Damian Marley",
   "description": "'''Damian Robert Nesta “Jr. Gong” Marley''' (born 21 July 1978) is a Jamaican [[reggae]] musician. The second youngest child of [[Bob Marley]], he is the recipient of four [[Grammy Awards]].",
-  "last_revision_date": "2025-03-16T05:38:15Z"
+  "last_revision_date": "2025-03-16T05:38:15Z",
+  "genres": [
+    1005,
+    1007,
+    315,
+    547
+  ]
 }

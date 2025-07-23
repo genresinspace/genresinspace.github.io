@@ -1,5 +1,11 @@
 {
   "name": "Rubber Rodeo",
   "description": "'''Rubber Rodeo''' was an American, Rhode Island–based band active in the 1980s. The band fused [[Roxy Music]]-influenced [[new wave music]] with [[Country music|country and western]] influences, and dressed in 1950s-vintage country and western clothing. Their 1984 release \"Anywhere With You\" reached No.&nbsp;86 on the [[Billboard Hot 100|''Billboard'' Hot 100]].",
-  "last_revision_date": "2025-04-13T05:45:50Z"
+  "last_revision_date": "2025-04-13T05:45:50Z",
+  "genres": [
+    290,
+    822,
+    293,
+    35
+  ]
 }

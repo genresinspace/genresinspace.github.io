@@ -1,5 +1,8 @@
 {
   "name": "Nielson",
   "description": "'''Niels Littooij''' (born 28 December 1989), better known by his stage name '''Nielson''', is a Dutch singer-songwriter. He was a member of the Dutch music trio Zirkus Zirkus in the early 2010s, but rose to national fame in 2012 due to his participation in the television programme ''[[De beste singer-songwriter van Nederland]]''.",
-  "last_revision_date": "2024-11-16T23:19:15Z"
+  "last_revision_date": "2024-11-16T23:19:15Z",
+  "genres": [
+    792
+  ]
 }

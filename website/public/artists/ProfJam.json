@@ -1,5 +1,9 @@
 {
   "name": "ProfJam",
   "description": "'''Mário Cotrim''', mostly known by his [[stage name]] '''ProfJam''' (born 6 June 1991), is a [[Portugal|Portuguese]] rapper and [[Hip hop music|hip hop]] singer.",
-  "last_revision_date": "2025-05-12T14:42:37Z"
+  "last_revision_date": "2025-05-12T14:42:37Z",
+  "genres": [
+    550,
+    547
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "name": "Finntroll",
   "description": "'''Finntroll''' is a Finnish [[folk metal]] band from [[Helsinki]]. They combine elements of [[black metal]] and [[death metal]] with a type of Finnish folk music called [[humppa]]. Finntroll's lyrics are mostly in Swedish, the only exception being the song \"Madon Laulu\" on ''[[Visor om slutet]]''. Finntroll's original singer, Katla, decided to use Swedish over Finnish since he was part of a [[Swedish-speaking Finns|Swedish-speaking minority]] in Finland and the sound of the language seemed to better suit the band's \"[[troll]]ish\" outfit. Despite several vocalist changes, this tradition has continued.\n\nTo date, the band's discography includes seven full-length albums, a live album and three EPs. Their newest studio album ''Vredesvävd'' was released in 2020.",
-  "last_revision_date": "2025-06-13T15:59:59Z"
+  "last_revision_date": "2025-06-13T15:59:59Z",
+  "genres": [
+    432,
+    419
+  ]
 }

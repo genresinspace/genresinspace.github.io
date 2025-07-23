@@ -1,5 +1,11 @@
 {
   "name": "Texas Hippie Coalition",
   "description": "'''Texas Hippie Coalition''' (often abbreviated to '''THC''') is an American [[heavy metal music|heavy metal]] band from [[Denison, Texas]].",
-  "last_revision_date": "2024-10-04T05:11:13Z"
+  "last_revision_date": "2024-10-04T05:11:13Z",
+  "genres": [
+    542,
+    1118,
+    528,
+    512
+  ]
 }

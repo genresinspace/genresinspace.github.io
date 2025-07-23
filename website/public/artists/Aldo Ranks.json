@@ -1,5 +1,9 @@
 {
   "name": "Aldo Ranks",
   "description": "'''Aldo Vargas''', known by his stage name '''Aldo Ranks''', is a Panamanian musician of [[reggae en Español]]. From 1992 to 1998, he was the most outstanding and youngest rapper in Panama,{{citation needed|date=June 2012}} supported by producers such as [[El Chombo]] and DJ Pablito on albums such as ''Cuentos de la Cripta'' (\"Tales from the Crypt\") and ''La Mafia''. Ranks later joined the label Panama Music.",
-  "last_revision_date": "2025-02-20T03:24:32Z"
+  "last_revision_date": "2025-02-20T03:24:32Z",
+  "genres": [
+    1011,
+    1006
+  ]
 }

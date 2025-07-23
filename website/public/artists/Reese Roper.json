@@ -1,5 +1,10 @@
 {
   "name": "Reese Roper",
   "description": "'''Michael Reese Roper''' (born June 30, 1973) is an American singer-songwriter, best known as lead singer for the [[Denver]], Colorado-based [[Christian ska|Christian]] [[ska punk]] band [[Five Iron Frenzy]], as well as fronting the rock bands [[Brave Saint Saturn]] and [[Roper (band)|Roper]].",
-  "last_revision_date": "2025-05-05T18:49:32Z"
+  "last_revision_date": "2025-05-05T18:49:32Z",
+  "genres": [
+    1091,
+    40,
+    253
+  ]
 }

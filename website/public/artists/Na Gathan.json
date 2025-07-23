@@ -1,5 +1,10 @@
 {
   "name": "Na Gathan",
   "description": "'''Na Gathan''' is a [[Scottish Gaelic]] [[Indie rock]] band from the Isle of [[Skye]].",
-  "last_revision_date": "2025-05-05T18:13:46Z"
+  "last_revision_date": "2025-05-05T18:13:46Z",
+  "genres": [
+    575,
+    480,
+    1066
+  ]
 }

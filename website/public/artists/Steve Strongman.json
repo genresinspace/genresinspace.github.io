@@ -1,5 +1,10 @@
 {
   "name": "Steve Strongman",
   "description": "'''Steve Strongman''' is a Canadian [[blues]] guitarist, singer and songwriter.  He has released several blues albums including, ''Honey'', ''Blues in Colour'', ''Live at the Barn'', ''A Natural Fact'',  ''Let Me Prove it to You'' and ''No Time Like Now''.",
-  "last_revision_date": "2025-05-25T10:46:56Z"
+  "last_revision_date": "2025-05-25T10:46:56Z",
+  "genres": [
+    139,
+    199,
+    138
+  ]
 }

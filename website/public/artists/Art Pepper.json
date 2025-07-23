@@ -1,5 +1,10 @@
 {
   "name": "Art Pepper",
   "description": "'''Arthur Edward Pepper Jr.''' (September 1, 1925 – June 15, 1982) was an American [[jazz]] musician, most known as an [[alto saxophonist]]. He occasionally performed and recorded on [[tenor saxophone]], [[clarinet]] (his first instrument) and [[bass clarinet]]. Active primarily in [[West Coast jazz]], Pepper first came to prominence in [[Stan Kenton]]'s big band. He was known for his emotionally charged performances and several stylistic shifts throughout his career, and was described by critic [[Scott Yanow]] as having \"attained his goal of becoming the world's greatest altoist\" at the time of his death in 1982.",
-  "last_revision_date": "2025-01-10T04:46:58Z"
+  "last_revision_date": "2025-01-10T04:46:58Z",
+  "genres": [
+    1252,
+    616,
+    280
+  ]
 }

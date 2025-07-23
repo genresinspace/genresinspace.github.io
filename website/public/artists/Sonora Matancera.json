@@ -1,5 +1,11 @@
 {
   "name": "Sonora",
   "description": "'''La Sonora Matancera''' is a [[Music of Cuba|Cuban]] band that played [[Latin American]] urban popular dance music. Founded in 1924 and led for more than five decades by guitarist, vocalist, composer, and [[Producer (music)|producer]] Rogelio Martínez, [[Musicology|musicologist]]s consider it an icon of this type of music. Notable singers to have sung and recorded with the band include [[Bienvenido Granda]], [[Daniel Santos (singer)|Daniel Santos]], [[Myrta Silva]], [[Miguelito Valdés]], Leo Marini, [[Celia Cruz]], [[Nelson Pinedo]], Vicentico Valdés, Estanislao \"Laíto\" Sureda, [[Alberto Beltrán (singer)|Alberto Beltrán]], Carlos Argentino, and [[Celio González]].",
-  "last_revision_date": "2025-03-02T21:15:38Z"
+  "last_revision_date": "2025-03-02T21:15:38Z",
+  "genres": [
+    1105,
+    516,
+    215,
+    140
+  ]
 }

@@ -1,5 +1,11 @@
 {
   "name": "John Fred",
   "description": "'''John Fred Gourrier''' (May 8, 1941 – April 15, 2005) was an American [[blue-eyed soul]], [[swamp pop]], [[rock and roll]], and [[R&B]] performer from [[Baton Rouge, Louisiana|Baton Rouge]], [[Louisiana]], best known for the 1967 No. 1 hit song \"[[Judy in Disguise (With Glasses)]]\".",
-  "last_revision_date": "2025-04-05T13:00:52Z"
+  "last_revision_date": "2025-04-05T13:00:52Z",
+  "genres": [
+    1022,
+    1148,
+    1015,
+    182
+  ]
 }

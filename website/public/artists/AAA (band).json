@@ -1,5 +1,10 @@
 {
   "name": "AAA",
   "description": "'''AAA''' (pronounced '''Triple A'''; also an [[acronym]] for '''Attack All Around''') is a Japanese [[pop music|pop]] group signed to the label [[Avex Trax]] which debuted in September 2005. The name has the meaning of \"challenging everything\" or \"against all odds\", and the group is marketed by their label as a \"super performance unit\".\n\nThe group was formed through Avex's own auditions, and originally consisted of five young men and three young women who had appeared in commercials and/or had prior experience as backup dancers for other Japanese stars, such as [[Ayumi Hamasaki]] and [[Ami Suzuki]].",
-  "last_revision_date": "2025-04-21T00:55:35Z"
+  "last_revision_date": "2025-04-21T00:55:35Z",
+  "genres": [
+    311,
+    412,
+    609
+  ]
 }

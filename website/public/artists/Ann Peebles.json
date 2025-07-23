@@ -1,5 +1,10 @@
 {
   "name": "Ann Peebles",
   "description": "'''Ann Lee Peebles''' (born April 27, 1947) is an American retired singer and songwriter who gained popularity for her [[Memphis soul]] albums of the 1970s while signed to [[Hi Records]]. Her most successful singles include \"[[I Can't Stand the Rain (song)|I Can't Stand the Rain]]\", which she wrote with her husband [[Don Bryant (songwriter)|Don Bryant]] and radio broadcaster Bernie Miller, and \"[[I'm Gonna Tear Your Playhouse Down]]\". In 2014, she was inducted into the [[Memphis Music Hall of Fame]].",
-  "last_revision_date": "2025-05-07T21:01:50Z"
+  "last_revision_date": "2025-05-07T21:01:50Z",
+  "genres": [
+    1015,
+    740,
+    138
+  ]
 }

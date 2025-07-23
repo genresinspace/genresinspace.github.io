@@ -1,5 +1,9 @@
 {
   "name": "Yoshio Tabata",
   "description": "{{nihongo|'''Yoshio Tabata'''|田端義夫|Tabata Yoshio|extra=January 1, 1919 – April 25, 2013}} was a Japanese ''[[ryūkōka]]'' and ''[[enka]]'' singer, songwriter, and electric guitarist. His debut song {{nihongo|\"Shima no Funauta\"|島の舟唄|literally \"Island Ship Song\"}} was released in 1939. Along with enka-shi [[Haruo Oka]]'s 1939 debut, his debut had a big impact on Japanese popular music because Japanese popular ''[[ryūkōka]]'' music of that time was mainly sung by classical music singers such as [[Ichiro Fujiyama]] and [[Noriko Awaya]]. He was born in [[Matsusaka, Mie|Matsusaka]], [[Mie prefecture]], Japan.",
-  "last_revision_date": "2025-03-06T10:26:21Z"
+  "last_revision_date": "2025-03-06T10:26:21Z",
+  "genres": [
+    405,
+    1039
+  ]
 }

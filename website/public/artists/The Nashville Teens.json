@@ -1,5 +1,11 @@
 {
   "name": "The Nashville Teens",
   "description": "'''The Nashville Teens''' are an English rock band, formed in [[Surrey]] in 1962. They are best known for their 1964 [[hit single]] \"[[Tobacco Road (song)|Tobacco Road]]\", a Top 10 hit in the United Kingdom and Canada, and a Top 20 hit in the United States.",
-  "last_revision_date": "2025-06-03T19:40:12Z"
+  "last_revision_date": "2025-06-03T19:40:12Z",
+  "genres": [
+    111,
+    170,
+    1022,
+    481
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "name": "The Higsons",
   "description": "'''The Higsons''' were an [[England|English]] [[funk-punk]] [[band (music)|band]], who existed between 1980 and 1986.",
-  "last_revision_date": "2025-04-08T10:28:00Z"
+  "last_revision_date": "2025-04-08T10:28:00Z",
+  "genres": [
+    1090,
+    965
+  ]
 }

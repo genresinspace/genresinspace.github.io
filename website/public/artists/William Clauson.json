@@ -1,5 +1,9 @@
 {
   "name": "William Clauson",
   "description": "'''William Clauson''' (May 2, 1930 &ndash; September 3, 2017) was a [[Swedish-American]] singer of [[folk song]]s from various nations, including some of the songs of [[Carl Michael Bellman]] in both English and Swedish.",
-  "last_revision_date": "2025-03-28T18:36:18Z"
+  "last_revision_date": "2025-03-28T18:36:18Z",
+  "genres": [
+    433,
+    1262
+  ]
 }

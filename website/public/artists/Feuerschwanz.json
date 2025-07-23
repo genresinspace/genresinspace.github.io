@@ -1,5 +1,12 @@
 {
   "name": "Feuerschwanz",
   "description": "'''Feuerschwanz''' (German for \"fire tail\") is a German [[medieval metal]] band founded in 2004 in [[Erlangen]].",
-  "last_revision_date": "2025-05-14T20:21:07Z"
+  "last_revision_date": "2025-05-14T20:21:07Z",
+  "genres": [
+    732,
+    731,
+    432,
+    269,
+    934
+  ]
 }

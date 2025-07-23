@@ -1,5 +1,9 @@
 {
   "name": "Wadada Leo Smith",
   "description": "'''Ishmael Wadada Leo Smith''' (born December 18, 1941) is an American trumpeter and composer, working primarily in the field of creative music. He was one of three finalists for the 2013 [[Pulitzer Prize for Music]] for ''[[Ten Freedom Summers]]'', released on May 22, 2012.",
-  "last_revision_date": "2025-05-04T02:54:16Z"
+  "last_revision_date": "2025-05-04T02:54:16Z",
+  "genres": [
+    445,
+    74
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "name": "Martin Denny",
   "description": "'''Martin Denny''' (April 10, 1911 – March 2, 2005) was an American pianist, composer, and arranger. Known as the \"father of [[exotica]],\" he was a multi-instrumentalist and could play a number of [[percussion instrument]]s. In a long career that saw him performing up to 3 weeks prior to his death, he toured the world popularizing his brand of [[lounge music]] which included exotic percussion, imaginative rearrangements of popular songs, and original songs that celebrated [[Tiki culture]].",
-  "last_revision_date": "2024-10-04T11:36:22Z"
+  "last_revision_date": "2024-10-04T11:36:22Z",
+  "genres": [
+    695,
+    416
+  ]
 }

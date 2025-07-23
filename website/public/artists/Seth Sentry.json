@@ -1,5 +1,9 @@
 {
   "name": "Seth Sentry",
   "description": "'''Seth Gabriel Marton''' (born 4 January 1983), who performs by his stage name '''Seth Sentry''', is an Australian [[Hip hop music|hip hop]] recording artist. He has released one extended play and three studio albums. At the [[ARIA Music Awards of 2015]] he won the [[ARIA Award for Best Urban Album]] for his second album, ''[[Strange New Past]]''. Sentry's touring schedule has involved headline shows around Australia, as well as appearances at numerous festivals such as Breath of Life, Fat As Butter, Come Together, Sprung Festival, [[Big Day Out]] (Melbourne), [[Homebake]], Hyperfest, Groovin the Moo and Triple J's One Night Stand.",
-  "last_revision_date": "2024-12-23T15:27:22Z"
+  "last_revision_date": "2024-12-23T15:27:22Z",
+  "genres": [
+    352,
+    547
+  ]
 }

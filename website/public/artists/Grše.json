@@ -1,5 +1,10 @@
 {
   "name": "Grše",
   "description": "'''Grgo Šipek''' (born on 22 November 1995), known professionally as '''Grše''', is a Croatian musician and rapper.",
-  "last_revision_date": "2025-05-20T10:11:51Z"
+  "last_revision_date": "2025-05-20T10:11:51Z",
+  "genres": [
+    534,
+    297,
+    1203
+  ]
 }

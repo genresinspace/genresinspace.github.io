@@ -1,5 +1,10 @@
 {
   "name": "Sage Todz",
   "description": "'''Eretoda Ogunbanwo''', known professionally as '''Sage Todz''', is a [[Welsh people|Welsh]] rapper producing both [[Welsh language|Welsh]] and [[English language]] music.",
-  "last_revision_date": "2025-03-15T21:10:42Z"
+  "last_revision_date": "2025-03-15T21:10:42Z",
+  "genres": [
+    1249,
+    1225,
+    1221
+  ]
 }

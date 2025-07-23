@@ -1,5 +1,11 @@
 {
   "name": "Relatives Menschsein",
   "description": "'''Relatives Menschsein''' is a [[German people|German]] [[darkwave]] band formed in 1990 by the musicians Amadeus, Lissy Mödl and Jörg Wolfgram. They are one of the first \"Neue Deutsche Todeskunst\" (''New German Death Art'') bands. They were signed \nto label Danse Macabre, founded by the members of [[Das Ich]].",
-  "last_revision_date": "2024-01-06T09:06:37Z"
+  "last_revision_date": "2024-01-06T09:06:37Z",
+  "genres": [
+    804,
+    325,
+    505,
+    394
+  ]
 }

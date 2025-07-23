@@ -1,5 +1,13 @@
 {
   "name": "Ian Dury",
   "description": "'''Ian Robins Dury''' (12 May 1942{{snd}} 27 March 2000) was an English singer, songwriter and actor who rose to fame in the late 1970s, during the [[punk rock|punk]] and [[new wave music|new wave]] era of [[rock music]]. He was the lead singer and lyricist of [[Kilburn and the High Roads]], the Kilburns, [[The Blockheads|Ian Dury and the Blockheads]] and Ian Dury and the Music Students.",
-  "last_revision_date": "2025-06-13T19:31:14Z"
+  "last_revision_date": "2025-06-13T19:31:14Z",
+  "genres": [
+    930,
+    970,
+    962,
+    455,
+    347,
+    822
+  ]
 }

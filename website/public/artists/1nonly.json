@@ -1,5 +1,11 @@
 {
   "name": "1nonly",
   "description": "'''Nathan Scott Fuller''' (born April 6, 2004), better known by his stage name '''1nonly''', is a Korean-American rapper from [[Las Vegas]] best known for his breakout single \"Stay With Me\" which was released in 2020.",
-  "last_revision_date": "2025-05-02T21:36:40Z"
+  "last_revision_date": "2025-05-02T21:36:40Z",
+  "genres": [
+    547,
+    403,
+    894,
+    1203
+  ]
 }

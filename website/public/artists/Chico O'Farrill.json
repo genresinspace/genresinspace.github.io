@@ -1,5 +1,11 @@
 {
   "name": "Chico O'Farrill",
   "description": "'''Arturo''' \"'''Chico'''\" '''O'Farrill''' (October 28, 1921 – June 27, 2001) was a Cuban composer, arranger, and conductor, best known for his work in the Latin idiom, specifically [[Afro-Cuban jazz]] or \"Cubop\", although he also composed traditional jazz pieces and even symphonic works.\n\nBorn to an aristocratic Cuban family, he played the trumpet early in his career. He composed works for [[Machito]] (''Afro-Cuban suite'' with [[Charlie Parker]], 1950) and [[Benny Goodman]]'s Bebop Orchestra (\"Undercurrent Blues\"), and arranged for [[Dizzy Gillespie]] and [[Stan Kenton]], among others.\n\nIn the 1990s, O'Farrill led a big band that took up residence at New York's [[Birdland (jazz club)|Birdland]] nightclub. Chico's son, pianist [[Arturo O'Farrill]], eventually took over the band.",
-  "last_revision_date": "2025-05-25T16:34:34Z"
+  "last_revision_date": "2025-05-25T16:34:34Z",
+  "genres": [
+    20,
+    138,
+    679,
+    712
+  ]
 }

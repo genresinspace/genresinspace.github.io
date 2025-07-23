@@ -1,5 +1,9 @@
 {
   "name": "Tullycraft",
   "description": "'''Tullycraft''' is an American [[indie pop]] band from [[Seattle, Washington]], that formed in 1995. They were an early part of the American [[twee pop]] movement. They are known for their [[Do it yourself|DIY]] ethic, only releasing albums on independently owned and operated record labels.",
-  "last_revision_date": "2025-03-10T19:03:54Z"
+  "last_revision_date": "2025-03-10T19:03:54Z",
+  "genres": [
+    1217,
+    574
+  ]
 }

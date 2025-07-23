@@ -1,5 +1,9 @@
 {
   "name": "Bleak House",
   "description": "'''Bleak House''' are  a British [[Heavy metal music|heavy metal]] band formed in 1972, who were active during the [[New wave of British heavy metal]] era of the late 1970s and early 1980s. They are best known for their song \"Rainbow Warrior\", which gained fame due to its similarities with the 1986 [[Metallica]] song \"Welcome Home (Sanitarium)\". \n\nHaving been inactive for nearly forty years, the band announced that they would be reuniting for a one-off show at the Keep it True Festival 2021 in [[Lauda-Königshofen]], Germany. This was then postponed to 2022, due to the [[COVID-19 pandemic]]. The band's appearance at the festival was subsequently rescheduled to 2024, with a warm-up show at [[The Water Rats]] in [[London]] planned for 23 March 2024.",
-  "last_revision_date": "2025-03-13T17:42:33Z"
+  "last_revision_date": "2025-03-13T17:42:33Z",
+  "genres": [
+    542,
+    824
+  ]
 }

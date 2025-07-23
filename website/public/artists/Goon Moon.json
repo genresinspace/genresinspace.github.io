@@ -1,5 +1,12 @@
 {
   "name": "Goon Moon",
   "description": "'''Goon Moon''' is an American rock band composed of Jeordie White (also known as [[Twiggy Ramirez]]) and [[Chris Goss]]. The band released the mini-LP ''[[I Got a Brand New Egg Layin' Machine]]'' in 2005 and have since recorded a full-length album, ''[[Licker's Last Leg]]'', which was released on May 8, 2007. The album features cameos from longtime Goss collaborators [[Josh Homme]] and [[Josh Freese]], as well as [[Palm Desert Scene|desert rock]] mainstay [[Dave Catching]].",
-  "last_revision_date": "2024-12-31T20:48:26Z"
+  "last_revision_date": "2024-12-31T20:48:26Z",
+  "genres": [
+    40,
+    589,
+    877,
+    418,
+    575
+  ]
 }

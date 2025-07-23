@@ -1,5 +1,9 @@
 {
   "name": "Ravi Bissambhar",
   "description": "'''Ravi Bissambhar''', also known as '''Ravi B''', ({{IPA|hi|rəvi bisəⁿbʰərə|pron}}; born October 27, 1982) is a Trinidadian [[Chutney Soca|chutney soca]] musician.",
-  "last_revision_date": "2024-09-21T07:14:38Z"
+  "last_revision_date": "2024-09-21T07:14:38Z",
+  "genres": [
+    256,
+    254
+  ]
 }

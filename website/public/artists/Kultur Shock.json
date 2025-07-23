@@ -1,5 +1,11 @@
 {
   "name": "Kultur Shock",
   "description": "'''Kultur Shock''' is a Seattle-based [[folk punk]] band which specializes in mixing music like [[Rock music|rock]], [[Heavy metal music|metal]] and [[punk rock|punk]] with traditional [[Balkan music]].",
-  "last_revision_date": "2025-04-12T17:53:24Z"
+  "last_revision_date": "2025-04-12T17:53:24Z",
+  "genres": [
+    432,
+    434,
+    38,
+    522
+  ]
 }

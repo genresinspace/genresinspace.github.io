@@ -1,5 +1,9 @@
 {
   "name": "Ladysmith Black Mambazo",
   "description": "'''Ladysmith Black Mambazo''' are a South African male choral group singing in the local vocal styles of ''[[isicathamiya]]'' and ''[[mbube (genre)|mbube]]''. They became known internationally after singing with American [[Paul Simon]] on his 1986 album ''[[Graceland (album)|Graceland]].'' They have since won [[#Awards and nominations|multiple awards]], including five [[Grammy Award]]s the fifth of which they dedicated to the late former South African President [[Nelson Mandela]].\n\nFormed by [[Joseph Shabalala]] in 1960, Ladysmith Black Mambazo became one of South Africa's most prolific musical groups. Their releases received gold and platinum disc honours in both South Africa and abroad. The group became a mobile academy of South African cultural heritage through their [[Indigenous peoples of Africa|African indigenous]] ''isicathamiya'' music.",
-  "last_revision_date": "2025-04-13T08:24:11Z"
+  "last_revision_date": "2025-04-13T08:24:11Z",
+  "genres": [
+    730,
+    597
+  ]
 }

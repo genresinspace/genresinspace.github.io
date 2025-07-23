@@ -1,5 +1,10 @@
 {
   "name": "Dulce Pontes",
   "description": "'''Dulce José Silva Pontes''' ({{IPA|pt|ˈdulsɨ ʒuˈzɛ ˈsilvɐ ˈpõtɨʃ|lang}}; born 8 April 1969) is a [[Portugal|Portuguese]] songwriter and singer who performs in many musical styles, including pop, folk, and [[European classical music|classical music]]. She is usually defined as a [[world music]] artist. Her songs contributed to the 1990s revival of Portuguese urban [[folk music]] called [[fado]].",
-  "last_revision_date": "2025-05-07T00:24:25Z"
+  "last_revision_date": "2025-05-07T00:24:25Z",
+  "genres": [
+    1262,
+    420,
+    912
+  ]
 }

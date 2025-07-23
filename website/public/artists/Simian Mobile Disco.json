@@ -1,5 +1,12 @@
 {
   "name": "Simian Mobile Disco",
   "description": "'''Simian Mobile Disco''' are an English [[electronic music]] duo and production team, formed in 2003 by [[James Ford (musician)|James Ford]] and Jas Shaw of the band [[Simian (band)|Simian]]. Musically, they are known for their [[analog recording|analogue]] production. Ford is also known for his production work.",
-  "last_revision_date": "2025-05-25T03:45:09Z"
+  "last_revision_date": "2025-05-25T03:45:09Z",
+  "genres": [
+    849,
+    559,
+    1171,
+    394,
+    384
+  ]
 }

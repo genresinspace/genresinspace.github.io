@@ -1,5 +1,10 @@
 {
   "name": "Front 242",
   "description": "'''Front 242''' is a Belgian [[electronic music]] group that came into prominence during the 1980s. Pioneering the style they called [[electronic body music]], they influenced the [[Electronic music|electronic]] and [[Industrial music|industrial]] music genres.",
-  "last_revision_date": "2025-06-13T17:42:15Z"
+  "last_revision_date": "2025-06-13T17:42:15Z",
+  "genres": [
+    394,
+    588,
+    392
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "name": "Lil Mabu",
   "description": "'''Matthew Peter DeLuca''' (born April 4, 2005), known professionally as '''Lil Mabu''', is an American [[Rapping|rapper]] from [[Manhattan]], New York City. He first gained recognition in 2020 for his song \"Miss Me\", and became best known for his 2023 single \"[[Mathematical Disrespect]]\", which entered the top 50 of the [[Billboard Hot 100|''Billboard'' Hot 100]].",
-  "last_revision_date": "2025-06-19T21:24:21Z"
+  "last_revision_date": "2025-06-19T21:24:21Z",
+  "genres": [
+    176,
+    547
+  ]
 }

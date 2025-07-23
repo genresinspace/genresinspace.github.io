@@ -1,5 +1,10 @@
 {
   "name": "SXMPRA",
   "description": "'''Kalem Leo Tarrant''' (born February 8, 2000), known professionally as '''SXMPRA''', is a songwriter, rapper and musician from [[Wellington]], New Zealand.",
-  "last_revision_date": "2025-06-03T02:21:06Z"
+  "last_revision_date": "2025-06-03T02:21:06Z",
+  "genres": [
+    739,
+    547,
+    894
+  ]
 }

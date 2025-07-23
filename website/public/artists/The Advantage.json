@@ -1,5 +1,9 @@
 {
   "name": "The Advantage",
   "description": "'''The Advantage''' is an American rock band from [[Sacramento, California]] that formed in 1998 and specialises in doing covers of music from old [[NES]] games, also known as [[Nintendocore]]. The band is named after the [[Nintendo Entertainment System|NES]] joystick controller of the same name.",
-  "last_revision_date": "2025-06-01T16:10:29Z"
+  "last_revision_date": "2025-06-01T16:10:29Z",
+  "genres": [
+    591,
+    832
+  ]
 }

@@ -1,5 +1,8 @@
 {
   "name": "Saltatio Mortis",
   "description": "'''Saltatio Mortis''' is a German [[medieval metal]] group. The [[Latin]] name means \"dance of death\". It is an allusion to the [[Danse Macabre]], and a motto of the band is: \"He who dances does not die.\"",
-  "last_revision_date": "2025-02-26T17:47:00Z"
+  "last_revision_date": "2025-02-26T17:47:00Z",
+  "genres": [
+    732
+  ]
 }

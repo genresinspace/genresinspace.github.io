@@ -1,5 +1,11 @@
 {
   "name": "Kaysha",
   "description": "'''Edward Mokolo Jr.''' (born 1974), better known as '''Kaysha''', is a singer/rapper and producer from the [[Democratic Republic of the Congo]] (former [[Zaire]]). He is the son of Congolese politician Édouard Mokolo Wa Mpombo.",
-  "last_revision_date": "2025-03-14T18:10:46Z"
+  "last_revision_date": "2025-03-14T18:10:46Z",
+  "genres": [
+    17,
+    653,
+    1279,
+    274
+  ]
 }

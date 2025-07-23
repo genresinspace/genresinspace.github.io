@@ -1,5 +1,10 @@
 {
   "name": "Scott Hamilton",
   "description": "'''Scott Hamilton''' (born September 12, 1954) is an American [[jazz]] [[tenor saxophonist]] associated with [[Swing music|swing]] and [[straight-ahead jazz]]. His eldest son, Shō Īmura, is the vocalist of the Japanese rock band [[Okamoto's]].",
-  "last_revision_date": "2025-06-10T13:45:54Z"
+  "last_revision_date": "2025-06-10T13:45:54Z",
+  "genres": [
+    1150,
+    1136,
+    616
+  ]
 }

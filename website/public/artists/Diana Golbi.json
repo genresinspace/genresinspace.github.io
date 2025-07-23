@@ -1,5 +1,9 @@
 {
   "name": "Diana Golbi",
   "description": "'''Diana Golbi''' ({{langx|he|דיאנה גולבי}}; born January 16, 1992) is an Israeli-Russian actress and singer, the eighth winner of ''[[Kokhav Nolad]]'', the Israeli version of ''[[Pop Idol]]''. Golbi is the third female participant to win the show (following [[Ninet Tayeb]] on the first season and [[Roni Dalumi]] on the [[Kokhav Nolad 7|seventh season]]).",
-  "last_revision_date": "2025-03-26T08:37:36Z"
+  "last_revision_date": "2025-03-26T08:37:36Z",
+  "genres": [
+    912,
+    600
+  ]
 }

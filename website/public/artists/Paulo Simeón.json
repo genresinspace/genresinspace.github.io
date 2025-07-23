@@ -1,5 +1,9 @@
 {
   "name": "Paulo Simeón",
   "description": "'''Paulo Simeón''' is a Cuban-American record producer, television producer, creative director, artist manager and art director, known for his work with artists such as [[Aymée Nuviola]], Paola Guanche, [[Maía (singer)|Maía]], [[Fanny Lu]], [[Chucho Valdés]], [[Alexander Abreu]], [[Paula Arenas]], [[Majida Issa]] and [[Gonzalo Rubalcaba]], among others. Some of the albums he has produced have won awards and nominations in events such as the [[Latin Grammy Awards|Latin Grammy]] and [[Grammy Awards]].",
-  "last_revision_date": "2025-02-27T23:00:04Z"
+  "last_revision_date": "2025-02-27T23:00:04Z",
+  "genres": [
+    679,
+    1191
+  ]
 }

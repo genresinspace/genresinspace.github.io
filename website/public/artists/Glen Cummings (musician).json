@@ -1,5 +1,11 @@
 {
   "name": "Glen Cummings",
   "description": "'''Glen Cummings''' is an American [[thrash metal]] [[guitarist]] best known for his work in [[Ludichrist]], [[Scatterbrain (band)|Scatterbrain]], and [[Stone Deep]].",
-  "last_revision_date": "2025-03-05T23:24:44Z"
+  "last_revision_date": "2025-03-05T23:24:44Z",
+  "genres": [
+    535,
+    1127,
+    1188,
+    991
+  ]
 }

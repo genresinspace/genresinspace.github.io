@@ -1,5 +1,9 @@
 {
   "name": "Kaveret",
   "description": "'''Kaveret''' ({{langx|he|כוורת}}, lit. \"beehive\"), also known as '''Poogy''' ({{langx|he|פוגי}}, nickname of band drummer [[Meir Fenigstein]] chosen for their performances abroad), was an Israeli [[pop rock]] band, which operated originally from 1973 to 1976. Representing Israel in the [[1974 Eurovision Song Contest]], its songs featured humorous lyrics and ironic musical references. Kaveret is widely considered a breakthrough band in Israeli rock and pop history, and its members have had notable solo careers.",
-  "last_revision_date": "2025-05-23T16:51:54Z"
+  "last_revision_date": "2025-05-23T16:51:54Z",
+  "genres": [
+    600,
+    946
+  ]
 }

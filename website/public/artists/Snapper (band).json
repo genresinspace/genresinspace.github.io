@@ -1,5 +1,10 @@
 {
   "name": "Snapper",
   "description": "'''Snapper''' were a New Zealand band that formed in [[Dunedin]] in 1988. They released two studio albums.",
-  "last_revision_date": "2024-05-30T00:45:32Z"
+  "last_revision_date": "2024-05-30T00:45:32Z",
+  "genres": [
+    575,
+    418,
+    370
+  ]
 }

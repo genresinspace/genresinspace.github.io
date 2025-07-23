@@ -1,5 +1,9 @@
 {
   "name": "Lustmord",
   "description": "'''Brian Williams''' is a Welsh [[industrial music|music]]ian, [[sound design]]er and composer. He has released albums under the name '''Lustmord''' starting in the 1980s and through the present.\n\nWilliams began as a recording artist within the [[Industrial music|industrial]] genre, working with [[Chris & Cosey]] and [[SPK (band)|SPK]]. Shifting his work to Lustmord, Williams continued to employ the threatening aesthetics of industrial, while employing [[Reverb effect|reverb]] and similar effects to evoke an atmosphere of [[cosmic horror]]. Starting with the 1989 album ''Heresy'', Lustmord albums have been centered on manipulating [[Sampling (music)|sampled]] recordings with a computer. These samples infamously included [[field recording]]s made in locations such as crypts, caves, and slaughterhouses. Williams now downplays the sinister connotations of these locations and says they were picked for \"acoustics\".\n\nThe influence of Williams work on subsequent artists has led critics to call him \"a reluctant pioneer of the [[dark ambient]] genre who regards his music as neither dark nor [[Ambient music|ambient]].\"",
-  "last_revision_date": "2025-01-25T09:58:52Z"
+  "last_revision_date": "2025-01-25T09:58:52Z",
+  "genres": [
+    322,
+    588
+  ]
 }

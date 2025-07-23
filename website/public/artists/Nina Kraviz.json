@@ -1,5 +1,12 @@
 {
   "name": "Nina Kraviz",
   "description": "'''Nina Kraviz''' ({{langx|ru|Нина Кравиц|Nina Kravits}}) is a Russian DJ, music producer and singer.",
-  "last_revision_date": "2025-05-22T19:34:42Z"
+  "last_revision_date": "2025-05-22T19:34:42Z",
+  "genres": [
+    398,
+    754,
+    1171,
+    1174,
+    3
+  ]
 }

@@ -1,5 +1,11 @@
 {
   "name": "Joyryde",
   "description": "'''John Ford''', (born 24 July 1985) better known by his stage name '''Joyryde''' (stylised as '''JOYRYDE'''), is an English DJ and producer, son of John Ford (also known as John Phantasm and owner of Phantasm Records).",
-  "last_revision_date": "2024-10-11T20:12:11Z"
+  "last_revision_date": "2024-10-11T20:12:11Z",
+  "genres": [
+    374,
+    468,
+    368,
+    1223
+  ]
 }

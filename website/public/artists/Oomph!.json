@@ -1,5 +1,11 @@
 {
   "name": "Oomph!",
   "description": "'''Oomph!''' is a German [[Rock music|rock]] band from [[Wolfsburg]], formed in 1989. The band pioneered the {{lang|de|[[Neue Deutsche Härte]]|italic=no}} movement. Their work contains lyrics in both English and German, with a shift towards German exclusively on recent albums (''[[GlaubeLiebeTod]]'', ''Monster'', ''[[Des Wahnsinns fette Beute (Oomph! album)|Des Wahnsinns fette Beute]]'', ''[[XXV (Oomph! album)|XXV]]'', ''[[Ritual (Oomph! album)|Ritual]]'' and ''Richter und Henker'' are entirely in German).",
-  "last_revision_date": "2025-06-17T21:31:41Z"
+  "last_revision_date": "2025-06-17T21:31:41Z",
+  "genres": [
+    392,
+    585,
+    38,
+    803
+  ]
 }

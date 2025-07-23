@@ -1,5 +1,9 @@
 {
   "name": "Atari Teenage Riot",
   "description": "'''Atari Teenage Riot''' ('''ATR''') is a German band formed in [[Berlin]] in 1992. Highly political, they fuse [[Anarchism|anarchist]] and [[Anti-fascism|anti-fascist]] views with [[punk rock|punk]] vocals and a techno sound called [[digital hardcore]], which is a term band member [[Alec Empire]] used as the name of his record label [[Digital Hardcore Recordings]]. After a long hiatus in 2000, they re-formed in 2010.",
-  "last_revision_date": "2025-06-10T05:10:56Z"
+  "last_revision_date": "2025-06-10T05:10:56Z",
+  "genres": [
+    588,
+    345
+  ]
 }

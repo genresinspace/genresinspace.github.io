@@ -1,5 +1,10 @@
 {
   "name": "Dave Chavarri",
   "description": "'''Dave Chavarri''' is a Peruvian American musician, and is the founder, producer, manager, and drummer for the metal bands [[Ill Niño]] and [[Terror Universal]]. He is also the former drummer for [[Pro-Pain]], [[M.O.D.]], [[Merauder]], [[Lȧȧz Rockit]], and Gothic Slam. He is the owner of entertainment company C.I.A Management, whose roster includes Ill Niño, Terror Universal, and others.",
-  "last_revision_date": "2025-04-29T23:28:19Z"
+  "last_revision_date": "2025-04-29T23:28:19Z",
+  "genres": [
+    542,
+    680,
+    847
+  ]
 }

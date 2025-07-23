@@ -1,5 +1,9 @@
 {
   "name": "Harmonize",
   "description": "'''Rajab Abdul Kahali''', also known by his stage name '''Harmonize''', is a [[Tanzanian]] singer, songwriter, and entrepreneur. He first emerged on the national music scene in 2015 with the release of his debut single ''Aiyola'' after signing with [[WCB Wasafi]], the label founded by [[Diamond Platnumz]]. Following his departure from [[WCB Wasafi]] in 2019, Harmonize established his own record label, Konde Music Worldwide, under which he has released several projects spanning genres such as [[Bongo Flava]], Afropop, and Afrobeats.\n\nThroughout his career, Harmonize has worked with many other African musicians, including [[Diamond Platnumz]], [[Burna Boy]], [[Yemi Alade]], [[Ruger (musician)|Ruger]], [[Sarkodie (rapper)|Sarkodie]] and [[Naira Marley]].",
-  "last_revision_date": "2025-06-11T16:35:28Z"
+  "last_revision_date": "2025-06-11T16:35:28Z",
+  "genres": [
+    144,
+    25
+  ]
 }

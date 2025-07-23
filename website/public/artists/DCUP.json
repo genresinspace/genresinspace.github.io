@@ -1,5 +1,10 @@
 {
   "name": "DCUP",
   "description": "'''Duncan MacLennan''', better known by his stage name '''DCUP''' (pronounced \"D-cup\"), is an Australian [[record producer]], [[DJ]], and [[Remix|remixer]]. He is best known for his collaboration with fellow Australian band [[Yolanda Be Cool]] on their international hit single \"[[We No Speak Americano]]\" (2010), which samples [[Renato Carosone]]. He released an EP called ''Style EP'' in 2009 and between then and 2015, released a number of other collaborations and remixes, including songs by [[Art vs. Science]] and [[Jessica Mauboy]].",
-  "last_revision_date": "2025-01-09T12:50:46Z"
+  "last_revision_date": "2025-01-09T12:50:46Z",
+  "genres": [
+    389,
+    559,
+    36
+  ]
 }

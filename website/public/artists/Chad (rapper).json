@@ -1,5 +1,9 @@
 {
   "name": "Chad",
   "description": "'''Donovan Chad Mansoor''' (born 16 April 1993), known mononymously as  '''Chad''' (and previously as '''Chad Da Don'''), is a South African hip-hop record producer, songwriter and rapper. Chad released his debut studio album ''[[The Book of Chad]]'' on 16 April 2016, his 23rd birthday.",
-  "last_revision_date": "2024-12-13T22:39:18Z"
+  "last_revision_date": "2024-12-13T22:39:18Z",
+  "genres": [
+    766,
+    547
+  ]
 }

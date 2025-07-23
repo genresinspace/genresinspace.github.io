@@ -1,5 +1,13 @@
 {
   "name": "Sunn O)))",
   "description": "'''Sunn O)))''' (pronounced \"sun\") is an American [[drone metal]] band formed in 1998 in [[Seattle]], [[Washington (state)|Washington]]. The band is known for its distinctive visual style and slow, heavy sound, which blends diverse genres including [[doom metal]], [[drone music|drone]], [[black metal]], [[dark ambient]], and [[noise rock]], as well as for their extremely loud live performances. \n\nThe band's core members are [[Stephen O'Malley]] (also of [[Khanate (band)|Khanate]] and [[Burning Witch]]) and [[Greg Anderson (musician)|Greg Anderson]] (of [[Goatsnake]] and Engine Kid).",
-  "last_revision_date": "2025-04-24T18:14:36Z"
+  "last_revision_date": "2025-04-24T18:14:36Z",
+  "genres": [
+    131,
+    75,
+    362,
+    838,
+    355,
+    322
+  ]
 }

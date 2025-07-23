@@ -1,5 +1,8 @@
 {
   "name": "Fănică Luca",
   "description": "'''Fănică Luca''' (born '''Ştefan Luca Iordache'''; 5 April 1894 – 26 October 1968) was a [[Romani people|Romani]]-[[Romanians|Romanian]] musician and a Romanian [[pan pipe]] (''[[nai (pan flute)|nai]]'') virtuoso, who was the first to make this instrument popular outside his own country.",
-  "last_revision_date": "2025-03-07T19:42:06Z"
+  "last_revision_date": "2025-03-07T19:42:06Z",
+  "genres": [
+    701
+  ]
 }

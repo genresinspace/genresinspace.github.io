@@ -1,5 +1,10 @@
 {
   "name": "Wax Motif",
   "description": "'''Danny Chien''' (born 20 November), better known by his stage name '''Wax Motif''', is an [[Australia|Australian]] DJ and record producer based in [[Los Angeles]], [[California]], United States.",
-  "last_revision_date": "2025-05-11T06:53:20Z"
+  "last_revision_date": "2025-05-11T06:53:20Z",
+  "genres": [
+    105,
+    311,
+    559
+  ]
 }

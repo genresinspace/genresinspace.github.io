@@ -1,5 +1,14 @@
 {
   "name": "Radja",
   "description": "'''Radja''' is an Indonesian [[Rock music|rock]] [[Band (rock and pop)|band]].",
-  "last_revision_date": "2025-05-18T07:13:10Z"
+  "last_revision_date": "2025-05-18T07:13:10Z",
+  "genres": [
+    1024,
+    936,
+    914,
+    910,
+    40,
+    925,
+    528
+  ]
 }

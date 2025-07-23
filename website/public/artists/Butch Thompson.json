@@ -1,5 +1,10 @@
 {
   "name": "Butch Thompson",
   "description": "'''Richard Enos''' \"'''Butch'''\" '''Thompson''' (November 28, 1943 – August 14, 2022) was an American [[jazz]] pianist and clarinetist best known for his [[ragtime]] and [[stride piano|stride]] performances.",
-  "last_revision_date": "2024-11-09T03:09:07Z"
+  "last_revision_date": "2024-11-09T03:09:07Z",
+  "genres": [
+    985,
+    1138,
+    616
+  ]
 }

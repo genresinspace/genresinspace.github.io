@@ -1,5 +1,10 @@
 {
   "name": "Goldie Lookin Chain",
   "description": "'''Goldie Lookin Chain''' are a Welsh [[comedy hip hop]] group from [[Newport, Wales|Newport]], Wales. The group produces humorous, and often explicit songs that satirise [[hip hop music|hip hop]], today's consumer society, the \"[[chav]]\" culture and life in Newport and [[Wales]] in general.",
-  "last_revision_date": "2025-05-24T14:47:16Z"
+  "last_revision_date": "2025-05-24T14:47:16Z",
+  "genres": [
+    267,
+    547,
+    279
+  ]
 }

@@ -1,5 +1,12 @@
 {
   "name": "The Clean",
   "description": "'''The Clean''' was a New Zealand [[indie rock]] band formed in [[Dunedin]] in 1978. They have been described as the most influential band to come from the [[Flying Nun Records|Flying Nun]] label, which recorded many artists associated with the \"[[Dunedin sound]]\", and one of the first bands to be described as \"indie rock\". \n\nLed by brothers [[Hamish Kilgour|Hamish]] and [[David Kilgour (musician)|David Kilgour]], the band rotated through a number of musicians before settling on their well-known and longest running line-up with [[Robert Scott (musician)|Robert Scott]]. Their name comes from a character from the movie ''[[Free Ride (1977 film)|Free Ride]]'' called Mr. Clean.",
-  "last_revision_date": "2025-06-05T19:36:14Z"
+  "last_revision_date": "2025-06-05T19:36:14Z",
+  "genres": [
+    612,
+    575,
+    930,
+    481,
+    370
+  ]
 }

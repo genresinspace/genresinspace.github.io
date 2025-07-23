@@ -1,5 +1,10 @@
 {
   "name": "Glenn Jones",
   "description": "'''Glenn Jones''' (born October 1, 1953) is an American guitarist, He is most recognized for his work in the [[experimental rock]] group [[Cul de Sac (band)|Cul de Sac]].",
-  "last_revision_date": "2024-06-07T05:50:58Z"
+  "last_revision_date": "2024-06-07T05:50:58Z",
+  "genres": [
+    50,
+    932,
+    418
+  ]
 }

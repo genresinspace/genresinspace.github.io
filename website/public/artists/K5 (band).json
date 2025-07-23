@@ -1,5 +1,9 @@
 {
   "name": "K5",
   "description": "'''K5''' is a band formed in 1995 by Kevin Shiver.\n\nThe song \"Passion,\" on Orlando's Kram Records, received local commercial radio station airplay on 106.7 FM ([[WXXL]]). \"Passion\" reached No. 11 in Central Florida's Top 20. The exposure led to national rotation on other radio networks.\n\nOn February 8, 1997, \"Passion\" placed in the [[Billboard Hot 100]] at position 98. It entered the German charts in 2001 and reached number 53. Along with \"Red Alert\", \"Passion\" appeared in the [[Kevin Smith]] film [[Chasing Amy]].{{Cite web|url=https://www.viewaskew.com/chasingamy/amysoundtrack.html |title=Chasing Amy - Build Your Own Soundtrack }}",
-  "last_revision_date": "2025-04-18T04:41:56Z"
+  "last_revision_date": "2025-04-18T04:41:56Z",
+  "genres": [
+    160,
+    428
+  ]
 }

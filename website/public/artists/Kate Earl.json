@@ -1,5 +1,8 @@
 {
   "name": "Kate Earl",
   "description": "'''Kate Earl''' (born '''Kate Joy Smithson''') is an American singer-songwriter based out of Tennessee.",
-  "last_revision_date": "2024-03-29T20:01:43Z"
+  "last_revision_date": "2024-03-29T20:01:43Z",
+  "genres": [
+    389
+  ]
 }

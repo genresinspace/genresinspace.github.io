@@ -1,5 +1,9 @@
 {
   "name": "Turmion Kätilöt",
   "description": "'''Turmion Kätilöt''' (literally \"Midwives of Ruin\", \"Midwives of Bane\" or \"Midwives of Perdition\") is a Finnish [[industrial metal]] band founded in 2003 by [[MC Raaka Pee]] and DJ Vastapallo, who until the latter's departure, were the only studio lineup. The line-up now includes Master Bates, [[Janne Tolsa|RunQ]], DQ, Bobby Undertaker and [[Shag-U]], alongside MC Raaka Pee.",
-  "last_revision_date": "2025-04-29T13:59:05Z"
+  "last_revision_date": "2025-04-29T13:59:05Z",
+  "genres": [
+    587,
+    585
+  ]
 }

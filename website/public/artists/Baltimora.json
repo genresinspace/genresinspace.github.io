@@ -1,5 +1,9 @@
 {
   "name": "Baltimora",
   "description": "'''Baltimora''' was an Italian music project from [[Milan]], active from 1984 to 1987. They are best known for their 1985 single \"[[Tarzan Boy]]\" and are often considered a [[one-hit wonder]] in the United Kingdom and the United States. In other European countries, including their native Italy, Baltimora scored a follow-up hit \"[[Woody Boogie]]\" the same year.",
-  "last_revision_date": "2024-12-22T04:05:15Z"
+  "last_revision_date": "2024-12-22T04:05:15Z",
+  "genres": [
+    605,
+    822
+  ]
 }

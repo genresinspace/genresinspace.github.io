@@ -1,5 +1,11 @@
 {
   "name": "Jessicka",
   "description": "'''Jessicka Addams''' (born '''Jessica Fodera''' on October 23, 1975) is an American visual artist and musician. Best known by her stage name '''Jessicka''', she was the frontwoman for the [[alternative rock]] band [[Jack Off Jill]], and later for the [[Noise pop|noise-pop]] band [[Scarling.]]",
-  "last_revision_date": "2025-06-17T20:47:24Z"
+  "last_revision_date": "2025-06-17T20:47:24Z",
+  "genres": [
+    837,
+    505,
+    40,
+    1018
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Sanchez",
   "description": "'''Kevin Anthony Jackson''' (born 30 November 1964), also known by his [[stage name]] '''Sanchez''', is a Jamaican [[reggae]] singer-songwriter and record producer.",
-  "last_revision_date": "2025-04-28T15:59:00Z"
+  "last_revision_date": "2025-04-28T15:59:00Z",
+  "genres": [
+    696,
+    1005,
+    315
+  ]
 }

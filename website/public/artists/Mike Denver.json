@@ -1,5 +1,8 @@
 {
   "name": "Mike Denver",
   "description": "'''Michael Fallon''' (born 15 June 1980 in [[Portumna]], [[County Galway]]), known as '''Mike Denver''', is an Irish [[Country music|country]] singer.",
-  "last_revision_date": "2025-06-14T17:54:04Z"
+  "last_revision_date": "2025-06-14T17:54:04Z",
+  "genres": [
+    285
+  ]
 }

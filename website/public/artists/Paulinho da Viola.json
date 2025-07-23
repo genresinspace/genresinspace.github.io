@@ -1,5 +1,9 @@
 {
   "name": "Paulinho da Viola",
   "description": "'''Paulinho da Viola''' (born '''Paulo César Batista de Faria''' on 12 November 1942) ({{IPA|pt|pawˈlĩɲu daviˈɔlɐ}}) is a Brazilian ''[[samba|sambista]]'', singer-songwriter, [[Classical guitar|guitar]], [[cavaquinho]] and [[mandolin]] player, known for his sophisticated harmonies and soft, gentle singing voice.",
-  "last_revision_date": "2024-08-09T06:51:37Z"
+  "last_revision_date": "2024-08-09T06:51:37Z",
+  "genres": [
+    240,
+    1043
+  ]
 }

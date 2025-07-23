@@ -1,5 +1,12 @@
 {
   "name": "Andy Stott",
   "description": "'''Andy Stott''' is a British electronic musician and producer, living in [[Manchester]].",
-  "last_revision_date": "2025-06-06T17:15:47Z"
+  "last_revision_date": "2025-06-06T17:15:47Z",
+  "genres": [
+    394,
+    47,
+    367,
+    592,
+    1174
+  ]
 }

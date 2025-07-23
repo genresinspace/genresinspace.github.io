@@ -1,5 +1,9 @@
 {
   "name": "Luana Persíncula",
   "description": "'''Luana Persíncula Andino''' (born October 18, 2001), known [[mononymously]] as '''Luana''' is a Uruguayan singer and television personality. She began her career performing at folk music festivals and performing covers of well-known hits.",
-  "last_revision_date": "2025-05-29T00:35:07Z"
+  "last_revision_date": "2025-05-29T00:35:07Z",
+  "genres": [
+    682,
+    903
+  ]
 }

@@ -1,5 +1,12 @@
 {
   "name": "Soimah Pancawati",
   "description": "'''Soimah Pancawati''' (born 29 September 1980) is an Indonesian comedian, singer, [[pesindhèn]], and presenter from [[Yogyakarta]], [[Indonesia]]. She sings in several genres, including [[campursari]], [[pesindhèn]], [[ketoprak]], [[pop music|Java pop]], [[hip-hop]], and [[:id:dagelan|dagelan]]. She grew up in a coast village at [[:id:Tayu, Pati|Tayu, Pati]], [[Central Java]].",
-  "last_revision_date": "2025-03-19T08:31:14Z"
+  "last_revision_date": "2025-03-19T08:31:14Z",
+  "genres": [
+    912,
+    1024,
+    664,
+    547,
+    317
+  ]
 }

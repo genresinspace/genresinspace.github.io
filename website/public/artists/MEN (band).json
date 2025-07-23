@@ -1,5 +1,9 @@
 {
   "name": "JD Samson & MEN",
   "description": "'''JD Samson & MEN''', originally named simply '''MEN''', was a [[Brooklyn]]-based band and art/performance collective that focuses on the energy of [[Concert|live performance]] and the radical potential of [[dance music]]. MEN spoke to issues such as trans awareness, wartime economies, sexual compromise, and demanding civil liberties. The collective disbanded in late 2014.",
-  "last_revision_date": "2025-05-13T07:19:34Z"
+  "last_revision_date": "2025-05-13T07:19:34Z",
+  "genres": [
+    400,
+    670
+  ]
 }

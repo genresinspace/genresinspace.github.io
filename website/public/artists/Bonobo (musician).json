@@ -1,5 +1,12 @@
 {
   "name": "Bonobo",
   "description": "'''Simon Green''' (born 30 March 1976), known by his stage name '''Bonobo''', is an English musician, producer, and DJ based in [[Los Angeles]]. He debuted with a [[trip hop]] aesthetic and has since explored more upbeat approaches as well as [[jazz]] and [[world music]] influences. His [[electronic music|electronic]] sound incorporates the use of organic instrumentation and is recreated by a full band in live performances.",
-  "last_revision_date": "2025-04-09T14:01:32Z"
+  "last_revision_date": "2025-04-09T14:01:32Z",
+  "genres": [
+    398,
+    1262,
+    1206,
+    846,
+    356
+  ]
 }

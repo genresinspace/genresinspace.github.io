@@ -1,5 +1,12 @@
 {
   "name": "Jeromes Dream",
   "description": "'''Jeromes Dream''' is a [[screamo]] band formed in [[West Haven, Connecticut]] and currently based in [[San Francisco]], [[California]], originally active from 1997 to 2001, and again from 2018 onwards.",
-  "last_revision_date": "2025-06-08T17:39:54Z"
+  "last_revision_date": "2025-06-08T17:39:54Z",
+  "genres": [
+    1068,
+    510,
+    838,
+    725,
+    937
+  ]
 }

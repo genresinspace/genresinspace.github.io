@@ -1,5 +1,15 @@
 {
   "name": "VINAI",
   "description": "'''VINAI''' (stylized in all caps) is an Italian [[Electronic dance music|EDM]] [[Music production (music industry)|production]] and [[Disc jockey|DJ]] duo, formed in 2011 consisting of brothers '''Alessandro Vinai''' (born 25 January 1990) and '''Andrea Vinai''' (born 10 January 1994).",
-  "last_revision_date": "2025-05-18T17:09:40Z"
+  "last_revision_date": "2025-05-18T17:09:40Z",
+  "genres": [
+    386,
+    384,
+    105,
+    388,
+    464,
+    122,
+    393,
+    941
+  ]
 }

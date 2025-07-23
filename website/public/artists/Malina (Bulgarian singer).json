@@ -1,5 +1,10 @@
 {
   "name": "Malina",
   "description": "'''Malina Stancheva Stancheva''' ([[Bulgarian language|Bulgarian]]: Малина Станчева Станчева) or '''Malina''' (Bulgarian: Малина),(born 7 June 1967) is a [[Bulgarians|Bulgarian]] [[Chalga]] ([[pop-folk]]) singer.",
-  "last_revision_date": "2024-06-06T23:00:18Z"
+  "last_revision_date": "2024-06-06T23:00:18Z",
+  "genres": [
+    436,
+    217,
+    400
+  ]
 }

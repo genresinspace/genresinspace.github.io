@@ -1,5 +1,9 @@
 {
   "name": "45 Grave",
   "description": "'''45 Grave''' is an American [[rock music|rock]] band from Los Angeles formed in 1979. The original group broke up in 1985, but vocalist [[Dinah Cancer]] subsequently revived the band.",
-  "last_revision_date": "2025-06-16T03:38:37Z"
+  "last_revision_date": "2025-06-16T03:38:37Z",
+  "genres": [
+    557,
+    332
+  ]
 }

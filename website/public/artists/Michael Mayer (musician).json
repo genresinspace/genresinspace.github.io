@@ -1,5 +1,11 @@
 {
   "name": "Michael Mayer",
   "description": "'''Michael Mayer''' (born 11 December 1971) is an [[electronic musician]] from [[Cologne]], Germany. Mayer is a [[remixer]], [[disc jockey|DJ]] and [[music producer|producer]], and has released several singles on the [[Kompakt]] music label, working with founder [[Wolfgang Voigt]]. Mayer has also released music on Kompakt-related labels New Trance Atlantic and Kreisel 99.",
-  "last_revision_date": "2025-03-02T11:26:49Z"
+  "last_revision_date": "2025-03-02T11:26:49Z",
+  "genres": [
+    748,
+    592,
+    394,
+    48
+  ]
 }

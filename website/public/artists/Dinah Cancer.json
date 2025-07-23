@@ -1,5 +1,11 @@
 {
   "name": "Dinah Cancer",
   "description": "'''Mary Ann Sims''' (born August 28, 1960), known professionally as '''Dinah Cancer''', is an American singer. She is the lead vocalist of [[45 Grave]], which helped found the [[deathrock]] music genre.",
-  "last_revision_date": "2024-11-04T03:17:19Z"
+  "last_revision_date": "2024-11-04T03:17:19Z",
+  "genres": [
+    557,
+    970,
+    505,
+    332
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "name": "Jonas Blue",
   "description": "'''Guy James Robin''' (born 2 August 1989), known professionally as '''Jonas Blue''', is an English DJ and music producer.",
-  "last_revision_date": "2025-06-20T06:58:13Z"
+  "last_revision_date": "2025-06-20T06:58:13Z",
+  "genres": [
+    312,
+    1207
+  ]
 }

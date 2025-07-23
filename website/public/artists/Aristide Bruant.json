@@ -1,5 +1,8 @@
 {
   "name": "Aristide Bruant",
   "description": "'''Aristide Bruant''' ({{IPA|fr|aʁistid bʁyɑ̃|lang}}; 6 May 1851 &ndash; 11 February 1925) was a French cabaret singer, comedian, and nightclub owner.  He is best known as the man in the red scarf and black cape featured on certain famous posters by [[Henri de Toulouse-Lautrec]]. He has also been credited as the creator of the ''[[chanson réaliste]]'' musical genre.{{Sfn|Schechter|2003|pp=[https://archive.org/details/isbn_9780415258302/page/183/mode/1up?q=bruant 183–185]}}{{Sfn|Conway|2004|p=[https://archive.org/details/chanteuseincityr0000conw/page/8/mode/1up 8]}}{{Sfn|Moore Whiting|1999|p=[https://books.google.com/books?id=SD2RZ3taYQUC&pg=PA20 20]}}{{Sfn|Robb|2007|p=[https://archive.org/details/protestsongineas0000unse/page/36/mode/1up?q=bruant 36]}}",
-  "last_revision_date": "2025-05-08T18:46:49Z"
+  "last_revision_date": "2025-05-08T18:46:49Z",
+  "genres": [
+    224
+  ]
 }

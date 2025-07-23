@@ -1,5 +1,12 @@
 {
   "name": "Subway to Sally",
   "description": "'''Subway to Sally''' is a German [[medieval metal]] band founded in [[Potsdam]] in the early 1990s. Their music has clear [[Folk music|folk]] and [[Medieval music|medieval]] influences, later also adding [[Gothic metal|gothic]] and metal elements. With their continuous inclusion of oriental sounds and elements of classical music and the use of instruments seldom seen in metal bands such as [[bagpipes]], [[shawm]], [[violin]], [[hurdy-gurdy]] and [[lute]], Subway to Sally has acquired the label of medieval metal. The band has released 12 studio albums, two live albums, and two live DVDs. Their fame is centered mainly in the German-speaking countries, having played only a handful of concerts outside of that area.",
-  "last_revision_date": "2025-05-24T05:10:41Z"
+  "last_revision_date": "2025-05-24T05:10:41Z",
+  "genres": [
+    435,
+    731,
+    432,
+    803,
+    732
+  ]
 }

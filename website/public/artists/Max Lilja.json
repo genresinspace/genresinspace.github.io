@@ -1,5 +1,10 @@
 {
   "name": "Max Lilja",
   "description": "'''Max Lilja''' (born 27 October 1975) is a [[Finland|Finnish]] [[cello]] player. He is best known as a founding member of the Finnish cello [[Metal music|metal]] band [[Apocalyptica]], a band he left in 2001 to join the Finnish [[thrash metal]] band [[Hevein (band)|Hevein]]. Beginning in 2007, Lilja has been a recording and touring member of [[Tarja Turunen]]'s solo band. Throughout his career, Lilja has continued to play classical music alongside rock, metal, and crossover projects.",
-  "last_revision_date": "2024-04-10T19:26:30Z"
+  "last_revision_date": "2024-04-10T19:26:30Z",
+  "genres": [
+    398,
+    211,
+    1153
+  ]
 }

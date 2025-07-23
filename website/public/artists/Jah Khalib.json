@@ -1,5 +1,11 @@
 {
   "name": "Jah Khalib",
   "description": "'''Bakhtiyar Mammadov''' ({{langx|az|Bəxtiyar Məmmədov}}, {{langx|kk|Бахтияр Мамедов}}; born 29 September 1993), known professionally as '''Jah Khalib''' is a Kazakh-Azerbaijani rapper, singer and record producer.",
-  "last_revision_date": "2025-02-20T13:08:25Z"
+  "last_revision_date": "2025-02-20T13:08:25Z",
+  "genres": [
+    37,
+    555,
+    913,
+    547
+  ]
 }

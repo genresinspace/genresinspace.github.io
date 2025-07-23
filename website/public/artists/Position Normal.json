@@ -1,5 +1,10 @@
 {
   "name": "Position Normal",
   "description": "'''Position Normal''' are an English musical duo, formed in [[London]] in 1986, consisting of Chris Bailiff and John Cushway. Their music is [[sampling (music)|sample]]-based, incorporating existing music and [[found sound]] from unusual vintage sources (purchased second hand or previously owned by Bailiff's father) into [[collage]]-like tracks.",
-  "last_revision_date": "2024-07-19T12:13:12Z"
+  "last_revision_date": "2024-07-19T12:13:12Z",
+  "genres": [
+    1054,
+    1114,
+    954
+  ]
 }

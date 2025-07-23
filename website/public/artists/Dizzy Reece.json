@@ -1,5 +1,10 @@
 {
   "name": "Dizzy Reece",
   "description": "'''Alphonso Son''' \"'''Dizzy'''\" '''Reece''' (born 5 January 1931) is a [[Jamaica]]n-born [[jazz]] trumpeter. Reece emerged within [[London| London's]] burgeoning [[bebop|bebop jazz]] scene during the 1950s and went on to become a leading proponent of [[hard bop]] jazz in [[New York City]].\n\nHe later experimented with other jazz sub-genres in the late 1960s and 1970s, and continues to remain active in performance and composition. Reece's contribution to the jazz idiom is considered influential and he is often identified as one of jazz's great trumpet players.",
-  "last_revision_date": "2025-05-25T22:37:58Z"
+  "last_revision_date": "2025-05-25T22:37:58Z",
+  "genres": [
+    113,
+    527,
+    1128
+  ]
 }

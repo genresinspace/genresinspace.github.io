@@ -1,5 +1,9 @@
 {
   "name": "Spagna",
   "description": "'''Ivana Spagna''' ({{IPA|it|iˈvaːna ˈspaɲɲa|lang}}; born 16 December 1954), also known simply as '''Spagna''', is an Italian singer and songwriter. She is best known for her worldwide hit song \"[[Call Me (Spagna song)|Call Me]]\", released in 1987.",
-  "last_revision_date": "2025-02-24T00:45:02Z"
+  "last_revision_date": "2025-02-24T00:45:02Z",
+  "genres": [
+    912,
+    605
+  ]
 }

@@ -1,5 +1,11 @@
 {
   "name": "Jinjer",
   "description": "'''Jinjer''' ({{IPAc-en|ˈ|dʒ|ɪ|n|dʒ|ər}} \"ginger\") is a Ukrainian [[Heavy metal music|heavy metal]] band from [[Donetsk]], formed in 2008. None of the founding members remain with the band. The current lineup considers 2009 as its official year of formation, with the arrival of singer Tatiana Shmayluk and guitarist Roman Ibramkhalilov. The band has since added bassist Eugene Abdukhanov and drummer Vladislav Ulasevich. Their fifth studio album, ''[[Duél (Jinjer album)|Duél]]'', was released in February 2025.",
-  "last_revision_date": "2025-06-14T13:15:08Z"
+  "last_revision_date": "2025-06-14T13:15:08Z",
+  "genres": [
+    351,
+    744,
+    512,
+    942
+  ]
 }

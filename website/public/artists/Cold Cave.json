@@ -1,5 +1,10 @@
 {
   "name": "Cold Cave",
   "description": "'''Cold Cave''' is the solo project for musician [[Wesley Eisold]], described as a \"collage of [[dark wave|darkwave]], [[noise music|noise]], and [[synthpop]].\" A number of reviewers note the affinity with early 1980s post-punk and early synthpop, in particular [[Joy Division]] and [[New Order (band)|New Order]].",
-  "last_revision_date": "2025-06-17T05:17:35Z"
+  "last_revision_date": "2025-06-17T05:17:35Z",
+  "genres": [
+    325,
+    263,
+    1157
+  ]
 }

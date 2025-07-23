@@ -1,5 +1,10 @@
 {
   "name": "Goatwhore",
   "description": "'''Goatwhore''' is an American [[extreme metal]] band formed in [[New Orleans]], [[Louisiana]] in 1997.",
-  "last_revision_date": "2024-11-19T08:39:11Z"
+  "last_revision_date": "2024-11-19T08:39:11Z",
+  "genres": [
+    131,
+    1188,
+    132
+  ]
 }

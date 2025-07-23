@@ -1,5 +1,12 @@
 {
   "name": "Boris Gardiner",
   "description": "'''Boris Gardiner''' (born 13 January 1943) is a Jamaican singer, songwriter and bass guitarist. He was a member of several groups during the 1960s before recording as a solo artist and having hit singles with \"[[Elizabethan Serenade|Elizabethan Reggae]]\" (in 1970), \"[[I Wanna Wake Up with You]]\" and \"You're Everything to Me\" (both 1986). One of his most notable credits is bass on the influential reggae song \"[[Real Rock]]\".",
-  "last_revision_date": "2025-04-26T20:30:57Z"
+  "last_revision_date": "2025-04-26T20:30:57Z",
+  "genres": [
+    1113,
+    1015,
+    696,
+    1005,
+    1090
+  ]
 }

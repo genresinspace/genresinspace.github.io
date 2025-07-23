@@ -1,5 +1,12 @@
 {
   "name": "The Widow's Bane",
   "description": "'''The Widow's Bane''' is an American band from [[Boulder, Colorado]] whose music incorporates elements of roots revival, sea shanties, klezmer, vaudeville, gothic rock, and murder ballads while evoking the comedic cabaret styles of [[Tom Waits]] and [[Nick Cave]]. The band defines their genre as Zombie-Death-Polka. Its line-up includes frontman [[Clay Rose|Gov. Mortimer Leech (a.k.a. Clay Rose)]], Rutherford Belleview, Rictus Corpum, Franklin McKane, and Bat Catacombs. Previous band members were Jimson Crockett, Abracham Lynch, Frank Raven, James Calvin Thompson, and Philip Parker. Their live show is characterized by zombie-style makeup, Great Depression-era costumes, the creepy animatronic movements of lead singer Leech, and dancing by self-styled \"snake-charming hussy,\" Madame Reaper.\n\nIn 2018, The Widow's Bane wrote and performed the score, for a production of  Wicked Bayou, with Denver based [[Wonderbound]] ballet company.",
-  "last_revision_date": "2023-04-08T14:23:03Z"
+  "last_revision_date": "2023-04-08T14:23:03Z",
+  "genres": [
+    1070,
+    434,
+    770,
+    505,
+    655
+  ]
 }

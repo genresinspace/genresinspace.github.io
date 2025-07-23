@@ -1,5 +1,9 @@
 {
   "name": "Nenny",
   "description": "'''Marlene Fernanda Cardoso Tavares''' (born 19 November 2002), known by her stage name '''Nenny''', is a Portuguese singer-songwriter and [[rapper]].",
-  "last_revision_date": "2024-10-26T16:45:25Z"
+  "last_revision_date": "2024-10-26T16:45:25Z",
+  "genres": [
+    550,
+    1015
+  ]
 }

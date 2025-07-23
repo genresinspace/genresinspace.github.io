@@ -1,5 +1,11 @@
 {
   "name": "Daniel Santos",
   "description": "'''Daniel Santos''' (February 5, 1916 – November 27, 1992) was a [[Puerto Ricans|Puerto Rican]] singer and [[composer]] of [[music of Puerto Rico|boleros]], and an overall performer of multiple [[Caribbean]] music genres, including [[guaracha]], [[plena]] and [[Cuban Rumba|rumba]]. Over the course of his career he adopted several names created by the public and became known as \"El Jefe\" and \"El Inquieto Anacobero\".",
-  "last_revision_date": "2025-03-02T22:11:43Z"
+  "last_revision_date": "2025-03-02T22:11:43Z",
+  "genres": [
+    903,
+    516,
+    303,
+    140
+  ]
 }

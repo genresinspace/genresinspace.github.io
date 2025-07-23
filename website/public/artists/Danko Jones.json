@@ -1,5 +1,13 @@
 {
   "name": "Danko Jones",
   "description": "'''Danko Jones''' is a Canadian [[Rock music|hard rock]] trio from [[Toronto]]. The band consists of [[Danko Jones (musician)|Danko Jones]] (vocals/guitar), John \"JC\" Calabrese (bass), and Rich Knox (drums). The band's music includes elements of hard rock and punk.",
-  "last_revision_date": "2025-04-24T09:03:43Z"
+  "last_revision_date": "2025-04-24T09:03:43Z",
+  "genres": [
+    139,
+    970,
+    480,
+    481,
+    528,
+    964
+  ]
 }

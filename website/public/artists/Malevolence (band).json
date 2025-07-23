@@ -1,5 +1,11 @@
 {
   "name": "Malevolence",
   "description": "'''Malevolence''' are an English [[heavy metal music|heavy metal]] band formed in [[Sheffield]], [[South Yorkshire]], in 2010. They have released three studio albums and one EP and established their own record label called MLVLTD Music.",
-  "last_revision_date": "2025-06-20T00:47:39Z"
+  "last_revision_date": "2025-06-20T00:47:39Z",
+  "genres": [
+    112,
+    744,
+    1098,
+    512
+  ]
 }

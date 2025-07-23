@@ -1,5 +1,11 @@
 {
   "name": "Pete Johnson",
   "description": "'''Kermit Holden \"Pete\" Johnson''' (March 25, 1904 – March 23, 1967) was an American [[boogie-woogie]] and [[jazz]] pianist.\n\nTony Russell stated in his book ''The Blues – From Robert Johnson to Robert Cray'' that \"Johnson shared with the other members of the 'Boogie Woogie Trio' the technical virtuosity and melodic fertility that can make this the most exciting of all piano music styles, but he was more comfortable than [[Meade Lux Lewis]] in a band setting; and as an accompanist, unlike Lewis or [[Albert Ammons]], he could sparkle but not outshine his singing partner\".  [[Scott Yanow]] for [[AllMusic]], wrote: \"Johnson was one of the three great boogie-woogie pianists\", the others being Lewis and Ammons \"whose sudden prominence in the late 1930s helped make the style very popular\".",
-  "last_revision_date": "2025-05-10T09:12:22Z"
+  "last_revision_date": "2025-05-10T09:12:22Z",
+  "genres": [
+    138,
+    148,
+    616,
+    1138
+  ]
 }

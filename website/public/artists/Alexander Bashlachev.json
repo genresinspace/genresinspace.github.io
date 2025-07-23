@@ -1,5 +1,9 @@
 {
   "name": "Alexander Bashlachev",
   "description": "'''Alexander Nikolaevich Bashlachev''' ({{lang-rus|Алекса́ндр Никола́евич Башлачёв|p=ɐlʲɪˈksandr nʲɪkɐˈlajɪvʲɪtɕ bəʂlɐˈtɕɵf|a=Alyeksandr Nickolayevich Bashlachyov.ru.vorb.oga}}; 27 May 1960 – 17 February 1988) was a [[Soviet people|Soviet]] poet, singer-songwriter and guitarist considered to be one of the most influential performers in [[Russian rock]] music.",
-  "last_revision_date": "2025-06-07T22:01:58Z"
+  "last_revision_date": "2025-06-07T22:01:58Z",
+  "genres": [
+    102,
+    434
+  ]
 }

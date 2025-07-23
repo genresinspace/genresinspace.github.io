@@ -1,5 +1,10 @@
 {
   "name": "Richard Kruspe",
   "description": "'''Richard Kruspe''' (born '''Sven Kruspe'''; 24 June 1967) is a German musician. He is best known as one of the founders and the lead guitarist of the {{Lang|de|[[Neue Deutsche Härte]]|italic=no}} band [[Rammstein]], as well as the frontman of the [[industrial metal]] band [[Emigrate (band)|Emigrate]]. Kruspe has released eight studio albums with Rammstein and four albums with Emigrate.",
-  "last_revision_date": "2025-02-27T12:58:02Z"
+  "last_revision_date": "2025-02-27T12:58:02Z",
+  "genres": [
+    803,
+    585,
+    38
+  ]
 }

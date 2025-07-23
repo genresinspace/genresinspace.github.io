@@ -1,5 +1,10 @@
 {
   "name": "Poison Ivy",
   "description": "'''Kristy Marlana Wallace''' (born February 20, 1953), known as '''Poison Ivy''' or '''Poison Ivy Rorschach''', is an American guitarist, songwriter, arranger, producer, and occasional vocalist who co-founded the rock band [[The Cramps]].",
-  "last_revision_date": "2025-04-30T18:46:45Z"
+  "last_revision_date": "2025-04-30T18:46:45Z",
+  "genres": [
+    502,
+    959,
+    970
+  ]
 }

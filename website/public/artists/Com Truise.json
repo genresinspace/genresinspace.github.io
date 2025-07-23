@@ -1,5 +1,9 @@
 {
   "name": "Com Truise",
   "description": "'''Seth Haley''', known by his stage name '''Com Truise''', is an American [[electronic musician]] and [[DJ]]. His stage name is a [[spoonerism]] of the name of American actor [[Tom Cruise]].",
-  "last_revision_date": "2025-04-23T21:47:44Z"
+  "last_revision_date": "2025-04-23T21:47:44Z",
+  "genres": [
+    233,
+    1158
+  ]
 }

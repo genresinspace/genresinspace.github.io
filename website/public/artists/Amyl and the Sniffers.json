@@ -1,5 +1,9 @@
 {
   "name": "Amyl and the Sniffers",
   "description": "'''Amyl and the Sniffers''' are an [[Pub rock (Australia)|Australian pub rock]] band based in [[Melbourne]], consisting of vocalist [[Amy Taylor (musician)|Amy Taylor]], drummer Bryce Wilson, guitarist Declan Mehrtens, and bassist Gus Romer. Their debut album, [[Amyl and the Sniffers (album)|''Amyl and the Sniffers'']], was released in 2019. It was followed by ''[[Comfort to Me]]'' and ''[[Cartoon Darkness]]'', in 2021 and 2024.\n\nThe band takes its name from the Australian slang for [[amyl nitrite]], also known as [[poppers]]. Taylor compared their music to the drug in an interview with Paul Glynn of the BBC: \"In Australia we call poppers Amyl. So you sniff it, it lasts for 30 seconds and then you have a headache – and that's what we're like!\" Their sound has been compared to 1970s punk rock groups such as [[The Stooges|Iggy Pop and the Stooges]] and [[The Damned (band)|the Damned]]. Taylor has cited a number of varying influences including [[Minor Threat]], [[Ceremony (punk band)|Ceremony]], [[AC/DC]], [[Sleaford Mods]], [[Dolly Parton]] and [[Cardi B]].",
-  "last_revision_date": "2025-06-09T23:57:34Z"
+  "last_revision_date": "2025-06-09T23:57:34Z",
+  "genres": [
+    970,
+    961
+  ]
 }

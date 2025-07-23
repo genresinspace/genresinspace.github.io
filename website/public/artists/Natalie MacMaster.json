@@ -1,5 +1,8 @@
 {
   "name": "Natalie MacMaster",
   "description": "'''Natalie MacMaster''' {{Postnom|country=CAN|CM|ONS}} (born June 13, 1972) is a Canadian [[fiddle]]r from Troy, [[Municipality of the County of Inverness|Inverness County]], [[Nova Scotia]], who plays [[Cape Breton fiddle music]]. She has toured with [[the Chieftains]], [[Faith Hill]], [[Carlos Santana]] and [[Alison Krauss]], and has recorded with [[Yo-Yo Ma]]. She has appeared at the [[Celtic Colours]] festival in [[Cape Breton Island|Cape Breton]], [[Celtic Connections]] in Scotland and [[MerleFest]] in the United States.",
-  "last_revision_date": "2025-06-02T01:00:28Z"
+  "last_revision_date": "2025-06-02T01:00:28Z",
+  "genres": [
+    207
+  ]
 }

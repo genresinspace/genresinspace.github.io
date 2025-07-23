@@ -1,5 +1,10 @@
 {
   "name": "Banda Eva",
   "description": "'''''Banda Eva''''' is a [[Brazilian music]] group from [[Salvador da Bahia]]. Their current lead singer is [[Felipe Pezzoni]]. The group is notable for being home to superstar singer [[Ivete Sangalo]] for several years at the start of her career, before she departed on a solo career, the band has sold more than 6 million albums. Initially it was a carnival block from Salvador, in the 90s it became a musical group.",
-  "last_revision_date": "2025-06-14T22:45:31Z"
+  "last_revision_date": "2025-06-14T22:45:31Z",
+  "genres": [
+    79,
+    1043,
+    1005
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Lito & Polaco",
   "description": "'''Lito & Polaco''' were a Puerto Rican [[Puerto Rican hip-hop|hip hop]] duo from [[Carolina, Puerto Rico|Carolina]], Puerto Rico.",
-  "last_revision_date": "2025-05-28T09:21:45Z"
+  "last_revision_date": "2025-05-28T09:21:45Z",
+  "genres": [
+    534,
+    1011,
+    963
+  ]
 }

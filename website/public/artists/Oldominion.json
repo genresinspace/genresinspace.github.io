@@ -1,5 +1,10 @@
 {
   "name": "Oldominion",
   "description": "'''Oldominion''' is an American hip hop collective, consisting of more than twenty members. It was described by Casey Jarman of ''[[Willamette Week]]'' as the \"Northwest's largest hip-hop crew\" which \"united the local underground rap scene for the first time\".",
-  "last_revision_date": "2025-06-04T20:12:53Z"
+  "last_revision_date": "2025-06-04T20:12:53Z",
+  "genres": [
+    548,
+    547,
+    37
+  ]
 }

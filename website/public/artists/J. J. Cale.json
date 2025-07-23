@@ -1,5 +1,14 @@
 {
   "name": "J.J. Cale",
   "description": "'''John Weldon''' \"'''J. J.'''\" '''Cale''' (December 5, 1938 – July 26, 2013) was an American guitarist, singer, and songwriter. Though he avoided the limelight, his influence as a musical artist has been acknowledged by figures such as  [[Neil Young]], [[Mark Knopfler]], [[Waylon Jennings]], and [[Eric Clapton]], who described him as one of the most important artists in rock history. He is one of the originators of the [[Tulsa sound]], a loose genre drawing on [[blues]], [[rockabilly]], [[Country music|country]], and [[jazz]].\n\nIn 2008, Cale and Clapton received a [[Grammy Award]] for their album ''[[The Road to Escondido]]''.",
-  "last_revision_date": "2025-06-20T00:38:20Z"
+  "last_revision_date": "2025-06-20T00:38:20Z",
+  "genres": [
+    138,
+    290,
+    194,
+    51,
+    1149,
+    1214,
+    1003
+  ]
 }

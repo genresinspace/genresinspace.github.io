@@ -1,5 +1,15 @@
 {
   "name": "Morris Day",
   "description": "'''Morris E. Day''' (born December 13, 1957) is an American musician and songwriter. He is best known as the lead singer of [[The Time (band)|The Time]].",
-  "last_revision_date": "2025-06-12T09:24:08Z"
+  "last_revision_date": "2025-06-12T09:24:08Z",
+  "genres": [
+    819,
+    1015,
+    547,
+    455,
+    1024,
+    912,
+    756,
+    822
+  ]
 }

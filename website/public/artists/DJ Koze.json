@@ -1,5 +1,14 @@
 {
   "name": "DJ Koze",
   "description": "'''Stefan Kozalla''' (born 1972), better known as '''DJ Koze''' ({{IPA|de|ˈkɔtsə}}), is a German DJ and music producer.",
-  "last_revision_date": "2025-05-11T04:43:29Z"
+  "last_revision_date": "2025-05-11T04:43:29Z",
+  "genres": [
+    37,
+    748,
+    754,
+    1171,
+    559,
+    335,
+    1174
+  ]
 }

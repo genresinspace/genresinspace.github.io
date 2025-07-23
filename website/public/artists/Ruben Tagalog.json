@@ -1,5 +1,9 @@
 {
   "name": "Ruben Tagalog",
   "description": "'''Ruben Tagalog''' (October 17, 1922 – March 5, 1985) was a Filipino [[actor]] and [[musician]], famous for his works in the [[kundiman]] style. He was also one of the founders of the singing group [[Mabuhay Singers]]. He is known as the \"Father of Kundiman\". He was a member of the US Army during the [[Japanese occupation of the Philippines]].",
-  "last_revision_date": "2025-02-10T20:54:46Z"
+  "last_revision_date": "2025-02-10T20:54:46Z",
+  "genres": [
+    667,
+    892
+  ]
 }

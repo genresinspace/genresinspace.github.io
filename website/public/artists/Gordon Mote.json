@@ -1,5 +1,10 @@
 {
   "name": "Gordon Mote",
   "description": "'''Gordon James Mote''' (born October 25, 1970) is an American [[Christian country music|Christian country]]/[[southern gospel]] singer, piano player, and [[Contemporary worship|worship leader]]. He was born blind. He has released eight studio albums. His album ''Don't Let Me Miss the Glory'' (2007) was his breakthrough on the ''[[Billboard (magazine)|Billboard]]'' charts.",
-  "last_revision_date": "2025-03-15T04:20:30Z"
+  "last_revision_date": "2025-03-15T04:20:30Z",
+  "genres": [
+    273,
+    1115,
+    245
+  ]
 }

@@ -1,5 +1,13 @@
 {
   "name": "Lucero",
   "description": "'''Lucero''' is an American [[country music|country]]-[[punk rock|punk]]/[[alternative country]]/[[alternative rock]] band based in [[Memphis, Tennessee]], United States. Lucero's sound has been described as a \"synthesis of soul, rock, and country [that] is distinctly Memphisian.\" They have released 12 albums and one live DVD, mostly through their own label. The band mainly tours around North America.",
-  "last_revision_date": "2025-06-17T13:07:56Z"
+  "last_revision_date": "2025-06-17T13:07:56Z",
+  "genres": [
+    541,
+    35,
+    294,
+    740,
+    139,
+    40
+  ]
 }

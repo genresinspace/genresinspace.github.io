@@ -1,5 +1,11 @@
 {
   "name": "Matt Slocum",
   "description": "'''Matt Slocum''' (born 27 December 1972) is a [[guitarist]], [[cello|cellist]], [[pianist]] and [[composer]], known for his work as the principal songwriter and lead guitarist of [[Sixpence None the Richer]].",
-  "last_revision_date": "2023-12-12T14:39:34Z"
+  "last_revision_date": "2023-12-12T14:39:34Z",
+  "genres": [
+    287,
+    1104,
+    9,
+    914
+  ]
 }

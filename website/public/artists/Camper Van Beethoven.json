@@ -1,5 +1,12 @@
 {
   "name": "Camper Van Beethoven",
   "description": "'''Camper Van Beethoven''' is an American [[Rock music|rock]] band formed in [[Redlands, California]], in 1983, later based in [[Santa Cruz, California|Santa Cruz]] and [[San Francisco]]. Their style mixes elements of [[Pop music|pop]], [[ska]], [[Punk rock|punk]], [[Folk music|folk]], [[Alternative rock|alternative]], [[Country music|country]], and [[world music]], among other genres. The band initially polarized audiences within the [[hardcore punk]] scene of California's [[Inland Empire (California)|Inland Empire]] and then found wider acceptance and, eventually, an international audience. Their strong iconoclasm and emphasis on [[DIY ethic|do-it-yourself]] values proved influential to the burgeoning [[indie rock]] movement.\n\nThe band's first three independent records were released within an 18-month period. Their debut single was \"[[Take the Skinheads Bowling]]\", a song later featured in Michael Moore's 2002 film ''[[Bowling for Columbine]]''. The group signed to [[Virgin Records]] in 1987, released two albums and enjoyed chart success with their 1989 cover of [[Status Quo (band)|Status Quo's]] \"[[Pictures of Matchstick Men]]\", a number one hit on ''[[Billboard Magazine]]'''s [[Modern Rock Tracks]]. They disbanded the following year due to internal tensions.\n  \nLead singer [[David Lowery (musician)|David Lowery]] formed [[Cracker (band)|Cracker]], [[David Immerglück]] joined [[Counting Crows]], and several other members played in [[Monks of Doom]]. Beginning in 1999, the former members reunited and made several new records.",
-  "last_revision_date": "2024-12-29T21:21:17Z"
+  "last_revision_date": "2024-12-29T21:21:17Z",
+  "genres": [
+    575,
+    1262,
+    264,
+    40,
+    956
+  ]
 }

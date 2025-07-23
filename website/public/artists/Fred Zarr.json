@@ -1,5 +1,13 @@
 {
   "name": "Fred Zarr",
   "description": "'''Frederick I. Zarr''' (born September 26, 1955) is an American musician, [[record producer]], [[composer]] and [[arranger]] based in [[Brooklyn]], [[New York (state)|New York]]. The CEO of BiZarr Music, Inc., he works alongside numerous artists, singers,  songwriters, musicians, & audio engineers at his Brooklyn recording studio - “Z Studio”.",
-  "last_revision_date": "2025-06-10T16:15:42Z"
+  "last_revision_date": "2025-06-10T16:15:42Z",
+  "genres": [
+    1005,
+    924,
+    382,
+    312,
+    543,
+    479
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Etti Ankri",
   "description": "'''Esther \"Etti\" Ankri''' ({{langx|he|אתי אנקרי}}, also spelled \"Eti\" or \"Etty,\" and \"Ankari\"; born January 4, 1963) is an Israeli singer-songwriter. She is a former ''Female Singer of the Year'' in Israel, and has also performed in the United States, England, and India. Ankri has been called a \"rock genius\", the \"poet of Israeli spirituality,\" and \"the contemporary voice of... Israel.\"",
-  "last_revision_date": "2025-05-10T06:24:38Z"
+  "last_revision_date": "2025-05-10T06:24:38Z",
+  "genres": [
+    10,
+    600,
+    435
+  ]
 }

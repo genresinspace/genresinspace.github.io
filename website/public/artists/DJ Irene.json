@@ -1,5 +1,11 @@
 {
   "name": "DJ Irene",
   "description": "'''DJ Irene''' (born '''Irene Mejia Gutiérrez''') is an American [[electronic dance music]] [[DJ]] and [[music producer|producer]].",
-  "last_revision_date": "2025-05-05T04:14:42Z"
+  "last_revision_date": "2025-05-05T04:14:42Z",
+  "genres": [
+    1223,
+    1202,
+    368,
+    393
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Stan Kenton",
   "description": "'''Stanley Newcomb Kenton''' (December 15, 1911 – August 25, 1979) was an American [[popular music]] and [[jazz]] artist. As a [[pianist]], [[composer]], arranger and band leader, he led an innovative and influential [[jazz orchestra]] for almost four decades. Though Kenton had several pop hits from the early 1940s into the 1960s, his music was always forward-looking. Kenton was also a pioneer in the field of jazz education, creating the [[Stan Kenton Band Clinics|Stan Kenton Jazz Camp]] in 1959 at [[Indiana University]].",
-  "last_revision_date": "2025-05-14T22:46:54Z"
+  "last_revision_date": "2025-05-14T22:46:54Z",
+  "genres": [
+    862,
+    1150,
+    1252
+  ]
 }

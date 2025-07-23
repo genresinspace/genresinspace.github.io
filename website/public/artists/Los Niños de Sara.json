@@ -1,5 +1,8 @@
 {
   "name": "Los Niños de Sara",
   "description": "'''Los Niños de Sara''' (in Spanish, \"Sara's children\") is a Spanish-speaking [[Gitanos|Gitano]] musical group from [[Montpellier]], France. They perform on their own, but they are best known for the involvement in the musical group [[Alabina]].",
-  "last_revision_date": "2024-10-28T16:27:09Z"
+  "last_revision_date": "2024-10-28T16:27:09Z",
+  "genres": [
+    1035
+  ]
 }

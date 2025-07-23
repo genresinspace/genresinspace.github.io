@@ -1,5 +1,11 @@
 {
   "name": "The Avila Brothers",
   "description": "'''The Avila Brothers''', composed of Bobby \"Ahvlah\" Ross Avila and Issiah \"Iz\" J. Avila, are an American [[contemporary R&B|R&B]] producing and songwriting duo best known for their numerous contributions to [[Usher (musician)|Usher]] projects, including 2004 album ''[[Confessions (Usher album)|Confessions]]''. The brothers later won the [[Grammy Award for Best R&B Album]] for their contributions to [[Chaka Khan]] album ''[[Funk This]]''.",
-  "last_revision_date": "2025-06-07T08:40:58Z"
+  "last_revision_date": "2025-06-07T08:40:58Z",
+  "genres": [
+    819,
+    977,
+    1113,
+    274
+  ]
 }

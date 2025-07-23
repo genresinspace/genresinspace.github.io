@@ -1,5 +1,10 @@
 {
   "name": "Yolanda Be Cool",
   "description": "'''Yolanda Be Cool''' are an Australian music duo made up of Andrew Stanley and Matthew Handley.",
-  "last_revision_date": "2025-01-10T04:36:53Z"
+  "last_revision_date": "2025-01-10T04:36:53Z",
+  "genres": [
+    849,
+    559,
+    389
+  ]
 }

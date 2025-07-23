@@ -1,5 +1,12 @@
 {
   "name": "Itti Balangura",
   "description": "'''Itti Balangura''' ({{langx|th|อิทธิ พลางกูร}}; born '''Ekachaiwat Balangura'''; 30 January 1955 – 11 November 2004) was a Thai singer, musician and record producer. Known as \"Guitar Ballad\".",
-  "last_revision_date": "2025-06-13T21:31:24Z"
+  "last_revision_date": "2025-06-13T21:31:24Z",
+  "genres": [
+    946,
+    914,
+    1186,
+    912,
+    1104
+  ]
 }

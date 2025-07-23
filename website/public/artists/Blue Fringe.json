@@ -1,5 +1,9 @@
 {
   "name": "Blue Fringe",
   "description": "'''Blue Fringe''' was an American [[Jewish rock]] band from [[New York City]]. Formed in 2001 by lead singer [[Dov Rosenblatt]], the band's debut album, ''[[My Awakening (album)|My Awakening]]'' (2003), sold more than 14,000 copies, an uncommon feat in the limited Jewish market, and became a runaway hit. Since then, the band has released two more albums, ''[[70 Faces]]'' (2005) and ''[[The Whole World Lit Up]]'' (2007), and has performed throughout the [[United States]], [[Canada]], [[Australia]], the [[United Kingdom]], [[Africa]], and [[Israel]].  They were credited, along with [[Moshav (band)|Moshav]] and [[Soulfarm]], with advancing Jewish rock in the early 2000s.",
-  "last_revision_date": "2025-04-12T05:06:29Z"
+  "last_revision_date": "2025-04-12T05:06:29Z",
+  "genres": [
+    914,
+    628
+  ]
 }

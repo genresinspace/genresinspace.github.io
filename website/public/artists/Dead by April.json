@@ -1,5 +1,12 @@
 {
   "name": "Dead by April",
   "description": "'''Dead by April''' is a Swedish [[metalcore]] band from [[Gothenburg]], formed in 2007 by Pontus Hjelm and [[Jimmie Strimell]]. The current band lineup consists of  Pontus Hjelm (guitars/keyboards/clean vocals), Christopher Kristensen (unclean vocals) and Markus Wesslén (bass/backing growled vocals). Despite many line up changes throughout their career, both Markus Wesslén and Pontus Hjelm have remained consistent since their debut album.",
-  "last_revision_date": "2025-06-03T02:34:30Z"
+  "last_revision_date": "2025-06-03T02:34:30Z",
+  "genres": [
+    38,
+    399,
+    926,
+    744,
+    911
+  ]
 }

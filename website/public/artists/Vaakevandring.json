@@ -1,5 +1,9 @@
 {
   "name": "Vaakevandring",
   "description": "'''Vaakevandring''' was a Norwegian [[unblack metal]] band that was active from 1996 to 2007. The name in Norwegian is a reference to the [[resurrection of Jesus]]. Vaakevandring played [[symphonic black metal]] with influences from [[Music of Norway#Traditional and folk music|Norwegian folk music]].{{sfn|Sharpe-Young|2001|p=367}}",
-  "last_revision_date": "2024-12-21T19:53:58Z"
+  "last_revision_date": "2024-12-21T19:53:58Z",
+  "genres": [
+    1152,
+    1228
+  ]
 }

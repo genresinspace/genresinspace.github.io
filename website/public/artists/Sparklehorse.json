@@ -1,5 +1,12 @@
 {
   "name": "Sparklehorse",
   "description": "'''Sparklehorse''' was an American [[indie rock]] band from Richmond, Virginia, led by singer and multi-instrumentalist [[Mark Linkous]]. It was active from 1995 until Linkous's 2010 death. Before forming Sparklehorse, Linkous fronted local bands Johnson Family and Salt Chunk Mary. Only one song, \"Someday I Will Treat You Good\", survived from these earlier bands to be played by Sparklehorse. Linkous said he chose the name Sparklehorse because the two words sounded good together and could be a loose metaphor for a motorcycle. At its inception, members of Sparklehorse included Paul Watson (banjo, cornet, lap steel and electric guitar), Scott Minor (drums, chord organ, banjo), Johnny Hott (Wurlitzer organ, percussion, backing vocals), and Scot Fitzsimmons (standup bass).",
-  "last_revision_date": "2025-06-17T05:40:11Z"
+  "last_revision_date": "2025-06-17T05:40:11Z",
+  "genres": [
+    1096,
+    956,
+    575,
+    35,
+    40
+  ]
 }

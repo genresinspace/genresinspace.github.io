@@ -1,5 +1,9 @@
 {
   "name": "Pat O'May",
   "description": "'''Pat O'May''' (born 1961) is a French musician who blends rock music with elements of [[world music]]. He originally worked with the heavy metal band Marienthal, and also produced several solo albums. He has written over 100 tracks for the TV show ''European coast seen from the sky''. He participated in [[Alan Simon (musician)|Alan Simon]]'s rock operas ''[[Anne de Bretagne (rock opera)|Anne de Bretagne]]'', ''[[Excalibur (rock opera)|Excalibur: The Celtic Rock Opera]]'' and started working with [[Martin Barre]] touring and recording with him.",
-  "last_revision_date": "2025-06-19T01:32:24Z"
+  "last_revision_date": "2025-06-19T01:32:24Z",
+  "genres": [
+    1262,
+    213
+  ]
 }

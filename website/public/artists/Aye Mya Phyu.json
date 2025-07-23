@@ -1,5 +1,9 @@
 {
   "name": "Aye Mya Phyu",
   "description": "'''Aye Mya Phyu''' ({{langx|my|အေးမြဖြူ}}; born 9 March 2003), also known as '''Moe Tho''' ({{lang|my|မိုးသို}}), is a Burmese singer, actress and former child star. She became famous after competing in the [[Myanmar Idol (season 4)|fourth season]] of ''[[Myanmar Idol]]'' and finishing as runner-up.",
-  "last_revision_date": "2025-05-22T00:05:03Z"
+  "last_revision_date": "2025-05-22T00:05:03Z",
+  "genres": [
+    912,
+    703
+  ]
 }

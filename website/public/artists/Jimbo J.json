@@ -1,5 +1,10 @@
 {
   "name": "Jimbo J",
   "description": "'''Omer Havron''' ({{Langx|he|עומר הָבְרוׁן}}; born 7 June, 1985) known professionally by his stage name '''Jimbo J''', is an Israeli rapper, singer, songwriter and actor.",
-  "last_revision_date": "2025-05-03T02:33:30Z"
+  "last_revision_date": "2025-05-03T02:33:30Z",
+  "genres": [
+    547,
+    627,
+    599
+  ]
 }

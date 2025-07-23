@@ -1,5 +1,9 @@
 {
   "name": "Cryptopsy",
   "description": "'''Cryptopsy''' is a Canadian [[technical death metal]] band from [[Montreal]], formed in 1988.",
-  "last_revision_date": "2025-06-20T11:19:18Z"
+  "last_revision_date": "2025-06-20T11:19:18Z",
+  "genres": [
+    1173,
+    180
+  ]
 }

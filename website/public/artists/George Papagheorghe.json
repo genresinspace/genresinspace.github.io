@@ -1,5 +1,9 @@
 {
   "name": "George Papagheorghe",
   "description": "'''George Papagheorghe''' (born 22 June 1982, in [[Constanța]]) a.k.a. '''Jorge''' and at times '''GEØRGE''' is a Romanian singer, dancer and TV host, specially for the talent competition ''România dansează'' on [[Antena 1 (Romania)|Antena 1]] starting 2013.",
-  "last_revision_date": "2024-05-29T01:08:54Z"
+  "last_revision_date": "2024-05-29T01:08:54Z",
+  "genres": [
+    315,
+    918
+  ]
 }

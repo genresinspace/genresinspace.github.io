@@ -1,5 +1,12 @@
 {
   "name": "Naïka",
   "description": "'''Victoria Naicka Richard''' (born March 3, 1998), known professionally as '''Naïka''', is an American-born [[French Haitians|French-Haitian]] singer and songwriter.",
-  "last_revision_date": "2025-05-31T13:17:50Z"
+  "last_revision_date": "2025-05-31T13:17:50Z",
+  "genres": [
+    995,
+    1262,
+    274,
+    793,
+    912
+  ]
 }

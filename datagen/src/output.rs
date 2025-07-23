@@ -8,7 +8,7 @@ use anyhow::Context as _;
 use serde::{ser::SerializeTuple, Deserialize, Serialize};
 
 use crate::{
-    extract, links, process,
+    extract, genre_top_artists, links, process,
     types::{GenreMixes, GenreName, PageDataId, PageName},
 };
 
@@ -43,6 +43,7 @@ struct ArtistFileData {
     name: String,
     description: Option<String>,
     last_revision_date: jiff::Timestamp,
+    genres: Vec<PageDataId>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -89,7 +90,8 @@ pub fn produce(
     links_to_articles: &links::LinksToArticles,
     processed_genres: &process::ProcessedGenres,
     processed_artists: &process::ProcessedArtists,
-    genre_top_artists: &HashMap<PageName, Vec<(PageName, f32)>>,
+    genre_top_artists: &genre_top_artists::GenreTopArtists,
+    artist_genres: &genre_top_artists::ArtistGenres,
 ) -> anyhow::Result<()> {
     println!(
         "{:.2}s: producing output data",
@@ -337,6 +339,10 @@ pub fn produce(
                 name: artist.name.0.clone(),
                 last_revision_date: artist.last_revision_date,
                 description: artist.wikitext_description.clone(),
+                genres: artist_genres
+                    .get(artist_page)
+                    .map(|gs| gs.iter().flat_map(|g| page_to_id.get(g).copied()).collect())
+                    .unwrap_or_default(),
             };
             std::fs::write(
                 artists_path.join(format!("{}.json", PageName::sanitize(artist_page))),

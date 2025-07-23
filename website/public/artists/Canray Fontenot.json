@@ -1,5 +1,9 @@
 {
   "name": "Canray Fontenot",
   "description": "'''Canray Fontenot''' (October 16,{{Ref label|a|a|none}} 1922 &ndash; July 29, 1995) was an American  [[Louisiana Creole people|Creole]] [[List of fiddlers|fiddle player]], who has been described as \"the greatest Creole [[Louisiana French]] fiddler of our time.\"",
-  "last_revision_date": "2025-06-20T03:22:47Z"
+  "last_revision_date": "2025-06-20T03:22:47Z",
+  "genres": [
+    295,
+    194
+  ]
 }

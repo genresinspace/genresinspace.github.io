@@ -1,5 +1,11 @@
 {
   "name": "James Blood Ulmer",
   "description": "'''James''' \"'''Blood'''\" '''Ulmer''' (born February 8, 1940) is an American [[jazz]], [[free funk]] and [[blues music|blues]] guitarist and singer. Ulmer plays a [[Gibson Byrdland]] guitar. His guitar sound has been described as \"jagged\" and \"stinging\". His singing has been called \"raggedly soulful\".",
-  "last_revision_date": "2025-02-08T13:50:36Z"
+  "last_revision_date": "2025-02-08T13:50:36Z",
+  "genres": [
+    444,
+    616,
+    381,
+    73
+  ]
 }

@@ -1,5 +1,8 @@
 {
   "name": "Grup Latanier",
   "description": "'''Grup Latanier''' is a popular musical group in [[Mauritius]]. It was founded in 1979 and well known throughout the island for their committed songs ([[Santé engagé]]). Nearly 30 years after its creation, the group is still very influential. Its authors are inspired by political unfairness, poverty, war, loathing, banes, culture, etc. They denounce through their songs these human made wrongdoings.",
-  "last_revision_date": "2024-05-22T04:57:54Z"
+  "last_revision_date": "2024-05-22T04:57:54Z",
+  "genres": [
+    1060
+  ]
 }

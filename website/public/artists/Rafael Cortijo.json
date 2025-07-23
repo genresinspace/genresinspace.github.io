@@ -1,5 +1,10 @@
 {
   "name": "Rafael Antonio Cortijo Verdejo",
   "description": "'''Rafael Antonio Cortijo Verdejo''' (December 11, 1928 &ndash; October 3, 1982) was a [[Puerto Rico|Puerto Rican]] musician, orchestra leader, composer and percussion instrument craftsman.",
-  "last_revision_date": "2025-06-16T21:47:25Z"
+  "last_revision_date": "2025-06-16T21:47:25Z",
+  "genres": [
+    903,
+    1042,
+    142
+  ]
 }

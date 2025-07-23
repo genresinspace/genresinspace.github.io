@@ -1,5 +1,9 @@
 {
   "name": "Glasgow",
   "description": "'''Glasgow''' is a [[new wave of British heavy metal]] band formed in [[Glasgow]], Scotland in 1982. The band released one studio album ''Zero Four One'' in 1987, before splitting up in 1988.",
-  "last_revision_date": "2025-02-26T14:22:50Z"
+  "last_revision_date": "2025-02-26T14:22:50Z",
+  "genres": [
+    824,
+    542
+  ]
 }

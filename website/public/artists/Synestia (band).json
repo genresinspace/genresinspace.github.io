@@ -1,5 +1,10 @@
 {
   "name": "Synestia",
   "description": "'''Synestia''' is an American [[deathcore]] band from [[Minneapolis]], consisting of vocalist Ryan Vail and Sam Melchior on instruments.",
-  "last_revision_date": "2025-06-13T17:41:28Z"
+  "last_revision_date": "2025-06-13T17:41:28Z",
+  "genres": [
+    330,
+    735,
+    1154
+  ]
 }

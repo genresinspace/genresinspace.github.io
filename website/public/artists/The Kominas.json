@@ -1,5 +1,11 @@
 {
   "name": "The Kominas",
   "description": "'''The Kominas''' are a [[punk rock]] band formed in 2005 by two Pakistani-Americans from [[Worcester, Massachusetts]]. In over ten years, the band has experienced a number of line-up changes and self-released albums.",
-  "last_revision_date": "2025-05-28T01:54:58Z"
+  "last_revision_date": "2025-05-28T01:54:58Z",
+  "genres": [
+    461,
+    970,
+    40,
+    1169
+  ]
 }

@@ -1,5 +1,12 @@
 {
   "name": "Hillsong Young & Free",
   "description": "'''Hillsong Young & Free''' (also known as '''Hillsong Y&F''' or simply '''Young & Free''' or '''Y&F''') is an Australian [[contemporary worship music]] and [[Christian EDM]] group from [[Sydney]], Australia, where they started making Christian music in 2012 at [[Hillsong Church]]. They have released four [[live album]]s: ''[[We Are Young & Free]]'' (2013), ''[[Youth Revival]]'' (2016), ''[[III Live at Hillsong Conference|III Live]]'' (2018), and ''All of My Best Friends'' (2020); they have also released four [[studio album]]s: ''[[Youth Revival Acoustic]]'' (2017), ''[[III (Hillsong Young & Free album)|III]]'' (2018), ''[[III (Studio Sessions)]]'' (2019), and ''[[III (Reimagined)]]'' (2019). Additionally, the group have released three [[extended play|EPs]]: ''[[This Is Living EP|This Is Living]]'' (2015), ''We Are Young & Free (The Remixes) - EP'' (2015), and ''Out Here on a Friday Where It Began'' (2021).",
-  "last_revision_date": "2025-04-24T03:38:35Z"
+  "last_revision_date": "2025-04-24T03:38:35Z",
+  "genres": [
+    273,
+    277,
+    312,
+    247,
+    400
+  ]
 }

@@ -1,5 +1,11 @@
 {
   "name": "Tommy Smith",
   "description": "'''Thomas William Ellis Smith''' {{Post-nominals|country=GBR|OBE}} (born 27 April 1967) is a Scottish [[jazz]] saxophonist, composer, and educator.",
-  "last_revision_date": "2025-06-20T12:50:08Z"
+  "last_revision_date": "2025-06-20T12:50:08Z",
+  "genres": [
+    445,
+    1150,
+    616,
+    862
+  ]
 }

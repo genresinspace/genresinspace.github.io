@@ -1,5 +1,8 @@
 {
   "name": "Cheb Bilal",
   "description": "'''Bilal Mouffok''' ({{langx|ar|بلال موفق|Bilāl Muwaffaq}}; born 23 July 1966), known professionally as '''Cheb Bilal''' ({{langx|ar|الشاب بلال|ash-Shābb Bilāl|the Young Bilal|links=no}}), is an [[Algerians|Algerian]] [[raï]] singer, He produces traditional music that includes instruments like congas and violins.{{fact|date=October 2021}}",
-  "last_revision_date": "2025-03-09T15:12:36Z"
+  "last_revision_date": "2025-03-09T15:12:36Z",
+  "genres": [
+    998
+  ]
 }

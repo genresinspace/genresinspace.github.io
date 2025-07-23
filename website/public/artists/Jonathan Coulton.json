@@ -1,5 +1,13 @@
 {
   "name": "Jonathan Coulton",
   "description": "'''Jonathan William Coulton''' (born December 1, 1970), often called \"'''JoCo'''\" by fans, is an American folk/comedy singer-songwriter, known for his songs about [[geek]] culture and his use of the Internet to draw fans. Among his most popular songs are \"[[Code Monkey (song)|Code Monkey]]\", \"Re: Your Brains\", \"[[Still Alive]]\", and \"[[Want You Gone]]\" (the last three being featured in games developed by [[Valve Corporation|Valve]]: ''[[Left 4 Dead 2]]'', ''[[Portal (video game)|Portal]]'', and ''[[Portal 2]]'' respectively). He was the house musician for [[NPR]] weekly puzzle quiz show ''[[Ask Me Another (radio)|Ask Me Another]]'' from 2012 until its end in 2021.\n\nHis album ''[[Artificial Heart (album)|Artificial Heart]]'' was the first to chart, eventually reaching No. 1 on ''Billboard''{{'}}s [[Top Heatseekers]] and No. 125 in the [[Billboard 200|''Billboard'' 200]].",
-  "last_revision_date": "2025-03-15T21:42:48Z"
+  "last_revision_date": "2025-03-15T21:42:48Z",
+  "genres": [
+    40,
+    435,
+    65,
+    483,
+    269,
+    575
+  ]
 }

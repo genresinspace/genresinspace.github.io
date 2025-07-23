@@ -1,5 +1,10 @@
 {
   "name": "Miranda Sex Garden",
   "description": "'''Miranda Sex Garden''' are an English music group from London. They were originally active from 1990 to 2000, reforming in 2022.",
-  "last_revision_date": "2024-12-16T15:07:58Z"
+  "last_revision_date": "2024-12-16T15:07:58Z",
+  "genres": [
+    407,
+    505,
+    325
+  ]
 }

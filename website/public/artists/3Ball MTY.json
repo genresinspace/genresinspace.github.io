@@ -1,5 +1,9 @@
 {
   "name": "3BallMTY",
   "description": "'''3BallMTY''' (pronounced \"'''Tribal [[Monterrey]]'''\") is a Mexican pop DJ group from the city of [[Monterrey, Nuevo León]], Mexico. The \"DJ Collective\" (the name its members have formally given themselves) was formed in 2009 by two teenage DJs – Sergio Zavala (DJ Sheeqo Beat), and Alberto Presenda (DJ Otto). The name \"3Ball\" comes from the Spanish word \"tribal\", which refers to the culture of [[Trival|guaracha tribal music]] popular in many Spanish-speaking countries around the world.",
-  "last_revision_date": "2025-03-15T18:05:19Z"
+  "last_revision_date": "2025-03-15T18:05:19Z",
+  "genres": [
+    393,
+    1204
+  ]
 }

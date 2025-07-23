@@ -1,5 +1,13 @@
 {
   "name": "The Vaselines",
   "description": "'''The Vaselines''' are a Scottish [[alternative rock]] band. Formed in [[Glasgow]] in 1986, the band was originally a duo between its songwriters [[Eugene Kelly]] and [[Frances McKee]], but later added James Seenan and Eugene's brother Charlie Kelly on bass and drums respectively from the band [[Secession (band)|Secession]]. McKee had formerly been a member of a band named the Pretty Flowers with [[Duglas T. Stewart]], [[Norman Blake (Scottish musician)|Norman Blake]], Janice McBride and Sean Dickson. Eugene Kelly had formerly played in the Famous Monsters.",
-  "last_revision_date": "2025-04-12T08:26:53Z"
+  "last_revision_date": "2025-04-12T08:26:53Z",
+  "genres": [
+    612,
+    575,
+    40,
+    574,
+    837,
+    1217
+  ]
 }

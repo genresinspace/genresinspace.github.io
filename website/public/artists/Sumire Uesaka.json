@@ -1,5 +1,9 @@
 {
   "name": "Sumire Uesaka",
   "description": "{{Nihongo|'''Sumire Uesaka'''|上坂すみれ|Uesaka Sumire|born December 19, 1991}} is a Japanese voice actress and singer associated with Voice Kit. She won the Best Rookie Actress at the [[10th Seiyu Awards]]. She made her singing debut in April 2013 under King Records.",
-  "last_revision_date": "2025-06-16T20:31:01Z"
+  "last_revision_date": "2025-06-16T20:31:01Z",
+  "genres": [
+    609,
+    55
+  ]
 }

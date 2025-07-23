@@ -1,5 +1,11 @@
 {
   "name": "Little Charlie & the Nightcats",
   "description": "'''Little Charlie & the Nightcats''' was an American [[electric blues]] and [[swing revival]] [[musical ensemble|combo]], active from 1976-2008. Several members reformed as [[Rick Estrin & The Nightcats]].",
-  "last_revision_date": "2024-05-27T06:43:49Z"
+  "last_revision_date": "2024-05-27T06:43:49Z",
+  "genres": [
+    1250,
+    1151,
+    635,
+    381
+  ]
 }

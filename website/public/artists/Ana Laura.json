@@ -1,5 +1,10 @@
 {
   "name": "Ana Laura",
   "description": "'''Ana Laura Chávez''' (born February 18, 1986), commonly known as '''Ana Laura''', is an American singer of [[Contemporary Christian music]]. She released a self-titled [[Ana Laura (album)|debut album]] in 2006 and had two hit singles on Christian radio, (\"Water\" and \"Completely\"). She also contributed to the Christmas compilation ''Come Let Us Adore Him''. She supported democratic nominee Joe Biden in the 2020 election. She is part owner of Brownsville Piano Studio. Ana Laura runs City de Arte.",
-  "last_revision_date": "2025-05-29T22:56:31Z"
+  "last_revision_date": "2025-05-29T22:56:31Z",
+  "genres": [
+    912,
+    243,
+    273
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Ralph",
   "description": "'''Raffaela Weyman''', known professionally as '''Ralph''' (often stylised as '''RALPH'''), is a Canadian singer and songwriter from [[Toronto]], [[Ontario]].",
-  "last_revision_date": "2025-06-11T15:14:38Z"
+  "last_revision_date": "2025-06-11T15:14:38Z",
+  "genres": [
+    1100,
+    347,
+    1157
+  ]
 }

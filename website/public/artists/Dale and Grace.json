@@ -1,5 +1,9 @@
 {
   "name": "Dale & Grace",
   "description": "'''Dale & Grace''' was an American singing duo consisting of '''Dale Houston''' (April 23, 1940 &ndash; September 27, 2007) and '''Grace Broussard'''. (born February 5, 1939) They had two [[Billboard Hot 100|Billboard chart]] hit. The first was the No. 1 [[music recording sales certification|gold record]] \"[[I'm Leaving It Up to You]]\" in 1963. \"Stop and Think It Over\" reached No. 8 in 1964. The duo broke up in 1965, but they reunited onstage on several occasions.  Their recordings are highly regarded examples of the Louisiana-Texas style known as \"Swamp Pop\".",
-  "last_revision_date": "2025-06-01T21:37:32Z"
+  "last_revision_date": "2025-06-01T21:37:32Z",
+  "genres": [
+    1022,
+    1148
+  ]
 }

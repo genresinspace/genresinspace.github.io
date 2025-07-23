@@ -1,5 +1,11 @@
 {
   "name": "Steve Hogarth",
   "description": "'''Steve Hogarth''' (born '''Ronald Stephen Hoggarth''', 14 May 1956), also known as \"'''h'''\", is an English musician. Since 1989, he has been the lead singer of the rock band [[Marillion]], for which he also performs additional keyboards and guitar. Hogarth was formerly a keyboard player and co-lead vocalist with [[The Europeans (band)|the Europeans]] and vocalist with [[How We Live]]. [[AllMusic]] has described Hogarth as having a \"unique, expressive voice\" with \"flexible range and beautiful phrasing\".",
-  "last_revision_date": "2025-05-19T16:32:15Z"
+  "last_revision_date": "2025-05-19T16:32:15Z",
+  "genres": [
+    822,
+    795,
+    63,
+    914
+  ]
 }

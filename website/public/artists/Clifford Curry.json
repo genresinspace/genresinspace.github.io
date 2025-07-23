@@ -1,5 +1,10 @@
 {
   "name": "Clifford Curry",
   "description": "'''Clifford Curry Jr.''' (November 3, 1936 – September 7, 2016) was an American [[beach music]], [[soul music]], and [[Rhythm and blues|R&B]] singer.",
-  "last_revision_date": "2025-03-21T20:46:46Z"
+  "last_revision_date": "2025-03-21T20:46:46Z",
+  "genres": [
+    110,
+    1015,
+    1113
+  ]
 }

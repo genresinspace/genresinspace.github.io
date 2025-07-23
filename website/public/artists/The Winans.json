@@ -1,5 +1,9 @@
 {
   "name": "The Winans",
   "description": "'''The Winans''' are an [[United States|American]] [[Gospel music|gospel]] quartet from Detroit, Michigan, consisting of brothers Marvin, Carvin, Michael and Ronald [[Winans family|Winans]].",
-  "last_revision_date": "2025-04-13T10:54:06Z"
+  "last_revision_date": "2025-04-13T10:54:06Z",
+  "genres": [
+    1232,
+    274
+  ]
 }

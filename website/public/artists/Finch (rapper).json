@@ -1,5 +1,9 @@
 {
   "name": "Finch",
   "description": "'''Nils Wehowsky''' (born 13 April 1990), better known by his stage name '''Finch''', formerly '''Finch Asozial''' (stylized as '''FiNCH''' and '''FiNCH ASOZiAL'''), is a German rapper, [[Twitch (service)|Twitch]] [[Streamer (video gaming)|streamer]], [[YouTuber]] and [[battle rapper]].",
-  "last_revision_date": "2025-03-14T17:38:47Z"
+  "last_revision_date": "2025-03-14T17:38:47Z",
+  "genres": [
+    107,
+    547
+  ]
 }

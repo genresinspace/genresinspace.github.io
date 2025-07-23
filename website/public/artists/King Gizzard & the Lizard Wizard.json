@@ -1,5 +1,14 @@
 {
   "name": "King Gizzard & the Lizard Wizard",
   "description": "'''King Gizzard & the Lizard Wizard''' ('''KGLW''') are an Australian [[Rock music|rock]] band formed in 2010 in [[Melbourne, Victoria]]. The band's current lineup consists of [[Stu Mackenzie]] (vocals, guitar), Ambrose Kenny-Smith (vocals, harmonica, keyboards), [[Cook Craig]] (guitar, keyboards, vocals), [[Joey Walker]] (guitar, vocals), [[Lucas Harwood]] (bass, vocals), and [[Michael Cavanagh (drummer)|Michael Cavanagh]] (drums, vocals). They are known for exploring multiple [[Music genre|genres]], staging energetic live shows, and building [[King Gizzard & the Lizard Wizard discography|a prolific discography]].\n\nThe band's early releases blended [[surf music]] and [[garage rock]] and were released on their label, [[Flightless (record label)|Flightless]]. They released several [[Psychedelic rock|psychedelic]] and [[progressive rock]] albums in the early 2010s, and incorporated a broader range of musical styles later in the decade, such as [[jazz fusion]] on ''[[Quarters!]]'' and the [[Folk music|folk]]-inspired ''[[Paper Mâché Dream Balloon]]''. In 2016, they generated more mainstream attention with ''[[Nonagon Infinity]],'' which won the [[ARIA Award for Best Hard Rock or Heavy Metal Album]].\n\nNoted for their prolific discography, in 2017 the band fulfilled a promise to release five studio albums within the calendar year, and also marked the beginning of a trilogy of [[microtonal music|microtonal]] albums with ''[[Flying Microtonal Banana]]''. Subsequent releases integrated [[Heavy metal music|heavy metal]], [[synth-pop]] and [[progressive rock]], and feature lyrics that address [[Environmentalism in music|environmental themes]] and a connected [[fictional universe]] termed the \"Gizzverse\" by fans. \n\nIn 2022, the band once again released five studio albums in one calendar year, with three being released that October. Their 27th and most recent album, ''[[Phantom Island (album)|Phantom Island]]'', was released in 2025.",
-  "last_revision_date": "2025-06-18T18:34:08Z"
+  "last_revision_date": "2025-06-18T18:34:08Z",
+  "genres": [
+    542,
+    956,
+    796,
+    954,
+    946,
+    481,
+    611
+  ]
 }

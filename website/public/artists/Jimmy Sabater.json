@@ -1,5 +1,9 @@
 {
   "name": "Jimmy Sabater",
   "description": "'''Jimmy Sabater''' (April 11, 1936 &ndash; February 8, 2012) was an American musician of Puerto Rican ancestry. A three-time winner of the [[Association of Latin Entertainment Critics|ACE Awards]], he was a singer and [[timbales]] player. He gained international fame thanks to his work with the Joe Cuba Sextet in the 1960s and '70s, and later became the lead singer of various groups including [[Charlie Palmieri]]'s Combo Gigante. His son, [[Jimmy Sabater Jr.]], is a trumpeter and bandleader.",
-  "last_revision_date": "2025-03-25T10:58:24Z"
+  "last_revision_date": "2025-03-25T10:58:24Z",
+  "genres": [
+    145,
+    1042
+  ]
 }

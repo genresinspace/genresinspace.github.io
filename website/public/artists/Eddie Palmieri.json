@@ -1,5 +1,9 @@
 {
   "name": "Eddie Palmieri",
   "description": "'''Eddie Palmieri''' (born December 15, 1936) is an American [[Grammy Award]]-winning pianist, bandleader, musician, and composer of Corsican and Puerto Rican ancestry. He is the founder of the bands La Perfecta, La Perfecta II, and Harlem River Drive.",
-  "last_revision_date": "2025-06-16T11:16:40Z"
+  "last_revision_date": "2025-06-16T11:16:40Z",
+  "genres": [
+    679,
+    1042
+  ]
 }

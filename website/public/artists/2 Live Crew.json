@@ -1,5 +1,10 @@
 {
   "name": "The 2 Live Crew",
   "description": "'''2 Live Crew''' is an American hip hop group from [[Miami]], [[Florida]], formed in 1984. The group was originally composed of DJ Mr. Mixx (David Hobbs), Fresh Kid Ice (Christopher Wong Won), and Amazing Vee (Yuri Vielot), though its most well-known lineup emerged later with the addition of Brother Marquis (Mark Ross) and the replacement of Amazing Vee by Luther \"Luke Skyywalker\" Campbell, who also served as the group's manager and promoter. Known for their provocative lyrics and sexually explicit content, 2 Live Crew gained widespread attention in the late 1980s and early 1990s, becoming pioneers of the Miami bass genre and influential figures in the development of Southern hip hop. Their breakthrough album, ''The 2 Live Crew Is What We Are'' (1986), introduced their signature sound, blending booming basslines with humorous and risqué themes.\n\nThe group achieved both commercial success and controversy with their 1989 album, ''As Nasty As They Wanna Be'', which was certified double platinum by the Recording Industry Association of America (RIAA) and featured the hit single \"Me So Horny.\" The album's explicit content led to legal battles over obscenity, most notably when it was declared legally obscene by a federal judge in 1990—an unprecedented ruling for a music recording in the United States. This decision sparked a high-profile First Amendment case, eventually overturned by the U.S. Court of Appeals for the Eleventh Circuit in 1992, cementing the group's legacy as defenders of free expression in music. Despite lineup changes and legal challenges, 2 Live Crew continued to release albums, including ''Banned in the U.S.A.'' (1990), the first album to bear a Parental Advisory label, and remained active until their official disbandment in 2016 following the death of Fresh Kid Ice in 2017. The group's influence endures in hip hop culture, particularly for their role in pushing boundaries of artistic freedom and popularizing bass-heavy production.",
-  "last_revision_date": "2025-06-12T20:20:20Z"
+  "last_revision_date": "2025-06-12T20:20:20Z",
+  "genres": [
+    346,
+    547,
+    747
+  ]
 }

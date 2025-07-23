@@ -1,5 +1,11 @@
 {
   "name": "Grand Baton",
   "description": "'''Grand Baton''' is an [[Afro-Caribbean music|Afro-Caribbean]], [[progressive rock]] and [[Jazz|jazz fusion]] [[musical ensemble|band]] based in [[New York City]]. The band was founded by the [[composer]], arranger, [[guitarist]], [[pianist]], singer and [[songwriter]] Jean-Cristophe (JC) Maillard, a native of [[Pointe-à-Pitre]], [[Guadeloupe]].",
-  "last_revision_date": "2025-04-12T17:13:41Z"
+  "last_revision_date": "2025-04-12T17:13:41Z",
+  "genres": [
+    946,
+    19,
+    395,
+    616
+  ]
 }

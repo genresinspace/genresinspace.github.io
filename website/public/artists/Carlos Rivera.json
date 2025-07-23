@@ -1,5 +1,9 @@
 {
   "name": "Carlos Rivera",
   "description": "'''Carlos Augusto Rivera Guerra''' (born March 15, 1986) is a Mexican singer who rose to fame by winning the third generation of ''[[La Academia]]''. He has released four studio albums and participated in six theatre productions.",
-  "last_revision_date": "2025-02-13T17:33:03Z"
+  "last_revision_date": "2025-02-13T17:33:03Z",
+  "genres": [
+    718,
+    774
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Danny Tenaglia",
   "description": "'''Daniel \"Danny\" Tenaglia''' (born March 7, 1961) is an Italian American [[disc jockey|DJ]] and [[record producer]].",
-  "last_revision_date": "2025-05-06T03:32:20Z"
+  "last_revision_date": "2025-05-06T03:32:20Z",
+  "genres": [
+    479,
+    1174,
+    1205
+  ]
 }

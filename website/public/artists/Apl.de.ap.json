@@ -1,5 +1,11 @@
 {
   "name": "Apl.de.ap",
   "description": "'''Allan Pineda Lindo''' (born November 28, 1974), known professionally as '''apl.de.ap''' ({{IPAc-en|IPA|ˌ|æ|p|əl|d|i|ˈ|æ|p}} {{respell|AP|əl|dee|AP}}), is a [[Filipino-American]] rapper, singer and record producer. He is a founding member of the hip hop group [[Black Eyed Peas]] (BEP). With the BEP, he has been nominated for 16 [[Grammy Awards]], winning six, including [[Best Pop Vocal Album]].",
-  "last_revision_date": "2025-06-01T06:38:15Z"
+  "last_revision_date": "2025-06-01T06:38:15Z",
+  "genres": [
+    547,
+    546,
+    37,
+    382
+  ]
 }

@@ -1,5 +1,8 @@
 {
   "name": "Floby",
   "description": "'''Florent Belemgnegré''', better known by his stage name '''Floby''', is a [[Burkina Faso|Burkinabé]] singer and musician. He sings in the [[French language|French]] and [[Mossi language|Mòoré]] languages. His music uses African sounds such as the [[Kora (instrument)|kora]] and [[djembe]] but also rap and electric guitar.\n\nHe is also known by the nicknames ''le King Zodanga'', ''le Papa des Orphelins'' and ''le Kirikou d’Afrique''.",
-  "last_revision_date": "2025-06-15T02:40:51Z"
+  "last_revision_date": "2025-06-15T02:40:51Z",
+  "genres": [
+    292
+  ]
 }

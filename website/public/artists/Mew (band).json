@@ -1,5 +1,13 @@
 {
   "name": "Mew",
   "description": "'''Mew''' is a Danish [[alternative rock]] band from [[Copenhagen]], formed in 1995. The band is made up of [[Jonas Bjerre]] (lead vocals), [[Johan Wohlert]] (bass) and Silas Utke Graae Jørgensen (drums). From 1995 to 2015, the band also featured guitarist Bo Madsen, while bassist Wohlert left the band from 2006 to 2013.\n\nThe band began to receive attention with their third album ''[[Frengers]]'' (2003). Whilst their music may be classified as [[Indie rock|indie]] and on occasion [[progressive rock]], former guitarist Bo Madsen said \"I usually say we are 'indie stadium.' A mix between 'feelings' and 'thinking' is usually good.\"\n\nThe band plays farewell shows in 2025 due to Bjerre's departure from the band.",
-  "last_revision_date": "2025-06-06T13:37:10Z"
+  "last_revision_date": "2025-06-06T13:37:10Z",
+  "genres": [
+    932,
+    357,
+    40,
+    575,
+    1121,
+    946
+  ]
 }

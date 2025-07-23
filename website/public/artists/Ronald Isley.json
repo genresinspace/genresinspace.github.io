@@ -1,5 +1,11 @@
 {
   "name": "Ronald Isley",
   "description": "'''Ronald Isley''' ({{IPAc-en|ˈ|aɪ|z|l|i}} {{respell|EYEZ|lee}}; born May 21, 1941) is an American singer, songwriter, and record producer. Isley is the lead singer and founding member of the family music group [[The Isley Brothers]].",
-  "last_revision_date": "2025-05-31T04:45:18Z"
+  "last_revision_date": "2025-05-31T04:45:18Z",
+  "genres": [
+    977,
+    1015,
+    1113,
+    455
+  ]
 }

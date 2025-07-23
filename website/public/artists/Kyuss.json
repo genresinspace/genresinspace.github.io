@@ -1,5 +1,9 @@
 {
   "name": "Kyuss",
   "description": "'''Kyuss''' ({{IPAc-en|ˈ|k|aɪ|ə|s}} {{respell|KY|əs}}) was an American [[stoner rock]] band formed in [[Palm Desert, California]], in 1987, and considered one of the pioneers of the genre. After disbanding in 1995, a number of band members have gone on to form or play in several notable bands including [[Queens of the Stone Age]], [[Screaming Trees]], [[Fu Manchu (band)|Fu Manchu]], [[Dwarves (band)|Dwarves]], [[Eagles of Death Metal]], [[Mondo Generator]], [[Hermano (band)|Hermano]], [[Unida]], [[Slo Burn]], and [[Them Crooked Vultures]].\n\nIn November 2010, three former members of the band (minus Homme, who declined to participate) reunited under the adapted moniker \"Kyuss lives!\" for a world tour with plans to record a new album. A federal lawsuit subsequently filed by Homme resulted in Oliveri leaving the band in March 2012. Five months later, a court ruled that Garcia and Bjork were not allowed to release audio recordings under the Kyuss lives! moniker. As a result, they changed their name to [[Vista Chino]].",
-  "last_revision_date": "2025-06-17T03:17:01Z"
+  "last_revision_date": "2025-06-17T03:17:01Z",
+  "genres": [
+    877,
+    1135
+  ]
 }

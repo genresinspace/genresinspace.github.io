@@ -1,5 +1,10 @@
 {
   "name": "John's Children",
   "description": "'''John's Children''' were a 1960s [[rock music|rock]] band from [[Leatherhead]], England that briefly featured future [[T. Rex (band)|T. Rex]] frontman [[Marc Bolan]]. John's Children were known for their outrageous live performances and were booted off a tour with [[the Who]] in Germany in 1967 when they upstaged the headliners. Their 1967 single \"[[Desdemona (John's Children song)|Desdemona]]\", a Bolan composition, was banned by the [[BBC]] because of the controversial lyric, \"Lift up your skirt and fly.\" Their US record label delayed the release of their debut album, ''[[Orgasm (John's Children album)|Orgasm]]'', for four years from its recording date due to objections from [[Daughters of the American Revolution]].\n\nJohn's Children were active for less than two years and were not very successful commercially, having released only six singles and one album, but they are seen by some as the precursors of [[glam rock]]. In retrospect the band has been praised for their impact, and their singles have become amongst the most sought-after British 1960s rock collectables.",
-  "last_revision_date": "2025-06-02T02:57:14Z"
+  "last_revision_date": "2025-06-02T02:57:14Z",
+  "genres": [
+    111,
+    950,
+    443
+  ]
 }

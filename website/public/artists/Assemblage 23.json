@@ -1,5 +1,11 @@
 {
   "name": "Assemblage 23",
   "description": "'''Assemblage 23''' is an [[Electronic music|electronic]] act from the United States, currently based in [[Woonsocket, Rhode Island]]. It was founded in 1988 by [[Tom Shear]] who writes the music and lyrics and does the recording himself. Live performances are supported by Paul Seegers on keyboards and Mike Jenney on drums.",
-  "last_revision_date": "2025-02-24T20:04:46Z"
+  "last_revision_date": "2025-02-24T20:04:46Z",
+  "genres": [
+    390,
+    1157,
+    392,
+    471
+  ]
 }

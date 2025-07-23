@@ -1,5 +1,8 @@
 {
   "name": "Korpiklaani",
   "description": "'''Korpiklaani''' ([[Finnish language|Finnish]] for {{lang|en|The Backwoods Clan}}) is a Finnish [[folk metal]] band from [[Lahti]] that was formerly known as '''Shamaani Duo''' and '''Shaman'''.",
-  "last_revision_date": "2025-04-23T00:14:09Z"
+  "last_revision_date": "2025-04-23T00:14:09Z",
+  "genres": [
+    432
+  ]
 }

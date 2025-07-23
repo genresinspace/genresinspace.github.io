@@ -1,5 +1,10 @@
 {
   "name": "Space",
   "description": "'''Space''' (occasionally '''Didier Marouani & Space'''{{better source needed|date=November 2021}}), are a French [[music]] band active from 1977 through 1980 and returning with [[cover version|on-stage remake]] performances since 1982. Their work is associated with the short-lived [[space disco]] genre and is a precursor of [[electronica]].",
-  "last_revision_date": "2025-02-07T21:38:28Z"
+  "last_revision_date": "2025-02-07T21:38:28Z",
+  "genres": [
+    398,
+    822,
+    606
+  ]
 }

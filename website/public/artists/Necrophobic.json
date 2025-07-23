@@ -1,5 +1,8 @@
 {
   "name": "Necrophobic",
   "description": "'''Necrophobic''' is a Swedish [[blackened death metal]] band.",
-  "last_revision_date": "2025-04-08T18:19:02Z"
+  "last_revision_date": "2025-04-08T18:19:02Z",
+  "genres": [
+    132
+  ]
 }

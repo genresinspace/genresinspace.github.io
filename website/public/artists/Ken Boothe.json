@@ -1,5 +1,11 @@
 {
   "name": "Ken Boothe",
   "description": "'''Kenneth George Boothe''' [[Order of Distinction|OD]] (born 22 March 1948) is a Jamaican vocalist known for his distinctive vibrato and timbre. Boothe achieved an international reputation as one of Jamaica's finest vocalists through a series of crossover hits that appealed to both [[reggae]] fans and mainstream audiences.",
-  "last_revision_date": "2025-05-29T13:17:24Z"
+  "last_revision_date": "2025-05-29T13:17:24Z",
+  "genres": [
+    1005,
+    1031,
+    1090,
+    696
+  ]
 }

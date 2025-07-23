@@ -1,5 +1,10 @@
 {
   "name": "Chloe Smith",
   "description": "'''Chloe Smith''' is an American singer, [[multi-instrumental]] musician, and activist, known for her role as one of the two [[lead vocalists]] of [[Rising Appalachia]] alongside her older sister [[Leah Song]]. Her music, which incorporates sultry vocals, rhythm, banjo, guitar, and fiddle, is based in the traditions of [[Southern soul]] and international [[American folk music#Roots music|roots music]].\n\nSmith has an interest in [[natural medicine]] and [[healing]] and engages in [[social activism]], where she is involved in issues pertaining to the [[environmental activism|environment]], [[racial inequality]] and [[cultural appropriation]].",
-  "last_revision_date": "2024-06-21T15:52:43Z"
+  "last_revision_date": "2024-06-21T15:52:43Z",
+  "genres": [
+    1119,
+    1262,
+    58
+  ]
 }

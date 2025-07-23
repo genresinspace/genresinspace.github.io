@@ -1,5 +1,9 @@
 {
   "name": "Crawlers (band)",
   "description": "'''Crawlers''' are an English [[Rock music|rock]] band from [[Warrington]], formed in 2018. The band gained widespread attention in late 2021 when their single \"Come Over (Again)\" went viral on the social media platform [[TikTok]]. In early 2024, the band joined Canadian rock group [[Mother Mother]] as a supporting act on tour.\n\nIn 2022 they signed to [[Polydor Records]], and released the EP ''Loud Without Noise'', which debuted at number 22 on the [[UK Albums Chart]] in November 2022. They released their debut album ''[[The Mess We Seem to Make]]'' in February 2024.",
-  "last_revision_date": "2025-05-12T18:47:23Z"
+  "last_revision_date": "2025-05-12T18:47:23Z",
+  "genres": [
+    40,
+    1103
+  ]
 }

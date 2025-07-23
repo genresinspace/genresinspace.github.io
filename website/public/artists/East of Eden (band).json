@@ -1,5 +1,14 @@
 {
   "name": "East of Eden",
   "description": "'''East of Eden''' were a British [[progressive rock]] band, who had a [[Top 40|Top 10]] hit in the UK with the single \"[[Jig-a-Jig (song)|Jig-a-Jig]]\" in 1970. The track was stylistically unlike any of their other work. Although some might consider them a symphonic progressive band, others state that their style is mostly [[jazz]]-oriented.",
-  "last_revision_date": "2025-04-07T03:25:45Z"
+  "last_revision_date": "2025-04-07T03:25:45Z",
+  "genres": [
+    620,
+    956,
+    946,
+    290,
+    77,
+    617,
+    418
+  ]
 }

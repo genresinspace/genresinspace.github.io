@@ -1,5 +1,9 @@
 {
   "name": "DJ Q",
   "description": "'''Shollen Michael Quarshie''' (born 16 August 1985), known by his stage name '''DJ Q''', is a [[DJ]] and record producer from [[Huddersfield]], England. He forms part of the [[supergroup (music)|supergroup]] TQD alongside [[Flava D]] and [[Royal-T]].",
-  "last_revision_date": "2024-11-02T08:50:27Z"
+  "last_revision_date": "2024-11-02T08:50:27Z",
+  "genres": [
+    509,
+    105
+  ]
 }

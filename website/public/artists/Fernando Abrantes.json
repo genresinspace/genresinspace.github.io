@@ -1,5 +1,10 @@
 {
   "name": "Fernando Abrantes",
   "description": "'''Fernando Fromm-Abrantes''' (born 1960) is a German-Portuguese [[Record producer|producer]] and [[musician]].",
-  "last_revision_date": "2025-03-02T17:15:05Z"
+  "last_revision_date": "2025-03-02T17:15:05Z",
+  "genres": [
+    912,
+    488,
+    1157
+  ]
 }

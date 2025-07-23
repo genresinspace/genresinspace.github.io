@@ -1,5 +1,10 @@
 {
   "name": "Gad Elbaz",
   "description": "'''Gad Elbaz''' ({{Langx|he|גד אלבז}}) is an [[Israelis|Israeli]] [[Jews|Jewish]] singer who has gained international success and recorded several albums.",
-  "last_revision_date": "2025-04-20T21:05:21Z"
+  "last_revision_date": "2025-04-20T21:05:21Z",
+  "genres": [
+    912,
+    1024,
+    757
+  ]
 }

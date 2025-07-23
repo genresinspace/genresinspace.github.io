@@ -1,9 +1,18 @@
 //! Calculate the top artists for each genre.
-use std::{collections::HashMap, path::Path};
+use std::{
+    collections::{HashMap, HashSet},
+    path::Path,
+};
 
 use anyhow::Context as _;
 
 use crate::{links, process, types};
+
+/// A map of genre page names to their top artists.
+pub type GenreTopArtists = HashMap<types::PageName, Vec<(types::PageName, f32)>>;
+
+/// A map of artist page names to their genres.
+pub type ArtistGenres = HashMap<types::PageName, HashSet<types::PageName>>;
 
 /// Calculate the top artists for each genre.
 pub fn calculate(
@@ -11,17 +20,24 @@ pub fn calculate(
     processed_artists: &process::ProcessedArtists,
     artist_inbound_link_counts: &HashMap<types::PageName, usize>,
     links_to_articles: &links::LinksToArticles,
-    output_path: &Path,
-) -> anyhow::Result<HashMap<types::PageName, Vec<(types::PageName, f32)>>> {
-    if output_path.exists() {
+    output_path_gta: &Path,
+    output_path_ag: &Path,
+) -> anyhow::Result<(GenreTopArtists, ArtistGenres)> {
+    if output_path_gta.exists() && output_path_ag.exists() {
         println!(
-            "{:.2}s: loading genre top artists",
+            "{:.2}s: loading genre top artists and artist genres",
             start.elapsed().as_secs_f32(),
         );
-        return serde_json::from_slice(
-            &std::fs::read(output_path).context("Failed to read genre top artists")?,
-        )
-        .context("Failed to parse genre top artists");
+        return Ok((
+            serde_json::from_slice(
+                &std::fs::read(output_path_gta).context("Failed to read genre top artists")?,
+            )
+            .context("Failed to parse genre top artists")?,
+            serde_json::from_slice(
+                &std::fs::read(output_path_ag).context("Failed to read artist genres")?,
+            )
+            .context("Failed to parse artist genres")?,
+        ));
     }
 
     println!(
@@ -29,7 +45,8 @@ pub fn calculate(
         start.elapsed().as_secs_f32(),
     );
 
-    let mut intermediate_result = HashMap::<types::PageName, HashMap<types::PageName, f32>>::new();
+    let mut intermediate_gta = HashMap::<types::PageName, HashMap<types::PageName, f32>>::new();
+    let mut artist_genres = ArtistGenres::new();
 
     for (artist_page, artist) in &processed_artists.0 {
         let link_count = artist_inbound_link_counts
@@ -55,15 +72,20 @@ pub fn calculate(
 
             let weighted_score = link_count * weight;
 
-            *intermediate_result
-                .entry(page_name)
+            *intermediate_gta
+                .entry(page_name.clone())
                 .or_default()
                 .entry(artist_page.clone())
                 .or_default() += weighted_score;
+
+            artist_genres
+                .entry(artist_page.clone())
+                .or_default()
+                .insert(page_name);
         }
     }
 
-    let mut result: HashMap<types::PageName, Vec<(types::PageName, f32)>> = intermediate_result
+    let mut gta: HashMap<types::PageName, Vec<(types::PageName, f32)>> = intermediate_gta
         .into_iter()
         .map(|(genre, artists)| (genre, artists.into_iter().collect::<Vec<_>>()))
         .collect();
@@ -79,12 +101,16 @@ pub fn calculate(
         });
     }
 
-    std::fs::write(output_path, serde_json::to_string_pretty(&result)?)?;
+    std::fs::write(output_path_gta, serde_json::to_string_pretty(&gta)?)?;
+    std::fs::write(
+        output_path_ag,
+        serde_json::to_string_pretty(&artist_genres)?,
+    )?;
 
     println!(
-        "{:.2}s: wrote genre top artists",
+        "{:.2}s: wrote genre top artists and artist genres",
         start.elapsed().as_secs_f32(),
     );
 
-    Ok(result)
+    Ok((gta, artist_genres))
 }

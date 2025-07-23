@@ -1,5 +1,8 @@
 {
   "name": "Slow J",
   "description": "'''João Batista Coelho''' (born 21 September 1992), mostly known by his stage name '''Slow J''', is a Portuguese [[Rapping|rapper]], record producer and singer-songwriter.",
-  "last_revision_date": "2024-10-28T17:11:00Z"
+  "last_revision_date": "2024-10-28T17:11:00Z",
+  "genres": [
+    550
+  ]
 }

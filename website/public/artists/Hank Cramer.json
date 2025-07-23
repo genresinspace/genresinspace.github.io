@@ -1,5 +1,9 @@
 {
   "name": "Hank Cramer",
   "description": "'''Hank Cramer'''  is an American folk singer from the Pacific Northwest.",
-  "last_revision_date": "2025-03-27T17:30:05Z"
+  "last_revision_date": "2025-03-27T17:30:05Z",
+  "genres": [
+    287,
+    1070
+  ]
 }

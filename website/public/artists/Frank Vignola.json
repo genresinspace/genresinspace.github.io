@@ -1,5 +1,11 @@
 {
   "name": "Frank Vignola",
   "description": "'''Frank Vignola''' (born December 30, 1965) is an American [[jazz]] guitarist. He has played in the genres of [[Swing music|swing]], fusion, gypsy jazz, [[Classical music|classical]], and [[Pop music|pop]].",
-  "last_revision_date": "2024-04-30T21:05:23Z"
+  "last_revision_date": "2024-04-30T21:05:23Z",
+  "genres": [
+    521,
+    616,
+    1150,
+    617
+  ]
 }

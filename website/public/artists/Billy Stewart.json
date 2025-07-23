@@ -1,5 +1,9 @@
 {
   "name": "Billy Stewart",
   "description": "'''William Larry Stewart II''' (March 24, 1937 – January 17, 1970) was an American [[R&B]] singer and pianist popular during the 1960s.",
-  "last_revision_date": "2025-03-24T17:53:19Z"
+  "last_revision_date": "2025-03-24T17:53:19Z",
+  "genres": [
+    229,
+    1015
+  ]
 }

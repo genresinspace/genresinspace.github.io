@@ -101,12 +101,13 @@ fn main() -> anyhow::Result<()> {
         extracted_data.redirects,
     )?;
 
-    let genre_top_artists = genre_top_artists::calculate(
+    let (genre_top_artists, artist_genres) = genre_top_artists::calculate(
         start,
         &processed_artists,
         &artist_inbound_link_counts,
         &links_to_articles,
         &output_path.join("genre_top_artists.json"),
+        &output_path.join("artist_genres.json"),
     )?;
 
     let website_path = Path::new("website");
@@ -141,5 +142,6 @@ fn main() -> anyhow::Result<()> {
         &processed_genres,
         &processed_artists,
         &genre_top_artists,
+        &artist_genres,
     )
 }

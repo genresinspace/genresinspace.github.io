@@ -1,5 +1,9 @@
 {
   "name": "Inkubus Sukkubus",
   "description": "'''Inkubus Sukkubus''' are an English [[gothic rock|goth]] and [[pagan rock]] band, formed in 1989 by Candia Ridley, Tony McKormack and Adam Henderson, who have been described as one of the most enduringly popular underground Goth bands in the UK. They also have been described by [[Mick Mercer]] as a \"zombie version of [[Fleetwood Mac]]\" in his book ''Hex Files: The Goth Bible''.",
-  "last_revision_date": "2025-06-10T03:06:21Z"
+  "last_revision_date": "2025-06-10T03:06:21Z",
+  "genres": [
+    871,
+    505
+  ]
 }

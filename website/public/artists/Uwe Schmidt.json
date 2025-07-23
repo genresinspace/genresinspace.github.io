@@ -1,5 +1,13 @@
 {
   "name": "Uwe Schmidt",
   "description": "'''Uwe H. Schmidt''' (born 27 August 1968), also known as '''Atom™''', '''Atom Heart''', or '''Señor Coconut''', is a German composer, musician and producer of [[electronic music]]. He was active in the development of electrolatino, electrogospel, and aciton music. In the nineties, Schmidt moved to [[Chile]] and developed part of his career there, adopting the alias Señor Coconut.",
-  "last_revision_date": "2025-04-17T12:34:28Z"
+  "last_revision_date": "2025-04-17T12:34:28Z",
+  "genres": [
+    1174,
+    394,
+    377,
+    492,
+    682,
+    592
+  ]
 }

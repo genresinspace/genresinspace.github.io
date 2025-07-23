@@ -1,5 +1,12 @@
 {
   "name": "Soulwax",
   "description": "'''Soulwax''' are a Belgian [[electronic music|electronic]] band and DJ/production collective from [[Ghent]], who formed in 1995. Centred around brothers '''David''' and '''Stephen Dewaele''', other current members include [[Igor Cavalera|Igor]] and Laima Cavalera, and Stefaan Van Leuven. The group first rose to prominence following the release of their album ''[[Much Against Everyone's Advice]]'', and have released five studio albums to date. Outside of Soulwax, the Dewaeles also perform DJ sets under the moniker '''2manydjs''' (first known as The Fucking Dewaele Brothers/The Flying Dewaele Brothers).\n\nThe group are also known for their project [[Radio Soulwax]]. Their 2002 compilation, ''[[As Heard on Radio Soulwax Pt. 2]]'', was named the best popular music album of 2002 by ''[[The New York Times]]''. The brothers have also hosted a show on Belgian television, titled ''Alter8''.",
-  "last_revision_date": "2025-06-01T09:08:03Z"
+  "last_revision_date": "2025-06-01T09:08:03Z",
+  "genres": [
+    36,
+    313,
+    40,
+    394,
+    391
+  ]
 }

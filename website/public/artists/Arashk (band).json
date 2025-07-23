@@ -1,5 +1,10 @@
 {
   "name": "Arashk",
   "description": "'''Arashk''' was an Iranian [[hard rock]]/[[metal (music)|metal]] band that were active between 2004-2008 and based in [[Tehran]].",
-  "last_revision_date": "2022-06-29T00:22:23Z"
+  "last_revision_date": "2022-06-29T00:22:23Z",
+  "genres": [
+    946,
+    942,
+    594
+  ]
 }

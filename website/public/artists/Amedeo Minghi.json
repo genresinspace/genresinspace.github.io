@@ -1,5 +1,10 @@
 {
   "name": "Amedeo Minghi",
   "description": "'''Amedeo Minghi''' (born 12 August 1947) is an Italian singer-songwriter, composer and producer.",
-  "last_revision_date": "2025-04-16T05:23:02Z"
+  "last_revision_date": "2025-04-16T05:23:02Z",
+  "genres": [
+    912,
+    603,
+    10
+  ]
 }

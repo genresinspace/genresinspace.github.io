@@ -1,5 +1,10 @@
 {
   "name": "Recloose",
   "description": "'''Matthew \"Recloose\" Chicoine''' is an American electronic music producer, DJ and musician hailing from [[Detroit]], [[Michigan]], US. He is known for numerous releases on independent dance labels like [[Planet E Communications|Planet E]], Rush Hour, [[Peacefrog Records|Peacefrog]], [[Studio !K7]], [[Sonar Kollektiv]] and Delusions of Grandeur.  Chicoine is also a touring DJ who has played in and around Europe, the UK, the United States, Japan, China, Singapore, Indonesia, Brazil, Australia and New Zealand.",
-  "last_revision_date": "2025-01-25T02:41:52Z"
+  "last_revision_date": "2025-01-25T02:41:52Z",
+  "genres": [
+    1206,
+    175,
+    398
+  ]
 }

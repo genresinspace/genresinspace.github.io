@@ -1,5 +1,10 @@
 {
   "name": "Joan Manuel Serrat",
   "description": "'''Joan Manuel Serrat Teresa''' ({{IPA|ca|ʒuˈam mənuˈɛl səˈrat}}; born 27 December 1943) is a Spanish musician, singer, and composer. He is considered one of the most important figures of modern, popular music in both Spanish and [[Catalan language|Catalan]] languages.\n\nSerrat's lyrical style has been influenced by other poets such as [[Mario Benedetti]], [[Antonio Machado]], [[Miguel Hernández]], [[Rafael Alberti]], [[Federico García Lorca]], [[Pablo Neruda]], and [[León Felipe]]. He has also recorded songs by [[Violeta Parra]] and [[Víctor Jara]]. Serrat was one of the pioneers of what is known in Catalan as \"[[Nova Cançó]]\" ([[Nueva Canción]]). Joan Manuel Serrat is also known by the names \"El noi del Poble-sec\" and \"El Nano\".",
-  "last_revision_date": "2025-05-23T21:20:47Z"
+  "last_revision_date": "2025-05-23T21:20:47Z",
+  "genres": [
+    1024,
+    850,
+    912
+  ]
 }

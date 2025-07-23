@@ -1,5 +1,10 @@
 {
   "name": "Julión Álvarez",
   "description": "'''Julio César Álvarez Montelongo''' (born 11 April 1983), better known as '''Julión Álvarez''' ({{IPA|es|xuˈljon ˈalβaɾes}}), is a Mexican singer who specializes in [[regional Mexican]] music.",
-  "last_revision_date": "2025-05-31T16:35:44Z"
+  "last_revision_date": "2025-05-31T16:35:44Z",
+  "genres": [
+    718,
+    842,
+    94
+  ]
 }

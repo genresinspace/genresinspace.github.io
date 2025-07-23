@@ -1,5 +1,12 @@
 {
   "name": "The Brave Little Abacus",
   "description": "'''The Brave Little Abacus''' (or simply '''Brave Little Abacus''') was an American [[emo]] band formed in [[Sandown, New Hampshire]], in 2007. The band consisted of vocalist, guitarist, and drummer Adam Demirjian, bassist Andrew Ryan, and keyboardist Zach Kelly-Onett. They were joined by Nick Morrone on drums in 2011.",
-  "last_revision_date": "2025-04-13T08:40:30Z"
+  "last_revision_date": "2025-04-13T08:40:30Z",
+  "genres": [
+    725,
+    749,
+    418,
+    926,
+    404
+  ]
 }

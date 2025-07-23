@@ -1,5 +1,9 @@
 {
   "name": "The Captains",
   "description": "'''The Captains''' is a modern [[Group Sounds]] rock band that originated out of Sendai, Japan in 2001.  They are heavily influenced by a variety of past Group Sounds artists such as [[The Mops]] and [[The Carnabeats]].",
-  "last_revision_date": "2024-08-24T22:04:39Z"
+  "last_revision_date": "2024-08-24T22:04:39Z",
+  "genres": [
+    513,
+    1024
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Suidakra",
   "description": "'''Suidakra''' (stylized '''SuidAkrA''') is a German [[melodic death metal]] band from [[Düsseldorf]], Germany. During their thirty-year career, they have performed over 200 live shows for several European and Russian tours, as well as a North American tour. They are known for their use of traditional instruments to augment their sound, such as the [[bagpipe]], [[banjo]], and [[tin whistle]].",
-  "last_revision_date": "2024-11-08T05:48:34Z"
+  "last_revision_date": "2024-11-08T05:48:34Z",
+  "genres": [
+    735,
+    213,
+    432
+  ]
 }

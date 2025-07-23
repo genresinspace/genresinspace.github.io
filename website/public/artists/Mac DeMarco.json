@@ -1,5 +1,12 @@
 {
   "name": "Mac DeMarco",
   "description": "'''McBriare Samuel Lanyon DeMarco''' (born '''Vernor Winfield McBriare Smith IV'''; April 21, 1990) is a Canadian singer-songwriter, multi-instrumentalist and producer. He has released five full-length studio albums: his debut ''[[2 (Mac DeMarco album)|2]]'' (2012), ''[[Salad Days (Mac DeMarco album)|Salad Days]]'' (2014), ''[[This Old Dog]]'' (2017), ''[[Here Comes the Cowboy]]'' (2019), and ''[[Five Easy Hot Dogs]]'' (2023). He additionally released the [[Mini-LP|mini-album]]s ''[[Rock and Roll Night Club]]'' in 2012 and ''[[Another One (Mac DeMarco album)|Another One]]'' in 2015, as well as the [[compilation album]] ''[[One Wayne G]]'' in 2023. In addition to those albums are his singles, and all of his albums (excluding Five Easy Hot Dogs and One Wayne G) have had demo albums released after them. His style of music has been described as \"blue wave\" and [[slacker rock]], or, by DeMarco himself, \"jizz jazz\".",
-  "last_revision_date": "2025-06-13T04:11:46Z"
+  "last_revision_date": "2025-06-13T04:11:46Z",
+  "genres": [
+    1096,
+    575,
+    612,
+    954,
+    574
+  ]
 }

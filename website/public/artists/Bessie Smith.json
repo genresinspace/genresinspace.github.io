@@ -1,5 +1,9 @@
 {
   "name": "Bessie Smith",
   "description": "'''Bessie Smith''' (April 15, 1892 – September 26, 1937) was an African-American [[blues]] singer widely renowned during the [[Jazz Age]]. Nicknamed the \"[[Honorific nicknames in popular music|Empress of the Blues]]\" and formerly Queen of the Blues, she was the most popular female blues singer of the 1930s. Inducted into the [[Rock and Roll Hall of Fame]] in 1989, she is often regarded as one of the greatest singers of her era and was a major influence on fellow [[blues]] singers, as well as [[jazz]] vocalists.\n\nBorn in [[Chattanooga, Tennessee]], Smith was young when her parents died, and she and her six siblings survived by performing on street corners. She began touring and performed in a group that included [[Ma Rainey]], and then went out on her own. Her successful recording career with [[Columbia Records]] began in  1923, but her performing career was cut short by a car crash that killed her at the age of 45.",
-  "last_revision_date": "2025-05-31T08:27:36Z"
+  "last_revision_date": "2025-05-31T08:27:36Z",
+  "genres": [
+    259,
+    616
+  ]
 }

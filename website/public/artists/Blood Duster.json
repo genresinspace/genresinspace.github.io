@@ -1,5 +1,10 @@
 {
   "name": "Blood Duster",
   "description": "'''Blood Duster''' are an Australian [[grindcore]]/[[stoner rock]] band from [[Melbourne]]. Their name comes from the song \"Blood Duster\" by [[John Zorn]], from the 1990 album ''[[Naked City (album)|Naked City]]''.",
-  "last_revision_date": "2025-05-26T14:26:34Z"
+  "last_revision_date": "2025-05-26T14:26:34Z",
+  "genres": [
+    327,
+    510,
+    1135
+  ]
 }

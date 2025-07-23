@@ -1,5 +1,10 @@
 {
   "name": "Twisted Insane",
   "description": "'''Michael Johnson''', better known by his stage name as '''Twisted Insane''', is an American rapper from [[San Diego, California]]. He is Married to Lady Insane and has children. He has released fifteen studio albums. He founded the record label Brainsick Muzik, signing other rappers.",
-  "last_revision_date": "2025-06-17T14:44:27Z"
+  "last_revision_date": "2025-06-17T14:44:27Z",
+  "genres": [
+    238,
+    547,
+    558
+  ]
 }

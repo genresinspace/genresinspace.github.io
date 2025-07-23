@@ -1,5 +1,11 @@
 {
   "name": "Carlos Garnett",
   "description": "'''Carlos Garnett''' (December 1, 1938 - March 3, 2023) was a Panamanian-American [[jazz]] saxophonist.",
-  "last_revision_date": "2025-01-11T00:11:19Z"
+  "last_revision_date": "2025-01-11T00:11:19Z",
+  "genres": [
+    1128,
+    616,
+    622,
+    74
+  ]
 }

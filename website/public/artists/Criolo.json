@@ -1,5 +1,12 @@
 {
   "name": "Criolo",
   "description": "'''Kleber Cavalcante Gomes''' (born September 5, 1975), known professionally as '''Criolo''' (formerly '''Criolo Doido'''), is a Brazilian rapper and songwriter who has been nominated for four Latin Grammy Awards. He began his career in 1989 and initially gained recognition in [[Brazil]] as the creator of Rinha dos MCs. However, he later achieved worldwide attention for his solo work, particularly the album ''Nó Na Orelha'' (2011). \n\nIn 2019, he was nominated for two [[Latin Grammy Award]]s, for \"Boca de Lobo\" (Best Music Video, Short Version) and \"Etérea\" (Best Song in Portuguese). In 2022, he was nominated again for two [[Latin Grammy Award]]s, for \"Sobre Viver\" (Best Rock or Alternative Album) and \"Me Corte Na Boca Do Céu - A Morte Não Pede Perdão\" (Best Song in Portuguese).",
-  "last_revision_date": "2025-03-31T02:33:01Z"
+  "last_revision_date": "2025-03-31T02:33:01Z",
+  "genres": [
+    547,
+    782,
+    1113,
+    24,
+    1047
+  ]
 }

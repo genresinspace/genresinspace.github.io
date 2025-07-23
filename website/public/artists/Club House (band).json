@@ -1,5 +1,10 @@
 {
   "name": "Club House",
   "description": "'''Club House''' were an Italian [[Italo house]] band formed in Italy in 1983. The group consisted of Carl Fanini, [[Gianfranco Bortolotti]], [[Hidalgo Serra]], and [[Silver Pozzoli|Silvio Pozzoli]].",
-  "last_revision_date": "2025-01-24T00:08:39Z"
+  "last_revision_date": "2025-01-24T00:08:39Z",
+  "genres": [
+    607,
+    605,
+    413
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Pogo",
   "description": "'''Christopher Nicholas''' \"'''Nick'''\" '''Bertke''' (born 26 July 1988), better known by his [[stage name]] '''Pogo''', which is symbolized by an icon of a rabbit, is a [[South Africa]]n-born [[South African Australians|Australian]] electronic musician. Much of his work consists of recording small sounds, quotes, and melodies from films, TV programmes or other sources, and sequencing the sounds together to form a new piece of music (a genre also known as [[plunderphonics]]). A number of Pogo's works consist almost entirely of the sounds he [[Sampling (music)|samples]], with few or no additional music or sound samples.",
-  "last_revision_date": "2025-06-20T16:20:05Z"
+  "last_revision_date": "2025-06-20T16:20:05Z",
+  "genres": [
+    335,
+    394,
+    905
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "name": "Puce Mary",
   "description": "'''Frederikke Hoffmeier''' (born 1989), better known by her stage name '''Puce Mary''', is a Danish [[experimental music|experimental]] musician, composer and sound artist.",
-  "last_revision_date": "2025-05-07T14:33:08Z"
+  "last_revision_date": "2025-05-07T14:33:08Z",
+  "genres": [
+    836,
+    933
+  ]
 }

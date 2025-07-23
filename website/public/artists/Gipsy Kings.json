@@ -1,5 +1,11 @@
 {
   "name": "Gipsy Kings",
   "description": "'''Gipsy Kings''' (originally '''Los Reyes''') are a musical group founded in 1979 in [[Arles]], France. The band, whose members have [[Catalans|Catalan]] heritage, play a blend of [[Catalan rumba]], [[flamenco]], [[Salsa music|salsa]], and [[Pop music|pop]]. They perform mostly in Spanish but also mix in [[Catalan language|Catalan]], French, and languages of southern France, such as [[Occitan language|Occitan]].\n\nAlthough the group members were born in France, their parents were mostly ''[[gitanos]]'' (Spanish [[Romani people|Romani]]) who fled Spain during the 1930s [[Spanish Civil War]]. They are known for bringing [[rumba flamenca]], a pop-oriented music distantly derived from traditional flamenco and [[rumba]], to a worldwide audience, and for their interpretations of English-language pop hits.",
-  "last_revision_date": "2025-05-20T04:38:10Z"
+  "last_revision_date": "2025-05-20T04:38:10Z",
+  "genres": [
+    426,
+    912,
+    1042,
+    1024
+  ]
 }

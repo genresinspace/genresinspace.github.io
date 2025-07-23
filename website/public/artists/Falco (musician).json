@@ -1,5 +1,12 @@
 {
   "name": "Falco",
   "description": "'''Johann''' \"'''Hans'''\" '''Hölzel''' ({{IPA|de|ˈjoːhan hans ˈhœltsl̩|lang}}; 19 February 1957 – 6 February 1998), better known by his stage name '''Falco''' (from [[Falko Weißpflog]]), was an Austrian singer and musician. He had several international hits, including \"[[Der Kommissar (song)|Der Kommissar]]\" (1981), \"[[Rock Me Amadeus]]\", \"[[Vienna Calling]]\", \"[[Jeanny (song)|Jeanny]]\", \"[[The Sound of Musik]]\", \"[[Coming Home (Jeanny Part II, One Year Later)]]\", and posthumously released \"[[Out of the Dark (song)|Out of the Dark]]\".\n\n\"Rock Me Amadeus\" reached No.&nbsp;1 on the [[Billboard charts|''Billboard'' charts]] in 1986, making Falco the only artist in history to score a number-one hit with a German language song in the United States.{{efn|1=[[Bert Kaempfert]] also reached No. 1 in January 1961 but with the instrumental \"[[Wonderland by Night]]\"}} According to his estate, he has sold 20 million albums and 40 million singles, which makes him the best-selling Austrian singer of all time.",
-  "last_revision_date": "2025-06-18T04:54:12Z"
+  "last_revision_date": "2025-06-18T04:54:12Z",
+  "genres": [
+    1024,
+    805,
+    822,
+    912,
+    547
+  ]
 }

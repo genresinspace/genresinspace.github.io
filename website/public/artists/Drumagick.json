@@ -1,5 +1,10 @@
 {
   "name": "Drumagick",
   "description": "'''Drumagick''' are the brothers JrDeep (born 1977) and Guilherme Lopes (born 1981). They are DJs and [[drum & bass|drum 'n' bass]] producers who live in [[São Paulo]], [[Brazil]].",
-  "last_revision_date": "2022-07-31T05:07:24Z"
+  "last_revision_date": "2022-07-31T05:07:24Z",
+  "genres": [
+    1043,
+    364,
+    1053
+  ]
 }

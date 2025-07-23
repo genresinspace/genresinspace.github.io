@@ -1,5 +1,10 @@
 {
   "name": "Tayc",
   "description": "'''Julien Franck Bouadjie Monono Kamgang''' ({{IPA|fr|ʒyljɛ̃ fʁɑ̃k bwadʒi monono kamɡɑ̃ɡ}}; born 2 May 1996), better known as '''Tayc''' ({{IPAc-en|t|aɪ|k}} {{respell|TYKE}}, {{IPA|fr|tajk|lang}}), is a French singer. Prior to the release of his triple album titled ''Nyxia'' (2019), he released two mixtapes and a number of singles. His second album called ''Fleur froide'' (2020) hit the charts which launched his international career. Tayc's latest release is called ''Fleur froide - Second état : la cristallisation'' (2021) accounts for various new singles as well as previous one from Fleur Froide.",
-  "last_revision_date": "2025-03-29T18:36:29Z"
+  "last_revision_date": "2025-03-29T18:36:29Z",
+  "genres": [
+    547,
+    26,
+    274
+  ]
 }

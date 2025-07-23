@@ -1,5 +1,10 @@
 {
   "name": "Bktherula",
   "description": "'''Brooklyn Candida Rodriguez''' (born August 30, 2002), known professionally as '''Bktherula''', is an American rapper and singer from Atlanta, Georgia.",
-  "last_revision_date": "2025-06-19T09:10:57Z"
+  "last_revision_date": "2025-06-19T09:10:57Z",
+  "genres": [
+    904,
+    1203,
+    547
+  ]
 }

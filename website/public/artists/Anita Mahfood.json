@@ -1,5 +1,9 @@
 {
   "name": "Anita Mahfood",
   "description": "'''Anita \"Margarita\" Mahfood''' (died 2 January 1965) was a dancer, actress, and singer in [[Jamaica]]. She was called \"the famous Rhumba queen\" and headlined performances. She also performed [[reggae]] music, writing and singing her own music, one of the first women in Jamaica to do so. Mahfood was murdered in 1965, by her boyfriend [[Don Drummond]] of the [[Skatalites]] band.",
-  "last_revision_date": "2024-08-15T02:31:59Z"
+  "last_revision_date": "2024-08-15T02:31:59Z",
+  "genres": [
+    1005,
+    1014
+  ]
 }

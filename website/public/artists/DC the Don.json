@@ -1,5 +1,10 @@
 {
   "name": "DC The Don",
   "description": "'''Daijon Cotty Davis''' (born August 3, 1999), known professionally as '''DC The Don''', is an American rapper and singer from [[Milwaukee|Milwaukee, Wisconsin]]. He is recognized for mixing elements of [[Hip hop music|hip-hop]], [[Rock music|rock]], and [[melodic rap]] in his music. Prior to his rap career, Davis played high school basketball, alongside NBA star [[LaMelo Ball]], as they both participated in the sports program at [[Chino Hills High School]] in [[Chino Hills, California]]. Davis' musical journey and basketball past remain intertwined, both contributing to his position in the entertainment industry.",
-  "last_revision_date": "2025-06-19T02:49:21Z"
+  "last_revision_date": "2025-06-19T02:49:21Z",
+  "genres": [
+    751,
+    1203,
+    912
+  ]
 }

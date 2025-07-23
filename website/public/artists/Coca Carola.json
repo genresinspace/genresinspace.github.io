@@ -1,5 +1,9 @@
 {
   "name": "Coca Carola",
   "description": "'''Coca Carola''' is a [[Punk in Sweden|Swedish punk]] band formed in [[Åkersberga]] in 1986. \nSigned to the Swedish record label [[Beat Butchers]], they were active and recognized in the Swedish punk scene during the years 1986–2004. In 2023, after a long hiatus, the band has begun to tour again.",
-  "last_revision_date": "2025-04-19T00:44:29Z"
+  "last_revision_date": "2025-04-19T00:44:29Z",
+  "genres": [
+    1201,
+    970
+  ]
 }

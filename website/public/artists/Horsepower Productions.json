@@ -1,5 +1,10 @@
 {
   "name": "Horsepower Productions",
   "description": "'''Horsepower Productions''' are an English [[electronic music]] duo, initially a larger musical collective who released experimental [[UK garage|garage]] recordings, and helped pioneer the [[dubstep]] genre.",
-  "last_revision_date": "2025-04-22T16:24:21Z"
+  "last_revision_date": "2025-04-22T16:24:21Z",
+  "genres": [
+    0,
+    368,
+    365
+  ]
 }

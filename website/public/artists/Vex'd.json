@@ -1,5 +1,9 @@
 {
   "name": "Vex'd",
   "description": "'''Vex'd''' were an English [[dubstep]] duo signed to [[Planet Mu Records]], consisting of Jamie Teasdale and Roly Porter. They often played at early [[Digital Mystikz|DMZ]] nights and were some of the early pioneers of the genre. As of 2010 they have released two albums, as well as several EPs and singles.",
-  "last_revision_date": "2025-05-13T03:13:55Z"
+  "last_revision_date": "2025-05-13T03:13:55Z",
+  "genres": [
+    368,
+    163
+  ]
 }

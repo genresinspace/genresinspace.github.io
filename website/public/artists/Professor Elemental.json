@@ -1,5 +1,8 @@
 {
   "name": "Professor Elemental",
   "description": "'''Paul Alborough''' (born 1 June 1975), professionally known as '''Professor Elemental''', is a [[steampunk]] and [[chap hop]] musical artist.",
-  "last_revision_date": "2025-05-29T11:25:46Z"
+  "last_revision_date": "2025-05-29T11:25:46Z",
+  "genres": [
+    226
+  ]
 }

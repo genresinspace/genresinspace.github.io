@@ -1,5 +1,9 @@
 {
   "name": "Bandido",
   "description": "'''Bandido''' were a [[New Mexico music]] [[supergroup (music)|supergroup]] that released several albums during the 1980s. They released three studio albums, and a compilation album. All of their releases charted [[West Coast of the United States|along the west coast]], [[Chicago]], and internationally in [[Germany]], [[Venezuela]], and [[Spain]].\n\nTheir frontman [[Al Hurricane]], as well as his son [[Al Hurricane Jr.]], spoke fondly of their time with the band but reiterated their desire to return to their New Mexico music audience; as they felt that Bandido's sound was more akin to [[Latin music]]. The three Bandido albums comprise Al Hurricane's twelfth, fourteenth, and fifteenth albums. Between the first and second Bandido releases Al Hurricane Sr. and Jr. released [[15 Exitos Rancheros]] alongside Tiny Morrie.",
-  "last_revision_date": "2025-04-12T04:46:28Z"
+  "last_revision_date": "2025-04-12T04:46:28Z",
+  "genres": [
+    810,
+    681
+  ]
 }

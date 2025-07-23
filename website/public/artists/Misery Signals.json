@@ -1,5 +1,10 @@
 {
   "name": "Misery Signals",
   "description": "'''Misery Signals''' was an American-Canadian [[metalcore]] band formed in [[Wisconsin]] in 2002.",
-  "last_revision_date": "2025-05-16T18:34:45Z"
+  "last_revision_date": "2025-05-16T18:34:45Z",
+  "genres": [
+    926,
+    943,
+    737
+  ]
 }

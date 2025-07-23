@@ -1,5 +1,11 @@
 {
   "name": "Pole",
   "description": "'''Pole''' is the stage name of '''Stefan Betke''' (born 18 February 1967), a [[Germans|German]] [[electronic music]] artist commonly associated with the [[Glitch (music)|glitch]] genre as well as [[dubtronica]].",
-  "last_revision_date": "2025-03-23T19:57:17Z"
+  "last_revision_date": "2025-03-23T19:57:17Z",
+  "genres": [
+    492,
+    367,
+    754,
+    398
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Wiwek",
   "description": "'''Wiwek Mahabali''', better known mononymously as '''Wiwek''', is a Dutch DJ and music producer based in [[Utrecht]], Netherlands.",
-  "last_revision_date": "2025-05-11T06:56:08Z"
+  "last_revision_date": "2025-05-11T06:56:08Z",
+  "genres": [
+    374,
+    761,
+    1205
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Adrian Younge",
   "description": "'''Adrian Younge''' (born May 7, 1978) is an American composer, arranger and music producer based in the [[Los Angeles]] area.",
-  "last_revision_date": "2025-04-21T21:33:03Z"
+  "last_revision_date": "2025-04-21T21:33:03Z",
+  "genres": [
+    547,
+    957,
+    1013
+  ]
 }

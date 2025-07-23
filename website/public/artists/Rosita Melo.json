@@ -1,5 +1,9 @@
 {
   "name": "Rosita Melo",
   "description": "'''Clotilde Mela Rosa Luciano''', better known as '''Rosita Melo''' (July 9, 1897&nbsp;– August 12, 1981), was an [[Argentine]]-[[Uruguayan people|Uruguayan]] pianist, composer and poet. She is the author of the famous  ''[[vals criollo]]'' (Creole Waltz) ''\"Desde el alma\"'' for which she is known as the first widely recognized female [[Rioplatense Spanish|Rioplatense Hispanic]] composer in the world.",
-  "last_revision_date": "2023-11-23T12:50:48Z"
+  "last_revision_date": "2023-11-23T12:50:48Z",
+  "genres": [
+    890,
+    907
+  ]
 }

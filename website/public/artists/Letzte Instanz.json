@@ -1,5 +1,12 @@
 {
   "name": "Letzte Instanz",
   "description": "'''Letzte Instanz''' is a German [[violin]]-[[Rock music|rock]] band, founded in [[Dresden]], Germany, in 1996, particularly noted for their use of the [[violin]] and [[cello]]. The founding members included Hörbi, Tin Whistle, Muttis Stolz, Kaspar Wichman, Holly D. and Markus G-Punkt. Benni Cellini and Robin Sohn entered the group a year later. To date, they have released eleven studio albums, two live albums, two live DVDs, three singles and have appeared on a number of mix CDs.",
-  "last_revision_date": "2025-03-12T17:06:45Z"
+  "last_revision_date": "2025-03-12T17:06:45Z",
+  "genres": [
+    1024,
+    432,
+    803,
+    732,
+    1153
+  ]
 }

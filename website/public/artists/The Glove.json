@@ -1,5 +1,11 @@
 {
   "name": "The Glove",
   "description": "'''The Glove''' was a 1983 English musical collaboration and recording project by [[the Cure]]'s [[Robert Smith (musician)|Robert Smith]] and [[Siouxsie and the Banshees]]' [[Steven Severin]]. They released one studio album, ''[[Blue Sunshine (album)|Blue Sunshine]]'', in 1983 as part of Severin's solo deal with Polydor. The latter came up with the band name, the album title and the blue/yellow sleeve concept, as Smith had to leave the project before completion due to prior commitments with the Cure.",
-  "last_revision_date": "2025-06-01T17:21:59Z"
+  "last_revision_date": "2025-06-01T17:21:59Z",
+  "genres": [
+    822,
+    325,
+    930,
+    796
+  ]
 }

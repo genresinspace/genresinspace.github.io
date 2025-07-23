@@ -1,5 +1,9 @@
 {
   "name": "Delorean",
   "description": "'''Delorean''' was a [[Spaniards|Spanish]] [[alternative dance]] band formed in 2000 in [[Zarautz]], a [[Basque Country (autonomous community)|Basque]] town. The band was originally composed of vocalist and bassist Ekhi Lopetegi, guitarist Tomas Lertxundi, keyboardist Unai Lazcano and drummer Igor Escudeo; they created the band to explore their mutual interests, from the local [[punk rock]] scene to [[electronic music]]. Lertxundi left the band in 2008 and was replaced by Guillermo Astrain.\n\nDelorean are named after the [[DeLorean time machine|time machine]] featured in the ''[[Back to the Future (film series)|Back to the Future]]'' series, which was a [[DMC DeLorean|DeLorean]] car.",
-  "last_revision_date": "2025-06-03T03:29:20Z"
+  "last_revision_date": "2025-06-03T03:29:20Z",
+  "genres": [
+    88,
+    36
+  ]
 }

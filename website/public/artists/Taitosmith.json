@@ -1,5 +1,15 @@
 {
   "name": "TaitosmitH",
   "description": "'''Taitosmith''' ({{langx|th|ไททศมิตร}}; stylized as '''TaitosmitH''') is a [[Thai rock]] band that defines itself as \"a modern ''[[phleng phuea chiwit]]'' (Thai protest song) band\".",
-  "last_revision_date": "2025-06-20T16:47:35Z"
+  "last_revision_date": "2025-06-20T16:47:35Z",
+  "genres": [
+    138,
+    932,
+    287,
+    40,
+    1185,
+    1186,
+    793,
+    893
+  ]
 }

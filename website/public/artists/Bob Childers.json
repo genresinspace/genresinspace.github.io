@@ -1,5 +1,10 @@
 {
   "name": "Bob Childers",
   "description": "'''Robert Wayne Childers''' (November 20, 1946 – April 22, 2008) was an American [[country music|country]]-[[folk music|folk]] musician and singer-songwriter from the state of [[Oklahoma]]. Both before and after his death, he achieved widespread critical acclaim having been compared to songwriters such as [[Bob Dylan]] and [[Woody Guthrie]]. Childers is often labeled the \"father\", \"grandfather\", or \"godfather\" of the regional Oklahoman music scene known as [[Red Dirt (music)|Red Dirt music]].",
-  "last_revision_date": "2025-03-08T06:32:08Z"
+  "last_revision_date": "2025-03-08T06:32:08Z",
+  "genres": [
+    1003,
+    287,
+    137
+  ]
 }

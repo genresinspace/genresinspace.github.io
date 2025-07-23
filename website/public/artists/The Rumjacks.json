@@ -1,5 +1,12 @@
 {
   "name": "The Rumjacks",
   "description": "'''The Rumjacks''' are a [[celtic punk]] band originally formed in [[Sydney]], [[Australia]] in 2008. Known for their loud and energetic live shows, the band has released five studio albums, two live albums, and a series of [[EPs]] and singles. In 2016, the Rumjacks relocated to various parts of [[Europe]], where they currently live and tour.\n\nOne of the band's best-known songs, \"An Irish Pub Song\", became a viral hit and has earned over 85 million views on [[YouTube]].",
-  "last_revision_date": "2025-06-20T12:13:33Z"
+  "last_revision_date": "2025-06-20T12:13:33Z",
+  "genres": [
+    434,
+    970,
+    900,
+    535,
+    528
+  ]
 }

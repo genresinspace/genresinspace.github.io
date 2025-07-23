@@ -1,5 +1,15 @@
 {
   "name": "Sandwich",
   "description": "'''Sandwich''' (stylized as '''&lt;S&gt;andwich''' in earlier releases) is a Filipino [[alternative rock]] band from the [[Philippines]] formed by [[Raymund Marasigan]] and Diego Castillo. The band currently consists of lead vocalist Raymund Marasigan, guitarists and backing vocalists Diego Castillo and Mong Alcaraz, bassist Myrene Academia and drummer Mike Dizon.",
-  "last_revision_date": "2025-06-07T14:21:26Z"
+  "last_revision_date": "2025-06-07T14:21:26Z",
+  "genres": [
+    899,
+    930,
+    40,
+    528,
+    970,
+    925,
+    991,
+    847
+  ]
 }

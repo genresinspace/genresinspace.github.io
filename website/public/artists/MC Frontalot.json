@@ -1,5 +1,9 @@
 {
   "name": "MC Frontalot",
   "description": "'''Damian Alexander Hess''' (born December 3, 1973), better known by his [[stage name]] '''MC Frontalot''', is an American rapper and web designer. He is widely credited as a pioneer of the [[nerdcore hip hop]] genre, blending elements of hip hop with themes from nerd culture.",
-  "last_revision_date": "2025-03-14T18:40:15Z"
+  "last_revision_date": "2025-03-14T18:40:15Z",
+  "genres": [
+    802,
+    547
+  ]
 }

@@ -1,5 +1,8 @@
 {
   "name": "BOJ (musician)",
   "description": "'''Bolaji Odojukan''' (born 22 April 1994), better known by his stage name '''BOJ''', is an English-Nigerian singer, songwriter and record producer. He is one-third of the musical group [[DRB LasGidi]] with [[Teezee|TeeZee]] and Fresh L, and is known as a pioneer of [[alté]].",
-  "last_revision_date": "2025-06-08T01:53:30Z"
+  "last_revision_date": "2025-06-08T01:53:30Z",
+  "genres": [
+    42
+  ]
 }

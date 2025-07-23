@@ -1,5 +1,11 @@
 {
   "name": "Lowell George",
   "description": "'''Lowell Thomas George''' (April 13, 1945 – June 29, 1979) was an American singer, songwriter, multi-instrumentalist, and record producer. He was the primary guitarist, vocalist, and songwriter for the rock band [[Little Feat]]. Before forming Little Feat, he was a member of [[Frank Zappa]]'s band [[the Mothers of Invention]].",
-  "last_revision_date": "2025-06-13T11:13:03Z"
+  "last_revision_date": "2025-06-13T11:13:03Z",
+  "genres": [
+    1024,
+    1034,
+    611,
+    1149
+  ]
 }

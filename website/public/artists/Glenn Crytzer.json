@@ -1,5 +1,10 @@
 {
   "name": "Glenn Crytzer",
   "description": "'''Glenn Crytzer''' (born October 13, 1980) is an American jazz band leader, composer, guitarist, banjoist, and singer.",
-  "last_revision_date": "2025-03-15T19:24:17Z"
+  "last_revision_date": "2025-03-15T19:24:17Z",
+  "genres": [
+    1150,
+    120,
+    862
+  ]
 }

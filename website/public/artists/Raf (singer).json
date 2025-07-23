@@ -1,5 +1,12 @@
 {
   "name": "Raf",
   "description": "'''Raffaele Riefoli''' (born 29 September 1959) is an Italian singer-songwriter who is better known as simply '''Raf'''. He first became known in the early 1980s as a singer of [[Italo disco]] and as original singer and co-author of the hit \"[[Self Control (Raf song)|Self Control]]\". He has turned to Italian-language music since the late 1980s and had further hits in his home country.",
-  "last_revision_date": "2025-06-02T11:23:03Z"
+  "last_revision_date": "2025-06-02T11:23:03Z",
+  "genres": [
+    914,
+    822,
+    605,
+    617,
+    1104
+  ]
 }

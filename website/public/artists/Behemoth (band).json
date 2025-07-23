@@ -1,5 +1,9 @@
 {
   "name": "Behemoth",
   "description": "'''Behemoth''' is a Polish [[extreme metal]] band from [[Gdańsk]], formed in 1991. They are considered to have played an important role in establishing the Polish [[extreme metal]] underground with [[Vader (band)|Vader]] and [[Hate (band)|Hate]].",
-  "last_revision_date": "2025-06-15T09:12:12Z"
+  "last_revision_date": "2025-06-15T09:12:12Z",
+  "genres": [
+    132,
+    131
+  ]
 }

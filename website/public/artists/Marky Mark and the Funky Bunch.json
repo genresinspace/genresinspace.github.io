@@ -1,5 +1,11 @@
 {
   "name": "Marky Mark and the Funky Bunch",
   "description": "'''Marky Mark and the Funky Bunch''' was an American [[hip-hop]] group formed in 1991 by [[Mark Wahlberg]] (alias Marky Mark), Scott Gee, Hector the Booty Inspector, DJ-T, and Ashey Ace. The group's best known song is \"[[Good Vibrations (Marky Mark and the Funky Bunch song)|Good Vibrations]]\", which made it to number one on the [[Billboard Hot 100|''Billboard'' Hot 100]] in 1991, while their follow-up song \"[[Wildside (Marky Mark and the Funky Bunch song)|Wildside]]\" peaked at number 10.",
-  "last_revision_date": "2025-05-05T00:56:23Z"
+  "last_revision_date": "2025-05-05T00:56:23Z",
+  "genres": [
+    819,
+    413,
+    546,
+    547
+  ]
 }

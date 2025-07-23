@@ -1,5 +1,12 @@
 {
   "name": "El Guincho",
   "description": "'''Pablo Díaz-Reixa''' (born November 17, 1983), professionally known as '''el  Guincho''', is a Spanish musician, singer, and record producer.\n\nDíaz-Reixa rose to prominence with his 2008 album, ''[[Alegranza (album)|Alegranza]]''. His musical style relies heavily on the use of [[sampling (music)|sampling]] and incorporates elements of [[Afrobeat]], [[dub music|dub]], [[tropicália]] and [[rock and roll]]. Díaz-Reixa has described his style of production as \"[[Space age pop|space-age]] [[exotica]]\". He primarily produces music with a [[Roland SP-404]].",
-  "last_revision_date": "2025-06-18T07:04:01Z"
+  "last_revision_date": "2025-06-18T07:04:01Z",
+  "genres": [
+    682,
+    685,
+    76,
+    954,
+    1208
+  ]
 }

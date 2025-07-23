@@ -1,5 +1,8 @@
 {
   "name": "The Artwoods",
   "description": "'''The Artwoods''' (also sometimes known by Decca Records as '''the Art Woods''') were a [[British rhythm and blues]] band who formed in 1963 and were professionally active between 1964 and 1967. They were a popular live attraction, rivalling groups such as [[the Animals]], although, despite releasing a clutch of singles and an album, their [[record sales]] never reflected this popularity.",
-  "last_revision_date": "2025-01-15T11:40:55Z"
+  "last_revision_date": "2025-01-15T11:40:55Z",
+  "genres": [
+    170
+  ]
 }

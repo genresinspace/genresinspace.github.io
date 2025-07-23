@@ -1,5 +1,13 @@
 {
   "name": "Kevin Martin",
   "description": "'''Kevin Richard Martin''', often known under his recording alias '''The Bug''', is an English musician and music producer. Martin moved from Weymouth to London around 1990 and is now currently based in mainland Europe. He has been active for over three decades in the genres of [[Dub music|dub]], [[jazzcore]], [[industrial hip hop]], [[dancehall]], and [[dubstep]].\n\nMartin's projects include [[GOD (British band)|GOD]], [[Techno Animal]], [[Ice (band)|Ice]], [[Curse of the Golden Vampire]], Pressure and, most recently, '''King Midas Sound''' (with poet [[Roger Robinson (poet)|Roger Robinson]] and singer/visual artist Kiki Hitomi) and '''The Bug vs [[Earth (American band)|Earth]]'''.",
-  "last_revision_date": "2025-05-17T08:26:53Z"
+  "last_revision_date": "2025-05-17T08:26:53Z",
+  "genres": [
+    588,
+    365,
+    368,
+    315,
+    967,
+    547
+  ]
 }

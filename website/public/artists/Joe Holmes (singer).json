@@ -1,5 +1,8 @@
 {
   "name": "Joe Holmes",
   "description": "'''Joe Holmes''' (1906 &ndash; 5 January 1978) was a [[fiddle]]r, [[lilting|lilter]] and [[traditional singer]] from [[County Antrim]], Northern Ireland.",
-  "last_revision_date": "2025-03-25T09:23:24Z"
+  "last_revision_date": "2025-03-25T09:23:24Z",
+  "genres": [
+    1071
+  ]
 }

@@ -1,5 +1,8 @@
 {
   "name": "Altar Boys",
   "description": "'''Altar Boys''' were a [[Christian punk]] band from [[California]] formed in 1982. The original members were Mike Stand (vocals, songwriting and guitar), Jeff Crandall (drums), Steve Pannier (guitars) and Ric Alba (bass guitar and backing vocals). Mark Robertson later replaced Alba on bass guitar.",
-  "last_revision_date": "2024-08-23T15:26:59Z"
+  "last_revision_date": "2024-08-23T15:26:59Z",
+  "genres": [
+    251
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "name": "Kerispatih",
   "description": "'''Kerispatih''' is an Indonesian [[Band (rock and pop)|pop band]]. Founded in 2003, as of 2010 they have released five albums, three going [[platinum record|platinum]].",
-  "last_revision_date": "2024-03-19T17:50:17Z"
+  "last_revision_date": "2024-03-19T17:50:17Z",
+  "genres": [
+    1077,
+    914
+  ]
 }

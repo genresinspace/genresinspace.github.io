@@ -1,5 +1,9 @@
 {
   "name": "Milly Quezada",
   "description": "'''Milagros del Rosario Quezada Borbón''' (born May 21, 1955) is a Dominican-American singer specializing in [[Merengue music|Merengue]]. She is a four-time [[Latin Grammy Awards|Latin Grammy Award]] winner and has been referred to as the [[Honorific nicknames in popular music|\"Queen of Merengue\"]] because of her impact on the world of merengue music.",
-  "last_revision_date": "2024-12-08T14:49:49Z"
+  "last_revision_date": "2024-12-08T14:49:49Z",
+  "genres": [
+    742,
+    81
+  ]
 }

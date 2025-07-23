@@ -1,5 +1,10 @@
 {
   "name": "King Britt",
   "description": "'''King Britt''' (born 1968) is an American [[record producer]], [[composer]], performer, [[Teacher|educator]], and [[disc jockey|DJ]] and record producer from [[Philadelphia]]. Britt is known for his eclectic mix of electronic, house, disco, techno, rave, experimental music, and other genres across his projects. He is also a Professor in [[Computer Music]] at [[University of California San Diego]], with a research focus of [[Afrofuturism]] in music and the pioneering role of people of color in [[electronic music]]. \n\nKing Britt was the original DJ for [[Digable Planets]] and toured with the group 1992-1994. He has released music as leader of the project Sylk 130 and as Fhloston Paradigm, Scuba, and The Nova Dream Sequence. As a composer and producer, Britt has collaborated with artists including [[De La Soul]], [[Madlib]], [[Kathy Sledge]], and director [[Michael Mann]]. He has remixed for musicians [[Tori Amos]], [[Miles Davis]], [[Saul Williams]], [[Meredith Monk]], [[Solange Knowles|Solange]], [[Calvin Harris]], and [[Dua Lipa]].",
-  "last_revision_date": "2025-01-26T23:21:13Z"
+  "last_revision_date": "2025-01-26T23:21:13Z",
+  "genres": [
+    1206,
+    175,
+    394
+  ]
 }

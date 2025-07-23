@@ -1,5 +1,11 @@
 {
   "name": "Oliver Palotai",
   "description": "'''Oliver Palotai''' (born 17 March 1974) is a German musician, best known as a member of the [[power metal]] band [[Kamelot]] and of [[Doro Pesch]]'s touring band.",
-  "last_revision_date": "2025-04-26T15:25:12Z"
+  "last_revision_date": "2025-04-26T15:25:12Z",
+  "genres": [
+    942,
+    934,
+    1156,
+    616
+  ]
 }

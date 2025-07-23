@@ -1,5 +1,8 @@
 {
   "name": "Hel",
   "description": "'''Hel''' is a [[Sweden|Swedish]] [[Viking rock]] band, based in [[Eskilstuna]], [[Södermanland]], Sweden.  The band's name is derived from the [[Norse mythology|Norse goddess]] [[Hel (being)|Hel]].",
-  "last_revision_date": "2025-04-01T05:33:41Z"
+  "last_revision_date": "2025-04-01T05:33:41Z",
+  "genres": [
+    1242
+  ]
 }

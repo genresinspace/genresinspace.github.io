@@ -1,5 +1,9 @@
 {
   "name": "Amanaz",
   "description": "'''Amanaz''' was a [[Zamrock]] band founded in 1973 in [[Kitwe]], [[Zambia]]. The group released their only album, the acclaimed ''Africa'', in 1975. Amanaz drew influences from American and British rock of the late 1960s–early 1970s, especially the music of [[Jimi Hendrix]], and from traditional [[Music of Zambia|Zambian music]], identifiable in Watson Lungu's drumming and Keith Kabwe's vocals.\n\nThe band's name is the [[acronym]] of \"Ask Me About Nice Artistes in Zambia\".\n\nPast members include Keith Kabwe, Isaac Mpofu, John Kanyepa, Jerry Mausala and Watson Lungu.",
-  "last_revision_date": "2025-06-08T14:46:58Z"
+  "last_revision_date": "2025-06-08T14:46:58Z",
+  "genres": [
+    956,
+    1273
+  ]
 }

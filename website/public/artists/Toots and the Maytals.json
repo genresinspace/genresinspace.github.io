@@ -1,5 +1,10 @@
 {
   "name": "Toots and the Maytals",
   "description": "'''The Maytals''', known from 1972 to 2020 as '''Toots and the Maytals''', are a Jamaican musical group, one of the best known [[ska]] and [[rocksteady]] vocal groups. The Maytals were formed in the early 1960s and were key figures in popularizing [[reggae]] music.\n\nFrontman [[Toots Hibbert]], who died in 2020, was considered a reggae pioneer on par with [[Bob Marley]]. His soulful vocal style was compared to [[Otis Redding]], and led him to be named by ''[[Rolling Stone]]'' as one of the 100 Greatest Singers.  After Hibbert's death, the Maytals indicated that they would continue as a working group.\n\nTheir 1968 single \"[[Do the Reggay]]\" was the first song to use the word \"[[reggae]]\", coining the name of the genre and introducing it to a global audience. The ''[[Oxford English Dictionary]]'' credits Toots and the Maytals in the etymology of the word \"Reggae\". According to [[Island Records]] founder [[Chris Blackwell]], \"The Maytals were unlike anything else ... sensational, raw, and dynamic.\"",
-  "last_revision_date": "2025-06-11T01:27:05Z"
+  "last_revision_date": "2025-06-11T01:27:05Z",
+  "genres": [
+    1090,
+    1005,
+    1031
+  ]
 }

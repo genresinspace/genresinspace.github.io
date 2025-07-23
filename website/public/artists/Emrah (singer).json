@@ -1,5 +1,8 @@
 {
   "name": "Emrah",
   "description": "'''Emrah Erdoğan İpek''' (born January 1, 1971) is a [[Turkish people|Turkish]] singer, actor and child star during 1980's from Turkey.",
-  "last_revision_date": "2025-05-30T21:02:36Z"
+  "last_revision_date": "2025-05-30T21:02:36Z",
+  "genres": [
+    59
+  ]
 }

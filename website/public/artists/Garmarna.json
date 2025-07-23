@@ -1,5 +1,12 @@
 {
   "name": "Garmarna",
   "description": "'''Garmarna''' is a [[Sweden|Swedish]] [[folk rock]] band. Their songs are mainly old [[Scandinavia]]n [[ballad]]s.",
-  "last_revision_date": "2025-03-30T16:38:07Z"
+  "last_revision_date": "2025-03-30T16:38:07Z",
+  "genres": [
+    798,
+    438,
+    1262,
+    435,
+    433
+  ]
 }

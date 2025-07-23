@@ -1,5 +1,11 @@
 {
   "name": "Neu!",
   "description": "'''Neu!''' ({{IPA|de|nɔʏ|pron}}; German for \"New!\"; styled in block capitals) were a West German [[krautrock]] band formed in Düsseldorf in 1971 by [[Klaus Dinger]] and [[Michael Rother]] following their departure from [[Kraftwerk]]. The group's albums were produced by [[Conny Plank]], who has been regarded as the group's \"hidden member\". They released three albums in their initial incarnation—''[[Neu! (album)|Neu!]]'' (1972), ''[[Neu! 2]]'' (1973), and ''[[Neu! 75]]'' (1975)—before disbanding in 1975. They briefly reunited in the mid-1980s.\n\nAlthough Neu! had minimal commercial success during their existence, the band are retrospectively considered a central act of West Germany's 1970s krautrock movement. They are known for pioneering the \"[[motorik]]\" beat, a minimalist [[4/4 time|{{music|time|4|4}}]] rhythm associated with krautrock artists. Their work has exerted a widespread influence on genres such as [[electronica]] and [[punk rock|punk]].",
-  "last_revision_date": "2025-05-27T17:50:30Z"
+  "last_revision_date": "2025-05-27T17:50:30Z",
+  "genres": [
+    662,
+    950,
+    395,
+    418
+  ]
 }

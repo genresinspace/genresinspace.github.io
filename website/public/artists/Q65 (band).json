@@ -1,5 +1,10 @@
 {
   "name": "Q65",
   "description": "'''Q65''' was a Dutch [[garage rock]] and [[Psychedelic rock|psychedelic]] group formed in 1965, that is often considered one of the more prominent bands associated with the [[Nederbeat]] rock wave that took place in the Netherlands in the 1960s.",
-  "last_revision_date": "2025-02-08T17:47:11Z"
+  "last_revision_date": "2025-02-08T17:47:11Z",
+  "genres": [
+    481,
+    791,
+    956
+  ]
 }

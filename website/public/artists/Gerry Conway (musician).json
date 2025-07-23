@@ -1,5 +1,10 @@
 {
   "name": "Gerry Conway",
   "description": "'''Gerald Conway''' (11 September 1947 – 29 March 2024) was an English [[rock music|rock]] drummer and percussionist. He performed with the backing band for [[Cat Stevens]] in the 1970s, with [[Jethro Tull (band)|Jethro Tull]] during the 1980s, and was a member of [[Fairport Convention]] from 1998 to 2022. Conway also worked as a [[session musician]]. He was married to vocalist [[Jacqui McShee]], the singer of the band [[Pentangle (band)|Pentangle]], of which he was also a member.",
-  "last_revision_date": "2025-05-13T05:51:52Z"
+  "last_revision_date": "2025-05-13T05:51:52Z",
+  "genres": [
+    435,
+    169,
+    946
+  ]
 }

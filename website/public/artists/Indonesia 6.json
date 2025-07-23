@@ -1,5 +1,11 @@
 {
   "name": "Indonesia 6",
   "description": "'''Indonesia 6''' was a [[jazz fusion]] band from Indonesia, active primarily in the late 1980s. The group was notable for its contributions to the Indonesian music scene and for being an early platform for musician [[Yovie Widianto]] and as precursor to the formation of the well-known band [[Kahitna]]. The band originated from earlier formations known as Coops Rhythm Section and Rooster, which eventually evolved into Indonesia 6. The lineup included Yovie Widianto on keyboards, Iwan Wiradz, Desi Arnaz, Hentriesa, Bubi Iradiadi, and Yani Danuwijaya.",
-  "last_revision_date": "2025-05-15T04:49:17Z"
+  "last_revision_date": "2025-05-15T04:49:17Z",
+  "genres": [
+    908,
+    579,
+    617,
+    681
+  ]
 }

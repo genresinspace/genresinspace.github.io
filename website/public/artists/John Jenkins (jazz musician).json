@@ -1,5 +1,11 @@
 {
   "name": "John Jenkins",
   "description": "'''John Jenkins''' (January 3, 1931 &ndash; July 12, 1993) was an American [[jazz]] saxophonist.",
-  "last_revision_date": "2024-05-30T03:21:47Z"
+  "last_revision_date": "2024-05-30T03:21:47Z",
+  "genres": [
+    616,
+    113,
+    1136,
+    527
+  ]
 }

@@ -1,5 +1,10 @@
 {
   "name": "Nancy Holloway",
   "description": "'''Nancy Holloway''' ({{nee}} '''Brown'''; December 11, 1932 – August 28, 2019) was an American jazz, pop and soul singer and actress who was popular during the 1960s in France, where she continued to perform and live.",
-  "last_revision_date": "2024-03-31T15:27:43Z"
+  "last_revision_date": "2024-03-31T15:27:43Z",
+  "genres": [
+    1271,
+    616,
+    1113
+  ]
 }

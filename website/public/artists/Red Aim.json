@@ -1,5 +1,11 @@
 {
   "name": "Red Aim",
   "description": "'''Red Aim''' was a German rock band. The group was founded in 1995 and mainly played [[Stoner rock|stoner]] and [[raga rock]]. After the change of vocalist to [[Karsten Brill]], the music started to go more into the direction of [[punk rock]] and [[Heavy metal music|heavy metal]].",
-  "last_revision_date": "2024-12-09T17:25:02Z"
+  "last_revision_date": "2024-12-09T17:25:02Z",
+  "genres": [
+    1135,
+    981,
+    970,
+    542
+  ]
 }

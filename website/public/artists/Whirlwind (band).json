@@ -1,5 +1,10 @@
 {
   "name": "Whirlwind",
   "description": "'''Whirlwind''' is a Sri Lankan heavy metal band formed in 1995 in [[Colombo]], Sri Lanka. Recognized as pioneers of the [[Sri Metal]] genre, the band blends traditional Sri Lankan folk elements with heavy metal.",
-  "last_revision_date": "2025-04-25T20:23:08Z"
+  "last_revision_date": "2025-04-25T20:23:08Z",
+  "genres": [
+    1132,
+    528,
+    542
+  ]
 }

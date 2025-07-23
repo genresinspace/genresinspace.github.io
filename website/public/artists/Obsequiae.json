@@ -1,5 +1,9 @@
 {
   "name": "Obsequiae",
   "description": "'''Obsequiae''' is an American [[medieval metal]] band formed in 2007 in [[Minneapolis]], Minnesota. The current line-up of the band consists of Tanner Anderson (vocals, guitar, bass), Vicente La Camera Mariño (harp) and Andrew Della Cagna (drums). The band's debut album, ''Obsequiae’s Suspended in the Brume of Eos'', was released in 2011. Its 2015 follow-up, ''[[Aria of Vernal Tombs]]'', received positive reviews from music outlets such as [[Pitchfork Media|Pitchfork]], ''[[Spin (magazine)|Spin]]'' and ''[[Decibel (magazine)|Decibel]]''.\n\nThe band's music has been described as \"castle metal\" a \"mishmash of [[Neo-Medieval music|medieval music]] and [[melodic black metal]],\" with additional influences from [[doom metal]] and [[death metal]].",
-  "last_revision_date": "2025-05-11T05:57:18Z"
+  "last_revision_date": "2025-05-11T05:57:18Z",
+  "genres": [
+    133,
+    732
+  ]
 }

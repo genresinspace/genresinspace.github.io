@@ -1,5 +1,12 @@
 {
   "name": "Cypress Hill",
   "description": "'''Cypress Hill''' is an American [[Hip hop music|hip hop]] group formed in [[South Gate, California]] in 1988. One of the first [[Latin]] groups to gain mainstream recognition in hip hop, they have sold over 20 million albums worldwide, and have obtained multi-platinum and [[RIAA certification|platinum]] certifications. The group has been critically acclaimed for their first five albums. They are considered to be among the main [[progenitors]] of [[West Coast hip hop]] and 1990s hip hop. All of the group members advocate for [[medical marijuana|medical]] and [[Recreational drug use|recreational]] use of [[Cannabis (drug)|cannabis]] in the United States. In 2019, Cypress Hill became the first hip hop group to have a star on the [[Hollywood Walk of Fame]].",
-  "last_revision_date": "2025-06-08T13:38:59Z"
+  "last_revision_date": "2025-06-08T13:38:59Z",
+  "genres": [
+    478,
+    534,
+    991,
+    955,
+    1251
+  ]
 }

@@ -1,5 +1,8 @@
 {
   "name": "The Buffalo Bills",
   "description": "The '''Buffalo Bills''' were a [[barbershop music|barbershop quartet]] formed in [[Buffalo, New York|Buffalo]], [[New York (state)|New York]] in 1947. The quartet won the 1950 [[List of Barbershop Harmony Society quartet champions|International Championship]] and is best known for appearing in the 1957 Broadway production ''[[The Music Man]]'' and [[The Music Man (1962 film)|its 1962 film version]]. The quartet was in existence for 20 years, until their last performance in New York City in 1967.",
-  "last_revision_date": "2025-05-05T06:00:20Z"
+  "last_revision_date": "2025-05-05T06:00:20Z",
+  "genres": [
+    101
+  ]
 }

@@ -1,5 +1,11 @@
 {
   "name": "Lasse Holm",
   "description": "'''Lars-Eric Gustav \"Lasse\" Holm''' (born 9 December 1943) is a Swedish singer, songwriter and television host.\n\nHolm has also hosted and appeared in several television shows.",
-  "last_revision_date": "2025-05-14T16:47:06Z"
+  "last_revision_date": "2025-05-14T16:47:06Z",
+  "genres": [
+    319,
+    912,
+    1024,
+    1065
+  ]
 }

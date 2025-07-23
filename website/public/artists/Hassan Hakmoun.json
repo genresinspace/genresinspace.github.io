@@ -1,5 +1,9 @@
 {
   "name": "Hassan Hakmoun",
   "description": "'''Hassan Hakmoun''' ({{langx|ar|حسن حكمون}}) (born 16 September 1963) is a [[Morocco|Moroccan]] musician who specializes in the [[Gnawa music|Gnawa]] style.",
-  "last_revision_date": "2024-10-31T02:21:03Z"
+  "last_revision_date": "2024-10-31T02:21:03Z",
+  "genres": [
+    1262,
+    493
+  ]
 }

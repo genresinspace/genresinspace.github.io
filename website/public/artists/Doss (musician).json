@@ -1,5 +1,14 @@
 {
   "name": "Doss",
   "description": "'''Doss''' (born 1990) is an American musician, singer, songwriter, record producer, and DJ from [[New York City]].",
-  "last_revision_date": "2025-03-26T11:45:35Z"
+  "last_revision_date": "2025-03-26T11:45:35Z",
+  "genres": [
+    1087,
+    358,
+    384,
+    235,
+    356,
+    391,
+    1174
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "name": "B-Legit",
   "description": "'''Brandt Jones''' , better known by his stage name '''B-Legit''', is an American rapper from [[Vallejo, California]].",
-  "last_revision_date": "2025-05-28T14:03:51Z"
+  "last_revision_date": "2025-05-28T14:03:51Z",
+  "genres": [
+    547,
+    562
+  ]
 }

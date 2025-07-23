@@ -1,5 +1,13 @@
 {
   "name": "Alabama 3",
   "description": "'''Alabama 3''' are a British musical group founded in [[Brixton|Brixton, London]], in 1995. Their track \"[[Woke Up This Morning]]\" was used for the opening credits of the TV series ''[[The Sopranos]]''. In the United States, the band is known as '''A3''', to avoid legal conflict with the [[country music]] band [[Alabama (band)|Alabama]].",
-  "last_revision_date": "2025-05-26T00:48:28Z"
+  "last_revision_date": "2025-05-26T00:48:28Z",
+  "genres": [
+    394,
+    384,
+    1206,
+    287,
+    139,
+    3
+  ]
 }

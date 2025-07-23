@@ -1,5 +1,9 @@
 {
   "name": "Swallow the Sun",
   "description": "'''Swallow the Sun''' is a Finnish [[death-doom]] band founded in 2000 by Juha Raivio. Their [[death-doom]] style emphasizes melody and atmosphere, and occasionally steps into [[Gothic metal|gothic]] and [[black metal]] territory. They have released nine studio albums, one [[triple album]], one [[Extended play|EP]], one demo, and seven singles.",
-  "last_revision_date": "2025-05-19T23:58:52Z"
+  "last_revision_date": "2025-05-19T23:58:52Z",
+  "genres": [
+    735,
+    329
+  ]
 }

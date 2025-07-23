@@ -1,5 +1,12 @@
 {
   "name": "Jeffrey Osborne",
   "description": "'''Jeffrey Linton Osborne''' (born March 9, 1948) is an American singer-songwriter, musician and lyricist. He is the former drummer and lead singer of the American R&B/soul group [[L.T.D. (band)|L.T.D.]], with whom he began his musical career in 1970.",
-  "last_revision_date": "2025-05-25T19:59:44Z"
+  "last_revision_date": "2025-05-25T19:59:44Z",
+  "genres": [
+    10,
+    1113,
+    347,
+    977,
+    1015
+  ]
 }

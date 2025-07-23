@@ -1,5 +1,8 @@
 {
   "name": "Agua Bella",
   "description": "'''Agua Bella''' is a female [[technocumbia]] music group from [[Peru]].",
-  "last_revision_date": "2025-01-06T21:59:53Z"
+  "last_revision_date": "2025-01-06T21:59:53Z",
+  "genres": [
+    1177
+  ]
 }
