@@ -177,6 +177,8 @@ export type ArtistFileData = {
   description?: string;
   /** The artist's last revision date (ISO 8601). */
   last_revision_date: string;
+  /** The artist's genres, as page IDs. */
+  genres: number[];
 };
 
 // Ideally, we could integrate this into `commit.json`, but getting the "safe" URL from the checkout

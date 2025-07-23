@@ -300,7 +300,7 @@ function ConnectionsAndArtists({
           setFocusedId={setFocusedId}
         />
       ) : (
-        <TopArtists genreData={genreData} />
+        <TopArtists genreData={genreData} setFocusedId={setFocusedId} />
       )}
     </div>
   );
@@ -561,7 +561,13 @@ function ConnectionHeading({
   );
 }
 
-function TopArtists({ genreData }: { genreData: GenreFileData }) {
+function TopArtists({
+  genreData,
+  setFocusedId,
+}: {
+  genreData: GenreFileData;
+  setFocusedId: (id: string | null) => void;
+}) {
   return genreData.top_artists && genreData.top_artists.length > 0 ? (
     <div className="flex flex-col gap-3 p-3">
       {genreData.top_artists.map((artistPage, index) => (
@@ -569,6 +575,7 @@ function TopArtists({ genreData }: { genreData: GenreFileData }) {
           artistPage={artistPage}
           key={artistPage}
           isLast={index === genreData.top_artists.length - 1}
+          setFocusedId={setFocusedId}
         />
       ))}
     </div>
@@ -585,11 +592,14 @@ function TopArtists({ genreData }: { genreData: GenreFileData }) {
 function Artist({
   artistPage,
   isLast,
+  setFocusedId,
 }: {
   artistPage: string;
   isLast: boolean;
+  setFocusedId: (id: string | null) => void;
 }) {
   const artistData = useArtist(artistPage);
+  const { nodes } = useDataContext();
 
   return (
     <div className={!isLast ? "pb-3 border-b border-neutral-700" : ""}>
@@ -598,6 +608,24 @@ function Artist({
           <WikipediaLink pageTitle={artistPage}>
             {artistData.name}
           </WikipediaLink>
+          <div className="text-xs mt-1 mb-2">
+            Known for:{" "}
+            {artistData.genres
+              .map((genreId) => nodes[genreId])
+              .map((node, index) => (
+                <>
+                  {index > 0 && ", "}
+                  <GenreLink
+                    node={node}
+                    hoverPreview={false}
+                    onMouseEnter={() => setFocusedId(node.id)}
+                    onMouseLeave={() => setFocusedId(null)}
+                  >
+                    {node.label}
+                  </GenreLink>
+                </>
+              ))}
+          </div>
           <div className="text-xs text-neutral-400">
             {artistData?.description ? (
               <WikitextTruncateAtLength
