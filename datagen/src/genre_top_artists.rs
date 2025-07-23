@@ -68,8 +68,15 @@ pub fn calculate(
         .map(|(genre, artists)| (genre, artists.into_iter().collect::<Vec<_>>()))
         .collect();
 
-    for artists in result.values_mut() {
-        artists.sort_by(|(_, score_a), (_, score_b)| score_b.partial_cmp(score_a).unwrap());
+    for artists in gta.values_mut() {
+        artists.sort_by(|(page_a, score_a), (page_b, score_b)| {
+            let score_cmp = score_b.partial_cmp(score_a).unwrap();
+            if score_cmp == std::cmp::Ordering::Equal {
+                page_a.cmp(page_b)
+            } else {
+                score_cmp
+            }
+        });
     }
 
     std::fs::write(output_path, serde_json::to_string_pretty(&result)?)?;
