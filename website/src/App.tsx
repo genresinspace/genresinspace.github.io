@@ -21,6 +21,8 @@ import {
 import { Sidebar } from "./views/sidebar/Sidebar";
 import { DataCache, DataCacheContext } from "./services/dataCache";
 
+import "./tailwind.css";
+
 // Global constant for arrow key navigation (developer tool)
 const ENABLE_ARROW_KEY_NAVIGATION = import.meta.env.DEV;
 
