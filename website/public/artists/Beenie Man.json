@@ -1,12 +1,10 @@
 {
   "name": "Beenie Man",
-  "description": "'''Moses Anthony Davis''' [[Order of Distinction|OD]] (born 22 August 1973), professionally known as '''Beenie Man''', is a Jamaican [[dancehall]] [[Toasting (Jamaican music)|deejay]]. His awards include DJ of the Year Award eight years in a row. His twelfth studio album ''[[Art and Life]]'' received a [[Grammy Award]] in 2001.",
-  "last_revision_date": "2025-05-10T22:39:36Z",
+  "description": "'''Moses Anthony Davis''' [[Order of Distinction|OD]] (born 22 August 1973), professionally known as '''Beenie Man''', is a Jamaican [[dancehall]] DJ. His awards include DJ of the Year Award eight years in a row. His twelfth studio album ''[[Art and Life]]'' received a [[Grammy Award]] in 2001.",
+  "last_revision_date": "2025-07-09T18:25:19Z",
   "genres": [
+    1012,
     315,
-    1005,
-    983,
-    1102,
-    1007
+    988
   ]
 }

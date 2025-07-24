@@ -1,12 +1,12 @@
 {
   "name": "Galactic",
   "description": "'''Galactic''' is an American funk band from [[New Orleans]], Louisiana.",
-  "last_revision_date": "2025-05-27T15:10:15Z",
+  "last_revision_date": "2025-06-27T16:36:35Z",
   "genres": [
-    611,
-    814,
     4,
-    621,
-    622
+    622,
+    623,
+    612,
+    819
   ]
 }

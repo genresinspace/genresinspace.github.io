@@ -1,12 +1,12 @@
 {
   "name": "Machine Girl",
-  "description": "'''Machine Girl''' (sometimes stylized as '''machin3gir1''') is an American [[electronic music]] project created in 2012 by Matt Stephenson (also known as ''DJ Chaotic Ugly'') in [[Long Island]], [[New York (state)|New York]]. In 2015, the project became a duo, with Stephenson recruiting percussionist Sean Kelly to play live drums.\n\nIn 2022, Machine Girl composed the original soundtrack for the video game ''[[Neon White]]'', coming in two parts—\"The Wicked Heart\" and \"The Burn That Cures\"—in link with the scenario of the game. It was well received.",
-  "last_revision_date": "2025-06-17T04:46:53Z",
+  "description": "'''Machine Girl''' (sometimes stylized as '''machin3gir1''') is an American [[electronic music]] project created in 2012 by Matt Stephenson (also known as ''DJ Chaotic Ugly'') in [[Long Island]], [[New York (state)|New York]]. In 2015, the project became a duo, with Stephenson recruiting percussionist Sean Kelly to play live drums. Touring member Lucy Caputi joined in 2024 as a live guitarist. \n\nIn 2022, Machine Girl composed the original soundtrack for the video game ''[[Neon White]]'', coming in two parts—\"The Wicked Heart\" and \"The Burn That Cures\"—in link with the scenario of the game. It was well received.",
+  "last_revision_date": "2025-07-11T12:37:21Z",
   "genres": [
-    345,
     439,
+    588,
+    345,
     394,
-    364,
-    588
+    364
   ]
 }
