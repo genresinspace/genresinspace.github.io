@@ -18,6 +18,7 @@ import { CloseIcon } from "./components/icons/CloseIcon";
 import { VISIBLE_TYPES_BY_TYPE, VisibleTypes } from "../settings";
 import React from "react";
 import { useGenre } from "../services/dataCache";
+import { colourStyles } from "../../../colours";
 
 /** The state of the search component */
 export type SearchState =
@@ -284,7 +285,7 @@ function SearchPath({
 
   return (
     <div>
-      <div className="flex items-center bg-neutral-700">
+      <div className={`flex items-center ${colourStyles.search.container}`}>
         <SearchBar>
           <SearchInput
             placeholder="Search for genre..."
@@ -316,7 +317,7 @@ function SearchPath({
           />
         </SearchBar>
         <button
-          className="ml-2 px-2 py-1 bg-neutral-700 hover:bg-neutral-600 transition-colors"
+          className={`ml-2 px-2 py-1 ${colourStyles.search.button} transition-colors`}
           onClick={() => {
             searchDispatch({
               type: "path:swap-source-and-destination",
@@ -395,7 +396,7 @@ function SearchInput({
         ref={inputRef}
         type="text"
         placeholder={placeholder}
-        className="w-full p-2 pl-8 bg-neutral-700"
+        className={`w-full p-2 pl-8 ${colourStyles.search.input}`}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -414,7 +415,9 @@ function SearchInput({
 
 function SearchBar({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-neutral-700 flex flex-col flex-grow gap-2">
+    <div
+      className={`${colourStyles.search.results} flex flex-col flex-grow gap-2`}
+    >
       <div className="flex-1 flex flex-col gap-0">
         {React.Children.map(children, (child, index) => {
           if (index > 0) {
@@ -449,7 +452,7 @@ function GenreResultItem({
 
   return (
     <div
-      className={`p-2 bg-neutral-900 hover:bg-neutral-700 transition-colors ${
+      className={`p-2 ${colourStyles.search.item} transition-colors ${
         isSelected ? "ring-2 ring-blue-500" : ""
       }`}
       onMouseEnter={() => setFocusedId(node.id)}

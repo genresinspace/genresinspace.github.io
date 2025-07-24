@@ -1,13 +1,13 @@
-import React from "react";
-import { createPortal } from "react-dom";
-import {
+import React, {
+  createContext,
+  useContext,
   useState,
   useRef,
-  useContext,
   useCallback,
-  createContext,
 } from "react";
+import { createPortal } from "react-dom";
 import { WikitextTruncateAtLength } from "./wikipedia/wikitexts/WikitextTruncateAtLength";
+import { colourStyles } from "../../../../colours";
 
 /** A context to track tooltip nesting. */
 export const TooltipContext = createContext(false);
@@ -58,7 +58,7 @@ export function Tooltip({
 
   return createPortal(
     <div
-      className="fixed z-[9999] bg-neutral-950 border border-neutral-800 text-white rounded p-3 shadow-lg"
+      className={`fixed z-[9999] ${colourStyles.tooltip.background} border border-neutral-800 text-white rounded p-3 shadow-lg`}
       style={{
         left: `${adjustedX}px`,
         top: `${adjustedY}px`,

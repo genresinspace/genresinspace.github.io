@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { colourStyles } from "../../../../colours";
 
 /**
  * Renders a collapsible footnote.
@@ -7,7 +8,9 @@ export function Footnote({ children }: { children: React.ReactNode }) {
   const [visible, setVisible] = useState(false);
 
   const body = visible ? (
-    <span className="block p-2 my-2 bg-neutral-800 rounded border border-neutral-700">
+    <span
+      className={`block p-2 my-2 ${colourStyles.footnote.background} rounded border border-neutral-700`}
+    >
       {children}
       <sup>
         <button

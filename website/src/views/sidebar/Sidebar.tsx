@@ -11,6 +11,7 @@ import {
   EyeIcon,
   ResizeHandleIcon,
 } from "../components/icons";
+import { colourStyles } from "../../../../colours";
 
 /** The sidebar for the app. */
 export function Sidebar({
@@ -57,8 +58,8 @@ export function Sidebar({
     <div className="relative h-full overflow-visible">
       {/* Resize handle positioned outside the sidebar */}
       <div
-        className={`absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-8 bg-neutral-700 hover:bg-neutral-600 cursor-ew-resize flex items-center justify-center z-20 ${
-          isResizing ? "bg-neutral-600" : ""
+        className={`absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-8 ${colourStyles.sidebar.resizer} cursor-ew-resize flex items-center justify-center z-20 ${
+          isResizing ? colourStyles.sidebar.resizerActive : ""
         }`}
         onMouseDown={() => setIsResizing(true)}
       >
@@ -111,7 +112,7 @@ function SidebarContent({
   return (
     <div
       style={{ width, userSelect: "auto" }}
-      className="h-full bg-neutral-900 text-white box-border flex flex-col overflow-hidden"
+      className={`h-full ${colourStyles.sidebar.background} text-white box-border flex flex-col overflow-hidden`}
     >
       {/* Fixed navigation bar at top */}
       <div className="flex shrink-0">
@@ -141,8 +142,8 @@ function SidebarContent({
               key={tab.id}
               className={`flex-1 p-2 text-white cursor-pointer flex items-center justify-center ${
                 activeTab === tab.id
-                  ? "bg-amber-800 font-bold"
-                  : "bg-neutral-900 hover:bg-neutral-800"
+                  ? colourStyles.sidebar.itemActive
+                  : colourStyles.sidebar.itemInactive
               } transition-colors duration-200`}
               onClick={() => setActiveTab(tab.id as typeof activeTab)}
             >

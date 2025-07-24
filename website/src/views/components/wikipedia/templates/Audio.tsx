@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { WikitextSimplifiedNode } from "frontend_wasm";
 import { wikimediaCommmonsAssetUrl } from "../urls";
 import { templateToObject } from "./util";
+import { colourStyles } from "../../../../../../colours";
 
 /**
  * Renders the audio template.
@@ -65,7 +66,7 @@ function AudioLink({ filename, label }: AudioLinkProps) {
       <span className="text-gray-300">({label}</span>
       <button
         onClick={togglePlayPause}
-        className="inline-flex items-center justify-center w-4 h-4 text-xs bg-neutral-700 rounded-full hover:bg-neutral-600 text-gray-200 cursor-pointer"
+        className={`inline-flex items-center justify-center w-4 h-4 text-xs ${colourStyles.audio.button} rounded-full text-gray-200 cursor-pointer`}
         aria-label={isPlaying ? "Pause audio" : "Play audio"}
         title={isPlaying ? "Pause audio" : "Play audio"}
       >

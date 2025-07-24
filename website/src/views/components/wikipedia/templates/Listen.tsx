@@ -3,6 +3,7 @@ import { WikitextSimplifiedNode } from "frontend_wasm";
 import { wikimediaCommmonsAssetUrl } from "../urls";
 import { Wikitext } from "../wikitexts/Wikitext";
 import { templateToObject } from "./util";
+import { colourStyles } from "../../../../../../colours";
 
 interface AudioPlayerProps {
   filename: string;
@@ -111,7 +112,7 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
       <div className="flex items-center space-x-2">
         <button
           onClick={togglePlayPause}
-          className="w-8 h-8 flex items-center justify-center bg-neutral-700 rounded-full hover:bg-neutral-600 text-gray-200"
+          className={`w-8 h-8 flex items-center justify-center ${colourStyles.audio.button} rounded-full text-gray-200`}
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           {isPlaying ? (
@@ -127,7 +128,7 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
             max={duration || 100}
             value={currentTime}
             onChange={handleSliderChange}
-            className="w-full h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer"
+            className={`w-full h-2 ${colourStyles.audio.progress} rounded-lg appearance-none cursor-pointer`}
           />
         </div>
         <div className="text-xs text-gray-300 w-14 text-right">
@@ -209,7 +210,7 @@ export function Listen({
   const showIcon = customImage !== "none";
 
   // Plain style removes borders and backgrounds
-  let styleClass = "border border-neutral-800 rounded bg-neutral-900 p-3 mb-4";
+  let styleClass = `border border-neutral-800 rounded ${colourStyles.audio.container} p-3 mb-4`;
   if (plain) styleClass = "";
   if (embed) styleClass = "p-1";
 

@@ -1,3 +1,5 @@
+import { colourStyles } from "../../../../colours";
+
 /** Wraps an input and shows a description below it */
 export function InputDescription({
   children,
@@ -36,7 +38,7 @@ export function CheckboxInput({
         <label className="block font-bold">{label}</label>
         <button
           type="button"
-          className="text-sm px-2 py-1 bg-amber-700 rounded-md text-gray-200 hover:bg-amber-600"
+          className={`text-sm px-2 py-1 ${colourStyles.input.primary} rounded-md text-gray-200`}
           onClick={() => onChange(name, defaultValue)}
           aria-label="Reset to default"
         >
@@ -84,12 +86,14 @@ export function RangeInput({
       <div className="flex justify-between items-center gap-2">
         <label className="block font-bold">{label}</label>
         <div className="flex items-center">
-          <span className="text-sm font-medium px-2 py-1 bg-gray-700 rounded-l-md text-gray-200">
+          <span
+            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.label} rounded-l-md text-gray-200`}
+          >
             {value ?? defaultValue}
           </span>
           <button
             type="button"
-            className="text-sm font-medium px-2 py-1 bg-amber-700 rounded-r-md text-gray-200 hover:bg-amber-600"
+            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.secondary} rounded-r-md text-gray-200`}
             onClick={() => onChange(name, defaultValue)}
             aria-label="Reset to default"
           >

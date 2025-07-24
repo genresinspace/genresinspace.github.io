@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { colourStyles } from "../../../../colours";
 
 /** A collapsible component; the children are not rendered when collapsed. */
 export function Collapsible({
@@ -20,7 +21,7 @@ export function Collapsible({
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-start gap-2 text-md font-bold p-2 bg-neutral-800/50 hover:bg-neutral-800 transition-colors"
+        className={`w-full flex items-start gap-2 text-md font-bold p-2 ${colourStyles.collapsible.background} transition-colors`}
         aria-expanded={isOpen}
       >
         <span

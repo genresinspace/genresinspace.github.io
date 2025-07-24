@@ -4,6 +4,7 @@ import {
   WikitextSimplifiedNode,
 } from "frontend_wasm";
 import { WikitextNodes } from "./WikitextNodes";
+import { colourStyles } from "../../../../../../colours";
 
 /**
  * Determines whether this node can be used to break a short description.
@@ -38,7 +39,7 @@ export function WikitextTruncateAtNewline(props: {
       {index !== -1 && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className="w-full p-2 text-sm text-neutral-400 hover:text-white bg-neutral-800 hover:bg-neutral-700 mx-auto block transition-colors"
+          className={`w-full p-2 text-sm text-neutral-400 hover:text-white ${colourStyles.wikitext.button} mx-auto block transition-colors`}
         >
           {expanded ? "Show less" : "Show more"}
         </button>

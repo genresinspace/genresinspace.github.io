@@ -37,6 +37,7 @@ import {
 
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { useArtist, useGenre } from "../../services/dataCache";
+import { colourStyles } from "../../../../colours";
 
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
@@ -138,7 +139,7 @@ function GenreHeader({
       <div className="overflow-hidden">
         <WikipediaLink
           pageTitle={nodePageTitle(node)}
-          className="bg-[var(--node-color)] hover:filter hover:brightness-[1.6] text-white p-2 block text-3xl font-bold text-center transition-all duration-200"
+          className={`${colourStyles.node.background} ${colourStyles.node.hover} text-white p-2 block text-3xl font-bold text-center transition-all duration-200`}
           nostyle={true}
           style={{
             ["--node-color" as string]: selectedNodeColour,
@@ -147,7 +148,9 @@ function GenreHeader({
           {node.label}
         </WikipediaLink>
 
-        <div className="text-neutral-400 text-xs flex items-center bg-neutral-800 px-3 py-2">
+        <div
+          className={`text-neutral-400 text-xs flex items-center ${colourStyles.node.infoBackground} px-3 py-2`}
+        >
           {genreData ? (
             <>
               Last updated:{" "}
@@ -210,7 +213,9 @@ function MixItem({
   autoplay: boolean;
 }) {
   return (
-    <div className="bg-neutral-800 overflow-hidden shadow-md">
+    <div
+      className={`${colourStyles.node.infoBackground} overflow-hidden shadow-md`}
+    >
       {"video" in mix ? (
         <YouTubeEmbed videoId={mix.video} autoplay={autoplay} />
       ) : (
@@ -280,8 +285,8 @@ function ConnectionsAndArtists({
             key={tab.id}
             className={`flex-1 px-3 py-1.5 text-white cursor-pointer flex items-center justify-center ${
               activeTab === tab.id
-                ? "bg-violet-600 font-bold"
-                : "bg-gray-700 hover:bg-gray-600"
+                ? colourStyles.node.buttonActive
+                : colourStyles.node.buttonInactive
             } transition-colors duration-200`}
             onClick={() => setActiveTab(tab.id)}
           >

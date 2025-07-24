@@ -22,6 +22,7 @@ import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/Wiki
 import { Section } from "../components/Section";
 import { InfoIcon, MapIcon, QuestionIcon } from "../components/icons";
 import { useGenre } from "../../services/dataCache";
+import { colourStyles } from "../../../../colours";
 
 /** The sidebar panel for information about the project. */
 export function ProjectInformation({
@@ -117,7 +118,7 @@ function RandomGenre({
       <span className="flex flex-row">
         <button
           onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
-          className="p-1 bg-slate-700 hover:bg-slate-600 w-8 flex items-center justify-center text-white transition-colors"
+          className={`p-1 ${colourStyles.project.button} w-8 flex items-center justify-center text-white transition-colors`}
           title="Get another random genre"
         >
           🎲
@@ -129,7 +130,7 @@ function RandomGenre({
           onMouseLeave={() => setFocusedId(null)}
         >
           <span
-            className="font-bold block px-2 py-1 bg-[var(--node-color)] hover:bg-[var(--node-hovered-color)] text-white transition-all duration-250"
+            className={`font-bold block px-2 py-1 ${colourStyles.project.title} text-white transition-all duration-250`}
             style={{
               ["--node-color" as string]: randomNodeColour,
               ["--node-hovered-color" as string]: randomNodeHoveredColour,
@@ -140,7 +141,7 @@ function RandomGenre({
         </button>
       </span>
       <span
-        className="block text-xs p-2 bg-[var(--node-color)]"
+        className={`block text-xs p-2 ${colourStyles.project.subtitle}`}
         style={{
           ["--node-color" as string]: randomNodeDarkerColour,
         }}
