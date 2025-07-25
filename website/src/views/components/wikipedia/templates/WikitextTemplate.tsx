@@ -23,11 +23,13 @@ import { BirthBasedOnAgeAsOfDate } from "./BirthBasedOnAgeAsOfDate";
 import { BirthDate } from "./BirthDate";
 import { StartDate } from "./StartDate";
 import { WiktLang } from "./WiktLang";
+import { TimeAgo } from "./TimeAgo";
 
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
 import { WikipediaLink } from "../links/WikipediaLink";
 import { InterlanguageLink } from "./InterlanguageLink";
+import { templateToObject } from "./util";
 
 /**
  * Custom error class for missing templates
@@ -304,6 +306,8 @@ export function WikitextTemplate({
     case "inflation":
       // This is not relevant to us
       return null;
+    case "inflation/year":
+      return "year not available";
     case "interlanguage_link":
     case "interlanguage_link_multi":
     case "ill":
@@ -355,6 +359,18 @@ export function WikitextTemplate({
     case "lang-sr-cyr":
     case "lang-sr-cyrl":
       return <span>Serbian Cyrillic: {node.parameters[0].value}</span>;
+    case "lang-sr-cyrl-latn": {
+      const args = templateToObject(node);
+      const separator = args.separator || ", ";
+      const nonLatinText = args["1"];
+      const latinText = args["2"];
+      return (
+        <span>
+          {nonLatinText} {separator} <Wikitext wikitext={latinText} />
+        </span>
+      );
+    }
+
     case "lang-su-fonts":
     case "sund":
       return <Wikitext wikitext={node.parameters[0].value} />;
@@ -492,6 +508,8 @@ export function WikitextTemplate({
       return <Fix>original research?</Fix>;
     case "page_needed":
       return <Fix>page needed</Fix>;
+    case "peacock_inline":
+      return <Fix>peacock prose</Fix>;
     case "phillippine_peso":
     case "₱":
       return <>₱{node.parameters.length > 0 ? node.parameters[0].value : ""}</>;
@@ -622,6 +640,9 @@ export function WikitextTemplate({
     case "spaced_en_dash_space":
     case "snds":
       return <>&nbsp;&ndash;&nbsp;</>;
+    case "source":
+    case "source?":
+      return <Fix>citation needed</Fix>;
     case "sup":
       return (
         <sup>
@@ -732,6 +753,9 @@ export function WikitextTemplate({
     case "lang-zh":
     case "zh":
       return <Zh node={node} />;
+    case "time_ago":
+    case "timeago":
+      return <TimeAgo node={node} />;
     default:
       throw new MissingTemplateError(templateName, wikiUrl ?? undefined);
   }
