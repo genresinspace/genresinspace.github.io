@@ -148,6 +148,7 @@ export function IetfLanguageTagLink({
     sv: { pageTitle: "Swedish language", name: "Swedish" },
     sw: { pageTitle: "Swahili language", name: "Kiswahili" },
     syc: { pageTitle: "Syriac language", name: "Syriac" },
+    syr: { pageTitle: "Syriac language", name: "Syriac" },
     ta: { pageTitle: "Tamil language", name: "Tamil" },
     te: { pageTitle: "Telugu language", name: "Telugu" },
     tg: { pageTitle: "Tajik language", name: "Tajik" },
