@@ -1,7 +1,4 @@
-// Centralized color styles for the application
-// All bg- Tailwind classes are defined here for easy management
-
-// Centralized color styles - all bg- classes inlined here
+/** Centralized colour styles for the application */
 export const colourStyles = {
   // Main application backgrounds
   app: {
@@ -107,5 +104,5 @@ export const colourStyles = {
   },
 } as const;
 
-// Type definitions for better TypeScript support
+/** Type definitions for better TypeScript support */
 export type ColourStyleKey = keyof typeof colourStyles;

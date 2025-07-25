@@ -18,7 +18,7 @@ import { CloseIcon } from "./components/icons/CloseIcon";
 import { VISIBLE_TYPES_BY_TYPE, VisibleTypes } from "../settings";
 import React from "react";
 import { useGenre } from "../services/dataCache";
-import { colourStyles } from "../../../colours";
+import { colourStyles } from "./colours";
 
 /** The state of the search component */
 export type SearchState =

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { colourStyles } from "../../../../colours";
+import { colourStyles } from "../colours";
 
 /** A collapsible component; the children are not rendered when collapsed. */
 export function Collapsible({

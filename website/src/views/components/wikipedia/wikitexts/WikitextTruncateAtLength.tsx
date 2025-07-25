@@ -8,7 +8,7 @@ import {
 } from "./WikitextTruncateAtNewline";
 import { WikitextNodes } from "./WikitextNodes";
 import { useState, useMemo } from "react";
-import { colourStyles } from "../../../../../../colours";
+import { colourStyles } from "../../../colours";
 
 /**
  * Like `Wikitext`, but renders up to a character limit before truncating with a `...` suffix.

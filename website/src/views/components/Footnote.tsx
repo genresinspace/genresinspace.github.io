@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { colourStyles } from "../../../../colours";
+import { colourStyles } from "../colours";
 
 /**
  * Renders a collapsible footnote.

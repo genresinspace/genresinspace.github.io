@@ -22,7 +22,7 @@ import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/Wiki
 import { Section } from "../components/Section";
 import { InfoIcon, MapIcon, QuestionIcon } from "../components/icons";
 import { useGenre } from "../../services/dataCache";
-import { colourStyles } from "../../../../colours";
+import { colourStyles } from "../colours";
 
 /** The sidebar panel for information about the project. */
 export function ProjectInformation({

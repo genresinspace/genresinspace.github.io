@@ -37,7 +37,7 @@ import {
 
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { useArtist, useGenre } from "../../services/dataCache";
-import { colourStyles } from "../../../../colours";
+import { colourStyles } from "../colours";
 
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({

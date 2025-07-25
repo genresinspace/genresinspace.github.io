@@ -1,4 +1,4 @@
-import { colourStyles } from "../../../../colours";
+import { colourStyles } from "../colours";
 
 /** Wraps an input and shows a description below it */
 export function InputDescription({

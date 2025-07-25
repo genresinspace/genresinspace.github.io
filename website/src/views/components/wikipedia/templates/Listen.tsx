@@ -3,7 +3,7 @@ import { WikitextSimplifiedNode } from "frontend_wasm";
 import { wikimediaCommmonsAssetUrl } from "../urls";
 import { Wikitext } from "../wikitexts/Wikitext";
 import { templateToObject } from "./util";
-import { colourStyles } from "../../../../../../colours";
+import { colourStyles } from "../../../colours";
 
 interface AudioPlayerProps {
   filename: string;

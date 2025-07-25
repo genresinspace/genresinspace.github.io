@@ -1,5 +1,5 @@
 import React from "react";
-import { colourStyles } from "../../../../colours";
+import { colourStyles } from "../colours";
 
 /** Reusable component for section headings with optional icon */
 export function SectionHeading({

@@ -4,7 +4,7 @@ import {
   WikitextSimplifiedNode,
 } from "frontend_wasm";
 import { WikitextNodes } from "./WikitextNodes";
-import { colourStyles } from "../../../../../../colours";
+import { colourStyles } from "../../../colours";
 
 /**
  * Determines whether this node can be used to break a short description.

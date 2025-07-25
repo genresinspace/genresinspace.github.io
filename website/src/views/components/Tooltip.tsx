@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 import { WikitextTruncateAtLength } from "./wikipedia/wikitexts/WikitextTruncateAtLength";
-import { colourStyles } from "../../../../colours";
+import { colourStyles } from "../colours";
 
 /** A context to track tooltip nesting. */
 export const TooltipContext = createContext(false);

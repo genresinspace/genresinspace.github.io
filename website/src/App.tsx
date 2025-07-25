@@ -20,7 +20,7 @@ import {
 
 import { Sidebar } from "./views/sidebar/Sidebar";
 import { DataCache, DataCacheContext } from "./services/dataCache";
-import { colourStyles } from "../../colours";
+import { colourStyles } from "./views/colours";
 
 import "./tailwind.css";
 

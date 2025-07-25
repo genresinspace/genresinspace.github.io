@@ -11,7 +11,7 @@ import {
   EyeIcon,
   ResizeHandleIcon,
 } from "../components/icons";
-import { colourStyles } from "../../../../colours";
+import { colourStyles } from "../colours";
 
 /** The sidebar for the app. */
 export function Sidebar({

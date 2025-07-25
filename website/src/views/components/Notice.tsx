@@ -1,4 +1,4 @@
-import { colourStyles } from "../../../../colours";
+import { colourStyles } from "../colours";
 
 /**
  * A styled notice box component with different color themes

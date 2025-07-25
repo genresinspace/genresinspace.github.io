@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { WikitextSimplifiedNode } from "frontend_wasm";
 import { wikimediaCommmonsAssetUrl } from "../urls";
 import { templateToObject } from "./util";
-import { colourStyles } from "../../../../../../colours";
+import { colourStyles } from "../../../colours";
 
 /**
  * Renders the audio template.
