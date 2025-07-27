@@ -1,5 +1,3 @@
-import { CosmographProvider } from "@cosmograph/react";
-
 import { useEffect, useState, useCallback, Dispatch } from "react";
 
 import { Graph } from "./views/Graph";
@@ -133,37 +131,33 @@ function LoadedApp({ data }: { data: Data }) {
 
   return (
     <DataContext.Provider value={data}>
-      <div className="flex w-screen h-screen">
-        <CosmographProvider nodes={data.nodes} links={data.edges}>
-          <div className="flex-1 h-full relative">
-            <Graph
-              settings={settings}
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
-              focusedId={focusedId}
-              path={searchState.type === "path" ? searchState.path : null}
-            />
-            <div className="absolute top-4 left-4 z-50 w-sm text-white">
-              <Search
-                selectedId={selectedId}
-                setFocusedId={setFocusedId}
-                searchState={searchState}
-                searchDispatch={searchDispatch}
-                visibleTypes={settings.visibleTypes}
-                setSelectedId={setSelectedId}
-                experimentalPathfinding={
-                  settings.general.experimentalPathfinding
-                }
-              />
-            </div>
-          </div>
-          <Sidebar
+      <div className="flex w-screen h-screen overflow-hidden">
+        <div className="flex-1 h-full relative min-w-0">
+          <Graph
             settings={settings}
-            setSettings={setSettings}
             selectedId={selectedId}
-            setFocusedId={setFocusedId}
+            setSelectedId={setSelectedId}
+            focusedId={focusedId}
+            path={searchState.type === "path" ? searchState.path : null}
           />
-        </CosmographProvider>
+          <div className="absolute top-4 left-4 z-50 w-sm text-white">
+            <Search
+              selectedId={selectedId}
+              setFocusedId={setFocusedId}
+              searchState={searchState}
+              searchDispatch={searchDispatch}
+              visibleTypes={settings.visibleTypes}
+              setSelectedId={setSelectedId}
+              experimentalPathfinding={settings.general.experimentalPathfinding}
+            />
+          </div>
+        </div>
+        <Sidebar
+          settings={settings}
+          setSettings={setSettings}
+          selectedId={selectedId}
+          setFocusedId={setFocusedId}
+        />
       </div>
     </DataContext.Provider>
   );
