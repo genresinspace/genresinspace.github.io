@@ -159,6 +159,8 @@ export function WikitextTemplate({
     case "clarify_span":
       return <Fix>clarify</Fix>;
     case "clear":
+    case "clear_left":
+    case "clear_right":
       // Not semantically meaningful
       return null;
     case "commons":
@@ -203,6 +205,8 @@ export function WikitextTemplate({
       return null;
     case "disputed_inline":
       return <Fix>disputed</Fix>;
+    case "dubious":
+      return <Fix>dubious</Fix>;
     case "efn":
     case "efn-ua":
       return (
@@ -534,6 +538,7 @@ export function WikitextTemplate({
     case "r":
     case "ref label":
     case "ref_label":
+    case "reference_page":
     case "refn":
     case "rp":
     case "sfn":

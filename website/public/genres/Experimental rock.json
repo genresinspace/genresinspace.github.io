@@ -1,6 +1,6 @@
 {
-  "description": "'''Experimental rock''', also called '''avant-rock''', is a subgenre of [[rock music]]{{sfn|Rosenberg|2009|p=179}} that pushes the boundaries of common composition and performance technique{{sfn|Bogdanov|2001|p=10}} and/or which experiments with the basic elements of the genre.{{sfn|Martin|1998|p=93}} Acts in the genre aim to liberate and innovate, with the genre's distinguishing characteristics variously consisting of [[Improvisation (music)|improvisational performances]], [[avant-garde]] influences, odd instrumentation, opaque lyrics (or instrumentals), unorthodox structures and rhythms, and an underlying rejection of commercial aspirations.\n\nFrom its inception, rock music was experimental, but it was not until the late 1960s that rock artists began creating extended and complex compositions through advancements in [[multitrack recording]]. In Germany, the [[krautrock]] subgenre merged elements of improvisation and [[psychedelic rock]] with [[electronic music]], avant-garde and [[Contemporary classical music|contemporary classical]] pieces. Later in the 1970s, significant musical crossbreeding took place in tandem with the developments of [[punk rock|punk]] and [[New wave music|new wave]], [[DIY]] experimentation, and [[electronic music]]. [[Funk]], [[jazz-rock]], and [[jazz fusion|fusion]] rhythms also became integrated into experimental rock music as new [[African-American music]]al influences became prominent.\n\n1980s experimental rock groups had few direct precedents for their sound, often pursuing a [[psychedelic music|psychedelic]] aesthetic that differed from the seriousness of earlier [[post-punk]]. During the 1990s, [[post-rock]] became the dominant form of experimental rock.",
-  "last_revision_date": "2025-07-07T20:01:40Z",
+  "description": "'''Experimental rock''' (also known as '''avant-rock''') is a [[subgenre]] of [[rock music]],{{sfn|Rosenberg|2009|p=179}} that emerged in the mid-to late 1960s. The genre incorporates influences and ideas lifted from [[avant-garde|avant-garde music]] into that of traditional [[Rock band|rock music instrumentation]], primarily defined by the use of unconventional song structures, musical techniques, [[Rhythm section|rhythms]] and [[lyricism]], usually deemed widely uncommercial, challenging, inaccessible or [[Underground music|underground]].{{sfn|Martin|1998|p=93}}{{sfn|Bogdanov|2001|p=10}}",
+  "last_revision_date": "2025-08-21T04:08:26Z",
   "mixes": [
     {
       "playlist": "PLzfDQ2YHzbqbqpfjLVUhacuqQwdlzuv7c",
@@ -11,12 +11,12 @@
     "Pink Floyd",
     "Radiohead",
     "Sonic Youth",
-    "The Clash",
     "King Crimson",
+    "The Clash",
     "John Zorn",
     "The Velvet Underground",
     "The Flaming Lips",
-    "Phish",
-    "Nick Cave"
+    "Nick Cave",
+    "Phish"
   ]
 }

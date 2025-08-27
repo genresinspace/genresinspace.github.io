@@ -1,6 +1,6 @@
 {
-  "description": "'''Extreme metal''' is a loosely-defined [[umbrella term]] for a number of related [[heavy metal music]] subgenres that have developed since the early 1980s. It has been defined as a \"cluster of metal subgenres characterized by sonic, verbal, and visual [[wikt:transgression|transgression]]\", and refers to metal that is harsher, heavier, more aggressive and less commercialized than [[Heavy metal genres|other subgenres]]. It is generally [[underground music]]. The term usually includes [[thrash metal]], [[death metal]], [[black metal]] and [[doom metal]]. Some definitions do not recognise doom metal, or consider that only some subgenres of it are extreme. Most extreme metal styles have very fast tempos and originally took inspiration from [[hardcore punk]]. The exception is doom metal, which instead is often extreme in terms of its heaviness and slowness.",
-  "last_revision_date": "2025-06-26T09:06:10Z",
+  "description": "'''Extreme metal''' is a loosely defined [[umbrella term]] for a number of related [[heavy metal music]] subgenres that have developed since the early 1980s. It has been defined as a \"cluster of metal subgenres characterized by sonic, verbal, and visual [[wikt:transgression|transgression]]\", and refers to metal that is harsher, heavier, more aggressive and less commercialized than [[Heavy metal genres|other subgenres]]. It is generally [[underground music]]. The term usually includes [[thrash metal]], [[death metal]], [[black metal]] and [[doom metal]]. Some definitions do not recognise doom metal, or consider that only some subgenres of it are extreme. Most extreme metal styles have very fast tempos and originally took inspiration from [[hardcore punk]].",
+  "last_revision_date": "2025-08-17T16:30:49Z",
   "mixes": [
     {
       "video": "ZjS7OuNDrZk"
@@ -8,6 +8,7 @@
   ],
   "top_artists": [
     "Cradle of Filth",
+    "Les Smith",
     "Devin Townsend",
     "Strapping Young Lad",
     "Joey Jordison",
@@ -15,7 +16,6 @@
     "Aaron Turner",
     "Wes Borland",
     "Dan Lilker",
-    "Dir En Grey",
-    "Dani Filth"
+    "Dir En Grey"
   ]
 }

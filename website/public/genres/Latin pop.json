@@ -1,6 +1,6 @@
 {
-  "description": "'''Latin pop''' ({{langx|es|pop latino}}) is a [[pop music]] subgenre that is a fusion of US–style [[music production]] with [[Latin music]] genres from anywhere in [[Latin America]] and [[Spain]]. It originates with [[List of countries where Spanish is an official language|Spanish-speaking]] musicians. Generally, Latin pop refers to pop music in Spanish and is commonly associated with Spanish-language pop, rock, and dance music.",
-  "last_revision_date": "2025-07-14T14:42:44Z",
+  "description": "'''Latin pop''' ({{langx|es|pop latino}}), also referred to as '''Spanish-language pop''' ({{langx|es|pop en español}}), is a subgenre of popular music defined primarily as pop music performed in Spanish. While its foundation lies in the structural and commercial conventions of international [[pop music]]—memorable melodies, rhythmic regularity, electric instrumentation, and broad appeal—it is often enriched by stylistic influences from [[Music of Latin America|Latin American]] and [[Iberian Peninsula|Iberian]] musical traditions.\n\nEmerging from Spanish-speaking musicians, Latin pop remains distinct from other Latin genres such as [[Rock en español|''rock en español'']], [[Tropical music|tropical]], [[reggaeton]], and [[Dance music|dance]], though it may incorporate elements of these styles. In this sense, the fusion with Latin or Hispanic folk genres is characteristic but secondary to its central definition as pop music in Spanish.",
+  "last_revision_date": "2025-08-17T06:05:04Z",
   "mixes": [
     {
       "video": "Us2ZvSRUB1k"
@@ -11,11 +11,11 @@
     "Ricky Martin",
     "Enrique Iglesias",
     "Gloria Estefan",
-    "Luis Fonsi",
     "Julio Iglesias",
+    "Luis Fonsi",
     "Luis Miguel",
     "Andrea Bocelli",
-    "Selena",
-    "Juanes"
+    "Bad Bunny",
+    "Selena"
   ]
 }

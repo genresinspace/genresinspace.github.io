@@ -1,6 +1,6 @@
 {
-  "description": "'''Noise rock''' (sometimes called '''noise punk'''){{sfn|Felix|2010|p=172}} is a [[noise music|noise]]-oriented style of [[experimental rock]] that spun off from [[punk rock]] in the 1980s. Drawing on movements such as [[minimal music|minimalism]], [[industrial music]], and [[Hardcore punk|hardcore]],{{sfn|Blush|2016|p=266}} artists fuse rock music to noise, while utilizing extreme levels of distortion through the use of [[electric guitar]]s and, less frequently, [[electronic instrument]]ation, either to provide percussive sounds or to contribute to the overall arrangement.\n\nSome groups are tied to song structures, such as [[Sonic Youth]]. Although they are not representative of the entire genre, they helped popularize noise rock among [[alternative rock]] audiences by incorporating melodies into their droning textures of sound, which set a template that numerous other groups followed. Other early noise rock bands were [[Big Black]], [[Swans (band)|Swans]] and [[the Jesus Lizard]].",
-  "last_revision_date": "2025-07-20T12:38:04Z",
+  "description": "'''Noise rock''' is a [[rock music]] genre that emerged in the late 1970s and early 1980s. Artists fuse rock music to noise, while utilizing extreme levels of [[Distortion (music)|distortion]] through the use of [[electric guitar]]s. \n\nNotable acts include [[Sonic Youth]], [[Big Black]], [[Swans (band)|Swans]], [[Flipper (band)|Flipper]], [[Cows (band)|Cows]], [[Scratch Acid]], [[No Trend]] and [[the Jesus Lizard]].{{sfn|Blush|2016|p=266}}",
+  "last_revision_date": "2025-08-21T02:17:40Z",
   "mixes": [
     {
       "video": "8NTjayADlH4"
@@ -8,7 +8,6 @@
   ],
   "top_artists": [
     "Sonic Youth",
-    "Lou Reed",
     "Courtney Love",
     "Steve Albini",
     "Thurston Moore",
@@ -16,6 +15,7 @@
     "Hole (band)",
     "Swans (band)",
     "Dinosaur Jr.",
-    "The Birthday Party (band)"
+    "The Birthday Party (band)",
+    "The Jesus Lizard"
   ]
 }
