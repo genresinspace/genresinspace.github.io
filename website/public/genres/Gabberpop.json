@@ -1,6 +1,9 @@
 {
   "description": "'''Gabberpop''', also known as '''gabber-pop''' or '''pop-gabber''', is a [[music genre|musical genre]] that combines elements of [[pop music]] with [[gabber]]-related genres such as [[happy hardcore]]. The genre is characterized by the predominant mix of powerful [[Bass drum|kicks]] and pop or [[Rapping|rap]] vocals. Its tempo typically ranges between 150 and 180 BPM.",
   "last_revision_date": "2025-07-29T20:02:54Z",
+  "mixes": {
+    "help_reason": null
+  },
   "top_artists": [
     "Ascendant Vierge",
     "Chibi Ichigo",
