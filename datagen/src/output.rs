@@ -43,7 +43,7 @@ struct ArtistFileData {
     name: String,
     description: Option<String>,
     last_revision_date: jiff::Timestamp,
-    genres: Vec<PageDataId>,
+    genres: BTreeSet<PageDataId>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
