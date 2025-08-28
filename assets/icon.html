@@ -1041,6 +1041,42 @@
           }, 250); // 250ms delay before regenerating
         };
 
+        // Debounced config update for all inputs
+        const debouncedConfigUpdate = React.useRef({});
+        const debounceTimeoutRef = React.useRef(null);
+
+        const handleDebouncedChange = (key, value) => {
+          // Store the change in the debounced update object
+          debouncedConfigUpdate.current[key] = value;
+
+          // Clear any existing debounce timeout
+          if (debounceTimeoutRef.current) {
+            clearTimeout(debounceTimeoutRef.current);
+          }
+
+          // Set new debounce timeout
+          debounceTimeoutRef.current = setTimeout(() => {
+            // Apply all accumulated changes at once
+            const changes = debouncedConfigUpdate.current;
+            if (Object.keys(changes).length > 0) {
+              const newConfig = { ...config, ...changes };
+              handleConfigUpdate(newConfig);
+              debouncedConfigUpdate.current = {};
+            }
+          }, 200); // 200ms debounce delay
+        };
+
+        // Unified handler for all config changes
+        const handleConfigChange = (key, value) => {
+          const numValue = !isNaN(parseFloat(value))
+            ? parseFloat(value)
+            : value;
+          // Update the display value immediately for responsive UI
+          setConfig((prev) => ({ ...prev, [key]: numValue }));
+          // Also queue it for debounced processing
+          handleDebouncedChange(key, value);
+        };
+
         // Create a new command and execute it
         const executeCommand = (key, newValue) => {
           const oldValue = config[key];
@@ -1186,6 +1222,9 @@
             if (regenerateTimeoutRef.current) {
               clearTimeout(regenerateTimeoutRef.current);
             }
+            if (debounceTimeoutRef.current) {
+              clearTimeout(debounceTimeoutRef.current);
+            }
           };
         }, []); // Only run on mount
 
@@ -1196,7 +1235,7 @@
 
         return (
           <div className="flex flex-row w-full h-full">
-            <LeftSidebar config={config} setConfig={handleConfigUpdate} />
+            <LeftSidebar config={config} setConfig={handleConfigChange} />
 
             <div className="flex-grow flex flex-col items-center justify-center bg-gray-800 p-4 h-full">
               <canvas
