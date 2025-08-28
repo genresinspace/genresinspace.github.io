@@ -67,7 +67,13 @@
       };
 
       // Left sidebar component for Node and Visual settings
-      function LeftSidebar({ config, setConfig }) {
+      function LeftSidebar({
+        config,
+        setConfig,
+        handleConfigChange,
+        setHistory,
+        scheduleRegeneration,
+      }) {
         // Group the config fields for UI display
         const configGroups = [
           {
@@ -178,10 +184,6 @@
           },
         ];
 
-        const handleChange = (key, value) => {
-          setConfig(key, value);
-        };
-
         return (
           <div className="w-72 px-4 py-6 bg-gray-900 overflow-y-auto no-scrollbar">
             <h2 className="text-xl font-bold mb-4">Node Configuration</h2>
@@ -212,7 +214,7 @@
                             step={field.step}
                             value={config[field.key]}
                             onChange={(e) =>
-                              handleChange(field.key, e.target.value)
+                              handleConfigChange(field.key, e.target.value)
                             }
                             className="w-full accent-blue-500"
                           />
@@ -220,7 +222,7 @@
                           <select
                             value={config[field.key]}
                             onChange={(e) =>
-                              handleChange(field.key, e.target.value)
+                              handleConfigChange(field.key, e.target.value)
                             }
                             className="w-full rounded bg-gray-800 border border-gray-700 px-2 py-1"
                           >
@@ -281,6 +283,26 @@
                 className="w-full bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
               >
                 Save as PNG
+              </button>
+
+              <button
+                onClick={() => {
+                  if (
+                    confirm(
+                      "Are you sure you want to reset all settings to default and clear history? This action cannot be undone."
+                    )
+                  ) {
+                    setConfig(DEFAULT_CONFIG);
+                    setHistory({
+                      commands: [],
+                      currentIndex: -1,
+                    });
+                    scheduleRegeneration();
+                  }
+                }}
+                className="w-full bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Reset All Settings
               </button>
             </div>
           </div>
@@ -1235,7 +1257,13 @@
 
         return (
           <div className="flex flex-row w-full h-full">
-            <LeftSidebar config={config} setConfig={handleConfigChange} />
+            <LeftSidebar
+              config={config}
+              setConfig={setConfig}
+              handleConfigChange={handleConfigChange}
+              setHistory={setHistory}
+              scheduleRegeneration={scheduleRegeneration}
+            />
 
             <div className="flex-grow flex flex-col items-center justify-center bg-gray-800 p-4 h-full">
               <canvas
