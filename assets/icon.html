@@ -543,6 +543,7 @@
           commands: [], // All executed commands
           currentIndex: -1, // Current position in command history (-1 is initial state)
         });
+        const [canvasUpdateCount, setCanvasUpdateCount] = React.useState(0);
         const canvasRef = React.useRef(null);
         const regenerateTimeoutRef = React.useRef(null);
 
@@ -1093,6 +1094,9 @@
             ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
             ctx.fill();
           });
+
+          // Increment canvas update count to refresh previews
+          setCanvasUpdateCount((prev) => prev + 1);
         };
 
         // Schedule regeneration after config changes
@@ -1265,13 +1269,47 @@
           <div className="flex flex-row w-full h-full">
             <LeftSidebar config={config} setConfig={handleConfigUpdate} />
 
-            <div className="flex-grow flex items-center justify-center bg-gray-800 p-4 h-full">
+            <div className="flex-grow flex flex-col items-center justify-center bg-gray-800 p-4 h-full">
               <canvas
                 ref={canvasRef}
                 width={config.size}
                 height={config.size}
-                className="max-w-full max-h-[calc(100vh-2rem)] object-contain"
+                className="max-w-full max-h-[calc(100vh-8rem)] object-contain mb-4"
               />
+
+              {/* Icon Size Previews */}
+              <div className="bg-gray-900 rounded-lg p-4 w-full max-w-2xl">
+                <h3 className="text-lg font-semibold mb-3 text-center">
+                  Icon Size Previews
+                </h3>
+                <div className="grid grid-cols-4 gap-4">
+                  {[16, 32, 64, 128].map((size) => (
+                    <div
+                      key={`${size}-${canvasUpdateCount}`}
+                      className="flex flex-col items-center"
+                    >
+                      <div className="text-sm text-gray-400 mb-2">
+                        {size}×{size}
+                      </div>
+                      <div
+                        className="border border-gray-600 rounded bg-gray-800"
+                        style={{
+                          width: `${size}px`,
+                          height: `${size}px`,
+                          backgroundImage: `url(${
+                            canvasRef.current
+                              ? canvasRef.current.toDataURL()
+                              : ""
+                          })`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                          imageRendering: "pixelated",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <RightSidebar
