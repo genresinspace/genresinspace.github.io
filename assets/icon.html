@@ -60,10 +60,10 @@
         nodeSeed: 32,
         nodeChroma: 0.31,
         nodeLightness: 0.81,
-        angleWeight: 0.7,
-        distanceWeight: 0.6,
         lineWidth: 40,
         outerLineWidth: 0,
+        numHues: 4,
+        hueShift: 0.0,
       };
 
       // Left sidebar component for Node and Visual settings
@@ -149,21 +149,59 @@
                 step: 0.01,
               },
               {
-                key: "angleWeight",
-                label: "Angle Weight (0-1)",
+                key: "numHues",
+                label: "Number of Hues",
+                type: "range",
+                min: 2,
+                max: 8,
+                step: 1,
+              },
+              {
+                key: "hueShift",
+                label: "Hue Shift (0-1)",
                 type: "range",
                 min: 0,
                 max: 1,
                 step: 0.01,
               },
               {
-                key: "distanceWeight",
-                label: "Distance Weight (0-1)",
-                type: "range",
-                min: 0,
-                max: 1,
-                step: 0.01,
+                key: "huePreview",
+                label: "Current Hues (with shift)",
+                type: "custom",
+                render: (config) => {
+                  const hues = [];
+                  for (let i = 0; i < config.numHues; i++) {
+                    hues.push(i / config.numHues);
+                  }
+                  return (
+                    <div className="space-y-2">
+                      <div className="flex gap-2">
+                        {hues.map((hue, index) => {
+                          const shiftedHue = (hue + config.hueShift) % 1.0;
+                          return (
+                            <div
+                              key={index}
+                              className="w-6 h-6 rounded border border-gray-600"
+                              style={{
+                                backgroundColor: `oklch(${
+                                  config.nodeLightness
+                                } ${config.nodeChroma} ${shiftedHue * 360})`,
+                              }}
+                              title={`Base: ${hue.toFixed(
+                                2
+                              )}, Shifted: ${shiftedHue.toFixed(2)}`}
+                            />
+                          );
+                        })}
+                      </div>
+                      <div className="text-xs text-gray-400 text-center">
+                        Shift: +{config.hueShift.toFixed(2)}
+                      </div>
+                    </div>
+                  );
+                },
               },
+
               {
                 key: "lineWidth",
                 label: "Line Width",
@@ -232,6 +270,8 @@
                               </option>
                             ))}
                           </select>
+                        ) : field.type === "custom" ? (
+                          field.render(config)
                         ) : (
                           <input
                             type={field.type}
@@ -240,7 +280,7 @@
                             step={field.step}
                             value={config[field.key]}
                             onChange={(e) =>
-                              handleChange(field.key, e.target.value)
+                              handleConfigChange(field.key, e.target.value)
                             }
                             className="w-full rounded bg-gray-800 border border-gray-700 px-2 py-1"
                           />
@@ -578,32 +618,129 @@
           };
         };
 
-        // Generate stable color for a node based on its position and seed
-        const generateStableColor = (node, config) => {
-          // Convert to polar coordinates for better color distribution
-          const centerX = config.size / 2;
-          const centerY = config.size / 2;
-          const dx = node.x - centerX;
-          const dy = node.y - centerY;
+        // Naive graph coloring algorithm to avoid adjacent nodes having the same color
+        const assignGraphColors = (nodes, links, config) => {
+          // Create adjacency list for each node
+          const adjacencyList = new Map();
+          nodes.forEach((node) => {
+            adjacencyList.set(node.id, new Set());
+          });
 
-          // Calculate angle (0-2π) and distance from center
-          const angle = Math.atan2(dy, dx);
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          // Build adjacency list from links
+          links.forEach((link) => {
+            adjacencyList.get(link.source).add(link.target);
+            adjacencyList.get(link.target).add(link.source);
+          });
 
-          // Normalize angle to 0-1 range and add some distance influence
-          const normalizedAngle = (angle + Math.PI) / (2 * Math.PI); // Convert from -π,π to 0,1
-          const normalizedDistance = (distance / (config.size * 0.5)) % 1.0; // Normalize distance
+          // Initialize colors array (undefined means uncolored)
+          const colors = new Array(nodes.length).fill(undefined);
 
-          // Combine angle and distance to create unique hue
-          // This ensures nodes at different angles and distances get different colors
-          const hue =
-            (normalizedAngle * config.angleWeight +
-              normalizedDistance * config.distanceWeight) %
-            1.0;
+          // Define the hues to use (evenly distributed)
+          const hues = [];
+          for (let i = 0; i < config.numHues; i++) {
+            hues.push(i / config.numHues);
+          }
 
-          return `oklch(${config.nodeLightness} ${config.nodeChroma} ${
-            hue * 360
-          })`;
+          // Start coloring from the first node
+          const maxIterations = 1000; // Bail out if it takes too long
+          let iterations = 0;
+          let hasConflicts = true;
+
+          // Assign first color to first node
+          colors[0] = 0;
+
+          while (hasConflicts && iterations < maxIterations) {
+            iterations++;
+            hasConflicts = false;
+
+            // Try to color each node
+            for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
+              if (colors[nodeIndex] === undefined) {
+                // Find a color that doesn't conflict with neighbors
+                let colorIndex = 0;
+                let colorFound = false;
+
+                while (colorIndex < hues.length && !colorFound) {
+                  colorFound = true;
+
+                  // Check if this color conflicts with any neighbor
+                  const neighbors = adjacencyList.get(nodeIndex);
+                  for (const neighborId of neighbors) {
+                    if (colors[neighborId] === colorIndex) {
+                      colorFound = false;
+                      break;
+                    }
+                  }
+
+                  if (colorFound) {
+                    colors[nodeIndex] = colorIndex;
+                  } else {
+                    colorIndex++;
+                  }
+                }
+
+                // If no color found, assign the first available color
+                if (!colorFound) {
+                  colors[nodeIndex] = 0;
+                  hasConflicts = true;
+                }
+              } else {
+                // Check if current color conflicts with neighbors
+                const currentColor = colors[nodeIndex];
+                const neighbors = adjacencyList.get(nodeIndex);
+
+                for (const neighborId of neighbors) {
+                  if (colors[neighborId] === currentColor) {
+                    // Conflict found, try to find a different color
+                    let newColorIndex = 0;
+                    let newColorFound = false;
+
+                    while (newColorIndex < hues.length && !newColorFound) {
+                      if (newColorIndex !== currentColor) {
+                        newColorFound = true;
+
+                        // Check if this new color conflicts with any neighbor
+                        for (const neighborId2 of neighbors) {
+                          if (colors[neighborId2] === newColorIndex) {
+                            newColorFound = false;
+                            break;
+                          }
+                        }
+                      }
+
+                      if (!newColorFound) {
+                        newColorIndex++;
+                      }
+                    }
+
+                    if (newColorFound) {
+                      colors[nodeIndex] = newColorIndex;
+                    } else {
+                      hasConflicts = true;
+                    }
+                    break;
+                  }
+                }
+              }
+            }
+          }
+
+          if (iterations >= maxIterations) {
+            console.warn(
+              `Graph coloring bailed out after ${maxIterations} iterations`
+            );
+          } else {
+            console.log(`Graph coloring completed in ${iterations} iterations`);
+          }
+
+          // Assign colors to nodes
+          nodes.forEach((node, index) => {
+            const baseHue = hues[colors[index] || 0];
+            const shiftedHue = (baseHue + config.hueShift) % 1.0;
+            node.color = `oklch(${config.nodeLightness} ${config.nodeChroma} ${
+              shiftedHue * 360
+            })`;
+          });
         };
 
         // Calculate distance between two points
@@ -1020,9 +1157,7 @@
           const links = extractEdges(triangulation);
 
           // Assign colors to nodes
-          nodes.forEach((node, index) => {
-            node.color = generateStableColor(node, config);
-          });
+          assignGraphColors(nodes, links, config);
 
           // Draw links
           ctx.strokeStyle = "white";
