@@ -1090,13 +1090,19 @@
 
         // Unified handler for all config changes
         const handleConfigChange = (key, value) => {
-          const numValue = !isNaN(parseFloat(value))
-            ? parseFloat(value)
-            : value;
+          // Ensure proper type conversion for numeric fields
+          let convertedValue;
+          if (typeof value === "string") {
+            const parsed = parseFloat(value);
+            convertedValue = isNaN(parsed) ? value : parsed;
+          } else {
+            convertedValue = value;
+          }
+
           // Update the display value immediately for responsive UI
-          setConfig((prev) => ({ ...prev, [key]: numValue }));
+          setConfig((prev) => ({ ...prev, [key]: convertedValue }));
           // Also queue it for debounced processing
-          handleDebouncedChange(key, value);
+          handleDebouncedChange(key, convertedValue);
         };
 
         // Create a new command and execute it
