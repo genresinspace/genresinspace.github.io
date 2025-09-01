@@ -390,21 +390,26 @@ fn process_pages<T: ProcessedPage>(
                         // Direct match - use the template's parameters directly
                         Some(parameters_to_map(parameters))
                     } else {
-                        // Check if this template has a "module" parameter with our target template
-                        let parameters_map = parameters_to_map(parameters);
+                        // Check if this template has a "module" parameter with our target template,
+                        // if so, inject the parameters of the nested template into the parameters map.
+                        // We inject, instead of replacing, to allow inheriting parameters from the parent (e.g. name)
+                        let mut parameters_map = parameters_to_map(parameters);
+                        let mut injected_module_parameters = false;
                         if let Some(module_nodes) = parameters_map.get("module") {
                             // Look for our target template within the module parameter
-                            let mut found_nested_parameters = None;
                             for node in *module_nodes {
                                 if let pwt::Node::Template { name: nested_name, parameters: nested_parameters, .. } = node {
                                     let nested_template_name = nodes_inner_text(nested_name).to_lowercase();
                                     if nested_template_name == template_name {
-                                        found_nested_parameters = Some(parameters_to_map(nested_parameters));
+                                        injected_module_parameters = true;
+                                        parameters_map.extend(parameters_to_map(nested_parameters));
                                         break;
                                     }
                                 }
                             }
-                            found_nested_parameters
+                        }
+                        if injected_module_parameters {
+                            Some(parameters_map)
                         } else {
                             None
                         }
