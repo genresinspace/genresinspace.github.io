@@ -34,6 +34,7 @@ import {
   SubgenreIcon,
   FusionGenreIcon,
 } from "../components/icons";
+import yt_icon_red_digital from "../components/icons/yt_icon_red_digital.png";
 
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { useArtist, useGenre } from "../../services/dataCache";
@@ -609,11 +610,25 @@ function Artist({
   return (
     <div className={!isLast ? "pb-3 border-b border-neutral-700" : ""}>
       {artistData ? (
-        <>
-          <WikipediaLink pageTitle={artistPage}>
-            {artistData.name}
-          </WikipediaLink>
-          <div className="text-xs mt-1 mb-2">
+        <div>
+          <div className="flex items-center gap-1">
+            <WikipediaLink pageTitle={artistPage}>
+              {artistData.name}
+            </WikipediaLink>
+            <a
+              href={`https://www.youtube.com/results?search_query=${artistData.name.replace(/ /g, "+")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={yt_icon_red_digital}
+                alt="YouTube"
+                className="h-[1em] w-auto align-middle"
+                style={{ verticalAlign: "middle" }}
+              />
+            </a>
+          </div>
+          <div className="text-xs mb-2">
             Known for:{" "}
             {artistData.genres
               .map((genreId) => nodes[genreId])
@@ -647,7 +662,7 @@ function Artist({
               </em>
             </div>
           </div>
-        </>
+        </div>
       ) : (
         "Loading..."
       )}
