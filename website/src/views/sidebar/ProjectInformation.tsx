@@ -45,7 +45,7 @@ export function ProjectInformation({
   return (
     <div className="flex flex-col">
       <Section heading="About" icon={<InfoIcon />}>
-        <div className="flex flex-col gap-2 p-3">
+        <div className="flex flex-col gap-2 p-4">
           <p>
             A graph of every music genre on English Wikipedia
             <Footnote>
@@ -174,7 +174,7 @@ function Legend({
   setVisibleTypes: (visibleTypes: VisibleTypes) => void;
 }) {
   return (
-    <div className="flex flex-col gap-4 p-3 text-sm">
+    <div className="flex flex-col gap-4 p-4 text-sm">
       {VISIBLE_TYPES.map(({ color, label, type, description }) => (
         <div key={label} className="flex items-start gap-2">
           <div>
@@ -205,7 +205,7 @@ function Legend({
 
 function CommitFooter() {
   return (
-    <footer className="text-sm text-neutral-500 p-3">
+    <footer className="text-sm text-neutral-500 px-4 py-3 border-t border-neutral-700">
       Commit{" "}
       <code>
         <EL href={`${REPO_LINK}/tree/${commit.commit}`}>{commit.commit}</EL>

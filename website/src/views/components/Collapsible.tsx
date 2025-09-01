@@ -34,7 +34,7 @@ export function Collapsible({
         </span>
         <span className="text-left">{title}</span>
       </button>
-      {isOpen && <div className="p-3">{children}</div>}
+      {isOpen && <div className="px-4 py-3">{children}</div>}
     </div>
   );
 }

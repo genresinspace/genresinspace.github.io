@@ -77,7 +77,7 @@ export function SelectedNodeInfo({
             />
           )}
 
-          <div className="p-3">
+          <div className="px-4 py-3">
             {genreData ? (
               genreData.description ? (
                 <WikitextTruncateAtNewline
@@ -575,7 +575,7 @@ function TopArtists({
   setFocusedId: (id: string | null) => void;
 }) {
   return genreData.top_artists && genreData.top_artists.length > 0 ? (
-    <div className="flex flex-col gap-3 p-3">
+    <div className="flex flex-col gap-3 px-4 py-3">
       {genreData.top_artists.map((artistPage, index) => (
         <Artist
           artistPage={artistPage}

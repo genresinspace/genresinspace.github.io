@@ -26,7 +26,7 @@ export function Settings({
   const cosmographContext = useCosmograph();
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col">
       <ControlSection
         name="General"
         icon={<SettingsIcon />}
@@ -71,7 +71,7 @@ function ControlSection<
 }) {
   return (
     <Section heading={name} icon={icon}>
-      <div className="flex flex-col gap-3 p-3">
+      <div className="flex flex-col gap-3 p-4">
         {sectionDesc.map((control) => (
           <Control
             key={control.name}
