@@ -2,15 +2,15 @@
 use std::{
     collections::{HashMap, HashSet},
     path::Path,
-    sync::{atomic::AtomicUsize, LazyLock},
+    sync::{LazyLock, atomic::AtomicUsize},
 };
 
 use jiff::ToSpan as _;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use wikitext_util::{
-    nodes_inner_text, nodes_inner_text_with_config, parse_wiki_text_2 as pwt,
-    wikipedia_pwt_configuration, InnerTextConfig, NodeMetadata, NodeMetadataType,
+    InnerTextConfig, NodeMetadata, NodeMetadataType, nodes_inner_text,
+    nodes_inner_text_with_config, parse_wiki_text_2 as pwt, wikipedia_pwt_configuration,
 };
 
 use crate::{
@@ -247,9 +247,14 @@ fn process_pages<T: ProcessedPage>(
     pages: &HashMap<PageName, std::path::PathBuf>,
     processed_path: &Path,
     template_name: &str,
-    process_template: impl Fn(HashMap<String, &[pwt::Node]>, &PageName, Option<String>, jiff::Timestamp) -> T
-        + Send
-        + Sync,
+    process_template: impl Fn(
+        HashMap<String, &[pwt::Node]>,
+        &PageName,
+        Option<String>,
+        jiff::Timestamp,
+    ) -> T
+    + Send
+    + Sync,
     entity_type: &str,
 ) -> anyhow::Result<HashMap<PageName, T>> {
     if processed_path.is_dir() {
@@ -499,8 +504,8 @@ fn process_pages<T: ProcessedPage>(
                 | pwt::Node::Tag { end, start, .. }
                 | pwt::Node::Text { end, start, .. }
                 | pwt::Node::UnorderedList { end, start, .. } => {
-                    if !pause_recording_description {
-                        if let Some(description) = &mut description {
+                    if !pause_recording_description
+                        && let Some(description) = &mut description {
                             let last_node_was_link = last_node.as_ref().is_some_and(|n| n.ty == NodeMetadataType::Link);
                             let this_node_is_text = matches!(node, pwt::Node::Text { .. });
 
@@ -526,7 +531,6 @@ fn process_pages<T: ProcessedPage>(
                             }
                             description.push_str(new_fragment);
                         }
-                    }
                     last_node = Some(node_metadata);
                 }
                 pwt::Node::Heading { nodes, .. } => {
