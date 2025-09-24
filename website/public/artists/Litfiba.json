@@ -1,14 +1,13 @@
 {
   "name": "Litfiba",
-  "description": "'''Litfiba''' was an Italian [[Rock music|rock]] band formed in [[Florence]] in 1980. The band evolved from British-influenced [[new wave music|new wave rock]] to a more personal rock sound influenced by Mediterranean vibes; their songs are mostly sung in Italian.",
-  "last_revision_date": "2025-05-28T11:58:24Z",
+  "description": "'''Litfiba''' was an Italian [[Rock music|rock]] band formed in [[Florence]] in 1980. The band evolved from a British-influenced [[new wave music|new wave rock]] to a more personal rock sound influenced by Mediterranean vibes; their songs are mostly sung in Italian.",
+  "last_revision_date": "2025-09-03T14:00:31Z",
   "genres": [
-    533,
-    547,
-    690,
-    693,
-    834,
-    926,
-    1036
+    534,
+    549,
+    692,
+    695,
+    837,
+    932
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "description": "'''Tango''' ({{IPA|en|ˈteɪˌŋgoʊ}} or {{IPA|en|ˈtɑːˌŋgoʊ}}; {{IPA|es|ˈtaˌŋgo}}) is a style of music in [[Time signature|{{music|time|2|4}} or {{music|time|4|4}}]] time that originated among [[Great European immigration wave to Argentina|European immigrants of the Great Wave]] to [[Argentina]] and [[Uruguay]]. It has mainly [[Culture of Spain|Spanish]], [[Culture of Italy|Italian]], [[Gaucho culture|Gaucho]], [[Culture of Africa|African]], and [[Culture of France|French]] cultural roots. It is traditionally played on a solo guitar, guitar duo, or an ensemble, known as the ''[[orquesta típica]]'', which includes at least two [[violin]]s, [[flute]], [[piano]], [[double bass]], and at least two [[bandoneón]]s. Sometimes guitars and a clarinet join the ensemble. Tango may be purely instrumental or may include a vocalist. Tango music and [[tango (dance)|dance]] have become popular throughout the world.",
-  "last_revision_date": "2025-08-11T13:08:13Z",
+  "description": "'''Tango''' ({{IPA|en|ˈteɪˌŋgoʊ}} or {{IPA|en|ˈtɑːˌŋgoʊ}}; {{IPA|es|ˈtaˌŋgo}}) is a style of music in [[Time signature|{{music|time|2|4}} or {{music|time|4|4}}]] time that originated in [[Uruguay]] and [[Argentina]] among [[European immigration to the Americas|European immigrants]] in the late 19th and early 20th centuries. It has mainly [[Culture of Spain|Spanish]], [[Culture of Italy|Italian]], [[Gaucho culture|Gaucho]], [[Culture of Africa|African]], and [[Culture of France|French]] cultural roots. It is traditionally played on a solo guitar, guitar duo, or an ensemble, known as the ''[[orquesta típica]]'', which includes at least two [[violin]]s, [[flute]], [[piano]], [[double bass]], and at least two [[bandoneón]]s. Sometimes guitars and a clarinet join the ensemble. Tango may be purely instrumental or may include a vocalist. Tango music and [[tango (dance)|dance]] have become popular throughout the world.",
+  "last_revision_date": "2025-09-14T23:32:51Z",
   "mixes": [
     {
       "video": "3cRyekJMmXw"
@@ -8,7 +8,6 @@
   ],
   "top_artists": [
     "Astor Piazzolla",
-    "Gustavo Santaolalla",
     "Carlos Gardel",
     "Libertad Lamarque",
     "Il Divo",
@@ -16,6 +15,7 @@
     "Germaine Franco",
     "Gotan Project",
     "Athens Tango Project",
-    "Richard Galliano"
+    "Richard Galliano",
+    "Mariano Mores"
   ]
 }

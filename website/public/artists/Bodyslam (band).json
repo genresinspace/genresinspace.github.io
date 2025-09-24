@@ -1,14 +1,14 @@
 {
   "name": "Bodyslam",
-  "description": "'''Bodyslam''' is a [[Thai rock]] [[musical ensemble|band]]. They are known for their dynamic performances and deep lyrics, having released their first album in 2002.",
-  "last_revision_date": "2025-07-01T21:59:30Z",
+  "description": "'''Bodyslam''' ({{langx|th|บอดี้สแลม}}) is a [[Thai rock]] [[musical ensemble|band]]. They are known for their dynamic performances and deep lyrics, having released their first album in 2002.",
+  "last_revision_date": "2025-09-10T00:15:25Z",
   "genres": [
     8,
     42,
-    533,
-    905,
-    926,
-    927,
-    938
+    534,
+    911,
+    932,
+    933,
+    944
   ]
 }
