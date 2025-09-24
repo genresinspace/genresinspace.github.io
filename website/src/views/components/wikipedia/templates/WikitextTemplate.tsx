@@ -198,6 +198,8 @@ export function WikitextTemplate({
           ))}
         </>
       );
+    case "dead_link":
+      return <Fix>dead link</Fix>;
     case "deprecated_source":
       return <Fix>deprecated source?</Fix>;
     case "disputed":
