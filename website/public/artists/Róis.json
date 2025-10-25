@@ -1,9 +1,10 @@
 {
   "name": "Róis",
-  "description": "'''Rose Connolly''' (born 1999/2000), known mononymously as '''Róis''' ({{IPA|ga|ɾˠoːʃ|}} {{respell|ROE|sh}}, {{lit|[[rose]]}}, often capitalised '''RÓIS''') is a [[composer]], singer and [[multi-instrumentalist]] from [[County Fermanagh]], Northern Ireland. She is known for singing in a [[keening]] style, the traditional Irish [[lament]].",
-  "last_revision_date": "2025-05-18T17:35:52Z",
+  "description": "'''Rose Connolly''' (born 1999/2000), known mononymously as '''Róis''' ({{IPA|ga|ɾˠoːʃ|}} {{respell|ROE|sh}}, {{lit|[[rose]]}}, often capitalised '''RÓIS''') is a [[composer]], singer and [[multi-instrumentalist]] from [[County Fermanagh]], Northern Ireland. She is known for singing in a [[keening]] ({{langx|ga|caoineadh}}) style, a traditional Irish [[lament]].",
+  "last_revision_date": "2025-10-04T04:14:02Z",
   "genres": [
     75,
-    1089
+    403,
+    1091
   ]
 }

@@ -1,18 +1,18 @@
 {
   "description": "'''Chiptune''', also called '''8-bit music''' (although not all chiptune is 8-bit), is a style of [[electronic music]], and its associated subculture, made using the [[programmable sound generator]] (PSG) [[sound chip]]s or [[synthesizer]]s in vintage [[arcade game|arcade machines]], [[computer]]s and [[video game console]]s. The term is commonly used to refer to [[tracker music|tracker format music]] using extremely basic and small [[Sample (music)|samples]] that an old computer or console could produce (this is the original meaning of the term), as well as music that combines PSG sounds with modern musical styles. It has been described as \"an interpretation of many genres\". Any existing song can be arranged in a chiptune style. It can be defined by choice of instrument, by [[timbre]] more than specific style elements.",
-  "last_revision_date": "2025-09-15T05:12:58Z",
+  "last_revision_date": "2025-09-21T14:42:49Z",
   "mixes": [
     {
       "video": "GH7eUlri4yM"
     }
   ],
   "top_artists": [
+    "Bear McCreary",
     "Koji Kondo",
     "Hirokazu Tanaka",
-    "Bear McCreary",
     "Yuzo Koshiro",
-    "Anamanaguchi",
     "DJ Scotch Egg",
+    "Anamanaguchi",
     "Manabu Namiki",
     "Aleksi Eeben",
     "Machinae Supremacy",

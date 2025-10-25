@@ -1,12 +1,11 @@
 {
   "name": "Neurotech",
-  "description": "'''Neurotech''' is a Slovenian independent [[industrial metal]] project based in Ljubljana, known for its stylistic blend of electronics and metal.",
-  "last_revision_date": "2025-09-16T23:58:02Z",
+  "description": "'''Neurotech''' is a Slovenian one-man [[industrial metal]] project based in [[Ljubljana]], known for its stylistic blend of electronics and metal.",
+  "last_revision_date": "2025-10-06T00:39:40Z",
   "genres": [
-    394,
-    549,
+    592,
     594,
-    596,
-    1174
+    595,
+    1175
   ]
 }

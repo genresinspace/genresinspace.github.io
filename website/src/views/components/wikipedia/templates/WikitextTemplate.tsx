@@ -78,6 +78,9 @@ export function WikitextTemplate({
       return <>'"</>;
     case `-"`:
       return <>"</>;
+    case `'-`:
+    case "single+space":
+      return <span style={{ paddingRight: "0.15em" }}>&#39;</span>;
     case "aka":
     case "also_known_as":
     case "a.k.a.":
@@ -602,6 +605,8 @@ export function WikitextTemplate({
       return null;
     case "sic":
       return <>[sic]</>;
+    case "singular":
+      return <>sg.</>;
     case "small":
     case "smaller":
       return (
