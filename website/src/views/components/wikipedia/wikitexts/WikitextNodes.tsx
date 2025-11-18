@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { WikitextSimplifiedNode } from "frontend_wasm";
+import { Spanned, WikitextSimplifiedNode } from "frontend_wasm";
 import { WikitextNode } from "./WikitextNode";
 
 /**
@@ -8,7 +8,7 @@ import { WikitextNode } from "./WikitextNode";
 export function WikitextNodes({
   nodes,
 }: {
-  nodes: WikitextSimplifiedNode[];
+  nodes: Spanned<WikitextSimplifiedNode>[];
 }): JSX.Element {
   return (
     <>

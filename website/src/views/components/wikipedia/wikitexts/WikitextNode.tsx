@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { WikitextSimplifiedNode } from "frontend_wasm";
+import { Spanned, WikitextSimplifiedNode } from "frontend_wasm";
 import { Wikitext } from "./Wikitext";
 import { WikitextTemplate } from "../templates/WikitextTemplate";
 import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
@@ -9,10 +9,11 @@ import { WikitextNodes } from "./WikitextNodes";
 
 /** Renders a `WikitextSimplifiedNode`. */
 export function WikitextNode({
-  node,
+  node: nodeOuter,
 }: {
-  node: WikitextSimplifiedNode;
+  node: Spanned<WikitextSimplifiedNode>;
 }): JSX.Element {
+  const node = nodeOuter.value;
   switch (node.type) {
     case "fragment":
       return (

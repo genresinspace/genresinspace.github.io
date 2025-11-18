@@ -1,5 +1,6 @@
 import {
   parse_and_simplify_wikitext,
+  Spanned,
   WikitextSimplifiedNode,
 } from "frontend_wasm";
 import {
@@ -22,14 +23,14 @@ export function WikitextTruncateAtLength(props: {
   const [expanded, setExpanded] = useState(false);
 
   // Memoize the original nodes to avoid recomputing on every render
-  const originalNodes = useMemo(
+  const originalNodes: Spanned<WikitextSimplifiedNode>[] = useMemo(
     () => parse_and_simplify_wikitext(props.wikitext),
     [props.wikitext]
   );
 
   // Memoize the truncated nodes calculation
   const { nodes, isTruncated } = useMemo(() => {
-    const truncatedNodes: WikitextSimplifiedNode[] = [];
+    const truncatedNodes: Spanned<WikitextSimplifiedNode>[] = [];
     let length = 0;
 
     for (const node of originalNodes) {
@@ -50,19 +51,22 @@ export function WikitextTruncateAtLength(props: {
     // to produce *some* output
     if (isTruncated) {
       const nextNode = originalNodes[truncatedNodes.length];
-      if (nextNode && nextNode.type === "text") {
+      if (nextNode && nextNode.value.type === "text") {
         truncatedNodes.push({
-          type: "text",
-          text: nextNode.text.slice(0, props.length - length),
+          value: {
+            type: "text",
+            text: nextNode.value.text.slice(0, props.length - length),
+          },
+          span: nextNode.span,
         });
       }
     }
 
     if (isTruncated && truncatedNodes.length > 0) {
       const lastNode = truncatedNodes[truncatedNodes.length - 1];
-      if (lastNode.type === "text") {
+      if (lastNode.value.type === "text") {
         // Trim the last text node to remove any trailing whitespace
-        lastNode.text = lastNode.text.trimEnd();
+        lastNode.value.text = lastNode.value.text.trimEnd();
       }
     }
 
@@ -108,7 +112,9 @@ export function WikitextTruncateAtLength(props: {
   );
 }
 
-function estimateNodeLength(node: WikitextSimplifiedNode): number {
+function estimateNodeLength({
+  value: node,
+}: Spanned<WikitextSimplifiedNode>): number {
   switch (node.type) {
     case "template":
       // this is so bad

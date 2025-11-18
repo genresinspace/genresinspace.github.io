@@ -5,7 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub fn parse_and_simplify_wikitext(
     wikitext: &str,
-) -> Vec<wikitext_simplified::WikitextSimplifiedNode> {
+) -> Vec<wikitext_simplified::Spanned<wikitext_simplified::WikitextSimplifiedNode>> {
     static PWT_CONFIGURATION: LazyLock<wikitext_simplified::parse_wiki_text_2::Configuration> =
         LazyLock::new(wikitext_util::wikipedia_pwt_configuration);
 

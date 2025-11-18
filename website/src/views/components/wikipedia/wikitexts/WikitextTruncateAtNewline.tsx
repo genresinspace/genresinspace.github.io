@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   parse_and_simplify_wikitext,
+  Spanned,
   WikitextSimplifiedNode,
 } from "frontend_wasm";
 import { WikitextNodes } from "./WikitextNodes";
@@ -9,7 +10,9 @@ import { colourStyles } from "../../../colours";
 /**
  * Determines whether this node can be used to break a short description.
  */
-export function isNewlineNode(node: WikitextSimplifiedNode): boolean {
+export function isNewlineNode({
+  value: node,
+}: Spanned<WikitextSimplifiedNode>): boolean {
   return node.type === "paragraph-break" || node.type === "newline";
 }
 
