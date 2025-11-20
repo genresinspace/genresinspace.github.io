@@ -4,6 +4,7 @@ import React, {
   useState,
   useRef,
   useCallback,
+  useEffect,
 } from "react";
 import { createPortal } from "react-dom";
 import { WikitextTruncateAtLength } from "./wikipedia/wikitexts/WikitextTruncateAtLength";
@@ -120,12 +121,28 @@ export function useTooltip({
   const [showPreview, setShowPreview] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const tooltipHoveredRef = useRef(false);
+  const timeoutRef = useRef<number>();
 
   // Check if we're already inside a tooltip
   const insideTooltip = useContext(TooltipContext);
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current !== undefined) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleMouseEnter = useCallback(
     async (e: React.MouseEvent) => {
+      // Clear any pending timeout
+      if (timeoutRef.current !== undefined) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = undefined;
+      }
+
       // Only show preview if we're not already inside a tooltip
       if (hoverPreview && !insideTooltip) {
         setTooltipPosition({ x: e.clientX, y: e.clientY });
@@ -142,13 +159,19 @@ export function useTooltip({
   );
 
   const handleMouseLeave = useCallback(() => {
+    // Clear any existing timeout
+    if (timeoutRef.current !== undefined) {
+      clearTimeout(timeoutRef.current);
+    }
+
     // Use setTimeout to allow checking if the cursor moved to the tooltip
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       if (!tooltipHoveredRef.current) {
         setShowPreview(false);
       }
       onMouseLeaveProp?.();
-    }, 100);
+      timeoutRef.current = undefined;
+    }, 100) as unknown as number;
   }, [onMouseLeaveProp]);
 
   const handleTooltipMouseEnter = useCallback(() => {

@@ -205,7 +205,7 @@ export function Graph({
           ? nodes?.filter((d) => isHighlightedDueToSelection(d, false))
           : undefined
       }
-      spaceSize={8192}
+      spaceSize={4096}
       {...settings.simulation}
       randomSeed={"Where words fail, music speaks"}
       nodeGreyoutOpacity={1}

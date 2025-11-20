@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { wikimediaCommmonsAssetUrl } from "../urls";
 
 interface WikimediaAudioProps {
@@ -14,14 +15,38 @@ export function WikimediaAudio({
   symbol = "🔊",
   className = "cursor-pointer",
 }: WikimediaAudioProps) {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Cleanup audio on unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  const handleClick = () => {
+    // Stop any currently playing audio
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+
+    // Create new audio instance
+    audioRef.current = new Audio(wikimediaCommmonsAssetUrl(audioFile));
+    audioRef.current.play().catch((error) => {
+      console.error("Failed to play audio:", error);
+    });
+  };
+
   return (
     <span
       className={className}
       title={`Listen to pronunciation (${audioFile})`}
-      onClick={() => {
-        const audio = new Audio(wikimediaCommmonsAssetUrl(audioFile));
-        audio.play();
-      }}
+      onClick={handleClick}
     >
       {symbol}
     </span>
