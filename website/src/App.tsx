@@ -215,8 +215,8 @@ function LoadedApp({ data }: { data: Data }) {
     <DataContext.Provider value={data}>
       <div className="flex flex-col md:flex-row w-screen h-screen overflow-hidden">
         <CosmographProvider nodes={data.nodes} links={data.edges}>
-          {/* Graph container - hidden when fullscreen on mobile, flex-1 on desktop */}
-          {!isFullscreen && (
+          {/* Graph container - hidden when fullscreen on mobile (unless dragging), flex-1 on desktop */}
+          {(!isFullscreen || isDraggingSidebar) && (
             <div
               className="w-full md:flex-1 relative h-full"
               style={
