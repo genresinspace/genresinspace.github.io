@@ -91,6 +91,20 @@ function LoadedApp({ data }: { data: Data }) {
   const [mobileSidebarHeight, setMobileSidebarHeight] = useState(40); // percentage
   const [isDraggingSidebar, setIsDraggingSidebar] = useState(false);
 
+  // Detect mobile screen size (768px is Tailwind's md breakpoint)
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Arrow key navigation handler
   useEffect(() => {
     if (!ENABLE_ARROW_KEY_NAVIGATION) return;
@@ -182,10 +196,12 @@ function LoadedApp({ data }: { data: Data }) {
         <CosmographProvider nodes={data.nodes} links={data.edges}>
           {/* Graph container - full width on mobile (with dynamic height), flex-1 on desktop */}
           <div
-            className="w-full md:flex-1 relative md:h-full"
-            style={{
-              height: `${100 - mobileSidebarHeight}%`,
-            }}
+            className="w-full md:flex-1 relative h-full"
+            style={
+              isMobile
+                ? { height: `${100 - mobileSidebarHeight}%` }
+                : undefined
+            }
           >
             <Graph
               settings={settings}
@@ -213,9 +229,9 @@ function LoadedApp({ data }: { data: Data }) {
           {/* Sidebar - bottom sheet on mobile, right panel on desktop */}
           <div
             className="w-full md:w-auto h-full"
-            style={{
-              height: `${mobileSidebarHeight}%`,
-            }}
+            style={
+              isMobile ? { height: `${mobileSidebarHeight}%` } : undefined
+            }
           >
             <Sidebar
               settings={settings}
