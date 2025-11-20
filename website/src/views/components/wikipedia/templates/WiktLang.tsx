@@ -22,9 +22,5 @@ export function WiktLang({
 
   const href = `https://en.wiktionary.org/wiki/${entry}#${lang}`;
 
-  return (
-    <ExternalLink href={href}>
-      {display}
-    </ExternalLink>
-  );
+  return <ExternalLink href={href}>{display}</ExternalLink>;
 }

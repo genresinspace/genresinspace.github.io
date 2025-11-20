@@ -24,7 +24,9 @@ export function BirthBasedOnAgeAsOfDate({
   const monthStr = params["3"];
   const dayStr = params["4"];
 
-  let asOfYear: number, asOfMonth: number | undefined, asOfDay: number | undefined;
+  let asOfYear: number,
+    asOfMonth: number | undefined,
+    asOfDay: number | undefined;
 
   if (monthStr !== undefined) {
     // Format: |age|year|month|day
@@ -73,6 +75,8 @@ export function BirthBasedOnAgeAsOfDate({
   const formatDate = (d: Date) => d.toISOString().slice(0, 10);
 
   return (
-    <>({formatDate(earliestBday)} to {formatDate(latestBday)})</>
+    <>
+      ({formatDate(earliestBday)} to {formatDate(latestBday)})
+    </>
   );
 }
