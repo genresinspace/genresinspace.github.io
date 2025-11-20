@@ -215,29 +215,29 @@ function LoadedApp({ data }: { data: Data }) {
     <DataContext.Provider value={data}>
       <div className="flex flex-col md:flex-row w-screen h-screen overflow-hidden">
         <CosmographProvider nodes={data.nodes} links={data.edges}>
-          {/* Graph container - full width on mobile (with dynamic height), flex-1 on desktop */}
-          <div
-            className="w-full md:flex-1 relative h-full"
-            style={
-              isMobile
-                ? { height: `${100 - mobileSidebarHeight}%` }
-                : undefined
-            }
-          >
-            <Graph
-              settings={settings}
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
-              focusedId={focusedId}
-              path={searchState.type === "path" ? searchState.path : null}
-            />
-            {/* Search - shown on graph when not fullscreen on mobile, always shown on desktop */}
-            {!isFullscreen && (
+          {/* Graph container - hidden when fullscreen on mobile, flex-1 on desktop */}
+          {!isFullscreen && (
+            <div
+              className="w-full md:flex-1 relative h-full"
+              style={
+                isMobile
+                  ? { height: `${100 - mobileSidebarHeight}%` }
+                  : undefined
+              }
+            >
+              <Graph
+                settings={settings}
+                selectedId={selectedId}
+                setSelectedId={setSelectedId}
+                focusedId={focusedId}
+                path={searchState.type === "path" ? searchState.path : null}
+              />
+              {/* Search - shown on graph when not fullscreen on mobile, always shown on desktop */}
               <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm text-white">
                 {searchComponent}
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Sidebar - bottom sheet on mobile, right panel on desktop */}
           <div
