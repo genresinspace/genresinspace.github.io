@@ -20,12 +20,18 @@ export function Sidebar({
   selectedId,
   setFocusedId,
   onMobileDragStart,
+  isMobile,
+  isFullscreen,
+  searchComponent,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   onMobileDragStart?: () => void;
+  isMobile?: boolean;
+  isFullscreen?: boolean;
+  searchComponent?: React.ReactNode;
 }) {
   const minWidth = 300;
   const [width, setWidth] = useState(`${minWidth}px`);
@@ -79,6 +85,9 @@ export function Sidebar({
           setFocusedId={setFocusedId}
           width={width}
           onMobileDragStart={onMobileDragStart}
+          isMobile={isMobile}
+          isFullscreen={isFullscreen}
+          searchComponent={searchComponent}
         />
       </div>
     </div>
@@ -92,6 +101,9 @@ function SidebarContent({
   setFocusedId,
   width,
   onMobileDragStart,
+  isMobile,
+  isFullscreen,
+  searchComponent,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
@@ -99,6 +111,9 @@ function SidebarContent({
   setFocusedId: (id: string | null) => void;
   width: string;
   onMobileDragStart?: () => void;
+  isMobile?: boolean;
+  isFullscreen?: boolean;
+  searchComponent?: React.ReactNode;
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "settings"
@@ -116,7 +131,7 @@ function SidebarContent({
 
   return (
     <div
-      style={{ width, userSelect: "auto" }}
+      style={isMobile ? { userSelect: "auto" } : { width, userSelect: "auto" }}
       className={`h-full ${colourStyles.sidebar.background} text-white box-border flex flex-col overflow-hidden md:w-auto`}
     >
       {/* Mobile drag handle - visible only on mobile */}
@@ -126,6 +141,11 @@ function SidebarContent({
       >
         <div className="w-12 h-1 bg-neutral-600 rounded-full" />
       </div>
+
+      {/* Search component when in fullscreen mode on mobile */}
+      {isFullscreen && searchComponent && (
+        <div className="w-full p-2 shrink-0">{searchComponent}</div>
+      )}
 
       {/* Fixed navigation bar at top */}
       <div className="flex shrink-0">

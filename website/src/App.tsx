@@ -166,8 +166,8 @@ function LoadedApp({ data }: { data: Data }) {
       const touchY = touch.clientY;
       const newHeight = ((windowHeight - touchY) / windowHeight) * 100;
 
-      // Clamp between 20% and 95%
-      const clampedHeight = Math.min(Math.max(newHeight, 20), 95);
+      // Clamp between 20% and 100%
+      const clampedHeight = Math.min(Math.max(newHeight, 20), 100);
       setMobileSidebarHeight(clampedHeight);
     },
     [isDraggingSidebar]
@@ -175,7 +175,14 @@ function LoadedApp({ data }: { data: Data }) {
 
   const handleTouchEnd = useCallback(() => {
     setIsDraggingSidebar(false);
-  }, []);
+
+    // Snap behavior: if below 35%, snap to fullscreen; if above 90%, snap to fullscreen
+    if (mobileSidebarHeight < 35) {
+      setMobileSidebarHeight(100);
+    } else if (mobileSidebarHeight > 90) {
+      setMobileSidebarHeight(100);
+    }
+  }, [mobileSidebarHeight]);
 
   useEffect(() => {
     if (isDraggingSidebar) {
@@ -189,6 +196,20 @@ function LoadedApp({ data }: { data: Data }) {
       };
     }
   }, [isDraggingSidebar, handleTouchMove, handleTouchEnd]);
+
+  const isFullscreen = isMobile && mobileSidebarHeight >= 100;
+
+  const searchComponent = (
+    <Search
+      selectedId={selectedId}
+      setFocusedId={setFocusedId}
+      searchState={searchState}
+      searchDispatch={searchDispatch}
+      visibleTypes={settings.visibleTypes}
+      setSelectedId={setSelectedId}
+      experimentalPathfinding={settings.general.experimentalPathfinding}
+    />
+  );
 
   return (
     <DataContext.Provider value={data}>
@@ -210,20 +231,12 @@ function LoadedApp({ data }: { data: Data }) {
               focusedId={focusedId}
               path={searchState.type === "path" ? searchState.path : null}
             />
-            {/* Search - adjusted for mobile */}
-            <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm text-white">
-              <Search
-                selectedId={selectedId}
-                setFocusedId={setFocusedId}
-                searchState={searchState}
-                searchDispatch={searchDispatch}
-                visibleTypes={settings.visibleTypes}
-                setSelectedId={setSelectedId}
-                experimentalPathfinding={
-                  settings.general.experimentalPathfinding
-                }
-              />
-            </div>
+            {/* Search - shown on graph when not fullscreen on mobile, always shown on desktop */}
+            {!isFullscreen && (
+              <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm text-white">
+                {searchComponent}
+              </div>
+            )}
           </div>
 
           {/* Sidebar - bottom sheet on mobile, right panel on desktop */}
@@ -239,6 +252,9 @@ function LoadedApp({ data }: { data: Data }) {
               selectedId={selectedId}
               setFocusedId={setFocusedId}
               onMobileDragStart={handleTouchStart}
+              isMobile={isMobile}
+              isFullscreen={isFullscreen}
+              searchComponent={isFullscreen ? searchComponent : undefined}
             />
           </div>
         </CosmographProvider>
