@@ -87,6 +87,10 @@ function LoadedApp({ data }: { data: Data }) {
     searchDispatch,
   } = useSelectedIdAndFilterAndFocus(data, settings);
 
+  // Mobile sidebar state
+  const [mobileSidebarHeight, setMobileSidebarHeight] = useState(40); // percentage
+  const [isDraggingSidebar, setIsDraggingSidebar] = useState(false);
+
   // Arrow key navigation handler
   useEffect(() => {
     if (!ENABLE_ARROW_KEY_NAVIGATION) return;
@@ -131,11 +135,58 @@ function LoadedApp({ data }: { data: Data }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedId, data.nodes, setSelectedId]);
 
+  // Mobile sidebar drag handlers
+  const handleTouchStart = useCallback(() => {
+    setIsDraggingSidebar(true);
+  }, []);
+
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (!isDraggingSidebar) return;
+
+      // Prevent scrolling while dragging
+      e.preventDefault();
+
+      const touch = e.touches[0];
+      const windowHeight = window.innerHeight;
+      const touchY = touch.clientY;
+      const newHeight = ((windowHeight - touchY) / windowHeight) * 100;
+
+      // Clamp between 20% and 95%
+      const clampedHeight = Math.min(Math.max(newHeight, 20), 95);
+      setMobileSidebarHeight(clampedHeight);
+    },
+    [isDraggingSidebar]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    setIsDraggingSidebar(false);
+  }, []);
+
+  useEffect(() => {
+    if (isDraggingSidebar) {
+      document.addEventListener("touchmove", handleTouchMove, {
+        passive: false,
+      });
+      document.addEventListener("touchend", handleTouchEnd);
+      return () => {
+        document.removeEventListener("touchmove", handleTouchMove);
+        document.removeEventListener("touchend", handleTouchEnd);
+      };
+    }
+  }, [isDraggingSidebar, handleTouchMove, handleTouchEnd]);
+
   return (
     <DataContext.Provider value={data}>
-      <div className="flex w-screen h-screen">
+      <div className="flex flex-col md:flex-row w-screen h-screen overflow-hidden">
         <CosmographProvider nodes={data.nodes} links={data.edges}>
-          <div className="flex-1 h-full relative">
+          {/* Graph container - full width on mobile (with dynamic height), flex-1 on desktop */}
+          <div
+            className="w-full md:flex-1 relative md:h-full"
+            style={{
+              height: `${100 - mobileSidebarHeight}%`,
+            }}
+          >
             <Graph
               settings={settings}
               selectedId={selectedId}
@@ -143,7 +194,8 @@ function LoadedApp({ data }: { data: Data }) {
               focusedId={focusedId}
               path={searchState.type === "path" ? searchState.path : null}
             />
-            <div className="absolute top-4 left-4 z-50 w-sm text-white">
+            {/* Search - adjusted for mobile */}
+            <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm text-white">
               <Search
                 selectedId={selectedId}
                 setFocusedId={setFocusedId}
@@ -157,12 +209,22 @@ function LoadedApp({ data }: { data: Data }) {
               />
             </div>
           </div>
-          <Sidebar
-            settings={settings}
-            setSettings={setSettings}
-            selectedId={selectedId}
-            setFocusedId={setFocusedId}
-          />
+
+          {/* Sidebar - bottom sheet on mobile, right panel on desktop */}
+          <div
+            className="w-full md:w-auto h-full"
+            style={{
+              height: `${mobileSidebarHeight}%`,
+            }}
+          >
+            <Sidebar
+              settings={settings}
+              setSettings={setSettings}
+              selectedId={selectedId}
+              setFocusedId={setFocusedId}
+              onMobileDragStart={handleTouchStart}
+            />
+          </div>
         </CosmographProvider>
       </div>
     </DataContext.Provider>

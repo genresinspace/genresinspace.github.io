@@ -19,11 +19,13 @@ export function Sidebar({
   setSettings,
   selectedId,
   setFocusedId,
+  onMobileDragStart,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
+  onMobileDragStart?: () => void;
 }) {
   const minWidth = 300;
   const [width, setWidth] = useState(`${minWidth}px`);
@@ -56,9 +58,9 @@ export function Sidebar({
 
   return (
     <div className="relative h-full overflow-visible">
-      {/* Resize handle positioned outside the sidebar */}
+      {/* Desktop resize handle - hidden on mobile */}
       <div
-        className={`absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-8 ${colourStyles.sidebar.resizer} cursor-ew-resize flex items-center justify-center z-20 ${
+        className={`hidden md:block absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-8 ${colourStyles.sidebar.resizer} cursor-ew-resize flex items-center justify-center z-20 ${
           isResizing ? colourStyles.sidebar.resizerActive : ""
         }`}
         onMouseDown={() => setIsResizing(true)}
@@ -76,6 +78,7 @@ export function Sidebar({
           selectedId={selectedId}
           setFocusedId={setFocusedId}
           width={width}
+          onMobileDragStart={onMobileDragStart}
         />
       </div>
     </div>
@@ -88,12 +91,14 @@ function SidebarContent({
   selectedId,
   setFocusedId,
   width,
+  onMobileDragStart,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   width: string;
+  onMobileDragStart?: () => void;
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "settings"
@@ -112,8 +117,16 @@ function SidebarContent({
   return (
     <div
       style={{ width, userSelect: "auto" }}
-      className={`h-full ${colourStyles.sidebar.background} text-white box-border flex flex-col overflow-hidden`}
+      className={`h-full ${colourStyles.sidebar.background} text-white box-border flex flex-col overflow-hidden md:w-auto`}
     >
+      {/* Mobile drag handle - visible only on mobile */}
+      <div
+        className="md:hidden w-full flex justify-center py-2 cursor-grab active:cursor-grabbing touch-none"
+        onTouchStart={onMobileDragStart}
+      >
+        <div className="w-12 h-1 bg-neutral-600 rounded-full" />
+      </div>
+
       {/* Fixed navigation bar at top */}
       <div className="flex shrink-0">
         {[
