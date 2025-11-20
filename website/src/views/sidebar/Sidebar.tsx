@@ -38,38 +38,53 @@ export function Sidebar({
   const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMove = (clientX: number) => {
       if (!isResizing) return;
 
-      const newWidth = window.innerWidth - e.clientX;
+      const newWidth = window.innerWidth - clientX;
       const maxWidth = window.innerWidth * 0.4; // 40% max width
 
       setWidth(`${Math.min(Math.max(newWidth, minWidth), maxWidth)}px`);
     };
 
-    const handleMouseUp = () => {
+    const handleMouseMove = (e: MouseEvent) => {
+      handleMove(e.clientX);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        handleMove(e.touches[0].clientX);
+      }
+    };
+
+    const handleEnd = () => {
       setIsResizing(false);
     };
 
     if (isResizing) {
       document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("mouseup", handleEnd);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleEnd);
     }
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mouseup", handleEnd);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleEnd);
     };
   }, [isResizing]);
 
   return (
     <div className="relative h-full overflow-visible">
-      {/* Desktop resize handle - hidden on mobile */}
+      {/* Desktop resize handle - hidden on mobile, supports touch on tablets */}
       <div
-        className={`hidden md:block absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-8 ${colourStyles.sidebar.resizer} cursor-ew-resize flex items-center justify-center z-20 ${
+        className={`hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 w-4 h-8 ${colourStyles.sidebar.resizer} cursor-ew-resize items-center justify-center z-20 ${
           isResizing ? colourStyles.sidebar.resizerActive : ""
         }`}
         onMouseDown={() => setIsResizing(true)}
+        onTouchStart={() => setIsResizing(true)}
       >
         <ResizeHandleIcon className="text-neutral-400 w-3 h-3" />
       </div>

@@ -88,7 +88,7 @@ function LoadedApp({ data }: { data: Data }) {
   } = useSelectedIdAndFilterAndFocus(data, settings);
 
   // Mobile sidebar state
-  const [mobileSidebarHeight, setMobileSidebarHeight] = useState(40); // percentage
+  const [mobileSidebarHeight, setMobileSidebarHeight] = useState(50); // percentage
   const [isDraggingSidebar, setIsDraggingSidebar] = useState(false);
 
   // Detect mobile screen size (768px is Tailwind's md breakpoint)
