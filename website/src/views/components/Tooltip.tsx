@@ -121,7 +121,7 @@ export function useTooltip({
   const [showPreview, setShowPreview] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const tooltipHoveredRef = useRef(false);
-  const timeoutRef = useRef<number>();
+  const timeoutRef = useRef<number | undefined>(undefined);
 
   // Check if we're already inside a tooltip
   const insideTooltip = useContext(TooltipContext);

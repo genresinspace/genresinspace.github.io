@@ -61,10 +61,10 @@ try {
     >
       <div style={{ textAlign: "center", maxWidth: "500px", padding: "1rem" }}>
         <div style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>⚠️</div>
-        <div style={{ marginBottom: "0.5rem" }}>
-          Failed to load application
-        </div>
-        <div style={{ fontSize: "0.875rem", opacity: 0.7, marginBottom: "1rem" }}>
+        <div style={{ marginBottom: "0.5rem" }}>Failed to load application</div>
+        <div
+          style={{ fontSize: "0.875rem", opacity: 0.7, marginBottom: "1rem" }}
+        >
           {error instanceof Error ? error.message : "Unknown error"}
         </div>
         <button
