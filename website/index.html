@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>genres in space</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="genres in space" />
     <meta property="og:url" content="https://genresin.space/" />
@@ -19,6 +19,25 @@
     <meta property="og:image" content="https://genresin.space/icon.png" />
     <style>
       @import "tailwindcss";
+
+      /* Fix iOS viewport height issues and prevent background color issues */
+      html {
+        height: 100%;
+        overflow: hidden;
+        background-color: #171717; /* Match app background (neutral-900) */
+      }
+
+      body {
+        height: 100%;
+        overflow: hidden;
+        background-color: #171717; /* Match app background (neutral-900) */
+      }
+
+      #root {
+        /* Use dvh for modern browsers, fallback to 100vh */
+        height: 100vh;
+        height: 100dvh; /* Dynamic viewport height - accounts for mobile browser UI */
+      }
     </style>
     <link rel="stylesheet" href="/src/views/graph.css" />
   </head>

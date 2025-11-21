@@ -1,4 +1,4 @@
-import { Dispatch, useReducer, useEffect, useRef, useMemo } from "react";
+import { Dispatch, useReducer, useEffect, useMemo } from "react";
 
 import {
   EdgeData,
@@ -170,7 +170,6 @@ function SearchInitial({
               sourceQuery: value,
             })
           }
-          shouldFocus={searchState.focusTarget === "source"}
         />
       </SearchBar>
 
@@ -215,7 +214,6 @@ function SearchSelected({
               sourceQuery: value,
             })
           }
-          shouldFocus={searchState.focusTarget === "source"}
         />
         {experimentalPathfinding && (
           <SearchInput
@@ -233,7 +231,6 @@ function SearchSelected({
                 destinationQuery: "",
               });
             }}
-            shouldFocus={searchState.focusTarget === "destination"}
           />
         )}
       </SearchBar>
@@ -296,7 +293,6 @@ function SearchPath({
                 sourceQuery: value,
               })
             }
-            shouldFocus={searchState.focusTarget === "source"}
           />
           <SearchInput
             placeholder="Destination..."
@@ -313,7 +309,6 @@ function SearchPath({
                 destinationQuery: "",
               });
             }}
-            shouldFocus={searchState.focusTarget === "destination"}
           />
         </SearchBar>
         <button
@@ -370,30 +365,18 @@ function SearchInput({
   value,
   onChange,
   onClear,
-  shouldFocus = false,
 }: {
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
   onClear?: () => void;
-  shouldFocus?: boolean;
 }) {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  // Restore focus when the input is recreated and should be focused
-  useEffect(() => {
-    if (shouldFocus && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [shouldFocus]);
-
   return (
     <div className="relative">
       <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
         <SearchIcon width={16} height={16} stroke="#9ca3af" />
       </div>
       <input
-        ref={inputRef}
         type="text"
         placeholder={placeholder}
         className={`w-full p-2 pl-8 ${colourStyles.search.input}`}

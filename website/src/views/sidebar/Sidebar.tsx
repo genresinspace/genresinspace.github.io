@@ -19,49 +19,72 @@ export function Sidebar({
   setSettings,
   selectedId,
   setFocusedId,
+  onMobileDragStart,
+  isMobile,
+  isFullscreen,
+  searchComponent,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
+  onMobileDragStart?: () => void;
+  isMobile?: boolean;
+  isFullscreen?: boolean;
+  searchComponent?: React.ReactNode;
 }) {
   const minWidth = 300;
   const [width, setWidth] = useState(`${minWidth}px`);
   const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMove = (clientX: number) => {
       if (!isResizing) return;
 
-      const newWidth = window.innerWidth - e.clientX;
+      const newWidth = window.innerWidth - clientX;
       const maxWidth = window.innerWidth * 0.4; // 40% max width
 
       setWidth(`${Math.min(Math.max(newWidth, minWidth), maxWidth)}px`);
     };
 
-    const handleMouseUp = () => {
+    const handleMouseMove = (e: MouseEvent) => {
+      handleMove(e.clientX);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        handleMove(e.touches[0].clientX);
+      }
+    };
+
+    const handleEnd = () => {
       setIsResizing(false);
     };
 
     if (isResizing) {
       document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("mouseup", handleEnd);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleEnd);
     }
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mouseup", handleEnd);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleEnd);
     };
   }, [isResizing]);
 
   return (
     <div className="relative h-full overflow-visible">
-      {/* Resize handle positioned outside the sidebar */}
+      {/* Desktop resize handle - hidden on mobile, supports touch on tablets */}
       <div
-        className={`absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-8 ${colourStyles.sidebar.resizer} cursor-ew-resize flex items-center justify-center z-20 ${
+        className={`hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 w-4 h-8 ${colourStyles.sidebar.resizer} cursor-ew-resize items-center justify-center z-20 ${
           isResizing ? colourStyles.sidebar.resizerActive : ""
         }`}
         onMouseDown={() => setIsResizing(true)}
+        onTouchStart={() => setIsResizing(true)}
       >
         <ResizeHandleIcon className="text-neutral-400 w-3 h-3" />
       </div>
@@ -76,6 +99,10 @@ export function Sidebar({
           selectedId={selectedId}
           setFocusedId={setFocusedId}
           width={width}
+          onMobileDragStart={onMobileDragStart}
+          isMobile={isMobile}
+          isFullscreen={isFullscreen}
+          searchComponent={searchComponent}
         />
       </div>
     </div>
@@ -88,12 +115,20 @@ function SidebarContent({
   selectedId,
   setFocusedId,
   width,
+  onMobileDragStart,
+  isMobile,
+  isFullscreen,
+  searchComponent,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   width: string;
+  onMobileDragStart?: () => void;
+  isMobile?: boolean;
+  isFullscreen?: boolean;
+  searchComponent?: React.ReactNode;
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "settings"
@@ -111,9 +146,22 @@ function SidebarContent({
 
   return (
     <div
-      style={{ width, userSelect: "auto" }}
-      className={`h-full ${colourStyles.sidebar.background} text-white box-border flex flex-col overflow-hidden`}
+      style={isMobile ? { userSelect: "auto" } : { width, userSelect: "auto" }}
+      className={`h-full ${colourStyles.sidebar.background} text-white box-border flex flex-col overflow-hidden md:w-auto`}
     >
+      {/* Mobile drag handle - visible only on mobile */}
+      <div
+        className="md:hidden w-full flex justify-center py-4 cursor-grab active:cursor-grabbing touch-none"
+        onTouchStart={onMobileDragStart}
+      >
+        <div className="w-16 h-1.5 bg-neutral-600 rounded-full" />
+      </div>
+
+      {/* Search component when in fullscreen mode on mobile */}
+      {isFullscreen && searchComponent && (
+        <div className="w-full p-2 shrink-0">{searchComponent}</div>
+      )}
+
       {/* Fixed navigation bar at top */}
       <div className="flex shrink-0">
         {[

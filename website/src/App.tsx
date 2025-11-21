@@ -87,6 +87,24 @@ function LoadedApp({ data }: { data: Data }) {
     searchDispatch,
   } = useSelectedIdAndFilterAndFocus(data, settings);
 
+  // Mobile sidebar state
+  const [mobileSidebarHeight, setMobileSidebarHeight] = useState(50); // percentage
+  const [isDraggingSidebar, setIsDraggingSidebar] = useState(false);
+
+  // Detect mobile screen size (768px is Tailwind's md breakpoint)
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Arrow key navigation handler
   useEffect(() => {
     if (!ENABLE_ARROW_KEY_NAVIGATION) return;
@@ -131,38 +149,113 @@ function LoadedApp({ data }: { data: Data }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedId, data.nodes, setSelectedId]);
 
+  // Mobile sidebar drag handlers
+  const handleTouchStart = useCallback(() => {
+    setIsDraggingSidebar(true);
+  }, []);
+
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (!isDraggingSidebar) return;
+
+      // Prevent scrolling while dragging
+      e.preventDefault();
+
+      const touch = e.touches[0];
+      const windowHeight = window.innerHeight;
+      const touchY = touch.clientY;
+      const newHeight = ((windowHeight - touchY) / windowHeight) * 100;
+
+      // Clamp between 25% and 75% (draggable range)
+      const clampedHeight = Math.min(Math.max(newHeight, 25), 75);
+      setMobileSidebarHeight(clampedHeight);
+    },
+    [isDraggingSidebar]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    setIsDraggingSidebar(false);
+
+    // Snap behavior: if above 70%, snap to fullscreen (100%)
+    // Below 70% stays in the draggable range (25-75%)
+    if (mobileSidebarHeight > 70) {
+      setMobileSidebarHeight(100);
+    }
+  }, [mobileSidebarHeight]);
+
+  useEffect(() => {
+    if (isDraggingSidebar) {
+      document.addEventListener("touchmove", handleTouchMove, {
+        passive: false,
+      });
+      document.addEventListener("touchend", handleTouchEnd);
+      return () => {
+        document.removeEventListener("touchmove", handleTouchMove);
+        document.removeEventListener("touchend", handleTouchEnd);
+      };
+    }
+  }, [isDraggingSidebar, handleTouchMove, handleTouchEnd]);
+
+  const isFullscreen = isMobile && mobileSidebarHeight >= 100;
+
+  const searchComponent = (
+    <Search
+      selectedId={selectedId}
+      setFocusedId={setFocusedId}
+      searchState={searchState}
+      searchDispatch={searchDispatch}
+      visibleTypes={settings.visibleTypes}
+      setSelectedId={setSelectedId}
+      experimentalPathfinding={settings.general.experimentalPathfinding}
+    />
+  );
+
   return (
     <DataContext.Provider value={data}>
-      <div className="flex w-screen h-screen">
+      <div className="flex flex-col md:flex-row w-screen h-screen overflow-hidden">
         <CosmographProvider nodes={data.nodes} links={data.edges}>
-          <div className="flex-1 h-full relative">
-            <Graph
-              settings={settings}
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
-              focusedId={focusedId}
-              path={searchState.type === "path" ? searchState.path : null}
-            />
-            <div className="absolute top-4 left-4 z-50 w-sm text-white">
-              <Search
+          {/* Graph container - hidden when fullscreen on mobile (unless dragging), flex-1 on desktop */}
+          {(!isFullscreen || isDraggingSidebar) && (
+            <div
+              className="w-full md:flex-1 relative h-full touch-none"
+              style={
+                isMobile
+                  ? { height: `${100 - mobileSidebarHeight}%` }
+                  : undefined
+              }
+            >
+              <Graph
+                settings={settings}
                 selectedId={selectedId}
-                setFocusedId={setFocusedId}
-                searchState={searchState}
-                searchDispatch={searchDispatch}
-                visibleTypes={settings.visibleTypes}
                 setSelectedId={setSelectedId}
-                experimentalPathfinding={
-                  settings.general.experimentalPathfinding
-                }
+                focusedId={focusedId}
+                path={searchState.type === "path" ? searchState.path : null}
               />
+              {/* Search - shown on graph when not fullscreen on mobile, always shown on desktop */}
+              <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm text-white">
+                {searchComponent}
+              </div>
             </div>
+          )}
+
+          {/* Sidebar - bottom sheet on mobile, right panel on desktop */}
+          <div
+            className="w-full md:w-auto h-full"
+            style={
+              isMobile ? { height: `${mobileSidebarHeight}%` } : undefined
+            }
+          >
+            <Sidebar
+              settings={settings}
+              setSettings={setSettings}
+              selectedId={selectedId}
+              setFocusedId={setFocusedId}
+              onMobileDragStart={handleTouchStart}
+              isMobile={isMobile}
+              isFullscreen={isFullscreen}
+              searchComponent={isFullscreen ? searchComponent : undefined}
+            />
           </div>
-          <Sidebar
-            settings={settings}
-            setSettings={setSettings}
-            selectedId={selectedId}
-            setFocusedId={setFocusedId}
-          />
         </CosmographProvider>
       </div>
     </DataContext.Provider>
