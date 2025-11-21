@@ -166,8 +166,8 @@ function LoadedApp({ data }: { data: Data }) {
       const touchY = touch.clientY;
       const newHeight = ((windowHeight - touchY) / windowHeight) * 100;
 
-      // Clamp between 20% and 100%
-      const clampedHeight = Math.min(Math.max(newHeight, 20), 100);
+      // Clamp between 25% and 75% (draggable range)
+      const clampedHeight = Math.min(Math.max(newHeight, 25), 75);
       setMobileSidebarHeight(clampedHeight);
     },
     [isDraggingSidebar]
@@ -176,10 +176,9 @@ function LoadedApp({ data }: { data: Data }) {
   const handleTouchEnd = useCallback(() => {
     setIsDraggingSidebar(false);
 
-    // Snap behavior: if below 35%, snap to fullscreen; if above 90%, snap to fullscreen
-    if (mobileSidebarHeight < 35) {
-      setMobileSidebarHeight(100);
-    } else if (mobileSidebarHeight > 90) {
+    // Snap behavior: if above 70%, snap to fullscreen (100%)
+    // Below 70% stays in the draggable range (25-75%)
+    if (mobileSidebarHeight > 70) {
       setMobileSidebarHeight(100);
     }
   }, [mobileSidebarHeight]);
