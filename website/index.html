@@ -19,6 +19,20 @@
     <meta property="og:image" content="https://genresin.space/icon.png" />
     <style>
       @import "tailwindcss";
+
+      /* Fix iOS viewport height issues */
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #root {
+        height: 100vh;
+        /* Fallback for older browsers */
+        height: -webkit-fill-available;
+        /* iOS Safari */
+      }
     </style>
     <link rel="stylesheet" href="/src/views/graph.css" />
   </head>

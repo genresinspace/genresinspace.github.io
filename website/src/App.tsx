@@ -208,6 +208,7 @@ function LoadedApp({ data }: { data: Data }) {
       visibleTypes={settings.visibleTypes}
       setSelectedId={setSelectedId}
       experimentalPathfinding={settings.general.experimentalPathfinding}
+      isMobile={isMobile}
     />
   );
 

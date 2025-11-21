@@ -104,6 +104,7 @@ export function Search({
   searchDispatch,
   visibleTypes,
   experimentalPathfinding,
+  isMobile,
 }: {
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
@@ -112,6 +113,7 @@ export function Search({
   searchDispatch: Dispatch<SearchAction>;
   visibleTypes: VisibleTypes;
   experimentalPathfinding: boolean;
+  isMobile?: boolean;
 }) {
   switch (searchState.type) {
     case "initial":
@@ -121,6 +123,7 @@ export function Search({
           searchDispatch={searchDispatch}
           setFocusedId={setFocusedId}
           setSelectedId={setSelectedId}
+          isMobile={isMobile}
         />
       );
     case "selected":
@@ -130,6 +133,7 @@ export function Search({
           searchDispatch={searchDispatch}
           setFocusedId={setFocusedId}
           experimentalPathfinding={experimentalPathfinding}
+          isMobile={isMobile}
         />
       );
     case "path":
@@ -142,6 +146,7 @@ export function Search({
           setSelectedId={setSelectedId}
           visibleTypes={visibleTypes}
           experimentalPathfinding={experimentalPathfinding}
+          isMobile={isMobile}
         />
       );
   }
@@ -152,11 +157,13 @@ function SearchInitial({
   searchDispatch,
   setFocusedId,
   setSelectedId,
+  isMobile,
 }: {
   searchState: Extract<SearchState, { type: "initial" }>;
   searchDispatch: Dispatch<SearchAction>;
   setFocusedId: (id: string | null) => void;
   setSelectedId: (id: string | null) => void;
+  isMobile?: boolean;
 }) {
   return (
     <div>
@@ -170,7 +177,7 @@ function SearchInitial({
               sourceQuery: value,
             })
           }
-          shouldFocus={searchState.focusTarget === "source"}
+          shouldFocus={!isMobile && searchState.focusTarget === "source"}
         />
       </SearchBar>
 
@@ -195,11 +202,13 @@ function SearchSelected({
   searchDispatch,
   setFocusedId,
   experimentalPathfinding,
+  isMobile,
 }: {
   searchState: Extract<SearchState, { type: "selected" }>;
   searchDispatch: Dispatch<SearchAction>;
   setFocusedId: (id: string | null) => void;
   experimentalPathfinding: boolean;
+  isMobile?: boolean;
 }) {
   const { nodes } = useDataContext();
 
@@ -215,7 +224,7 @@ function SearchSelected({
               sourceQuery: value,
             })
           }
-          shouldFocus={searchState.focusTarget === "source"}
+          shouldFocus={!isMobile && searchState.focusTarget === "source"}
         />
         {experimentalPathfinding && (
           <SearchInput
@@ -233,7 +242,7 @@ function SearchSelected({
                 destinationQuery: "",
               });
             }}
-            shouldFocus={searchState.focusTarget === "destination"}
+            shouldFocus={!isMobile && searchState.focusTarget === "destination"}
           />
         )}
       </SearchBar>
@@ -267,6 +276,7 @@ function SearchPath({
   setSelectedId,
   visibleTypes,
   experimentalPathfinding,
+  isMobile,
 }: {
   searchState: Extract<SearchState, { type: "path" }>;
   searchDispatch: Dispatch<SearchAction>;
@@ -275,6 +285,7 @@ function SearchPath({
   setSelectedId: (id: string | null) => void;
   visibleTypes: VisibleTypes;
   experimentalPathfinding: boolean;
+  isMobile?: boolean;
 }) {
   const { nodes } = useDataContext();
 
@@ -296,7 +307,7 @@ function SearchPath({
                 sourceQuery: value,
               })
             }
-            shouldFocus={searchState.focusTarget === "source"}
+            shouldFocus={!isMobile && searchState.focusTarget === "source"}
           />
           <SearchInput
             placeholder="Destination..."
@@ -313,7 +324,7 @@ function SearchPath({
                 destinationQuery: "",
               });
             }}
-            shouldFocus={searchState.focusTarget === "destination"}
+            shouldFocus={!isMobile && searchState.focusTarget === "destination"}
           />
         </SearchBar>
         <button
