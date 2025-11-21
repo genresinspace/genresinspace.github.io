@@ -219,7 +219,7 @@ function LoadedApp({ data }: { data: Data }) {
           {/* Graph container - hidden when fullscreen on mobile (unless dragging), flex-1 on desktop */}
           {(!isFullscreen || isDraggingSidebar) && (
             <div
-              className="w-full md:flex-1 relative h-full"
+              className="w-full md:flex-1 relative h-full touch-none"
               style={
                 isMobile
                   ? { height: `${100 - mobileSidebarHeight}%` }

@@ -20,18 +20,23 @@
     <style>
       @import "tailwindcss";
 
-      /* Fix iOS viewport height issues */
-      html,
+      /* Fix iOS viewport height issues and prevent background color issues */
+      html {
+        height: 100%;
+        overflow: hidden;
+        background-color: #171717; /* Match app background (neutral-900) */
+      }
+
       body {
         height: 100%;
         overflow: hidden;
+        background-color: #171717; /* Match app background (neutral-900) */
       }
 
       #root {
+        /* Use dvh for modern browsers, fallback to 100vh */
         height: 100vh;
-        /* Fallback for older browsers */
-        height: -webkit-fill-available;
-        /* iOS Safari */
+        height: 100dvh; /* Dynamic viewport height - accounts for mobile browser UI */
       }
     </style>
     <link rel="stylesheet" href="/src/views/graph.css" />
