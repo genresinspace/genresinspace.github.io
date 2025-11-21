@@ -90,6 +90,7 @@ function LoadedApp({ data }: { data: Data }) {
   // Mobile sidebar state
   const [mobileSidebarHeight, setMobileSidebarHeight] = useState(50); // percentage
   const [isDraggingSidebar, setIsDraggingSidebar] = useState(false);
+  const [dragStartHeight, setDragStartHeight] = useState(50); // track where drag started
 
   // Detect mobile screen size (768px is Tailwind's md breakpoint)
   const [isMobile, setIsMobile] = useState(() =>
@@ -152,7 +153,8 @@ function LoadedApp({ data }: { data: Data }) {
   // Mobile sidebar drag handlers
   const handleTouchStart = useCallback(() => {
     setIsDraggingSidebar(true);
-  }, []);
+    setDragStartHeight(mobileSidebarHeight);
+  }, [mobileSidebarHeight]);
 
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
@@ -176,15 +178,29 @@ function LoadedApp({ data }: { data: Data }) {
   const handleTouchEnd = useCallback(() => {
     setIsDraggingSidebar(false);
 
-    // Snap to nearest of three positions: 8% (minimized), 50% (half), 100% (full)
+    // Directional snap: snap to next position in the direction of movement
     const snapPositions = [8, 50, 100];
-    const nearest = snapPositions.reduce((prev, curr) =>
-      Math.abs(curr - mobileSidebarHeight) < Math.abs(prev - mobileSidebarHeight)
-        ? curr
-        : prev
-    );
-    setMobileSidebarHeight(nearest);
-  }, [mobileSidebarHeight]);
+    const currentHeight = mobileSidebarHeight;
+
+    if (currentHeight > dragStartHeight) {
+      // Dragging upward - snap to first position >= current (and > start)
+      const target = snapPositions.find(
+        (pos) => pos >= currentHeight && pos > dragStartHeight
+      );
+      if (target !== undefined) {
+        setMobileSidebarHeight(target);
+      }
+    } else if (currentHeight < dragStartHeight) {
+      // Dragging downward - snap to last position <= current (and < start)
+      const target = [...snapPositions]
+        .reverse()
+        .find((pos) => pos <= currentHeight && pos < dragStartHeight);
+      if (target !== undefined) {
+        setMobileSidebarHeight(target);
+      }
+    }
+    // If no movement, stay at current position
+  }, [mobileSidebarHeight, dragStartHeight]);
 
   useEffect(() => {
     if (isDraggingSidebar) {
@@ -223,7 +239,12 @@ function LoadedApp({ data }: { data: Data }) {
               className="w-full md:flex-1 relative h-full touch-none"
               style={
                 isMobile
-                  ? { height: `${100 - mobileSidebarHeight}%` }
+                  ? {
+                      height: `${100 - mobileSidebarHeight}%`,
+                      transition: !isDraggingSidebar
+                        ? "height 0.3s ease-out"
+                        : "none",
+                    }
                   : undefined
               }
             >
@@ -245,7 +266,14 @@ function LoadedApp({ data }: { data: Data }) {
           <div
             className="w-full md:w-auto h-full"
             style={
-              isMobile ? { height: `${mobileSidebarHeight}%` } : undefined
+              isMobile
+                ? {
+                    height: `${mobileSidebarHeight}%`,
+                    transition: !isDraggingSidebar
+                      ? "height 0.3s ease-out"
+                      : "none",
+                  }
+                : undefined
             }
           >
             <Sidebar
