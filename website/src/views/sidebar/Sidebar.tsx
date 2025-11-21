@@ -151,10 +151,10 @@ function SidebarContent({
     >
       {/* Mobile drag handle - visible only on mobile */}
       <div
-        className="md:hidden w-full flex justify-center py-2 cursor-grab active:cursor-grabbing touch-none"
+        className="md:hidden w-full flex justify-center py-4 cursor-grab active:cursor-grabbing touch-none"
         onTouchStart={onMobileDragStart}
       >
-        <div className="w-12 h-1 bg-neutral-600 rounded-full" />
+        <div className="w-16 h-1.5 bg-neutral-600 rounded-full" />
       </div>
 
       {/* Search component when in fullscreen mode on mobile */}
