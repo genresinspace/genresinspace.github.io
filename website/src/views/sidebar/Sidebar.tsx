@@ -86,7 +86,7 @@ export function Sidebar({
         onMouseDown={() => setIsResizing(true)}
         onTouchStart={() => setIsResizing(true)}
       >
-        <ResizeHandleIcon className="text-neutral-400 w-3 h-3" />
+        <ResizeHandleIcon className="text-slate-600 dark:text-slate-400 w-3 h-3" />
       </div>
 
       <div
@@ -147,14 +147,14 @@ function SidebarContent({
   return (
     <div
       style={isMobile ? { userSelect: "auto" } : { width, userSelect: "auto" }}
-      className={`h-full ${colourStyles.sidebar.background} text-white box-border flex flex-col overflow-hidden md:w-auto`}
+      className={`h-full ${colourStyles.sidebar.background} text-slate-900 dark:text-white box-border flex flex-col overflow-hidden md:w-auto`}
     >
       {/* Mobile drag handle - visible only on mobile */}
       <div
         className="md:hidden w-full flex justify-center py-4 cursor-grab active:cursor-grabbing touch-none"
         onTouchStart={onMobileDragStart}
       >
-        <div className="w-16 h-1.5 bg-neutral-600 rounded-full" />
+        <div className="w-16 h-1.5 bg-slate-400 dark:bg-slate-600 rounded-full" />
       </div>
 
       {/* Search component when in fullscreen mode on mobile */}

@@ -21,6 +21,7 @@ import {
 import { Sidebar } from "./views/sidebar/Sidebar";
 import { DataCache, DataCacheContext } from "./services/dataCache";
 import { colourStyles } from "./views/colours";
+import { ThemeProvider } from "./theme";
 
 import "./tailwind.css";
 
@@ -34,20 +35,24 @@ function App() {
 
   if (loading.state === "loading") {
     return (
-      <div
-        className={`flex w-screen h-screen items-center justify-center ${colourStyles.app.background} text-white`}
-      >
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-neutral-600 border-t-white rounded-full animate-spin" />
-          <div>Loading...</div>
+      <ThemeProvider>
+        <div
+          className={`flex w-screen h-screen items-center justify-center ${colourStyles.app.background} text-slate-900 dark:text-white`}
+        >
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-slate-300 dark:border-slate-600 border-t-teal-600 dark:border-t-white rounded-full animate-spin" />
+            <div>Loading...</div>
+          </div>
         </div>
-      </div>
+      </ThemeProvider>
     );
   } else {
     return (
-      <DataCacheContext.Provider value={dataCache}>
-        <LoadedApp data={loading.data} />
-      </DataCacheContext.Provider>
+      <ThemeProvider>
+        <DataCacheContext.Provider value={dataCache}>
+          <LoadedApp data={loading.data} />
+        </DataCacheContext.Provider>
+      </ThemeProvider>
     );
   }
 }
@@ -256,7 +261,7 @@ function LoadedApp({ data }: { data: Data }) {
                 path={searchState.type === "path" ? searchState.path : null}
               />
               {/* Search - shown on graph when not fullscreen on mobile, always shown on desktop */}
-              <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm text-white">
+              <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm">
                 {searchComponent}
               </div>
             </div>

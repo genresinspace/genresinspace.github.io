@@ -14,6 +14,8 @@ import {
 } from "../components/Input";
 import { Section } from "../components/Section";
 import { SettingsIcon, MusicIcon } from "../components/icons";
+import { useTheme } from "../../theme";
+import { colourStyles } from "../colours";
 
 /** Renders the settings sidebar. */
 export function Settings({
@@ -24,9 +26,24 @@ export function Settings({
   setSettings: (settings: SettingsData) => void;
 }) {
   const cosmographContext = useCosmograph();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="flex flex-col">
+      {/* Theme Toggle Section */}
+      <Section heading="Appearance" icon={<SettingsIcon />}>
+        <div className="p-4">
+          <InputDescription description="Switch between light and dark mode">
+            <button
+              onClick={toggleTheme}
+              className={`w-full px-4 py-2 ${colourStyles.input.primary} transition-colors`}
+            >
+              {theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+            </button>
+          </InputDescription>
+        </div>
+      </Section>
+
       <ControlSection
         name="General"
         icon={<SettingsIcon />}
@@ -101,7 +118,7 @@ function Control<T>({
   setParam: (param: T) => void;
 }) {
   return (
-    <div className="border-b border-neutral-700 pb-3 last:border-0 last:pb-0">
+    <div className="border-b border-slate-300 dark:border-slate-700 pb-3 last:border-0 last:pb-0">
       <InputDescription description={control.description}>
         {control.type === "number" ? (
           <NumberControl

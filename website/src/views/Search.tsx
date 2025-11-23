@@ -339,12 +339,12 @@ function SearchPath({
           ))}
         </GenreResultsList>
       ) : (
-        <div className="mt-2 text-sm text-neutral-400">
+        <div className="mt-2 text-sm text-slate-600 dark:text-slate-400">
           No path found from {nodes[nodeIdToInt(searchState.sourceId)].label} to{" "}
           {nodes[nodeIdToInt(searchState.destinationId)].label} through{" "}
           {getFormattedThroughLabels(visibleTypes)}.{" "}
           <button
-            className="text-blue-400 hover:underline"
+            className="text-teal-600 dark:text-blue-400 hover:underline"
             onClick={() => {
               searchDispatch({
                 type: "path:swap-source-and-destination",
@@ -404,7 +404,7 @@ function SearchBar({ children }: { children: React.ReactNode }) {
       <div className="flex-1 flex flex-col gap-0">
         {React.Children.map(children, (child, index) => {
           if (index > 0) {
-            return <div className="border-t border-neutral-600">{child}</div>;
+            return <div className="border-t border-slate-300 dark:border-slate-600">{child}</div>;
           }
           return child;
         })}

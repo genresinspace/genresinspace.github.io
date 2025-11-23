@@ -111,7 +111,7 @@ export function SelectedNodeInfo({
 /** Displayed when no genre is selected */
 function EmptyState() {
   return (
-    <div className="flex items-center justify-center h-full p-6 text-gray-400">
+    <div className="flex items-center justify-center h-full p-6 text-slate-600 dark:text-slate-400">
       <p className="text-center">
         No genre selected. Click on a node in the graph to view details.
       </p>
@@ -150,7 +150,7 @@ function GenreHeader({
         </WikipediaLink>
 
         <div
-          className={`text-neutral-400 text-xs flex items-center ${colourStyles.node.infoBackground} px-3 py-2`}
+          className={`text-slate-600 dark:text-slate-400 text-xs flex items-center ${colourStyles.node.infoBackground} px-3 py-2`}
         >
           {genreData ? (
             <>
@@ -482,7 +482,7 @@ function ConnectionItem({
       >
         {node.label || node.id}
       </GenreLink>
-      <small className="block text-xs text-neutral-400">
+      <small className="block text-xs text-slate-600 dark:text-slate-400">
         {genreData ? (
           shortDescription ? (
             <DisableTooltips>
@@ -646,7 +646,7 @@ function Artist({
                 </>
               ))}
           </div>
-          <div className="text-xs text-neutral-400">
+          <div className="text-xs text-slate-600 dark:text-slate-400">
             {artistData?.description ? (
               <WikitextTruncateAtLength
                 wikitext={artistData.description}

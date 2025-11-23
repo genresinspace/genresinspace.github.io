@@ -205,7 +205,7 @@ function Legend({
 
 function CommitFooter() {
   return (
-    <footer className="text-sm text-neutral-500 px-4 py-3 border-t border-neutral-700">
+    <footer className="text-sm text-slate-600 dark:text-slate-500 px-4 py-3 border-t border-slate-300 dark:border-slate-700">
       Commit{" "}
       <code>
         <EL href={`${REPO_LINK}/tree/${commit.commit}`}>{commit.commit}</EL>

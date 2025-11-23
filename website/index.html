@@ -17,6 +17,12 @@
       content="A graph of every music genre on English Wikipedia."
     />
     <meta property="og:image" content="https://genresin.space/icon.png" />
+
+    <!-- Modern fonts from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
       @import "tailwindcss";
 
@@ -24,13 +30,30 @@
       html {
         height: 100%;
         overflow: hidden;
-        background-color: #171717; /* Match app background (neutral-900) */
+      }
+
+      /* Support light and dark mode backgrounds */
+      html.dark {
+        background-color: #0f172a; /* slate-900 */
+      }
+
+      html:not(.dark) {
+        background-color: #ffffff; /* white */
       }
 
       body {
         height: 100%;
         overflow: hidden;
-        background-color: #171717; /* Match app background (neutral-900) */
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      }
+
+      /* Match body background to theme */
+      body.dark {
+        background-color: #0f172a; /* slate-900 */
+      }
+
+      body:not(.dark) {
+        background-color: #ffffff; /* white */
       }
 
       #root {
