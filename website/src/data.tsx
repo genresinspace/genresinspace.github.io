@@ -125,23 +125,23 @@ export const NodeColourLightnessDark = {
 /** Values for node colour lightness in different contexts - Light mode */
 export const NodeColourLightnessLight = {
   /** The lightness of the darker background colour. */
-  DarkerBackground: 70,
+  DarkerBackground: 60,
   /** The lightness of the background colour. */
-  Background: 60,
+  Background: 50,
   /** The lightness of a hovered background colour. */
-  HoveredBackground: 50,
+  HoveredBackground: 40,
   /** The lightness of the graph node's colour. */
-  GraphNode: 45,
+  GraphNode: 35,
   /** The lightness of the graph label's background colour. */
-  GraphLabelBackground: 70,
+  GraphLabelBackground: 60,
   /** The lightness of the graph label's background border colour. */
-  GraphLabelBackgroundBorder: 60,
+  GraphLabelBackgroundBorder: 50,
   /** The lightness of the graph label's text colour. */
-  GraphLabelText: 30,
+  GraphLabelText: 25,
   /** The lightness of a link's text colour. */
-  LinkText: 45,
+  LinkText: 35,
   /** The lightness of a link's text colour when hovered. */
-  LinkTextHover: 30,
+  LinkTextHover: 25,
 } as const;
 
 /** Compatibility export - defaults to dark mode */

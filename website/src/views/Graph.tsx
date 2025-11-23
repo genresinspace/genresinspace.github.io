@@ -80,6 +80,18 @@ export function Graph({
 
   useCosmographLabelColourPatch(cosmograph, maxDegree, colorLightness);
 
+  // Force cosmograph to re-render when theme changes
+  useEffect(() => {
+    if (cosmograph) {
+      // Trigger a re-render by calling the internal render method
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cosmographAny = cosmograph as any;
+      if (cosmographAny._renderLabels) {
+        cosmographAny._renderLabels();
+      }
+    }
+  }, [cosmograph, theme]);
+
   const onClick = (nodeData: NodeData | undefined): void => {
     setSelectedId(nodeData && selectedId !== nodeData.id ? nodeData.id : null);
   };
