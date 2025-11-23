@@ -1,7 +1,9 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+/** The theme mode */
 export type Theme = "light" | "dark";
 
+/** Theme context type */
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
@@ -9,6 +11,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+/** Theme provider component that manages light/dark mode */
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     // Check localStorage first, then system preference
@@ -40,6 +43,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/** Hook to access theme context */
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {

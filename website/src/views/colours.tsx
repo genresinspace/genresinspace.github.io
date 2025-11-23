@@ -1,11 +1,10 @@
-/** Centralized colour styles for the application */
-
 /**
+ * Centralized colour styles for the application
+ *
  * Modern, harmonious color palette
- * Dark mode: Deep slate with teal accents
- * Light mode: Clean whites with warm blue-gray and teal accents
+ * - Dark mode: Deep slate with teal accents
+ * - Light mode: Clean whites with warm blue-gray and teal accents
  */
-
 export const colourStyles = {
   // Main application backgrounds
   app: {
