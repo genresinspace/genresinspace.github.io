@@ -100,8 +100,8 @@ export type GenreFileData = {
 /** A map of links to page IDs. */
 export type LinksToPageIds = Record<string, number>;
 
-/** Values for node colour lightness in different contexts */
-export const NodeColourLightness = {
+/** Values for node colour lightness in different contexts - Dark mode */
+export const NodeColourLightnessDark = {
   /** The lightness of the darker background colour. */
   DarkerBackground: 15,
   /** The lightness of the background colour. */
@@ -122,11 +122,36 @@ export const NodeColourLightness = {
   LinkTextHover: 80,
 } as const;
 
+/** Values for node colour lightness in different contexts - Light mode */
+export const NodeColourLightnessLight = {
+  /** The lightness of the darker background colour. */
+  DarkerBackground: 70,
+  /** The lightness of the background colour. */
+  Background: 60,
+  /** The lightness of a hovered background colour. */
+  HoveredBackground: 50,
+  /** The lightness of the graph node's colour. */
+  GraphNode: 45,
+  /** The lightness of the graph label's background colour. */
+  GraphLabelBackground: 70,
+  /** The lightness of the graph label's background border colour. */
+  GraphLabelBackgroundBorder: 60,
+  /** The lightness of the graph label's text colour. */
+  GraphLabelText: 30,
+  /** The lightness of a link's text colour. */
+  LinkText: 45,
+  /** The lightness of a link's text colour when hovered. */
+  LinkTextHover: 30,
+} as const;
+
+/** Compatibility export - defaults to dark mode */
+export const NodeColourLightness = NodeColourLightnessDark;
+
 /** Given a node, calculate its colour, factoring in degree and lightness */
 export function nodeColour(
   node: NodeData,
   maxDegree: number,
-  lightness: (typeof NodeColourLightness)[keyof typeof NodeColourLightness],
+  lightness: number,
   saturationBoost: number = 0
 ) {
   const hash = node.id

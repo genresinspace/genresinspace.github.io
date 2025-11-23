@@ -40,7 +40,7 @@ export const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
 
 /** The colour of a fusion genre */
 export const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
-  `hsla(240, ${saturation}%, 60%, ${alpha})`;
+  `hsla(240, ${saturation}%, 70%, ${alpha})`;
 
 /** Descriptions of the visible types in the graph */
 export const VISIBLE_TYPES: VisibleTypeDesc[] = [
