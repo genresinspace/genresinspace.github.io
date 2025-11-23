@@ -17,7 +17,7 @@ export const colourStyles = {
     hover: "hover:bg-slate-100 dark:hover:bg-slate-800",
     resizer: "bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600",
     resizerActive: "bg-slate-400 dark:bg-slate-600",
-    itemActive: "bg-teal-600 dark:bg-teal-700 font-bold text-white dark:text-white",
+    itemActive: "bg-teal-600 dark:bg-teal-700 font-bold text-white",
     itemInactive: "bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white",
   },
 
@@ -39,11 +39,11 @@ export const colourStyles = {
 
   // Search styles
   search: {
-    container: "bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white",
-    button: "bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
-    input: "bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400",
-    results: "bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white",
-    item: "bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white",
+    container: "bg-white dark:bg-slate-700 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-600",
+    button: "bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
+    input: "bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400",
+    results: "bg-white dark:bg-slate-700 text-slate-900 dark:text-white",
+    item: "bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700 last:border-0",
   },
 
   // Wikipedia component styles
@@ -91,7 +91,7 @@ export const colourStyles = {
 
   // Collapsible styles
   collapsible: {
-    background: "bg-slate-200 dark:bg-slate-800/50 hover:bg-slate-300 dark:hover:bg-slate-800 text-slate-900 dark:text-white",
+    background: "bg-slate-100 dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-900 dark:text-white",
   },
 
   // Asset icon styles (from assets/icon.html)

@@ -244,7 +244,8 @@ function useCosmographLabelColourPatch(
 ) {
   useEffect(() => {
     if (!cosmograph) return;
-    if ("wasPatchedByGenresInSpace" in cosmograph) return;
+    // Remove the check that prevents re-patching - we need to update when theme changes
+    // if ("wasPatchedByGenresInSpace" in cosmograph) return;
 
     const calcFontSize = (node: NodeData) => {
       return 10 + (node.edges.length / maxDegree) * 6;
@@ -370,8 +371,11 @@ function useCosmographLabelColourPatch(
       }
       this._hoveredCssLabel.draw();
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (cosmograph as unknown as any).wasPatchedByGenresInSpace = true;
+    // Mark as patched to ensure we know it's been modified
+    if (!("wasPatchedByGenresInSpace" in cosmograph)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (cosmograph as unknown as any).wasPatchedByGenresInSpace = true;
+    }
   }, [cosmograph, maxDegree, colorLightness]);
 }
 

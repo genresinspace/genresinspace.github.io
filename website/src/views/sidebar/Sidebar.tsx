@@ -188,7 +188,7 @@ function SidebarContent({
           .map((tab) => (
             <button
               key={tab.id}
-              className={`flex-1 p-2 text-white cursor-pointer flex items-center justify-center ${
+              className={`flex-1 p-2 cursor-pointer flex items-center justify-center ${
                 activeTab === tab.id
                   ? colourStyles.sidebar.itemActive
                   : colourStyles.sidebar.itemInactive

@@ -13,17 +13,28 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 /** Theme provider component that manages light/dark mode */
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Check localStorage first, then system preference
+  // Track whether user has explicitly set a theme preference
+  const [userPreference, setUserPreference] = useState<Theme | null>(() => {
     const stored = localStorage.getItem("theme");
     if (stored === "light" || stored === "dark") {
       return stored;
     }
+    return null;
+  });
+
+  // Current effective theme (user preference or system preference)
+  const [systemTheme, setSystemTheme] = useState<Theme>(() => {
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   });
 
+  const theme = userPreference ?? systemTheme;
+
   useEffect(() => {
-    localStorage.setItem("theme", theme);
+    if (userPreference) {
+      localStorage.setItem("theme", userPreference);
+    } else {
+      localStorage.removeItem("theme");
+    }
     // Update document class and body class for Tailwind dark mode
     const root = document.documentElement;
     if (theme === "dark") {
@@ -33,17 +44,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       root.classList.remove("dark");
       document.body.classList.remove("dark");
     }
-  }, [theme]);
+  }, [theme, userPreference]);
 
   // Listen for system preference changes
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = (e: MediaQueryListEvent) => {
-      // Only update if user hasn't set a preference
-      const stored = localStorage.getItem("theme");
-      if (!stored) {
-        setTheme(e.matches ? "dark" : "light");
-      }
+      setSystemTheme(e.matches ? "dark" : "light");
     };
 
     mediaQuery.addEventListener("change", handleChange);
@@ -51,7 +58,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    setUserPreference((prev) => {
+      const currentTheme = prev ?? systemTheme;
+      return currentTheme === "light" ? "dark" : "light";
+    });
   };
 
   return (
