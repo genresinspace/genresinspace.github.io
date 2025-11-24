@@ -126,6 +126,11 @@ export function useTooltip({
   // Check if we're already inside a tooltip
   const insideTooltip = useContext(TooltipContext);
 
+  // Detect if the device is a touch device (disable tooltips on mobile)
+  const isTouchDevice =
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches;
+
   // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
@@ -143,8 +148,8 @@ export function useTooltip({
         timeoutRef.current = undefined;
       }
 
-      // Only show preview if we're not already inside a tooltip
-      if (hoverPreview && !insideTooltip) {
+      // Only show preview if we're not already inside a tooltip and not on a touch device
+      if (hoverPreview && !insideTooltip && !isTouchDevice) {
         setTooltipPosition({ x: e.clientX, y: e.clientY });
         setShowPreview(true);
 
@@ -155,7 +160,7 @@ export function useTooltip({
       }
       onMouseEnterProp?.();
     },
-    [hoverPreview, insideTooltip, onDataFetch, onMouseEnterProp]
+    [hoverPreview, insideTooltip, isTouchDevice, onDataFetch, onMouseEnterProp]
   );
 
   const handleMouseLeave = useCallback(() => {
