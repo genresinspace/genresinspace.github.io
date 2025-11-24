@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import commit from "../../commit.json";
 import {
-  NodeColourLightness,
+  useNodeColourLightness,
   NodeData,
   REPO_LINK,
   nodeColour,
@@ -96,21 +96,22 @@ function RandomGenre({
   );
   const randomNode = nodes[randomId];
   const genreData = useGenre(nodePageTitle(randomNode));
+  const nodeColourLightness = useNodeColourLightness();
 
   const randomNodeColour = nodeColour(
     randomNode,
     maxDegree,
-    NodeColourLightness.Background
+    nodeColourLightness.Background
   );
   const randomNodeHoveredColour = nodeColour(
     randomNode,
     maxDegree,
-    NodeColourLightness.HoveredBackground
+    nodeColourLightness.HoveredBackground
   );
   const randomNodeDarkerColour = nodeColour(
     randomNode,
     maxDegree,
-    NodeColourLightness.DarkerBackground
+    nodeColourLightness.DarkerBackground
   );
 
   return (

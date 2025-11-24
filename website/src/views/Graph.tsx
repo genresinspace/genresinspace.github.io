@@ -40,8 +40,8 @@ export function Graph({
 
   // Select the appropriate color lightness values based on theme
   const colorLightness = theme === "light" ? NodeColourLightnessLight : NodeColourLightnessDark;
-  const backgroundColor = theme === "light" ? "#ffffff" : "#000000";
-  const dimmedColor = theme === "light" ? "hsla(0, 0%, 80%, 0.1)" : "hsla(0, 0%, 20%, 0.1)";
+  const backgroundColor = theme === "light" ? "#222222" : "#000000";
+  const dimmedColor = "hsla(0, 0%, 20%, 0.1)";
 
   // Calculate connected paths and their distances
   const maxDistance = settings.general.maxInfluenceDistance + 1;

@@ -5,7 +5,7 @@ import {
   EdgeData,
   nodeIdToInt,
   nodeColour,
-  NodeColourLightness,
+  useNodeColourLightness,
   useDataContext,
   GenreFileData,
   nodePageTitle,
@@ -129,10 +129,11 @@ function GenreHeader({
   genreData: GenreFileData | null;
   maxDegree: number;
 }) {
+  const nodeColourLightness = useNodeColourLightness();
   const selectedNodeColour = nodeColour(
     node,
     maxDegree,
-    NodeColourLightness.Background
+    nodeColourLightness.Background
   );
 
   return (
@@ -284,7 +285,7 @@ function ConnectionsAndArtists({
         ].map((tab) => (
           <button
             key={tab.id}
-            className={`flex-1 px-3 py-1.5 text-white cursor-pointer flex items-center justify-center ${
+            className={`flex-1 px-3 py-1.5 cursor-pointer flex items-center justify-center ${
               activeTab === tab.id
                 ? colourStyles.node.buttonActive
                 : colourStyles.node.buttonInactive
