@@ -59,7 +59,7 @@ export function Tooltip({
 
   return createPortal(
     <div
-      className={`fixed z-[9999] ${colourStyles.tooltip.background} border border-neutral-800 text-white rounded p-4 shadow-lg`}
+      className={`fixed z-[9999] ${colourStyles.tooltip.background} border border-slate-300 dark:border-slate-800 rounded p-4 shadow-md`}
       style={{
         left: `${adjustedX}px`,
         top: `${adjustedY}px`,

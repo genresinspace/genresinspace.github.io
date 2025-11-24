@@ -6,7 +6,8 @@ import {
   EdgeData,
   EdgeType,
   nodeColour,
-  NodeColourLightness,
+  NodeColourLightnessDark,
+  NodeColourLightnessLight,
   NodeData,
   nodeIdToInt,
   useDataContext,
@@ -17,6 +18,7 @@ import {
   SettingsData,
   subgenreColour,
 } from "../settings";
+import { useTheme } from "../theme";
 
 /** Cosmograph component wired up to display the data. Depends on a Cosmograph context in the parent. */
 export function Graph({
@@ -34,6 +36,12 @@ export function Graph({
 }) {
   const { max_degree: maxDegree } = useDataContext();
   const { cosmograph, nodes, links } = useCosmograph<NodeData, EdgeData>()!;
+  const { theme } = useTheme();
+
+  // Select the appropriate color lightness values based on theme
+  const colorLightness = theme === "light" ? NodeColourLightnessLight : NodeColourLightnessDark;
+  const backgroundColor = theme === "light" ? "#222222" : "#000000";
+  const dimmedColor = "hsla(0, 0%, 20%, 0.1)";
 
   // Calculate connected paths and their distances
   const maxDistance = settings.general.maxInfluenceDistance + 1;
@@ -70,7 +78,19 @@ export function Graph({
     }
   }, [focusedId, nodes]);
 
-  useCosmographLabelColourPatch(cosmograph, maxDegree);
+  useCosmographLabelColourPatch(cosmograph, maxDegree, colorLightness);
+
+  // Force cosmograph to re-render when theme changes
+  useEffect(() => {
+    if (cosmograph) {
+      // Trigger a re-render by calling the internal render method
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cosmographAny = cosmograph as any;
+      if (cosmographAny._renderLabels) {
+        cosmographAny._renderLabels();
+      }
+    }
+  }, [cosmograph, theme]);
 
   const onClick = (nodeData: NodeData | undefined): void => {
     setSelectedId(nodeData && selectedId !== nodeData.id ? nodeData.id : null);
@@ -91,7 +111,7 @@ export function Graph({
   };
 
   const nodeDataColour = (node: NodeData, isBeingHovered: boolean) => {
-    const colour = nodeColour(node, maxDegree, NodeColourLightness.GraphNode);
+    const colour = nodeColour(node, maxDegree, colorLightness.GraphNode);
 
     if (selectedId && !isBeingHovered) {
       if (isHighlightedDueToSelection(node, true)) {
@@ -106,7 +126,7 @@ export function Graph({
   return (
     <Cosmograph
       disableSimulation={false}
-      backgroundColor="#000"
+      backgroundColor={backgroundColor}
       showDynamicLabels={settings.general.showLabels}
       nodeLabelAccessor={(d: NodeData) => d.label}
       nodeColor={(d) => nodeDataColour(d, false)}
@@ -124,9 +144,8 @@ export function Graph({
 
         const selectedAlpha = 0.8;
         const selectedMinInfluenceAlpha = 0.4;
-        const selectedDimmedAlpha = 0.1;
         const unselectedAlpha = 0.3;
-        const dimmedColour = `hsla(0, 0%, 20%, ${selectedDimmedAlpha})`;
+        const dimmedColour = dimmedColor;
 
         if (selectedId) {
           if (path) {
@@ -232,11 +251,13 @@ export function Graph({
  */
 function useCosmographLabelColourPatch(
   cosmograph: RawCosmograph<NodeData, EdgeData> | undefined,
-  maxDegree: number
+  maxDegree: number,
+  colorLightness: typeof NodeColourLightnessDark | typeof NodeColourLightnessLight
 ) {
   useEffect(() => {
     if (!cosmograph) return;
-    if ("wasPatchedByGenresInSpace" in cosmograph) return;
+    // Remove the check that prevents re-patching - we need to update when theme changes
+    // if ("wasPatchedByGenresInSpace" in cosmograph) return;
 
     const calcFontSize = (node: NodeData) => {
       return 10 + (node.edges.length / maxDegree) * 6;
@@ -244,8 +265,8 @@ function useCosmographLabelColourPatch(
 
     const getNodeLabelStyle = (node: NodeData, isVisible: boolean) => {
       const style = [
-        `background-color: ${nodeColour(node, maxDegree, NodeColourLightness.GraphLabelBackground)};`,
-        `border-bottom: 4px solid ${nodeColour(node, maxDegree, NodeColourLightness.GraphLabelBackgroundBorder)};`,
+        `background-color: ${nodeColour(node, maxDegree, colorLightness.GraphLabelBackground)};`,
+        `border-bottom: 4px solid ${nodeColour(node, maxDegree, colorLightness.GraphLabelBackgroundBorder)};`,
       ];
       if (!isVisible) {
         style.push("opacity: 0.1;");
@@ -322,7 +343,7 @@ function useCosmographLabelColourPatch(
                 : weight,
             shouldBeShown: isVisible,
             style: getNodeLabelStyle(p, isVisible),
-            color: nodeColour(p, maxDegree, NodeColourLightness.GraphLabelText),
+            color: nodeColour(p, maxDegree, colorLightness.GraphLabelText),
             className: "node-label",
           };
         }
@@ -362,9 +383,12 @@ function useCosmographLabelColourPatch(
       }
       this._hoveredCssLabel.draw();
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (cosmograph as unknown as any).wasPatchedByGenresInSpace = true;
-  }, [cosmograph, maxDegree]);
+    // Mark as patched to ensure we know it's been modified
+    if (!("wasPatchedByGenresInSpace" in cosmograph)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (cosmograph as unknown as any).wasPatchedByGenresInSpace = true;
+    }
+  }, [cosmograph, maxDegree, colorLightness]);
 }
 
 // Helper types for storing path information

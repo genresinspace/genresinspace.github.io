@@ -5,7 +5,7 @@ import {
   EdgeData,
   nodeIdToInt,
   nodeColour,
-  NodeColourLightness,
+  useNodeColourLightness,
   useDataContext,
   GenreFileData,
   nodePageTitle,
@@ -111,7 +111,7 @@ export function SelectedNodeInfo({
 /** Displayed when no genre is selected */
 function EmptyState() {
   return (
-    <div className="flex items-center justify-center h-full p-6 text-gray-400">
+    <div className="flex items-center justify-center h-full p-6 text-slate-600 dark:text-slate-400">
       <p className="text-center">
         No genre selected. Click on a node in the graph to view details.
       </p>
@@ -129,10 +129,11 @@ function GenreHeader({
   genreData: GenreFileData | null;
   maxDegree: number;
 }) {
+  const nodeColourLightness = useNodeColourLightness();
   const selectedNodeColour = nodeColour(
     node,
     maxDegree,
-    NodeColourLightness.Background
+    nodeColourLightness.Background
   );
 
   return (
@@ -150,7 +151,7 @@ function GenreHeader({
         </WikipediaLink>
 
         <div
-          className={`text-neutral-400 text-xs flex items-center ${colourStyles.node.infoBackground} px-3 py-2`}
+          className={`text-slate-600 dark:text-slate-400 text-xs flex items-center ${colourStyles.node.infoBackground} px-3 py-2`}
         >
           {genreData ? (
             <>
@@ -284,7 +285,7 @@ function ConnectionsAndArtists({
         ].map((tab) => (
           <button
             key={tab.id}
-            className={`flex-1 px-3 py-1.5 text-white cursor-pointer flex items-center justify-center ${
+            className={`flex-1 px-3 py-1.5 cursor-pointer flex items-center justify-center ${
               activeTab === tab.id
                 ? colourStyles.node.buttonActive
                 : colourStyles.node.buttonInactive
@@ -482,7 +483,7 @@ function ConnectionItem({
       >
         {node.label || node.id}
       </GenreLink>
-      <small className="block text-xs text-neutral-400">
+      <small className="block text-xs text-slate-600 dark:text-slate-400">
         {genreData ? (
           shortDescription ? (
             <DisableTooltips>
@@ -646,7 +647,7 @@ function Artist({
                 </>
               ))}
           </div>
-          <div className="text-xs text-neutral-400">
+          <div className="text-xs text-slate-600 dark:text-slate-400">
             {artistData?.description ? (
               <WikitextTruncateAtLength
                 wikitext={artistData.description}

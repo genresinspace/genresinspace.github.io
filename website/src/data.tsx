@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { useTheme } from "./theme";
 
 /** The data that is identical between {@link DataOnDisk} and {@link Data}. */
 export type DataShared = {
@@ -100,8 +101,8 @@ export type GenreFileData = {
 /** A map of links to page IDs. */
 export type LinksToPageIds = Record<string, number>;
 
-/** Values for node colour lightness in different contexts */
-export const NodeColourLightness = {
+/** Values for node colour lightness in different contexts - Dark mode */
+export const NodeColourLightnessDark = {
   /** The lightness of the darker background colour. */
   DarkerBackground: 15,
   /** The lightness of the background colour. */
@@ -117,16 +118,31 @@ export const NodeColourLightness = {
   /** The lightness of the graph label's text colour. */
   GraphLabelText: 60,
   /** The lightness of a link's text colour. */
-  LinkText: 60,
+  LinkText: 70,
   /** The lightness of a link's text colour when hovered. */
   LinkTextHover: 80,
 } as const;
+
+/** Values for node colour lightness in different contexts - Light mode */
+export const NodeColourLightnessLight = {
+  ...NodeColourLightnessDark,
+  /** The lightness of a link's text colour. */
+  LinkText: 40,
+  /** The lightness of a link's text colour when hovered. */
+  LinkTextHover: 30,
+} as const;
+
+/** Hook to get the correct node colour lightness values based on the current theme */
+export function useNodeColourLightness() {
+  const { theme } = useTheme();
+  return theme === "light" ? NodeColourLightnessLight : NodeColourLightnessDark;
+}
 
 /** Given a node, calculate its colour, factoring in degree and lightness */
 export function nodeColour(
   node: NodeData,
   maxDegree: number,
-  lightness: (typeof NodeColourLightness)[keyof typeof NodeColourLightness],
+  lightness: number,
   saturationBoost: number = 0
 ) {
   const hash = node.id

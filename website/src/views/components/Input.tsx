@@ -13,7 +13,7 @@ export function InputDescription({
   return (
     <div className={`${className || ""}`}>
       {children}
-      <p className="text-sm text-gray-500 mt-1">{description}</p>
+      <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">{description}</p>
     </div>
   );
 }
@@ -38,7 +38,7 @@ export function CheckboxInput({
         <label className="block font-bold">{label}</label>
         <button
           type="button"
-          className={`text-sm px-2 py-1 ${colourStyles.input.primary} rounded-md text-gray-200`}
+          className={`text-sm px-2 py-1 ${colourStyles.input.primary} rounded-md`}
           onClick={() => onChange(name, defaultValue)}
           aria-label="Reset to default"
         >
@@ -87,13 +87,13 @@ export function RangeInput({
         <label className="block font-bold">{label}</label>
         <div className="flex items-center">
           <span
-            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.label} rounded-l-md text-gray-200`}
+            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.label} rounded-l-md`}
           >
             {value ?? defaultValue}
           </span>
           <button
             type="button"
-            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.secondary} rounded-r-md text-gray-200`}
+            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.secondary} rounded-r-md`}
             onClick={() => onChange(name, defaultValue)}
             aria-label="Reset to default"
           >

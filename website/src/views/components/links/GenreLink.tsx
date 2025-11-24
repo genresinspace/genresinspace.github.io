@@ -1,6 +1,6 @@
 import {
   nodeColour,
-  NodeColourLightness,
+  useNodeColourLightness,
   NodeData,
   nodePageTitle,
   useDataContext,
@@ -28,6 +28,7 @@ export function GenreLink({
 }) {
   const { max_degree: maxDegree } = useDataContext();
   const genreData = useGenre(nodePageTitle(node));
+  const nodeColourLightness = useNodeColourLightness();
 
   const {
     showPreview,
@@ -43,8 +44,8 @@ export function GenreLink({
   });
 
   const [genreColour, genreColourHover] = [
-    NodeColourLightness.LinkText,
-    NodeColourLightness.LinkTextHover,
+    nodeColourLightness.LinkText,
+    nodeColourLightness.LinkTextHover,
   ].map((lightness) => nodeColour(node, maxDegree, lightness, 30));
 
   return (

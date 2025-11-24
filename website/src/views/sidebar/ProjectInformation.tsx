@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import commit from "../../commit.json";
 import {
-  NodeColourLightness,
+  useNodeColourLightness,
   NodeData,
   REPO_LINK,
   nodeColour,
@@ -96,21 +96,22 @@ function RandomGenre({
   );
   const randomNode = nodes[randomId];
   const genreData = useGenre(nodePageTitle(randomNode));
+  const nodeColourLightness = useNodeColourLightness();
 
   const randomNodeColour = nodeColour(
     randomNode,
     maxDegree,
-    NodeColourLightness.Background
+    nodeColourLightness.Background
   );
   const randomNodeHoveredColour = nodeColour(
     randomNode,
     maxDegree,
-    NodeColourLightness.HoveredBackground
+    nodeColourLightness.HoveredBackground
   );
   const randomNodeDarkerColour = nodeColour(
     randomNode,
     maxDegree,
-    NodeColourLightness.DarkerBackground
+    nodeColourLightness.DarkerBackground
   );
 
   return (
@@ -205,7 +206,7 @@ function Legend({
 
 function CommitFooter() {
   return (
-    <footer className="text-sm text-neutral-500 px-4 py-3 border-t border-neutral-700">
+    <footer className="text-sm text-slate-600 dark:text-slate-500 px-4 py-3 border-t border-slate-300 dark:border-slate-700">
       Commit{" "}
       <code>
         <EL href={`${REPO_LINK}/tree/${commit.commit}`}>{commit.commit}</EL>
