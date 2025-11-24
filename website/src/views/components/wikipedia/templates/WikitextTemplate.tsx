@@ -248,6 +248,7 @@ export function WikitextTemplate({
       return null;
     case "failed_verification":
     case "not_in_ref":
+    case "verification_failed":
       return <Fix>failed verification</Fix>;
     case "family_name_footnote":
       // Don't care about this
@@ -516,6 +517,7 @@ export function WikitextTemplate({
     case "original_research_inline":
       return <Fix>original research?</Fix>;
     case "page_needed":
+    case "pn":
       return <Fix>page needed</Fix>;
     case "peacock_inline":
       return <Fix>peacock prose</Fix>;
@@ -603,6 +605,8 @@ export function WikitextTemplate({
     case "short_description":
       // Don't care about this
       return null;
+    case "shy":
+      return <>&shy;</>;
     case "sic":
       return <>[sic]</>;
     case "singular":

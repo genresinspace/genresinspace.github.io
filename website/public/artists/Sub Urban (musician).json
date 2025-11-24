@@ -1,13 +1,14 @@
 {
   "name": "Sub Urban",
-  "description": "'''Daniel Virgil Maisonneuve''' (born October 22, 1999), known professionally as '''Sub Urban''', is an American singer-songwriter who rose to prominence with his 2019 hit single \"[[Cradles (song)|Cradles]]\" which gained virality on [[TikTok]].",
-  "last_revision_date": "2025-10-18T13:34:10Z",
+  "description": "'''Daniel Virgil Maisonneuve''' (born October 22, 1999), known professionally as '''Sub Urban''', is an American singer and rapper who rose to prominence with his 2019 hit single \"[[Cradles (song)|Cradles]]\" which gained virality on [[TikTok]].",
+  "last_revision_date": "2025-11-13T18:33:40Z",
   "genres": [
+    40,
     42,
-    386,
-    581,
-    932,
-    990,
-    1010
+    387,
+    583,
+    935,
+    994,
+    1014
   ]
 }

@@ -1,19 +1,13 @@
 {
   "name": "Digitalism",
-  "description": "'''Digitalism''' are a German [[electronic rock]] band formed in [[Hamburg]] by Jens Moelle and İsmail Tüfekçi in 2004.  The band are signed to French label [[Kitsuné]], as well as [[Virgin Records]] and [[Astralwerks]] in other parts of the world.",
-  "last_revision_date": "2025-10-09T16:24:31Z",
+  "description": "'''Digitalism''' are a German [[electronic music]] duo formed in [[Hamburg]] by Jens Moelle and İsmail Tüfekçi in 2004.  The duo are signed to French label [[Kitsuné]], as well as [[Virgin Records]] and [[Astralwerks]] in other parts of the world.",
+  "last_revision_date": "2025-11-17T19:07:03Z",
   "genres": [
     37,
-    42,
     315,
-    388,
     389,
-    397,
-    399,
-    582,
-    934,
-    935,
-    1179,
-    1180
+    390,
+    400,
+    1186
   ]
 }

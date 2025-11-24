@@ -1,6 +1,6 @@
 {
-  "description": "'''College rock''' is [[Rock music|rock]] music played on student-run university and college [[campus radio]] stations located in the [[Higher education in the United States|United States]] and [[Higher education in Canada|Canada]] in the 1980s and 1990s. The stations' playlists were often created by students who avoided the mainstream rock played on commercial radio stations.",
-  "last_revision_date": "2025-10-19T01:43:08Z",
+  "description": "'''College rock''' is [[Rock music|rock]] music played on student-run university and college [[campus radio]] stations located in the [[Higher education in the United States|United States]] and [[Higher education in Canada|Canada]] in the 1980s and 1990s. The stations' playlists were often created by students who avoided the mainstream rock played on commercial radio stations. The term \"College rock\" is used to define the alternative rock of the 80s, before the term \"alternative\" became common usage in 90s.",
+  "last_revision_date": "2025-11-12T23:44:06Z",
   "mixes": [
     {
       "playlist": "PL4XwaKmFTF0nME0TMJlMLYtSpVsvqm-H3"
@@ -8,6 +8,7 @@
   ],
   "top_artists": [
     "R.E.M.",
+    "Violent Femmes",
     "Hoodoo Gurus",
     "The Replacements (band)",
     "Mike Mills",
@@ -15,7 +16,6 @@
     "The Smithereens",
     "Camper Van Beethoven",
     "Marshall Crenshaw",
-    "Was (Not Was)",
-    "The dB's"
+    "Was (Not Was)"
   ]
 }
