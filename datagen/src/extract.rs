@@ -454,10 +454,14 @@ fn process_offset_slice(
                     };
                     if text.starts_with("#REDIRECT") {
                         // Parse the redirect and add it to the redirects map
-                        let redirect = parse_redirect_text(wikipedia_domain, &text)
-                            .with_context(|| format!("Failed to parse redirect for {page}: {text}"))
-                            .unwrap();
-                        data.redirects.insert(page.clone(), redirect);
+                        match parse_redirect_text(wikipedia_domain, &text) {
+                            Ok(redirect) => {
+                                data.redirects.insert(page.clone(), redirect);
+                            }
+                            Err(e) => {
+                                eprintln!("Warning: Failed to parse redirect for {page}: {e}");
+                            }
+                        }
                         continue;
                     }
 
