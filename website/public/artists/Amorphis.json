@@ -1,12 +1,11 @@
 {
   "name": "Amorphis",
   "description": "'''Amorphis''' is a Finnish [[progressive metal]] band founded by Jan Rechberger, Tomi Koivusaari, and Esa Holopainen in 1990. Initially, the band was a [[death metal]] act, but on later albums they evolved into playing other genres, including progressive metal, [[folk metal]], and [[melodic death metal]]. They frequently use the ''[[Kalevala]]'', the epic poem of Finland, as a source for their lyrics.",
-  "last_revision_date": "2025-10-20T05:19:31Z",
+  "last_revision_date": "2025-10-31T22:21:54Z",
   "genres": [
-    330,
     331,
-    435,
-    749,
-    962
+    436,
+    751,
+    966
   ]
 }
