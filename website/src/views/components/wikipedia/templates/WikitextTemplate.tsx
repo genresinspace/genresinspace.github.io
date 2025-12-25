@@ -21,6 +21,7 @@ import { Fix } from "./Fix";
 import { PostNominals } from "./PostNominals";
 import { BirthBasedOnAgeAsOfDate } from "./BirthBasedOnAgeAsOfDate";
 import { BirthDate } from "./BirthDate";
+import { Etymology } from "./Etymology";
 import { StartDate } from "./StartDate";
 import { WiktLang } from "./WiktLang";
 import { TimeAgo } from "./TimeAgo";
@@ -243,6 +244,9 @@ export function WikitextTemplate({
       return <>{node.parameters[0].value}</>;
     case "escyr":
       return <>{node.parameters[2]?.value || node.parameters[0].value}</>;
+    case "ety":
+    case "etymology":
+      return <Etymology node={node} />;
     case "external_media":
       // We generally avoid embedding media, aside from stuff Wikipedia owns and is relevant (audio, etc)
       return null;
@@ -318,6 +322,29 @@ export function WikitextTemplate({
       return null;
     case "inflation/year":
       return "year not available";
+    case "india_rs":
+    case "indian_rupee":
+    case "indian_rupee_symbol":
+    case "indian_rupees":
+    case "inr":
+    case "₹": {
+      const args = templateToObject(node);
+      const value = args["1"];
+      const link = args["link"] === "yes";
+      const symbol = link ? (
+        <WikipediaLink pageTitle="Indian rupee">₹</WikipediaLink>
+      ) : (
+        <>₹</>
+      );
+      return value ? (
+        <>
+          {symbol}
+          {value}
+        </>
+      ) : (
+        symbol
+      );
+    }
     case "interlanguage_link":
     case "interlanguage_link_multi":
     case "ill":
@@ -488,8 +515,11 @@ export function WikitextTemplate({
     case "née":
       return <>née</>;
     case "nihongo":
+      return <Nihongo node={node} variant="nihongo" />;
+    case "nihongo3":
+      return <Nihongo node={node} variant="nihongo3" />;
     case "nihongo4":
-      return <Nihongo node={node} />;
+      return <Nihongo node={node} variant="nihongo4" />;
     case "nihongo2":
       return <>{node.parameters[0].value}</>;
     case "notetag":

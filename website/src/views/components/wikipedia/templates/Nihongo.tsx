@@ -3,11 +3,21 @@ import { WikitextSimplifiedNode } from "frontend_wasm";
 import { Wikitext } from "../wikitexts/Wikitext";
 import { templateToObject } from "./util";
 
-/** The `nihongo` template, which displays Japanese text with an English translation */
+type NihongoVariant = "nihongo" | "nihongo3" | "nihongo4";
+
+/**
+ * The `nihongo` family of templates, which display Japanese text with translations.
+ *
+ * - nihongo: English (Kanji, Hepburn: romaji, extra) extra2
+ * - nihongo3: romaji (Kanji, English, extra) extra2 - rōmaji first, auto-italicized
+ * - nihongo4: same as nihongo but without "Hepburn:" prefix
+ */
 export function Nihongo({
   node,
+  variant = "nihongo",
 }: {
   node: Extract<WikitextSimplifiedNode, { type: "template" }>;
+  variant?: NihongoVariant;
 }) {
   const params = templateToObject(node);
 
@@ -18,6 +28,18 @@ export function Nihongo({
   const extra2 = params["5"] || params["extra2"] || undefined;
 
   const lead = params["lead"] === "yes";
+
+  // nihongo3 reverses the order: rōmaji first, then (kanji, english)
+  if (variant === "nihongo3") {
+    return (
+      <Wikitext
+        wikitext={buildNihongo3(romaji, kanjiKana, english, extra, extra2)}
+      />
+    );
+  }
+
+  // nihongo and nihongo4: English (Kanji, romaji, extra) extra2
+  const showHepburn = variant === "nihongo";
 
   // Construct the display based on the template documentation
   let result = "";
@@ -46,7 +68,10 @@ export function Nihongo({
       if (kanjiKana) {
         result += `, `;
       }
-      result += `[[Hepburn romanization|Hepburn]]: ''${romaji}''`;
+      if (showHepburn) {
+        result += `[[Hepburn romanization|Hepburn]]: `;
+      }
+      result += `''${romaji}''`;
     }
 
     // Add extra information if provided (within the parentheses)
@@ -64,4 +89,49 @@ export function Nihongo({
   }
 
   return <Wikitext wikitext={result}></Wikitext>;
+}
+
+/**
+ * Builds the nihongo3 format: romaji (Kanji, English, extra) extra2
+ * Rōmaji comes first (auto-italicized), with kanji and English inside parentheses.
+ */
+function buildNihongo3(
+  romaji: string | undefined,
+  kanjiKana: string | undefined,
+  english: string | undefined,
+  extra: string | undefined,
+  extra2: string | undefined
+): string {
+  let result = "";
+
+  // Add romaji first (italicized)
+  if (romaji) {
+    result += `''${romaji}''`;
+  }
+
+  // Build parenthetical content: (kanji, english, extra)
+  const parenParts: string[] = [];
+  if (kanjiKana) {
+    parenParts.push(kanjiKana);
+  }
+  if (english) {
+    parenParts.push(english);
+  }
+  if (extra) {
+    parenParts.push(extra);
+  }
+
+  if (parenParts.length > 0) {
+    if (result) {
+      result += " ";
+    }
+    result += `(${parenParts.join(", ")})`;
+  }
+
+  // Add extra2 outside parentheses
+  if (extra2) {
+    result += ` ${extra2}`;
+  }
+
+  return result;
 }
