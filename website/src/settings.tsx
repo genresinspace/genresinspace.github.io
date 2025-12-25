@@ -251,7 +251,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
     min: 0.8,
     max: 1,
     step: 0.01,
-    default: 0.85,
+    default: 0.9,
   },
   {
     type: "number",
@@ -262,7 +262,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
     min: 100,
     max: 10000,
     step: 100,
-    default: 500,
+    default: 3000,
   },
 ];
 
