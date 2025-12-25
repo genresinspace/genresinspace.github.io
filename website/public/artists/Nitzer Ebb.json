@@ -1,10 +1,10 @@
 {
   "name": "Nitzer Ebb",
-  "description": "'''Nitzer Ebb''' ({{IPAc-en|ˈ|n|aɪ|t|s|ər|_|ɛ|b|,_|ˈ|n|ɪ|t|-}}) are an English [[electronic body music|EBM]] group formed in 1982 by [[Essex]] school friends [[Bon Harris|Vaughan \"Bon\" Harris]] (programming, synthesizers, drums, vocals), [[Douglas McCarthy]] (vocals), and David Gooday (drums). The band were originally named [[:fr:La Com%C3%A9die de la mort|La Comédie De La Mort]] but soon discarded that and chose the name Nitzer Ebb by cutting up words and letters and arranging them randomly to create something Germanic without using actual German words.",
-  "last_revision_date": "2025-09-29T10:43:16Z",
+  "description": "'''Nitzer Ebb''' ({{IPAc-en|ˈ|n|aɪ|t|s|ər|_|ɛ|b|,_|ˈ|n|ɪ|t|-}}) is an English [[electronic body music|EBM]] group formed in 1982 by [[Essex]] school friends [[Bon Harris|Vaughan \"Bon\" Harris]] (programming, synthesizers, drums, vocals), [[Douglas McCarthy]] (vocals), and David Gooday (drums). The band were originally named [[:fr:La Com%C3%A9die de la mort|La Comédie De La Mort]] but soon discarded that and chose the name Nitzer Ebb by cutting up words and letters and arranging them randomly to create something Germanic without using actual German words.",
+  "last_revision_date": "2025-11-28T23:44:56Z",
   "genres": [
-    397,
     399,
-    599
+    401,
+    602
   ]
 }

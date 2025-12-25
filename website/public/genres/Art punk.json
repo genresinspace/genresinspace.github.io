@@ -1,6 +1,6 @@
 {
-  "description": "'''Art punk''' (also known as '''avant-punk''' or '''experimental punk''') is a subgenre of [[punk rock]] influenced by [[art school]] culture in which artists go beyond the genre's rudimentary [[Three-chord song|three-chord]] [[garage rock]] conventions, incorporating more complex song structures, esoteric influences and a more sophisticated sound and image.{{sfn|Gittins|2004|p=5}} While retaining punk's simplicity and rawness, art punk draws more from [[avant-garde music]], literature and abstract art than other punk subgenres, often intersecting with the more experimental branches of the [[post-punk]] scene. Subsequently, attracting opposing audiences to that of the angry, working-class ones that surrounded the original [[punk rock]] scene.",
-  "last_revision_date": "2025-11-20T04:27:46Z",
+  "description": "'''Art punk''' is a subgenre of [[punk rock]] influenced by [[art school]] culture in which artists go beyond the genre's rudimentary [[Three-chord song|three-chord]] [[garage rock]] conventions, incorporating more complex song structures, esoteric influences and a more sophisticated sound and image.{{sfn|Gittins|2004|p=5}} While retaining punk's simplicity and rawness, art punk draws more from [[avant-garde music]], literature and abstract art than other punk subgenres, often intersecting with the more experimental branches of the [[post-punk]] scene. Subsequently, attracting opposing audiences to that of the angry, working-class ones that surrounded the original [[punk rock]] scene.",
+  "last_revision_date": "2025-12-09T08:23:04Z",
   "mixes": [
     {
       "playlist": "PLFBZT3CIdFxIgIEj1X-CAyW4SDL2zH0kf"
@@ -8,14 +8,14 @@
   ],
   "top_artists": [
     "Patti Smith",
-    "David Byrne",
     "Devo",
     "Franz Ferdinand (band)",
     "Kaiser Chiefs",
-    "Tina Weymouth",
-    "Fugazi",
     "Yeah Yeah Yeahs",
     "Bloc Party",
-    "XTC"
+    "Fugazi",
+    "XTC",
+    "Wire (band)",
+    "Television (band)"
   ]
 }
