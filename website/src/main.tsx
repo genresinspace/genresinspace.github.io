@@ -14,7 +14,6 @@ root.render(
       alignItems: "center",
       justifyContent: "center",
       height: "100vh",
-      backgroundColor: "#000",
       color: "#fff",
       fontFamily: "sans-serif",
     }}
@@ -54,7 +53,6 @@ try {
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
-        backgroundColor: "#000",
         color: "#fff",
         fontFamily: "sans-serif",
       }}
