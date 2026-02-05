@@ -1,6 +1,9 @@
 import { WikitextSimplifiedNode } from "frontend_wasm";
 import { templateToObject } from "./util";
 
+/**
+ * Renders the height template, converting between imperial and metric units.
+ */
 export function Height({
   node,
 }: {
