@@ -39,7 +39,8 @@ export function Graph({
   const { theme } = useTheme();
 
   // Select the appropriate color lightness values based on theme
-  const colorLightness = theme === "light" ? NodeColourLightnessLight : NodeColourLightnessDark;
+  const colorLightness =
+    theme === "light" ? NodeColourLightnessLight : NodeColourLightnessDark;
   const backgroundColor = theme === "light" ? "#222222" : "#000000";
   const dimmedColor = "hsla(0, 0%, 20%, 0.1)";
 
@@ -252,7 +253,9 @@ export function Graph({
 function useCosmographLabelColourPatch(
   cosmograph: RawCosmograph<NodeData, EdgeData> | undefined,
   maxDegree: number,
-  colorLightness: typeof NodeColourLightnessDark | typeof NodeColourLightnessLight
+  colorLightness:
+    | typeof NodeColourLightnessDark
+    | typeof NodeColourLightnessLight
 ) {
   useEffect(() => {
     if (!cosmograph) return;
@@ -265,8 +268,8 @@ function useCosmographLabelColourPatch(
 
     const getNodeLabelStyle = (node: NodeData, isVisible: boolean) => {
       const style = [
-        `background-color: ${nodeColour(node, maxDegree, colorLightness.GraphLabelBackground)};`,
-        `border-bottom: 4px solid ${nodeColour(node, maxDegree, colorLightness.GraphLabelBackgroundBorder)};`,
+        `background-color: ${nodeColour(node, maxDegree, colorLightness.GraphLabelBackgroundBorder)};`,
+        `border-bottom: 4px solid ${nodeColour(node, maxDegree, colorLightness.GraphLabelBackground)};`,
       ];
       if (!isVisible) {
         style.push("opacity: 0.1;");
