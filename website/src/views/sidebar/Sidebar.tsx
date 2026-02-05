@@ -24,6 +24,7 @@ export function Sidebar({
   onMobileDragStart,
   isMobile,
   isFullscreen,
+  isMinimized,
   searchComponent,
 }: {
   settings: SettingsData;
@@ -33,6 +34,7 @@ export function Sidebar({
   onMobileDragStart?: () => void;
   isMobile?: boolean;
   isFullscreen?: boolean;
+  isMinimized?: boolean;
   searchComponent?: React.ReactNode;
 }) {
   const collapseThreshold = 100;
@@ -110,6 +112,7 @@ export function Sidebar({
           onMobileDragStart={onMobileDragStart}
           isMobile={isMobile}
           isFullscreen={isFullscreen}
+          isMinimized={isMinimized}
           searchComponent={searchComponent}
         />
       </div>
@@ -126,6 +129,7 @@ function SidebarContent({
   onMobileDragStart,
   isMobile,
   isFullscreen,
+  isMinimized,
   searchComponent,
 }: {
   settings: SettingsData;
@@ -136,6 +140,7 @@ function SidebarContent({
   onMobileDragStart?: () => void;
   isMobile?: boolean;
   isFullscreen?: boolean;
+  isMinimized?: boolean;
   searchComponent?: React.ReactNode;
 }) {
   const [activeTab, setActiveTab] = useState<
@@ -155,83 +160,88 @@ function SidebarContent({
   return (
     <div
       style={isMobile ? { userSelect: "auto" } : { width, userSelect: "auto" }}
-      className={`h-full ${colourStyles.sidebar.background} text-slate-900 dark:text-white box-border flex flex-col overflow-hidden md:w-auto`}
+      className={`h-full ${colourStyles.sidebar.background} ${isMobile ? `${colourStyles.sidebar.mobileBackground} rounded-t-2xl` : ""} text-slate-900 dark:text-white box-border flex flex-col overflow-hidden md:w-auto`}
     >
       {/* Mobile drag handle - visible only on mobile */}
       <div
-        className="md:hidden w-full flex justify-center py-4 cursor-grab active:cursor-grabbing touch-none"
+        className="md:hidden w-full flex justify-center py-3 cursor-grab active:cursor-grabbing touch-none shrink-0"
         onTouchStart={onMobileDragStart}
       >
-        <div className="w-16 h-1.5 bg-slate-400 dark:bg-slate-600 rounded-full" />
+        <div className="w-16 h-3 bg-slate-400 dark:bg-slate-600 rounded-full" />
       </div>
 
-      {/* Search component when in fullscreen mode on mobile */}
-      {isFullscreen && searchComponent && (
-        <div className="w-full p-2 shrink-0">{searchComponent}</div>
-      )}
-
-      <div className={`flex-1 flex flex-col min-h-0 ${isMobile ? "" : "pr-2"}`}>
-        {/* Fixed navigation bar at top */}
-        <div className="flex shrink-0 gap-2 py-2">
-          {[
-            {
-              id: "selected" as const,
-              label: "Selected",
-              icon: <EyeIcon className="mr-2" />,
-              show: () => selectedId !== null,
-            },
-            {
-              id: "information" as const,
-              label: "Info",
-              icon: <InfoIcon width={16} height={16} className="mr-2" />,
-              show: () => true,
-            },
-            {
-              id: "settings" as const,
-              label: "Settings",
-              icon: <SettingsIcon width={16} height={16} className="mr-2" />,
-              show: () => true,
-            },
-          ]
-            .filter((tab) => tab.show())
-            .map((tab) => (
-              <button
-                key={tab.id}
-                className={`flex-1 p-2 rounded-lg cursor-pointer flex items-center justify-center overflow-hidden ${
-                  activeTab === tab.id
-                    ? colourStyles.sidebar.itemActive
-                    : colourStyles.sidebar.itemInactive
-                } transition-colors duration-200`}
-                onClick={() => setActiveTab(tab.id as typeof activeTab)}
-              >
-                {tab.icon}
-                {tab.label}
-              </button>
-            ))}
-        </div>
-
-        {/* Scrollable content area */}
-        <div className="flex-1 overflow-y-auto min-h-0" ref={sidebarContentRef}>
-          {activeTab === "information" ? (
-            <ProjectInformation
-              visibleTypes={settings.visibleTypes}
-              setVisibleTypes={(visibleTypes) =>
-                setSettings((prev) => ({ ...prev, visibleTypes }))
-              }
-              setFocusedId={setFocusedId}
-            />
-          ) : activeTab === "selected" ? (
-            <SelectedNodeInfo
-              selectedId={selectedId}
-              setFocusedId={setFocusedId}
-              shouldShowMixes={settings.general.showMixes}
-              shouldAutoplayMixes={settings.general.autoplayMixes}
-            />
-          ) : (
-            <Settings settings={settings} setSettings={setSettings} />
+      {/* Content hidden when minimized on mobile */}
+      {!isMinimized && (
+        <>
+          {/* Search component when in fullscreen mode on mobile */}
+          {isFullscreen && searchComponent && (
+            <div className="w-full p-2 shrink-0">{searchComponent}</div>
           )}
-        </div>
-      </div>
+
+          <div className={`flex-1 flex flex-col min-h-0 ${isMobile ? "" : "pr-2"}`}>
+            {/* Fixed navigation bar at top */}
+            <div className="flex shrink-0 gap-2 py-2">
+              {[
+                {
+                  id: "selected" as const,
+                  label: "Selected",
+                  icon: <EyeIcon className="mr-2" />,
+                  show: () => selectedId !== null,
+                },
+                {
+                  id: "information" as const,
+                  label: "Info",
+                  icon: <InfoIcon width={16} height={16} className="mr-2" />,
+                  show: () => true,
+                },
+                {
+                  id: "settings" as const,
+                  label: "Settings",
+                  icon: <SettingsIcon width={16} height={16} className="mr-2" />,
+                  show: () => true,
+                },
+              ]
+                .filter((tab) => tab.show())
+                .map((tab) => (
+                  <button
+                    key={tab.id}
+                    className={`flex-1 p-2 rounded-lg cursor-pointer flex items-center justify-center overflow-hidden ${
+                      activeTab === tab.id
+                        ? colourStyles.sidebar.itemActive
+                        : colourStyles.sidebar.itemInactive
+                    } transition-colors duration-200`}
+                    onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                  >
+                    {tab.icon}
+                    {tab.label}
+                  </button>
+                ))}
+            </div>
+
+            {/* Scrollable content area */}
+            <div className="flex-1 overflow-y-auto min-h-0" ref={sidebarContentRef}>
+              {activeTab === "information" ? (
+                <ProjectInformation
+                  visibleTypes={settings.visibleTypes}
+                  setVisibleTypes={(visibleTypes) =>
+                    setSettings((prev) => ({ ...prev, visibleTypes }))
+                  }
+                  setFocusedId={setFocusedId}
+                />
+              ) : activeTab === "selected" ? (
+                <SelectedNodeInfo
+                  selectedId={selectedId}
+                  setFocusedId={setFocusedId}
+                  shouldShowMixes={settings.general.showMixes}
+                  shouldAutoplayMixes={settings.general.autoplayMixes}
+                />
+              ) : (
+                <Settings settings={settings} setSettings={setSettings} />
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

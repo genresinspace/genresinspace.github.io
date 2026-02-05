@@ -173,8 +173,8 @@ function LoadedApp({ data }: { data: Data }) {
       const touchY = touch.clientY;
       const newHeight = ((windowHeight - touchY) / windowHeight) * 100;
 
-      // Clamp between 8% (minimized with handle visible) and 100%
-      const clampedHeight = Math.min(Math.max(newHeight, 8), 100);
+      // Clamp between 5% (minimized with handle visible) and 100%
+      const clampedHeight = Math.min(Math.max(newHeight, 5), 100);
       setMobileSidebarHeight(clampedHeight);
     },
     [isDraggingSidebar]
@@ -184,7 +184,7 @@ function LoadedApp({ data }: { data: Data }) {
     setIsDraggingSidebar(false);
 
     // Directional snap: snap to next position in the direction of movement
-    const snapPositions = [8, 50, 100];
+    const snapPositions = [5, 50, 100];
     const currentHeight = mobileSidebarHeight;
 
     if (currentHeight > dragStartHeight) {
@@ -221,6 +221,7 @@ function LoadedApp({ data }: { data: Data }) {
   }, [isDraggingSidebar, handleTouchMove, handleTouchEnd]);
 
   const isFullscreen = isMobile && mobileSidebarHeight >= 100;
+  const isMinimized = isMobile && mobileSidebarHeight <= 5;
 
   const searchComponent = (
     <Search
@@ -283,6 +284,7 @@ function LoadedApp({ data }: { data: Data }) {
               onMobileDragStart={handleTouchStart}
               isMobile={isMobile}
               isFullscreen={isFullscreen}
+              isMinimized={isMinimized}
               searchComponent={isFullscreen ? searchComponent : undefined}
             />
           </div>
