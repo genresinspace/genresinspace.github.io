@@ -210,7 +210,7 @@ export function Listen({
   const showIcon = customImage !== "none";
 
   // Plain style removes borders and backgrounds
-  let styleClass = `border border-neutral-800 rounded ${colourStyles.audio.container} p-3 mb-4`;
+  let styleClass = `border border-neutral-800 rounded-lg ${colourStyles.audio.container} p-3 mb-4`;
   if (plain) styleClass = "";
   if (embed) styleClass = "p-1";
 

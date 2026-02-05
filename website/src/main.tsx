@@ -74,7 +74,7 @@ try {
             backgroundColor: "#333",
             color: "#fff",
             border: "1px solid #666",
-            borderRadius: "4px",
+            borderRadius: "0.5rem",
             cursor: "pointer",
           }}
         >
