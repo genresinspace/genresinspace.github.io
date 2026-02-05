@@ -1,14 +1,14 @@
 {
   "description": "<mapframe\n    service=\"leaflet\"\n    stroke-width=\"2\"\n    fill=\"#808080\"\n    fill-opacity=\"0.5\"\n    zoom=\"8\"\n    width=\"350\"\n    height=\"350\"\n    align=\"center\"\n  >\n  {\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n      {\n        \"type\": \"Feature\",\n        \"geometry\": {\n          \"type\": \"Point\",\n          \"coordinates\": [-83.693333, 43.018889]\n        },\n        \"properties\": {\n          \"title\": \"Flint\",\n          \"id\": \"Q490584\"\n        }\n      },\n      {\n        \"type\": \"Feature\",\n        \"geometry\": {\n          \"type\": \"Point\",\n          \"coordinates\": [-83.0458, 42.3314]\n        },\n        \"properties\": {\n          \"title\": \"Detroit\",\n          \"id\": \"Q5879\",\n          \"fill\": \"#0000FF\",\n          \"fill-opacity\": 0.5\n        }\n      }\n    ]\n  }\n  </mapframe>\n  <div style=\"text-align: center; font-style: italic;\">Interactive map, Flint and Detroit points</div>\n</div>\n'''Michigan rap''' is a subgenre of [[Midwestern hip-hop]] in the United States, including Detroit rap, Flint rap, and a style characterized by its \"underdog spirit.\" Pivotal figures in the emergence of Michigan and Midwestern hip-hop scene include [[J Dilla]], [[Eminem]], [[MC Breed]], and [[Big Sean]].\n\nIn 2023, ''[[Rolling Stone]]'' described Michigan rap as \"the regional style of intense punchlines and goofy music videos\".",
-  "last_revision_date": "2025-12-21T00:28:00Z",
+  "last_revision_date": "2026-01-13T16:39:21Z",
   "top_artists": [
     "42 Dugg",
     "BabyTron",
     "Babyface Ray",
     "Veeze",
     "Skilla Baby",
-    "Rio da Yung OG",
     "Punchmade Dev",
+    "Rio da Yung OG",
     "Baby Money"
   ]
 }
