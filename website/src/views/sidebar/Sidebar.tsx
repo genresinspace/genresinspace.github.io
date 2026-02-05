@@ -164,65 +164,67 @@ function SidebarContent({
         <div className="w-full p-2 shrink-0">{searchComponent}</div>
       )}
 
-      {/* Fixed navigation bar at top */}
-      <div className="flex shrink-0 gap-2 px-2 py-4">
-        {[
-          {
-            id: "selected" as const,
-            label: "Selected",
-            icon: <EyeIcon className="mr-2" />,
-            show: () => selectedId !== null,
-          },
-          {
-            id: "information" as const,
-            label: "Info",
-            icon: <InfoIcon width={16} height={16} className="mr-2" />,
-            show: () => true,
-          },
-          {
-            id: "settings" as const,
-            label: "Settings",
-            icon: <SettingsIcon width={16} height={16} className="mr-2" />,
-            show: () => true,
-          },
-        ]
-          .filter((tab) => tab.show())
-          .map((tab) => (
-            <button
-              key={tab.id}
-              className={`flex-1 p-2 rounded-lg cursor-pointer flex items-center justify-center ${
-                activeTab === tab.id
-                  ? colourStyles.sidebar.itemActive
-                  : colourStyles.sidebar.itemInactive
-              } transition-colors duration-200`}
-              onClick={() => setActiveTab(tab.id as typeof activeTab)}
-            >
-              {tab.icon}
-              {tab.label}
-            </button>
-          ))}
-      </div>
+      <div className={isMobile ? "" : "pr-2"}>
+        {/* Fixed navigation bar at top */}
+        <div className="flex shrink-0 gap-2 py-2">
+          {[
+            {
+              id: "selected" as const,
+              label: "Selected",
+              icon: <EyeIcon className="mr-2" />,
+              show: () => selectedId !== null,
+            },
+            {
+              id: "information" as const,
+              label: "Info",
+              icon: <InfoIcon width={16} height={16} className="mr-2" />,
+              show: () => true,
+            },
+            {
+              id: "settings" as const,
+              label: "Settings",
+              icon: <SettingsIcon width={16} height={16} className="mr-2" />,
+              show: () => true,
+            },
+          ]
+            .filter((tab) => tab.show())
+            .map((tab) => (
+              <button
+                key={tab.id}
+                className={`flex-1 p-2 rounded-lg cursor-pointer flex items-center justify-center overflow-hidden ${
+                  activeTab === tab.id
+                    ? colourStyles.sidebar.itemActive
+                    : colourStyles.sidebar.itemInactive
+                } transition-colors duration-200`}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
+              >
+                {tab.icon}
+                {tab.label}
+              </button>
+            ))}
+        </div>
 
-      {/* Scrollable content area */}
-      <div className="flex-1 overflow-y-auto min-h-0" ref={sidebarContentRef}>
-        {activeTab === "information" ? (
-          <ProjectInformation
-            visibleTypes={settings.visibleTypes}
-            setVisibleTypes={(visibleTypes) =>
-              setSettings((prev) => ({ ...prev, visibleTypes }))
-            }
-            setFocusedId={setFocusedId}
-          />
-        ) : activeTab === "selected" ? (
-          <SelectedNodeInfo
-            selectedId={selectedId}
-            setFocusedId={setFocusedId}
-            shouldShowMixes={settings.general.showMixes}
-            shouldAutoplayMixes={settings.general.autoplayMixes}
-          />
-        ) : (
-          <Settings settings={settings} setSettings={setSettings} />
-        )}
+        {/* Scrollable content area */}
+        <div className="flex-1 overflow-y-auto min-h-0" ref={sidebarContentRef}>
+          {activeTab === "information" ? (
+            <ProjectInformation
+              visibleTypes={settings.visibleTypes}
+              setVisibleTypes={(visibleTypes) =>
+                setSettings((prev) => ({ ...prev, visibleTypes }))
+              }
+              setFocusedId={setFocusedId}
+            />
+          ) : activeTab === "selected" ? (
+            <SelectedNodeInfo
+              selectedId={selectedId}
+              setFocusedId={setFocusedId}
+              shouldShowMixes={settings.general.showMixes}
+              shouldAutoplayMixes={settings.general.autoplayMixes}
+            />
+          ) : (
+            <Settings settings={settings} setSettings={setSettings} />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -43,7 +43,7 @@ export function ProjectInformation({
   } = useDataContext();
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2">
       <Section heading="About" icon={<InfoIcon />}>
         <div className="flex flex-col gap-2 p-4">
           <p>
@@ -78,6 +78,9 @@ export function ProjectInformation({
         <FAQ dumpDate={dumpDate} />
       </Section>
       <CommitFooter />
+      <div>
+        {/* intentionally empty div to use the gap for bottom-margin */}
+      </div>
     </div>
   );
 }
@@ -206,7 +209,7 @@ function Legend({
 
 function CommitFooter() {
   return (
-    <footer className="text-sm text-slate-600 dark:text-slate-500 px-4 py-3 border-t border-slate-300 dark:border-slate-700">
+    <footer className="text-sm text-slate-600 dark:text-slate-500 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900">
       Commit{" "}
       <code>
         <EL href={`${REPO_LINK}/tree/${commit.commit}`}>{commit.commit}</EL>
