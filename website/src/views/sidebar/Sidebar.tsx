@@ -13,7 +13,7 @@ import {
 } from "../components/icons";
 import { colourStyles } from "../colours";
 
-export const SIDEBAR_DEFAULT_WIDTH = 300;
+export const SIDEBAR_DEFAULT_WIDTH = 400;
 
 /** The sidebar for the app. */
 export function Sidebar({
@@ -35,8 +35,9 @@ export function Sidebar({
   isFullscreen?: boolean;
   searchComponent?: React.ReactNode;
 }) {
-  const minWidth = SIDEBAR_DEFAULT_WIDTH;
-  const [width, setWidth] = useState(`${minWidth}px`);
+  const collapseThreshold = 100;
+  const minWidth = 200;
+  const [width, setWidth] = useState(`${SIDEBAR_DEFAULT_WIDTH}px`);
   const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
@@ -44,9 +45,14 @@ export function Sidebar({
       if (!isResizing) return;
 
       const newWidth = window.innerWidth - clientX;
-      const maxWidth = window.innerWidth * 0.4; // 40% max width
+      const maxWidth = window.innerWidth * 0.5; // 50% max width
 
-      setWidth(`${Math.min(Math.max(newWidth, minWidth), maxWidth)}px`);
+      // Snap to collapsed (0) if below threshold, otherwise clamp between min and max
+      if (newWidth < collapseThreshold) {
+        setWidth("0px");
+      } else {
+        setWidth(`${Math.min(Math.max(newWidth, minWidth), maxWidth)}px`);
+      }
     };
 
     const handleMouseMove = (e: MouseEvent) => {
