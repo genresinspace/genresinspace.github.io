@@ -115,7 +115,7 @@ function RandomGenre({
   );
 
   return (
-    <span className="flex flex-col w-full">
+    <span className="flex flex-col w-full rounded-lg overflow-hidden">
       <span className="flex flex-row">
         <button
           onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}

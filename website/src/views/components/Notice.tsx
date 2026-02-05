@@ -37,7 +37,7 @@ export function Notice({
   const classes = colourClasses[colour];
 
   return (
-    <div className={`${classes.bg} border-l-4 ${classes.border} p-4`}>
+    <div className={`${classes.bg} rounded-xl border ${classes.border} p-4`}>
       <div className={classes.text}>{children}</div>
     </div>
   );

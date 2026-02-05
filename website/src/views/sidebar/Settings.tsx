@@ -36,7 +36,7 @@ export function Settings({
           <InputDescription description="Switch between light and dark mode">
             <button
               onClick={toggleTheme}
-              className={`w-full px-4 py-2 ${colourStyles.input.primary} transition-colors`}
+              className={`w-full px-4 py-2 rounded-lg ${colourStyles.input.primary} transition-colors`}
             >
               {theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
             </button>

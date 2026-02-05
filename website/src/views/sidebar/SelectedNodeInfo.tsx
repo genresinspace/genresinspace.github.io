@@ -138,7 +138,7 @@ function GenreHeader({
 
   return (
     <div className="space-y-4">
-      <div className="overflow-hidden">
+      <div className="rounded-xl overflow-hidden m-2">
         <WikipediaLink
           pageTitle={nodePageTitle(node)}
           className={`${colourStyles.node.background} ${colourStyles.node.hover} text-white p-2 block text-3xl font-bold text-center transition-all duration-200`}
@@ -272,7 +272,7 @@ function ConnectionsAndArtists({
   return (
     <div>
       {/* Tab switcher */}
-      <div className="flex">
+      <div className="flex gap-2 p-2">
         {[
           {
             id: "connections" as const,
@@ -285,7 +285,7 @@ function ConnectionsAndArtists({
         ].map((tab) => (
           <button
             key={tab.id}
-            className={`flex-1 px-3 py-1.5 cursor-pointer flex items-center justify-center ${
+            className={`flex-1 px-3 py-1.5 rounded-lg cursor-pointer flex items-center justify-center ${
               activeTab === tab.id
                 ? colourStyles.node.buttonActive
                 : colourStyles.node.buttonInactive

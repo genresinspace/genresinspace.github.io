@@ -18,7 +18,7 @@ import {
   postProcessData,
 } from "./data";
 
-import { Sidebar } from "./views/sidebar/Sidebar";
+import { Sidebar, SIDEBAR_DEFAULT_WIDTH } from "./views/sidebar/Sidebar";
 import { DataCache, DataCacheContext } from "./services/dataCache";
 import { colourStyles } from "./views/colours";
 import { ThemeProvider } from "./theme";
@@ -236,23 +236,14 @@ function LoadedApp({ data }: { data: Data }) {
 
   return (
     <DataContext.Provider value={data}>
-      <div className="flex flex-col md:flex-row w-screen h-screen overflow-hidden">
+      <div
+        className="relative w-screen h-screen overflow-hidden"
+        style={{ "--sidebar-width": `${SIDEBAR_DEFAULT_WIDTH}px` } as React.CSSProperties}
+      >
         <CosmographProvider nodes={data.nodes} links={data.edges}>
-          {/* Graph container - hidden when fullscreen on mobile (unless dragging), flex-1 on desktop */}
+          {/* Graph container - fills entire viewport, behind sidebar */}
           {(!isFullscreen || isDraggingSidebar) && (
-            <div
-              className="w-full md:flex-1 relative h-full touch-none"
-              style={
-                isMobile
-                  ? {
-                      height: `${100 - mobileSidebarHeight}%`,
-                      transition: !isDraggingSidebar
-                        ? "height 0.3s ease-out"
-                        : "none",
-                    }
-                  : undefined
-              }
-            >
+            <div className="absolute inset-0 md:-left-(--sidebar-width) touch-none">
               <Graph
                 settings={settings}
                 selectedId={selectedId}
@@ -260,16 +251,19 @@ function LoadedApp({ data }: { data: Data }) {
                 focusedId={focusedId}
                 path={searchState.type === "path" ? searchState.path : null}
               />
-              {/* Search - shown on graph when not fullscreen on mobile, always shown on desktop */}
-              <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm">
-                {searchComponent}
-              </div>
             </div>
           )}
 
-          {/* Sidebar - bottom sheet on mobile, right panel on desktop */}
+          {/* Search - positioned relative to viewport, not the shifted graph container */}
+          {(!isFullscreen || isDraggingSidebar) && (
+            <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm">
+              {searchComponent}
+            </div>
+          )}
+
+          {/* Sidebar - overlays graph: bottom sheet on mobile, right panel on desktop */}
           <div
-            className="w-full md:w-auto h-full"
+            className="absolute bottom-0 w-full md:right-0 md:top-0 md:w-auto z-10"
             style={
               isMobile
                 ? {
@@ -278,7 +272,7 @@ function LoadedApp({ data }: { data: Data }) {
                       ? "height 0.3s ease-out"
                       : "none",
                   }
-                : undefined
+                : { height: "100%" }
             }
           >
             <Sidebar

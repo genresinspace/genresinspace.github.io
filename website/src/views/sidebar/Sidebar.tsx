@@ -13,6 +13,8 @@ import {
 } from "../components/icons";
 import { colourStyles } from "../colours";
 
+export const SIDEBAR_DEFAULT_WIDTH = 300;
+
 /** The sidebar for the app. */
 export function Sidebar({
   settings,
@@ -33,7 +35,7 @@ export function Sidebar({
   isFullscreen?: boolean;
   searchComponent?: React.ReactNode;
 }) {
-  const minWidth = 300;
+  const minWidth = SIDEBAR_DEFAULT_WIDTH;
   const [width, setWidth] = useState(`${minWidth}px`);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -163,7 +165,7 @@ function SidebarContent({
       )}
 
       {/* Fixed navigation bar at top */}
-      <div className="flex shrink-0">
+      <div className="flex shrink-0 gap-2 px-2 py-4">
         {[
           {
             id: "selected" as const,
@@ -188,7 +190,7 @@ function SidebarContent({
           .map((tab) => (
             <button
               key={tab.id}
-              className={`flex-1 p-2 cursor-pointer flex items-center justify-center ${
+              className={`flex-1 p-2 rounded-lg cursor-pointer flex items-center justify-center ${
                 activeTab === tab.id
                   ? colourStyles.sidebar.itemActive
                   : colourStyles.sidebar.itemInactive

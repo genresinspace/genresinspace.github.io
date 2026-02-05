@@ -13,7 +13,7 @@ export const colourStyles = {
 
   // Sidebar styles
   sidebar: {
-    background: "bg-slate-50 dark:bg-slate-900",
+    background: "bg-transparent",
     hover: "hover:bg-slate-100 dark:hover:bg-slate-800",
     resizer: "bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600",
     resizerActive: "bg-slate-400 dark:bg-slate-600",
