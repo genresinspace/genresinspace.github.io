@@ -164,7 +164,7 @@ function SidebarContent({
         <div className="w-full p-2 shrink-0">{searchComponent}</div>
       )}
 
-      <div className={isMobile ? "" : "pr-2"}>
+      <div className={`flex-1 flex flex-col min-h-0 ${isMobile ? "" : "pr-2"}`}>
         {/* Fixed navigation bar at top */}
         <div className="flex shrink-0 gap-2 py-2">
           {[

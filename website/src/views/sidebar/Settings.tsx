@@ -29,7 +29,7 @@ export function Settings({
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2">
       {/* Theme Toggle Section */}
       <Section heading="Appearance" icon={<SettingsIcon />}>
         <div className="p-4">
@@ -38,7 +38,9 @@ export function Settings({
               onClick={toggleTheme}
               className={`w-full px-4 py-2 rounded-lg ${colourStyles.input.primary} transition-colors`}
             >
-              {theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+              {theme === "light"
+                ? "Switch to Dark Mode"
+                : "Switch to Light Mode"}
             </button>
           </InputDescription>
         </div>
