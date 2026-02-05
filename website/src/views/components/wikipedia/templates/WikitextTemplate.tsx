@@ -30,6 +30,7 @@ import { Music } from "./music/Music";
 import { Listen } from "./Listen";
 import { WikipediaLink } from "../links/WikipediaLink";
 import { InterlanguageLink } from "./InterlanguageLink";
+import { Height } from "./Height";
 import { templateToObject } from "./util";
 
 /**
@@ -209,6 +210,9 @@ export function WikitextTemplate({
     case "disputed":
       // Don't care about this notice
       return null;
+    case "disambiguation_needed":
+    case "dn":
+      return <Fix>disambiguation needed</Fix>;
     case "disputed_inline":
       return <Fix>disputed</Fix>;
     case "dubious":
@@ -247,6 +251,9 @@ export function WikitextTemplate({
     case "ety":
     case "etymology":
       return <Etymology node={node} />;
+    case "excessive_citations_inline":
+    case "excessive_citations":
+      return <Fix>excessive citations</Fix>;
     case "external_media":
       // We generally avoid embedding media, aside from stuff Wikipedia owns and is relevant (audio, etc)
       return null;
@@ -301,9 +308,22 @@ export function WikitextTemplate({
     case "greece-singer-stub":
       // Stub notice: don't care
       return null;
+    case "gloss": {
+      const text = node.parameters[0]?.value;
+      if (!text) return null;
+      return (
+        <span>
+          &lsquo;
+          <Wikitext wikitext={text} />
+          &rsquo;
+        </span>
+      );
+    }
     case "hair_space":
     case "hairsp":
       return <>&hairsp;</>;
+    case "height":
+      return <Height node={node} />;
     case "iast":
       return (
         <Wikitext
@@ -567,6 +587,9 @@ export function WikitextTemplate({
       return <Fix>non-primary source needed</Fix>;
     case "pronunciation":
       // TODO: implement, this could be quite important for this use case
+      return null;
+    case "psychedelic_sidebar":
+      // Sidebar; we don't render sidebars
       return null;
     case "pronunciation_needed":
     case "pronunciation?":
