@@ -13,6 +13,7 @@ import {
 } from "../components/icons";
 import { colourStyles } from "../colours";
 
+/** Default width of the sidebar in pixels */
 export const SIDEBAR_DEFAULT_WIDTH = 400;
 
 /** The sidebar for the app. */
