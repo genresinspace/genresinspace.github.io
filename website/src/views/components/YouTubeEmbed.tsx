@@ -19,9 +19,13 @@ export function YouTubeEmbed({
 
   return (
     <div
-      className={`relative w-full ${className}`}
+      className={`relative w-full bg-black ${className || ""}`}
       style={{ paddingBottom: "56.25%" }}
     >
+      {/* Loading placeholder */}
+      <div className="absolute inset-0 flex items-center justify-center text-slate-500">
+        <div className="w-8 h-8 border-2 border-slate-600 border-t-slate-400 rounded-full animate-spin" />
+      </div>
       <iframe
         className="absolute top-0 left-0 w-full h-full"
         src={embedUrl}

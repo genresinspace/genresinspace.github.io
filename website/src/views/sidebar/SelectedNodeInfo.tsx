@@ -65,7 +65,7 @@ export function SelectedNodeInfo({
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2">
       <GenreHeader node={node} genreData={genreData} maxDegree={maxDegree} />
 
       {genreData && (
@@ -77,7 +77,7 @@ export function SelectedNodeInfo({
             />
           )}
 
-          <div className="px-4 py-3">
+          <div className="px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900">
             {genreData ? (
               genreData.description ? (
                 <WikitextTruncateAtNewline
@@ -104,6 +104,7 @@ export function SelectedNodeInfo({
           />
         </>
       )}
+      <div>{/* intentionally empty div to use the gap for bottom-margin */}</div>
     </div>
   );
 }
@@ -137,8 +138,7 @@ function GenreHeader({
   );
 
   return (
-    <div className="space-y-4">
-      <div className="overflow-hidden">
+    <div className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900">
         <WikipediaLink
           pageTitle={nodePageTitle(node)}
           className={`${colourStyles.node.background} ${colourStyles.node.hover} text-white p-2 block text-3xl font-bold text-center transition-all duration-200`}
@@ -164,7 +164,6 @@ function GenreHeader({
             "Loading..."
           )}
         </div>
-      </div>
     </div>
   );
 }
@@ -182,7 +181,7 @@ function FeaturedMix({
     "help_reason" in mixes ? (
       <HelpNeededForMix reason={mixes.help_reason} />
     ) : (
-      <div>
+      <div className="flex flex-col gap-2">
         {mixes.map((mix) => (
           // We use the mix as the key to force the iframe to be re-rendered when the mix changes,
           // so that it won't pollute the global history state. (The fact that iframes do this
@@ -216,7 +215,7 @@ function MixItem({
 }) {
   return (
     <div
-      className={`${colourStyles.node.infoBackground} overflow-hidden shadow-md`}
+      className={`${colourStyles.node.infoBackground} overflow-hidden shadow-md rounded-xl`}
     >
       {"video" in mix ? (
         <YouTubeEmbed videoId={mix.video} autoplay={autoplay} />
@@ -272,7 +271,7 @@ function ConnectionsAndArtists({
   return (
     <div>
       {/* Tab switcher */}
-      <div className="flex">
+      <div className="flex gap-2 pb-2">
         {[
           {
             id: "connections" as const,
@@ -285,7 +284,7 @@ function ConnectionsAndArtists({
         ].map((tab) => (
           <button
             key={tab.id}
-            className={`flex-1 px-3 py-1.5 cursor-pointer flex items-center justify-center ${
+            className={`flex-1 px-3 py-1.5 rounded-lg cursor-pointer flex items-center justify-center ${
               activeTab === tab.id
                 ? colourStyles.node.buttonActive
                 : colourStyles.node.buttonInactive
@@ -429,30 +428,31 @@ function Connections({
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-2">
       {connections.map(({ textParts, type, nodes }, index) => (
-        <Collapsible
-          title={<ConnectionHeading textParts={textParts} type={type} />}
-          defaultOpen={true}
-          key={index}
-          showBorder={false}
-        >
-          <div className="flex flex-col gap-2">
-            {nodes.map(
-              (otherNode, index) =>
-                otherNode && (
-                  <ConnectionItem
-                    key={otherNode.id}
-                    node={otherNode}
-                    isLast={index === nodes.length - 1}
-                    setFocusedId={setFocusedId}
-                  />
-                )
-            )}
-          </div>
-        </Collapsible>
+        <div key={index} className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900">
+          <Collapsible
+            title={<ConnectionHeading textParts={textParts} type={type} />}
+            defaultOpen={true}
+            showBorder={false}
+          >
+            <div className="flex flex-col gap-2">
+              {nodes.map(
+                (otherNode, index) =>
+                  otherNode && (
+                    <ConnectionItem
+                      key={otherNode.id}
+                      node={otherNode}
+                      isLast={index === nodes.length - 1}
+                      setFocusedId={setFocusedId}
+                    />
+                  )
+              )}
+            </div>
+          </Collapsible>
+        </div>
       ))}
-    </>
+    </div>
   );
 }
 
@@ -576,7 +576,7 @@ function TopArtists({
   setFocusedId: (id: string | null) => void;
 }) {
   return genreData.top_artists && genreData.top_artists.length > 0 ? (
-    <div className="flex flex-col gap-3 px-4 py-3">
+    <div className="flex flex-col gap-3 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900">
       {genreData.top_artists.map((artistPage, index) => (
         <Artist
           artistPage={artistPage}

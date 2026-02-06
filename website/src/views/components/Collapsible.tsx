@@ -17,11 +17,11 @@ export function Collapsible({
 
   return (
     <div
-      className={`${showBorder ? "border border-slate-300 dark:border-slate-800" : ""} overflow-hidden`}
+      className={`${showBorder ? "border border-slate-300 dark:border-slate-800 rounded-xl" : ""} overflow-hidden`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-start gap-2 text-md font-bold p-2 ${colourStyles.collapsible.background} transition-colors`}
+        className={`w-full flex items-start gap-2 text-md font-bold p-2 rounded-lg ${colourStyles.collapsible.background} transition-colors`}
         aria-expanded={isOpen}
       >
         <span

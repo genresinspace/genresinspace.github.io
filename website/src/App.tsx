@@ -18,7 +18,7 @@ import {
   postProcessData,
 } from "./data";
 
-import { Sidebar } from "./views/sidebar/Sidebar";
+import { Sidebar, SIDEBAR_DEFAULT_WIDTH } from "./views/sidebar/Sidebar";
 import { DataCache, DataCacheContext } from "./services/dataCache";
 import { colourStyles } from "./views/colours";
 import { ThemeProvider } from "./theme";
@@ -27,6 +27,9 @@ import "./tailwind.css";
 
 // Global constant for arrow key navigation (developer tool)
 const ENABLE_ARROW_KEY_NAVIGATION = import.meta.env.DEV;
+
+// Minimum height for mobile sidebar when collapsed (percentage of viewport)
+const MOBILE_SIDEBAR_MIN_HEIGHT = 10;
 
 /** The main app component */
 function App() {
@@ -173,8 +176,8 @@ function LoadedApp({ data }: { data: Data }) {
       const touchY = touch.clientY;
       const newHeight = ((windowHeight - touchY) / windowHeight) * 100;
 
-      // Clamp between 8% (minimized with handle visible) and 100%
-      const clampedHeight = Math.min(Math.max(newHeight, 8), 100);
+      // Clamp between minimum (handle visible) and 100%
+      const clampedHeight = Math.min(Math.max(newHeight, MOBILE_SIDEBAR_MIN_HEIGHT), 100);
       setMobileSidebarHeight(clampedHeight);
     },
     [isDraggingSidebar]
@@ -184,7 +187,7 @@ function LoadedApp({ data }: { data: Data }) {
     setIsDraggingSidebar(false);
 
     // Directional snap: snap to next position in the direction of movement
-    const snapPositions = [8, 50, 100];
+    const snapPositions = [MOBILE_SIDEBAR_MIN_HEIGHT, 50, 100];
     const currentHeight = mobileSidebarHeight;
 
     if (currentHeight > dragStartHeight) {
@@ -221,6 +224,7 @@ function LoadedApp({ data }: { data: Data }) {
   }, [isDraggingSidebar, handleTouchMove, handleTouchEnd]);
 
   const isFullscreen = isMobile && mobileSidebarHeight >= 100;
+  const isMinimized = isMobile && mobileSidebarHeight <= MOBILE_SIDEBAR_MIN_HEIGHT;
 
   const searchComponent = (
     <Search
@@ -236,22 +240,17 @@ function LoadedApp({ data }: { data: Data }) {
 
   return (
     <DataContext.Provider value={data}>
-      <div className="flex flex-col md:flex-row w-screen h-screen overflow-hidden">
+      <div
+        className="relative w-screen h-screen overflow-hidden"
+        style={{ "--sidebar-width": `${SIDEBAR_DEFAULT_WIDTH}px` } as React.CSSProperties}
+      >
         <CosmographProvider nodes={data.nodes} links={data.edges}>
-          {/* Graph container - hidden when fullscreen on mobile (unless dragging), flex-1 on desktop */}
+          {/* Graph container - fills entire viewport, behind sidebar */}
+          {/* Offset to center graph in visible area: horizontal on desktop, vertical on mobile */}
           {(!isFullscreen || isDraggingSidebar) && (
             <div
-              className="w-full md:flex-1 relative h-full touch-none"
-              style={
-                isMobile
-                  ? {
-                      height: `${100 - mobileSidebarHeight}%`,
-                      transition: !isDraggingSidebar
-                        ? "height 0.3s ease-out"
-                        : "none",
-                    }
-                  : undefined
-              }
+              className="absolute inset-0 md:-left-(--sidebar-width) touch-none"
+              style={isMobile ? { top: `-${mobileSidebarHeight}%` } : undefined}
             >
               <Graph
                 settings={settings}
@@ -260,25 +259,29 @@ function LoadedApp({ data }: { data: Data }) {
                 focusedId={focusedId}
                 path={searchState.type === "path" ? searchState.path : null}
               />
-              {/* Search - shown on graph when not fullscreen on mobile, always shown on desktop */}
-              <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm">
-                {searchComponent}
-              </div>
             </div>
           )}
 
-          {/* Sidebar - bottom sheet on mobile, right panel on desktop */}
+          {/* Search - positioned relative to viewport, not the shifted graph container */}
+          {(!isFullscreen || isDraggingSidebar) && (
+            <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm">
+              {searchComponent}
+            </div>
+          )}
+
+          {/* Sidebar - overlays graph: bottom sheet on mobile, right panel on desktop */}
           <div
-            className="w-full md:w-auto h-full"
+            className="absolute bottom-[env(safe-area-inset-bottom)] w-full md:bottom-0 md:right-0 md:top-0 md:w-auto z-10"
             style={
               isMobile
                 ? {
                     height: `${mobileSidebarHeight}%`,
+                    minHeight: "60px",
                     transition: !isDraggingSidebar
                       ? "height 0.3s ease-out"
                       : "none",
                   }
-                : undefined
+                : { height: "100%" }
             }
           >
             <Sidebar
@@ -289,6 +292,7 @@ function LoadedApp({ data }: { data: Data }) {
               onMobileDragStart={handleTouchStart}
               isMobile={isMobile}
               isFullscreen={isFullscreen}
+              isMinimized={isMinimized}
               searchComponent={isFullscreen ? searchComponent : undefined}
             />
           </div>

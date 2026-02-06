@@ -12,7 +12,7 @@ export function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section>
+    <section className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900">
       <SectionHeading icon={icon}>{heading}</SectionHeading>
       <div>{children}</div>
     </section>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>genres in space</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="genres in space" />
     <meta property="og:url" content="https://genresin.space/" />
@@ -32,13 +32,13 @@
         overflow: hidden;
       }
 
-      /* Support light and dark mode backgrounds */
+      /* Support light and dark mode backgrounds - matches graph background */
       html.dark {
-        background-color: #0f172a; /* slate-900 */
+        background-color: #000000;
       }
 
       html:not(.dark) {
-        background-color: #ffffff; /* white */
+        background-color: #222222;
       }
 
       body {
@@ -47,13 +47,13 @@
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
       }
 
-      /* Match body background to theme */
+      /* Match body background to theme - matches graph background */
       body.dark {
-        background-color: #0f172a; /* slate-900 */
+        background-color: #000000;
       }
 
       body:not(.dark) {
-        background-color: #ffffff; /* white */
+        background-color: #222222;
       }
 
       #root {

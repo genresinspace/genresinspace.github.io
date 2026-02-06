@@ -9,7 +9,7 @@ export function Footnote({ children }: { children: React.ReactNode }) {
 
   const body = visible ? (
     <span
-      className={`block p-2 my-2 ${colourStyles.footnote.background} rounded border border-neutral-700`}
+      className={`block p-2 my-2 ${colourStyles.footnote.background} rounded-lg border border-neutral-700`}
     >
       {children}
       <sup>
