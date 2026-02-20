@@ -1,11 +1,9 @@
 {
   "description": "'''Anarcho-punk''' (also known as '''anarchist punk''') is an ideological subgenre of [[punk rock]] that promotes [[anarchism]]. The term has been broadly applied to refer to any punk music with anarchist lyrical content, which may figure in [[crust punk]], [[hardcore punk]], [[folk punk]], and other styles.",
   "last_revision_date": "2025-12-14T10:27:27Z",
-  "mixes": [
-    {
-      "playlist": "PLD54F14E53C57366C"
-    }
-  ],
+  "mixes": {
+    "help_reason": null
+  },
   "top_artists": [
     "Chumbawamba",
     "Crass",

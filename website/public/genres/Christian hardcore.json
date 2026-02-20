@@ -1,11 +1,9 @@
 {
   "description": "'''Christian hardcore''' or '''Christcore''' is a subcategory of [[hardcore punk]] and [[metalcore]] bands which promote [[Christianity|Christian]] belief.",
   "last_revision_date": "2025-10-22T00:16:22Z",
-  "mixes": [
-    {
-      "playlist": "PLWjwE2IjrscviWXYaKVcspdvH3pG9wECM"
-    }
-  ],
+  "mixes": {
+    "help_reason": null
+  },
   "top_artists": [
     "Spoken (band)",
     "The Crucified",

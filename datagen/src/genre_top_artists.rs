@@ -1,6 +1,6 @@
 //! Calculate the top artists for each genre.
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{BTreeMap, BTreeSet},
     path::Path,
 };
 
@@ -9,16 +9,16 @@ use anyhow::Context as _;
 use crate::{links, process, types};
 
 /// A map of genre page names to their top artists.
-pub type GenreTopArtists = HashMap<types::PageName, Vec<(types::PageName, f32)>>;
+pub type GenreTopArtists = BTreeMap<types::PageName, Vec<(types::PageName, f32)>>;
 
 /// A map of artist page names to their genres.
-pub type ArtistGenres = HashMap<types::PageName, HashSet<types::PageName>>;
+pub type ArtistGenres = BTreeMap<types::PageName, BTreeSet<types::PageName>>;
 
 /// Calculate the top artists for each genre.
 pub fn calculate(
     start: std::time::Instant,
     processed_artists: &process::ProcessedArtists,
-    artist_inbound_link_counts: &HashMap<types::PageName, usize>,
+    artist_inbound_link_counts: &BTreeMap<types::PageName, usize>,
     links_to_articles: &links::LinksToArticles,
     output_path_gta: &Path,
     output_path_ag: &Path,
@@ -45,7 +45,7 @@ pub fn calculate(
         start.elapsed().as_secs_f32(),
     );
 
-    let mut intermediate_gta = HashMap::<types::PageName, HashMap<types::PageName, f32>>::new();
+    let mut intermediate_gta = BTreeMap::<types::PageName, BTreeMap<types::PageName, f32>>::new();
     let mut artist_genres = ArtistGenres::new();
 
     for (artist_page, artist) in &processed_artists.0 {
@@ -85,7 +85,7 @@ pub fn calculate(
         }
     }
 
-    let mut gta: HashMap<types::PageName, Vec<(types::PageName, f32)>> = intermediate_gta
+    let mut gta: BTreeMap<types::PageName, Vec<(types::PageName, f32)>> = intermediate_gta
         .into_iter()
         .map(|(genre, artists)| (genre, artists.into_iter().collect::<Vec<_>>()))
         .collect();

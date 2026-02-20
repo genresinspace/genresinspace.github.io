@@ -1,6 +1,6 @@
 //! Loads the raw Wikipedia dump and extracts all pages with the infobox "music genre" and all redirects.
 use std::{
-    collections::{BTreeSet, HashMap},
+    collections::{BTreeMap, BTreeSet},
     io::{BufRead as _, Write as _},
     path::{Path, PathBuf},
     sync::atomic::{AtomicUsize, Ordering},
@@ -18,7 +18,7 @@ use crate::{
 
 /// A map of page names to their output file paths.
 #[derive(Clone, Default)]
-pub struct GenrePages(pub HashMap<PageName, PathBuf>);
+pub struct GenrePages(pub BTreeMap<PageName, PathBuf>);
 impl GenrePages {
     /// Iterate over all genre pages.
     pub fn iter(&self) -> impl Iterator<Item = (&PageName, &PathBuf)> {
@@ -28,7 +28,7 @@ impl GenrePages {
 
 /// A map of musical artist page names to their output file paths.
 #[derive(Clone, Default)]
-pub struct ArtistPages(pub HashMap<PageName, PathBuf>);
+pub struct ArtistPages(pub BTreeMap<PageName, PathBuf>);
 impl ArtistPages {
     /// Iterate over all musical artist pages.
     pub fn iter(&self) -> impl Iterator<Item = (&PageName, &PathBuf)> {
@@ -39,11 +39,11 @@ impl ArtistPages {
 /// All redirects on Wikipedia. Yes, all of them.
 pub enum AllRedirects {
     /// All redirects in memory.
-    InMemory(HashMap<PageName, PageName>),
+    InMemory(BTreeMap<PageName, PageName>),
     /// Redirects loaded from a file.
     LazyLoad(PathBuf, std::time::Instant),
 }
-impl TryFrom<AllRedirects> for HashMap<PageName, PageName> {
+impl TryFrom<AllRedirects> for BTreeMap<PageName, PageName> {
     type Error = anyhow::Error;
     fn try_from(value: AllRedirects) -> Result<Self, Self::Error> {
         match value {
@@ -91,20 +91,20 @@ pub struct ExtractedData {
     /// All redirects found in the dump.
     pub redirects: AllRedirects,
     /// All Wikipedia page IDs to page names.
-    pub id_to_page_names: HashMap<u64, PageName>,
+    pub id_to_page_names: BTreeMap<u64, PageName>,
 }
 
 /// Intermediate data collected during parallel processing.
 #[derive(Clone, Default)]
 struct IntermediateData {
     /// Genre pages found so far.
-    genre_pages: HashMap<PageName, PathBuf>,
+    genre_pages: BTreeMap<PageName, PathBuf>,
     /// Artist pages found so far.
-    artist_pages: HashMap<PageName, PathBuf>,
+    artist_pages: BTreeMap<PageName, PathBuf>,
     /// Redirects found so far.
-    redirects: HashMap<PageName, PageName>,
+    redirects: BTreeMap<PageName, PageName>,
     /// Page IDs to page names
-    id_to_page_names: HashMap<u64, PageName>,
+    id_to_page_names: BTreeMap<u64, PageName>,
 }
 impl IntermediateData {
     /// Merge another intermediate data into this one.
@@ -142,7 +142,7 @@ pub fn from_data_dump(
     {
         let meta = toml::from_str(&std::fs::read_to_string(&meta_path)?)?;
 
-        let mut genre_pages = HashMap::default();
+        let mut genre_pages = BTreeMap::default();
         for entry in std::fs::read_dir(&genres_path)? {
             let path = entry?.path();
             let Some(file_stem) = path.file_stem() else {
@@ -156,7 +156,7 @@ pub fn from_data_dump(
             genre_pages.len()
         );
 
-        let mut artist_pages = HashMap::default();
+        let mut artist_pages = BTreeMap::default();
         for entry in std::fs::read_dir(&artists_path)? {
             let path = entry?.path();
             let Some(file_stem) = path.file_stem() else {

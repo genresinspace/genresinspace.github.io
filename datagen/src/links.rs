@@ -1,12 +1,15 @@
 //! Resolves links to articles and builds a map of links to page names.
-use std::{collections::HashMap, path::Path};
+use std::{
+    collections::BTreeMap,
+    path::Path,
+};
 
 use anyhow::Context as _;
 
 use crate::{extract, types::PageName};
 
 /// A map of links to page names.
-pub struct LinksToArticles(pub HashMap<String, PageName>);
+pub struct LinksToArticles(pub BTreeMap<String, PageName>);
 impl LinksToArticles {
     /// Get the page name for a link.
     pub fn map(&self, link: &str) -> Option<PageName> {
@@ -27,7 +30,7 @@ pub fn resolve<'a>(
     all_redirects: extract::AllRedirects,
 ) -> anyhow::Result<LinksToArticles> {
     if links_to_articles_path.is_file() {
-        let links_to_articles: HashMap<String, PageName> = serde_json::from_slice(
+        let links_to_articles: BTreeMap<String, PageName> = serde_json::from_slice(
             &std::fs::read(links_to_articles_path).context("Failed to read links to articles")?,
         )
         .context("Failed to parse links to articles")?;
@@ -44,13 +47,14 @@ pub fn resolve<'a>(
         start.elapsed().as_secs_f32()
     );
 
-    let all_redirects: HashMap<_, _> = all_redirects.try_into()?;
+    let all_redirects: BTreeMap<_, _> = all_redirects.try_into()?;
 
     let now = std::time::Instant::now();
 
-    let mut links_to_articles: HashMap<String, PageName> = pages
-        .map(|s| (s.to_string().to_lowercase(), s.clone()))
-        .collect();
+    let mut links_to_articles: BTreeMap<String, PageName> = BTreeMap::new();
+    for page in pages {
+        links_to_articles.insert(page.to_string().to_lowercase(), page.clone());
+    }
 
     let mut round = 1;
     loop {

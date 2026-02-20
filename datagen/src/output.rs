@@ -1,6 +1,6 @@
 //! Produces the data.json file for the frontend.
 use std::{
-    collections::{BTreeMap, BTreeSet, HashMap, HashSet},
+    collections::{BTreeMap, BTreeSet},
     path::Path,
 };
 
@@ -110,9 +110,9 @@ pub fn produce(
     let mut node_order = processed_genres.0.keys().cloned().collect::<Vec<_>>();
     node_order.sort();
 
-    let mut page_to_id = HashMap::new();
+    let mut page_to_id = BTreeMap::new();
 
-    let mut artists_to_copy = HashSet::new();
+    let mut artists_to_copy = BTreeSet::new();
 
     let genres_path = output_path.join("genres");
     std::fs::create_dir_all(&genres_path)?;
@@ -183,7 +183,7 @@ pub fn produce(
         fn get_id_for_page(
             links_to_articles: &links::LinksToArticles,
             processed_genres: &process::ProcessedGenres,
-            page_to_id: &HashMap<PageName, PageDataId>,
+            page_to_id: &BTreeMap<PageName, PageDataId>,
             source_page: &process::ProcessedGenre,
             ty: &str,
             link: &str,
@@ -299,7 +299,7 @@ pub fn produce(
     }
 
     // Third pass (over edges): build node->edges sets for calculating max degree
-    let mut node_to_edges = HashMap::new();
+    let mut node_to_edges = BTreeMap::new();
     for (i, edge) in graph.edges.iter().enumerate() {
         node_to_edges
             .entry(edge.source)

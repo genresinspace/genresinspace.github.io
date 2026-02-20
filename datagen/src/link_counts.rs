@@ -1,7 +1,7 @@
 //! Reads the compressed Wikipedia links dump SQL to extract the number of links to each page we track.
 
 use std::{
-    collections::HashMap,
+    collections::BTreeMap,
     io::Read as _,
     path::{Path, PathBuf},
 };
@@ -14,9 +14,9 @@ pub(crate) fn read(
     start: std::time::Instant,
     wikipedia_linktargets_path: &Path,
     wikipedia_links_path: &Path,
-    page_names: &HashMap<types::PageName, PathBuf>,
+    page_names: &BTreeMap<types::PageName, PathBuf>,
     output_path: &Path,
-) -> anyhow::Result<HashMap<types::PageName, usize>> {
+) -> anyhow::Result<BTreeMap<types::PageName, usize>> {
     let output_file_path = output_path.join("artist_inbound_link_counts.json");
     if output_file_path.is_file() {
         return serde_json::from_str(&std::fs::read_to_string(&output_file_path).with_context(
@@ -117,9 +117,9 @@ mod linktargets {
     pub(crate) fn read(
         start: std::time::Instant,
         wikipedia_linktargets_path: &Path,
-        page_names: &HashMap<types::PageName, PathBuf>,
+        page_names: &BTreeMap<types::PageName, PathBuf>,
         output_path: &Path,
-    ) -> anyhow::Result<HashMap<u64, types::PageName>> {
+    ) -> anyhow::Result<BTreeMap<u64, types::PageName>> {
         let output_file_path = output_path.join("linktargets.json");
         if output_file_path.is_file() {
             return serde_json::from_str(
@@ -157,7 +157,7 @@ mod linktargets {
                 "Failed to find INSERT INTO `linktarget` VALUES statement in linktargets file",
             )?;
 
-        let mut linktargets: HashMap<u64, types::PageName> = HashMap::new();
+        let mut linktargets: BTreeMap<u64, types::PageName> = BTreeMap::new();
 
         parse_linktarget_tuple_stream(&mut linktargets_file, start, page_names, &mut linktargets)
             .context("Failed to parse linktarget tuples from stream")?;
@@ -180,8 +180,8 @@ mod linktargets {
     fn parse_linktarget_tuple_stream(
         stream: &mut impl std::io::BufRead,
         start: std::time::Instant,
-        page_names: &HashMap<types::PageName, PathBuf>,
-        output: &mut HashMap<u64, types::PageName>,
+        page_names: &BTreeMap<types::PageName, PathBuf>,
+        output: &mut BTreeMap<u64, types::PageName>,
     ) -> anyhow::Result<()> {
         enum ParseState {
             SearchingForTupleStart,
@@ -383,8 +383,8 @@ mod linktargets {
             types::PageName::new(name, None)
         }
 
-        static PAGE_NAMES: LazyLock<HashMap<types::PageName, PathBuf>> = LazyLock::new(|| {
-            let mut map = HashMap::new();
+        static PAGE_NAMES: LazyLock<BTreeMap<types::PageName, PathBuf>> = LazyLock::new(|| {
+            let mut map = BTreeMap::new();
             map.insert(pn("Example Page"), PathBuf::from("example_page"));
             map.insert(pn("Another Example"), PathBuf::from("another_example"));
             map.insert(pn("Test Article"), PathBuf::from("test_article"));
@@ -393,7 +393,7 @@ mod linktargets {
 
         #[test]
         fn test_parse_simple_linktarget_tuple() {
-            let mut output = HashMap::new();
+            let mut output = BTreeMap::new();
             let data = "(123,0,'Example_Page')";
             let mut stream = Cursor::new(data.as_bytes());
             parse_linktarget_tuple_stream(
@@ -408,7 +408,7 @@ mod linktargets {
 
         #[test]
         fn test_parse_multiple_linktarget_tuples() {
-            let mut output = HashMap::new();
+            let mut output = BTreeMap::new();
             let data = "(123,0,'Example_Page'),(456,0,'Another_Example'),(789,0,'Test_Article');";
             let mut stream = Cursor::new(data.as_bytes());
             parse_linktarget_tuple_stream(
@@ -425,7 +425,7 @@ mod linktargets {
 
         #[test]
         fn test_parse_linktarget_tuples_with_untracked_pages() {
-            let mut output = HashMap::new();
+            let mut output = BTreeMap::new();
             let data = "(123,0,'Example_Page'),(456,0,'Untracked_Page'),(789,0,'Test_Article');";
             let mut stream = Cursor::new(data.as_bytes());
             parse_linktarget_tuple_stream(
@@ -442,7 +442,7 @@ mod linktargets {
 
         #[test]
         fn test_parse_linktarget_tuples_with_non_zero_namespace() {
-            let mut output = HashMap::new();
+            let mut output = BTreeMap::new();
             let data = "(123,0,'Example_Page'),(456,1,'Another_Example'),(789,-1,'Test_Article');";
             let mut stream = Cursor::new(data.as_bytes());
             parse_linktarget_tuple_stream(
@@ -459,7 +459,7 @@ mod linktargets {
 
         #[test]
         fn test_parse_linktarget_with_negative_namespace() {
-            let mut output = HashMap::new();
+            let mut output = BTreeMap::new();
             let data = "(123,-2,'Example_Page')";
             let mut stream = Cursor::new(data.as_bytes());
             parse_linktarget_tuple_stream(
@@ -474,10 +474,10 @@ mod linktargets {
 
         #[test]
         fn test_parse_linktarget_with_escaped_characters() {
-            let mut page_names = HashMap::new();
+            let mut page_names = BTreeMap::new();
             page_names.insert(pn("Example'Page"), PathBuf::from("example_page"));
 
-            let mut output = HashMap::new();
+            let mut output = BTreeMap::new();
             let data = "(123,0,'Example\\'Page')";
             let mut stream = Cursor::new(data.as_bytes());
             parse_linktarget_tuple_stream(
@@ -499,10 +499,10 @@ mod links {
     pub(crate) fn read(
         start: std::time::Instant,
         wikipedia_links_path: &Path,
-        linktargets: &HashMap<u64, types::PageName>,
-        page_names: &HashMap<types::PageName, PathBuf>,
+        linktargets: &BTreeMap<u64, types::PageName>,
+        page_names: &BTreeMap<types::PageName, PathBuf>,
         output_file_path: &Path,
-    ) -> anyhow::Result<HashMap<types::PageName, usize>> {
+    ) -> anyhow::Result<BTreeMap<types::PageName, usize>> {
         println!(
             "{:.2}s: generating page inbound link counts",
             start.elapsed().as_secs_f32()
@@ -517,7 +517,7 @@ mod links {
         common::skip_until_prefix(&mut links_file, b"INSERT INTO `pagelinks` VALUES ")
             .context("Failed to find INSERT INTO `pagelinks` VALUES statement in links file")?;
 
-        let mut artist_inbound_link_counts: HashMap<types::PageName, usize> =
+        let mut artist_inbound_link_counts: BTreeMap<types::PageName, usize> =
             page_names.keys().map(|id| (id.clone(), 0)).collect();
 
         parse_tuple_byte_stream(
@@ -546,8 +546,8 @@ mod links {
     fn parse_tuple_byte_stream(
         stream: &mut impl std::io::BufRead,
         start: std::time::Instant,
-        linktargets: &HashMap<u64, types::PageName>,
-        output: &mut HashMap<types::PageName, usize>,
+        linktargets: &BTreeMap<u64, types::PageName>,
+        output: &mut BTreeMap<types::PageName, usize>,
     ) -> anyhow::Result<()> {
         enum ParseState {
             SearchingForTupleStart,
@@ -664,8 +664,8 @@ mod links {
             types::PageName::new(name, None)
         }
 
-        static LINK_TARGETS: LazyLock<HashMap<u64, types::PageName>> = LazyLock::new(|| {
-            let mut map = HashMap::new();
+        static LINK_TARGETS: LazyLock<BTreeMap<u64, types::PageName>> = LazyLock::new(|| {
+            let mut map = BTreeMap::new();
             map.insert(123, pn("Page 123"));
             map.insert(456, pn("Page 456"));
             map.insert(789, pn("Page 789"));
@@ -674,7 +674,7 @@ mod links {
 
         #[test]
         fn test_parse_simple_tuple() {
-            let mut output = HashMap::from_iter([(pn("Page 123"), 0)]);
+            let mut output = BTreeMap::from_iter([(pn("Page 123"), 0)]);
             let data = "(1,0,123)";
             let mut stream = Cursor::new(data.as_bytes());
             parse_tuple_byte_stream(
@@ -689,7 +689,7 @@ mod links {
 
         #[test]
         fn test_parse_multiple_tuples_with_extra_data() {
-            let mut output = HashMap::from_iter([
+            let mut output = BTreeMap::from_iter([
                 (pn("Page 123"), 0),
                 (pn("Page 456"), 0),
                 (pn("Page 789"), 0),
@@ -710,7 +710,7 @@ mod links {
 
         #[test]
         fn test_parse_tuples_with_untracked_pages() {
-            let mut output = HashMap::from_iter([(pn("Page 123"), 0), (pn("Page 789"), 0)]);
+            let mut output = BTreeMap::from_iter([(pn("Page 123"), 0), (pn("Page 789"), 0)]);
             let data = b"(1,0,123),(2,0,456),(3,0,789);";
             let mut stream = Cursor::new(data);
             parse_tuple_byte_stream(

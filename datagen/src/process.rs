@@ -1,6 +1,6 @@
 //! Processes the wikitext for each genre page to extract the genre infobox's information.
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{BTreeMap, HashSet},
     path::Path,
     sync::{LazyLock, atomic::AtomicUsize},
 };
@@ -85,7 +85,7 @@ impl ProcessedGenre {
 }
 
 /// A map of page names to their processed genre.
-pub struct ProcessedGenres(pub HashMap<PageName, ProcessedGenre>);
+pub struct ProcessedGenres(pub BTreeMap<PageName, ProcessedGenre>);
 /// Given raw genre wikitext, extract the relevant information and save it to file.
 pub fn genres(
     start: std::time::Instant,
@@ -94,7 +94,7 @@ pub fn genres(
 ) -> anyhow::Result<ProcessedGenres> {
     let all_patches = data_patches::genre_all();
 
-    let genre_processor = |parameters: HashMap<String, &[pwt::Node]>,
+    let genre_processor = |parameters: BTreeMap<String, &[pwt::Node]>,
                            original_page: &PageName,
                            last_heading: Option<String>,
                            timestamp: jiff::Timestamp|
@@ -188,7 +188,7 @@ impl ProcessedPage for ProcessedArtist {
 }
 
 /// A map of page names to their processed artist.
-pub struct ProcessedArtists(pub HashMap<PageName, ProcessedArtist>);
+pub struct ProcessedArtists(pub BTreeMap<PageName, ProcessedArtist>);
 /// Given raw artist wikitext, extract the relevant information and save it to file.
 pub fn artists(
     start: std::time::Instant,
@@ -197,7 +197,7 @@ pub fn artists(
 ) -> anyhow::Result<ProcessedArtists> {
     let all_patches = data_patches::artist_all();
 
-    let artist_processor = |parameters: HashMap<String, &[pwt::Node]>,
+    let artist_processor = |parameters: BTreeMap<String, &[pwt::Node]>,
                             original_page: &PageName,
                             last_heading: Option<String>,
                             timestamp: jiff::Timestamp|
@@ -244,11 +244,11 @@ pub fn artists(
 /// Generic function to process pages and extract infobox information.
 fn process_pages<T: ProcessedPage>(
     start: std::time::Instant,
-    pages: &HashMap<PageName, std::path::PathBuf>,
+    pages: &BTreeMap<PageName, std::path::PathBuf>,
     processed_path: &Path,
     template_name: &str,
     process_template: impl Fn(
-        HashMap<String, &[pwt::Node]>,
+        BTreeMap<String, &[pwt::Node]>,
         &PageName,
         Option<String>,
         jiff::Timestamp,
@@ -256,14 +256,14 @@ fn process_pages<T: ProcessedPage>(
     + Send
     + Sync,
     entity_type: &str,
-) -> anyhow::Result<HashMap<PageName, T>> {
+) -> anyhow::Result<BTreeMap<PageName, T>> {
     if processed_path.is_dir() {
         println!(
             "{:.2}s: loading processed {entity_type}s",
             start.elapsed().as_secs_f32()
         );
 
-        let mut processed_items = HashMap::default();
+        let mut processed_items = BTreeMap::default();
         let entries: Vec<_> = std::fs::read_dir(processed_path)?.collect::<Result<Vec<_>, _>>()?;
 
         let loaded_items: Vec<(PageName, T)> = entries
@@ -305,7 +305,7 @@ fn process_pages<T: ProcessedPage>(
 
     let dump_page = std::env::var("DUMP_PAGE").ok();
 
-    let processed_items: HashMap<PageName, T> = pages.par_iter().flat_map(|(original_page, path)| {
+    let processed_items: BTreeMap<PageName, T> = pages.par_iter().flat_map(|(original_page, path)| {
         let wikitext = std::fs::read_to_string(path).unwrap();
         let (wikitext_header, wikitext) = wikitext.split_once("\n").unwrap();
         let wikitext_header: extract::WikitextHeader = serde_json::from_str(wikitext_header).unwrap();
@@ -580,9 +580,9 @@ fn process_pages<T: ProcessedPage>(
         item_count.load(std::sync::atomic::Ordering::Relaxed)
     );
 
-    let mut output = processed_items;
-    remove_ignored_pages_and_detect_duplicates(&mut output);
-    Ok(output)
+    let mut processed_items = processed_items;
+    remove_ignored_pages_and_detect_duplicates(&mut processed_items);
+    Ok(processed_items)
 }
 
 fn dump_page_nodes(wikitext: &str, nodes: &[pwt::Node], depth: usize) {
@@ -648,13 +648,13 @@ fn remove_comments_from_wikitext_the_painful_way(
 }
 
 fn remove_ignored_pages_and_detect_duplicates<T: ProcessedPage>(
-    processed_pages: &mut HashMap<PageName, T>,
+    processed_pages: &mut BTreeMap<PageName, T>,
 ) {
     for page in data_patches::pages_to_ignore() {
         processed_pages.remove(&page);
     }
 
-    let mut previously_encountered_pages = HashMap::new();
+    let mut previously_encountered_pages = BTreeMap::new();
     for (page, processed_page) in processed_pages.iter() {
         if let Some(old_page) =
             previously_encountered_pages.insert(processed_page.name().clone(), page.clone())
@@ -764,7 +764,7 @@ fn node_recurse<R>(
 
 fn parameters_to_map<'a>(
     parameters: &'a [pwt::Parameter<'a>],
-) -> HashMap<String, &'a [pwt::Node<'a>]> {
+) -> BTreeMap<String, &'a [pwt::Node<'a>]> {
     parameters
         .iter()
         .filter_map(|p| Some((nodes_inner_text(p.name.as_deref()?), p.value.as_slice())))

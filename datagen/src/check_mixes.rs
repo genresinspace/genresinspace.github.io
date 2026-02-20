@@ -1,6 +1,6 @@
 //! Check the status of all videos in the mixes.
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{BTreeMap, BTreeSet},
     path::Path,
 };
 
@@ -10,11 +10,11 @@ use crate::types::{GenreMix, GenreMixes};
 
 /// Check the status of all videos in the mixes.
 pub fn run(mixes_path: &Path, key: &str) -> anyhow::Result<()> {
-    let videos_to_ignore = HashSet::<&str>::from_iter([
+    let videos_to_ignore = BTreeSet::<&str>::from_iter([
         "dQw4w9WgXcQ", // We use rickroll for the Nazi genres, so we don't really care about checking this
     ]);
 
-    let mut genre_mixes = HashMap::new();
+    let mut genre_mixes = BTreeMap::new();
     for mix in std::fs::read_dir(mixes_path)? {
         let mix_path = mix?.path();
         let mixes = GenreMixes::parse(&std::fs::read_to_string(&mix_path)?);
@@ -25,9 +25,9 @@ pub fn run(mixes_path: &Path, key: &str) -> anyhow::Result<()> {
     }
 
     let mut videos = vec![];
-    let mut video_to_genre = HashMap::new();
+    let mut video_to_genre = BTreeMap::new();
     let mut playlists = vec![];
-    let mut playlist_to_genre = HashMap::new();
+    let mut playlist_to_genre = BTreeMap::new();
     for (genre, mixes) in &genre_mixes {
         let GenreMixes::Mixes(items) = &mixes else {
             continue;
@@ -70,7 +70,7 @@ pub fn run(mixes_path: &Path, key: &str) -> anyhow::Result<()> {
             let yt_ids = yt_videos
                 .iter()
                 .map(|v| v.id.as_str())
-                .collect::<HashSet<_>>();
+                .collect::<BTreeSet<_>>();
 
             for (genre, video_id) in slice {
                 if !yt_ids.contains(video_id.as_str()) {
@@ -124,7 +124,7 @@ pub fn run(mixes_path: &Path, key: &str) -> anyhow::Result<()> {
             let yt_ids = yt_playlists
                 .iter()
                 .map(|p| p.id.as_str())
-                .collect::<HashSet<_>>();
+                .collect::<BTreeSet<_>>();
 
             for (genre, playlist_id) in slice {
                 if !yt_ids.contains(playlist_id.as_str()) {

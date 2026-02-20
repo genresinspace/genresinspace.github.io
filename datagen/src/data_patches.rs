@@ -1,7 +1,7 @@
 //! Patches for Wikipedia data to deal with ambiguities and errors that may have been fixed after
 //! the dump was created.
 
-use std::{collections::HashMap, str::FromStr};
+use std::{collections::BTreeMap, str::FromStr};
 
 use jiff::Timestamp;
 
@@ -28,12 +28,12 @@ pub fn pages_to_ignore() -> Vec<PageName> {
 }
 
 /// All artist data patches.
-pub fn artist_all() -> HashMap<PageName, (Option<Timestamp>, ArtistName)> {
-    HashMap::new()
+pub fn artist_all() -> BTreeMap<PageName, (Option<Timestamp>, ArtistName)> {
+    BTreeMap::new()
 }
 
 /// All genre data patches.
-pub fn genre_all() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
+pub fn genre_all() -> BTreeMap<PageName, (Option<Timestamp>, GenreName)> {
     genre_fixed_already()
         .into_iter()
         .chain(genre_unclear_fixes())
@@ -42,7 +42,7 @@ pub fn genre_all() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
 
 /// Patches that have already been applied to Wikipedia, but may not be
 /// in the dump being processed.
-fn genre_fixed_already() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
+fn genre_fixed_already() -> BTreeMap<PageName, (Option<Timestamp>, GenreName)> {
     /// Represents a fix that has already been applied to Wikipedia
     /// but may not be in the dump being processed.
     struct WikipediaFix {
@@ -80,7 +80,7 @@ fn genre_fixed_already() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
 
 /// Patches to resolve ambiguity in the source data. I don't feel confident in making
 /// these changes myself, so I'm disambiguating them here.
-fn genre_unclear_fixes() -> HashMap<PageName, (Option<Timestamp>, GenreName)> {
+fn genre_unclear_fixes() -> BTreeMap<PageName, (Option<Timestamp>, GenreName)> {
     /// Represents a fix to resolve ambiguity in the source data
     struct UnclearFix {
         /// Page name and optional heading
