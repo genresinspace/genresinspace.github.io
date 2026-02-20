@@ -13,7 +13,9 @@ export function InputDescription({
   return (
     <div className={`${className || ""}`}>
       {children}
-      <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">{description}</p>
+      <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">
+        {description}
+      </p>
     </div>
   );
 }

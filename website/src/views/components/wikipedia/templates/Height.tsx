@@ -11,9 +11,7 @@ export function Height({
 }) {
   const params = templateToObject(node);
 
-  const ft = parseFloat(
-    params["ft"] || params["foot"] || params["feet"] || ""
-  );
+  const ft = parseFloat(params["ft"] || params["foot"] || params["feet"] || "");
   const inches = parseFloat(
     params["in"] || params["inch"] || params["inches"] || ""
   );
@@ -36,7 +34,8 @@ export function Height({
 
   // Imperial provided
   if (!isNaN(ft) || !isNaN(inches)) {
-    const totalInches = (isNaN(ft) ? 0 : ft * 12) + (isNaN(inches) ? 0 : inches);
+    const totalInches =
+      (isNaN(ft) ? 0 : ft * 12) + (isNaN(inches) ? 0 : inches);
     const meters = totalInches * 0.0254;
     const feetPart = !isNaN(ft) ? `${ft} ft` : "";
     const inchPart = !isNaN(inches) ? `${inches} in` : "";

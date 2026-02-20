@@ -104,7 +104,9 @@ export function SelectedNodeInfo({
           />
         </>
       )}
-      <div>{/* intentionally empty div to use the gap for bottom-margin */}</div>
+      <div>
+        {/* intentionally empty div to use the gap for bottom-margin */}
+      </div>
     </div>
   );
 }
@@ -139,31 +141,31 @@ function GenreHeader({
 
   return (
     <div className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900">
-        <WikipediaLink
-          pageTitle={nodePageTitle(node)}
-          className={`${colourStyles.node.background} ${colourStyles.node.hover} text-white p-2 block text-3xl font-bold text-center transition-all duration-200`}
-          nostyle={true}
-          style={{
-            ["--node-color" as string]: selectedNodeColour,
-          }}
-        >
-          {node.label}
-        </WikipediaLink>
+      <WikipediaLink
+        pageTitle={nodePageTitle(node)}
+        className={`${colourStyles.node.background} ${colourStyles.node.hover} text-white p-2 block text-3xl font-bold text-center transition-all duration-200`}
+        nostyle={true}
+        style={{
+          ["--node-color" as string]: selectedNodeColour,
+        }}
+      >
+        {node.label}
+      </WikipediaLink>
 
-        <div
-          className={`text-slate-600 dark:text-slate-400 text-xs flex items-center ${colourStyles.node.infoBackground} px-3 py-2`}
-        >
-          {genreData ? (
-            <>
-              Last updated:{" "}
-              <em className="ml-1">
-                {new Date(genreData.last_revision_date).toLocaleString()}
-              </em>
-            </>
-          ) : (
-            "Loading..."
-          )}
-        </div>
+      <div
+        className={`text-slate-600 dark:text-slate-400 text-xs flex items-center ${colourStyles.node.infoBackground} px-3 py-2`}
+      >
+        {genreData ? (
+          <>
+            Last updated:{" "}
+            <em className="ml-1">
+              {new Date(genreData.last_revision_date).toLocaleString()}
+            </em>
+          </>
+        ) : (
+          "Loading..."
+        )}
+      </div>
     </div>
   );
 }
@@ -430,7 +432,10 @@ function Connections({
   return (
     <div className="flex flex-col gap-2">
       {connections.map(({ textParts, type, nodes }, index) => (
-        <div key={index} className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900">
+        <div
+          key={index}
+          className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900"
+        >
           <Collapsible
             title={<ConnectionHeading textParts={textParts} type={type} />}
             defaultOpen={true}

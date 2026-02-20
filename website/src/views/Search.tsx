@@ -282,7 +282,9 @@ function SearchPath({
 
   return (
     <div>
-      <div className={`flex items-center rounded-xl overflow-hidden ${colourStyles.search.container}`}>
+      <div
+        className={`flex items-center rounded-xl overflow-hidden ${colourStyles.search.container}`}
+      >
         <SearchBar>
           <SearchInput
             placeholder="Search for genre..."
@@ -404,7 +406,11 @@ function SearchBar({ children }: { children: React.ReactNode }) {
       <div className="flex-1 flex flex-col gap-0">
         {React.Children.map(children, (child, index) => {
           if (index > 0) {
-            return <div className="border-t border-slate-300 dark:border-slate-600">{child}</div>;
+            return (
+              <div className="border-t border-slate-300 dark:border-slate-600">
+                {child}
+              </div>
+            );
           }
           return child;
         })}

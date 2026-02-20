@@ -102,7 +102,7 @@ function LoadedApp({ data }: { data: Data }) {
 
   // Detect mobile screen size (768px is Tailwind's md breakpoint)
   const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
   );
 
   useEffect(() => {
@@ -110,8 +110,8 @@ function LoadedApp({ data }: { data: Data }) {
       setIsMobile(window.innerWidth < 768);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Arrow key navigation handler
@@ -177,7 +177,10 @@ function LoadedApp({ data }: { data: Data }) {
       const newHeight = ((windowHeight - touchY) / windowHeight) * 100;
 
       // Clamp between minimum (handle visible) and 100%
-      const clampedHeight = Math.min(Math.max(newHeight, MOBILE_SIDEBAR_MIN_HEIGHT), 100);
+      const clampedHeight = Math.min(
+        Math.max(newHeight, MOBILE_SIDEBAR_MIN_HEIGHT),
+        100
+      );
       setMobileSidebarHeight(clampedHeight);
     },
     [isDraggingSidebar]
@@ -224,7 +227,8 @@ function LoadedApp({ data }: { data: Data }) {
   }, [isDraggingSidebar, handleTouchMove, handleTouchEnd]);
 
   const isFullscreen = isMobile && mobileSidebarHeight >= 100;
-  const isMinimized = isMobile && mobileSidebarHeight <= MOBILE_SIDEBAR_MIN_HEIGHT;
+  const isMinimized =
+    isMobile && mobileSidebarHeight <= MOBILE_SIDEBAR_MIN_HEIGHT;
 
   const searchComponent = (
     <Search
@@ -242,7 +246,11 @@ function LoadedApp({ data }: { data: Data }) {
     <DataContext.Provider value={data}>
       <div
         className="relative w-screen h-screen overflow-hidden"
-        style={{ "--sidebar-width": `${SIDEBAR_DEFAULT_WIDTH}px` } as React.CSSProperties}
+        style={
+          {
+            "--sidebar-width": `${SIDEBAR_DEFAULT_WIDTH}px`,
+          } as React.CSSProperties
+        }
       >
         <CosmographProvider nodes={data.nodes} links={data.edges}>
           {/* Graph container - fills entire viewport, behind sidebar */}

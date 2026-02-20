@@ -179,7 +179,9 @@ function SidebarContent({
             <div className="w-full p-2 shrink-0">{searchComponent}</div>
           )}
 
-          <div className={`flex-1 flex flex-col min-h-0 ${isMobile ? "" : "pr-2"}`}>
+          <div
+            className={`flex-1 flex flex-col min-h-0 ${isMobile ? "" : "pr-2"}`}
+          >
             {/* Fixed navigation bar at top */}
             <div className="flex shrink-0 gap-2 py-2">
               {[
@@ -198,7 +200,9 @@ function SidebarContent({
                 {
                   id: "settings" as const,
                   label: "Settings",
-                  icon: <SettingsIcon width={16} height={16} className="mr-2" />,
+                  icon: (
+                    <SettingsIcon width={16} height={16} className="mr-2" />
+                  ),
                   show: () => true,
                 },
               ]
@@ -220,7 +224,10 @@ function SidebarContent({
             </div>
 
             {/* Scrollable content area */}
-            <div className="flex-1 overflow-y-auto min-h-0" ref={sidebarContentRef}>
+            <div
+              className="flex-1 overflow-y-auto min-h-0"
+              ref={sidebarContentRef}
+            >
               {activeTab === "information" ? (
                 <ProjectInformation
                   visibleTypes={settings.visibleTypes}
