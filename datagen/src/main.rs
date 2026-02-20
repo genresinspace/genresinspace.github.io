@@ -8,6 +8,7 @@ use std::path::Path;
 pub mod check_mixes;
 pub mod data_patches;
 pub mod extract;
+pub mod force_layout;
 pub mod genre_top_artists;
 pub mod link_counts;
 pub mod links;

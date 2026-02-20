@@ -13,7 +13,6 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "dependencies": {
-    "@cosmograph/react": "^1.4.2",
     "@tailwindcss/vite": "^4.1.11",
     "frontend_wasm": "file:frontend_wasm",
     "react": "^19.0.0",

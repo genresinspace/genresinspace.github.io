@@ -69,6 +69,10 @@ export type NodeOnDiskData = {
   page_title?: string;
   /** The node's label. */
   label: string;
+  /** The node's precomputed x position from force-directed layout. */
+  x: number;
+  /** The node's precomputed y position from force-directed layout. */
+  y: number;
 };
 
 /** A node in the graph. */

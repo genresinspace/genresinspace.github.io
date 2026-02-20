@@ -4,4297 +4,6965 @@
   "dump_date": "2026-02-01",
   "nodes": [
     {
-      "label": "2-step garage"
+      "label": "2-step garage",
+      "x": -219.35118518139998,
+      "y": -32.823276423530785
     },
     {
-      "label": "A cappella"
+      "label": "A cappella",
+      "x": 476.6547169119143,
+      "y": 99.00239818668157
     },
     {
       "page_title": "Acid (electronic music)",
-      "label": "Acid"
+      "label": "Acid",
+      "x": -267.45449859602957,
+      "y": -80.82867645546379
     },
     {
-      "label": "Acid house"
+      "label": "Acid house",
+      "x": -208.61571483948399,
+      "y": -82.32923392099117
     },
     {
-      "label": "Acid jazz"
+      "label": "Acid jazz",
+      "x": -126.72854061853603,
+      "y": -4.58680012743973
     },
     {
-      "label": "Acid rock"
+      "label": "Acid rock",
+      "x": -40.7935147176936,
+      "y": -94.04458909041972
     },
     {
-      "label": "Acid techno"
+      "label": "Acid techno",
+      "x": -248.1244853152738,
+      "y": -95.96534513269972
     },
     {
-      "label": "Acid trance"
+      "label": "Acid trance",
+      "x": -268.4056972343335,
+      "y": -107.78868779825127
     },
     {
-      "label": "Acoustic music"
+      "label": "Acoustic music",
+      "x": -207.92898108343724,
+      "y": 201.2215863927232
     },
     {
       "page_title": "Adult album alternative",
-      "label": "Adult alternative"
+      "label": "Adult alternative",
+      "x": -8.79805503347608,
+      "y": -67.24576221864658
     },
     {
       "page_title": "Adult contemporary music",
-      "label": "Adult contemporary"
+      "label": "Adult contemporary",
+      "x": -48.706779842555925,
+      "y": -14.25144998581996
     },
     {
-      "label": "African blues"
+      "label": "African blues",
+      "x": 27.011738530860296,
+      "y": 25.033567528704094
     },
     {
-      "label": "African heavy metal"
+      "label": "African heavy metal",
+      "x": 33.20117547859318,
+      "y": -257.11211768143096
     },
     {
-      "label": "African hip-hop"
+      "label": "African hip-hop",
+      "x": -258.9476616267662,
+      "y": 40.15828205562629
     },
     {
       "page_title": "African hip-hop#Street pop",
-      "label": "Street hop"
+      "label": "Street hop",
+      "x": -199.86697898931402,
+      "y": 14.187759079784353
     },
     {
       "page_title": "Afro (genre)",
-      "label": "Afro"
+      "label": "Afro",
+      "x": 6.027893238166329,
+      "y": 258.50072612035717
     },
     {
-      "label": "Afro fusion"
+      "label": "Afro fusion",
+      "x": 7.543682164373975,
+      "y": -18.852865165067747
     },
     {
-      "label": "Afro house"
+      "label": "Afro house",
+      "x": -246.61221979785591,
+      "y": 21.221664506026254
     },
     {
-      "label": "Afro tech"
+      "label": "Afro tech",
+      "x": -263.4261518527878,
+      "y": -14.322480099385825
     },
     {
-      "label": "Afro-Caribbean music"
+      "label": "Afro-Caribbean music",
+      "x": 217.3206585782154,
+      "y": 13.138946888655953
     },
     {
-      "label": "Afro-Cuban jazz"
+      "label": "Afro-Cuban jazz",
+      "x": -38.298647993605215,
+      "y": 166.23209569296878
     },
     {
-      "label": "Afro-punk"
+      "label": "Afro-punk",
+      "x": 9.073818513364857,
+      "y": -177.24520933340327
     },
     {
-      "label": "Afro-soul"
+      "label": "Afro-soul",
+      "x": -69.29134124163309,
+      "y": 53.906279626182716
     },
     {
       "page_title": "Afro/cosmic music",
-      "label": "Afro/cosmic"
+      "label": "Afro/cosmic",
+      "x": -146.63490750664445,
+      "y": -42.16973520187327
     },
     {
-      "label": "Afrobeat"
+      "label": "Afrobeat",
+      "x": -112.44084281380984,
+      "y": 83.0885796428218
     },
     {
-      "label": "Afrobeats"
+      "label": "Afrobeats",
+      "x": -161.41512735728827,
+      "y": 96.4349737438094
     },
     {
-      "label": "Afroswing"
+      "label": "Afroswing",
+      "x": -182.6882006364,
+      "y": 62.52346412069847
     },
     {
-      "label": "Ahidus"
+      "label": "Ahidus",
+      "x": 165.22488519626543,
+      "y": -7.431164837543351
     },
     {
       "page_title": "Ahwash",
-      "label": "Aḥwash"
+      "label": "Aḥwash",
+      "x": 21.555558607700085,
+      "y": -301.98827318044636
     },
     {
       "page_title": "Aita (Morocco)",
-      "label": "Aita"
+      "label": "Aita",
+      "x": 163.39162678619957,
+      "y": 78.19219108870526
     },
     {
-      "label": "Akishibu-kei"
+      "label": "Akishibu-kei",
+      "x": -70.09600639272298,
+      "y": 75.46844524090476
     },
     {
-      "label": "Al Jeel"
+      "label": "Al Jeel",
+      "x": -70.69049192515072,
+      "y": 30.86391688939976
     },
     {
-      "label": "Alaskan hip-hop"
+      "label": "Alaskan hip-hop",
+      "x": -198.39713092385563,
+      "y": 73.664118524879
     },
     {
       "page_title": "Albanian iso-polyphony",
-      "label": "Iso-Polyphony"
+      "label": "Iso-Polyphony",
+      "x": 139.43590615415266,
+      "y": 180.31087820064312
     },
     {
-      "label": "Alpine folk music"
+      "label": "Alpine folk music",
+      "x": 122.3034865913158,
+      "y": -85.2210228087353
     },
     {
-      "label": "Alternative R&B"
+      "label": "Alternative R&B",
+      "x": -97.14213031055627,
+      "y": -36.1948914172846
     },
     {
-      "label": "Alternative country"
+      "label": "Alternative country",
+      "x": 28.540455763807728,
+      "y": -60.58167100695319
     },
     {
-      "label": "Alternative dance"
+      "label": "Alternative dance",
+      "x": -123.18796992134205,
+      "y": -79.92739704718652
     },
     {
-      "label": "Alternative hip-hop"
+      "label": "Alternative hip-hop",
+      "x": -149.92489202559736,
+      "y": -1.6333639593503388
     },
     {
-      "label": "Alternative metal"
+      "label": "Alternative metal",
+      "x": -88.93721365169873,
+      "y": -160.99561264293894
     },
     {
-      "label": "Alternative pop"
+      "label": "Alternative pop",
+      "x": -90.36250201968264,
+      "y": -66.4928685492693
     },
     {
-      "label": "Alternative reggaeton"
+      "label": "Alternative reggaeton",
+      "x": -90.08186911555998,
+      "y": 67.79613723337701
     },
     {
-      "label": "Alternative rock"
+      "label": "Alternative rock",
+      "x": -56.669965797455326,
+      "y": -110.20754251492491
     },
     {
-      "label": "Alté"
+      "label": "Alté",
+      "x": -146.17818472546978,
+      "y": 66.99084134641086
     },
     {
-      "label": "Amanes"
+      "label": "Amanes",
+      "x": 148.39054447253073,
+      "y": -289.3891335278557
     },
     {
-      "label": "Amapiano"
+      "label": "Amapiano",
+      "x": -157.1453756358438,
+      "y": 28.259859105863637
     },
     {
       "page_title": "Ambasse bey",
-      "label": "Ambasse-bey"
+      "label": "Ambasse-bey",
+      "x": -89.56822291564099,
+      "y": 219.58282152803426
     },
     {
-      "label": "Ambient house"
+      "label": "Ambient house",
+      "x": -181.28208482588468,
+      "y": -70.08012375820341
     },
     {
-      "label": "Ambient music"
+      "label": "Ambient music",
+      "x": -152.4179582581221,
+      "y": -76.93273302443457
     },
     {
-      "label": "Ambient techno"
+      "label": "Ambient techno",
+      "x": -183.30377353865475,
+      "y": -81.50706065641631
     },
     {
-      "label": "American classical guitar music"
+      "label": "American classical guitar music",
+      "x": -182.1196670484236,
+      "y": -204.95965137032516
     },
     {
-      "label": "American primitive guitar"
+      "label": "American primitive guitar",
+      "x": 10.780237842084269,
+      "y": -57.16517838971924
     },
     {
       "page_title": "Americana music",
-      "label": "Americana"
+      "label": "Americana",
+      "x": 27.30447558185168,
+      "y": -28.306182367160584
     },
     {
-      "label": "Anarcho-punk"
+      "label": "Anarcho-punk",
+      "x": -26.53574379565129,
+      "y": -181.60482770327704
     },
     {
-      "label": "Anatolian blues"
+      "label": "Anatolian blues",
+      "x": 130.9346529135308,
+      "y": 28.352865568471444
     },
     {
-      "label": "Anatolian rock"
+      "label": "Anatolian rock",
+      "x": 39.22697423326911,
+      "y": -119.66969562988001
     },
     {
-      "label": "Anime song"
+      "label": "Anime song",
+      "x": -171.3447555167031,
+      "y": -129.196302111202
     },
     {
-      "label": "Anti-folk"
+      "label": "Anti-folk",
+      "x": 34.33522824285862,
+      "y": -137.66031634517427
     },
     {
-      "label": "Apala"
+      "label": "Apala",
+      "x": 168.2037761190489,
+      "y": -152.79785961311896
     },
     {
-      "label": "Appalachian music"
+      "label": "Appalachian music",
+      "x": 71.90008849828814,
+      "y": -31.1731982098614
     },
     {
       "page_title": "Arabesque (Turkish music)",
-      "label": "Arabesque music"
+      "label": "Arabesque music",
+      "x": -351.57652131858543,
+      "y": 29.35958814342879
     },
     {
       "page_title": "Arabic pop",
-      "label": "Arabic pop music"
+      "label": "Arabic pop music",
+      "x": -50.722277048209655,
+      "y": 103.58354199029924
     },
     {
-      "label": "Arena rock"
+      "label": "Arena rock",
+      "x": 9.573091627445745,
+      "y": -113.36499149749518
     },
     {
       "page_title": "Armenian rock",
-      "label": "Armenian Rock"
+      "label": "Armenian Rock",
+      "x": 26.13730362607173,
+      "y": -123.37153350927518
     },
     {
-      "label": "Art pop"
+      "label": "Art pop",
+      "x": -105.07773320311678,
+      "y": -73.36934290163978
     },
     {
-      "label": "Art punk"
+      "label": "Art punk",
+      "x": -77.24400690877869,
+      "y": -146.11530864227643
     },
     {
-      "label": "Art rock"
+      "label": "Art rock",
+      "x": -76.55482929165011,
+      "y": -108.55204225147328
     },
     {
       "page_title": "Ashiqs of Azerbaijan",
-      "label": "Azerbaijani Ashiq music"
+      "label": "Azerbaijani Ashiq music",
+      "x": 112.66067342806292,
+      "y": -69.86714859558116
     },
     {
       "page_title": "Asian American hip-hop",
-      "label": "Asian American hip hop"
+      "label": "Asian American hip hop",
+      "x": -267.4420394330504,
+      "y": 104.64047395927291
     },
     {
       "page_title": "Asian hip-hop",
-      "label": "Asian hip hop"
+      "label": "Asian hip hop",
+      "x": -271.50910639363786,
+      "y": 67.81154035069969
     },
     {
-      "label": "Athabaskan fiddle"
+      "label": "Athabaskan fiddle",
+      "x": 224.22042538344832,
+      "y": -31.284573820103905
     },
     {
-      "label": "Atlanta blues"
+      "label": "Atlanta blues",
+      "x": 105.89312855574474,
+      "y": 42.250412948511176
     },
     {
-      "label": "Australian hip-hop"
+      "label": "Australian hip-hop",
+      "x": -122.34027016676951,
+      "y": -13.98080926878067
     },
     {
-      "label": "Austropop"
+      "label": "Austropop",
+      "x": -3.153385616161851,
+      "y": -95.82060586304642
     },
     {
-      "label": "Avant-funk"
+      "label": "Avant-funk",
+      "x": -111.28520119612956,
+      "y": -62.094712300104845
     },
     {
       "page_title": "Avant-garde jazz",
-      "label": "Avant-garde Jazz"
+      "label": "Avant-garde Jazz",
+      "x": -66.8094263430183,
+      "y": -38.158337148945854
     },
     {
-      "label": "Avant-garde metal"
+      "label": "Avant-garde metal",
+      "x": -73.55954555834685,
+      "y": -186.77861439753727
     },
     {
       "page_title": "Avant-garde music",
-      "label": "Avant-garde"
+      "label": "Avant-garde",
+      "x": -107.8907915683116,
+      "y": -95.4564460921377
     },
     {
-      "label": "Axé"
+      "label": "Axé",
+      "x": -71.31713339748529,
+      "y": 109.08736734136696
     },
     {
-      "label": "Azerbaijani pop music"
+      "label": "Azerbaijani pop music",
+      "x": -232.8961239104415,
+      "y": 28.33624581658319
     },
     {
       "page_title": "Bachata (music)",
-      "label": "Bachata"
+      "label": "Bachata",
+      "x": -51.71473075431284,
+      "y": 173.2506232683742
     },
     {
-      "label": "Bachatón"
+      "label": "Bachatón",
+      "x": -98.05480516474314,
+      "y": 154.60717423551242
     },
     {
-      "label": "Bagad"
+      "label": "Bagad",
+      "x": -130.81605900342157,
+      "y": 270.6303887775237
     },
     {
-      "label": "Baggy"
+      "label": "Baggy",
+      "x": -113.08672146416609,
+      "y": -86.25352653859919
     },
     {
-      "label": "Bahamian Rhyming Spiritual"
+      "label": "Bahamian Rhyming Spiritual",
+      "x": 73.89000766580497,
+      "y": 73.12759829738847
     },
     {
       "page_title": "Baithak Gana",
-      "label": "Baithak gana"
+      "label": "Baithak gana",
+      "x": 193.0665605721318,
+      "y": 186.54967142421924
     },
     {
-      "label": "Bakersfield sound"
+      "label": "Bakersfield sound",
+      "x": 76.34489108180718,
+      "y": -39.18849376003619
     },
     {
-      "label": "Balani show"
+      "label": "Balani show",
+      "x": -222.00425736430373,
+      "y": 103.62965689497022
     },
     {
-      "label": "Balearic beat"
+      "label": "Balearic beat",
+      "x": -169.68093133354654,
+      "y": -8.580134725017626
     },
     {
-      "label": "Balearic trance"
+      "label": "Balearic trance",
+      "x": -249.68171300527013,
+      "y": -46.704720418070856
     },
     {
       "page_title": "Balkan brass",
-      "label": "Balkan brass music"
+      "label": "Balkan brass music",
+      "x": -372.7485411589333,
+      "y": 25.903507123214936
     },
     {
       "page_title": "Ball culture#Music",
-      "label": "Ballroom music"
+      "label": "Ballroom music",
+      "x": -202.7974651882196,
+      "y": 4.391681690562875
     },
     {
       "page_title": "Ballroom rumba",
-      "label": "Rhumba"
+      "label": "Rhumba",
+      "x": 35.09861466034786,
+      "y": 175.38959303700932
     },
     {
-      "label": "Baltimore club"
+      "label": "Baltimore club",
+      "x": -220.21343714264552,
+      "y": -0.2778535360520748
     },
     {
       "page_title": "Bambuco",
-      "label": "Danza Del Bambuco"
+      "label": "Danza Del Bambuco",
+      "x": 61.30492771281635,
+      "y": 219.26066291284522
     },
     {
-      "label": "Banda music"
+      "label": "Banda music",
+      "x": 26.687938574808605,
+      "y": 131.8671652561018
     },
     {
-      "label": "Bandana thrash"
+      "label": "Bandana thrash",
+      "x": -118.63622393927612,
+      "y": -282.99706814695685
     },
     {
-      "label": "Bangladeshi heavy metal"
+      "label": "Bangladeshi heavy metal",
+      "x": 8.56596818761221,
+      "y": -151.95257126360272
     },
     {
-      "label": "Bangladeshi hip-hop"
+      "label": "Bangladeshi hip-hop",
+      "x": -140.61869865811062,
+      "y": 59.13103745751929
     },
     {
       "page_title": "Bangladeshi rock",
-      "label": "Bangladeshi rock music"
+      "label": "Bangladeshi rock music",
+      "x": -2.2359759505835006,
+      "y": -110.82248620397378
     },
     {
-      "label": "Banjo music"
+      "label": "Banjo music",
+      "x": 23.548803842775413,
+      "y": -17.770000196650436
     },
     {
-      "label": "Bantowbol"
+      "label": "Bantowbol",
+      "x": 173.68064122180937,
+      "y": -193.7518226427606
     },
     {
-      "label": "Barbershop music"
+      "label": "Barbershop music",
+      "x": 471.20916266154404,
+      "y": 124.02710618387293
     },
     {
       "page_title": "Bard (Soviet Union)",
-      "label": "Author song"
+      "label": "Author song",
+      "x": -254.0226283951834,
+      "y": 141.92559325737034
     },
     {
-      "label": "Bardcore"
+      "label": "Bardcore",
+      "x": -49.641281285073475,
+      "y": -135.01691287144885
     },
     {
-      "label": "Baroque pop"
+      "label": "Baroque pop",
+      "x": -30.974624304965086,
+      "y": -36.314132825029525
     },
     {
       "page_title": "Bassline (music genre)",
-      "label": "Bassline"
+      "label": "Bassline",
+      "x": -237.62141492909686,
+      "y": -8.820499906706369
     },
     {
-      "label": "Batrelaky"
+      "label": "Batrelaky",
+      "x": 268.52515055248506,
+      "y": -14.776278274787636
     },
     {
-      "label": "Battle rap"
+      "label": "Battle rap",
+      "x": -333.9968714978718,
+      "y": 92.56283182925479
     },
     {
       "page_title": "Batuque (Cape Verde)",
-      "label": "Batuque"
+      "label": "Batuque",
+      "x": 61.313580744468744,
+      "y": 253.88446594246003
     },
     {
-      "label": "Bay Area thrash metal"
+      "label": "Bay Area thrash metal",
+      "x": -33.85308513760792,
+      "y": -209.83870105614392
     },
     {
       "page_title": "Beach music",
-      "label": "Beach"
+      "label": "Beach",
+      "x": 6.2477822727852885,
+      "y": -7.146306279715898
     },
     {
       "page_title": "Beat music",
-      "label": "Beat"
+      "label": "Beat",
+      "x": -4.972983131842265,
+      "y": -35.84236866679159
     },
     {
-      "label": "Beatdown hardcore"
+      "label": "Beatdown hardcore",
+      "x": -109.51358225172856,
+      "y": -189.4494012524132
     },
     {
-      "label": "Bebop"
+      "label": "Bebop",
+      "x": -18.696977440853964,
+      "y": 65.2999765482379
     },
     {
-      "label": "Belgian hardcore techno"
+      "label": "Belgian hardcore techno",
+      "x": -242.18113657768265,
+      "y": -107.23308694391127
     },
     {
       "page_title": "Benga music",
-      "label": "Benga"
+      "label": "Benga",
+      "x": -142.7899051179574,
+      "y": 228.0307323916175
     },
     {
       "page_title": "Bengali Rock music (India)",
-      "label": "Bengali Rock music"
+      "label": "Bengali Rock music",
+      "x": 71.87022516281779,
+      "y": -53.786914121302985
     },
     {
-      "label": "Bertitik"
+      "label": "Bertitik",
+      "x": 157.77329518938657,
+      "y": -82.42938072889595
     },
     {
-      "label": "Bećarac"
+      "label": "Bećarac",
+      "x": 226.289231578748,
+      "y": -138.34466565072998
     },
     {
       "page_title": "Bhangra (music)",
-      "label": "Bhangra"
+      "label": "Bhangra",
+      "x": 16.45855994690436,
+      "y": -24.910225344378752
     },
     {
-      "label": "Big band"
+      "label": "Big band",
+      "x": -16.235783012344683,
+      "y": 28.234098644544122
     },
     {
-      "label": "Big beat"
+      "label": "Big beat",
+      "x": -167.45333413136206,
+      "y": -70.26461738504914
     },
     {
-      "label": "Big room house"
+      "label": "Big room house",
+      "x": -240.13820784595706,
+      "y": -57.68000507947031
     },
     {
-      "label": "Biguine"
+      "label": "Biguine",
+      "x": -54.24485196947694,
+      "y": 224.20771566959513
     },
     {
-      "label": "Biker metal"
+      "label": "Biker metal",
+      "x": -5.073219019857723,
+      "y": -137.8225836934276
     },
     {
-      "label": "Bikutsi"
+      "label": "Bikutsi",
+      "x": 0.14879243210056625,
+      "y": 279.7006160330445
     },
     {
-      "label": "Birmingham sound"
+      "label": "Birmingham sound",
+      "x": -293.39431161579733,
+      "y": -57.659544464175674
     },
     {
       "page_title": "Bisrock",
-      "label": "BisRock"
+      "label": "BisRock",
+      "x": -160.87206056096358,
+      "y": -241.19191647502905
     },
     {
-      "label": "Bitpop"
+      "label": "Bitpop",
+      "x": -155.06739472775152,
+      "y": -96.32285652036057
     },
     {
       "page_title": "Black Gospel music",
-      "label": "Black gospel music"
+      "label": "Black gospel music",
+      "x": -37.132025545888496,
+      "y": 58.18579851474307
     },
     {
-      "label": "Black MIDI"
+      "label": "Black MIDI",
+      "x": 233.1056831865711,
+      "y": 32.68934200912355
     },
     {
-      "label": "Black metal"
+      "label": "Black metal",
+      "x": -26.261487526086242,
+      "y": -237.1576336819999
     },
     {
-      "label": "Blackened death metal"
+      "label": "Blackened death metal",
+      "x": -36.7496898276158,
+      "y": -272.7775772042034
     },
     {
       "page_title": "Blackened death metal#Melodic black-death",
-      "label": "Melodic black-death"
+      "label": "Melodic black-death",
+      "x": -24.708782916295,
+      "y": -277.70672777044234
     },
     {
       "page_title": "Blackened death metal#War metal",
-      "label": "War metal"
+      "label": "War metal",
+      "x": -52.11862797204039,
+      "y": -271.2642243944869
     },
     {
-      "label": "Blackgaze"
+      "label": "Blackgaze",
+      "x": -77.17365672618001,
+      "y": -178.1770547900261
     },
     {
-      "label": "Bleep techno"
+      "label": "Bleep techno",
+      "x": -196.00693776313514,
+      "y": -36.985988715313205
     },
     {
-      "label": "Blog rock"
+      "label": "Blog rock",
+      "x": -46.46361940036455,
+      "y": -175.95796269297023
     },
     {
-      "label": "Bloghouse"
+      "label": "Bloghouse",
+      "x": -158.4667115832063,
+      "y": -72.43544849586128
     },
     {
       "page_title": "Bluegrass music",
-      "label": "Bluegrass"
+      "label": "Bluegrass",
+      "x": 38.83328606511104,
+      "y": -19.09328679924171
     },
     {
-      "label": "Blues"
+      "label": "Blues",
+      "x": 21.032440482496636,
+      "y": 0.052599434680560574
     },
     {
-      "label": "Blues rock"
+      "label": "Blues rock",
+      "x": 36.558202152166956,
+      "y": -76.10294203658651
     },
     {
-      "label": "Bolero"
+      "label": "Bolero",
+      "x": -8.523155841935903,
+      "y": 132.75343897202748
     },
     {
-      "label": "Bolojo"
+      "label": "Bolojo",
+      "x": 205.0153558841951,
+      "y": -42.33274840706524
     },
     {
       "page_title": "Bomba (Puerto Rico)",
-      "label": "Bomba"
+      "label": "Bomba",
+      "x": -8.103038234734806,
+      "y": 190.08357368441835
     },
     {
-      "label": "Bongai"
+      "label": "Bongai",
+      "x": 243.40270933137782,
+      "y": -22.940828718773822
     },
     {
-      "label": "Bongo Flava"
+      "label": "Bongo Flava",
+      "x": -243.47720553635745,
+      "y": 191.99098253111484
     },
     {
-      "label": "Boogaloo"
+      "label": "Boogaloo",
+      "x": -38.45190734078854,
+      "y": 96.54784018113543
     },
     {
       "page_title": "Boogie (genre)",
-      "label": "Boogie"
+      "label": "Boogie",
+      "x": -133.67931704534388,
+      "y": -8.668132213390923
     },
     {
-      "label": "Boogie rock"
+      "label": "Boogie rock",
+      "x": 89.5656139518853,
+      "y": -35.29469384924483
     },
     {
-      "label": "Boogie-woogie"
+      "label": "Boogie-woogie",
+      "x": 42.040189992172536,
+      "y": -3.6932657058596328
     },
     {
-      "label": "Boom bap"
+      "label": "Boom bap",
+      "x": -177.90397914987062,
+      "y": 29.379706576711126
     },
     {
-      "label": "Boomba music"
+      "label": "Boomba music",
+      "x": -191.84709035718774,
+      "y": 83.05148485942006
     },
     {
-      "label": "Borgeet"
+      "label": "Borgeet",
+      "x": 139.73173495202008,
+      "y": 81.77402569248903
     },
     {
       "page_title": "Boria (theatre)",
-      "label": "Boria"
+      "label": "Boria",
+      "x": 152.43393760204313,
+      "y": -198.41756947102346
     },
     {
-      "label": "Bossa nova"
+      "label": "Bossa nova",
+      "x": -51.25772468242552,
+      "y": 77.0058653779491
     },
     {
-      "label": "Bounce music"
+      "label": "Bounce music",
+      "x": -188.32002744654312,
+      "y": 31.40462697822062
     },
     {
-      "label": "Bouncy techno"
+      "label": "Bouncy techno",
+      "x": -261.6302461443046,
+      "y": -100.24106376178106
     },
     {
       "page_title": "Bouyon music",
-      "label": "Bouyon"
+      "label": "Bouyon",
+      "x": -110.11813075040537,
+      "y": 258.09962866750107
     },
     {
       "page_title": "Bouyon soca",
-      "label": "Bouyon Music"
+      "label": "Bouyon Music",
+      "x": -139.4329511315388,
+      "y": 204.02984366091957
     },
     {
-      "label": "Brazilian gaucho music"
+      "label": "Brazilian gaucho music",
+      "x": 143.59792178968436,
+      "y": 145.18529389999205
     },
     {
-      "label": "Brazilian rock"
+      "label": "Brazilian rock",
+      "x": -17.5330127079765,
+      "y": 44.34395213396157
     },
     {
-      "label": "Breakbeat"
+      "label": "Breakbeat",
+      "x": -198.90508500545963,
+      "y": -43.56473251818072
     },
     {
-      "label": "Breakbeat hardcore"
+      "label": "Breakbeat hardcore",
+      "x": -230.03561453883214,
+      "y": -63.68888217242478
     },
     {
-      "label": "Breakcore"
+      "label": "Breakcore",
+      "x": -201.8196341197953,
+      "y": -112.82915594421559
     },
     {
-      "label": "Breakstep"
+      "label": "Breakstep",
+      "x": -252.9139939536295,
+      "y": -34.639864027493154
     },
     {
       "page_title": "Brega (music)",
-      "label": "Brega"
+      "label": "Brega",
+      "x": -46.35863568536515,
+      "y": 68.89458984577439
     },
     {
       "page_title": "Brega pop",
-      "label": "Brega-pop"
+      "label": "Brega-pop",
+      "x": -84.64445376462878,
+      "y": 107.29078764203935
     },
     {
       "page_title": "Brill Building (genre)",
-      "label": "Brill Building"
+      "label": "Brill Building",
+      "x": -37.023814011624516,
+      "y": -16.456340004258735
     },
     {
-      "label": "Brisbane punk rock"
+      "label": "Brisbane punk rock",
+      "x": 27.941833460005157,
+      "y": -95.71407122696463
     },
     {
-      "label": "Brit funk"
+      "label": "Brit funk",
+      "x": -104.45967546181906,
+      "y": 33.59854419927962
     },
     {
-      "label": "British blues"
+      "label": "British blues",
+      "x": 60.16838099893656,
+      "y": -30.15880353402043
     },
     {
-      "label": "British folk rock"
+      "label": "British folk rock",
+      "x": 40.2110678397095,
+      "y": -129.4389460508011
     },
     {
-      "label": "British rhythm and blues"
+      "label": "British rhythm and blues",
+      "x": 1.75784556890363,
+      "y": -52.444828934472916
     },
     {
-      "label": "British rock and roll"
+      "label": "British rock and roll",
+      "x": 82.2698155472801,
+      "y": -53.08840620862592
     },
     {
-      "label": "British soul"
+      "label": "British soul",
+      "x": -10.853106679311619,
+      "y": 1.3510881580046659
     },
     {
-      "label": "Britpop"
+      "label": "Britpop",
+      "x": -47.90040890258043,
+      "y": -109.19676164078732
     },
     {
-      "label": "Bro-country"
+      "label": "Bro-country",
+      "x": -53.50831209172766,
+      "y": -28.32015347615343
     },
     {
-      "label": "Broken beat"
+      "label": "Broken beat",
+      "x": -183.97050860577187,
+      "y": -19.25633141540876
     },
     {
-      "label": "Brooklyn drill"
+      "label": "Brooklyn drill",
+      "x": -207.77307833352882,
+      "y": 64.71766770113248
     },
     {
       "page_title": "Brooklyn drill#Bronx drill",
-      "label": "Bronx drill"
+      "label": "Bronx drill",
+      "x": -146.91858690131926,
+      "y": 41.67627755754318
     },
     {
-      "label": "Brukdown"
+      "label": "Brukdown",
+      "x": -128.71991651787496,
+      "y": 221.5951067121408
     },
     {
-      "label": "Brutal death metal"
+      "label": "Brutal death metal",
+      "x": -80.81501605007955,
+      "y": -249.322944354207
     },
     {
       "page_title": "Brutal death metal#Slam death metal",
-      "label": "Slam death metal"
+      "label": "Slam death metal",
+      "x": -99.19551061459649,
+      "y": -198.5628955934041
     },
     {
       "page_title": "Bubblegum music",
-      "label": "Bubblegum"
+      "label": "Bubblegum",
+      "x": -71.88741838219103,
+      "y": -57.06758311785551
     },
     {
-      "label": "Budots"
+      "label": "Budots",
+      "x": -236.83801135801713,
+      "y": -68.98609323149186
     },
     {
       "page_title": "Bulgarian hip-hop",
-      "label": "Bulgarian hip hop"
+      "label": "Bulgarian hip hop",
+      "x": -297.9926516593032,
+      "y": 53.737453746111136
     },
     {
-      "label": "Bullerengue"
+      "label": "Bullerengue",
+      "x": -176.68770924366723,
+      "y": 256.8351082868403
     },
     {
-      "label": "Burban"
+      "label": "Burban",
+      "x": -140.91166284856547,
+      "y": 21.604095941136745
     },
     {
-      "label": "Bélé"
+      "label": "Bélé",
+      "x": -85.91059267022841,
+      "y": 254.9797171010549
     },
     {
-      "label": "C-pop"
+      "label": "C-pop",
+      "x": -60.018002531542585,
+      "y": 73.3549196949808
     },
     {
       "page_title": "Cachaca (musical genre)",
-      "label": "Cachaca"
+      "label": "Cachaca",
+      "x": 227.73243601702708,
+      "y": 86.15111419341359
     },
     {
-      "label": "Cadence rampa"
+      "label": "Cadence rampa",
+      "x": -102.59319182732747,
+      "y": 235.47602101833547
     },
     {
-      "label": "Cadence-lypso"
+      "label": "Cadence-lypso",
+      "x": -122.13699241974241,
+      "y": 186.91084627995946
     },
     {
       "page_title": "Caipira music",
-      "label": "Caipira"
+      "label": "Caipira",
+      "x": 125.11858388343589,
+      "y": 133.32510791700147
     },
     {
-      "label": "Cajun fiddle"
+      "label": "Cajun fiddle",
+      "x": 125.4010937485145,
+      "y": 7.125824107673139
     },
     {
-      "label": "Cajun music"
+      "label": "Cajun music",
+      "x": 55.48959045494649,
+      "y": 22.58146648167131
     },
     {
-      "label": "Cakewalk"
+      "label": "Cakewalk",
+      "x": 73.95193018284681,
+      "y": 130.33651336124754
     },
     {
       "page_title": "Calypso music",
-      "label": "Calypso"
+      "label": "Calypso",
+      "x": -98.61282834046567,
+      "y": 115.45965229187803
     },
     {
-      "label": "Cambodian rock (1960s–1970s)"
+      "label": "Cambodian rock (1960s–1970s)",
+      "x": -12.072862027246815,
+      "y": 19.674825105429747
     },
     {
       "page_title": "Campus folk song",
-      "label": "Taiwanese campus folk song"
+      "label": "Taiwanese campus folk song",
+      "x": 26.72812789197258,
+      "y": -6.541869467421547
     },
     {
-      "label": "Canadian blues"
+      "label": "Canadian blues",
+      "x": 92.50615514610861,
+      "y": -19.490987362351408
     },
     {
-      "label": "Canadian heavy metal"
+      "label": "Canadian heavy metal",
+      "x": 22.31758326408294,
+      "y": -271.6976759889216
     },
     {
-      "label": "Canción melódica"
+      "label": "Canción melódica",
+      "x": 28.8583071081303,
+      "y": 96.63367068947854
     },
     {
-      "label": "Candombe"
+      "label": "Candombe",
+      "x": 72.28670476039369,
+      "y": 180.04103317454704
     },
     {
-      "label": "Cante Alentejano"
+      "label": "Cante Alentejano",
+      "x": 212.77241233474263,
+      "y": -159.61351302347936
     },
     {
-      "label": "Canterbury scene"
+      "label": "Canterbury scene",
+      "x": -56.88312178162972,
+      "y": -80.6384885702367
     },
     {
-      "label": "Cantopop"
+      "label": "Cantopop",
+      "x": -66.51083695511863,
+      "y": -13.613016046789054
     },
     {
       "page_title": "Cantu a tenore",
-      "label": "Cantu a tenòre"
+      "label": "Cantu a tenòre",
+      "x": 225.98018600233902,
+      "y": -8.825039680181957
     },
     {
-      "label": "Cape Breton fiddling"
+      "label": "Cape Breton fiddling",
+      "x": 193.4959133230326,
+      "y": 64.13989475579481
     },
     {
-      "label": "Cape jazz"
+      "label": "Cape jazz",
+      "x": 4.673172410247336,
+      "y": 130.1236981652367
     },
     {
-      "label": "Capoeira music"
+      "label": "Capoeira music",
+      "x": -23.940582786228003,
+      "y": 236.41062226572416
     },
     {
-      "label": "Car song"
+      "label": "Car song",
+      "x": -30.619600281229662,
+      "y": -0.1719952630969086
     },
     {
-      "label": "Cello rock"
+      "label": "Cello rock",
+      "x": -32.4096651484103,
+      "y": -171.9684724848916
     },
     {
-      "label": "Celtic fusion"
+      "label": "Celtic fusion",
+      "x": -55.300171742883904,
+      "y": -183.017927405633
     },
     {
-      "label": "Celtic metal"
+      "label": "Celtic metal",
+      "x": 7.883226203412919,
+      "y": -206.15467130607882
     },
     {
-      "label": "Celtic rock"
+      "label": "Celtic rock",
+      "x": 19.108305346635166,
+      "y": -159.55528418341342
     },
     {
       "page_title": "Cha-cha-chá (music)",
-      "label": "Cha-cha-chá"
+      "label": "Cha-cha-chá",
+      "x": -11.139016848490426,
+      "y": 117.36802671994309
     },
     {
       "page_title": "Chaabi (Algeria)",
-      "label": "Chaabi"
+      "label": "Chaabi",
+      "x": 480.1780273033137,
+      "y": -90.86824943892937
     },
     {
-      "label": "Chalga"
+      "label": "Chalga",
+      "x": -278.1133964369534,
+      "y": 2.8108601758195317
     },
     {
-      "label": "Chamamé"
+      "label": "Chamamé",
+      "x": 105.09492800168276,
+      "y": 221.87247273814367
     },
     {
-      "label": "Chamber jazz"
+      "label": "Chamber jazz",
+      "x": -9.09728964270046,
+      "y": 65.1783711420682
     },
     {
-      "label": "Chamber pop"
+      "label": "Chamber pop",
+      "x": -26.855137686385916,
+      "y": -58.093768677784354
     },
     {
-      "label": "Champeta"
+      "label": "Champeta",
+      "x": -136.6034888757427,
+      "y": 170.9095418249265
     },
     {
-      "label": "Chanson"
+      "label": "Chanson",
+      "x": 39.57222812370496,
+      "y": 124.5209009325276
     },
     {
-      "label": "Chanson franco-orientale"
+      "label": "Chanson franco-orientale",
+      "x": 33.632088755740426,
+      "y": 159.36538800952277
     },
     {
-      "label": "Chanson réaliste"
+      "label": "Chanson réaliste",
+      "x": -59.34907616104979,
+      "y": 154.2417394723706
     },
     {
-      "label": "Chanté mas"
+      "label": "Chanté mas",
+      "x": -114.45559720402036,
+      "y": 308.40484265760966
     },
     {
-      "label": "Chap hop"
+      "label": "Chap hop",
+      "x": -156.95282251839123,
+      "y": 64.53757424692493
     },
     {
-      "label": "Chicago blues"
+      "label": "Chicago blues",
+      "x": 130.99296412543126,
+      "y": -14.940497085707758
     },
     {
-      "label": "Chicago house"
+      "label": "Chicago house",
+      "x": -223.64678308731277,
+      "y": -48.89142056034695
     },
     {
-      "label": "Chicago no wave"
+      "label": "Chicago no wave",
+      "x": -175.4856026635739,
+      "y": -223.104289180065
     },
     {
-      "label": "Chicago soul"
+      "label": "Chicago soul",
+      "x": -4.547277764201512,
+      "y": 26.119973051884767
     },
     {
-      "label": "Chicano rap"
+      "label": "Chicano rap",
+      "x": -118.35412470059433,
+      "y": 72.62252951736619
     },
     {
-      "label": "Children's music"
+      "label": "Children's music",
+      "x": 99.90154752803375,
+      "y": -45.0736382547709
     },
     {
       "page_title": "Chilean rock",
-      "label": "Rock music in Chile"
+      "label": "Rock music in Chile",
+      "x": 52.98122501876758,
+      "y": 5.726202203451282
     },
     {
-      "label": "Chillstep"
+      "label": "Chillstep",
+      "x": -187.24827959659623,
+      "y": -109.38513671201149
     },
     {
-      "label": "Chillwave"
+      "label": "Chillwave",
+      "x": -115.59634753682585,
+      "y": -69.36130509716695
     },
     {
       "page_title": "Chimurenga music",
-      "label": "Chimurenga"
+      "label": "Chimurenga",
+      "x": 58.867002976127644,
+      "y": 74.43878690075755
     },
     {
-      "label": "Chiptune"
+      "label": "Chiptune",
+      "x": -158.94618583854947,
+      "y": -83.35941609922611
     },
     {
-      "label": "Chopped and screwed"
+      "label": "Chopped and screwed",
+      "x": -194.41043233714925,
+      "y": -21.94875300691564
     },
     {
       "page_title": "Chopped and screwed#Slowed and reverb",
-      "label": "Slowed and reverb"
+      "label": "Slowed and reverb",
+      "x": -231.79694821391791,
+      "y": -115.84568669012204
     },
     {
       "page_title": "Chopper (rap)",
-      "label": "Chopper rap"
+      "label": "Chopper rap",
+      "x": -254.0780365856562,
+      "y": 95.83021840518171
     },
     {
-      "label": "Chorale motet"
+      "label": "Chorale motet",
+      "x": 247.26346216130904,
+      "y": 108.60812822675268
     },
     {
-      "label": "Choro"
+      "label": "Choro",
+      "x": 17.67581548763662,
+      "y": 178.45534882906628
     },
     {
-      "label": "Chouval bwa"
+      "label": "Chouval bwa",
+      "x": -84.31002558863115,
+      "y": 309.0884639771804
     },
     {
       "page_title": "Christian R&B",
-      "label": "Christian rhythm and blues"
+      "label": "Christian rhythm and blues",
+      "x": -65.22844973083784,
+      "y": 40.375591534582405
     },
     {
-      "label": "Christian adult contemporary"
+      "label": "Christian adult contemporary",
+      "x": -34.48940536039334,
+      "y": 11.06315772564944
     },
     {
       "page_title": "Christian alternative rock",
-      "label": "Christian alternative music"
+      "label": "Christian alternative music",
+      "x": -1.479807661380585,
+      "y": -75.99321472818185
     },
     {
-      "label": "Christian country music"
+      "label": "Christian country music",
+      "x": 55.38522786367209,
+      "y": -4.061671931777728
     },
     {
-      "label": "Christian death metal"
+      "label": "Christian death metal",
+      "x": 21.184395221054466,
+      "y": -224.02980749433794
     },
     {
       "page_title": "Christian electronic dance music",
-      "label": "CEDM"
+      "label": "CEDM",
+      "x": -138.67541340195862,
+      "y": -29.9965850805138
     },
     {
-      "label": "Christian hardcore"
+      "label": "Christian hardcore",
+      "x": -1.2606489427677374,
+      "y": -184.06577861243463
     },
     {
-      "label": "Christian hip-hop"
+      "label": "Christian hip-hop",
+      "x": -97.08418365582679,
+      "y": 38.564067626822165
     },
     {
-      "label": "Christian metal"
+      "label": "Christian metal",
+      "x": 36.26013899724018,
+      "y": -157.84629672330237
     },
     {
-      "label": "Christian punk"
+      "label": "Christian punk",
+      "x": 25.16212971040332,
+      "y": -136.96559672318304
     },
     {
-      "label": "Christian rock"
+      "label": "Christian rock",
+      "x": 22.32025832552341,
+      "y": -108.05956920759483
     },
     {
-      "label": "Christian ska"
+      "label": "Christian ska",
+      "x": -39.738861257199716,
+      "y": 0.24140856634216595
     },
     {
       "page_title": "Chutney music",
-      "label": "Chutney"
+      "label": "Chutney",
+      "x": -106.24180106646115,
+      "y": 164.57378131752148
     },
     {
-      "label": "Chutney parang"
+      "label": "Chutney parang",
+      "x": -75.90129742094973,
+      "y": 182.01978692505196
     },
     {
-      "label": "Chutney soca"
+      "label": "Chutney soca",
+      "x": -119.51747021231392,
+      "y": 173.18849118137746
     },
     {
-      "label": "Cinematic soul"
+      "label": "Cinematic soul",
+      "x": -80.85967096594536,
+      "y": 57.76919384732366
     },
     {
-      "label": "City pop"
+      "label": "City pop",
+      "x": -89.70739690051735,
+      "y": -10.74418540799303
     },
     {
-      "label": "Classic female blues"
+      "label": "Classic female blues",
+      "x": 92.5143841579634,
+      "y": 57.84908166992926
     },
     {
-      "label": "Classical music in hip-hop"
+      "label": "Classical music in hip-hop",
+      "x": -210.55246495741568,
+      "y": 77.90775121214651
     },
     {
-      "label": "Cleveland punk"
+      "label": "Cleveland punk",
+      "x": 18.15961537941401,
+      "y": -117.32167094961153
     },
     {
-      "label": "Cloud rap"
+      "label": "Cloud rap",
+      "x": -178.01304517258666,
+      "y": -24.379939928795775
     },
     {
-      "label": "Cock rock"
+      "label": "Cock rock",
+      "x": 89.26621780159384,
+      "y": -96.52647911725286
     },
     {
-      "label": "Coladeira"
+      "label": "Coladeira",
+      "x": -126.29289764857351,
+      "y": 255.63390487747574
     },
     {
       "page_title": "Cold wave (music)",
-      "label": "Cold wave"
+      "label": "Cold wave",
+      "x": -86.50118904958254,
+      "y": -106.0837030097694
     },
     {
-      "label": "College rock"
+      "label": "College rock",
+      "x": -37.49951385381983,
+      "y": -127.14854712032925
     },
     {
-      "label": "Collegiate a cappella"
+      "label": "Collegiate a cappella",
+      "x": 481.1460630981075,
+      "y": 76.798350038487
     },
     {
-      "label": "Colá"
+      "label": "Colá",
+      "x": 252.77304632745393,
+      "y": 87.10091723814537
     },
     {
-      "label": "Comedy hip-hop"
+      "label": "Comedy hip-hop",
+      "x": -167.77933479645728,
+      "y": -25.55487344759345
     },
     {
-      "label": "Comedy music"
+      "label": "Comedy music",
+      "x": -136.3262265950547,
+      "y": -102.60899662257277
     },
     {
-      "label": "Comedy rock"
+      "label": "Comedy rock",
+      "x": -118.51167676160662,
+      "y": -142.3056598215336
     },
     {
-      "label": "Compas"
+      "label": "Compas",
+      "x": -108.33326210322869,
+      "y": 193.763717726847
     },
     {
       "page_title": "Conga (music)",
-      "label": "Conga"
+      "label": "Conga",
+      "x": 32.646644239645006,
+      "y": 204.96598856628088
     },
     {
-      "label": "Congolese rumba"
+      "label": "Congolese rumba",
+      "x": -93.97678504783308,
+      "y": 181.00355719876288
     },
     {
-      "label": "Contemporary Christian music"
+      "label": "Contemporary Christian music",
+      "x": -8.363205698985917,
+      "y": -8.466876315150014
     },
     {
-      "label": "Contemporary R&B"
+      "label": "Contemporary R&B",
+      "x": -128.30548207877322,
+      "y": 5.486167086543434
     },
     {
-      "label": "Contemporary folk music"
+      "label": "Contemporary folk music",
+      "x": 23.927194749538675,
+      "y": -87.77634063605457
     },
     {
       "page_title": "Contemporary folk music#Country folk",
-      "label": "Country folk"
+      "label": "Country folk",
+      "x": 64.43222540242004,
+      "y": -43.33132261789831
     },
     {
-      "label": "Contemporary worship music"
+      "label": "Contemporary worship music",
+      "x": 39.81361150535152,
+      "y": 8.238896444347816
     },
     {
-      "label": "Contradanza"
+      "label": "Contradanza",
+      "x": 58.61336489407927,
+      "y": 170.81325777822724
     },
     {
-      "label": "Cool Cymru"
+      "label": "Cool Cymru",
+      "x": 6.4252548703888746,
+      "y": -136.5744727539429
     },
     {
-      "label": "Cool jazz"
+      "label": "Cool jazz",
+      "x": -34.874741322038524,
+      "y": 21.054422833929696
     },
     {
-      "label": "Coon song"
+      "label": "Coon song",
+      "x": 186.63949522916536,
+      "y": -35.490949171436455
     },
     {
-      "label": "Copy thachin"
+      "label": "Copy thachin",
+      "x": 85.99234095718911,
+      "y": -147.8968202056499
     },
     {
-      "label": "Corridos tumbados"
+      "label": "Corridos tumbados",
+      "x": -82.61827313608443,
+      "y": 121.20999510607592
     },
     {
       "page_title": "Country Funk 1969–1975#Background",
-      "label": "Country funk"
+      "label": "Country funk",
+      "x": 15.783320200038897,
+      "y": 25.93349153039394
     },
     {
-      "label": "Country and Irish"
+      "label": "Country and Irish",
+      "x": 136.00879775306197,
+      "y": -34.09144045544651
     },
     {
-      "label": "Country blues"
+      "label": "Country blues",
+      "x": 62.97066788913072,
+      "y": 12.65361074119552
     },
     {
-      "label": "Country music"
+      "label": "Country music",
+      "x": 33.01659158067838,
+      "y": -14.406212043184174
     },
     {
-      "label": "Country pop"
+      "label": "Country pop",
+      "x": -10.798912094830484,
+      "y": -24.495574159837943
     },
     {
-      "label": "Country rap"
+      "label": "Country rap",
+      "x": -77.01244923896222,
+      "y": 15.178970244880075
     },
     {
-      "label": "Country rock"
+      "label": "Country rock",
+      "x": 47.62904692479164,
+      "y": -58.11208123752286
     },
     {
       "page_title": "Country rock#Country metal",
-      "label": "Country metal"
+      "label": "Country metal",
+      "x": 66.92705575373088,
+      "y": -100.5854210507499
     },
     {
-      "label": "Coupé-décalé"
+      "label": "Coupé-décalé",
+      "x": -198.84925027325974,
+      "y": 97.94414831778224
     },
     {
-      "label": "Cowboy pop"
+      "label": "Cowboy pop",
+      "x": -13.044737535319868,
+      "y": -33.526939663767585
     },
     {
-      "label": "Cowpunk"
+      "label": "Cowpunk",
+      "x": 20.04044156441642,
+      "y": -65.36832125353257
     },
     {
       "page_title": "Creole music",
-      "label": "Creole music of Louisiana"
+      "label": "Creole music of Louisiana",
+      "x": 92.20351514336622,
+      "y": 13.294443058334357
     },
     {
-      "label": "Cringe pop"
+      "label": "Cringe pop",
+      "x": -158.70303195926553,
+      "y": -179.8472220978983
     },
     {
       "page_title": "Croatian hip-hop",
-      "label": "Croatian hip hop"
+      "label": "Croatian hip hop",
+      "x": -139.0037896256636,
+      "y": 1.2102265996694401
     },
     {
-      "label": "Crossover thrash"
+      "label": "Crossover thrash",
+      "x": -53.896530900121306,
+      "y": -226.91027485812705
     },
     {
-      "label": "Crunk"
+      "label": "Crunk",
+      "x": -194.17463189091032,
+      "y": 3.5424167809105134
     },
     {
-      "label": "Crunkcore"
+      "label": "Crunkcore",
+      "x": -130.84666825937367,
+      "y": -87.9037537856232
     },
     {
-      "label": "Crust punk"
+      "label": "Crust punk",
+      "x": -24.02377598985369,
+      "y": -218.63997106963396
     },
     {
-      "label": "Cuarteto"
+      "label": "Cuarteto",
+      "x": 41.12715317676632,
+      "y": 226.01193637095318
     },
     {
       "page_title": "Cuban rumba",
-      "label": "Rumba"
+      "label": "Rumba",
+      "x": 66.26803225767766,
+      "y": 197.6535883759631
     },
     {
       "page_title": "Cumbia (Colombia)",
-      "label": "Cumbia"
+      "label": "Cumbia",
+      "x": 106.21411880289801,
+      "y": 142.88521654390556
     },
     {
-      "label": "Cumbia (Panama)"
+      "label": "Cumbia (Panama)",
+      "x": 133.8129911891973,
+      "y": 214.29067204878612
     },
     {
-      "label": "Cumbia pop"
+      "label": "Cumbia pop",
+      "x": -58.034956997908345,
+      "y": 50.38224700176201
     },
     {
-      "label": "Cumbia santafesina"
+      "label": "Cumbia santafesina",
+      "x": 166.30851784807862,
+      "y": 207.7232896666828
     },
     {
-      "label": "Cumbia villera"
+      "label": "Cumbia villera",
+      "x": 112.57525913266299,
+      "y": 110.58196889399456
     },
     {
-      "label": "D-beat"
+      "label": "D-beat",
+      "x": -44.219753667758866,
+      "y": -216.8959231956172
     },
     {
-      "label": "DMV hip-hop"
+      "label": "DMV hip-hop",
+      "x": -149.2987344952974,
+      "y": 76.71325784193876
     },
     {
-      "label": "Dance music"
+      "label": "Dance music",
+      "x": -142.0328847188254,
+      "y": -5.299120245583684
     },
     {
-      "label": "Dance-pop"
+      "label": "Dance-pop",
+      "x": -156.90682922531897,
+      "y": -20.14811492233639
     },
     {
-      "label": "Dance-punk"
+      "label": "Dance-punk",
+      "x": -96.47238549066232,
+      "y": -74.7473304345538
     },
     {
-      "label": "Dance-rock"
+      "label": "Dance-rock",
+      "x": -95.02919605550062,
+      "y": -50.05705452192053
     },
     {
-      "label": "Dancehall"
+      "label": "Dancehall",
+      "x": -158.20232257157448,
+      "y": 53.862969663164435
     },
     {
-      "label": "Dancehall pop"
+      "label": "Dancehall pop",
+      "x": -135.67994879767275,
+      "y": 37.058219927126444
     },
     {
-      "label": "Dangdut"
+      "label": "Dangdut",
+      "x": -208.75640267827666,
+      "y": -167.87241735653228
     },
     {
-      "label": "Danger music"
+      "label": "Danger music",
+      "x": -169.09878057523417,
+      "y": -190.20003218979048
     },
     {
       "page_title": "Dansband",
-      "label": "Dansbandsmusik"
+      "label": "Dansbandsmusik",
+      "x": -3.3397709443440147,
+      "y": -15.296378367904596
     },
     {
-      "label": "Danzón"
+      "label": "Danzón",
+      "x": 17.55930405873355,
+      "y": 161.34070529934124
     },
     {
       "page_title": "Dappankuthu",
-      "label": "Dappan Kuthu"
+      "label": "Dappan Kuthu",
+      "x": 145.18302982112905,
+      "y": 198.52731752264287
     },
     {
-      "label": "Dark ambient"
+      "label": "Dark ambient",
+      "x": -141.60027580602286,
+      "y": -160.45009407296976
     },
     {
       "page_title": "Dark ambient#Isolationism",
-      "label": "Isolationism"
+      "label": "Isolationism",
+      "x": -189.76964133813794,
+      "y": -252.62176253573534
     },
     {
-      "label": "Dark cabaret"
+      "label": "Dark cabaret",
+      "x": -21.03514638139672,
+      "y": 0.048573141539720144
     },
     {
-      "label": "Dark wave"
+      "label": "Dark wave",
+      "x": -37.643757836085854,
+      "y": -111.70846261468446
     },
     {
-      "label": "Darkcore"
+      "label": "Darkcore",
+      "x": -289.34402250521794,
+      "y": -74.74607256980356
     },
     {
-      "label": "Death 'n' roll"
+      "label": "Death 'n' roll",
+      "x": -16.53670189057866,
+      "y": -192.05953410578243
     },
     {
-      "label": "Death metal"
+      "label": "Death metal",
+      "x": -46.709217695520174,
+      "y": -237.6323799630728
     },
     {
-      "label": "Death-doom"
+      "label": "Death-doom",
+      "x": -35.184971237627735,
+      "y": -248.41529445372367
     },
     {
-      "label": "Deathcore"
+      "label": "Deathcore",
+      "x": -67.61775969562336,
+      "y": -233.3527530489624
     },
     {
-      "label": "Deathgrind"
+      "label": "Deathgrind",
+      "x": -68.81960319451132,
+      "y": -261.4338325741443
     },
     {
-      "label": "Deathrock"
+      "label": "Deathrock",
+      "x": -11.738635547503005,
+      "y": -130.27518331975352
     },
     {
-      "label": "Deconstructed club"
+      "label": "Deconstructed club",
+      "x": -212.04154566812988,
+      "y": -45.51155417785163
     },
     {
-      "label": "Deep funk"
+      "label": "Deep funk",
+      "x": -120.38968407460207,
+      "y": 60.753997506373175
     },
     {
-      "label": "Deep house"
+      "label": "Deep house",
+      "x": -200.23035087070977,
+      "y": -4.269070422519246
     },
     {
-      "label": "Delta blues"
+      "label": "Delta blues",
+      "x": 104.660139216276,
+      "y": 0.03332182466120202
     },
     {
-      "label": "Denpa song"
+      "label": "Denpa song",
+      "x": -238.53618581036628,
+      "y": -139.56713466319314
     },
     {
-      "label": "Descarga"
+      "label": "Descarga",
+      "x": 27.43694942427312,
+      "y": 187.94466405826967
     },
     {
-      "label": "Desert blues"
+      "label": "Desert blues",
+      "x": 69.36756212539544,
+      "y": -7.938800618609202
     },
     {
-      "label": "Desgarrada"
+      "label": "Desgarrada",
+      "x": -257.11087103844795,
+      "y": -207.28358292993352
     },
     {
       "page_title": "Desi hip-hop",
-      "label": "Desi hip hop (DHH)"
+      "label": "Desi hip hop (DHH)",
+      "x": -135.27641711283997,
+      "y": 73.32669616537147
     },
     {
-      "label": "Detroit blues"
+      "label": "Detroit blues",
+      "x": 173.3204207690798,
+      "y": 10.01443256654692
     },
     {
-      "label": "Detroit drill"
+      "label": "Detroit drill",
+      "x": -229.1981704813278,
+      "y": 74.9807506648993
     },
     {
-      "label": "Detroit techno"
+      "label": "Detroit techno",
+      "x": -214.2822441393714,
+      "y": -53.967022463256654
     },
     {
       "page_title": "Deuda (genre)",
-      "label": "Deuda"
+      "label": "Deuda",
+      "x": -78.69369976643348,
+      "y": 237.89281546439545
     },
     {
-      "label": "Digicore"
+      "label": "Digicore",
+      "x": -184.2540203261187,
+      "y": -33.29260625639891
     },
     {
       "page_title": "Digicore#Glitchcore",
-      "label": "Glitchcore"
+      "label": "Glitchcore",
+      "x": -189.7386887892433,
+      "y": -61.07603405616764
     },
     {
-      "label": "Digital hardcore"
+      "label": "Digital hardcore",
+      "x": -146.4490309796808,
+      "y": -120.9190198473288
     },
     {
-      "label": "Dirty rap"
+      "label": "Dirty rap",
+      "x": -220.9234849394754,
+      "y": 44.36482582269538
     },
     {
-      "label": "Disco"
+      "label": "Disco",
+      "x": -125.27322471447019,
+      "y": -24.35787923090206
     },
     {
-      "label": "Disco polo"
+      "label": "Disco polo",
+      "x": -181.588138277663,
+      "y": -61.9747970363387
     },
     {
-      "label": "Diva house"
+      "label": "Diva house",
+      "x": -149.4314940948895,
+      "y": -17.41711819789844
     },
     {
       "page_title": "Dixieland jazz",
-      "label": "Dixieland"
+      "label": "Dixieland",
+      "x": -27.747237993661425,
+      "y": 62.652789058917584
     },
     {
-      "label": "Djent"
+      "label": "Djent",
+      "x": -71.97315403799618,
+      "y": -221.41371082625048
     },
     {
-      "label": "Doină cu noduri"
+      "label": "Doină cu noduri",
+      "x": 276.302063121808,
+      "y": 412.2220337016563
     },
     {
-      "label": "Dolewave"
+      "label": "Dolewave",
+      "x": -45.49456130765191,
+      "y": -125.93466092875323
     },
     {
-      "label": "Dominican dembow"
+      "label": "Dominican dembow",
+      "x": -151.7286084714822,
+      "y": 108.32696520991372
     },
     {
-      "label": "Doo-wop"
+      "label": "Doo-wop",
+      "x": -15.518429049391477,
+      "y": -11.135690003593771
     },
     {
-      "label": "Doom metal"
+      "label": "Doom metal",
+      "x": -35.195695237282926,
+      "y": -186.51615222023676
     },
     {
-      "label": "Downtempo"
+      "label": "Downtempo",
+      "x": -137.67925527785033,
+      "y": -39.006815010737384
     },
     {
-      "label": "Dream pop"
+      "label": "Dream pop",
+      "x": -65.64770683729093,
+      "y": -93.39727204596971
     },
     {
-      "label": "Dream trance"
+      "label": "Dream trance",
+      "x": -239.1614980437121,
+      "y": -83.22864958762221
     },
     {
-      "label": "Dreampunk"
+      "label": "Dreampunk",
+      "x": -174.10612581100463,
+      "y": -76.37061562023737
     },
     {
-      "label": "Drill 'n' bass"
+      "label": "Drill 'n' bass",
+      "x": -216.68841963928045,
+      "y": -81.87107668939593
     },
     {
-      "label": "Drill music"
+      "label": "Drill music",
+      "x": -210.89778027320594,
+      "y": 40.50206079887624
     },
     {
-      "label": "Drone metal"
+      "label": "Drone metal",
+      "x": -81.95487204598707,
+      "y": -193.79142271367738
     },
     {
-      "label": "Drone music"
+      "label": "Drone music",
+      "x": -131.88316275385438,
+      "y": -125.15947575713179
     },
     {
-      "label": "Drum and bass"
+      "label": "Drum and bass",
+      "x": -185.07522427516756,
+      "y": -51.21321972900529
     },
     {
       "page_title": "Dub music",
-      "label": "Dub"
+      "label": "Dub",
+      "x": -160.87098622449503,
+      "y": -27.217230511862603
     },
     {
-      "label": "Dub poetry"
+      "label": "Dub poetry",
+      "x": -261.78778336312257,
+      "y": -0.08020776451675357
     },
     {
-      "label": "Dub techno"
+      "label": "Dub techno",
+      "x": -221.14205018881248,
+      "y": -69.23053414785888
     },
     {
-      "label": "Dubstep"
+      "label": "Dubstep",
+      "x": -184.6751388547468,
+      "y": -40.498570549171305
     },
     {
       "page_title": "Dubstep#2011: Brostep and American developments",
-      "label": "Brostep"
+      "label": "Brostep",
+      "x": -165.43726202882533,
+      "y": -108.88059826590903
     },
     {
-      "label": "Dunedin sound"
+      "label": "Dunedin sound",
+      "x": -39.78979625315251,
+      "y": -101.6775255045002
     },
     {
-      "label": "Dungeon synth"
+      "label": "Dungeon synth",
+      "x": -98.59580212723917,
+      "y": -252.65713853240044
     },
     {
-      "label": "Duranguense"
+      "label": "Duranguense",
+      "x": 10.718393867171708,
+      "y": 150.05903205327468
     },
     {
-      "label": "Dwijendrageeti"
+      "label": "Dwijendrageeti",
+      "x": 179.6149011670456,
+      "y": 168.44078746353605
     },
     {
-      "label": "EDM trap music"
+      "label": "EDM trap music",
+      "x": -190.27115140483448,
+      "y": -14.122422055990082
     },
     {
       "page_title": "Early Norwegian black metal scene",
-      "label": "Norwegian black metal"
+      "label": "Norwegian black metal",
+      "x": -18.780099028883825,
+      "y": -228.69463623781874
     },
     {
-      "label": "East Coast hip-hop"
+      "label": "East Coast hip-hop",
+      "x": -151.1570752477873,
+      "y": 22.9430550538163
     },
     {
-      "label": "Easy listening"
+      "label": "Easy listening",
+      "x": -56.56914129137179,
+      "y": -19.185997948583573
     },
     {
-      "label": "Edo Funk"
+      "label": "Edo Funk",
+      "x": -272.78158670468235,
+      "y": 36.32911713155604
     },
     {
-      "label": "Egg punk"
+      "label": "Egg punk",
+      "x": -58.91618983484935,
+      "y": -127.68628882884916
     },
     {
-      "label": "Ekpili"
+      "label": "Ekpili",
+      "x": 180.38141843771658,
+      "y": 47.39759866916394
     },
     {
-      "label": "Electric blues"
+      "label": "Electric blues",
+      "x": 51.757588114585545,
+      "y": -21.627277418063667
     },
     {
       "page_title": "Electro (music)",
-      "label": "Electro"
+      "label": "Electro",
+      "x": -174.2291843471012,
+      "y": -32.331660101232806
     },
     {
       "page_title": "Electro (music)#Electro-soul",
-      "label": "Electro-soul"
+      "label": "Electro-soul",
+      "x": -123.91947306728426,
+      "y": 34.37316621284307
     },
     {
-      "label": "Electro house"
+      "label": "Electro house",
+      "x": -204.93499934273325,
+      "y": -53.83546287859311
     },
     {
       "page_title": "Electro house#Complextro",
-      "label": "Complextro"
+      "label": "Complextro",
+      "x": -208.63938438739774,
+      "y": -119.43704504785673
     },
     {
       "page_title": "Electro house#Dutch house",
-      "label": "Dutch house"
+      "label": "Dutch house",
+      "x": -229.23710548766587,
+      "y": -30.051880622995775
     },
     {
       "page_title": "Electro house#Fidget house",
-      "label": "Fidget house"
+      "label": "Fidget house",
+      "x": -233.19251367313274,
+      "y": -0.8064115864757596
     },
     {
       "page_title": "Electro house#Melbourne bounce",
-      "label": "Melbourne bounce"
+      "label": "Melbourne bounce",
+      "x": -260.7361311338719,
+      "y": -89.3319860967529
     },
     {
-      "label": "Electro swing"
+      "label": "Electro swing",
+      "x": -108.00717246763452,
+      "y": 14.770653835041289
     },
     {
-      "label": "Electro-industrial"
+      "label": "Electro-industrial",
+      "x": -191.51697585732467,
+      "y": -142.49464293647443
     },
     {
-      "label": "Electroclash"
+      "label": "Electroclash",
+      "x": -162.5744479414422,
+      "y": -64.29055030826324
     },
     {
       "page_title": "Electronic body music",
-      "label": "EBM"
+      "label": "EBM",
+      "x": -158.22917733731182,
+      "y": -104.62028183097596
     },
     {
-      "label": "Electronic dance music"
+      "label": "Electronic dance music",
+      "x": -164.73903184349876,
+      "y": -43.597770377801325
     },
     {
-      "label": "Electronic music"
+      "label": "Electronic music",
+      "x": -133.37819099837157,
+      "y": -65.79054450199703
     },
     {
-      "label": "Electronic rock"
+      "label": "Electronic rock",
+      "x": -127.0847503397208,
+      "y": -96.26216762089173
     },
     {
       "page_title": "Electronic rock#Hyper-rock",
-      "label": "Hyper-rock"
+      "label": "Hyper-rock",
+      "x": -149.91914734239936,
+      "y": -140.17482774451315
     },
     {
       "page_title": "Electronic rock#Synth-metal",
-      "label": "Synth-metal"
+      "label": "Synth-metal",
+      "x": -129.11388857927258,
+      "y": -155.11462838593016
     },
     {
       "page_title": "Electronic rock#Synth-punk",
-      "label": "Synth-punk"
+      "label": "Synth-punk",
+      "x": -123.15328192282118,
+      "y": -132.0758729545795
     },
     {
-      "label": "Electronica"
+      "label": "Electronica",
+      "x": -121.63430759558615,
+      "y": -46.024849474496826
     },
     {
-      "label": "Electronicore"
+      "label": "Electronicore",
+      "x": -133.05317058021816,
+      "y": -191.10862642068295
     },
     {
-      "label": "Electropop"
+      "label": "Electropop",
+      "x": -159.919075897969,
+      "y": -52.17772643212974
     },
     {
-      "label": "Emo"
+      "label": "Emo",
+      "x": -110.8040065821215,
+      "y": -135.39335075131768
     },
     {
-      "label": "Emo pop"
+      "label": "Emo pop",
+      "x": -94.05089136968768,
+      "y": -123.58899366951543
     },
     {
-      "label": "Emo rap"
+      "label": "Emo rap",
+      "x": -150.084427496632,
+      "y": -67.61776783885227
     },
     {
-      "label": "Enka"
+      "label": "Enka",
+      "x": 42.79590035014828,
+      "y": 55.19267322722301
     },
     {
-      "label": "Eshuva"
+      "label": "Eshuva",
+      "x": 209.32030186641225,
+      "y": 165.8131356603801
     },
     {
-      "label": "Ethereal wave"
+      "label": "Ethereal wave",
+      "x": -39.391173565401886,
+      "y": -140.26412916645955
     },
     {
-      "label": "Ethio-jazz"
+      "label": "Ethio-jazz",
+      "x": -86.14319049106362,
+      "y": 134.54327720477306
     },
     {
       "page_title": "Ethiopian chant",
-      "label": "Ethiopian liturgical chant"
+      "label": "Ethiopian liturgical chant",
+      "x": -58.5680058672947,
+      "y": 310.3438652285432
     },
     {
       "page_title": "Ethiopian hip-hop music",
-      "label": "Ethiopian hip hop music"
+      "label": "Ethiopian hip hop music",
+      "x": -100.95177243849228,
+      "y": 81.48080764391945
     },
     {
-      "label": "Ethnic electronica"
+      "label": "Ethnic electronica",
+      "x": -87.69086858228205,
+      "y": -55.13091486663037
     },
     {
-      "label": "Ethno jazz"
+      "label": "Ethno jazz",
+      "x": 11.495430877134604,
+      "y": 0.8639939293282722
     },
     {
-      "label": "Eurobeat"
+      "label": "Eurobeat",
+      "x": -199.4975050545433,
+      "y": -87.86610251895846
     },
     {
-      "label": "Eurodance"
+      "label": "Eurodance",
+      "x": -205.24721882482788,
+      "y": -72.78156712079581
     },
     {
-      "label": "Eurodisco"
+      "label": "Eurodisco",
+      "x": -166.9510992733153,
+      "y": -52.72850068151824
     },
     {
-      "label": "Europop"
+      "label": "Europop",
+      "x": -137.43579250510356,
+      "y": -19.732505760102477
     },
     {
-      "label": "Exotica"
+      "label": "Exotica",
+      "x": -38.656530286706506,
+      "y": -8.087245532318581
     },
     {
-      "label": "Experimental pop"
+      "label": "Experimental pop",
+      "x": -67.64770299190528,
+      "y": -83.97701895377648
     },
     {
-      "label": "Experimental rock"
+      "label": "Experimental rock",
+      "x": -90.24130888424698,
+      "y": -115.41770041446857
     },
     {
-      "label": "Extreme metal"
+      "label": "Extreme metal",
+      "x": -56.84769178659948,
+      "y": -209.11665976460023
     },
     {
-      "label": "Fado"
+      "label": "Fado",
+      "x": 81.34559802058513,
+      "y": 148.6397996117079
     },
     {
-      "label": "Festejo"
+      "label": "Festejo",
+      "x": 139.8186785528362,
+      "y": 241.8619276655301
     },
     {
       "page_title": "Fijiri",
-      "label": "Fijiri / fijri / fidjeri / fjiri"
+      "label": "Fijiri / fijri / fidjeri / fjiri",
+      "x": 124.1095867988144,
+      "y": -213.76116794793128
     },
     {
-      "label": "Filk music"
+      "label": "Filk music",
+      "x": 48.125478631835435,
+      "y": -169.55241029176892
     },
     {
-      "label": "Finnish tango"
+      "label": "Finnish tango",
+      "x": 269.40494522441213,
+      "y": 39.62878252427487
     },
     {
-      "label": "Flamenco"
+      "label": "Flamenco",
+      "x": 41.407384842123605,
+      "y": 66.40686064087939
     },
     {
-      "label": "Flamenco rock"
+      "label": "Flamenco rock",
+      "x": 31.692998822816648,
+      "y": 2.0139066503820025
     },
     {
-      "label": "Florida breaks"
+      "label": "Florida breaks",
+      "x": -210.07865737945633,
+      "y": -6.084744967881704
     },
     {
-      "label": "Florida death metal"
+      "label": "Florida death metal",
+      "x": -31.36671483188391,
+      "y": -295.59583563423786
     },
     {
-      "label": "Folk baroque"
+      "label": "Folk baroque",
+      "x": 34.019173294817186,
+      "y": -33.546800460871786
     },
     {
-      "label": "Folk jazz"
+      "label": "Folk jazz",
+      "x": -45.447017429579134,
+      "y": -22.734322148730815
     },
     {
-      "label": "Folk metal"
+      "label": "Folk metal",
+      "x": 23.72060798881967,
+      "y": -179.569861708607
     },
     {
       "page_title": "Folk music#Traditional folk music",
-      "label": "Traditional folk music"
+      "label": "Traditional folk music",
+      "x": 52.27902619805652,
+      "y": -122.63790340876952
     },
     {
-      "label": "Folk punk"
+      "label": "Folk punk",
+      "x": 14.851489540102653,
+      "y": -131.04701980224775
     },
     {
-      "label": "Folk rock"
+      "label": "Folk rock",
+      "x": 16.562013642213575,
+      "y": -94.97948766362197
     },
     {
-      "label": "Folk-pop"
+      "label": "Folk-pop",
+      "x": -44.85626680864036,
+      "y": -59.79842032986943
     },
     {
-      "label": "Folkhop"
+      "label": "Folkhop",
+      "x": 248.98519300297326,
+      "y": -2.933979017915389
     },
     {
-      "label": "Folktronica"
+      "label": "Folktronica",
+      "x": -81.22672260564251,
+      "y": -71.36972157942795
     },
     {
       "page_title": "Footwork (genre)",
-      "label": "Footwork"
+      "label": "Footwork",
+      "x": -229.29690217156008,
+      "y": -15.823072170318595
     },
     {
       "page_title": "Footwork (genre)#Europe",
-      "label": "Footwork in Europe"
+      "label": "Footwork in Europe",
+      "x": -277.4683384363034,
+      "y": -19.85475290147688
     },
     {
       "page_title": "Footwork (genre)#Japan",
-      "label": "Japanese juke and footwork"
+      "label": "Japanese juke and footwork",
+      "x": -152.7002725060585,
+      "y": -9.230462243619913
     },
     {
-      "label": "Forró"
+      "label": "Forró",
+      "x": -70.51906832991345,
+      "y": 129.5130338033195
     },
     {
-      "label": "Freak folk"
+      "label": "Freak folk",
+      "x": 112.37032161751529,
+      "y": -168.94490939222064
     },
     {
-      "label": "Freakbeat"
+      "label": "Freakbeat",
+      "x": -10.785822441677684,
+      "y": -54.56153213085847
     },
     {
-      "label": "Free funk"
+      "label": "Free funk",
+      "x": -90.23347818325509,
+      "y": -29.88014514389106
     },
     {
-      "label": "Free improvisation"
+      "label": "Free improvisation",
+      "x": -125.896762479264,
+      "y": -108.19508663780678
     },
     {
-      "label": "Free jazz"
+      "label": "Free jazz",
+      "x": -81.00228531457903,
+      "y": -60.06249840497521
     },
     {
-      "label": "Freestyle music"
+      "label": "Freestyle music",
+      "x": -172.59760077094847,
+      "y": 9.352003980301145
     },
     {
       "page_title": "French Louisiana#Music",
-      "label": "Louisiana Creole and Cajun music"
+      "label": "Louisiana Creole and Cajun music",
+      "x": 14.227665956102626,
+      "y": 14.310638502709118
     },
     {
-      "label": "French house"
+      "label": "French house",
+      "x": -176.0592482107156,
+      "y": -44.62221270757422
     },
     {
       "page_title": "French pop music",
-      "label": "French pop"
+      "label": "French pop",
+      "x": -52.736705907202264,
+      "y": 115.59192694953266
     },
     {
-      "label": "Frenchcore"
+      "label": "Frenchcore",
+      "x": -287.183138351051,
+      "y": -146.30339971227718
     },
     {
       "page_title": "Fuji music",
-      "label": "Fuji"
+      "label": "Fuji",
+      "x": -186.98545715715204,
+      "y": 164.7341269269208
     },
     {
-      "label": "Funaná"
+      "label": "Funaná",
+      "x": -126.56706263543535,
+      "y": 289.89970719470347
     },
     {
-      "label": "Funeral doom"
+      "label": "Funeral doom",
+      "x": -67.67591797033764,
+      "y": -244.2883295682004
     },
     {
-      "label": "Funk"
+      "label": "Funk",
+      "x": -100.77279511393436,
+      "y": 2.4247403789215705
     },
     {
-      "label": "Funk carioca"
+      "label": "Funk carioca",
+      "x": -167.85071061876934,
+      "y": 85.1981893270638
     },
     {
-      "label": "Funk melody"
+      "label": "Funk melody",
+      "x": -205.90936379520616,
+      "y": 88.30388572111409
     },
     {
-      "label": "Funk metal"
+      "label": "Funk metal",
+      "x": -71.0281562973311,
+      "y": -139.52887219038487
     },
     {
-      "label": "Funk ostentação"
+      "label": "Funk ostentação",
+      "x": -206.9461529559746,
+      "y": 109.6302293280435
     },
     {
-      "label": "Funk ousadia"
+      "label": "Funk ousadia",
+      "x": -226.7361253151561,
+      "y": 137.55234656122
     },
     {
-      "label": "Funk rock"
+      "label": "Funk rock",
+      "x": -67.05848027246162,
+      "y": -65.02931157778819
     },
     {
-      "label": "Funkot"
+      "label": "Funkot",
+      "x": -219.41581667220547,
+      "y": -118.01968022316491
     },
     {
-      "label": "Funkstep"
+      "label": "Funkstep",
+      "x": -222.3080336906811,
+      "y": -9.198601442489611
     },
     {
-      "label": "Future bass"
+      "label": "Future bass",
+      "x": -211.1339930790889,
+      "y": -64.44189057833086
     },
     {
       "page_title": "Future bass#J-future core",
-      "label": "J-future core"
+      "label": "J-future core",
+      "x": -231.37581067660398,
+      "y": -151.6878956562949
     },
     {
       "page_title": "Future bass#Kawaii future bass",
-      "label": "Kawaii future bass"
+      "label": "Kawaii future bass",
+      "x": -223.2522525482879,
+      "y": -139.95532339199997
     },
     {
-      "label": "Future garage"
+      "label": "Future garage",
+      "x": -191.34194585912414,
+      "y": -46.82862887967333
     },
     {
-      "label": "Future house"
+      "label": "Future house",
+      "x": -240.53338138494624,
+      "y": -19.029633912010034
     },
     {
-      "label": "Future rave"
+      "label": "Future rave",
+      "x": -274.31202530004015,
+      "y": -62.76915206313815
     },
     {
-      "label": "Future soul"
+      "label": "Future soul",
+      "x": -130.6856679376687,
+      "y": -30.08050884004668
     },
     {
-      "label": "Futurepop"
+      "label": "Futurepop",
+      "x": -182.71976649953606,
+      "y": -102.0757621148075
     },
     {
-      "label": "G-funk"
+      "label": "G-funk",
+      "x": -153.24499617192484,
+      "y": 35.0981675826399
     },
     {
-      "label": "Gaana"
+      "label": "Gaana",
+      "x": 190.41341063924554,
+      "y": 31.834295333196838
     },
     {
-      "label": "Gabber"
+      "label": "Gabber",
+      "x": -234.96557507649752,
+      "y": -127.53234888639606
     },
     {
-      "label": "Gabberpop"
+      "label": "Gabberpop",
+      "x": -194.46732133894642,
+      "y": -154.657702150294
     },
     {
-      "label": "Gaelic folk music"
+      "label": "Gaelic folk music",
+      "x": 222.8708385307259,
+      "y": 105.16582687534638
     },
     {
-      "label": "Galerón"
+      "label": "Galerón",
+      "x": 178.52199798803937,
+      "y": -87.21970683402941
     },
     {
       "page_title": "Gamelan",
-      "label": "Gamelan ensemble"
+      "label": "Gamelan ensemble",
+      "x": 186.01699597896422,
+      "y": 114.45178439144995
     },
     {
-      "label": "Gangsta rap"
+      "label": "Gangsta rap",
+      "x": -191.32047681226072,
+      "y": 55.34944179309188
     },
     {
-      "label": "Garage house"
+      "label": "Garage house",
+      "x": -160.51730333636195,
+      "y": -3.125676304785964
     },
     {
       "page_title": "Garage punk (fusion genre)",
-      "label": "Garage punk"
+      "label": "Garage punk",
+      "x": -11.909773882191006,
+      "y": -114.9528994154773
     },
     {
-      "label": "Garage rock"
+      "label": "Garage rock",
+      "x": -19.463460195211653,
+      "y": -79.23533067218278
     },
     {
-      "label": "Garifuna music"
+      "label": "Garifuna music",
+      "x": 3.53440102374399,
+      "y": 377.9945777167193
     },
     {
-      "label": "Geek rock"
+      "label": "Geek rock",
+      "x": -65.88625411812204,
+      "y": -159.22487603847893
     },
     {
-      "label": "Genge"
+      "label": "Genge",
+      "x": -175.30182474156595,
+      "y": 96.72663337049954
     },
     {
       "page_title": "Gh hip-hop",
-      "label": "Gh hiphop"
+      "label": "Gh hiphop",
+      "x": -225.88879850440958,
+      "y": 120.13326436694038
     },
     {
       "page_title": "Gharnati music",
-      "label": "Gharnati"
+      "label": "Gharnati",
+      "x": 186.14066454686733,
+      "y": -71.84458235709906
     },
     {
-      "label": "Ghetto house"
+      "label": "Ghetto house",
+      "x": -249.72904458648452,
+      "y": -10.57578875517692
     },
     {
-      "label": "Ghettotech"
+      "label": "Ghettotech",
+      "x": -216.42979131374048,
+      "y": -15.899634740346043
     },
     {
-      "label": "Glam metal"
+      "label": "Glam metal",
+      "x": -22.6491971141632,
+      "y": -130.0412990241131
     },
     {
-      "label": "Glam punk"
+      "label": "Glam punk",
+      "x": -30.579472798399806,
+      "y": -122.66564375412561
     },
     {
-      "label": "Glam rock"
+      "label": "Glam rock",
+      "x": -49.33235093650887,
+      "y": -88.85538181990478
     },
     {
       "page_title": "Glitch (music)",
-      "label": "Glitch"
+      "label": "Glitch",
+      "x": -153.3750461349156,
+      "y": -111.14705431502135
     },
     {
-      "label": "Gnawa music"
+      "label": "Gnawa music",
+      "x": 208.36077907705763,
+      "y": 119.42359678216768
     },
     {
-      "label": "Go-go"
+      "label": "Go-go",
+      "x": -93.11517938694293,
+      "y": 57.56506586378869
     },
     {
-      "label": "Goa trance"
+      "label": "Goa trance",
+      "x": -200.02475067425206,
+      "y": -128.40845179584878
     },
     {
-      "label": "Golden age hip-hop"
+      "label": "Golden age hip-hop",
+      "x": -185.19178075036336,
+      "y": 71.48811331548782
     },
     {
-      "label": "Gombhira"
+      "label": "Gombhira",
+      "x": 265.32872692239715,
+      "y": -36.98630283930881
     },
     {
-      "label": "Goregrind"
+      "label": "Goregrind",
+      "x": -65.70552630568106,
+      "y": -271.6566221433782
     },
     {
-      "label": "Gospel blues"
+      "label": "Gospel blues",
+      "x": 83.75465298611216,
+      "y": 26.660306735037846
     },
     {
-      "label": "Gospel music"
+      "label": "Gospel music",
+      "x": -26.71807963442286,
+      "y": 25.74171842966905
     },
     {
-      "label": "Gospel trap"
+      "label": "Gospel trap",
+      "x": -105.1565521115288,
+      "y": 56.28053674414059
     },
     {
-      "label": "Gothabilly"
+      "label": "Gothabilly",
+      "x": 46.042390027332004,
+      "y": -86.64134929052945
     },
     {
-      "label": "Gothic country"
+      "label": "Gothic country",
+      "x": -8.122282065368386,
+      "y": -46.10692024271404
     },
     {
-      "label": "Gothic metal"
+      "label": "Gothic metal",
+      "x": -21.559787404687224,
+      "y": -207.20635082857962
     },
     {
-      "label": "Gothic rock"
+      "label": "Gothic rock",
+      "x": -22.078929045039377,
+      "y": -121.51106309796809
     },
     {
-      "label": "Gqom"
+      "label": "Gqom",
+      "x": -246.1448901797529,
+      "y": 0.9457155201712952
     },
     {
       "page_title": "Grebo (music)",
-      "label": "Grebo"
+      "label": "Grebo",
+      "x": -93.63704544647055,
+      "y": -83.4699987434645
     },
     {
-      "label": "Greek punk"
+      "label": "Greek punk",
+      "x": 27.14534477578973,
+      "y": -168.13757429334896
     },
     {
       "page_title": "Grime music",
-      "label": "Grime"
+      "label": "Grime",
+      "x": -177.62961909478608,
+      "y": -9.284179502206232
     },
     {
-      "label": "Grindcore"
+      "label": "Grindcore",
+      "x": -81.99938023136968,
+      "y": -223.4774745319791
     },
     {
-      "label": "Grindie"
+      "label": "Grindie",
+      "x": -126.92933453569657,
+      "y": -53.555822339376725
     },
     {
-      "label": "Groove metal"
+      "label": "Groove metal",
+      "x": -79.68156935746654,
+      "y": -206.47256718877804
     },
     {
-      "label": "Group sounds"
+      "label": "Group sounds",
+      "x": -21.243965835193684,
+      "y": -19.805358888086115
     },
     {
-      "label": "Grunge"
+      "label": "Grunge",
+      "x": -49.616608473566906,
+      "y": -143.27198134136225
     },
     {
-      "label": "Grupera"
+      "label": "Grupera",
+      "x": -3.1960212487520003,
+      "y": 106.87670076827877
     },
     {
-      "label": "Guaracha"
+      "label": "Guaracha",
+      "x": 27.23481621185861,
+      "y": 147.0227461566846
     },
     {
-      "label": "Guitar solo"
+      "label": "Guitar solo",
+      "x": 15.163392924334358,
+      "y": -11.284671123401468
     },
     {
-      "label": "Guitarrada"
+      "label": "Guitarrada",
+      "x": -39.52872238544679,
+      "y": 137.47982021243453
     },
     {
-      "label": "Gumbe"
+      "label": "Gumbe",
+      "x": -68.91767264676051,
+      "y": 277.2548019946185
     },
     {
-      "label": "Gwo ka"
+      "label": "Gwo ka",
+      "x": -68.76642854117675,
+      "y": 246.898228897073
     },
     {
-      "label": "Gypsy jazz"
+      "label": "Gypsy jazz",
+      "x": -9.276211462937328,
+      "y": 90.72924931840154
     },
     {
-      "label": "Gypsy punk"
+      "label": "Gypsy punk",
+      "x": -21.86676146639464,
+      "y": -90.30715283513123
     },
     {
-      "label": "Halloween music"
+      "label": "Halloween music",
+      "x": 120.37050704576073,
+      "y": 52.69454159437167
     },
     {
-      "label": "Hapa haole music"
+      "label": "Hapa haole music",
+      "x": 88.78803318176135,
+      "y": 121.2540875176712
     },
     {
-      "label": "Happy hardcore"
+      "label": "Happy hardcore",
+      "x": -247.83236475610147,
+      "y": -119.87090334585149
     },
     {
-      "label": "Hard NRG"
+      "label": "Hard NRG",
+      "x": -285.1503873386504,
+      "y": -100.51968033562216
     },
     {
-      "label": "Hard bop"
+      "label": "Hard bop",
+      "x": -2.7956284892377057,
+      "y": 48.32667475911461
     },
     {
-      "label": "Hard rock"
+      "label": "Hard rock",
+      "x": 4.120185136113513,
+      "y": -105.09708745368962
     },
     {
-      "label": "Hard trance"
+      "label": "Hard trance",
+      "x": -254.78327235505085,
+      "y": -106.65857592681863
     },
     {
-      "label": "Hardbag"
+      "label": "Hardbag",
+      "x": -221.06586431562454,
+      "y": -59.673731276470946
     },
     {
-      "label": "Hardbass"
+      "label": "Hardbass",
+      "x": -286.0487587156938,
+      "y": -116.80739834189124
     },
     {
       "page_title": "Hardcore (electronic dance music genre)",
-      "label": "Hardcore"
+      "label": "Hardcore",
+      "x": -232.60764899707223,
+      "y": -104.79757246726994
     },
     {
       "page_title": "Hardcore (electronic dance music genre)#Hard dance",
-      "label": "Hard dance"
+      "label": "Hard dance",
+      "x": -253.1629765473314,
+      "y": -79.21117433422864
     },
     {
-      "label": "Hardcore hip-hop"
+      "label": "Hardcore hip-hop",
+      "x": -198.40514675846205,
+      "y": 48.82890742722656
     },
     {
-      "label": "Hardcore punk"
+      "label": "Hardcore punk",
+      "x": -66.14678950255308,
+      "y": -183.7899889568463
     },
     {
-      "label": "Hardstep"
+      "label": "Hardstep",
+      "x": -272.7790163863451,
+      "y": -51.19220703406566
     },
     {
-      "label": "Hardstyle"
+      "label": "Hardstyle",
+      "x": -234.1648271570223,
+      "y": -92.8098518275199
     },
     {
-      "label": "Hardvapour"
+      "label": "Hardvapour",
+      "x": -193.8437725258794,
+      "y": -98.52574972904175
     },
     {
-      "label": "Harsh noise"
+      "label": "Harsh noise",
+      "x": -199.98324211125032,
+      "y": -195.3696905734517
     },
     {
       "page_title": "Harsh noise#Harsh noise wall",
-      "label": "Harsh noise wall"
+      "label": "Harsh noise wall",
+      "x": -214.87586099556003,
+      "y": -230.80042984421493
     },
     {
       "page_title": "Hauntology (music)",
-      "label": "Hauntology"
+      "label": "Hauntology",
+      "x": -144.94207213170333,
+      "y": -130.14828008085254
     },
     {
-      "label": "Hawfi"
+      "label": "Hawfi",
+      "x": 164.51290651803149,
+      "y": 113.35943296854705
     },
     {
-      "label": "Heartland rock"
+      "label": "Heartland rock",
+      "x": 14.571658256161331,
+      "y": -48.92645754277319
     },
     {
       "page_title": "Heavy metal music",
-      "label": "Heavy metal"
+      "label": "Heavy metal",
+      "x": -43.18095345563373,
+      "y": -163.48423531229903
     },
     {
-      "label": "HexD"
+      "label": "HexD",
+      "x": -210.5243615785089,
+      "y": -33.91178775391019
     },
     {
-      "label": "Hi-NRG"
+      "label": "Hi-NRG",
+      "x": -199.29215915186006,
+      "y": -60.64332036766892
     },
     {
-      "label": "Highlife"
+      "label": "Highlife",
+      "x": -157.25821073596777,
+      "y": 149.4999164265033
     },
     {
-      "label": "Hill country blues"
+      "label": "Hill country blues",
+      "x": 110.9188142243662,
+      "y": 28.77223815603901
     },
     {
-      "label": "Hindutva pop"
+      "label": "Hindutva pop",
+      "x": 171.44745149238574,
+      "y": 62.18283331519959
     },
     {
-      "label": "Hip house"
+      "label": "Hip house",
+      "x": -220.46168265287943,
+      "y": -24.205855110461446
     },
     {
-      "label": "Hip-hop"
+      "label": "Hip-hop",
+      "x": -163.24916746436898,
+      "y": 10.709882862294304
     },
     {
-      "label": "Hip-hop soul"
+      "label": "Hip-hop soul",
+      "x": -115.69605602733193,
+      "y": 40.03522953573325
     },
     {
       "page_title": "Hip-hop tuga",
-      "label": "Hip hop tuga"
+      "label": "Hip hop tuga",
+      "x": -106.50591378913069,
+      "y": 46.90439292368079
     },
     {
-      "label": "Hipco"
+      "label": "Hipco",
+      "x": -297.7942393598056,
+      "y": 36.201889195556305
     },
     {
-      "label": "Hipdut"
+      "label": "Hipdut",
+      "x": -210.57500691506257,
+      "y": -105.99360401781738
     },
     {
-      "label": "Hiplife"
+      "label": "Hiplife",
+      "x": -161.5775665077795,
+      "y": 122.85167692483681
     },
     {
-      "label": "Hipster hop"
+      "label": "Hipster hop",
+      "x": -190.9179228901819,
+      "y": 13.815168323689516
     },
     {
       "page_title": "Hokkien pop",
-      "label": "Hokkien pop / Taiwanese Hokkien pop / Taiwanese pop"
+      "label": "Hokkien pop / Taiwanese Hokkien pop / Taiwanese pop",
+      "x": -66.23439027188321,
+      "y": 168.81094512864232
     },
     {
-      "label": "Holy minimalism"
+      "label": "Holy minimalism",
+      "x": 93.0904132601595,
+      "y": 252.7978959868092
     },
     {
-      "label": "Hookah rap"
+      "label": "Hookah rap",
+      "x": -218.83976651881588,
+      "y": 55.79175997481926
     },
     {
       "page_title": "Hori (music)",
-      "label": "Hori"
+      "label": "Hori",
+      "x": 159.41175430474541,
+      "y": 95.82676548287343
     },
     {
-      "label": "Horror punk"
+      "label": "Horror punk",
+      "x": 14.66310420912012,
+      "y": -85.55320022389078
     },
     {
-      "label": "Horrorcore"
+      "label": "Horrorcore",
+      "x": -184.9966761263093,
+      "y": 22.078909266514383
     },
     {
-      "label": "House music"
+      "label": "House music",
+      "x": -189.71056397018802,
+      "y": -29.495958295506576
     },
     {
-      "label": "Huayno"
+      "label": "Huayno",
+      "x": 39.13127718534201,
+      "y": 258.7448999318685
     },
     {
-      "label": "Hyperpop"
+      "label": "Hyperpop",
+      "x": -144.70373181943387,
+      "y": -73.19095553794625
     },
     {
-      "label": "Hyphy"
+      "label": "Hyphy",
+      "x": -201.87598835257143,
+      "y": 38.499735558906885
     },
     {
-      "label": "Hypnagogic pop"
+      "label": "Hypnagogic pop",
+      "x": -100.04827725120789,
+      "y": -88.48084011952635
     },
     {
-      "label": "Hăulit"
+      "label": "Hăulit",
+      "x": 256.2436460165942,
+      "y": 426.3957115725612
     },
     {
-      "label": "Igbo Christian music"
+      "label": "Igbo Christian music",
+      "x": -40.147207794565695,
+      "y": 107.95040684151452
     },
     {
-      "label": "Igbo highlife"
+      "label": "Igbo highlife",
+      "x": -180.21001482888497,
+      "y": 202.1843894061904
     },
     {
-      "label": "Igbo rap"
+      "label": "Igbo rap",
+      "x": -202.74927104709758,
+      "y": 160.28753003590813
     },
     {
-      "label": "Ikorodo"
+      "label": "Ikorodo",
+      "x": 164.359297560231,
+      "y": -64.78934484716353
     },
     {
-      "label": "Ikwokirikwo"
+      "label": "Ikwokirikwo",
+      "x": -210.68053464076797,
+      "y": 240.36685043545958
     },
     {
-      "label": "Illbient"
+      "label": "Illbient",
+      "x": -157.10707217919236,
+      "y": -34.83997388171068
     },
     {
       "page_title": "Indian hip-hop",
-      "label": "Indian hip hop"
+      "label": "Indian hip hop",
+      "x": -154.79357329778074,
+      "y": 4.5491701508568605
     },
     {
-      "label": "Indian pop"
+      "label": "Indian pop",
+      "x": 114.61581726795043,
+      "y": -46.65242775287608
     },
     {
-      "label": "Indian rock"
+      "label": "Indian rock",
+      "x": 50.49068504179026,
+      "y": -46.117331178692424
     },
     {
-      "label": "Indie folk"
+      "label": "Indie folk",
+      "x": -0.6698288219659538,
+      "y": -129.2736024316758
     },
     {
-      "label": "Indie pop"
+      "label": "Indie pop",
+      "x": -54.3441198428643,
+      "y": -71.3182708356714
     },
     {
-      "label": "Indie rock"
+      "label": "Indie rock",
+      "x": -65.3571004902335,
+      "y": -117.34586250930451
     },
     {
       "page_title": "Indigenous metal music",
-      "label": "Indigenous metal"
+      "label": "Indigenous metal",
+      "x": -16.795869452489573,
+      "y": -182.96908222700046
     },
     {
-      "label": "Indigenous music of North America"
+      "label": "Indigenous music of North America",
+      "x": 53.37305200851119,
+      "y": 46.14304044052768
     },
     {
-      "label": "Indo jazz"
+      "label": "Indo jazz",
+      "x": -25.430074890675396,
+      "y": 95.60129936702735
     },
     {
       "page_title": "Indo pop",
-      "label": "Indonesian pop"
+      "label": "Indonesian pop",
+      "x": 3.5295942677634184,
+      "y": -83.59975420896399
     },
     {
-      "label": "Indonesian heavy metal"
+      "label": "Indonesian heavy metal",
+      "x": -45.260271594002944,
+      "y": -191.3733098967153
     },
     {
       "page_title": "Indonesian rock",
-      "label": "Indonesian Rock"
+      "label": "Indonesian Rock",
+      "x": -6.6185944683297375,
+      "y": -83.98047415684087
     },
     {
-      "label": "Indorock"
+      "label": "Indorock",
+      "x": 13.985879633651122,
+      "y": -102.66823712422985
     },
     {
-      "label": "Industrial folk music"
+      "label": "Industrial folk music",
+      "x": 212.81046911244485,
+      "y": 32.31820675269109
     },
     {
       "page_title": "Industrial hip-hop",
-      "label": "Industrial hip hop"
+      "label": "Industrial hip hop",
+      "x": -150.10773016775389,
+      "y": -84.84167555570637
     },
     {
-      "label": "Industrial metal"
+      "label": "Industrial metal",
+      "x": -119.59255758437942,
+      "y": -160.8456976768573
     },
     {
       "page_title": "Industrial metal#Coldwave",
-      "label": "Coldwave"
+      "label": "Coldwave",
+      "x": -101.17071904813997,
+      "y": -129.97046700770025
     },
     {
       "page_title": "Industrial metal#Cyber metal",
-      "label": "Cyber metal"
+      "label": "Cyber metal",
+      "x": -106.86858317923843,
+      "y": -212.70129688724137
     },
     {
       "page_title": "Industrial music",
-      "label": "Industrial"
+      "label": "Industrial",
+      "x": -163.39853415376814,
+      "y": -118.8270118433473
     },
     {
       "page_title": "Industrial music#Post-industrial",
-      "label": "Post-industrial"
+      "label": "Post-industrial",
+      "x": -136.18667689145659,
+      "y": -93.87446221339951
     },
     {
-      "label": "Industrial rock"
+      "label": "Industrial rock",
+      "x": -119.0779120711697,
+      "y": -120.18833943097177
     },
     {
-      "label": "Industrial techno"
+      "label": "Industrial techno",
+      "x": -192.82815581769276,
+      "y": -118.70633347122055
     },
     {
-      "label": "Instrumental rock"
+      "label": "Instrumental rock",
+      "x": 10.678728401953208,
+      "y": -77.1410003288018
     },
     {
-      "label": "Intelligent dance music"
+      "label": "Intelligent dance music",
+      "x": -171.4128665569202,
+      "y": -62.660616348704416
     },
     {
-      "label": "Internet rap"
+      "label": "Internet rap",
+      "x": -212.49928317234398,
+      "y": 5.802348344386384
     },
     {
-      "label": "Iranian alternative rock"
+      "label": "Iranian alternative rock",
+      "x": 57.7005789967767,
+      "y": -137.87192458492652
     },
     {
-      "label": "Iranian rock"
+      "label": "Iranian rock",
+      "x": 37.52470837225137,
+      "y": -92.15882701812822
     },
     {
       "page_title": "Iraqi maqam",
-      "label": "Iraqi Maqam"
+      "label": "Iraqi Maqam",
+      "x": 156.86134996522367,
+      "y": 130.47337837986294
     },
     {
-      "label": "Irish showband"
+      "label": "Irish showband",
+      "x": 35.25264854174616,
+      "y": 35.64901855786156
     },
     {
-      "label": "Isicathamiya"
+      "label": "Isicathamiya",
+      "x": -327.7630302384885,
+      "y": 21.567646241770984
     },
     {
       "page_title": "Israeli hip-hop",
-      "label": "Israeli hip hop"
+      "label": "Israeli hip hop",
+      "x": -304.9542982589978,
+      "y": 87.09898300389968
     },
     {
-      "label": "Israeli rock"
+      "label": "Israeli rock",
+      "x": 22.699370391447506,
+      "y": -53.050215418451224
     },
     {
-      "label": "Istrian scale"
+      "label": "Istrian scale",
+      "x": 165.5377639038984,
+      "y": 183.87593492543317
     },
     {
-      "label": "Italian occult psychedelia"
+      "label": "Italian occult psychedelia",
+      "x": -113.75501024023693,
+      "y": -168.47178930881577
     },
     {
-      "label": "Italian popular music"
+      "label": "Italian popular music",
+      "x": -127.25779963399091,
+      "y": -72.35838041946532
     },
     {
-      "label": "Italo dance"
+      "label": "Italo dance",
+      "x": -262.3632977028931,
+      "y": -59.740221294399376
     },
     {
-      "label": "Italo disco"
+      "label": "Italo disco",
+      "x": -177.42642386975413,
+      "y": -54.57940662373883
     },
     {
       "page_title": "Italo disco#Space disco",
-      "label": "Space disco"
+      "label": "Space disco",
+      "x": -195.5931771028826,
+      "y": -79.01094773469472
     },
     {
-      "label": "Italo house"
+      "label": "Italo house",
+      "x": -205.81551109332727,
+      "y": -39.67842254916517
     },
     {
-      "label": "Izvika"
+      "label": "Izvika",
+      "x": 232.82395910654125,
+      "y": 126.73509130856272
     },
     {
-      "label": "J-core"
+      "label": "J-core",
+      "x": -248.4704960129299,
+      "y": -153.47030141471183
     },
     {
-      "label": "J-pop"
+      "label": "J-pop",
+      "x": -105.76100170730359,
+      "y": -56.120128140817364
     },
     {
-      "label": "Jaiva"
+      "label": "Jaiva",
+      "x": -155.44472445120076,
+      "y": 86.6077351724118
     },
     {
-      "label": "Jam band"
+      "label": "Jam band",
+      "x": -19.70115652801223,
+      "y": -38.67242696154042
     },
     {
-      "label": "Jangle pop"
+      "label": "Jangle pop",
+      "x": -29.81547062996324,
+      "y": -95.84912734756014
     },
     {
       "page_title": "Japanese hip-hop",
-      "label": "Japanese hip hop"
+      "label": "Japanese hip hop",
+      "x": -181.42169881365618,
+      "y": -92.44190363092116
     },
     {
       "page_title": "Japanese reggae",
-      "label": "J-reggae"
+      "label": "J-reggae",
+      "x": -127.0812665993521,
+      "y": 44.01066991647544
     },
     {
-      "label": "Japanoise"
+      "label": "Japanoise",
+      "x": -217.61977295216886,
+      "y": -191.0612959417442
     },
     {
-      "label": "Jazz"
+      "label": "Jazz",
+      "x": -51.30160451926198,
+      "y": 17.447292794061138
     },
     {
-      "label": "Jazz fusion"
+      "label": "Jazz fusion",
+      "x": -70.82153707891241,
+      "y": -31.655061991550458
     },
     {
       "page_title": "Jazz fusion#Jazz metal",
-      "label": "Jazz metal"
+      "label": "Jazz metal",
+      "x": -37.53638003213952,
+      "y": -86.5761784789058
     },
     {
       "page_title": "Jazz fusion#Jazz pop",
-      "label": "Jazz-pop"
+      "label": "Jazz-pop",
+      "x": -54.87756698503803,
+      "y": 37.08271036280663
     },
     {
       "page_title": "Jazz fusion#Jazz rock",
-      "label": "Jazz rock"
+      "label": "Jazz rock",
+      "x": -62.13327706763924,
+      "y": -56.419559400079905
     },
     {
-      "label": "Jazz rap"
+      "label": "Jazz rap",
+      "x": -131.93619823744154,
+      "y": 27.240373878948784
     },
     {
-      "label": "Jazz-funk"
+      "label": "Jazz-funk",
+      "x": -91.31983908386563,
+      "y": 5.588279364423491
     },
     {
       "page_title": "Jerk (music genre)",
-      "label": "Jerk"
+      "label": "Jerk",
+      "x": -223.0731343875361,
+      "y": 21.11695822716066
     },
     {
-      "label": "Jerkin'"
+      "label": "Jerkin'",
+      "x": -232.54868908472105,
+      "y": 61.65284729799025
     },
     {
-      "label": "Jersey club"
+      "label": "Jersey club",
+      "x": -226.25490235458972,
+      "y": 9.593417594774941
     },
     {
       "page_title": "Jersey club#Jersey club rap",
-      "label": "Jersey club rap"
+      "label": "Jersey club rap",
+      "x": -252.87453328413545,
+      "y": 68.59572319439859
     },
     {
-      "label": "Jesus music"
+      "label": "Jesus music",
+      "x": 37.833832528220526,
+      "y": -52.945825594809726
     },
     {
       "page_title": "Jewish hip-hop",
-      "label": "Jewish hip hop"
+      "label": "Jewish hip hop",
+      "x": -104.0405542407214,
+      "y": 24.39474528948345
     },
     {
-      "label": "Jewish rock"
+      "label": "Jewish rock",
+      "x": -26.63270292811708,
+      "y": -9.19840858385511
     },
     {
-      "label": "Jing ping"
+      "label": "Jing ping",
+      "x": -116.08144145472565,
+      "y": 276.60087449776586
     },
     {
-      "label": "Jinku"
+      "label": "Jinku",
+      "x": 131.97034929204727,
+      "y": -162.1029813113622
     },
     {
-      "label": "Jit"
+      "label": "Jit",
+      "x": -42.904537810588025,
+      "y": 82.81355847279671
     },
     {
       "page_title": "Jor (music)",
-      "label": "Jor"
+      "label": "Jor",
+      "x": 168.1231023012508,
+      "y": -26.040345987673405
     },
     {
-      "label": "Joropo"
+      "label": "Joropo",
+      "x": -29.865174061529412,
+      "y": 201.7054086821974
     },
     {
-      "label": "Jovem Guarda"
+      "label": "Jovem Guarda",
+      "x": -20.19245986020054,
+      "y": 35.86607539836277
     },
     {
-      "label": "Jump blues"
+      "label": "Jump blues",
+      "x": 24.313493426631712,
+      "y": 10.544391440638625
     },
     {
-      "label": "Jumpstyle"
+      "label": "Jumpstyle",
+      "x": -257.53711623769397,
+      "y": -118.88706724931798
     },
     {
       "page_title": "Jungle music",
-      "label": "Jungle"
+      "label": "Jungle",
+      "x": -198.31743883418164,
+      "y": -28.7684031042955
     },
     {
-      "label": "K-pop"
+      "label": "K-pop",
+      "x": -109.76839540686915,
+      "y": 3.4195021423047667
     },
     {
-      "label": "Kadongo Kamu"
+      "label": "Kadongo Kamu",
+      "x": -239.34198290961643,
+      "y": 251.3423639551913
     },
     {
-      "label": "Kaiso"
+      "label": "Kaiso",
+      "x": -105.38803727980277,
+      "y": 140.17828192559907
     },
     {
-      "label": "Kansas City jazz"
+      "label": "Kansas City jazz",
+      "x": 15.599482644195376,
+      "y": 69.26716860746515
     },
     {
       "page_title": "Kanto (music)",
-      "label": "Kanto"
+      "label": "Kanto",
+      "x": 271.2143868885306,
+      "y": 9.563925088254699
     },
     {
-      "label": "Kaseko"
+      "label": "Kaseko",
+      "x": -14.66572453231868,
+      "y": 102.43298053627109
     },
     {
-      "label": "Kasékò"
+      "label": "Kasékò",
+      "x": 104.62426422650589,
+      "y": -252.9836064902383
     },
     {
       "page_title": "Kattaikkuttu",
-      "label": "Kattaikkuttu [கட்டைக்கூத்து]"
+      "label": "Kattaikkuttu [கட்டைக்கூத்து]",
+      "x": -529.794716884637,
+      "y": 161.40200677661147
     },
     {
       "page_title": "Kavigan",
-      "label": "Kobi Gaan"
+      "label": "Kobi Gaan",
+      "x": 167.8124713917893,
+      "y": 147.74394527181462
     },
     {
-      "label": "Kavishari"
+      "label": "Kavishari",
+      "x": 176.1350292229512,
+      "y": -135.19403138840968
     },
     {
-      "label": "Kawaii metal"
+      "label": "Kawaii metal",
+      "x": -73.18222088790058,
+      "y": -117.17231931488784
     },
     {
       "page_title": "Kawina (music)",
-      "label": "Kawina"
+      "label": "Kawina",
+      "x": 15.305329995828595,
+      "y": 200.43339899724964
     },
     {
-      "label": "Kayōkyoku"
+      "label": "Kayōkyoku",
+      "x": -50.504471927277535,
+      "y": -6.14117409676848
     },
     {
       "page_title": "Kenyan hip-hop",
-      "label": "Kenyan hip hop"
+      "label": "Kenyan hip hop",
+      "x": -176.5105193057447,
+      "y": 56.73456767978371
     },
     {
-      "label": "Kidandali"
+      "label": "Kidandali",
+      "x": -196.99424954313739,
+      "y": 184.70261504377373
     },
     {
       "page_title": "Kilalaky (music genre)",
-      "label": "Kilalaky"
+      "label": "Kilalaky",
+      "x": 200.25963339545228,
+      "y": 100.49391014937261
     },
     {
-      "label": "Kizomba"
+      "label": "Kizomba",
+      "x": -115.61825438702046,
+      "y": 232.59241305793267
     },
     {
-      "label": "Klapa"
+      "label": "Klapa",
+      "x": 192.85066666842127,
+      "y": -149.1411603357677
     },
     {
-      "label": "Klezmer"
+      "label": "Klezmer",
+      "x": -92.86857691609924,
+      "y": 48.15533664388519
     },
     {
-      "label": "Koothu"
+      "label": "Koothu",
+      "x": -537.5810946772344,
+      "y": 136.9039514408809
     },
     {
-      "label": "Koplo"
+      "label": "Koplo",
+      "x": -242.65458267228001,
+      "y": -218.06564566746604
     },
     {
       "page_title": "Korean ballad",
-      "label": "Ballad (Korean music)"
+      "label": "Ballad (Korean music)",
+      "x": 12.953580563034361,
+      "y": -38.81963516566247
     },
     {
-      "label": "Korean court music"
+      "label": "Korean court music",
+      "x": -150.22842926524794,
+      "y": 267.36054616828045
     },
     {
       "page_title": "Korean hip-hop",
-      "label": "Korean hip hop"
+      "label": "Korean hip hop",
+      "x": -160.57603109391962,
+      "y": 76.29756899763309
     },
     {
-      "label": "Krautrock"
+      "label": "Krautrock",
+      "x": -104.84495669042353,
+      "y": -82.5648909954275
     },
     {
       "page_title": "Krautrock#Kosmische Musik",
-      "label": "Kosmische Musik"
+      "label": "Kosmische Musik",
+      "x": -137.03365439398308,
+      "y": -113.65757236339729
     },
     {
       "page_title": "Kroncong",
-      "label": "Keroncong/Kroncong"
+      "label": "Keroncong/Kroncong",
+      "x": -113.47726584181764,
+      "y": -150.60303458090766
     },
     {
-      "label": "Kuduro"
+      "label": "Kuduro",
+      "x": -175.90736618416327,
+      "y": 78.92454900820401
     },
     {
       "page_title": "Kulintang",
-      "label": "Kulintang ensemble"
+      "label": "Kulintang ensemble",
+      "x": 223.98627334966304,
+      "y": -91.8405525667736
     },
     {
-      "label": "Kundiman"
+      "label": "Kundiman",
+      "x": -143.6269854297272,
+      "y": -214.11647831751176
     },
     {
-      "label": "Kwaito"
+      "label": "Kwaito",
+      "x": -181.0009811217812,
+      "y": 46.441547358435095
     },
     {
-      "label": "Könsrock"
+      "label": "Könsrock",
+      "x": -93.56734462100917,
+      "y": -153.62012559326868
     },
     {
-      "label": "LGBTQ music"
+      "label": "LGBTQ music",
+      "x": -156.01166060023516,
+      "y": -59.30809475574506
     },
     {
       "page_title": "LGBTQ representation in hip-hop",
-      "label": "LGBTQ hip-hop"
+      "label": "LGBTQ hip-hop",
+      "x": -214.76915336668873,
+      "y": 27.741500389205424
     },
     {
-      "label": "Ladishah"
+      "label": "Ladishah",
+      "x": -208.03555166133643,
+      "y": -211.0810112419636
     },
     {
-      "label": "Lambadão cuiabano"
+      "label": "Lambadão cuiabano",
+      "x": 262.8721364474373,
+      "y": 65.83800877335786
     },
     {
-      "label": "Landfill indie"
+      "label": "Landfill indie",
+      "x": -54.95521764741415,
+      "y": -167.1305229573123
     },
     {
-      "label": "Lao pop"
+      "label": "Lao pop",
+      "x": -119.04415644314011,
+      "y": 1.840309660182205
     },
     {
-      "label": "Latin Christian music"
+      "label": "Latin Christian music",
+      "x": -28.7182712338272,
+      "y": 47.596048918786565
     },
     {
-      "label": "Latin R&B"
+      "label": "Latin R&B",
+      "x": -108.91683791438084,
+      "y": 66.34681871917117
     },
     {
-      "label": "Latin ballad"
+      "label": "Latin ballad",
+      "x": 15.927217515020681,
+      "y": 122.21900029014556
     },
     {
-      "label": "Latin hip-hop"
+      "label": "Latin hip-hop",
+      "x": -103.83218737913475,
+      "y": 95.30734778161091
     },
     {
-      "label": "Latin jazz"
+      "label": "Latin jazz",
+      "x": -29.325281570430718,
+      "y": 75.34047776000115
     },
     {
-      "label": "Latin metal"
+      "label": "Latin metal",
+      "x": -25.289187837190752,
+      "y": 10.619544220129887
     },
     {
-      "label": "Latin music"
+      "label": "Latin music",
+      "x": -63.32301366757583,
+      "y": 63.01632822739094
     },
     {
-      "label": "Latin pop"
+      "label": "Latin pop",
+      "x": -37.41134180570629,
+      "y": 71.9688391595669
     },
     {
-      "label": "Latin rock"
+      "label": "Latin rock",
+      "x": -36.71797854863039,
+      "y": 46.433927009745325
     },
     {
-      "label": "Latin soul"
+      "label": "Latin soul",
+      "x": -72.21976086987439,
+      "y": 87.27571988399173
     },
     {
-      "label": "Latin trap"
+      "label": "Latin trap",
+      "x": -141.8160362677085,
+      "y": 86.86605970921758
     },
     {
-      "label": "Lavani"
+      "label": "Lavani",
+      "x": 202.50097679276044,
+      "y": 48.250572876005386
     },
     {
-      "label": "Laïko"
+      "label": "Laïko",
+      "x": 81.28208840825164,
+      "y": -207.22149744386766
     },
     {
-      "label": "Lento violento"
+      "label": "Lento violento",
+      "x": -277.2095378642779,
+      "y": -75.63258515362828
     },
     {
-      "label": "Levenslied"
+      "label": "Levenslied",
+      "x": 5.492889371024378,
+      "y": -92.75982551015457
     },
     {
-      "label": "Light music"
+      "label": "Light music",
+      "x": -82.40281119160032,
+      "y": -32.85551122671851
     },
     {
       "page_title": "Liquid drum and bass",
-      "label": "Liquid funk"
+      "label": "Liquid funk",
+      "x": -160.40472996092905,
+      "y": -11.009217169021037
     },
     {
-      "label": "Lofi hip-hop"
+      "label": "Lofi hip-hop",
+      "x": -117.34054033891867,
+      "y": -6.032877016994647
     },
     {
-      "label": "Loft jazz"
+      "label": "Loft jazz",
+      "x": -75.00074763266629,
+      "y": -65.66773484664391
     },
     {
-      "label": "Long song"
+      "label": "Long song",
+      "x": 183.27667640706818,
+      "y": -106.35613169688214
     },
     {
-      "label": "Louisiana blues"
+      "label": "Louisiana blues",
+      "x": 33.505273420403455,
+      "y": 49.09900463556146
     },
     {
-      "label": "Lounge music"
+      "label": "Lounge music",
+      "x": -65.08536992543355,
+      "y": 18.168167396048844
     },
     {
-      "label": "Lovers rock"
+      "label": "Lovers rock",
+      "x": -86.47130664278025,
+      "y": 40.42352370868728
     },
     {
-      "label": "Low bap"
+      "label": "Low bap",
+      "x": -265.5749274436762,
+      "y": 85.19326330224528
     },
     {
-      "label": "Lowend"
+      "label": "Lowend",
+      "x": -245.93850535711522,
+      "y": 52.28308962920359
     },
     {
       "page_title": "Lowercase (music)",
-      "label": "Lowercase"
+      "label": "Lowercase",
+      "x": -177.96712579934538,
+      "y": -144.42650000745516
     },
     {
-      "label": "Luk thung"
+      "label": "Luk thung",
+      "x": 141.20574137864392,
+      "y": -120.45906634888453
     },
     {
-      "label": "Lăutărească music"
+      "label": "Lăutărească music",
+      "x": -440.83990211780815,
+      "y": 42.41072171119011
     },
     {
-      "label": "Mahraganat"
+      "label": "Mahraganat",
+      "x": -140.27671981956624,
+      "y": 10.624447642322513
     },
     {
-      "label": "Mahāgīta"
+      "label": "Mahāgīta",
+      "x": 179.7503881448128,
+      "y": 96.52061786710972
     },
     {
-      "label": "Maidcore"
+      "label": "Maidcore",
+      "x": -137.85160225536993,
+      "y": -136.3739670893949
     },
     {
-      "label": "Mainstream hardcore"
+      "label": "Mainstream hardcore",
+      "x": -267.7517620767894,
+      "y": -142.58863168760587
     },
     {
-      "label": "Makossa"
+      "label": "Makossa",
+      "x": -109.28184693382008,
+      "y": 125.84309738126272
     },
     {
       "page_title": "Malaysian hip-hop",
-      "label": "Malaysian hip hop"
+      "label": "Malaysian hip hop",
+      "x": -280.9241433950006,
+      "y": 51.76121442705212
     },
     {
-      "label": "Malaysian popular music"
+      "label": "Malaysian popular music",
+      "x": -105.19202970264816,
+      "y": -36.05115504956183
     },
     {
-      "label": "Malhun"
+      "label": "Malhun",
+      "x": 266.3087642372323,
+      "y": -118.39701750015827
     },
     {
-      "label": "Malianteo"
+      "label": "Malianteo",
+      "x": -170.82353326498827,
+      "y": 134.6373500103187
     },
     {
-      "label": "Malipenga"
+      "label": "Malipenga",
+      "x": 216.5923806731337,
+      "y": -75.38164194398885
     },
     {
-      "label": "Mallsoft"
+      "label": "Mallsoft",
+      "x": -186.58376283772563,
+      "y": -131.43954179643944
     },
     {
-      "label": "Maloya"
+      "label": "Maloya",
+      "x": 167.32255298471213,
+      "y": -172.05619003763707
     },
     {
       "page_title": "Mambo (music)",
-      "label": "Mambo"
+      "label": "Mambo",
+      "x": -26.20269487310123,
+      "y": 107.00922147025783
     },
     {
-      "label": "Mandopop"
+      "label": "Mandopop",
+      "x": -67.73053362399494,
+      "y": 9.267442257433935
     },
     {
-      "label": "Manele"
+      "label": "Manele",
+      "x": -409.81900784149747,
+      "y": 37.3717084874318
     },
     {
-      "label": "Mangaliba"
+      "label": "Mangaliba",
+      "x": 141.77518391504321,
+      "y": 118.77349360062769
     },
     {
-      "label": "Mangue bit"
+      "label": "Mangue bit",
+      "x": -92.5685928540015,
+      "y": 30.353869578357813
     },
     {
-      "label": "Manila sound"
+      "label": "Manila sound",
+      "x": -79.90037418655602,
+      "y": -84.85884909281684
     },
     {
-      "label": "Marabi"
+      "label": "Marabi",
+      "x": -115.81869420062857,
+      "y": 93.64912511628236
     },
     {
-      "label": "Mare-Gan"
+      "label": "Mare-Gan",
+      "x": 183.9150113601408,
+      "y": -53.16248939395728
     },
     {
-      "label": "Mariachi"
+      "label": "Mariachi",
+      "x": 8.993638681727871,
+      "y": 112.27158336436507
     },
     {
-      "label": "Marinera"
+      "label": "Marinera",
+      "x": 87.45962978850223,
+      "y": 200.65909709535305
     },
     {
-      "label": "Marrabenta"
+      "label": "Marrabenta",
+      "x": 249.9767278792775,
+      "y": -83.23099446007645
     },
     {
-      "label": "Martial industrial"
+      "label": "Martial industrial",
+      "x": -132.6478107907373,
+      "y": -167.8342448349112
     },
     {
       "page_title": "Mashup (music)",
-      "label": "Mashup"
+      "label": "Mashup",
+      "x": -127.80877191782488,
+      "y": -116.28960398737392
     },
     {
-      "label": "Maskandi"
+      "label": "Maskandi",
+      "x": -188.84856537222575,
+      "y": 134.73743582123114
     },
     {
       "page_title": "Mata-kantiga",
-      "label": "Mata-Kantiga"
+      "label": "Mata-Kantiga",
+      "x": -43.845827917482296,
+      "y": 259.8337177809883
     },
     {
-      "label": "Math rock"
+      "label": "Math rock",
+      "x": -89.67380999820168,
+      "y": -134.5647366451949
     },
     {
-      "label": "Mathcore"
+      "label": "Mathcore",
+      "x": -89.50512735560392,
+      "y": -186.76257830966165
     },
     {
       "page_title": "Matrouz (music)",
-      "label": "Matrouz"
+      "label": "Matrouz",
+      "x": -147.35991639034626,
+      "y": 248.0529944322573
     },
     {
       "page_title": "Mbalax",
-      "label": "Mbalax, Senegalese urban dance music"
+      "label": "Mbalax, Senegalese urban dance music",
+      "x": 222.24606447577935,
+      "y": -458.87115047026947
     },
     {
-      "label": "Mbaqanga"
+      "label": "Mbaqanga",
+      "x": -188.79034410904245,
+      "y": 115.73102235234002
     },
     {
       "page_title": "Mbube (genre)",
-      "label": "Mbube"
+      "label": "Mbube",
+      "x": -333.0168259578558,
+      "y": 41.55333539768505
     },
     {
-      "label": "Medieval folk rock"
+      "label": "Medieval folk rock",
+      "x": 44.59304199059985,
+      "y": -142.7704040723906
     },
     {
-      "label": "Medieval metal"
+      "label": "Medieval metal",
+      "x": 67.63233499352908,
+      "y": -189.31346533304134
     },
     {
-      "label": "Megamix"
+      "label": "Megamix",
+      "x": -165.515592094744,
+      "y": -92.59472073309355
     },
     {
       "page_title": "Mele (Hawaiian term)",
-      "label": "Mele"
+      "label": "Mele",
+      "x": 238.06926514209385,
+      "y": 68.03298318523392
     },
     {
-      "label": "Melodic death metal"
+      "label": "Melodic death metal",
+      "x": -46.445208111188784,
+      "y": -261.1626859127093
     },
     {
-      "label": "Melodic hardcore"
+      "label": "Melodic hardcore",
+      "x": -33.91271641806061,
+      "y": -222.9397592889236
     },
     {
-      "label": "Melodic metalcore"
+      "label": "Melodic metalcore",
+      "x": -82.88154256590364,
+      "y": -263.7256951433111
     },
     {
-      "label": "Memphis blues"
+      "label": "Memphis blues",
+      "x": 112.46273743046935,
+      "y": 15.056494608906755
     },
     {
-      "label": "Memphis rap"
+      "label": "Memphis rap",
+      "x": -208.0504413475766,
+      "y": 18.90935022699235
     },
     {
-      "label": "Memphis soul"
+      "label": "Memphis soul",
+      "x": -37.46692141428284,
+      "y": 29.981033261662606
     },
     {
-      "label": "Mento"
+      "label": "Mento",
+      "x": -123.23138484289142,
+      "y": 107.33016603739406
     },
     {
       "page_title": "Merengue music",
-      "label": "Merengue"
+      "label": "Merengue",
+      "x": -83.44426687856888,
+      "y": 145.59778671161507
     },
     {
-      "label": "Merenhouse"
+      "label": "Merenhouse",
+      "x": -136.25628854793945,
+      "y": 116.60845329548151
     },
     {
-      "label": "Metalcore"
+      "label": "Metalcore",
+      "x": -89.97488824686833,
+      "y": -201.953314565491
     },
     {
       "page_title": "Mexican pop music",
-      "label": "Mexican pop"
+      "label": "Mexican pop",
+      "x": -19.994799377691518,
+      "y": 87.23323812786253
     },
     {
-      "label": "Međimurska popevka"
+      "label": "Međimurska popevka",
+      "x": 179.1539443166734,
+      "y": 131.2175082244009
     },
     {
-      "label": "Miami bass"
+      "label": "Miami bass",
+      "x": -197.48979376206447,
+      "y": 23.168496384004897
     },
     {
-      "label": "Michigan rap"
+      "label": "Michigan rap",
+      "x": -307.4810911908913,
+      "y": 135.2234783229918
     },
     {
-      "label": "Microhouse"
+      "label": "Microhouse",
+      "x": -190.53535141510176,
+      "y": -88.64859652323558
     },
     {
-      "label": "Midwest emo"
+      "label": "Midwest emo",
+      "x": -96.17665731900375,
+      "y": -167.79108472518942
     },
     {
-      "label": "Midwestern hip-hop"
+      "label": "Midwestern hip-hop",
+      "x": -241.6129743998064,
+      "y": 81.14979269144288
     },
     {
       "page_title": "Milonga (music)",
-      "label": "Milonga"
+      "label": "Milonga",
+      "x": 55.494565946410155,
+      "y": 188.51125417484084
     },
     {
-      "label": "Milwaukee hip-hop"
+      "label": "Milwaukee hip-hop",
+      "x": -286.3952855901162,
+      "y": 103.55798739109996
     },
     {
-      "label": "Mini-jazz"
+      "label": "Mini-jazz",
+      "x": -68.76958650009229,
+      "y": 142.90932021252516
     },
     {
-      "label": "Minimal music"
+      "label": "Minimal music",
+      "x": -120.17432676696077,
+      "y": -102.61946985598485
     },
     {
-      "label": "Minimal techno"
+      "label": "Minimal techno",
+      "x": -196.90806279808467,
+      "y": -69.06846862475261
     },
     {
-      "label": "Minimal wave"
+      "label": "Minimal wave",
+      "x": -110.922252779748,
+      "y": -124.30150119085344
     },
     {
-      "label": "Minneapolis sound"
+      "label": "Minneapolis sound",
+      "x": -103.09696314033341,
+      "y": -27.252468475961876
     },
     {
-      "label": "Mizrahi music"
+      "label": "Mizrahi music",
+      "x": -360.35039436962813,
+      "y": 121.15344532095153
     },
     {
-      "label": "Mobb music"
+      "label": "Mobb music",
+      "x": -167.7437893565367,
+      "y": 58.836877756735916
     },
     {
-      "label": "Mod revival"
+      "label": "Mod revival",
+      "x": -54.399266283123715,
+      "y": -50.19263490926891
     },
     {
-      "label": "Modal jazz"
+      "label": "Modal jazz",
+      "x": 9.854092272724879,
+      "y": 60.84799299553512
     },
     {
-      "label": "Moombahton"
+      "label": "Moombahton",
+      "x": -168.3748734078169,
+      "y": 27.22541564990805
     },
     {
-      "label": "Morenada"
+      "label": "Morenada",
+      "x": 170.34828286230083,
+      "y": -118.91265006713775
     },
     {
       "page_title": "Morna (music)",
-      "label": "Morna"
+      "label": "Morna",
+      "x": -145.54539552060126,
+      "y": 320.7641624237408
     },
     {
-      "label": "Moroccan pop"
+      "label": "Moroccan pop",
+      "x": -149.79142962377827,
+      "y": -192.43220739522883
     },
     {
       "page_title": "Motown#Motown sound",
-      "label": "Motown sound"
+      "label": "Motown sound",
+      "x": -76.34562211788256,
+      "y": 46.45068377807007
     },
     {
-      "label": "Motswako"
+      "label": "Motswako",
+      "x": -177.47157064697245,
+      "y": 0.7404773913648296
     },
     {
-      "label": "Mugham"
+      "label": "Mugham",
+      "x": -339.45314955166344,
+      "y": 12.250353418795475
     },
     {
-      "label": "Muliza"
+      "label": "Muliza",
+      "x": 67.27248125757178,
+      "y": 314.9816606100434
     },
     {
-      "label": "Mumble rap"
+      "label": "Mumble rap",
+      "x": -233.11896593284828,
+      "y": 39.1618395249121
     },
     {
-      "label": "Murder ballad"
+      "label": "Murder ballad",
+      "x": 193.17908100367134,
+      "y": -175.88457542983127
     },
     {
-      "label": "Music hall"
+      "label": "Music hall",
+      "x": -73.18693793533116,
+      "y": 65.23699768228045
     },
     {
       "page_title": "Music of Eritrea",
-      "label": "Eritrean music"
+      "label": "Eritrean music",
+      "x": -52.90029057348577,
+      "y": 363.01341934586117
     },
     {
       "page_title": "Music of Ethiopia",
-      "label": "Ethiopian music"
+      "label": "Ethiopian music",
+      "x": -79.36332945723562,
+      "y": 197.9514274430281
     },
     {
-      "label": "Music of Latin America"
+      "label": "Music of Latin America",
+      "x": -13.33045183463876,
+      "y": 140.5773552658548
     },
     {
       "page_title": "Music of North Korea#Pop music",
-      "label": "DPRK-pop"
+      "label": "DPRK-pop",
+      "x": -45.092243857766746,
+      "y": -49.700950796653295
     },
     {
       "page_title": "Mustard (music producer)#Production style",
-      "label": "Ratchet music"
+      "label": "Ratchet music",
+      "x": -233.0687731681417,
+      "y": 49.706108396744284
     },
     {
       "page_title": "Muziki wa dansi",
-      "label": "Muziki wa Dansi"
+      "label": "Muziki wa Dansi",
+      "x": -165.22329286092778,
+      "y": 203.26780346161343
     },
     {
-      "label": "Mákina"
+      "label": "Mákina",
+      "x": -276.8248530146137,
+      "y": -126.59234633358832
     },
     {
-      "label": "Méringue"
+      "label": "Méringue",
+      "x": -105.6878519622494,
+      "y": 216.65202913995827
     },
     {
-      "label": "Métis fiddle"
+      "label": "Métis fiddle",
+      "x": 29.977906328034692,
+      "y": 276.0754872776975
     },
     {
       "page_title": "Música criolla",
-      "label": "Criolla music"
+      "label": "Criolla music",
+      "x": 107.88276704914072,
+      "y": 205.27316573898585
     },
     {
       "page_title": "Música popular (Colombia)",
-      "label": "Música popular colombiana"
+      "label": "Música popular colombiana",
+      "x": 111.26955199332815,
+      "y": 181.78459175842346
     },
     {
       "page_title": "Música popular brasileira",
-      "label": "Brazilian popular music"
+      "label": "Brazilian popular music",
+      "x": -32.53038088637588,
+      "y": 87.07740259681788
     },
     {
-      "label": "Naattupurapaattu"
+      "label": "Naattupurapaattu",
+      "x": 188.56509440211633,
+      "y": -18.06857327594993
     },
     {
-      "label": "Nagoya kei"
+      "label": "Nagoya kei",
+      "x": -1.892070270637768,
+      "y": -166.39469463228932
     },
     {
-      "label": "Narcocorrido"
+      "label": "Narcocorrido",
+      "x": 28.104871478926135,
+      "y": 114.63459576466275
     },
     {
-      "label": "Nashville sound"
+      "label": "Nashville sound",
+      "x": 45.249888840611156,
+      "y": 16.964165136919352
     },
     {
-      "label": "National Socialist black metal"
+      "label": "National Socialist black metal",
+      "x": 10.03957128564408,
+      "y": -259.06704470867993
     },
     {
       "page_title": "Nazrul Geeti",
-      "label": "Nazrul Sangeet"
+      "label": "Nazrul Sangeet",
+      "x": 207.43423458024822,
+      "y": -22.203970832123357
     },
     {
-      "label": "Ndombolo"
+      "label": "Ndombolo",
+      "x": -163.6738380050723,
+      "y": 169.5445667670536
     },
     {
-      "label": "Nederbeat"
+      "label": "Nederbeat",
+      "x": 31.35176282862163,
+      "y": -105.2573682402127
     },
     {
-      "label": "Nederpop"
+      "label": "Nederpop",
+      "x": -20.974060185849954,
+      "y": -100.34805297480463
     },
     {
-      "label": "Neo soul"
+      "label": "Neo soul",
+      "x": -92.44321971100179,
+      "y": -3.1726974245911546
     },
     {
       "page_title": "Neo-bop",
-      "label": "Neo-bop jazz"
+      "label": "Neo-bop jazz",
+      "x": 20.72308203953815,
+      "y": 83.93899088131464
     },
     {
-      "label": "Neo-prog"
+      "label": "Neo-prog",
+      "x": -25.765822477558345,
+      "y": -70.81077293166118
     },
     {
-      "label": "Neo-psychedelia"
+      "label": "Neo-psychedelia",
+      "x": -80.90073194949062,
+      "y": -97.48415444442512
     },
     {
-      "label": "Neoclassical metal"
+      "label": "Neoclassical metal",
+      "x": -38.63387291390514,
+      "y": -199.49670470967743
     },
     {
-      "label": "Neofolk"
+      "label": "Neofolk",
+      "x": -31.93271186674518,
+      "y": -133.01105559062344
     },
     {
-      "label": "Neomelodic music"
+      "label": "Neomelodic music",
+      "x": -227.4024229543071,
+      "y": -175.29923597992604
     },
     {
-      "label": "Neoperreo"
+      "label": "Neoperreo",
+      "x": -141.99321229895295,
+      "y": 31.751538581855133
     },
     {
-      "label": "Neotraditional country"
+      "label": "Neotraditional country",
+      "x": 48.3299324952237,
+      "y": -12.64944039704161
     },
     {
-      "label": "Nerdcore"
+      "label": "Nerdcore",
+      "x": -191.5261810468189,
+      "y": 41.431686221068716
     },
     {
-      "label": "Neue Deutsche Härte"
+      "label": "Neue Deutsche Härte",
+      "x": -141.94785978082666,
+      "y": -150.63365475192515
     },
     {
-      "label": "Neue Deutsche Todeskunst"
+      "label": "Neue Deutsche Todeskunst",
+      "x": 9.514828466873857,
+      "y": -164.67276649898588
     },
     {
-      "label": "Neue Deutsche Welle"
+      "label": "Neue Deutsche Welle",
+      "x": -104.63934907586254,
+      "y": -108.70442781648067
     },
     {
-      "label": "Neue Volksmusik"
+      "label": "Neue Volksmusik",
+      "x": 42.57294963586187,
+      "y": -29.258720934705096
     },
     {
-      "label": "Neurofunk"
+      "label": "Neurofunk",
+      "x": -174.60665738845267,
+      "y": -87.0803516751384
     },
     {
       "page_title": "New Chilean cumbia",
-      "label": "New Chilean Cumbia"
+      "label": "New Chilean Cumbia",
+      "x": 77.97403259779603,
+      "y": 98.24535344795768
     },
     {
-      "label": "New Jersey sound"
+      "label": "New Jersey sound",
+      "x": -133.7718002420631,
+      "y": 16.353150942266158
     },
     {
-      "label": "New Mexico music"
+      "label": "New Mexico music",
+      "x": 18.894842546020826,
+      "y": 57.28458521875213
     },
     {
-      "label": "New Orleans Soul"
+      "label": "New Orleans Soul",
+      "x": 1.0216690167189475,
+      "y": 37.38085109104114
     },
     {
-      "label": "New Orleans blues"
+      "label": "New Orleans blues",
+      "x": -13.860980281184363,
+      "y": 76.33280241439962
     },
     {
-      "label": "New Orleans hip-hop"
+      "label": "New Orleans hip-hop",
+      "x": -149.4040897314372,
+      "y": 53.2119001487354
     },
     {
-      "label": "New Orleans rhythm and blues"
+      "label": "New Orleans rhythm and blues",
+      "x": 19.059454085654068,
+      "y": 45.64476226991502
     },
     {
-      "label": "New Weird America"
+      "label": "New Weird America",
+      "x": 104.9102522397603,
+      "y": -147.21774413550062
     },
     {
-      "label": "New York soul"
+      "label": "New York soul",
+      "x": -60.159704281526956,
+      "y": 86.32215537588066
     },
     {
-      "label": "New beat"
+      "label": "New beat",
+      "x": -206.980373949084,
+      "y": -95.01289198573318
     },
     {
-      "label": "New flamenco"
+      "label": "New flamenco",
+      "x": -5.892959282209239,
+      "y": 13.776961293604668
     },
     {
-      "label": "New jack swing"
+      "label": "New jack swing",
+      "x": -115.63370574801104,
+      "y": 21.810685605954646
     },
     {
-      "label": "New musick"
+      "label": "New musick",
+      "x": -100.7016714162936,
+      "y": -65.99143386433028
     },
     {
-      "label": "New pop"
+      "label": "New pop",
+      "x": -74.43776154479133,
+      "y": -77.47145246846756
     },
     {
-      "label": "New rave"
+      "label": "New rave",
+      "x": -113.54629931107587,
+      "y": -112.58437436007794
     },
     {
       "page_title": "New wave music",
-      "label": "New wave"
+      "label": "New wave",
+      "x": -85.50499899941298,
+      "y": -79.09871057656017
     },
     {
-      "label": "New wave of American heavy metal"
+      "label": "New wave of American heavy metal",
+      "x": -124.88125084470025,
+      "y": -212.16731852019305
     },
     {
-      "label": "New wave of British heavy metal"
+      "label": "New wave of British heavy metal",
+      "x": -11.490925647395239,
+      "y": -174.27136816259306
     },
     {
-      "label": "New wave of classic rock"
+      "label": "New wave of classic rock",
+      "x": 65.91138377095291,
+      "y": -119.06325159415873
     },
     {
-      "label": "New wave of new wave"
+      "label": "New wave of new wave",
+      "x": -57.50938232588905,
+      "y": -149.6478189931555
     },
     {
-      "label": "New wave of traditional heavy metal"
+      "label": "New wave of traditional heavy metal",
+      "x": 9.07653351454805,
+      "y": -223.29205582979841
     },
     {
       "page_title": "New-age music",
-      "label": "New-age"
+      "label": "New-age",
+      "x": -114.25136992962442,
+      "y": -77.95316852705231
     },
     {
-      "label": "New-school hip-hop"
+      "label": "New-school hip-hop",
+      "x": -186.85786653965866,
+      "y": 100.0066917443444
     },
     {
       "page_title": "Ngano (Tshivenda narrative song)",
-      "label": "Ngano"
+      "label": "Ngano",
+      "x": 206.52632041910223,
+      "y": -2.672965329016452
     },
     {
-      "label": "Nhạc đỏ"
+      "label": "Nhạc đỏ",
+      "x": -40.7002443922815,
+      "y": 279.60947367129506
     },
     {
-      "label": "Nightcore"
+      "label": "Nightcore",
+      "x": -222.73057040956022,
+      "y": -105.2443794175645
     },
     {
-      "label": "Nintendocore"
+      "label": "Nintendocore",
+      "x": -104.33621754100277,
+      "y": -172.8288154359433
     },
     {
-      "label": "Nitzhonot"
+      "label": "Nitzhonot",
+      "x": -180.70309285237025,
+      "y": -123.0347049089849
     },
     {
-      "label": "Njuup"
+      "label": "Njuup",
+      "x": 243.25016735305792,
+      "y": -446.12838004793844
     },
     {
-      "label": "No wave"
+      "label": "No wave",
+      "x": -112.45945045708491,
+      "y": -102.45720902197937
     },
     {
-      "label": "Noise music"
+      "label": "Noise music",
+      "x": -161.59072729641662,
+      "y": -153.27848607202384
     },
     {
-      "label": "Noise pop"
+      "label": "Noise pop",
+      "x": -60.95848627539762,
+      "y": -137.94624543729464
     },
     {
-      "label": "Noise rock"
+      "label": "Noise rock",
+      "x": -82.18541010379283,
+      "y": -137.7774965336364
     },
     {
-      "label": "Noisecore"
+      "label": "Noisecore",
+      "x": -121.66387461996364,
+      "y": -189.59729458683455
     },
     {
-      "label": "Nordic jazz"
+      "label": "Nordic jazz",
+      "x": 40.599771497652675,
+      "y": 82.70277281980222
     },
     {
-      "label": "Nortec"
+      "label": "Nortec",
+      "x": -93.72630558371172,
+      "y": 93.9201277595438
     },
     {
       "page_title": "Norteño (music)",
-      "label": "Norteño"
+      "label": "Norteño",
+      "x": 18.762518697314157,
+      "y": 107.8772178169891
     },
     {
-      "label": "Norteño-sax"
+      "label": "Norteño-sax",
+      "x": 45.82789339997345,
+      "y": 166.2382238076845
     },
     {
       "page_title": "Northwestern hip-hop",
-      "label": "Hip-hop in the Pacific Northwest"
+      "label": "Hip-hop in the Pacific Northwest",
+      "x": -126.49003587350197,
+      "y": 81.4424102727751
     },
     {
-      "label": "Novelty piano"
+      "label": "Novelty piano",
+      "x": -22.851650906606363,
+      "y": -29.173166551572038
     },
     {
       "page_title": "Novelty song",
-      "label": "Novelty songs"
+      "label": "Novelty songs",
+      "x": -81.55998829730879,
+      "y": -116.05501831267244
     },
     {
       "page_title": "Nu jazz",
-      "label": "Nu Jazz"
+      "label": "Nu Jazz",
+      "x": -112.1775343969132,
+      "y": -12.140199006184096
     },
     {
-      "label": "Nu metal"
+      "label": "Nu metal",
+      "x": -108.16757375828263,
+      "y": -159.66139199396298
     },
     {
-      "label": "Nu metalcore"
+      "label": "Nu metalcore",
+      "x": -104.69973369458434,
+      "y": -226.96862421621378
     },
     {
-      "label": "Nu skool breaks"
+      "label": "Nu skool breaks",
+      "x": -231.15471624264666,
+      "y": -40.806131264286684
     },
     {
-      "label": "Nu-disco"
+      "label": "Nu-disco",
+      "x": -166.61017154338577,
+      "y": -35.92400369950619
     },
     {
-      "label": "Nueva Iberica"
+      "label": "Nueva Iberica",
+      "x": -109.99069465261105,
+      "y": -19.487252532277296
     },
     {
-      "label": "Nueva canción"
+      "label": "Nueva canción",
+      "x": 12.911640443821772,
+      "y": 239.0614922709969
     },
     {
-      "label": "Nueva canción chilena"
+      "label": "Nueva canción chilena",
+      "x": 29.54401455665527,
+      "y": 238.18884487703977
     },
     {
-      "label": "Nueva ola"
+      "label": "Nueva ola",
+      "x": 5.761676922271651,
+      "y": 28.01103519838147
     },
     {
       "page_title": "Nusach (Jewish music)",
-      "label": "Nusach"
+      "label": "Nusach",
+      "x": 132.09461223957243,
+      "y": 161.87220582493512
     },
     {
-      "label": "Nā mele paleoleo"
+      "label": "Nā mele paleoleo",
+      "x": -101.03648476661486,
+      "y": -46.43469801316807
     },
     {
-      "label": "Occult rock"
+      "label": "Occult rock",
+      "x": -8.50405051640561,
+      "y": -122.45721142235536
     },
     {
       "page_title": "Odi Pop",
-      "label": "Odi pop"
+      "label": "Odi pop",
+      "x": -171.5216641866757,
+      "y": 109.88505097548277
     },
     {
       "page_title": "Odumodu music",
-      "label": "Odumodu"
+      "label": "Odumodu",
+      "x": 202.1131611892319,
+      "y": -131.03766802830987
     },
     {
-      "label": "Oi!"
+      "label": "Oi!",
+      "x": -27.529373477170118,
+      "y": -113.25658678735259
     },
     {
-      "label": "Ojkanje"
+      "label": "Ojkanje",
+      "x": 202.71419874534067,
+      "y": -63.41722930350002
     },
     {
-      "label": "Old-school hip-hop"
+      "label": "Old-school hip-hop",
+      "x": -117.47665438982679,
+      "y": 49.10196139907753
     },
     {
-      "label": "Old-time music"
+      "label": "Old-time music",
+      "x": 74.79409914819269,
+      "y": -16.959252322431134
     },
     {
-      "label": "Onkyokei"
+      "label": "Onkyokei",
+      "x": -188.1866708586597,
+      "y": -166.39557490252
     },
     {
-      "label": "Operatic pop"
+      "label": "Operatic pop",
+      "x": -95.60067068808614,
+      "y": -107.82543313302516
     },
     {
       "page_title": "Orchestral jazz",
-      "label": "Orchestral Jazz"
+      "label": "Orchestral Jazz",
+      "x": 9.218967530731714,
+      "y": 80.8898201332242
     },
     {
-      "label": "Orchestral pop"
+      "label": "Orchestral pop",
+      "x": -58.89607542062788,
+      "y": -6.527268984034382
     },
     {
-      "label": "Organic house"
+      "label": "Organic house",
+      "x": -266.6961762261461,
+      "y": -29.081761223412848
     },
     {
-      "label": "Orthodox pop"
+      "label": "Orthodox pop",
+      "x": -81.89032108730675,
+      "y": 96.6637160427805
     },
     {
-      "label": "Outlaw country"
+      "label": "Outlaw country",
+      "x": 52.429870994375,
+      "y": -35.511308599431125
     },
     {
-      "label": "Outsider house"
+      "label": "Outsider house",
+      "x": -222.02109639963052,
+      "y": -89.89808040896921
     },
     {
-      "label": "Owerri Bongo"
+      "label": "Owerri Bongo",
+      "x": -200.3998564876205,
+      "y": 252.99169347297698
     },
     {
-      "label": "Pachanga"
+      "label": "Pachanga",
+      "x": -36.073517257410316,
+      "y": 184.50338918589466
     },
     {
-      "label": "Pagan metal"
+      "label": "Pagan metal",
+      "x": -4.3669790662747445,
+      "y": -244.21311952661324
     },
     {
-      "label": "Pagan rock"
+      "label": "Pagan rock",
+      "x": 43.46089456137596,
+      "y": -181.0478432296417
     },
     {
-      "label": "Pagode baiano"
+      "label": "Pagode baiano",
+      "x": -120.7941357880405,
+      "y": 208.14339740302637
     },
     {
-      "label": "Paisley Underground"
+      "label": "Paisley Underground",
+      "x": -19.62249125477576,
+      "y": -109.53757571754734
     },
     {
       "page_title": "Pakistani hip-hop",
-      "label": "Pakistani hip hop"
+      "label": "Pakistani hip hop",
+      "x": -279.8938396099838,
+      "y": 81.4756895564977
     },
     {
       "page_title": "Palam (music)",
-      "label": "Palam"
+      "label": "Palam",
+      "x": -127.33914214187035,
+      "y": 241.85248294571574
     },
     {
       "page_title": "Palingsound",
-      "label": "Palingpop"
+      "label": "Palingpop",
+      "x": 1.8779300564240862,
+      "y": -67.39956811760574
     },
     {
-      "label": "Palm Desert Scene"
+      "label": "Palm Desert Scene",
+      "x": -15.831052729979763,
+      "y": -138.82931347438418
     },
     {
-      "label": "Palm-wine music"
+      "label": "Palm-wine music",
+      "x": -118.63162369516685,
+      "y": 132.83026059329774
     },
     {
       "page_title": "Palo music",
-      "label": "Palo"
+      "label": "Palo",
+      "x": 240.86122324182278,
+      "y": -106.01151208810515
     },
     {
-      "label": "Pambiche"
+      "label": "Pambiche",
+      "x": -43.86907436799807,
+      "y": 199.26366817257176
     },
     {
-      "label": "Paraguayan polka"
+      "label": "Paraguayan polka",
+      "x": 103.14663287870079,
+      "y": 158.72900081256512
     },
     {
       "page_title": "Paranda (music)",
-      "label": "Paranda"
+      "label": "Paranda",
+      "x": -10.646248992183388,
+      "y": 333.2400132368074
     },
     {
-      "label": "Parang"
+      "label": "Parang",
+      "x": -65.26908821680723,
+      "y": 195.20393910615903
     },
     {
-      "label": "Parlour music"
+      "label": "Parlour music",
+      "x": 237.4941776535988,
+      "y": -65.59951258421032
     },
     {
-      "label": "Partido alto"
+      "label": "Partido alto",
+      "x": 4.149455519804116,
+      "y": 188.25474789819913
     },
     {
-      "label": "Partyschlager"
+      "label": "Partyschlager",
+      "x": -194.97819950563567,
+      "y": 216.53920243111236
     },
     {
-      "label": "Patua Sangeet"
+      "label": "Patua Sangeet",
+      "x": 139.89790709488537,
+      "y": 100.53532552916614
     },
     {
-      "label": "Peking opera"
+      "label": "Peking opera",
+      "x": 187.13325126856213,
+      "y": -0.6902663038137945
     },
     {
-      "label": "Peruvian cumbia"
+      "label": "Peruvian cumbia",
+      "x": 53.63277909566038,
+      "y": 56.15782159256002
     },
     {
       "page_title": "Peruvian waltz",
-      "label": "Peruvian Creole Waltz"
+      "label": "Peruvian Creole Waltz",
+      "x": 64.98780762945063,
+      "y": 151.86951908130098
     },
     {
-      "label": "Philadelphia soul"
+      "label": "Philadelphia soul",
+      "x": -58.84546534670123,
+      "y": 10.372249180058393
     },
     {
-      "label": "Philippine folk music"
+      "label": "Philippine folk music",
+      "x": -161.1270555175045,
+      "y": -210.73194861418327
     },
     {
-      "label": "Phleng phuea chiwit"
+      "label": "Phleng phuea chiwit",
+      "x": 71.95680457255523,
+      "y": -87.50889412386553
     },
     {
-      "label": "Phonk"
+      "label": "Phonk",
+      "x": -204.32858597900577,
+      "y": 28.905686901675566
     },
     {
-      "label": "Piedmont blues"
+      "label": "Piedmont blues",
+      "x": 71.63392995854313,
+      "y": 59.68524048729128
     },
     {
       "page_title": "Pinoy hip-hop",
-      "label": "Pinoy hip hop"
+      "label": "Pinoy hip hop",
+      "x": -258.35685760170105,
+      "y": 56.25994635588669
     },
     {
-      "label": "Pinoy pop"
+      "label": "Pinoy pop",
+      "x": -74.14044730855991,
+      "y": -48.609887303779296
     },
     {
-      "label": "Pinoy reggae"
+      "label": "Pinoy reggae",
+      "x": -173.93206703735783,
+      "y": -158.52704557072386
     },
     {
-      "label": "Pinoy rock"
+      "label": "Pinoy rock",
+      "x": -132.2523984466051,
+      "y": -177.4001382038389
     },
     {
-      "label": "Pirate metal"
+      "label": "Pirate metal",
+      "x": 41.10757642204908,
+      "y": -242.80038734773495
     },
     {
-      "label": "Pirekua"
+      "label": "Pirekua",
+      "x": 214.90974024221734,
+      "y": 67.99143470074742
     },
     {
-      "label": "Pisadinha"
+      "label": "Pisadinha",
+      "x": -84.1285644093804,
+      "y": 162.2717950470838
     },
     {
-      "label": "Plena"
+      "label": "Plena",
+      "x": -20.851108871021115,
+      "y": 184.72078611537924
     },
     {
-      "label": "Plugg music"
+      "label": "Plugg music",
+      "x": -166.84220963127794,
+      "y": -16.685168877404028
     },
     {
-      "label": "Plunderphonics"
+      "label": "Plunderphonics",
+      "x": -172.4506858763094,
+      "y": -101.65793411299761
     },
     {
       "page_title": "Political hip-hop",
-      "label": "Political hip hop"
+      "label": "Political hip hop",
+      "x": -170.25396113849337,
+      "y": 69.66319704926248
     },
     {
-      "label": "Polka"
+      "label": "Polka",
+      "x": 43.882353472652746,
+      "y": 148.32995756495276
     },
     {
-      "label": "Pop kreatif"
+      "label": "Pop kreatif",
+      "x": -91.47076934271112,
+      "y": -42.09171338753095
     },
     {
-      "label": "Pop melankolis"
+      "label": "Pop melankolis",
+      "x": 76.11197724879098,
+      "y": 48.14854864551433
     },
     {
-      "label": "Pop melayu"
+      "label": "Pop melayu",
+      "x": -13.641131552306916,
+      "y": -88.31296268333082
     },
     {
-      "label": "Pop metal"
+      "label": "Pop metal",
+      "x": -31.128606531789497,
+      "y": -104.97188800288386
     },
     {
-      "label": "Pop music"
+      "label": "Pop music",
+      "x": -83.48808549587346,
+      "y": -46.279396071628256
     },
     {
-      "label": "Pop rap"
+      "label": "Pop rap",
+      "x": -167.33002650633344,
+      "y": 0.24116512323236292
     },
     {
-      "label": "Pop rock"
+      "label": "Pop rock",
+      "x": -27.98532508851375,
+      "y": -47.10031915987981
     },
     {
-      "label": "Pop-punk"
+      "label": "Pop-punk",
+      "x": -67.43214133823966,
+      "y": -129.46653379382826
     },
     {
       "page_title": "Pop-punk#Easycore",
-      "label": "Easycore"
+      "label": "Easycore",
+      "x": -69.86205548390528,
+      "y": -209.56523347241603
     },
     {
       "page_title": "Pop-punk#Neon pop-punk",
-      "label": "Neon pop-punk"
+      "label": "Neon pop-punk",
+      "x": -146.6386290924966,
+      "y": -173.6323229431869
     },
     {
       "page_title": "Popcorn (Belgian music style)",
-      "label": "Belgian popcorn"
+      "label": "Belgian popcorn",
+      "x": 163.90947205698777,
+      "y": -45.50423228983529
     },
     {
       "page_title": "Popcorn (Romanian music style)",
-      "label": "Romanian popcorn"
+      "label": "Romanian popcorn",
+      "x": -238.18958071013395,
+      "y": -28.671543054485046
     },
     {
-      "label": "Pornogrind"
+      "label": "Pornogrind",
+      "x": -55.377981190039336,
+      "y": -252.78657857404602
     },
     {
-      "label": "Porro"
+      "label": "Porro",
+      "x": 23.079900498742767,
+      "y": 221.83100105028157
     },
     {
-      "label": "Positive hardcore"
+      "label": "Positive hardcore",
+      "x": -78.19589815688481,
+      "y": -281.0506498516996
     },
     {
-      "label": "Post-Britpop"
+      "label": "Post-Britpop",
+      "x": -51.55741883881642,
+      "y": -157.96454784271612
     },
     {
-      "label": "Post-disco"
+      "label": "Post-disco",
+      "x": -148.02755189764076,
+      "y": -32.664195743444694
     },
     {
-      "label": "Post-grunge"
+      "label": "Post-grunge",
+      "x": -10.23759940730584,
+      "y": -158.71427404645158
     },
     {
-      "label": "Post-hardcore"
+      "label": "Post-hardcore",
+      "x": -103.19151341109412,
+      "y": -149.2054522762437
     },
     {
-      "label": "Post-metal"
+      "label": "Post-metal",
+      "x": -62.645941160007375,
+      "y": -173.2736456748621
     },
     {
-      "label": "Post-no wave"
+      "label": "Post-no wave",
+      "x": -129.0863233923995,
+      "y": -142.2358950399606
     },
     {
-      "label": "Post-noise"
+      "label": "Post-noise",
+      "x": -157.0967295581224,
+      "y": -130.66215465875695
     },
     {
       "page_title": "Post-noise#Neo-kosmische",
-      "label": "Neo-kosmische"
+      "label": "Neo-kosmische",
+      "x": -185.61558332697084,
+      "y": -188.9901468220239
     },
     {
-      "label": "Post-progressive"
+      "label": "Post-progressive",
+      "x": -66.1516343678724,
+      "y": -75.11445102533338
     },
     {
-      "label": "Post-punk"
+      "label": "Post-punk",
+      "x": -86.1864715873402,
+      "y": -89.51711230159846
     },
     {
-      "label": "Post-punk revival"
+      "label": "Post-punk revival",
+      "x": -74.52426828678588,
+      "y": -126.94248513979548
     },
     {
-      "label": "Post-rock"
+      "label": "Post-rock",
+      "x": -90.62398925771599,
+      "y": -94.45832927083576
     },
     {
       "page_title": "Power electronics (music genre)",
-      "label": "Power electronics"
+      "label": "Power electronics",
+      "x": -195.42612513167492,
+      "y": -177.02194590392503
     },
     {
-      "label": "Power metal"
+      "label": "Power metal",
+      "x": -10.943540108429955,
+      "y": -216.09922724058427
     },
     {
-      "label": "Power noise"
+      "label": "Power noise",
+      "x": -209.69608082807312,
+      "y": -154.86273429007582
     },
     {
-      "label": "Power pop"
+      "label": "Power pop",
+      "x": -28.527416478511732,
+      "y": -83.17604393460208
     },
     {
-      "label": "Powerviolence"
+      "label": "Powerviolence",
+      "x": -119.47723904813088,
+      "y": -238.49296488182006
     },
     {
       "page_title": "Preaching chords",
-      "label": "Preaching Chords"
+      "label": "Preaching Chords",
+      "x": 25.22222099364801,
+      "y": 73.56511760007548
     },
     {
-      "label": "Progressive country"
+      "label": "Progressive country",
+      "x": 58.58541102356565,
+      "y": -13.235037845967415
     },
     {
-      "label": "Progressive folk"
+      "label": "Progressive folk",
+      "x": 59.61806245081146,
+      "y": -89.66828783013528
     },
     {
-      "label": "Progressive house"
+      "label": "Progressive house",
+      "x": -234.55671200010454,
+      "y": -49.173435424736255
     },
     {
-      "label": "Progressive metal"
+      "label": "Progressive metal",
+      "x": -66.25298598286305,
+      "y": -196.65312061133648
     },
     {
-      "label": "Progressive metalcore"
+      "label": "Progressive metalcore",
+      "x": -83.37164661942195,
+      "y": -238.5210492963238
     },
     {
-      "label": "Progressive pop"
+      "label": "Progressive pop",
+      "x": -57.24388574936371,
+      "y": -90.3682729528039
     },
     {
-      "label": "Progressive rap"
+      "label": "Progressive rap",
+      "x": -125.00640051678181,
+      "y": 14.576508415840578
     },
     {
-      "label": "Progressive rock"
+      "label": "Progressive rock",
+      "x": -48.18765680272853,
+      "y": -99.68480175057107
     },
     {
-      "label": "Progressive soul"
+      "label": "Progressive soul",
+      "x": -64.01268092886455,
+      "y": -25.344189740232896
     },
     {
       "page_title": "Proibidão",
-      "label": "Funk proibidão"
+      "label": "Funk proibidão",
+      "x": -208.32439519849675,
+      "y": 124.9874160568828
     },
     {
-      "label": "Proto-prog"
+      "label": "Proto-prog",
+      "x": 50.84865206253024,
+      "y": -99.97509609856237
     },
     {
-      "label": "Proto-punk"
+      "label": "Proto-punk",
+      "x": 4.135711658921437,
+      "y": -122.38301652828598
     },
     {
-      "label": "Psychedelic folk"
+      "label": "Psychedelic folk",
+      "x": 71.4377826197382,
+      "y": -137.54172859715646
     },
     {
-      "label": "Psychedelic funk"
+      "label": "Psychedelic funk",
+      "x": -77.05250500066114,
+      "y": -40.32273569573866
     },
     {
-      "label": "Psychedelic pop"
+      "label": "Psychedelic pop",
+      "x": -53.81033570845947,
+      "y": -62.4456816021469
     },
     {
-      "label": "Psychedelic rap"
+      "label": "Psychedelic rap",
+      "x": -101.06924595512568,
+      "y": 10.559787716681047
     },
     {
-      "label": "Psychedelic rock"
+      "label": "Psychedelic rock",
+      "x": -32.69813355123568,
+      "y": -74.28700889561865
     },
     {
-      "label": "Psychedelic soul"
+      "label": "Psychedelic soul",
+      "x": -72.17465325763034,
+      "y": -19.073381527545685
     },
     {
-      "label": "Psychedelic trance"
+      "label": "Psychedelic trance",
+      "x": -199.90725027381015,
+      "y": -104.53559236169572
     },
     {
-      "label": "Psychobilly"
+      "label": "Psychobilly",
+      "x": 28.081548791621742,
+      "y": -79.03058764019471
     },
     {
-      "label": "Psydub"
+      "label": "Psydub",
+      "x": -188.97151296694284,
+      "y": -73.6599754555376
     },
     {
       "page_title": "Pub rock (Australia)",
-      "label": "Australian pub rock"
+      "label": "Australian pub rock",
+      "x": 90.07022788744499,
+      "y": -125.50615063932128
     },
     {
       "page_title": "Pub rock (United Kingdom)",
-      "label": "Pub rock"
+      "label": "Pub rock",
+      "x": -13.076083021219997,
+      "y": -75.08075552005378
     },
     {
-      "label": "Puerto Rican hip-hop"
+      "label": "Puerto Rican hip-hop",
+      "x": -150.04850832451396,
+      "y": 96.34686158785267
     },
     {
-      "label": "Punk blues"
+      "label": "Punk blues",
+      "x": 19.94605199375451,
+      "y": -75.23845603559026
     },
     {
-      "label": "Punk funk"
+      "label": "Punk funk",
+      "x": -74.67280204838856,
+      "y": -90.99242880898124
     },
     {
-      "label": "Punk jazz"
+      "label": "Punk jazz",
+      "x": -36.99292738684278,
+      "y": -52.44135535245658
     },
     {
       "page_title": "Punk jazz#Jazzcore",
-      "label": "Jazzcore"
+      "label": "Jazzcore",
+      "x": -53.056672068897534,
+      "y": -119.52884084859089
     },
     {
-      "label": "Punk pathetique"
+      "label": "Punk pathetique",
+      "x": -41.49106117303294,
+      "y": -71.32142575630644
     },
     {
-      "label": "Punk rap"
+      "label": "Punk rap",
+      "x": -117.47159478897419,
+      "y": -53.39684524500379
     },
     {
-      "label": "Punk rock"
+      "label": "Punk rock",
+      "x": -42.46527826157796,
+      "y": -116.39568816966391
     },
     {
-      "label": "Punta"
+      "label": "Punta",
+      "x": -37.37367158594239,
+      "y": 246.16017360382128
     },
     {
-      "label": "Punta rock"
+      "label": "Punta rock",
+      "x": -104.74667035682397,
+      "y": 182.97396711423337
     },
     {
       "page_title": "Punto (Venezuela)",
-      "label": "Punto"
+      "label": "Punto",
+      "x": 157.34335630582777,
+      "y": 45.75046591313528
     },
     {
-      "label": "Q-pop"
+      "label": "Q-pop",
+      "x": -217.2438067859051,
+      "y": 13.979102700266232
     },
     {
       "page_title": "Qudud Halabiya",
-      "label": "Qudud Al-Halabiya"
+      "label": "Qudud Al-Halabiya",
+      "x": 157.53977144184032,
+      "y": 16.85520541628815
     },
     {
-      "label": "Queercore"
+      "label": "Queercore",
+      "x": -87.69557529676555,
+      "y": -146.76633104454828
     },
     {
-      "label": "Quiet storm"
+      "label": "Quiet storm",
+      "x": -66.43604388843724,
+      "y": 0.4598842090413073
     },
     {
-      "label": "Rabiz"
+      "label": "Rabiz",
+      "x": -279.8798798820289,
+      "y": 25.523555612338583
     },
     {
-      "label": "Rabòday"
+      "label": "Rabòday",
+      "x": 145.7752191243338,
+      "y": -140.71108419219428
     },
     {
       "page_title": "Radif (music)",
-      "label": "Radif"
+      "label": "Radif",
+      "x": 170.7363132706045,
+      "y": 31.20695924199579
     },
     {
-      "label": "Raga rock"
+      "label": "Raga rock",
+      "x": 10.92457468357466,
+      "y": -66.40561183623227
     },
     {
       "page_title": "Rage (music genre)",
-      "label": "Rage"
+      "label": "Rage",
+      "x": -186.37545345168348,
+      "y": -7.7642928225414485
     },
     {
-      "label": "Ragga"
+      "label": "Ragga",
+      "x": -131.58980495202465,
+      "y": 63.230360150769506
     },
     {
-      "label": "Raglife"
+      "label": "Raglife",
+      "x": -178.50687257424323,
+      "y": 122.67860655851392
     },
     {
-      "label": "Ragtime"
+      "label": "Ragtime",
+      "x": -10.569369280805669,
+      "y": 53.848336519418986
     },
     {
-      "label": "Rake-and-scrape"
+      "label": "Rake-and-scrape",
+      "x": 197.60153655962282,
+      "y": 16.083206163280874
     },
     {
-      "label": "Ramprasadi"
+      "label": "Ramprasadi",
+      "x": 155.41874236742444,
+      "y": 163.6617855099624
     },
     {
-      "label": "Ranchera"
+      "label": "Ranchera",
+      "x": 40.84647274119569,
+      "y": 107.6067956529028
     },
     {
-      "label": "Rap metal"
+      "label": "Rap metal",
+      "x": -116.98355223390273,
+      "y": -92.71960770249342
     },
     {
       "page_title": "Rap metal#Trap metal",
-      "label": "Trap metal"
+      "label": "Trap metal",
+      "x": -145.95136863283975,
+      "y": -92.49765638725772
     },
     {
-      "label": "Rap rock"
+      "label": "Rap rock",
+      "x": -117.08284035346716,
+      "y": -24.13546786015079
     },
     {
-      "label": "Rapso"
+      "label": "Rapso",
+      "x": -125.2216556197774,
+      "y": 160.30660294339344
     },
     {
-      "label": "Raptor house"
+      "label": "Raptor house",
+      "x": -161.7656071133935,
+      "y": 42.4850465830161
     },
     {
-      "label": "Rara tech"
+      "label": "Rara tech",
+      "x": -316.6304392671436,
+      "y": -35.01479635888103
     },
     {
-      "label": "Rasin"
+      "label": "Rasin",
+      "x": 104.55314874981973,
+      "y": -112.94290270830275
     },
     {
-      "label": "Rasiya"
+      "label": "Rasiya",
+      "x": 242.7924194965548,
+      "y": -44.165981415016056
     },
     {
-      "label": "Rasteirinha"
+      "label": "Rasteirinha",
+      "x": -115.2112576021706,
+      "y": 147.16159923540584
     },
     {
-      "label": "Raï"
+      "label": "Raï",
+      "x": 198.29148624745125,
+      "y": -93.52793984378346
     },
     {
-      "label": "Rebetiko"
+      "label": "Rebetiko",
+      "x": 115.98274732690732,
+      "y": -240.67964558421045
     },
     {
       "page_title": "Rebetiko#Rebetiko rock",
-      "label": "Rebetiko rock"
+      "label": "Rebetiko rock",
+      "x": 65.54449069037138,
+      "y": -168.6183764631954
     },
     {
       "page_title": "Rebetiko#Smyrna style  (Smyrneïko)",
-      "label": "Smyrna style rebetiko (Smyrneïko)"
+      "label": "Smyrna style rebetiko (Smyrneïko)",
+      "x": 165.4318318086035,
+      "y": -273.42630184613614
     },
     {
-      "label": "Recession pop"
+      "label": "Recession pop",
+      "x": -134.9837787494457,
+      "y": -46.946783168971464
     },
     {
       "page_title": "Red dirt music",
-      "label": "Red dirt"
+      "label": "Red dirt",
+      "x": 66.31946477335363,
+      "y": -21.36633022495853
     },
     {
-      "label": "Reggada"
+      "label": "Reggada",
+      "x": -104.73844038400897,
+      "y": -306.18628462548907
     },
     {
-      "label": "Reggae"
+      "label": "Reggae",
+      "x": -122.9247472474608,
+      "y": 25.179559907638126
     },
     {
-      "label": "Reggae en Español"
+      "label": "Reggae en Español",
+      "x": -109.3431426565005,
+      "y": 103.91066195376605
     },
     {
-      "label": "Reggae fusion"
+      "label": "Reggae fusion",
+      "x": -115.21700074583461,
+      "y": 10.8213544976219
     },
     {
-      "label": "Reggae punk"
+      "label": "Reggae punk",
+      "x": -58.185877231828286,
+      "y": -35.27084110500642
     },
     {
-      "label": "Reggae rock"
+      "label": "Reggae rock",
+      "x": -76.79564345844598,
+      "y": 4.5114228565874805
     },
     {
-      "label": "Reggaestep"
+      "label": "Reggaestep",
+      "x": -152.0978424869268,
+      "y": 12.97874712944872
     },
     {
-      "label": "Reggaeton"
+      "label": "Reggaeton",
+      "x": -130.17564430654676,
+      "y": 96.62867547965453
     },
     {
       "page_title": "Regional Mexican",
-      "label": "Regional Mexican music"
+      "label": "Regional Mexican music",
+      "x": 56.43150734148407,
+      "y": 124.83835101445858
     },
     {
       "page_title": "Retro-soul",
-      "label": "Retro soul"
+      "label": "Retro soul",
+      "x": -57.88421008225921,
+      "y": 27.164614851359573
     },
     {
-      "label": "Rhythm and blues"
+      "label": "Rhythm and blues",
+      "x": -50.64771720511903,
+      "y": 4.342824366621528
     },
     {
       "page_title": "Riddim (genre)",
-      "label": "Riddim"
+      "label": "Riddim",
+      "x": -171.21634989147444,
+      "y": 36.50505311063371
     },
     {
-      "label": "Ringbang"
+      "label": "Ringbang",
+      "x": -130.40263406565387,
+      "y": 148.31906671032127
     },
     {
-      "label": "Riot grrrl"
+      "label": "Riot grrrl",
+      "x": -68.18342569805722,
+      "y": -150.4812432880916
     },
     {
-      "label": "Risecore"
+      "label": "Risecore",
+      "x": -100.29835203684975,
+      "y": -183.545524858917
     },
     {
-      "label": "RnBass"
+      "label": "RnBass",
+      "x": -180.87808589482054,
+      "y": 15.222269581376073
     },
     {
-      "label": "Rock Against Communism"
+      "label": "Rock Against Communism",
+      "x": 21.14685905960802,
+      "y": -201.8846123553869
     },
     {
-      "label": "Rock and roll"
+      "label": "Rock and roll",
+      "x": 10.213923463966635,
+      "y": -29.944633318837457
     },
     {
-      "label": "Rock kapak"
+      "label": "Rock kapak",
+      "x": -10.614750018278722,
+      "y": -100.5598005398963
     },
     {
       "page_title": "Rock music",
-      "label": "Rock"
+      "label": "Rock",
+      "x": -37.20189980407049,
+      "y": -62.07304152137858
     },
     {
-      "label": "Rock music in Australia"
+      "label": "Rock music in Australia",
+      "x": 79.8499831679703,
+      "y": -78.57109045704733
     },
     {
       "page_title": "Rock music in Greece",
-      "label": "Greek rock"
+      "label": "Greek rock",
+      "x": 41.59254505977514,
+      "y": -107.42813292524269
     },
     {
-      "label": "Rock music in Ireland"
+      "label": "Rock music in Ireland",
+      "x": 74.16725664344744,
+      "y": -68.27253072386615
     },
     {
-      "label": "Rock music in New Zealand"
+      "label": "Rock music in New Zealand",
+      "x": 63.68238034305003,
+      "y": -77.25639404732516
     },
     {
-      "label": "Rock music in Slovenia"
+      "label": "Rock music in Slovenia",
+      "x": 87.44476112333803,
+      "y": -66.09794006009756
     },
     {
-      "label": "Rockabilly"
+      "label": "Rockabilly",
+      "x": 21.783766559608484,
+      "y": -38.70887079550076
     },
     {
-      "label": "Rocksteady"
+      "label": "Rocksteady",
+      "x": -113.09622952581915,
+      "y": 32.14661841564862
     },
     {
-      "label": "Romo"
+      "label": "Romo",
+      "x": -128.14159556826644,
+      "y": -40.09760819060015
     },
     {
-      "label": "Roots reggae"
+      "label": "Roots reggae",
+      "x": -129.323571601667,
+      "y": 53.80455903830094
     },
     {
-      "label": "Roots rock"
+      "label": "Roots rock",
+      "x": 31.777921398258535,
+      "y": -45.75285916314021
     },
     {
-      "label": "Rumba flamenca"
+      "label": "Rumba flamenca",
+      "x": 55.465356014069485,
+      "y": 111.42015100148906
     },
     {
-      "label": "Russ music"
+      "label": "Russ music",
+      "x": -240.46032993570597,
+      "y": -40.23523017066786
     },
     {
-      "label": "Russian chanson"
+      "label": "Russian chanson",
+      "x": -237.946320526809,
+      "y": 102.34727554685621
     },
     {
       "page_title": "Russian pop",
-      "label": "Russian pop music"
+      "label": "Russian pop music",
+      "x": -182.1192348771707,
+      "y": 88.16374498225746
     },
     {
-      "label": "Ryūkōka"
+      "label": "Ryūkōka",
+      "x": 11.71001389476088,
+      "y": 37.258678509531016
     },
     {
       "page_title": "Sadra (music)",
-      "label": "Sadra"
+      "label": "Sadra",
+      "x": 202.1397221974255,
+      "y": 136.766436701397
     },
     {
-      "label": "Sakara music"
+      "label": "Sakara music",
+      "x": -247.51870468216194,
+      "y": 219.6650417014587
     },
     {
       "page_title": "Salsa music",
-      "label": "Salsa"
+      "label": "Salsa",
+      "x": -41.102567240802344,
+      "y": 121.40117941930103
     },
     {
-      "label": "Samba"
+      "label": "Samba",
+      "x": -44.21592750390664,
+      "y": 148.84531554160952
     },
     {
-      "label": "Samba de breque"
+      "label": "Samba de breque",
+      "x": -38.5720293572281,
+      "y": 216.0780071121226
     },
     {
-      "label": "Samba funk"
+      "label": "Samba funk",
+      "x": -71.10804212618095,
+      "y": 98.73877971657537
     },
     {
       "page_title": "Samba reggae",
-      "label": "Samba-reggae"
+      "label": "Samba-reggae",
+      "x": -99.21841845865583,
+      "y": 127.73256464414543
     },
     {
-      "label": "Samba rock"
+      "label": "Samba rock",
+      "x": -47.392581441545424,
+      "y": 45.4374791790555
     },
     {
-      "label": "Samba-canção"
+      "label": "Samba-canção",
+      "x": -25.69804335397494,
+      "y": 139.58157610330738
     },
     {
-      "label": "Samba-choro"
+      "label": "Samba-choro",
+      "x": -10.831825467722082,
+      "y": 203.85787061192875
     },
     {
       "page_title": "Samba-enredo",
-      "label": "Samba de enredo"
+      "label": "Samba de enredo",
+      "x": -23.417967279263493,
+      "y": 214.68535620396003
     },
     {
-      "label": "Samba-jazz"
+      "label": "Samba-jazz",
+      "x": -28.843709632441936,
+      "y": 123.41489008430841
     },
     {
-      "label": "Samba-sincopado"
+      "label": "Samba-sincopado",
+      "x": -54.16251486120951,
+      "y": 209.62849050038074
     },
     {
-      "label": "Sambass"
+      "label": "Sambass",
+      "x": -90.10693100833964,
+      "y": 82.65352856386168
     },
     {
-      "label": "Sampledelia"
+      "label": "Sampledelia",
+      "x": -166.49167188127325,
+      "y": -78.8724658239165
     },
     {
-      "label": "Samul nori"
+      "label": "Samul nori",
+      "x": 190.15924642183464,
+      "y": 151.84846507197912
     },
     {
-      "label": "San Francisco sound"
+      "label": "San Francisco sound",
+      "x": -113.45272402025037,
+      "y": -201.8586221005351
     },
     {
       "page_title": "Sanaa (music)",
-      "label": "Sanaa"
+      "label": "Sanaa",
+      "x": 483.81379921908274,
+      "y": -66.64248066633672
     },
     {
-      "label": "Sanedo"
+      "label": "Sanedo",
+      "x": -219.65687328695589,
+      "y": 182.37359160666878
     },
     {
-      "label": "Sangeet Natak"
+      "label": "Sangeet Natak",
+      "x": 184.1842364487211,
+      "y": 78.95646315190412
     },
     {
-      "label": "Santé engagé"
+      "label": "Santé engagé",
+      "x": 405.06669649108807,
+      "y": -243.5828952032041
     },
     {
-      "label": "Sapphic pop"
+      "label": "Sapphic pop",
+      "x": -22.36839188920043,
+      "y": -151.31201851117328
     },
     {
       "page_title": "Satirical music#History",
-      "label": "Satire in contemporary music"
+      "label": "Satire in contemporary music",
+      "x": 235.97653511256328,
+      "y": 11.645234083349235
     },
     {
-      "label": "Scam rap"
+      "label": "Scam rap",
+      "x": -242.89135058729394,
+      "y": 33.47695971314089
     },
     {
-      "label": "Schaffel"
+      "label": "Schaffel",
+      "x": -173.93967113620278,
+      "y": -115.36203490933622
     },
     {
       "page_title": "Schlager music",
-      "label": "Schlager"
+      "label": "Schlager",
+      "x": -40.327112710263144,
+      "y": -29.97076059270867
     },
     {
-      "label": "Scottish Gaelic punk"
+      "label": "Scottish Gaelic punk",
+      "x": 12.660145838207384,
+      "y": -192.10117534173284
     },
     {
       "page_title": "Scottish hip-hop",
-      "label": "Scottish hip -hop"
+      "label": "Scottish hip -hop",
+      "x": -218.8057195702622,
+      "y": 67.0064137200856
     },
     {
-      "label": "Screamo"
+      "label": "Screamo",
+      "x": -121.06820423580675,
+      "y": -176.26008589831588
     },
     {
-      "label": "Scrumpy and Western"
+      "label": "Scrumpy and Western",
+      "x": 56.127555119238075,
+      "y": -109.99114398837968
     },
     {
-      "label": "Sea shanty"
+      "label": "Sea shanty",
+      "x": 56.55122683458369,
+      "y": -285.4023942457976
     },
     {
       "page_title": "Sean-nós singing",
-      "label": "Sean stop singing"
+      "label": "Sean stop singing",
+      "x": 253.46545682948613,
+      "y": 23.517495281892025
     },
     {
-      "label": "Seapunk"
+      "label": "Seapunk",
+      "x": -152.53835140511978,
+      "y": -48.742039835912934
     },
     {
       "page_title": "Sega (genre)",
-      "label": "Sega"
+      "label": "Sega",
+      "x": 419.27801968408534,
+      "y": -261.3307870729507
     },
     {
-      "label": "Sega tambour Chagos"
+      "label": "Sega tambour Chagos",
+      "x": 441.8697388051416,
+      "y": -247.51625737722424
     },
     {
       "page_title": "Sega tambour of Rodrigues Island",
-      "label": "Sega tambour"
+      "label": "Sega tambour",
+      "x": 409.1697794897619,
+      "y": -286.06040760117327
     },
     {
       "page_title": "Senja (genre)",
-      "label": "Senja songs"
+      "label": "Senja songs",
+      "x": -12.752763045675232,
+      "y": -148.22426398904236
     },
     {
       "page_title": "Sentimental ballad#Power ballads",
-      "label": "Power ballad"
+      "label": "Power ballad",
+      "x": 38.47649639381634,
+      "y": -64.34465714061102
     },
     {
       "page_title": "Serbian hip-hop",
-      "label": "Serbian hip hop"
+      "label": "Serbian hip hop",
+      "x": -287.89079902151485,
+      "y": 68.10004586529504
     },
     {
       "page_title": "Seresta (music)",
-      "label": "Seresta"
+      "label": "Seresta",
+      "x": 223.7633909622083,
+      "y": 146.67740412115432
     },
     {
       "page_title": "Sertanejo music",
-      "label": "Sertanejo"
+      "label": "Sertanejo",
+      "x": 88.86721203832896,
+      "y": 104.81563838019969
     },
     {
-      "label": "Seto leelo"
+      "label": "Seto leelo",
+      "x": 148.80393655614083,
+      "y": 63.846024666827496
     },
     {
-      "label": "Sevillanas"
+      "label": "Sevillanas",
+      "x": 100.85660929219549,
+      "y": 88.45930309257265
     },
     {
-      "label": "Shangaan electro"
+      "label": "Shangaan electro",
+      "x": -238.36413166002114,
+      "y": 7.370890708297919
     },
     {
-      "label": "Shashmaqam"
+      "label": "Shashmaqam",
+      "x": 56.888240334043566,
+      "y": 273.7918358724238
     },
     {
-      "label": "Shibuya-kei"
+      "label": "Shibuya-kei",
+      "x": -74.96169902778226,
+      "y": 23.237232763959998
     },
     {
-      "label": "Shitgaze"
+      "label": "Shitgaze",
+      "x": -34.178328867692926,
+      "y": -150.20366167219146
     },
     {
-      "label": "Shock rock"
+      "label": "Shock rock",
+      "x": -60.39784827761728,
+      "y": -101.35563434022026
     },
     {
-      "label": "Shoegaze"
+      "label": "Shoegaze",
+      "x": -82.79615293646742,
+      "y": -125.13369211707494
     },
     {
-      "label": "Sierreño"
+      "label": "Sierreño",
+      "x": 73.58517341652907,
+      "y": 112.75757948059281
     },
     {
-      "label": "Sigilkore"
+      "label": "Sigilkore",
+      "x": -206.8215518740909,
+      "y": -17.18903747017671
     },
     {
       "page_title": "Sigilkore#Krushclub",
-      "label": "Krushclub"
+      "label": "Krushclub",
+      "x": -250.41015090816265,
+      "y": -56.360534485731804
     },
     {
       "page_title": "Sigilkore#Krushfunk",
-      "label": "Krushfunk"
+      "label": "Krushfunk",
+      "x": -295.3801897526989,
+      "y": -18.44735533978658
     },
     {
-      "label": "Singeli"
+      "label": "Singeli",
+      "x": -229.38211324538085,
+      "y": 225.12158652377337
     },
     {
-      "label": "Ska"
+      "label": "Ska",
+      "x": -80.92842629589302,
+      "y": 33.90940196240502
     },
     {
       "page_title": "Ska jazz",
-      "label": "Ska-Jazz"
+      "label": "Ska-Jazz",
+      "x": -51.859260223991726,
+      "y": 59.25935162030563
     },
     {
-      "label": "Ska punk"
+      "label": "Ska punk",
+      "x": -64.36077878186005,
+      "y": -46.22932486537978
     },
     {
-      "label": "Skate punk"
+      "label": "Skate punk",
+      "x": -21.485626946648747,
+      "y": -165.13316255166998
     },
     {
-      "label": "Skiffle"
+      "label": "Skiffle",
+      "x": 41.24193337468713,
+      "y": -42.68476648067685
     },
     {
-      "label": "Skiladiko"
+      "label": "Skiladiko",
+      "x": 27.10888735930071,
+      "y": -150.42617510785826
     },
     {
-      "label": "Skweee"
+      "label": "Skweee",
+      "x": -145.63675641004664,
+      "y": -24.66649561043102
     },
     {
-      "label": "Slacker rock"
+      "label": "Slacker rock",
+      "x": -43.90236383664311,
+      "y": -151.339965492492
     },
     {
-      "label": "Slowcore"
+      "label": "Slowcore",
+      "x": 15.590943555736478,
+      "y": -145.50195867660972
     },
     {
-      "label": "Sludge metal"
+      "label": "Sludge metal",
+      "x": -28.76591568137835,
+      "y": -197.4577614959426
     },
     {
-      "label": "Smooth jazz"
+      "label": "Smooth jazz",
+      "x": -82.83377180359459,
+      "y": -1.2148199649892208
     },
     {
-      "label": "Smooth soul"
+      "label": "Smooth soul",
+      "x": -95.42208975832227,
+      "y": 18.753860164476286
     },
     {
-      "label": "Snap music"
+      "label": "Snap music",
+      "x": -222.84333676203468,
+      "y": 33.74177185225773
     },
     {
-      "label": "Soca music"
+      "label": "Soca music",
+      "x": -132.17427532953184,
+      "y": 133.18651368357752
     },
     {
       "page_title": "Soft grunge#Music",
-      "label": "Soft grunge"
+      "label": "Soft grunge",
+      "x": -76.24398792335239,
+      "y": -166.59780544785647
     },
     {
-      "label": "Soft rock"
+      "label": "Soft rock",
+      "x": -49.028147611621684,
+      "y": -41.982882233559415
     },
     {
-      "label": "Son cubano"
+      "label": "Son cubano",
+      "x": -19.16774878267156,
+      "y": 166.84332547982856
     },
     {
-      "label": "Son huasteco"
+      "label": "Son huasteco",
+      "x": 7.15652714350745,
+      "y": 169.90253002539666
     },
     {
-      "label": "Son jarocho"
+      "label": "Son jarocho",
+      "x": -6.588835464599064,
+      "y": 174.86232086200732
     },
     {
-      "label": "Son montuno"
+      "label": "Son montuno",
+      "x": -27.227022897107254,
+      "y": 154.44931817859413
     },
     {
-      "label": "Sophisti-pop"
+      "label": "Sophisti-pop",
+      "x": -94.46620187234518,
+      "y": -22.490697331887443
     },
     {
-      "label": "Soukous"
+      "label": "Soukous",
+      "x": -139.27554006756975,
+      "y": 187.67024352289167
     },
     {
-      "label": "Soul blues"
+      "label": "Soul blues",
+      "x": -20.71126218126118,
+      "y": 18.491229179880506
     },
     {
-      "label": "Soul jazz"
+      "label": "Soul jazz",
+      "x": -43.1467140587773,
+      "y": 37.20000237665909
     },
     {
       "page_title": "Soul music",
-      "label": "Soul"
+      "label": "Soul",
+      "x": -87.39028943526178,
+      "y": 23.73608395285112
     },
     {
-      "label": "Sound collage"
+      "label": "Sound collage",
+      "x": -165.07698885681708,
+      "y": -140.02743080280288
     },
     {
-      "label": "Southern gospel"
+      "label": "Southern gospel",
+      "x": 78.63764896110138,
+      "y": 1.952531740144374
     },
     {
-      "label": "Southern hip-hop"
+      "label": "Southern hip-hop",
+      "x": -172.60958986698517,
+      "y": 19.77940981271174
     },
     {
-      "label": "Southern rock"
+      "label": "Southern rock",
+      "x": 59.88653158945944,
+      "y": -52.76670329807105
     },
     {
       "page_title": "Southern rock#Southern metal",
-      "label": "Southern metal"
+      "label": "Southern metal",
+      "x": 70.16729438976797,
+      "y": -154.52555077572083
     },
     {
-      "label": "Southern soul"
+      "label": "Southern soul",
+      "x": 3.1696450167809247,
+      "y": 19.043797284766185
     },
     {
-      "label": "Sovietwave"
+      "label": "Sovietwave",
+      "x": -108.52210719433597,
+      "y": -45.51443988971392
     },
     {
-      "label": "Space age pop"
+      "label": "Space age pop",
+      "x": -72.85695782801425,
+      "y": -5.388386350471566
     },
     {
-      "label": "Space music"
+      "label": "Space music",
+      "x": -95.87507390541342,
+      "y": -59.32574593218958
     },
     {
-      "label": "Space rock"
+      "label": "Space rock",
+      "x": -71.35932762207035,
+      "y": -100.67106711392852
     },
     {
-      "label": "Spanish traditional Christian music"
+      "label": "Spanish traditional Christian music",
+      "x": -178.49415503571583,
+      "y": 227.1310152017589
     },
     {
-      "label": "Speed garage"
+      "label": "Speed garage",
+      "x": -253.42737947532638,
+      "y": -22.722672371515905
     },
     {
-      "label": "Speed metal"
+      "label": "Speed metal",
+      "x": -12.528112460275038,
+      "y": -201.62759718952753
     },
     {
-      "label": "Speedcore"
+      "label": "Speedcore",
+      "x": -253.65109215624352,
+      "y": -138.54521068183635
     },
     {
-      "label": "Spiritual jazz"
+      "label": "Spiritual jazz",
+      "x": -14.758850180540765,
+      "y": 9.748924423043949
     },
     {
       "page_title": "Spirituals",
-      "label": "Spiritual"
+      "label": "Spiritual",
+      "x": 24.637622130082622,
+      "y": 36.72426902579095
     },
     {
-      "label": "Spouge"
+      "label": "Spouge",
+      "x": -61.884212278459465,
+      "y": 100.98065640564735
     },
     {
       "page_title": "Sri Lankan hip-hop",
-      "label": "Sri Lankan Hip Hop"
+      "label": "Sri Lankan Hip Hop",
+      "x": -137.98817038658646,
+      "y": 45.8801669487738
     },
     {
-      "label": "Sri Metal"
+      "label": "Sri Metal",
+      "x": -147.47962086972527,
+      "y": -264.53456037999996
     },
     {
-      "label": "Stadium house"
+      "label": "Stadium house",
+      "x": -286.3805254179322,
+      "y": -38.68915798390876
     },
     {
-      "label": "Starogradska muzika"
+      "label": "Starogradska muzika",
+      "x": 112.28391946178523,
+      "y": -191.93813884280888
     },
     {
-      "label": "Stoner rock"
+      "label": "Stoner rock",
+      "x": -27.390387808556728,
+      "y": -141.37575327365062
     },
     {
-      "label": "Straight-ahead jazz"
+      "label": "Straight-ahead jazz",
+      "x": 1.6541865346992244,
+      "y": 70.81523726995817
     },
     {
-      "label": "Street punk"
+      "label": "Street punk",
+      "x": -30.132129000579525,
+      "y": -159.73813712150886
     },
     {
       "page_title": "Stride (music)",
-      "label": "Stride"
+      "label": "Stride",
+      "x": 15.717612188693916,
+      "y": 94.69075781841075
     },
     {
-      "label": "Stronda"
+      "label": "Stronda",
+      "x": -221.81060095444488,
+      "y": 87.65068165813005
     },
     {
       "page_title": "Styles of pop music#Dark pop",
-      "label": "Dark pop"
+      "label": "Dark pop",
+      "x": -100.00602828639059,
+      "y": -99.93188349777948
     },
     {
       "page_title": "Styles of pop music#Disco-pop",
-      "label": "Disco-pop"
+      "label": "Disco-pop",
+      "x": -120.60422685381421,
+      "y": -62.433631522334935
     },
     {
       "page_title": "Styles of pop music#House-pop",
-      "label": "House-pop"
+      "label": "House-pop",
+      "x": -140.644647974103,
+      "y": -53.100805177401526
     },
     {
-      "label": "Sufi rock"
+      "label": "Sufi rock",
+      "x": 47.48196940399234,
+      "y": -77.09851269925169
     },
     {
-      "label": "Sunshine pop"
+      "label": "Sunshine pop",
+      "x": -32.19485010570117,
+      "y": -24.366899874894756
     },
     {
-      "label": "Suomisaundi"
+      "label": "Suomisaundi",
+      "x": -253.87187426008643,
+      "y": -172.35928003937548
     },
     {
-      "label": "Surf music"
+      "label": "Surf music",
+      "x": -2.7156745825401463,
+      "y": -59.77105773494024
     },
     {
-      "label": "Swamp blues"
+      "label": "Swamp blues",
+      "x": 72.4918084750285,
+      "y": 35.39612754470784
     },
     {
-      "label": "Swamp pop"
+      "label": "Swamp pop",
+      "x": 73.94004630562031,
+      "y": 13.204297198188215
     },
     {
-      "label": "Swamp rock"
+      "label": "Swamp rock",
+      "x": 3.649845225098922,
+      "y": 9.936504538666513
     },
     {
-      "label": "Sweet jazz"
+      "label": "Sweet jazz",
+      "x": 28.859619446279968,
+      "y": 62.011503872823305
     },
     {
       "page_title": "Swing music",
-      "label": "Swing"
+      "label": "Swing",
+      "x": -9.954539540177896,
+      "y": 33.48847104382866
     },
     {
-      "label": "Swing revival"
+      "label": "Swing revival",
+      "x": -1.9565887509880768,
+      "y": 2.7583882386374685
     },
     {
-      "label": "Symphonic black metal"
+      "label": "Symphonic black metal",
+      "x": -22.926078090207078,
+      "y": -264.17905583818515
     },
     {
-      "label": "Symphonic metal"
+      "label": "Symphonic metal",
+      "x": -36.779187699951756,
+      "y": -234.32758621818246
     },
     {
       "page_title": "Symphonic metal#Symphonic death metal",
-      "label": "Symphonic death metal"
+      "label": "Symphonic death metal",
+      "x": -49.44232565243946,
+      "y": -289.6389222966669
     },
     {
       "page_title": "Symphonic metal#Symphonic gothic metal",
-      "label": "Symphonic gothic metal"
+      "label": "Symphonic gothic metal",
+      "x": -15.203339908571007,
+      "y": -251.31788881438655
     },
     {
       "page_title": "Symphonic metal#Symphonic power metal",
-      "label": "Symphonic power metal"
+      "label": "Symphonic power metal",
+      "x": -4.723292963627285,
+      "y": -261.05701740168183
     },
     {
-      "label": "Symphonic mugham"
+      "label": "Symphonic mugham",
+      "x": -382.8416349211492,
+      "y": 5.723518010190733
     },
     {
-      "label": "Synth-pop"
+      "label": "Synth-pop",
+      "x": -131.10093134678442,
+      "y": -59.51901323365766
     },
     {
-      "label": "Synthwave"
+      "label": "Synthwave",
+      "x": -148.09064135815828,
+      "y": -58.36777209243926
     },
     {
-      "label": "Tabanka"
+      "label": "Tabanka",
+      "x": -85.50068996676931,
+      "y": 271.85975625444917
     },
     {
       "page_title": "Tahitian drumming",
-      "label": "Tahitian Drumming"
+      "label": "Tahitian Drumming",
+      "x": 261.3732431299529,
+      "y": -60.7380567815196
     },
     {
-      "label": "Tahona"
+      "label": "Tahona",
+      "x": -140.59429538813046,
+      "y": 505.7076606979827
     },
     {
-      "label": "Takamba"
+      "label": "Takamba",
+      "x": -245.23275047604022,
+      "y": 172.4401620241593
     },
     {
       "page_title": "Talempong",
-      "label": "Talempong ensemble"
+      "label": "Talempong ensemble",
+      "x": 204.8618487289832,
+      "y": 83.69274305447941
     },
     {
-      "label": "Tallava"
+      "label": "Tallava",
+      "x": -146.02491383149953,
+      "y": -103.51453832284757
     },
     {
-      "label": "Tamborera"
+      "label": "Tamborera",
+      "x": 68.91114828452459,
+      "y": 235.24070616562028
     },
     {
       "page_title": "Tambu (music)",
-      "label": "Tambu"
+      "label": "Tambu",
+      "x": -18.05564112438862,
+      "y": 259.54978192967724
     },
     {
       "page_title": "Tango music",
-      "label": "Tango"
+      "label": "Tango",
+      "x": 55.12117815299933,
+      "y": 140.35255884765968
     },
     {
       "page_title": "Tanzanian hip-hop",
-      "label": "Tanzania Hip Hop Music"
+      "label": "Tanzania Hip Hop Music",
+      "x": -276.0685504092903,
+      "y": 222.1782953986559
     },
     {
-      "label": "Taqwacore"
+      "label": "Taqwacore",
+      "x": 31.771886026055217,
+      "y": -194.99405494482278
     },
     {
       "page_title": "Tche music",
-      "label": "Tchê music"
+      "label": "Tchê music",
+      "x": 46.06918859691649,
+      "y": 209.56954701108396
     },
     {
-      "label": "Tech house"
+      "label": "Tech house",
+      "x": -222.0246673476746,
+      "y": -41.787305429664926
     },
     {
-      "label": "Tech trance"
+      "label": "Tech trance",
+      "x": -275.86486114825755,
+      "y": -91.34741748980436
     },
     {
-      "label": "Technical death metal"
+      "label": "Technical death metal",
+      "x": -55.04248995470185,
+      "y": -195.95127435366177
     },
     {
-      "label": "Techno"
+      "label": "Techno",
+      "x": -195.95136392808092,
+      "y": -53.108030788001386
     },
     {
-      "label": "Techstep"
+      "label": "Techstep",
+      "x": -225.96398877696356,
+      "y": -79.0736412765201
     },
     {
-      "label": "Tecno brega"
+      "label": "Tecno brega",
+      "x": -100.74153410838915,
+      "y": 70.75281273324012
     },
     {
-      "label": "Tecnocumbia"
+      "label": "Tecnocumbia",
+      "x": 3.7561542988520484,
+      "y": 92.4497281293383
     },
     {
-      "label": "Teen pop"
+      "label": "Teen pop",
+      "x": -114.09024692112257,
+      "y": -31.60767583060537
     },
     {
-      "label": "Tejano music"
+      "label": "Tejano music",
+      "x": -8.598955441122255,
+      "y": 43.496866471553915
     },
     {
-      "label": "Terukkuttu"
+      "label": "Terukkuttu",
+      "x": -544.8126076815521,
+      "y": 112.22951875766661
     },
     {
-      "label": "Teutonic thrash metal"
+      "label": "Teutonic thrash metal",
+      "x": -5.8257817247340276,
+      "y": -230.31935036025354
     },
     {
-      "label": "Texas blues"
+      "label": "Texas blues",
+      "x": 53.707655332170646,
+      "y": 34.42495395988405
     },
     {
-      "label": "Texas country music"
+      "label": "Texas country music",
+      "x": 90.4639376923614,
+      "y": -3.806575005393122
     },
     {
       "page_title": "Thai hip-hop",
-      "label": "Thai hip hop"
+      "label": "Thai hip hop",
+      "x": -194.91784724890482,
+      "y": 64.58575849872705
     },
     {
       "page_title": "Thai pop music",
-      "label": "Thai pop"
+      "label": "Thai pop",
+      "x": -101.91877257838613,
+      "y": -6.009926846089273
     },
     {
-      "label": "Thai rock"
+      "label": "Thai rock",
+      "x": 52.84976699856666,
+      "y": -67.87519316626867
     },
     {
-      "label": "Third stream"
+      "label": "Third stream",
+      "x": -43.00844974677352,
+      "y": 9.419295007985799
     },
     {
-      "label": "Thrash metal"
+      "label": "Thrash metal",
+      "x": -48.12939890309714,
+      "y": -204.59958366837245
     },
     {
-      "label": "Thrashcore"
+      "label": "Thrashcore",
+      "x": -95.76942552298318,
+      "y": -236.83484547215969
     },
     {
-      "label": "Tierra Caliente music"
+      "label": "Tierra Caliente music",
+      "x": 6.538505101175326,
+      "y": 220.79546136031342
     },
     {
-      "label": "Timba"
+      "label": "Timba",
+      "x": -61.96626521416453,
+      "y": 118.57696969610092
     },
     {
-      "label": "Time Lord rock"
+      "label": "Time Lord rock",
+      "x": -91.99365138760056,
+      "y": -215.3588402227712
     },
     {
       "page_title": "Toi music",
-      "label": "Toi"
+      "label": "Toi",
+      "x": -294.8794353755912,
+      "y": 17.517355265898484
     },
     {
-      "label": "Tough guy hardcore"
+      "label": "Tough guy hardcore",
+      "x": -88.00746512348447,
+      "y": -175.46053804445455
     },
     {
-      "label": "Township music"
+      "label": "Township music",
+      "x": -175.52378370981842,
+      "y": 156.49177500174608
     },
     {
       "page_title": "Toytown pop",
-      "label": "Toytown Pop"
+      "label": "Toytown Pop",
+      "x": -171.32374361935572,
+      "y": -173.4673596846644
     },
     {
-      "label": "Toytown techno"
+      "label": "Toytown techno",
+      "x": -215.0240225267592,
+      "y": -96.46633991167499
     },
     {
-      "label": "Trad jazz"
+      "label": "Trad jazz",
+      "x": -52.29335769180841,
+      "y": 133.8249745421353
     },
     {
       "page_title": "Traditional black gospel",
-      "label": "Traditional Black gospel"
+      "label": "Traditional Black gospel",
+      "x": 0.7614883342218943,
+      "y": 57.67402332047176
     },
     {
-      "label": "Traditional bluegrass"
+      "label": "Traditional bluegrass",
+      "x": 66.05809457860687,
+      "y": 3.017739799070978
     },
     {
-      "label": "Traditional pop"
+      "label": "Traditional pop",
+      "x": -48.31660960117676,
+      "y": 27.702646789439388
     },
     {
-      "label": "Trallpunk"
+      "label": "Trallpunk",
+      "x": -2.4513775780681764,
+      "y": -195.48051943464702
     },
     {
       "page_title": "Trance music",
-      "label": "Trance"
+      "label": "Trance",
+      "x": -212.43488988875066,
+      "y": -71.92289168129095
     },
     {
-      "label": "Trap music"
+      "label": "Trap music",
+      "x": -185.32605396477848,
+      "y": 3.728056192031009
     },
     {
-      "label": "Tribal guarachero"
+      "label": "Tribal guarachero",
+      "x": -262.82027610574386,
+      "y": -44.671829218381916
     },
     {
-      "label": "Tribal house"
+      "label": "Tribal house",
+      "x": -252.32502052957545,
+      "y": 10.517161602982224
     },
     {
       "page_title": "Trip hop",
-      "label": "Trip-hop"
+      "label": "Trip-hop",
+      "x": -130.69036954195255,
+      "y": -16.99211193695227
     },
     {
-      "label": "Tropical house"
+      "label": "Tropical house",
+      "x": -162.8403298655275,
+      "y": 18.902977421877775
     },
     {
-      "label": "Tropicália"
+      "label": "Tropicália",
+      "x": -4.101244988903922,
+      "y": 80.58616302581808
     },
     {
-      "label": "Tropipop"
+      "label": "Tropipop",
+      "x": -49.39275531461681,
+      "y": 92.34798177838846
     },
     {
       "page_title": "Trot (music)",
-      "label": "Trot"
+      "label": "Trot",
+      "x": 6.936198799137302,
+      "y": 47.80173783581758
     },
     {
-      "label": "Truck-driving country"
+      "label": "Truck-driving country",
+      "x": 108.62489473299875,
+      "y": -21.573290262626976
     },
     {
-      "label": "Trønder rock"
+      "label": "Trønder rock",
+      "x": 97.10212359489802,
+      "y": -83.07114939720321
     },
     {
-      "label": "Tsapiky"
+      "label": "Tsapiky",
+      "x": -164.04219640992955,
+      "y": 238.8064888354095
     },
     {
-      "label": "Tsugaru-jamisen"
+      "label": "Tsugaru-jamisen",
+      "x": 223.56019109266552,
+      "y": 51.0536188896689
     },
     {
-      "label": "Tulsa sound"
+      "label": "Tulsa sound",
+      "x": 81.2006785153023,
+      "y": -25.381103911878455
     },
     {
-      "label": "Tumba francesa"
+      "label": "Tumba francesa",
+      "x": -116.41413889196822,
+      "y": 510.2545923437545
     },
     {
-      "label": "Turbo-folk"
+      "label": "Turbo-folk",
+      "x": -135.40387438626448,
+      "y": -77.47237542780482
     },
     {
-      "label": "Twee pop"
+      "label": "Twee pop",
+      "x": -39.26687538238793,
+      "y": -41.08819413330259
     },
     {
       "page_title": "Two-tone (music genre)",
-      "label": "Two-tone"
+      "label": "Two-tone",
+      "x": -77.35701643433208,
+      "y": -25.852239340920296
     },
     {
-      "label": "Twoubadou"
+      "label": "Twoubadou",
+      "x": -87.70344151752845,
+      "y": 290.01245780607564
     },
     {
-      "label": "UK bass"
+      "label": "UK bass",
+      "x": -206.95562297319105,
+      "y": -25.6951127012332
     },
     {
-      "label": "UK drill"
+      "label": "UK drill",
+      "x": -210.21190053647445,
+      "y": 51.06867728949822
     },
     {
-      "label": "UK garage"
+      "label": "UK garage",
+      "x": -198.24847822475502,
+      "y": -13.006091791414061
     },
     {
       "page_title": "UK hard house",
-      "label": "Hard house"
+      "label": "Hard house",
+      "x": -248.26555008835314,
+      "y": -86.19788512070653
     },
     {
       "page_title": "UK hard house#Donk",
-      "label": "Scouse house"
+      "label": "Scouse house",
+      "x": -247.93386912240572,
+      "y": -71.22636792329597
     },
     {
-      "label": "UK rap"
+      "label": "UK rap",
+      "x": -181.0088018808908,
+      "y": 37.68626073809987
     },
     {
-      "label": "Ukrainian metal"
+      "label": "Ukrainian metal",
+      "x": 1.2061264878195808,
+      "y": -282.01016120182624
     },
     {
       "page_title": "Ultra (music)",
-      "label": "Ultra"
+      "label": "Ultra",
+      "x": -98.1115066113886,
+      "y": -140.64310524083322
     },
     {
-      "label": "Unblack metal"
+      "label": "Unblack metal",
+      "x": 32.63231703737736,
+      "y": -218.96483161279187
     },
     {
-      "label": "Uplifting trance"
+      "label": "Uplifting trance",
+      "x": -260.27561683514966,
+      "y": -71.55507053494763
     },
     {
-      "label": "Urban Pasifika"
+      "label": "Urban Pasifika",
+      "x": -86.03213089992084,
+      "y": 13.911488974856615
     },
     {
-      "label": "Urban champeta"
+      "label": "Urban champeta",
+      "x": -158.3126784472125,
+      "y": 187.5505951283312
     },
     {
       "page_title": "Urban contemporary gospel",
-      "label": "Urban/contemporary gospel"
+      "label": "Urban/contemporary gospel",
+      "x": -21.71973133506868,
+      "y": 53.21798516128751
     },
     {
       "page_title": "Urbano music",
-      "label": "Urbano (Música urbana)"
+      "label": "Urbano (Música urbana)",
+      "x": -118.36322256920782,
+      "y": 115.86823040991585
     },
     {
-      "label": "Uruguayan rock"
+      "label": "Uruguayan rock",
+      "x": 42.21125898926835,
+      "y": 26.81674300906753
     },
     {
-      "label": "V-pop"
+      "label": "V-pop",
+      "x": -100.71043139460937,
+      "y": -15.835102272763857
     },
     {
-      "label": "Vallenato"
+      "label": "Vallenato",
+      "x": -6.579842953111182,
+      "y": 159.71392391543952
     },
     {
-      "label": "Vaporwave"
+      "label": "Vaporwave",
+      "x": -141.94664441065655,
+      "y": -64.49319781030431
     },
     {
-      "label": "Vaudeville in the Philippines"
+      "label": "Vaudeville in the Philippines",
+      "x": -195.35352250200245,
+      "y": -284.9209168245611
     },
     {
       "page_title": "Venezuelan bambuco",
-      "label": "Venezuelan Bambuco"
+      "label": "Venezuelan Bambuco",
+      "x": 91.14400658312597,
+      "y": 233.43222103930427
     },
     {
-      "label": "Venezuelan rock"
+      "label": "Venezuelan rock",
+      "x": 62.266144648536496,
+      "y": -62.22317792849227
     },
     {
-      "label": "Vigilante rap"
+      "label": "Vigilante rap",
+      "x": 160.80859987066935,
+      "y": -101.99490289642117
     },
     {
-      "label": "Viking metal"
+      "label": "Viking metal",
+      "x": 10.166931320503311,
+      "y": -239.55739661435314
     },
     {
-      "label": "Viking rock"
+      "label": "Viking rock",
+      "x": 0.1811223549289848,
+      "y": -148.22168623983913
     },
     {
-      "label": "Visayan pop"
+      "label": "Visayan pop",
+      "x": -115.34323678405686,
+      "y": -39.58932457837635
     },
     {
-      "label": "Vispop"
+      "label": "Vispop",
+      "x": 78.96665564882595,
+      "y": -109.02286093268476
     },
     {
-      "label": "Visual kei"
+      "label": "Visual kei",
+      "x": -66.6668496207786,
+      "y": -109.43619618532117
     },
     {
-      "label": "Vivadi"
+      "label": "Vivadi",
+      "x": -154.96869192878063,
+      "y": 219.5563118034454
     },
     {
-      "label": "Wabap"
+      "label": "Wabap",
+      "x": -51.17362738985812,
+      "y": 188.16808689113557
     },
     {
-      "label": "Wangga"
+      "label": "Wangga",
+      "x": 129.64045182968684,
+      "y": -181.83853430912873
     },
     {
       "page_title": "Wave music",
-      "label": "Wave"
+      "label": "Wave",
+      "x": -154.63980389719376,
+      "y": -41.67917053150832
     },
     {
-      "label": "Welsh hip-hop"
+      "label": "Welsh hip-hop",
+      "x": -153.9555315313162,
+      "y": -159.92369041522787
     },
     {
-      "label": "West Coast blues"
+      "label": "West Coast blues",
+      "x": 90.01887287237209,
+      "y": 38.70347761703844
     },
     {
-      "label": "West Coast hip-hop"
+      "label": "West Coast hip-hop",
+      "x": -171.30653226993573,
+      "y": 46.584164587299796
     },
     {
-      "label": "West Coast jazz"
+      "label": "West Coast jazz",
+      "x": 49.29437482005313,
+      "y": 92.70638858750479
     },
     {
-      "label": "West Side Sound"
+      "label": "West Side Sound",
+      "x": 64.8726211151009,
+      "y": 45.06899814858009
     },
     {
       "page_title": "Western music (North America)",
-      "label": "Western music"
+      "label": "Western music",
+      "x": 45.19114068157697,
+      "y": 40.463626293667645
     },
     {
-      "label": "Western swing"
+      "label": "Western swing",
+      "x": 32.98161740650828,
+      "y": 17.353003501602604
     },
     {
       "page_title": "Windmill scene",
-      "label": "Windmill Scene"
+      "label": "Windmill Scene",
+      "x": -79.33667239773133,
+      "y": -155.1244947953063
     },
     {
       "page_title": "Witch house (genre)",
-      "label": "Witch house"
+      "label": "Witch house",
+      "x": -141.4618660681405,
+      "y": -83.33253558809872
     },
     {
-      "label": "Wizard rock"
+      "label": "Wizard rock",
+      "x": -115.34672244557046,
+      "y": -220.5664998041147
     },
     {
-      "label": "Wong shadow"
+      "label": "Wong shadow",
+      "x": -0.884129154309039,
+      "y": -26.901150232779163
     },
     {
       "page_title": "Wonky (genre)",
-      "label": "Wonky"
+      "label": "Wonky",
+      "x": -174.56120903400696,
+      "y": -17.589418634999817
     },
     {
-      "label": "Wonky pop"
+      "label": "Wonky pop",
+      "x": -104.00014246144896,
+      "y": -117.77974792839103
     },
     {
       "page_title": "Working on Dying#Tread style",
-      "label": "Tread"
+      "label": "Tread",
+      "x": -235.9838446936434,
+      "y": 17.070489434600766
     },
     {
-      "label": "World music"
+      "label": "World music",
+      "x": -17.18403901210813,
+      "y": -47.69975469995543
     },
     {
-      "label": "Worldbeat"
+      "label": "Worldbeat",
+      "x": -16.96690475985135,
+      "y": -63.153592152910015
     },
     {
-      "label": "Xi'an guyue"
+      "label": "Xi'an guyue",
+      "x": 221.9329412602062,
+      "y": -115.62656602046404
     },
     {
-      "label": "Xoan singing"
+      "label": "Xoan singing",
+      "x": 247.02843957147758,
+      "y": 48.45894381741471
     },
     {
-      "label": "Xuc"
+      "label": "Xuc",
+      "x": -3.796104323745124,
+      "y": 234.34467907026178
     },
     {
-      "label": "Yacht rock"
+      "label": "Yacht rock",
+      "x": -84.56542837463503,
+      "y": -21.745072129194288
     },
     {
-      "label": "Yellow music"
+      "label": "Yellow music",
+      "x": 66.27020452671057,
+      "y": 87.02162375411932
     },
     {
-      "label": "Yodeling"
+      "label": "Yodeling",
+      "x": 198.99772232494817,
+      "y": -114.05703594887552
     },
     {
-      "label": "Youth crew"
+      "label": "Youth crew",
+      "x": -109.04475770068166,
+      "y": -263.7454265518314
     },
     {
       "page_title": "Yuka (music)",
-      "label": "Yuka"
+      "label": "Yuka",
+      "x": 112.89086899784827,
+      "y": 261.64944966917136
     },
     {
-      "label": "Yé-yé"
+      "label": "Yé-yé",
+      "x": -30.54890448232654,
+      "y": 35.949592632912506
     },
     {
       "page_title": "Zamba (artform)",
-      "label": "Zamba"
+      "label": "Zamba",
+      "x": 221.39744896744165,
+      "y": -52.810471760635366
     },
     {
-      "label": "Zamrock"
+      "label": "Zamrock",
+      "x": 1.937602543363713,
+      "y": -43.20934680024401
     },
     {
-      "label": "Zeuhl"
+      "label": "Zeuhl",
+      "x": -46.21056504643083,
+      "y": -79.5576759248351
     },
     {
       "page_title": "Zhongguo feng (music)",
-      "label": "Zhongguo feng"
+      "label": "Zhongguo feng",
+      "x": -79.63703848703489,
+      "y": -11.031747070730969
     },
     {
       "page_title": "Zimbabwean hip-hop",
-      "label": "Zimbabwean hip hop"
+      "label": "Zimbabwean hip hop",
+      "x": -251.59193704218666,
+      "y": 115.10905602702547
     },
     {
-      "label": "Zoblazo"
+      "label": "Zoblazo",
+      "x": -146.08546937782026,
+      "y": 140.48740312365322
     },
     {
       "page_title": "Zolo (music genre)",
-      "label": "Zolo"
+      "label": "Zolo",
+      "x": -137.5750774522473,
+      "y": -233.82768248523533
     },
     {
-      "label": "Zouglou"
+      "label": "Zouglou",
+      "x": -205.89979896326173,
+      "y": 146.20310553017245
     },
     {
-      "label": "Zouk"
+      "label": "Zouk",
+      "x": -91.61896900627185,
+      "y": 198.22288828764226
     },
     {
       "page_title": "Zouk love (music style)",
-      "label": "Zouk Love"
+      "label": "Zouk Love",
+      "x": -80.95325425407107,
+      "y": 77.26984340822345
     },
     {
-      "label": "Zydeco"
+      "label": "Zydeco",
+      "x": 66.63408631738311,
+      "y": 23.978645902037954
     },
     {
-      "label": "Éntekhno"
+      "label": "Éntekhno",
+      "x": 57.52854114575162,
+      "y": -213.26159794414554
     }
   ],
   "edges": [
