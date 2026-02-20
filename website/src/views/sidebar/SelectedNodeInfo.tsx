@@ -223,7 +223,7 @@ function MixItem({
         <YouTubeEmbed playlistId={mix.playlist} autoplay={autoplay} />
       )}
       {mix.note && (
-        <Notice colour="blue">
+        <Notice colour="blue" roundTop={false}>
           <Wikitext wikitext={mix.note} />
         </Notice>
       )}

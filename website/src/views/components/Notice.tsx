@@ -7,9 +7,11 @@ import { colourStyles } from "../colours";
 export function Notice({
   children,
   colour = "yellow",
+  roundTop = true,
 }: {
   children: React.ReactNode;
   colour?: "yellow" | "red" | "blue" | "green";
+  roundTop?: boolean;
 }) {
   const colourClasses = {
     yellow: {
@@ -37,7 +39,9 @@ export function Notice({
   const classes = colourClasses[colour];
 
   return (
-    <div className={`${classes.bg} rounded-xl border ${classes.border} p-4`}>
+    <div
+      className={`${classes.bg} ${roundTop ? "rounded-xl" : "rounded-b-xl"} border ${classes.border} p-4`}
+    >
       <div className={classes.text}>{children}</div>
     </div>
   );
