@@ -9,7 +9,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest && tsx tests/wikitext.ts",
-    "lint": "tsc --noEmit && eslint src",
+    "lint": "tsc --noEmit && eslint src && prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "dependencies": {
