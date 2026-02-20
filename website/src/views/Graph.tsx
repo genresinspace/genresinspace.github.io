@@ -1,5 +1,4 @@
-import { useMemo, useEffect } from "react";
-import { Cosmograph as RawCosmograph } from "@cosmograph/cosmograph";
+import { useMemo, useEffect, useCallback } from "react";
 import { Cosmograph, useCosmograph } from "@cosmograph/react";
 
 import {
@@ -34,8 +33,9 @@ export function Graph({
   focusedId: string | null;
   path: string[] | null;
 }) {
-  const { max_degree: maxDegree } = useDataContext();
-  const { cosmograph, nodes, links } = useCosmograph<NodeData, EdgeData>()!;
+  const data = useDataContext();
+  const { nodes, edges, max_degree: maxDegree } = data;
+  const { cosmograph } = useCosmograph()!;
   const { theme } = useTheme();
 
   // Select the appropriate color lightness values based on theme
@@ -47,351 +47,279 @@ export function Graph({
   // Calculate connected paths and their distances
   const maxDistance = settings.general.maxInfluenceDistance + 1;
   const pathInfo = useMemo(() => {
-    if (!selectedId || !nodes || !links)
-      return { nodeDistances: new Map(), edgeDistances: new Map() } as PathInfo;
+    if (!selectedId || !nodes || !edges)
+      return {
+        nodeDistances: new Map(),
+        edgeDistances: new Map(),
+      } as PathInfo;
     return getPathsWithinDistance(
       selectedId,
       nodes,
-      links,
+      edges,
       settings.visibleTypes,
       maxDistance
     );
-  }, [selectedId, nodes, links, maxDistance, settings.visibleTypes]);
+  }, [selectedId, nodes, edges, maxDistance, settings.visibleTypes]);
 
+  // Generate dynamic CSS for per-node label styling
+  const labelStyleElement = useMemo(() => {
+    if (!nodes) return "";
+    const rules: string[] = [];
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      const bgColor = nodeColour(
+        node,
+        maxDegree,
+        colorLightness.GraphLabelBackgroundBorder
+      );
+      const borderColor = nodeColour(
+        node,
+        maxDegree,
+        colorLightness.GraphLabelBackground
+      );
+      const textColor = nodeColour(
+        node,
+        maxDegree,
+        colorLightness.GraphLabelText
+      );
+      const fontSize = 10 + (node.edges.length / maxDegree) * 6;
+      rules.push(
+        `.node-label-${i} { background-color: ${bgColor}; border-bottom: 4px solid ${borderColor}; color: ${textColor}; font-size: ${fontSize.toFixed(1)}px; }`
+      );
+    }
+    return rules.join("\n");
+  }, [nodes, maxDegree, colorLightness]);
+
+  // Fit view to graph once simulation ends
+  const hasFittedView = useMemo(() => ({ current: false }), []);
+  const onSimulationEnd = useCallback(() => {
+    if (!hasFittedView.current && cosmograph) {
+      hasFittedView.current = true;
+      cosmograph.fitView(500);
+    }
+  }, [cosmograph, hasFittedView]);
+
+  // Handle selection changes
   useEffect(() => {
-    const nodeData = selectedId ? nodes?.[nodeIdToInt(selectedId)] : null;
-    if (nodeData) {
-      cosmograph?.selectNode(nodeData, false);
+    if (!cosmograph) return;
+    if (selectedId) {
+      const index = nodeIdToInt(selectedId);
+      cosmograph.selectPoint(index, false);
       if (settings.general.zoomOnSelect) {
-        cosmograph?.zoomToNode(nodeData);
+        cosmograph.zoomToPoint(index);
       }
     } else {
-      cosmograph?.unselectNodes();
+      cosmograph.unselectAllPoints();
     }
   }, [selectedId]);
 
-  useEffect(() => {
-    const nodeData = focusedId ? nodes?.[nodeIdToInt(focusedId)] : null;
-    if (nodeData) {
-      cosmograph?.focusNode(nodeData);
-    } else {
-      cosmograph?.focusNode(undefined);
-    }
-  }, [focusedId, nodes]);
-
-  useCosmographLabelColourPatch(cosmograph, maxDegree, colorLightness);
-
-  // Force cosmograph to re-render when theme changes
-  useEffect(() => {
-    if (cosmograph) {
-      // Trigger a re-render by calling the internal render method
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const cosmographAny = cosmograph as any;
-      if (cosmographAny._renderLabels) {
-        cosmographAny._renderLabels();
-      }
-    }
-  }, [cosmograph, theme]);
-
-  const onClick = (nodeData: NodeData | undefined): void => {
-    setSelectedId(nodeData && selectedId !== nodeData.id ? nodeData.id : null);
-  };
-
-  const isHighlightedDueToSelection = (d: NodeData, includePath: boolean) => {
-    if (!selectedId) return false;
-    const isSelected = d.id === selectedId;
-    const isImmediateNeighbour = pathInfo.immediateNeighbours.has(d.id);
-    const isInPath =
-      includePath &&
-      (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
-        maxDistance;
-    const isInDirectionalPath = path?.includes(d.id);
-    return path !== null
-      ? isInDirectionalPath
-      : isSelected || isImmediateNeighbour || isInPath;
-  };
-
-  const nodeDataColour = (node: NodeData, isBeingHovered: boolean) => {
-    const colour = nodeColour(node, maxDegree, colorLightness.GraphNode);
-
-    if (selectedId && !isBeingHovered) {
-      if (isHighlightedDueToSelection(node, true)) {
-        return colour;
-      } else {
-        return "hsla(0, 0%, 70%, 0.1)";
-      }
-    } else {
-      return colour;
-    }
-  };
-  return (
-    <Cosmograph
-      disableSimulation={false}
-      backgroundColor={backgroundColor}
-      showDynamicLabels={settings.general.showLabels}
-      nodeLabelAccessor={(d: NodeData) => d.label}
-      nodeColor={(d) => nodeDataColour(d, false)}
-      linkColor={(d: EdgeData) => {
-        if (!settings.visibleTypes[d.ty]) {
-          return "rgba(0, 0, 0, 0)";
-        }
-
-        const colour = (saturation: number, alpha: number) =>
-          d.ty === EdgeType.Derivative
-            ? derivativeColour(saturation, alpha)
-            : d.ty === EdgeType.Subgenre
-              ? subgenreColour(saturation, alpha)
-              : fusionGenreColour(saturation, alpha);
-
-        const selectedAlpha = 0.8;
-        const selectedMinInfluenceAlpha = 0.4;
-        const unselectedAlpha = 0.3;
-        const dimmedColour = dimmedColor;
-
-        if (selectedId) {
-          if (path) {
-            const sourceIndex = path.indexOf(d.source);
-            const targetIndex = path.indexOf(d.target);
-            if (
-              sourceIndex !== -1 &&
-              targetIndex !== -1 &&
-              Math.abs(sourceIndex - targetIndex) === 1
-            ) {
-              return colour(90, selectedAlpha);
-            }
-            return dimmedColour;
-          } else if (d.source === selectedId) {
-            return colour(90, selectedAlpha);
-          } else if (d.target === selectedId) {
-            return colour(40, selectedAlpha);
-          } else {
-            const distance = pathInfo.edgeDistances.get(d);
-            if (distance !== undefined) {
-              const factor = 1 - distance / maxDistance;
-              const saturation = Math.max(0, 100 * factor);
-              const alpha =
-                selectedMinInfluenceAlpha +
-                (selectedAlpha - selectedMinInfluenceAlpha) * factor;
-
-              // Use the appropriate base color based on edge type
-              if (saturation > 0) {
-                return colour(saturation, alpha);
-              }
-            }
-
-            // Edges not in path
-            return dimmedColour;
-          }
-        }
-
-        // Default edge colors when no selection
-        return colour(70, unselectedAlpha);
-      }}
-      nodeSize={(d: NodeData) => {
-        return (
-          8.0 * (0.2 + (d.edges.length / maxDegree) * 0.8) +
-          1.0 *
-            (selectedId &&
-            !(
-              pathInfo.immediateNeighbours.has(d.id) ||
-              (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
-                maxDistance
-            )
-              ? -1
-              : 0) +
-          1.0 * (focusedId === d.id ? 1 : 0)
-        );
-      }}
-      linkWidth={(d: EdgeData) => {
-        if (selectedId) {
-          if (d.source === selectedId) {
-            return 2.5;
-          } else if (d.target === selectedId) {
-            return 1.5;
-          }
-          const distance = pathInfo.edgeDistances.get(d);
-          if (distance !== undefined) {
-            // Scale width based on distance, with minimum of 1
-            return Math.max(1, 2.5 * (1 - distance / maxDistance));
-          }
-        }
-        return 1;
-      }}
-      linkArrowsSizeScale={settings.general.arrowSizeScale}
-      nodeLabelColor={(node) => nodeDataColour(node, false)}
-      hoveredNodeLabelColor={(node) => nodeDataColour(node, true)}
-      showLabelsFor={
-        selectedId
-          ? nodes?.filter((d) => isHighlightedDueToSelection(d, false))
-          : undefined
-      }
-      spaceSize={4096}
-      {...settings.simulation}
-      randomSeed={"Where words fail, music speaks"}
-      nodeGreyoutOpacity={1}
-      linkGreyoutOpacity={1}
-      linkVisibilityMinTransparency={selectedId ? 0.75 : 0.25}
-      onClick={onClick}
-      onLabelClick={onClick}
-    />
-  );
-}
-
-/**
- * Patch Cosmograph's functions for rendering labels. This does a number of things:
- * - use a custom background and foreground colour, instead of just foreground colour
- * - set the bottom border to a custom colour
- * - overrides the weight logic to give precedence to selected nodes
- * - sets the font size based on the node's degree
- * - moves labels to be close to the centre of their node, as opposed to on top of it
- * - hardcodes a few assumptions for the project
- *
- * Cosmograph is not fully open-source, so this was done by looking at the source map
- * for the relevant file, extracting the relevant functions, and then updating them
- * to meet our requirements.
- */
-function useCosmographLabelColourPatch(
-  cosmograph: RawCosmograph<NodeData, EdgeData> | undefined,
-  maxDegree: number,
-  colorLightness:
-    | typeof NodeColourLightnessDark
-    | typeof NodeColourLightnessLight
-) {
+  // Handle focus changes
   useEffect(() => {
     if (!cosmograph) return;
-    // Remove the check that prevents re-patching - we need to update when theme changes
-    // if ("wasPatchedByGenresInSpace" in cosmograph) return;
-
-    const calcFontSize = (node: NodeData) => {
-      return 10 + (node.edges.length / maxDegree) * 6;
-    };
-
-    const getNodeLabelStyle = (node: NodeData, isVisible: boolean) => {
-      const style = [
-        `background-color: ${nodeColour(node, maxDegree, colorLightness.GraphLabelBackgroundBorder)};`,
-        `border-bottom: 4px solid ${nodeColour(node, maxDegree, colorLightness.GraphLabelBackground)};`,
-      ];
-      if (!isVisible) {
-        style.push("opacity: 0.1;");
-      }
-      return style.join(" ");
-    };
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (cosmograph as unknown as any)._renderLabels = function (): void {
-      if (this._isLabelsDestroyed || !this._cosmos) return;
-      const {
-        _cosmos,
-        _selectedNodesSet,
-        _cosmographConfig: { showDynamicLabels, nodeLabelAccessor },
-      } = this;
-      let labels = [];
-      const trackedNodesPositions = _cosmos.getTrackedNodePositionsMap();
-      const nodeToLabelInfo = new Map<
-        NodeData,
-        [string | undefined, [number, number] | undefined, number]
-      >();
-      if (showDynamicLabels) {
-        const sampledNodesPositions = (
-          this as RawCosmograph<NodeData, EdgeData>
-        ).getSampledNodePositionsMap();
-        sampledNodesPositions?.forEach((positions, id) => {
-          const node = _cosmos.graph.getNodeById(id);
-          if (node)
-            nodeToLabelInfo.set(node, [
-              nodeLabelAccessor?.(node) ?? node.id,
-              positions,
-              0.7,
-            ]);
-        });
-      }
-      this._nodesForTopLabels.forEach((node: NodeData) => {
-        nodeToLabelInfo.set(node, [
-          this._trackedNodeToLabel.get(node),
-          trackedNodesPositions.get(node.id),
-          0.9,
-        ]);
-      });
-      this._nodesForForcedLabels.forEach((node: NodeData) => {
-        nodeToLabelInfo.set(node, [
-          this._trackedNodeToLabel.get(node),
-          trackedNodesPositions.get(node.id),
-          1.0,
-        ]);
-      });
-      labels = [...nodeToLabelInfo.entries()].map(
-        ([p, [text, positions, weight]]) => {
-          const screenPosition = this.spaceToScreenPosition([
-            positions?.[0] ?? 0,
-            positions?.[1] ?? 0,
-          ]) as [number, number];
-
-          const isSelected = _selectedNodesSet?.has(p);
-          const isVisible =
-            isSelected ||
-            this._nodesForForcedLabels.size == 0 ||
-            this._nodesForForcedLabels.has(p);
-
-          return {
-            id: p.id,
-            text: text ?? "",
-            x: screenPosition[0],
-            y: screenPosition[1],
-            fontSize: calcFontSize(p),
-            weight:
-              this._nodesForForcedLabels.size > 0
-                ? isVisible
-                  ? 100 + (isSelected ? 100 : 0)
-                  : 0.1
-                : weight,
-            shouldBeShown: isVisible,
-            style: getNodeLabelStyle(p, isVisible),
-            color: nodeColour(p, maxDegree, colorLightness.GraphLabelText),
-            className: "node-label",
-          };
-        }
-      );
-      this._cssLabelsRenderer.setLabels(labels);
-      this._cssLabelsRenderer.draw(true);
-    };
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (cosmograph as unknown as any)._renderLabelForHovered = function (
-      node?: NodeData,
-      nodeSpacePosition?: [number, number]
-    ): void {
-      if (!this._cosmos) return;
-      const {
-        _cosmographConfig: {
-          showHoveredNodeLabel,
-          nodeLabelAccessor,
-          hoveredNodeLabelColor,
-        },
-      } = this;
-      if (this._isLabelsDestroyed) return;
-      if (showHoveredNodeLabel && node && nodeSpacePosition) {
-        const screenPosition = this.spaceToScreenPosition(
-          nodeSpacePosition
-        ) as [number, number];
-        this._hoveredCssLabel.setText(nodeLabelAccessor?.(node) ?? node.id);
-        this._hoveredCssLabel.setVisibility(true);
-        this._hoveredCssLabel.setPosition(screenPosition[0], screenPosition[1]);
-        this._hoveredCssLabel.setClassName("node-label node-hovered-label");
-        this._hoveredCssLabel.setStyle(getNodeLabelStyle(node, true));
-        this._hoveredCssLabel.setFontSize(calcFontSize(node));
-        const textColor = hoveredNodeLabelColor(node);
-        if (textColor) this._hoveredCssLabel.setColor(textColor);
-      } else {
-        this._hoveredCssLabel.setVisibility(false);
-      }
-      this._hoveredCssLabel.draw();
-    };
-    // Mark as patched to ensure we know it's been modified
-    if (!("wasPatchedByGenresInSpace" in cosmograph)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (cosmograph as unknown as any).wasPatchedByGenresInSpace = true;
+    if (focusedId) {
+      cosmograph.setFocusedPoint(nodeIdToInt(focusedId));
+    } else {
+      cosmograph.setFocusedPoint(undefined);
     }
-  }, [cosmograph, maxDegree, colorLightness]);
+  }, [focusedId, cosmograph]);
+
+  const isHighlightedDueToSelection = useCallback(
+    (nodeId: string, includePath: boolean) => {
+      if (!selectedId) return false;
+      const isSelected = nodeId === selectedId;
+      const isImmediateNeighbour = pathInfo.immediateNeighbours.has(nodeId);
+      const isInPath =
+        includePath &&
+        (pathInfo.nodeDistances.get(nodeId) || Number.POSITIVE_INFINITY) <
+          maxDistance;
+      const isInDirectionalPath = path?.includes(nodeId);
+      return path !== null
+        ? isInDirectionalPath
+        : isSelected || isImmediateNeighbour || isInPath;
+    },
+    [selectedId, pathInfo, maxDistance, path]
+  );
+
+  const showLabelsForIds = useMemo(() => {
+    if (!selectedId || !nodes) return undefined;
+    return nodes
+      .filter((d) => isHighlightedDueToSelection(d.id, false))
+      .map((d) => d.id);
+  }, [selectedId, nodes, isHighlightedDueToSelection]);
+
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: labelStyleElement }} />
+      <Cosmograph
+        enableSimulation={true}
+        backgroundColor={backgroundColor}
+        points={nodes}
+        links={edges}
+        pointIdBy="id"
+        pointIndexBy="index"
+        linkSourceBy="source"
+        linkSourceIndexBy="sourceIndex"
+        linkTargetBy="target"
+        linkTargetIndexBy="targetIndex"
+        pointColorBy="id"
+        pointSizeBy="id"
+        linkColorBy="ty"
+        linkWidthBy="ty"
+        showDynamicLabels={settings.general.showLabels}
+        pointLabelBy="label"
+        pointLabelClassName={(_text: string, pointIndex: number) => {
+          return `node-label node-label-${pointIndex}`;
+        }}
+        hoveredPointLabelClassName={(_text: string, pointIndex: number) => {
+          return `node-label node-hovered-label node-label-${pointIndex}`;
+        }}
+        pointLabelWeightFn={(_value: unknown, index?: number) => {
+          if (index === undefined) return 0.7;
+          const node = nodes[index];
+          if (!node) return 0.7;
+          if (!selectedId) return 0.7;
+          const isVisible = isHighlightedDueToSelection(node.id, false);
+          if (showLabelsForIds && showLabelsForIds.length > 0) {
+            if (isVisible) {
+              return node.id === selectedId ? 1.0 : 0.9;
+            }
+            return 0.1;
+          }
+          return 0.7;
+        }}
+        showLabelsFor={showLabelsForIds}
+        pointColorByFn={(_value: unknown, index?: number) => {
+          if (index === undefined) return "#000";
+          const node = nodes[index];
+          if (!node) return "#000";
+          const colour = nodeColour(node, maxDegree, colorLightness.GraphNode);
+          if (selectedId) {
+            if (isHighlightedDueToSelection(node.id, true)) {
+              return colour;
+            } else {
+              return "hsla(0, 0%, 70%, 0.1)";
+            }
+          }
+          return colour;
+        }}
+        linkColorByFn={(_value: unknown, index?: number) => {
+          if (index === undefined) return dimmedColor;
+          const d = edges[index];
+          if (!d) return dimmedColor;
+
+          if (!settings.visibleTypes[d.ty]) {
+            return "rgba(0, 0, 0, 0)";
+          }
+
+          const colour = (saturation: number, alpha: number) =>
+            d.ty === EdgeType.Derivative
+              ? derivativeColour(saturation, alpha)
+              : d.ty === EdgeType.Subgenre
+                ? subgenreColour(saturation, alpha)
+                : fusionGenreColour(saturation, alpha);
+
+          const selectedAlpha = 0.8;
+          const selectedMinInfluenceAlpha = 0.4;
+          const unselectedAlpha = 0.3;
+
+          if (selectedId) {
+            if (path) {
+              const sourceIndex = path.indexOf(d.source);
+              const targetIndex = path.indexOf(d.target);
+              if (
+                sourceIndex !== -1 &&
+                targetIndex !== -1 &&
+                Math.abs(sourceIndex - targetIndex) === 1
+              ) {
+                return colour(90, selectedAlpha);
+              }
+              return dimmedColor;
+            } else if (d.source === selectedId) {
+              return colour(90, selectedAlpha);
+            } else if (d.target === selectedId) {
+              return colour(40, selectedAlpha);
+            } else {
+              const distance = pathInfo.edgeDistances.get(d);
+              if (distance !== undefined) {
+                const factor = 1 - distance / maxDistance;
+                const saturation = Math.max(0, 100 * factor);
+                const alpha =
+                  selectedMinInfluenceAlpha +
+                  (selectedAlpha - selectedMinInfluenceAlpha) * factor;
+
+                if (saturation > 0) {
+                  return colour(saturation, alpha);
+                }
+              }
+              return dimmedColor;
+            }
+          }
+
+          return colour(70, unselectedAlpha);
+        }}
+        pointSizeByFn={(_value: unknown, index?: number) => {
+          if (index === undefined) return 4;
+          const d = nodes[index];
+          if (!d) return 4;
+          return (
+            8.0 * (0.2 + (d.edges.length / maxDegree) * 0.8) +
+            1.0 *
+              (selectedId &&
+              !(
+                pathInfo.immediateNeighbours.has(d.id) ||
+                (pathInfo.nodeDistances.get(d.id) || Number.POSITIVE_INFINITY) <
+                  maxDistance
+              )
+                ? -1
+                : 0) +
+            1.0 * (focusedId === d.id ? 1 : 0)
+          );
+        }}
+        linkWidthByFn={(_value: unknown, index?: number) => {
+          if (index === undefined) return 1;
+          const d = edges[index];
+          if (!d) return 1;
+          if (selectedId) {
+            if (d.source === selectedId) {
+              return 2.5;
+            } else if (d.target === selectedId) {
+              return 1.5;
+            }
+            const distance = pathInfo.edgeDistances.get(d);
+            if (distance !== undefined) {
+              return Math.max(1, 2.5 * (1 - distance / maxDistance));
+            }
+          }
+          return 1;
+        }}
+        pointSizeStrategy={"direct"}
+        pointSizeScale={3}
+        linkWidthStrategy={"direct"}
+        linkWidthScale={2}
+        linkArrowsSizeScale={settings.general.arrowSizeScale}
+        spaceSize={4096}
+        fitViewOnInit={false}
+        onSimulationEnd={onSimulationEnd}
+        {...settings.simulation}
+        randomSeed={"Where words fail, music speaks"}
+        pointGreyoutOpacity={1}
+        linkGreyoutOpacity={1}
+        linkVisibilityMinTransparency={selectedId ? 0.75 : 0.25}
+        onClick={(index: number | undefined) => {
+          if (index !== undefined) {
+            const nodeId = nodes[index]?.id;
+            setSelectedId(nodeId && selectedId !== nodeId ? nodeId : null);
+          } else {
+            setSelectedId(null);
+          }
+        }}
+        onLabelClick={(index: number) => {
+          const nodeId = nodes[index]?.id;
+          setSelectedId(nodeId && selectedId !== nodeId ? nodeId : null);
+        }}
+      />
+    </>
+  );
 }
 
 // Helper types for storing path information

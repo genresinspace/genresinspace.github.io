@@ -185,7 +185,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
     min: 0,
     max: 2,
     step: 0.1,
-    default: 2,
+    default: 1,
   },
   {
     type: "number",
@@ -196,7 +196,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
     min: 0.3,
     max: 2,
     step: 0.1,
-    default: 1.0,
+    default: 1.15,
   },
   {
     type: "number",
@@ -207,7 +207,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
     min: 0,
     max: 2,
     step: 0.1,
-    default: 0.3,
+    default: 1,
   },
   {
     type: "number",
@@ -218,7 +218,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
     min: 1,
     max: 20,
     step: 1,
-    default: 8,
+    default: 10,
   },
   {
     type: "number",
@@ -229,7 +229,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
     min: 0,
     max: 1,
     step: 0.1,
-    default: 0.6,
+    default: 0.25,
   },
   {
     type: "number",
@@ -251,7 +251,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
     min: 0.8,
     max: 1,
     step: 0.01,
-    default: 0.9,
+    default: 0.85,
   },
   {
     type: "number",
@@ -262,7 +262,7 @@ export const SIMULATION_CONTROLS: SimulationControlDesc[] = [
     min: 100,
     max: 10000,
     step: 100,
-    default: 3000,
+    default: 5000,
   },
 ];
 

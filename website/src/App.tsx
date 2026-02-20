@@ -252,7 +252,7 @@ function LoadedApp({ data }: { data: Data }) {
           } as React.CSSProperties
         }
       >
-        <CosmographProvider nodes={data.nodes} links={data.edges}>
+        <CosmographProvider>
           {/* Graph container - fills entire viewport, behind sidebar */}
           {/* Offset to center graph in visible area: horizontal on desktop, vertical on mobile */}
           {(!isFullscreen || isDraggingSidebar) && (

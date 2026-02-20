@@ -43,10 +43,13 @@ export function postProcessData(data: DataOnDisk): Data {
     edges: data.edges.map((edge) => ({
       source: edge[0].toString(),
       target: edge[1].toString(),
+      sourceIndex: edge[0],
+      targetIndex: edge[1],
       ty: edge[2],
     })),
     nodes: data.nodes.map((node, index) => ({
       id: index.toString(),
+      index,
       edges: [],
       ...node,
     })),
@@ -75,6 +78,8 @@ export type NodeOnDiskData = {
 export type NodeData = NodeOnDiskData & {
   /** The node's ID (integer as a string). Consider using {@link nodeIdToInt} instead. */
   id: string;
+  /** The node's numeric index (0-based). Used by Cosmograph for efficient lookups. */
+  index: number;
   /** The node's edges. */
   edges: number[];
 };
@@ -181,6 +186,10 @@ export type EdgeData = {
   source: string;
   /** The edge's target node ID (integer as a string). Consider using {@link nodeIdToInt} instead. */
   target: string;
+  /** The edge's source node numeric index. Used by Cosmograph for efficient lookups. */
+  sourceIndex: number;
+  /** The edge's target node numeric index. Used by Cosmograph for efficient lookups. */
+  targetIndex: number;
   /** The edge's type. */
   ty: EdgeType;
 };
