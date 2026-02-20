@@ -21,6 +21,8 @@ pub fn pages_to_ignore() -> Vec<PageName> {
         ("Styles of pop music", Some("Pop soul / Motown")),
         // Redefines street pop, which already has a subarticle.
         ("Styles of pop music", Some("Street pop")),
+        // Redefines post-industrial, which already has a subarticle.
+        ("List of industrial music genres", Some("Post-Industrial")),
     ]
     .into_iter()
     .map(|(page, subheading)| PageName::new(page, subheading.map(String::from)))
@@ -55,14 +57,12 @@ fn genre_fixed_already() -> BTreeMap<PageName, (Option<Timestamp>, GenreName)> {
         /// Link to the Wikipedia edit or discussion
         _link: &'static str,
     }
-    const FIXES: &[WikipediaFix] = &[
-        WikipediaFix {
-            timestamp: "2025-04-26T20:32:00Z",
-            page: ("Popcorn (Romanian music style)", None),
-            name: "Romanian popcorn",
-            _link: "https://en.wikipedia.org/w/index.php?title=Popcorn_(Romanian_music_style)&oldid=1287525657",
-        },
-    ];
+    const FIXES: &[WikipediaFix] = &[WikipediaFix {
+        timestamp: "2025-04-26T20:32:00Z",
+        page: ("Popcorn (Romanian music style)", None),
+        name: "Romanian popcorn",
+        _link: "https://en.wikipedia.org/w/index.php?title=Popcorn_(Romanian_music_style)&oldid=1287525657",
+    }];
 
     FIXES
         .iter()
