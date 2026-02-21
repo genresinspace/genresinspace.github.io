@@ -17,6 +17,10 @@ import { hitTestNode, HOVER_HIT_BUFFER } from "./HitTest";
 import { InteractionHandler } from "./Interaction";
 import { PathInfo } from "./pathInfo";
 
+/** Exponential decay time constant for hover transitions (ms).
+ *  ~98.5% converged at 500ms. */
+const TRANSITION_TAU = 120;
+
 /** Parse a CSS color string to RGBA floats [0..1]. */
 function parseColor(css: string): [number, number, number, number] {
   // Handle hsla/hsl
@@ -135,11 +139,31 @@ export function GraphCanvas({
     sizes: null as Float32Array | null,
     theme: theme as string,
     arrowSizeScale: settings.general.arrowSizeScale,
+    // Target arrays for smooth transitions
+    targetNodeColors: null as Float32Array | null,
+    targetEdgeColors: null as Float32Array | null,
+    targetNodeSizes: null as Float32Array | null,
+    arrowGeom: null as {
+      targets: Float32Array;
+      directions: Float32Array;
+      targetNodeIndices: number[];
+      edgeIndices: number[];
+    } | null,
   });
   stateRef.current.selectedId = selectedId;
   stateRef.current.hoveredId = hoveredId;
   stateRef.current.theme = theme;
   stateRef.current.arrowSizeScale = settings.general.arrowSizeScale;
+
+  // Interpolated state for smooth transitions
+  const interpRef = useRef({
+    nodeColors: null as Float32Array | null,
+    edgeColors: null as Float32Array | null,
+    nodeSizes: null as Float32Array | null,
+    arrowColors: null as Float32Array | null,
+    arrowTargetSizes: null as Float32Array | null,
+    lastTime: 0,
+  });
 
   const maxDegree = data.max_degree;
   // Graph-specific node lightness: brighter on light mode's darker charcoal bg
@@ -369,23 +393,18 @@ export function GraphCanvas({
     path,
   ]);
 
-  // Compute arrow data
-  const arrowData = useMemo(() => {
+  // Precompute arrow geometry (static — only changes when edge visibility changes)
+  const arrowGeometry = useMemo(() => {
     const visibleEdges: number[] = [];
     for (let i = 0; i < data.edges.length; i++) {
       if (settings.visibleTypes[data.edges[i].ty]) {
-        // Only show arrow if the edge has non-zero alpha
-        const alpha = edgeColors[i * 8 + 3];
-        if (alpha > 0.01) {
-          visibleEdges.push(i);
-        }
+        visibleEdges.push(i);
       }
     }
 
     const targets = new Float32Array(visibleEdges.length * 2);
     const directions = new Float32Array(visibleEdges.length * 2);
-    const colors = new Float32Array(visibleEdges.length * 4);
-    const targetSizes = new Float32Array(visibleEdges.length);
+    const targetNodeIndices: number[] = [];
 
     for (let j = 0; j < visibleEdges.length; j++) {
       const i = visibleEdges[j];
@@ -401,17 +420,17 @@ export function GraphCanvas({
       directions[j * 2] = dx;
       directions[j * 2 + 1] = dy;
 
-      // Use the edge color for the arrow
-      colors[j * 4] = edgeColors[i * 8];
-      colors[j * 4 + 1] = edgeColors[i * 8 + 1];
-      colors[j * 4 + 2] = edgeColors[i * 8 + 2];
-      colors[j * 4 + 3] = edgeColors[i * 8 + 3];
-
-      targetSizes[j] = nodeSizes[ti];
+      targetNodeIndices.push(ti);
     }
 
-    return { targets, directions, colors, targetSizes };
-  }, [data.edges, nodePositions, edgeColors, nodeSizes, settings.visibleTypes]);
+    return { targets, directions, targetNodeIndices, edgeIndices: visibleEdges };
+  }, [data.edges, nodePositions, settings.visibleTypes]);
+
+  // Store target arrays for the render loop's interpolation
+  stateRef.current.targetNodeColors = nodeColors;
+  stateRef.current.targetEdgeColors = edgeColors;
+  stateRef.current.targetNodeSizes = nodeSizes;
+  stateRef.current.arrowGeom = arrowGeometry;
 
   // Initialize WebGL
   useEffect(() => {
@@ -502,6 +521,7 @@ export function GraphCanvas({
     interactionRef.current = interaction;
 
     // Render loop — always renders (fast for ~1335 nodes)
+    // Handles smooth interpolation of colors/sizes toward targets.
     const renderLoop = () => {
       // Tick camera animation
       if (camera.isAnimating) {
@@ -509,13 +529,97 @@ export function GraphCanvas({
         onCameraChange();
       }
 
-      if (rendererRef.current) {
+      const renderer = rendererRef.current;
+      if (renderer) {
+        const interp = interpRef.current;
+        const targets = stateRef.current;
+        const now = performance.now();
+        const dt = interp.lastTime > 0 ? now - interp.lastTime : 0;
+        interp.lastTime = now;
+        const factor = dt > 0 ? 1 - Math.exp(-dt / TRANSITION_TAU) : 1;
+
+        // Lerp node colors
+        if (targets.targetNodeColors) {
+          if (
+            !interp.nodeColors ||
+            interp.nodeColors.length !== targets.targetNodeColors.length
+          ) {
+            interp.nodeColors = new Float32Array(targets.targetNodeColors);
+          } else {
+            const src = targets.targetNodeColors;
+            const dst = interp.nodeColors;
+            for (let i = 0; i < dst.length; i++) {
+              dst[i] += (src[i] - dst[i]) * factor;
+            }
+          }
+          renderer.setNodeColors(interp.nodeColors);
+        }
+
+        // Lerp edge colors
+        if (targets.targetEdgeColors) {
+          if (
+            !interp.edgeColors ||
+            interp.edgeColors.length !== targets.targetEdgeColors.length
+          ) {
+            interp.edgeColors = new Float32Array(targets.targetEdgeColors);
+          } else {
+            const src = targets.targetEdgeColors;
+            const dst = interp.edgeColors;
+            for (let i = 0; i < dst.length; i++) {
+              dst[i] += (src[i] - dst[i]) * factor;
+            }
+          }
+          renderer.setEdgeColors(interp.edgeColors);
+        }
+
+        // Lerp node sizes
+        if (targets.targetNodeSizes) {
+          if (
+            !interp.nodeSizes ||
+            interp.nodeSizes.length !== targets.targetNodeSizes.length
+          ) {
+            interp.nodeSizes = new Float32Array(targets.targetNodeSizes);
+          } else {
+            const src = targets.targetNodeSizes;
+            const dst = interp.nodeSizes;
+            for (let i = 0; i < dst.length; i++) {
+              dst[i] += (src[i] - dst[i]) * factor;
+            }
+          }
+          renderer.setNodeSizes(interp.nodeSizes);
+        }
+
+        // Compute arrow colors/sizes from interpolated edge/node data
+        const geom = targets.arrowGeom;
+        if (geom && interp.edgeColors && interp.nodeSizes) {
+          const n = geom.edgeIndices.length;
+          if (!interp.arrowColors || interp.arrowColors.length !== n * 4) {
+            interp.arrowColors = new Float32Array(n * 4);
+            interp.arrowTargetSizes = new Float32Array(n);
+          }
+          for (let j = 0; j < n; j++) {
+            const ei = geom.edgeIndices[j];
+            interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
+            interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
+            interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
+            interp.arrowColors[j * 4 + 3] = interp.edgeColors[ei * 8 + 3];
+            interp.arrowTargetSizes![j] =
+              interp.nodeSizes[geom.targetNodeIndices[j]];
+          }
+          renderer.setArrows(
+            geom.targets,
+            geom.directions,
+            interp.arrowColors,
+            interp.arrowTargetSizes!
+          );
+        }
+
         // Dark graph background for both modes; slightly lighter for light mode
         const bg: [number, number, number, number] =
           stateRef.current.theme === "light"
             ? [0.12, 0.12, 0.14, 1]
             : [0, 0, 0, 1];
-        rendererRef.current.render(
+        renderer.render(
           camera.getViewMatrix(),
           bg,
           stateRef.current.arrowSizeScale,
@@ -546,19 +650,7 @@ export function GraphCanvas({
     onCameraChange();
   }, [viewportOffsetX, viewportOffsetY, camera, onCameraChange]);
 
-  // Update dynamic buffers when colors/sizes change
-  useEffect(() => {
-    if (!rendererRef.current) return;
-    rendererRef.current.setNodeColors(nodeColors);
-    rendererRef.current.setNodeSizes(nodeSizes);
-    rendererRef.current.setEdgeColors(edgeColors);
-    rendererRef.current.setArrows(
-      arrowData.targets,
-      arrowData.directions,
-      arrowData.colors,
-      arrowData.targetSizes
-    );
-  }, [nodeColors, nodeSizes, edgeColors, arrowData]);
+  // Buffer uploads are now handled in the render loop via interpolation.
 
   // Animate to node on selection
   useEffect(() => {

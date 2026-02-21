@@ -83,7 +83,7 @@ export function Labels({
   const recentHoverRef = useRef<Map<string, number>>(new Map());
 
   // Force a re-render after HOVER_DECAY_MS so decayed labels get cleaned up
-  const [, setDecayTick] = useState(0);
+  const [decayTick, setDecayTick] = useState(0);
   useEffect(() => {
     const timer = setTimeout(
       () => setDecayTick((v) => v + 1),
@@ -195,10 +195,10 @@ export function Labels({
   );
 
   // Snapshot recent hover set for useMemo (refs aren't deps)
-  // Snapshot of recently-hovered node IDs, recomputed on hover/camera changes
+  // Snapshot of recently-hovered node IDs, recomputed on hover/camera/decay changes
   const recentHoverSnapshot = useMemo(
     () => new Set(recentHoverRef.current.keys()),
-    [hoveredId, cameraVersion] // eslint-disable-line
+    [hoveredId, cameraVersion, decayTick] // eslint-disable-line
   );
 
   const labels = useMemo(() => {
