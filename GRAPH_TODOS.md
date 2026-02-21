@@ -1,0 +1,2 @@
+- scaling is a bit wonky on iPad - are we adjusting for pixel ratio in the graph?
+- dragging does not feel very sensitive on iPad; doesn't seem like it's matching my finger movement well (e.g. if I put my finger on a genre and then slide, the viewport moves much less than my finger, and the genre very rapidly detaches from where my finger is)
