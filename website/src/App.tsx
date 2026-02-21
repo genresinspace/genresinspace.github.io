@@ -1,5 +1,3 @@
-import { CosmographProvider } from "@cosmograph/react";
-
 import { useEffect, useState, useCallback, Dispatch } from "react";
 
 import { Graph } from "./views/Graph";
@@ -230,6 +228,12 @@ function LoadedApp({ data }: { data: Data }) {
   const isMinimized =
     isMobile && mobileSidebarHeight <= MOBILE_SIDEBAR_MIN_HEIGHT;
 
+  // Compute viewport offset for the camera to center the visible area
+  const viewportOffsetX = isMobile ? 0 : -SIDEBAR_DEFAULT_WIDTH;
+  const viewportOffsetY = isMobile
+    ? -(window.innerHeight * mobileSidebarHeight) / 100
+    : 0;
+
   const searchComponent = (
     <Search
       selectedId={selectedId}
@@ -244,67 +248,56 @@ function LoadedApp({ data }: { data: Data }) {
 
   return (
     <DataContext.Provider value={data}>
-      <div
-        className="relative w-screen h-screen overflow-hidden"
-        style={
-          {
-            "--sidebar-width": `${SIDEBAR_DEFAULT_WIDTH}px`,
-          } as React.CSSProperties
-        }
-      >
-        <CosmographProvider nodes={data.nodes} links={data.edges}>
-          {/* Graph container - fills entire viewport, behind sidebar */}
-          {/* Offset to center graph in visible area: horizontal on desktop, vertical on mobile */}
-          {(!isFullscreen || isDraggingSidebar) && (
-            <div
-              className="absolute inset-0 md:-left-(--sidebar-width) touch-none"
-              style={isMobile ? { top: `-${mobileSidebarHeight}%` } : undefined}
-            >
-              <Graph
-                settings={settings}
-                selectedId={selectedId}
-                setSelectedId={setSelectedId}
-                focusedId={focusedId}
-                path={searchState.type === "path" ? searchState.path : null}
-              />
-            </div>
-          )}
-
-          {/* Search - positioned relative to viewport, not the shifted graph container */}
-          {(!isFullscreen || isDraggingSidebar) && (
-            <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm">
-              {searchComponent}
-            </div>
-          )}
-
-          {/* Sidebar - overlays graph: bottom sheet on mobile, right panel on desktop */}
-          <div
-            className="absolute bottom-[env(safe-area-inset-bottom)] w-full md:bottom-0 md:right-0 md:top-0 md:w-auto z-10"
-            style={
-              isMobile
-                ? {
-                    height: `${mobileSidebarHeight}%`,
-                    minHeight: "60px",
-                    transition: !isDraggingSidebar
-                      ? "height 0.3s ease-out"
-                      : "none",
-                  }
-                : { height: "100%" }
-            }
-          >
-            <Sidebar
+      <div className="relative w-screen h-screen overflow-hidden">
+        {/* Graph container - fills entire viewport */}
+        {(!isFullscreen || isDraggingSidebar) && (
+          <div className="absolute inset-0 touch-none">
+            <Graph
               settings={settings}
-              setSettings={setSettings}
               selectedId={selectedId}
-              setFocusedId={setFocusedId}
-              onMobileDragStart={handleTouchStart}
-              isMobile={isMobile}
-              isFullscreen={isFullscreen}
-              isMinimized={isMinimized}
-              searchComponent={isFullscreen ? searchComponent : undefined}
+              setSelectedId={setSelectedId}
+              focusedId={focusedId}
+              path={searchState.type === "path" ? searchState.path : null}
+              viewportOffsetX={viewportOffsetX}
+              viewportOffsetY={viewportOffsetY}
             />
           </div>
-        </CosmographProvider>
+        )}
+
+        {/* Search - positioned relative to viewport */}
+        {(!isFullscreen || isDraggingSidebar) && (
+          <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm">
+            {searchComponent}
+          </div>
+        )}
+
+        {/* Sidebar - overlays graph: bottom sheet on mobile, right panel on desktop */}
+        <div
+          className="absolute bottom-[env(safe-area-inset-bottom)] w-full md:bottom-0 md:right-0 md:top-0 md:w-auto z-10"
+          style={
+            isMobile
+              ? {
+                  height: `${mobileSidebarHeight}%`,
+                  minHeight: "60px",
+                  transition: !isDraggingSidebar
+                    ? "height 0.3s ease-out"
+                    : "none",
+                }
+              : { height: "100%" }
+          }
+        >
+          <Sidebar
+            settings={settings}
+            setSettings={setSettings}
+            selectedId={selectedId}
+            setFocusedId={setFocusedId}
+            onMobileDragStart={handleTouchStart}
+            isMobile={isMobile}
+            isFullscreen={isFullscreen}
+            isMinimized={isMinimized}
+            searchComponent={isFullscreen ? searchComponent : undefined}
+          />
+        </div>
       </div>
     </DataContext.Provider>
   );

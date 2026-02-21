@@ -1,3 +1,12 @@
+@keyframes label-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .node-label {
   font-weight: normal !important;
   padding: 2px 8px !important;
@@ -6,6 +15,7 @@
     "JetBrains Mono", "Fira Code", "SF Mono", Monaco, "Cascadia Code",
     "Roboto Mono", Consolas, "Courier New", monospace;
   border-radius: 8px;
+  animation: label-fade-in 500ms ease-out;
 }
 
 .node-label:hover {

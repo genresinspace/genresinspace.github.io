@@ -27,6 +27,8 @@ struct NodeData {
     #[serde(skip_serializing_if = "Option::is_none")]
     page_title: Option<String>,
     label: GenreName,
+    x: f64,
+    y: f64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -131,6 +133,8 @@ pub fn produce(
         let node = NodeData {
             page_title: (processed_genre.name.0 != page_title).then_some(page_title),
             label: processed_genre.name.clone(),
+            x: 0.0,
+            y: 0.0,
         };
 
         graph.nodes.push(node);
@@ -296,6 +300,25 @@ pub fn produce(
                 ty: EdgeType::Subgenre,
             });
         }
+    }
+
+    // Run force-directed layout to compute node positions
+    {
+        let adjacency: Vec<(usize, usize)> = graph
+            .edges
+            .iter()
+            .map(|e| (e.source.0, e.target.0))
+            .collect();
+        let positions = crate::force_layout::compute(graph.nodes.len(), &adjacency);
+        for (node, pos) in graph.nodes.iter_mut().zip(positions.iter()) {
+            node.x = pos[0];
+            node.y = pos[1];
+        }
+        println!(
+            "{:.2}s: computed force-directed layout for {} nodes",
+            start.elapsed().as_secs_f32(),
+            graph.nodes.len()
+        );
     }
 
     // Third pass (over edges): build node->edges sets for calculating max degree
