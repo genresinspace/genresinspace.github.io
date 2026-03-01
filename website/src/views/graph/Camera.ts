@@ -40,9 +40,20 @@ export class Camera {
   private zoomFocalScreenX = 0;
   private zoomFocalScreenY = 0;
 
+  /** Content bounds for clamping (world space AABB). */
+  private contentMinX = 0;
+  private contentMinY = 0;
+  private contentMaxX = 0;
+  private contentMaxY = 0;
+  private hasContentBounds = false;
+
+  /** Minimum zoom level (fit-to-content zoom). */
+  private minZoom = 0.01;
+
   get zoom(): number {
     return this._zoom;
   }
+
 
   /** Set canvas dimensions */
   setCanvasSize(width: number, height: number): void {
@@ -73,6 +84,12 @@ export class Camera {
       if (py > maxY) maxY = py;
     }
 
+    this.contentMinX = minX;
+    this.contentMinY = minY;
+    this.contentMaxX = maxX;
+    this.contentMaxY = maxY;
+    this.hasContentBounds = true;
+
     this.x = (minX + maxX) / 2;
     this.y = (minY + maxY) / 2;
 
@@ -91,6 +108,7 @@ export class Camera {
         availableHeight / contentHeight
       );
     }
+    this.minZoom = this._zoom;
     this.targetZoom = this._zoom;
   }
 
@@ -99,6 +117,7 @@ export class Camera {
     this.animating = false;
     this.x -= dx / this._zoom;
     this.y -= dy / this._zoom;
+    this.clampPosition();
   }
 
   /** Set pan inertia velocity (world units/ms). Called by InteractionHandler on drag end. */
@@ -111,20 +130,19 @@ export class Camera {
   zoomAt(screenX: number, screenY: number, factor: number): void {
     this.animating = false;
     const [wx, wy] = this.screenToWorld(screenX, screenY);
-    this._zoom *= factor;
-    this._zoom = Math.max(0.01, Math.min(this._zoom, 200));
+    this._zoom = this.clampZoom(this._zoom * factor);
     this.targetZoom = this._zoom;
     // Adjust pan so the world point stays under the cursor
     const [wx2, wy2] = this.screenToWorld(screenX, screenY);
     this.x -= wx2 - wx;
     this.y -= wy2 - wy;
+    this.clampPosition();
   }
 
   /** Smooth zoom at a screen position. Accumulates into targetZoom. */
   smoothZoomAt(screenX: number, screenY: number, factor: number): void {
     this.animating = false;
-    this.targetZoom *= factor;
-    this.targetZoom = Math.max(0.01, Math.min(this.targetZoom, 200));
+    this.targetZoom = this.clampZoom(this.targetZoom * factor);
     this.zoomFocalScreenX = screenX;
     this.zoomFocalScreenY = screenY;
   }
@@ -163,6 +181,20 @@ export class Camera {
     this.animating = true;
   }
 
+  /** Clamp a zoom value to the allowed range. */
+  private clampZoom(z: number): number {
+    return Math.max(this.minZoom, Math.min(z, 200));
+  }
+
+  /** Clamp camera center to the content AABB.
+   *  You can center on any edge node, but the camera can't leave the content bounds,
+   *  so the graph always overlaps the viewport center. */
+  private clampPosition(): void {
+    if (!this.hasContentBounds) return;
+    this.x = Math.max(this.contentMinX, Math.min(this.x, this.contentMaxX));
+    this.y = Math.max(this.contentMinY, Math.min(this.y, this.contentMaxY));
+  }
+
   /**
    * Advance camera animation, inertia, and smooth zoom.
    * Returns true if the camera changed this frame (needs re-render / onCameraChange).
@@ -195,6 +227,12 @@ export class Camera {
       const decay = Math.exp(-INERTIA_DAMPING * dt / 1000);
       this.vx *= decay;
       this.vy *= decay;
+      // Clamp position; kill velocity if we hit a boundary
+      const xBefore = this.x;
+      const yBefore = this.y;
+      this.clampPosition();
+      if (this.x !== xBefore) this.vx = 0;
+      if (this.y !== yBefore) this.vy = 0;
       changed = true;
       // Snap to zero when slow enough
       if (
@@ -229,6 +267,7 @@ export class Camera {
       if (Math.abs(this._zoom - this.targetZoom) < 0.0001) {
         this._zoom = this.targetZoom;
       }
+      this.clampPosition();
     }
 
     return changed;
