@@ -252,7 +252,7 @@ export function GraphCanvas({
     const arr = new Float32Array(data.nodes.length);
     for (let i = 0; i < data.nodes.length; i++) {
       const node = data.nodes[i];
-      let size = 15.0 * (0.2 + (node.edges.length / maxDegree) * 0.8);
+      let size = 30.0 * (0.2 + (node.edges.length / maxDegree) * 0.8);
 
       // Shrink if not highlighted when something is selected
       if (selectedId && !isHighlightedDueToSelection(node.id, true)) {
@@ -594,7 +594,7 @@ export function GraphCanvas({
         renderer.render(
           camera.getViewMatrix(),
           bg,
-          stateRef.current.arrowSizeScale,
+          stateRef.current.arrowSizeScale * 2,
           camera.zoom * (window.devicePixelRatio || 1)
         );
       }

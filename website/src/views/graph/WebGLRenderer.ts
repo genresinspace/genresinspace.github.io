@@ -30,17 +30,37 @@ void main() {
   fragColor = vec4(v_color.rgb, v_color.a * alpha);
 }`;
 
-// Vertex shader for edges (GL_LINES)
+// Vertex shader for edges (instanced quads for consistent line width)
 const EDGE_VS = `#version 300 es
 precision highp float;
 uniform mat3 u_view;
-in vec2 a_position;
-in vec4 a_color;
+uniform float u_width; // half-width in world units
+// Per-vertex: quad template (x: 0 or 1 along edge, y: -1 or +1 across)
+in vec2 a_template;
+// Per-instance
+in vec2 a_src;
+in vec2 a_tgt;
+in vec4 a_srcColor;
+in vec4 a_tgtColor;
 out vec4 v_color;
 void main() {
-  vec3 pos = u_view * vec3(a_position, 1.0);
+  // Edge direction in world space
+  vec2 dir = a_tgt - a_src;
+  float len = length(dir);
+  if (len < 1e-6) {
+    vec3 pos = u_view * vec3(a_src, 1.0);
+    gl_Position = vec4(pos.xy, 0.0, 1.0);
+    v_color = a_srcColor;
+    return;
+  }
+  vec2 perp = vec2(-dir.y, dir.x) / len;
+
+  // Interpolate along edge, offset perpendicular in world space
+  vec2 worldPos = mix(a_src, a_tgt, a_template.x)
+                + perp * a_template.y * u_width;
+  vec3 pos = u_view * vec3(worldPos, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
-  v_color = a_color;
+  v_color = mix(a_srcColor, a_tgtColor, a_template.x);
 }`;
 
 const EDGE_FS = `#version 300 es
@@ -51,38 +71,34 @@ void main() {
   fragColor = v_color;
 }`;
 
-// Arrow vertex shader (instanced triangles)
-// u_zoom is the camera zoom in pixels-per-world-unit (NOT the view matrix element)
+// Arrow vertex shader (instanced triangles, world-space sizing)
 const ARROW_VS = `#version 300 es
 precision highp float;
 uniform mat3 u_view;
-uniform float u_arrowSize;
-uniform float u_zoom;
+uniform float u_arrowSize; // arrow length in world units
 // Per-vertex: triangle template
 in vec2 a_template;
 // Per-instance: edge endpoint and direction
 in vec2 a_target;
 in vec2 a_direction;
 in vec4 a_color;
-in float a_targetSize;
+in float a_targetSize; // node diameter in world units
 out vec4 v_color;
 void main() {
   // Direction in world space, normalized
   vec2 dir = normalize(a_direction);
   vec2 perp = vec2(-dir.y, dir.x);
 
-  // Convert pixel sizes to world sizes using camera zoom
-  // a_targetSize is in device pixels, u_zoom is device pixels per world unit
-  float nodeRadiusWorld = a_targetSize * 0.5 / u_zoom;
-  float arrowLenWorld = u_arrowSize * 3.0 / u_zoom;
+  // a_targetSize is node diameter in world units (same as node shader)
+  float nodeRadiusWorld = a_targetSize * 0.5;
 
-  // Arrow tip at target, offset inward by node radius
+  // Arrow tip at target node edge, pointing inward along edge direction
   vec2 arrowTip = a_target - dir * nodeRadiusWorld;
 
   // Build triangle in world space
   vec2 worldPos = arrowTip
-    + dir * (a_template.x * arrowLenWorld)
-    + perp * (a_template.y * arrowLenWorld * 0.4);
+    + dir * (a_template.x * u_arrowSize)
+    + perp * (a_template.y * u_arrowSize * 0.4);
 
   vec3 pos = u_view * vec3(worldPos, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
@@ -142,11 +158,14 @@ export class WebGLRenderer {
   private nodeColorBuf: WebGLBuffer;
   private nodeCount = 0;
 
-  // Edge rendering
+  // Edge rendering (instanced quads)
   private edgeProgram: WebGLProgram;
   private edgeVAO: WebGLVertexArrayObject;
-  private edgePositionBuf: WebGLBuffer;
-  private edgeColorBuf: WebGLBuffer;
+  private edgeTemplateBuf: WebGLBuffer;
+  private edgeSrcBuf: WebGLBuffer;
+  private edgeTgtBuf: WebGLBuffer;
+  private edgeSrcColorBuf: WebGLBuffer;
+  private edgeTgtColorBuf: WebGLBuffer;
   private edgeCount = 0;
 
   // Arrow rendering
@@ -188,23 +207,55 @@ export class WebGLRenderer {
 
     gl.bindVertexArray(null);
 
-    // Edge program
+    // Edge program (instanced quads)
     this.edgeProgram = createProgram(gl, EDGE_VS, EDGE_FS);
     this.edgeVAO = gl.createVertexArray()!;
-    this.edgePositionBuf = gl.createBuffer()!;
-    this.edgeColorBuf = gl.createBuffer()!;
+    this.edgeTemplateBuf = gl.createBuffer()!;
+    this.edgeSrcBuf = gl.createBuffer()!;
+    this.edgeTgtBuf = gl.createBuffer()!;
+    this.edgeSrcColorBuf = gl.createBuffer()!;
+    this.edgeTgtColorBuf = gl.createBuffer()!;
 
     gl.bindVertexArray(this.edgeVAO);
-    const ePosLoc = gl.getAttribLocation(this.edgeProgram, "a_position");
-    const eColorLoc = gl.getAttribLocation(this.edgeProgram, "a_color");
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgePositionBuf);
-    gl.enableVertexAttribArray(ePosLoc);
-    gl.vertexAttribPointer(ePosLoc, 2, gl.FLOAT, false, 0, 0);
+    // Quad template: two triangles forming a strip along the edge
+    // x: 0=src end, 1=tgt end; y: -1 or +1 (perpendicular offset)
+    const edgeTemplate = new Float32Array([
+      0, -1, 1, -1, 1, 1, 0, -1, 1, 1, 0, 1,
+    ]);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTemplateBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, edgeTemplate, gl.STATIC_DRAW);
+    const eTmplLoc = gl.getAttribLocation(this.edgeProgram, "a_template");
+    gl.enableVertexAttribArray(eTmplLoc);
+    gl.vertexAttribPointer(eTmplLoc, 2, gl.FLOAT, false, 0, 0);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeColorBuf);
-    gl.enableVertexAttribArray(eColorLoc);
-    gl.vertexAttribPointer(eColorLoc, 4, gl.FLOAT, false, 0, 0);
+    // Per-instance: source position
+    const eSrcLoc = gl.getAttribLocation(this.edgeProgram, "a_src");
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeSrcBuf);
+    gl.enableVertexAttribArray(eSrcLoc);
+    gl.vertexAttribPointer(eSrcLoc, 2, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(eSrcLoc, 1);
+
+    // Per-instance: target position
+    const eTgtLoc = gl.getAttribLocation(this.edgeProgram, "a_tgt");
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTgtBuf);
+    gl.enableVertexAttribArray(eTgtLoc);
+    gl.vertexAttribPointer(eTgtLoc, 2, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(eTgtLoc, 1);
+
+    // Per-instance: source color
+    const eSrcColorLoc = gl.getAttribLocation(this.edgeProgram, "a_srcColor");
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeSrcColorBuf);
+    gl.enableVertexAttribArray(eSrcColorLoc);
+    gl.vertexAttribPointer(eSrcColorLoc, 4, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(eSrcColorLoc, 1);
+
+    // Per-instance: target color
+    const eTgtColorLoc = gl.getAttribLocation(this.edgeProgram, "a_tgtColor");
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTgtColorBuf);
+    gl.enableVertexAttribArray(eTgtColorLoc);
+    gl.vertexAttribPointer(eTgtColorLoc, 4, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(eTgtColorLoc, 1);
 
     gl.bindVertexArray(null);
 
@@ -277,19 +328,47 @@ export class WebGLRenderer {
     gl.bufferData(gl.ARRAY_BUFFER, colors, gl.DYNAMIC_DRAW);
   }
 
-  /** Upload edge vertex positions (2 vertices per edge, flat x,y pairs). */
+  /** Upload edge endpoint positions (2 vertices per edge, flat x,y pairs).
+   *  Layout: [src0.x, src0.y, tgt0.x, tgt0.y, src1.x, ...] */
   setEdgePositions(positions: Float32Array): void {
     const gl = this.gl;
-    this.edgeCount = positions.length / 4; // 2 vertices * 2 components per edge
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgePositionBuf);
-    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+    this.edgeCount = positions.length / 4;
+    // Split interleaved [sx,sy,tx,ty,...] into separate src/tgt arrays
+    const src = new Float32Array(this.edgeCount * 2);
+    const tgt = new Float32Array(this.edgeCount * 2);
+    for (let i = 0; i < this.edgeCount; i++) {
+      src[i * 2] = positions[i * 4];
+      src[i * 2 + 1] = positions[i * 4 + 1];
+      tgt[i * 2] = positions[i * 4 + 2];
+      tgt[i * 2 + 1] = positions[i * 4 + 3];
+    }
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeSrcBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, src, gl.STATIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTgtBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, tgt, gl.STATIC_DRAW);
   }
 
-  /** Upload edge colors (RGBA per vertex, 2 per edge). */
+  /** Upload edge colors (RGBA per vertex, 2 per edge).
+   *  Layout: [srcR,G,B,A, tgtR,G,B,A, ...] */
   setEdgeColors(colors: Float32Array): void {
     const gl = this.gl;
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeColorBuf);
-    gl.bufferData(gl.ARRAY_BUFFER, colors, gl.DYNAMIC_DRAW);
+    // Split interleaved [srcRGBA, tgtRGBA, ...] into separate arrays
+    const srcColors = new Float32Array(this.edgeCount * 4);
+    const tgtColors = new Float32Array(this.edgeCount * 4);
+    for (let i = 0; i < this.edgeCount; i++) {
+      srcColors[i * 4] = colors[i * 8];
+      srcColors[i * 4 + 1] = colors[i * 8 + 1];
+      srcColors[i * 4 + 2] = colors[i * 8 + 2];
+      srcColors[i * 4 + 3] = colors[i * 8 + 3];
+      tgtColors[i * 4] = colors[i * 8 + 4];
+      tgtColors[i * 4 + 1] = colors[i * 8 + 5];
+      tgtColors[i * 4 + 2] = colors[i * 8 + 6];
+      tgtColors[i * 4 + 3] = colors[i * 8 + 7];
+    }
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeSrcColorBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, srcColors, gl.DYNAMIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTgtColorBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, tgtColors, gl.DYNAMIC_DRAW);
   }
 
   /** Upload arrow instance data. */
@@ -329,7 +408,7 @@ export class WebGLRenderer {
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-    // Draw edges
+    // Draw edges (instanced quads)
     if (this.edgeCount > 0) {
       gl.useProgram(this.edgeProgram);
       gl.uniformMatrix3fv(
@@ -337,8 +416,12 @@ export class WebGLRenderer {
         false,
         viewMatrix
       );
+      gl.uniform1f(
+        gl.getUniformLocation(this.edgeProgram, "u_width"),
+        0.5 // half-width in world units; scales with zoom like nodes
+      );
       gl.bindVertexArray(this.edgeVAO);
-      gl.drawArrays(gl.LINES, 0, this.edgeCount * 2);
+      gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, this.edgeCount);
     }
 
     // Draw arrows
@@ -352,10 +435,6 @@ export class WebGLRenderer {
       gl.uniform1f(
         gl.getUniformLocation(this.arrowProgram, "u_arrowSize"),
         arrowSizeScale
-      );
-      gl.uniform1f(
-        gl.getUniformLocation(this.arrowProgram, "u_zoom"),
-        cameraZoom
       );
       gl.bindVertexArray(this.arrowVAO);
       gl.drawArraysInstanced(gl.TRIANGLES, 0, 3, this.arrowCount);
@@ -392,8 +471,11 @@ export class WebGLRenderer {
     gl.deleteBuffer(this.nodePositionBuf);
     gl.deleteBuffer(this.nodeSizeBuf);
     gl.deleteBuffer(this.nodeColorBuf);
-    gl.deleteBuffer(this.edgePositionBuf);
-    gl.deleteBuffer(this.edgeColorBuf);
+    gl.deleteBuffer(this.edgeTemplateBuf);
+    gl.deleteBuffer(this.edgeSrcBuf);
+    gl.deleteBuffer(this.edgeTgtBuf);
+    gl.deleteBuffer(this.edgeSrcColorBuf);
+    gl.deleteBuffer(this.edgeTgtColorBuf);
     gl.deleteBuffer(this.arrowTemplateBuf);
     gl.deleteBuffer(this.arrowTargetBuf);
     gl.deleteBuffer(this.arrowDirBuf);
