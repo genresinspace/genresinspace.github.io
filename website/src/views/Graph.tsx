@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, useCallback } from "react";
+import { useMemo, useRef, useState, useCallback, useLayoutEffect } from "react";
 
 import { useDataContext } from "../data";
 import { SettingsData } from "../settings";
@@ -32,9 +32,41 @@ export function Graph({
   const cameraRef = useRef<Camera>(new Camera());
   // Counter to trigger label re-renders when camera changes
   const [cameraVersion, setCameraVersion] = useState(0);
+
+  // Direct DOM refs for instant label tracking (avoids React re-render lag)
+  const labelContainerRef = useRef<HTMLDivElement>(null);
+  const labelSnapshotRef = useRef({ x: 0, y: 0, zoom: 1, screenCenterX: 0, screenCenterY: 0 });
+
   const onCameraChange = useCallback(() => {
+    // Apply CSS transform to labels container immediately (same frame as WebGL)
+    const container = labelContainerRef.current;
+    if (container) {
+      const snap = labelSnapshotRef.current;
+      const state = cameraRef.current.getState();
+      const dpr = window.devicePixelRatio || 1;
+      if (snap.zoom > 0) {
+        const s = state.zoom / snap.zoom;
+        const tx = (snap.x - state.x) * state.zoom / dpr;
+        const ty = (snap.y - state.y) * state.zoom / dpr;
+        container.style.transformOrigin = `${state.screenCenterX / dpr}px ${state.screenCenterY / dpr}px`;
+        container.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
+      }
+    }
+    // Trigger React re-layout for label visibility/overlap recalculation
     setCameraVersion((v) => v + 1);
   }, []);
+
+  // After React commits new label positions, reset the container transform
+  // and snapshot the camera state. useLayoutEffect runs before browser paint,
+  // so there's no flash of double-transformed labels.
+  useLayoutEffect(() => {
+    labelSnapshotRef.current = cameraRef.current.getState();
+    const container = labelContainerRef.current;
+    if (container) {
+      container.style.transform = "";
+      container.style.transformOrigin = "";
+    }
+  }, [cameraVersion]);
 
   const maxDistance = settings.general.maxInfluenceDistance + 1;
 
@@ -85,6 +117,7 @@ export function Graph({
         nodePositions={nodePositions}
         cameraVersion={cameraVersion}
         onCameraChange={onCameraChange}
+        containerRef={labelContainerRef}
       />
     </div>
   );

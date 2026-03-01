@@ -54,6 +54,22 @@ export class Camera {
     return this._zoom;
   }
 
+  /** Return a snapshot of the camera state for label transform compensation. */
+  getState(): {
+    x: number;
+    y: number;
+    zoom: number;
+    screenCenterX: number;
+    screenCenterY: number;
+  } {
+    return {
+      x: this.x,
+      y: this.y,
+      zoom: this._zoom,
+      screenCenterX: this.canvasWidth / 2 + this.offsetX / 2,
+      screenCenterY: this.canvasHeight / 2 + this.offsetY / 2,
+    };
+  }
 
   /** Set canvas dimensions */
   setCanvasSize(width: number, height: number): void {

@@ -1,6 +1,6 @@
 /** HTML label overlay with conflict-avoidance layout. */
 
-import { useMemo, useRef, useCallback } from "react";
+import { useMemo, useRef, useCallback, type RefObject } from "react";
 
 import {
   nodeColour,
@@ -41,6 +41,7 @@ export function Labels({
   nodePositions,
   cameraVersion,
   onCameraChange,
+  containerRef,
 }: {
   settings: SettingsData;
   selectedId: string | null;
@@ -50,6 +51,7 @@ export function Labels({
   nodePositions: Float32Array;
   cameraVersion: number;
   onCameraChange: () => void;
+  containerRef: RefObject<HTMLDivElement | null>;
 }) {
   const data = useDataContext();
   const { theme } = useTheme();
@@ -210,8 +212,9 @@ export function Labels({
 
   return (
     <div
+      ref={containerRef}
       className="absolute inset-0 overflow-hidden"
-      style={{ pointerEvents: "none" }}
+      style={{ pointerEvents: "none", willChange: "transform" }}
     >
       {labels.map((label) => {
         const bgColor = nodeColour(
