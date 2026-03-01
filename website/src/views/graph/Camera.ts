@@ -54,6 +54,26 @@ export class Camera {
     return this._zoom;
   }
 
+  get canvasW(): number {
+    return this.canvasWidth;
+  }
+
+  get canvasH(): number {
+    return this.canvasHeight;
+  }
+
+  get viewportOffsetX(): number {
+    return this.offsetX;
+  }
+
+  get viewportOffsetY(): number {
+    return this.offsetY;
+  }
+
+  get minZoomLevel(): number {
+    return this.minZoom;
+  }
+
   /** Return a snapshot of the camera state for label transform compensation. */
   getState(): {
     x: number;

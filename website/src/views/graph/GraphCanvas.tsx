@@ -633,24 +633,53 @@ export function GraphCanvas({
 
   // Buffer uploads are now handled in the render loop via interpolation.
 
-  // Animate to node on selection
+  // Animate to fit the selected node's neighbourhood
   useEffect(() => {
     if (selectedId && settings.general.zoomOnSelect) {
       const idx = nodeIdToInt(selectedId);
-      if (idx >= 0 && idx < data.nodes.length) {
-        camera.animateTo(
-          nodePositions[idx * 2],
-          nodePositions[idx * 2 + 1],
-          Math.max(camera.zoom, 2),
-          600
-        );
+      if (idx < 0 || idx >= data.nodes.length) return;
+
+      // Gather positions of the selected node + immediate neighbours
+      const netPositions: [number, number][] = [
+        [nodePositions[idx * 2], nodePositions[idx * 2 + 1]],
+      ];
+      for (const id of pathInfo.immediateNeighbours) {
+        const ni = nodeIdToInt(id);
+        if (ni >= 0 && ni < data.nodes.length) {
+          netPositions.push([nodePositions[ni * 2], nodePositions[ni * 2 + 1]]);
+        }
       }
+
+      // Compute mean
+      let mx = 0, my = 0;
+      for (const [px, py] of netPositions) { mx += px; my += py; }
+      mx /= netPositions.length;
+      my /= netPositions.length;
+
+      // Compute stddev of distances from mean
+      let variance = 0;
+      for (const [px, py] of netPositions) {
+        const dx = px - mx, dy = py - my;
+        variance += dx * dx + dy * dy;
+      }
+      const stddev = Math.sqrt(variance / netPositions.length);
+
+      // Zoom to fit 1.5 stddev radius (excludes outliers)
+      const fitRadius = Math.max(stddev * 2, 20); // minimum radius to avoid extreme zoom
+      const availableSize = Math.min(
+        camera.canvasW - Math.abs(camera.viewportOffsetX) - 100,
+        camera.canvasH - Math.abs(camera.viewportOffsetY) - 100
+      );
+      const fitZoom = availableSize / (fitRadius * 2);
+
+      camera.animateTo(mx, my, Math.max(fitZoom, camera.minZoomLevel), 600);
     }
   }, [
     selectedId,
     settings.general.zoomOnSelect,
     data.nodes.length,
     nodePositions,
+    pathInfo,
     camera,
   ]);
 
