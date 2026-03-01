@@ -8,16 +8,16 @@
 
 use rayon::prelude::*;
 
-// Layout constants
-const REPULSION: f64 = 2000.0;
-const THETA: f64 = 0.8;
-const LINK_SPRING: f64 = 0.5;
-const LINK_DISTANCE: f64 = 18.0;
-const GRAVITY: f64 = 0.02;
-const GRAVITY_ISOLATED: f64 = 0.15;
-const FRICTION: f64 = 0.8;
-const ITERATIONS: usize = 1500;
-const MAX_VELOCITY: f64 = 20.0;
+// Layout constants — tuned to approximate Cosmograph's GPU force simulation.
+const REPULSION: f64 = 15000.0;
+const THETA: f64 = 1.0;
+const LINK_SPRING: f64 = 2.5;
+const LINK_DISTANCE: f64 = 10.0;
+const GRAVITY: f64 = 0.06;
+const GRAVITY_ISOLATED: f64 = 0.06;
+const FRICTION: f64 = 0.85;
+const ITERATIONS: usize = 5000;
+const MAX_VELOCITY: f64 = 25.0;
 const MAX_TREE_DEPTH: usize = 40;
 
 /// A node in the quadtree, either a leaf or an internal node with up to 4 children.
@@ -60,22 +60,22 @@ impl QuadTreeArena {
         idx
     }
 
-    fn insert(&mut self, root: usize, pos: [f64; 2], node_idx: usize) {
-        self.insert_inner(root, pos, node_idx, 0);
+    fn insert(&mut self, root: usize, pos: [f64; 2], node_idx: usize, charge: f64) {
+        self.insert_inner(root, pos, node_idx, charge, 0);
     }
 
-    fn insert_inner(&mut self, root: usize, pos: [f64; 2], node_idx: usize, depth: usize) {
+    fn insert_inner(&mut self, root: usize, pos: [f64; 2], node_idx: usize, charge: f64, depth: usize) {
         if depth >= MAX_TREE_DEPTH {
             // At max depth, just accumulate mass
             let m = self.nodes[root].mass;
             if m == 0.0 {
                 self.nodes[root].cx = pos[0];
                 self.nodes[root].cy = pos[1];
-                self.nodes[root].mass = 1.0;
+                self.nodes[root].mass = charge;
             } else {
-                self.nodes[root].cx = (self.nodes[root].cx * m + pos[0]) / (m + 1.0);
-                self.nodes[root].cy = (self.nodes[root].cy * m + pos[1]) / (m + 1.0);
-                self.nodes[root].mass = m + 1.0;
+                self.nodes[root].cx = (self.nodes[root].cx * m + pos[0] * charge) / (m + charge);
+                self.nodes[root].cy = (self.nodes[root].cy * m + pos[1] * charge) / (m + charge);
+                self.nodes[root].mass = m + charge;
             }
             return;
         }
@@ -86,7 +86,7 @@ impl QuadTreeArena {
         if self.nodes[root].mass == 0.0 {
             self.nodes[root].cx = pos[0];
             self.nodes[root].cy = pos[1];
-            self.nodes[root].mass = 1.0;
+            self.nodes[root].mass = charge;
             self.nodes[root].node_index = Some(node_idx);
             return;
         }
@@ -94,15 +94,16 @@ impl QuadTreeArena {
         // If leaf with existing node, subdivide
         if let Some(_existing_idx) = self.nodes[root].node_index {
             let existing_pos = [self.nodes[root].cx, self.nodes[root].cy];
+            let existing_mass = self.nodes[root].mass;
             self.nodes[root].node_index = None;
-            self.insert_into_quadrant(root, existing_pos, _existing_idx, depth);
+            self.insert_into_quadrant(root, existing_pos, _existing_idx, existing_mass, depth);
         }
 
-        // Update center of mass
+        // Update center of mass (weighted by charge)
         let m = self.nodes[root].mass;
-        self.nodes[root].cx = (self.nodes[root].cx * m + pos[0]) / (m + 1.0);
-        self.nodes[root].cy = (self.nodes[root].cy * m + pos[1]) / (m + 1.0);
-        self.nodes[root].mass = m + 1.0;
+        self.nodes[root].cx = (self.nodes[root].cx * m + pos[0] * charge) / (m + charge);
+        self.nodes[root].cy = (self.nodes[root].cy * m + pos[1] * charge) / (m + charge);
+        self.nodes[root].mass = m + charge;
 
         // Insert into appropriate quadrant
         let mid_x = (min_x + max_x) / 2.0;
@@ -121,7 +122,7 @@ impl QuadTreeArena {
             self.nodes[root].children[quadrant] = Some(child);
         }
         let child = self.nodes[root].children[quadrant].unwrap();
-        self.insert_inner(child, pos, node_idx, depth + 1);
+        self.insert_inner(child, pos, node_idx, charge, depth + 1);
     }
 
     fn insert_into_quadrant(
@@ -129,6 +130,7 @@ impl QuadTreeArena {
         root: usize,
         pos: [f64; 2],
         node_idx: usize,
+        charge: f64,
         depth: usize,
     ) {
         let [min_x, min_y, max_x, max_y] = self.nodes[root].bounds;
@@ -148,7 +150,7 @@ impl QuadTreeArena {
             self.nodes[root].children[quadrant] = Some(child);
         }
         let child = self.nodes[root].children[quadrant].unwrap();
-        self.insert_inner(child, pos, node_idx, depth + 1);
+        self.insert_inner(child, pos, node_idx, charge, depth + 1);
     }
 
     /// Compute repulsive force on a node from the tree.
@@ -219,20 +221,27 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         degrees[tgt] += 1;
     }
 
-    // Deterministic initial positions: golden-angle spiral
-    let golden_angle = std::f64::consts::PI * (3.0 - 5.0_f64.sqrt());
+    // Deterministic initial positions: seeded PRNG for uniform random placement
+    // Using a simple xorshift64 for reproducibility without extra dependencies.
+    let mut rng_state: u64 = 0xDEAD_BEEF_CAFE_BABE;
+    let mut next_f64 = || -> f64 {
+        rng_state ^= rng_state << 13;
+        rng_state ^= rng_state >> 7;
+        rng_state ^= rng_state << 17;
+        (rng_state as f64) / (u64::MAX as f64) * 2.0 - 1.0
+    };
+    let spread = (num_nodes as f64).sqrt() * 15.0;
     let mut positions: Vec<[f64; 2]> = (0..num_nodes)
-        .map(|i| {
-            let r = (i as f64).sqrt() * 10.0;
-            let theta = i as f64 * golden_angle;
-            [r * theta.cos(), r * theta.sin()]
-        })
+        .map(|_| [next_f64() * spread, next_f64() * spread])
         .collect();
 
     let mut velocities = vec![[0.0_f64; 2]; num_nodes];
 
     for iter in 0..ITERATIONS {
-        let temperature = 1.0 - (iter as f64 / ITERATIONS as f64) * 0.99;
+        // Exponential cooling: starts hot, stays warm longer for large-scale rearrangement,
+        // then cools rapidly for fine adjustment. Decay rate matched to Cosmograph's style.
+        // Slower decay: stays warm for ~60% of iterations, then cools rapidly.
+        let temperature = (-2.5 * iter as f64 / ITERATIONS as f64).exp();
 
         // Build quadtree
         let (min_x, min_y, max_x, max_y) = positions.iter().fold(
@@ -256,7 +265,7 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
             max_y + padding,
         ]);
         for (i, pos) in positions.iter().enumerate() {
-            tree.insert(root, *pos, i);
+            tree.insert(root, *pos, i, 1.0);
         }
 
         // Compute repulsive forces (parallel)
@@ -269,7 +278,10 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
             })
             .collect();
 
-        // Compute spring forces along edges (sequential accumulation)
+        // Compute spring forces along edges (sequential accumulation).
+        // Each endpoint receives force inversely weighted by its degree, so hub
+        // nodes aren't yanked equally hard by every single edge — this lets
+        // peripheral clusters form tight groups while hubs act as bridges.
         let mut spring_forces = vec![[0.0_f64; 2]; num_nodes];
         for &(src, tgt) in adjacency {
             let dx = positions[tgt][0] - positions[src][0];
@@ -279,10 +291,12 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
             let f = LINK_SPRING * displacement;
             let fx = dx / dist * f;
             let fy = dy / dist * f;
-            spring_forces[src][0] += fx;
-            spring_forces[src][1] += fy;
-            spring_forces[tgt][0] -= fx;
-            spring_forces[tgt][1] -= fy;
+            let src_weight = 1.0 / (degrees[src] as f64).max(1.0);
+            let tgt_weight = 1.0 / (degrees[tgt] as f64).max(1.0);
+            spring_forces[src][0] += fx * src_weight;
+            spring_forces[src][1] += fy * src_weight;
+            spring_forces[tgt][0] -= fx * tgt_weight;
+            spring_forces[tgt][1] -= fy * tgt_weight;
         }
 
         // Integrate forces
