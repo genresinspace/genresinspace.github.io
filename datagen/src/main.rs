@@ -9,6 +9,7 @@ pub mod check_mixes;
 pub mod data_patches;
 pub mod extract;
 pub mod force_layout;
+pub mod frontend_types;
 pub mod genre_top_artists;
 pub mod link_counts;
 pub mod links;
@@ -111,11 +112,10 @@ fn main() -> anyhow::Result<()> {
         &output_path.join("artist_genres.json"),
     )?;
 
-    let website_path = Path::new("website");
-    let website_public_path = website_path.join("public");
+    let website_public_path = Path::new(frontend_types::WEBSITE_PUBLIC_PATH);
 
-    std::fs::remove_dir_all(&website_public_path).ok();
-    std::fs::create_dir_all(&website_public_path)?;
+    std::fs::remove_dir_all(website_public_path).ok();
+    std::fs::create_dir_all(website_public_path)?;
 
     std::fs::write(website_public_path.join("CNAME"), "genresin.space")?;
 

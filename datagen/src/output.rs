@@ -5,31 +5,14 @@ use std::{
 };
 
 use anyhow::Context as _;
-use serde::{Deserialize, Serialize, ser::SerializeTuple};
+use serde::{Deserialize, Serialize};
 
 use crate::{
-    extract, genre_top_artists, links, process,
-    types::{GenreMixes, GenreName, PageDataId, PageName},
+    extract,
+    frontend_types::{EdgeData, EdgeType, FrontendData, NodeData},
+    genre_top_artists, links, process,
+    types::{GenreMixes, PageDataId, PageName},
 };
-
-#[derive(Debug, Serialize)]
-struct FrontendData {
-    wikipedia_domain: String,
-    wikipedia_db_name: String,
-    dump_date: String,
-    nodes: Vec<NodeData>,
-    edges: BTreeSet<EdgeData>,
-    max_degree: usize,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct NodeData {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    page_title: Option<String>,
-    label: GenreName,
-    x: f64,
-    y: f64,
-}
 
 #[derive(Debug, Serialize, Deserialize)]
 struct GenreFileData {
@@ -52,35 +35,6 @@ struct ArtistFileData {
 #[serde(transparent)]
 /// Maps link targets to page IDs.
 struct LinksToPageIds(BTreeMap<String, PageDataId>);
-
-#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
-enum EdgeType {
-    Derivative,
-    Subgenre,
-    FusionGenre,
-}
-#[derive(Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
-struct EdgeData {
-    source: PageDataId,
-    target: PageDataId,
-    ty: EdgeType,
-}
-impl Serialize for EdgeData {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let mut tup = serializer.serialize_tuple(3)?;
-        tup.serialize_element(&self.source)?;
-        tup.serialize_element(&self.target)?;
-        tup.serialize_element(&match self.ty {
-            EdgeType::Derivative => 0,
-            EdgeType::Subgenre => 1,
-            EdgeType::FusionGenre => 2,
-        })?;
-        tup.end()
-    }
-}
 
 /// Given processed genres, produce a graph and save it to `data.json` to be rendered by the website.
 #[allow(clippy::too_many_arguments)]
