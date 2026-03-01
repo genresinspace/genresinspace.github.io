@@ -103,7 +103,6 @@ export function GraphCanvas({
   hoveredId,
   setHoveredId,
   pathInfo,
-  hoverPathInfo,
   path,
   viewportOffsetX,
   viewportOffsetY,
@@ -117,7 +116,6 @@ export function GraphCanvas({
   hoveredId: string | null;
   setHoveredId: (id: string | null) => void;
   pathInfo: PathInfo;
-  hoverPathInfo: PathInfo;
   path: string[] | null;
   viewportOffsetX: number;
   viewportOffsetY: number;
@@ -226,18 +224,9 @@ export function GraphCanvas({
       if (selectedId && !isHovered) {
         if (isHighlightedDueToSelection(node.id, true)) {
           cssColor = nodeColour(node, maxDegree, graphNodeLightness);
-        } else if (hoveredId && hoverPathInfo.nodeDistances.has(node.id)) {
-          // Part of hover coverage net — show slightly brighter
-          cssColor = nodeColour(node, maxDegree, graphNodeLightness, 10);
         } else {
           cssColor = "hsla(0, 0%, 70%, 0.1)";
         }
-      } else if (
-        hoveredId &&
-        !selectedId &&
-        hoverPathInfo.nodeDistances.has(node.id)
-      ) {
-        cssColor = nodeColour(node, maxDegree, graphNodeLightness, 10);
       } else {
         cssColor = nodeColour(node, maxDegree, graphNodeLightness);
       }
@@ -256,7 +245,6 @@ export function GraphCanvas({
     maxDegree,
     graphNodeLightness,
     isHighlightedDueToSelection,
-    hoverPathInfo,
   ]);
 
   // Compute node sizes (in world units — shader multiplies by zoom)
@@ -267,11 +255,7 @@ export function GraphCanvas({
       let size = 15.0 * (0.2 + (node.edges.length / maxDegree) * 0.8);
 
       // Shrink if not highlighted when something is selected
-      if (
-        selectedId &&
-        !isHighlightedDueToSelection(node.id, true) &&
-        !(hoveredId && hoverPathInfo.nodeDistances.has(node.id))
-      ) {
+      if (selectedId && !isHighlightedDueToSelection(node.id, true)) {
         size -= 1.5;
       }
 
@@ -295,7 +279,6 @@ export function GraphCanvas({
     focusedId,
     hoveredId,
     isHighlightedDueToSelection,
-    hoverPathInfo,
   ]);
   stateRef.current.sizes = nodeSizes;
 
@@ -354,18 +337,10 @@ export function GraphCanvas({
               } else {
                 color = dimmedColor;
               }
-            } else if (hoveredId && hoverPathInfo.edgeDistances.has(edge)) {
-              const hDist = hoverPathInfo.edgeDistances.get(edge)!;
-              const factor = 1 - hDist / maxDistance;
-              color = edgeColour(Math.max(0, 80 * factor), 0.3 + 0.4 * factor);
             } else {
               color = dimmedColor;
             }
           }
-        } else if (hoveredId && hoverPathInfo.edgeDistances.has(edge)) {
-          const hDist = hoverPathInfo.edgeDistances.get(edge)!;
-          const factor = 1 - hDist / maxDistance;
-          color = edgeColour(Math.max(0, 80 * factor), 0.3 + 0.4 * factor);
         } else {
           color = edgeColour(70, unselectedAlpha);
         }
@@ -385,10 +360,8 @@ export function GraphCanvas({
   }, [
     data.edges,
     selectedId,
-    hoveredId,
     settings.visibleTypes,
     pathInfo,
-    hoverPathInfo,
     maxDistance,
     path,
   ]);

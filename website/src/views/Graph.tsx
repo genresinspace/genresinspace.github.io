@@ -50,18 +50,6 @@ export function Graph({
     );
   }, [selectedId, data.nodes, data.edges, maxDistance, settings.visibleTypes]);
 
-  // Compute coverage net for hovered node
-  const hoverPathInfo = useMemo(() => {
-    if (!hoveredId) return EMPTY_PATH_INFO;
-    return getPathsWithinDistance(
-      hoveredId,
-      data.nodes,
-      data.edges,
-      settings.visibleTypes,
-      maxDistance
-    );
-  }, [hoveredId, data.nodes, data.edges, maxDistance, settings.visibleTypes]);
-
   // Precompute positions flat array for Labels
   const nodePositions = useMemo(() => {
     const arr = new Float32Array(data.nodes.length * 2);
@@ -82,7 +70,6 @@ export function Graph({
         hoveredId={hoveredId}
         setHoveredId={setHoveredId}
         pathInfo={pathInfo}
-        hoverPathInfo={hoverPathInfo}
         path={path}
         viewportOffsetX={viewportOffsetX}
         viewportOffsetY={viewportOffsetY}
@@ -93,10 +80,7 @@ export function Graph({
         settings={settings}
         selectedId={selectedId}
         setSelectedId={setSelectedId}
-        hoveredId={hoveredId}
-        setHoveredId={setHoveredId}
         pathInfo={pathInfo}
-        hoverPathInfo={hoverPathInfo}
         camera={cameraRef.current}
         nodePositions={nodePositions}
         cameraVersion={cameraVersion}
