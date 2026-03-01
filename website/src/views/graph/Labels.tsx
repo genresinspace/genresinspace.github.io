@@ -22,6 +22,8 @@ const MAX_VISIBLE_LABELS = 60;
 const LABEL_ZOOM_THRESHOLD = 1.5;
 /** Fraction of full zoom-scaling applied to labels beyond the threshold (0=fixed, 1=full). */
 const LABEL_ZOOM_RATE = 0.25;
+/** Extra HSL lightness added to graph labels to compensate for the dark graph background. */
+const LABEL_LIGHTNESS_BOOST = 5;
 const DRAG_THRESHOLD = 5;
 
 type LabelCandidate = {
@@ -253,17 +255,17 @@ export function Labels({
         const bgColor = nodeColour(
           label.node,
           maxDegree,
-          colorLightness.GraphLabelBackgroundBorder
+          colorLightness.GraphLabelBackgroundBorder + LABEL_LIGHTNESS_BOOST
         );
         const borderColor = nodeColour(
           label.node,
           maxDegree,
-          colorLightness.GraphLabelBackground
+          colorLightness.GraphLabelBackground + LABEL_LIGHTNESS_BOOST
         );
         const textColor = nodeColour(
           label.node,
           maxDegree,
-          colorLightness.GraphLabelText
+          colorLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST
         );
 
         // Hover overrides all dimming — hovered labels are always fully visible
