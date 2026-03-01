@@ -29,6 +29,8 @@ type LabelCandidate = {
   priority: number;
   /** Whether this label is in the selected coverage net */
   inSelectedNet: boolean;
+  /** BFS distance from selected node (0 = selected, Infinity = not in net) */
+  selectionDistance: number;
 };
 
 /** HTML label overlay with degree-prioritized conflict avoidance. */
@@ -36,6 +38,8 @@ export function Labels({
   settings,
   selectedId,
   setSelectedId,
+  hoveredId,
+  setHoveredId,
   pathInfo,
   camera,
   nodePositions,
@@ -46,6 +50,8 @@ export function Labels({
   settings: SettingsData;
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
+  hoveredId: string | null;
+  setHoveredId: (id: string | null) => void;
   pathInfo: PathInfo;
   camera: Camera;
   nodePositions: Float32Array;
@@ -107,8 +113,9 @@ export function Labels({
     [camera, selectedId, setSelectedId, onCameraChange]
   );
 
-  const labels = useMemo(() => {
-    if (!settings.general.showLabels) return [];
+  const stableLabels = useMemo(() => {
+    if (!settings.general.showLabels)
+      return { result: [] as LabelCandidate[], allCandidates: [] as LabelCandidate[] };
 
     const [minX, minY, maxX, maxY] = camera.getVisibleBounds();
 
@@ -129,21 +136,25 @@ export function Labels({
       const basePriority = node.edges.length;
       let priority = basePriority;
       let inSelectedNet = false;
+      let selectionDistance = Infinity;
 
       // Check if in selection net
       if (selectedId) {
         if (node.id === selectedId) {
           priority += 100000;
           inSelectedNet = true;
+          selectionDistance = 0;
         } else {
           const dist = pathInfo.nodeDistances.get(node.id);
           if (dist !== undefined && dist < maxDistance) {
             priority += 10000 - dist * 1000;
             inSelectedNet = true;
+            selectionDistance = dist;
           }
           if (pathInfo.immediateNeighbours.has(node.id)) {
             priority += 10000;
             inSelectedNet = true;
+            if (selectionDistance > 1) selectionDistance = 1;
           }
         }
       }
@@ -156,6 +167,7 @@ export function Labels({
         fontSize,
         priority,
         inSelectedNet,
+        selectionDistance,
       });
     }
 
@@ -195,7 +207,7 @@ export function Labels({
     for (const c of selectedCandidates) tryPlace(c);
     for (const c of otherCandidates) tryPlace(c);
 
-    return result;
+    return { result, allCandidates: candidates };
   }, [
     data.nodes,
     camera,
@@ -207,6 +219,17 @@ export function Labels({
     maxDistance,
     cameraVersion,
   ]);
+
+  // Ensure hovered label is always shown, even if culled by overlap.
+  // Computed outside the stable useMemo so hover doesn't cause remounts.
+  const labels = useMemo(() => {
+    const { result, allCandidates } = stableLabels;
+    if (!hoveredId || result.some((c) => c.node.id === hoveredId)) {
+      return result;
+    }
+    const hovered = allCandidates.find((c) => c.node.id === hoveredId);
+    return hovered ? [...result, hovered] : result;
+  }, [stableLabels, hoveredId]);
 
   const dpr = window.devicePixelRatio || 1;
 
@@ -233,17 +256,21 @@ export function Labels({
           colorLightness.GraphLabelText
         );
 
-        // Determine filter:
-        // - In selected net: prominent
-        // - Not in selected net (when selection active): dimmed
-        // - Default: no filter
+        // Hover overrides all dimming — hovered labels are always fully visible
+        const isHovered = hoveredId === label.node.id;
         let filterStyle: string | undefined;
         let opacityStyle = 1;
-        if (selectedId && !label.inSelectedNet) {
-          filterStyle = "brightness(0.4)";
-          opacityStyle = 0.5;
-        } else if (label.inSelectedNet) {
-          filterStyle = "brightness(1.3)";
+        if (isHovered) {
+          filterStyle = "brightness(1.6)";
+        } else if (selectedId) {
+          if (label.inSelectedNet) {
+            opacityStyle = label.selectionDistance <= 1
+              ? 1.0
+              : Math.pow(0.25, label.selectionDistance - 1);
+          } else {
+            filterStyle = "brightness(0.4)";
+            opacityStyle = 0.2;
+          }
         }
 
         return (
@@ -264,6 +291,10 @@ export function Labels({
               whiteSpace: "nowrap",
               pointerEvents: "auto",
               cursor: "pointer",
+            }}
+            onPointerEnter={() => setHoveredId(label.node.id)}
+            onPointerLeave={() => {
+              if (hoveredId === label.node.id) setHoveredId(null);
             }}
             onWheel={(e) => {
               // Forward wheel events to the camera so zoom works over labels

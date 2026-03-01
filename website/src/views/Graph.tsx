@@ -112,6 +112,8 @@ export function Graph({
         settings={settings}
         selectedId={selectedId}
         setSelectedId={setSelectedId}
+        hoveredId={hoveredId}
+        setHoveredId={setHoveredId}
         pathInfo={pathInfo}
         camera={cameraRef.current}
         nodePositions={nodePositions}
