@@ -265,6 +265,15 @@ export function Labels({
               pointerEvents: "auto",
               cursor: "pointer",
             }}
+            onWheel={(e) => {
+              // Forward wheel events to the camera so zoom works over labels
+              const rect = containerRef.current!.getBoundingClientRect();
+              const sx = (e.clientX - rect.left) * (window.devicePixelRatio || 1);
+              const sy = (e.clientY - rect.top) * (window.devicePixelRatio || 1);
+              const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+              camera.smoothZoomAt(sx, sy, factor);
+              onCameraChange();
+            }}
             onPointerDown={(e) => onLabelPointerDown(e, label.node.id)}
           >
             {label.node.label}
