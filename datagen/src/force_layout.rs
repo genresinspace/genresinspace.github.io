@@ -15,6 +15,7 @@ const LINK_SPRING: f64 = 2.5;
 const LINK_DISTANCE: f64 = 10.0;
 const GRAVITY: f64 = 0.06;
 const GRAVITY_ISOLATED: f64 = 0.06;
+const SPIN: f64 = 10.0;
 const FRICTION: f64 = 0.85;
 const ITERATIONS: usize = 5000;
 const MAX_VELOCITY: f64 = 25.0;
@@ -231,6 +232,7 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         (rng_state as f64) / (u64::MAX as f64) * 2.0 - 1.0
     };
     let spread = (num_nodes as f64).sqrt() * 15.0;
+
     let mut positions: Vec<[f64; 2]> = (0..num_nodes)
         .map(|_| [next_f64() * spread, next_f64() * spread])
         .collect();
@@ -302,7 +304,6 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         // Integrate forces
         let max_vel = MAX_VELOCITY * temperature;
         for i in 0..num_nodes {
-            // Stronger gravity for isolated/low-degree nodes
             let gravity = if degrees[i] == 0 {
                 GRAVITY_ISOLATED
             } else {
@@ -317,8 +318,42 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
             velocities[i][0] = clamp_abs((velocities[i][0] + fx) * FRICTION, max_vel);
             velocities[i][1] = clamp_abs((velocities[i][1] + fy) * FRICTION, max_vel);
 
+            // Tangential spin for isolated nodes: push perpendicular to the
+            // radial direction so they spread around the cluster orbit.
+            if degrees[i] == 0 {
+                let dx = positions[i][0];
+                let dy = positions[i][1];
+                let r = (dx * dx + dy * dy).sqrt().max(1.0);
+                let tx = -dy / r;
+                let ty = dx / r;
+                // Scale spin with distance — nodes pushed further out by
+                // dense regions move faster tangentially, spending less time
+                // on the dense side.
+                let dist_factor = (r / 200.0).max(0.5);
+                let spin = SPIN * temperature * dist_factor;
+                velocities[i][0] += tx * spin;
+                velocities[i][1] += ty * spin;
+            }
+
             positions[i][0] += velocities[i][0];
             positions[i][1] += velocities[i][1];
+        }
+
+        // Re-center: shift all positions so the center of mass is at the origin.
+        // This ensures gravity pulls symmetrically from all directions, which
+        // lets isolated nodes form a full orbit instead of a crescent.
+        let (com_x, com_y) = {
+            let mut sx = 0.0;
+            let mut sy = 0.0;
+            for pos in positions.iter() {
+                sx += pos[0];
+                sy += pos[1];
+            }
+            (sx / num_nodes as f64, sy / num_nodes as f64)
+        };
+        for pos in positions.iter_mut() {
+            pos[0] -= com_x;
+            pos[1] -= com_y;
         }
 
         if iter % 100 == 0 {

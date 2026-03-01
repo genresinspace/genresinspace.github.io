@@ -85,7 +85,7 @@ for src, tgt, ty in edges:
 lc = mc.LineCollection(lines, colors=colors, linewidths=0.3)
 ax.add_collection(lc)
 
-sizes = 2 + (degrees / max_degree) * 30
+sizes = 8 + (degrees / max_degree) * 50
 hues = np.array([hash(str(i)) % 360 for i in range(len(nodes))])
 node_colors = plt.cm.hsv(hues / 360)
 node_colors[:, 3] = 0.8
@@ -126,19 +126,15 @@ for i in sorted_by_degree:
                      textcoords="offset points", xytext=(0, 3))
         labeled += 1
 
-# Right: degree-colored
+# Right: isolated vs connected
 ax3 = axes[2]
-ax3.set_title("Degree heatmap")
+ax3.set_title(f"Isolated (red, {isolated}) vs Connected (blue, {len(nodes)-isolated})")
 ax3.set_facecolor("#111111")
 ax3.set_aspect("equal")
-scatter = ax3.scatter(xs, ys, s=sizes, c=degrees, cmap="plasma", edgecolors="none", zorder=2)
-plt.colorbar(scatter, ax=ax3, label="Degree")
-
-# Label top 15
-for i in sorted_by_degree[:15]:
-    ax3.annotate(nodes[i]["label"], (xs[i], ys[i]),
-                 fontsize=6, color="white", ha="center", va="bottom",
-                 textcoords="offset points", xytext=(0, 4))
+iso_mask = degrees == 0
+conn_mask = ~iso_mask
+ax3.scatter(xs[conn_mask], ys[conn_mask], s=6, c="steelblue", alpha=0.4, edgecolors="none", zorder=2)
+ax3.scatter(xs[iso_mask], ys[iso_mask], s=30, c="red", alpha=0.9, edgecolors="white", linewidths=0.3, zorder=3)
 ax3.autoscale_view()
 
 plt.tight_layout()
