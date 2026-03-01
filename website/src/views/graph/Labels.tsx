@@ -18,6 +18,10 @@ import { PathInfo } from "./pathInfo";
 import "../graph.css";
 
 const MAX_VISIBLE_LABELS = 60;
+/** Labels stay at base size until zoom/dpr exceeds this, then grow proportionally. */
+const LABEL_ZOOM_THRESHOLD = 1.5;
+/** Fraction of full zoom-scaling applied to labels beyond the threshold (0=fixed, 1=full). */
+const LABEL_ZOOM_RATE = 0.25;
 const DRAG_THRESHOLD = 5;
 
 type LabelCandidate = {
@@ -117,6 +121,7 @@ export function Labels({
     if (!settings.general.showLabels)
       return { result: [] as LabelCandidate[], allCandidates: [] as LabelCandidate[] };
 
+    const dpr = window.devicePixelRatio || 1;
     const [minX, minY, maxX, maxY] = camera.getVisibleBounds();
 
     // Build candidate list
@@ -131,7 +136,13 @@ export function Labels({
       if (wx < minX || wx > maxX || wy < minY || wy > maxY) continue;
 
       const [sx, sy] = camera.worldToScreen(wx, wy);
-      const fontSize = 10 + (node.edges.length / maxDegree) * 6;
+      const baseFontSize = 10 + (node.edges.length / maxDegree) * 6;
+      const zoomScale = camera.zoom / dpr;
+      // At overview zoom, use full base size; once zoomed in enough,
+      // transition to scaling with zoom at half rate
+      // Beyond threshold, labels grow at LABEL_ZOOM_RATE of the full zoom rate
+      const fullScale = zoomScale / LABEL_ZOOM_THRESHOLD;
+      const fontSize = baseFontSize * Math.max(1, 1 + (fullScale - 1) * LABEL_ZOOM_RATE);
 
       const basePriority = node.edges.length;
       let priority = basePriority;
@@ -184,7 +195,6 @@ export function Labels({
     // Greedy overlap culling
     const placed: { x: number; y: number; w: number; h: number }[] = [];
     const result: LabelCandidate[] = [];
-    const dpr = window.devicePixelRatio || 1;
 
     const tryPlace = (c: LabelCandidate): boolean => {
       if (result.length >= MAX_VISIBLE_LABELS) return false;
