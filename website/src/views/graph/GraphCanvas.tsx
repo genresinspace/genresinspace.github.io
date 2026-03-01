@@ -212,30 +212,44 @@ export function GraphCanvas({
     [selectedId, pathInfo, maxDistance, path]
   );
 
-  // Compute node colors
+  // Compute node colors — distance-based opacity when a node is selected.
+  // Distance 0 (selected) and 1 (immediate neighbours) are fully visible;
+  // further distances fade aggressively via opacity.
   const nodeColors = useMemo(() => {
     const arr = new Float32Array(data.nodes.length * 4);
     for (let i = 0; i < data.nodes.length; i++) {
       const node = data.nodes[i];
-      let cssColor: string;
-
       const isHovered = hoveredId === node.id;
+
+      const [r, g, b] = parseColor(
+        nodeColour(node, maxDegree, graphNodeLightness)
+      );
 
       if (selectedId && !isHovered) {
         if (isHighlightedDueToSelection(node.id, true)) {
-          cssColor = nodeColour(node, maxDegree, graphNodeLightness);
+          const dist = node.id === selectedId
+            ? 0
+            : pathInfo.immediateNeighbours.has(node.id) && !pathInfo.nodeDistances.has(node.id)
+              ? 1
+              : pathInfo.nodeDistances.get(node.id) ?? maxDistance;
+          // dist 0-1: full opacity; beyond that: exponential falloff
+          const alpha = dist <= 1 ? 1.0 : Math.pow(0.25, dist - 1);
+          arr[i * 4] = r;
+          arr[i * 4 + 1] = g;
+          arr[i * 4 + 2] = b;
+          arr[i * 4 + 3] = alpha;
         } else {
-          cssColor = "hsla(0, 0%, 70%, 0.1)";
+          arr[i * 4] = r * 0.3;
+          arr[i * 4 + 1] = g * 0.3;
+          arr[i * 4 + 2] = b * 0.3;
+          arr[i * 4 + 3] = 0.06;
         }
       } else {
-        cssColor = nodeColour(node, maxDegree, graphNodeLightness);
+        arr[i * 4] = r;
+        arr[i * 4 + 1] = g;
+        arr[i * 4 + 2] = b;
+        arr[i * 4 + 3] = 1.0;
       }
-
-      const [r, g, b, a] = parseColor(cssColor);
-      arr[i * 4] = r;
-      arr[i * 4 + 1] = g;
-      arr[i * 4 + 2] = b;
-      arr[i * 4 + 3] = a;
     }
     return arr;
   }, [
@@ -245,6 +259,8 @@ export function GraphCanvas({
     maxDegree,
     graphNodeLightness,
     isHighlightedDueToSelection,
+    pathInfo,
+    maxDistance,
   ]);
 
   // Compute node sizes (in world units — shader multiplies by zoom)
@@ -288,7 +304,6 @@ export function GraphCanvas({
     const dimmedColor = parseColor("hsla(0, 0%, 20%, 0.1)");
 
     const selectedAlpha = 0.8;
-    const selectedMinInfluenceAlpha = 0.4;
     const unselectedAlpha = 0.08;
 
     for (let i = 0; i < data.edges.length; i++) {
@@ -320,23 +335,17 @@ export function GraphCanvas({
             } else {
               color = dimmedColor;
             }
-          } else if (edge.source === selectedId) {
+          } else if (edge.source === selectedId || edge.target === selectedId) {
+            // Direct edges from/to selected node: full visibility
             color = edgeColour(90, selectedAlpha);
-          } else if (edge.target === selectedId) {
-            color = edgeColour(40, selectedAlpha);
           } else {
             const distance = pathInfo.edgeDistances.get(edge);
-            if (distance !== undefined) {
-              const factor = 1 - distance / maxDistance;
-              const saturation = Math.max(0, 100 * factor);
-              const alpha =
-                selectedMinInfluenceAlpha +
-                (selectedAlpha - selectedMinInfluenceAlpha) * factor;
-              if (saturation > 0) {
-                color = edgeColour(saturation, alpha);
-              } else {
-                color = dimmedColor;
-              }
+            if (distance !== undefined && distance < maxDistance) {
+              // distance 1 = immediate neighbour edges (full), beyond = falloff
+              const alpha = distance <= 1
+                ? selectedAlpha
+                : selectedAlpha * Math.pow(0.25, distance - 1);
+              color = edgeColour(90, alpha);
             } else {
               color = dimmedColor;
             }

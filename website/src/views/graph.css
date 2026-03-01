@@ -2,9 +2,6 @@
   from {
     opacity: 0;
   }
-  to {
-    opacity: 1;
-  }
 }
 
 .node-label {
@@ -18,9 +15,8 @@
   animation: label-fade-in 500ms ease-out;
 }
 
-.node-label:hover {
-  filter: brightness(1.6);
-}
+/* Hover is handled programmatically via shared hoveredId state
+   so that nodes and labels share hover/click targets. */
 
 .node-hovered-label {
   filter: brightness(1.6);
