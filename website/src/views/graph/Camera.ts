@@ -1,4 +1,12 @@
 /** 2D orthographic camera with pan, zoom, and viewport offset support. */
+
+/** Exponential decay rate for pan inertia (higher = more friction). */
+const INERTIA_DAMPING = 5;
+/** World units/ms below which velocity snaps to 0. */
+const INERTIA_MIN_VELOCITY = 0.001;
+/** Exponential lerp rate for smooth zoom (higher = snappier). */
+const ZOOM_SMOOTHING_SPEED = 8;
+
 export class Camera {
   /** Camera center in world space */
   private x = 0;
@@ -23,13 +31,17 @@ export class Camera {
   private animStartTime = 0;
   private animDuration = 300;
 
+  /** Inertia velocity in world units/ms */
+  private vx = 0;
+  private vy = 0;
+
+  /** Smooth zoom state */
+  private targetZoom = 1;
+  private zoomFocalScreenX = 0;
+  private zoomFocalScreenY = 0;
+
   get zoom(): number {
     return this._zoom;
-  }
-
-  /** Whether camera is currently animating. */
-  get isAnimating(): boolean {
-    return this.animating;
   }
 
   /** Set canvas dimensions */
@@ -79,6 +91,7 @@ export class Camera {
         availableHeight / contentHeight
       );
     }
+    this.targetZoom = this._zoom;
   }
 
   /** Pan by screen-space delta */
@@ -88,61 +101,137 @@ export class Camera {
     this.y -= dy / this._zoom;
   }
 
-  /** Zoom at a screen position */
+  /** Set pan inertia velocity (world units/ms). Called by InteractionHandler on drag end. */
+  setVelocity(vx: number, vy: number): void {
+    this.vx = vx;
+    this.vy = vy;
+  }
+
+  /** Zoom at a screen position (instant, programmatic). */
   zoomAt(screenX: number, screenY: number, factor: number): void {
     this.animating = false;
     const [wx, wy] = this.screenToWorld(screenX, screenY);
     this._zoom *= factor;
     this._zoom = Math.max(0.01, Math.min(this._zoom, 200));
+    this.targetZoom = this._zoom;
     // Adjust pan so the world point stays under the cursor
     const [wx2, wy2] = this.screenToWorld(screenX, screenY);
     this.x -= wx2 - wx;
     this.y -= wy2 - wy;
   }
 
+  /** Smooth zoom at a screen position. Accumulates into targetZoom. */
+  smoothZoomAt(screenX: number, screenY: number, factor: number): void {
+    this.animating = false;
+    this.targetZoom *= factor;
+    this.targetZoom = Math.max(0.01, Math.min(this.targetZoom, 200));
+    this.zoomFocalScreenX = screenX;
+    this.zoomFocalScreenY = screenY;
+  }
+
   /** Set camera to look at a world position (instant) */
   lookAt(worldX: number, worldY: number, zoom?: number): void {
     this.animating = false;
+    this.vx = 0;
+    this.vy = 0;
     this.x = worldX;
     this.y = worldY;
     if (zoom !== undefined) {
       this._zoom = zoom;
+      this.targetZoom = zoom;
     }
   }
 
-  /** Animate camera to a world position over durationMs. Returns true while animating. */
+  /** Animate camera to a world position over durationMs. */
   animateTo(
     worldX: number,
     worldY: number,
     zoom: number,
     durationMs: number = 300
   ): void {
+    this.vx = 0;
+    this.vy = 0;
     this.animStartX = this.x;
     this.animStartY = this.y;
     this.animStartZoom = this._zoom;
     this.animTargetX = worldX;
     this.animTargetY = worldY;
     this.animTargetZoom = zoom;
+    this.targetZoom = zoom;
     this.animStartTime = performance.now();
     this.animDuration = durationMs;
     this.animating = true;
   }
 
-  /** Advance animation. Returns true if still animating (needs another frame). */
-  tick(): boolean {
-    if (!this.animating) return false;
-    const elapsed = performance.now() - this.animStartTime;
-    const t = Math.min(elapsed / this.animDuration, 1);
-    // Ease-out cubic
-    const ease = 1 - Math.pow(1 - t, 3);
-    this.x = this.animStartX + (this.animTargetX - this.animStartX) * ease;
-    this.y = this.animStartY + (this.animTargetY - this.animStartY) * ease;
-    this._zoom =
-      this.animStartZoom + (this.animTargetZoom - this.animStartZoom) * ease;
-    if (t >= 1) {
-      this.animating = false;
+  /**
+   * Advance camera animation, inertia, and smooth zoom.
+   * Returns true if the camera changed this frame (needs re-render / onCameraChange).
+   */
+  update(dt: number): boolean {
+    let changed = false;
+
+    // 1. Animation (animateTo)
+    if (this.animating) {
+      const elapsed = performance.now() - this.animStartTime;
+      const t = Math.min(elapsed / this.animDuration, 1);
+      // Ease-out cubic
+      const ease = 1 - Math.pow(1 - t, 3);
+      this.x = this.animStartX + (this.animTargetX - this.animStartX) * ease;
+      this.y = this.animStartY + (this.animTargetY - this.animStartY) * ease;
+      this._zoom =
+        this.animStartZoom +
+        (this.animTargetZoom - this.animStartZoom) * ease;
+      if (t >= 1) {
+        this.animating = false;
+      }
+      changed = true;
     }
-    return this.animating;
+
+    // 2. Inertia
+    const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+    if (speed > INERTIA_MIN_VELOCITY) {
+      this.x += this.vx * dt;
+      this.y += this.vy * dt;
+      const decay = Math.exp(-INERTIA_DAMPING * dt / 1000);
+      this.vx *= decay;
+      this.vy *= decay;
+      changed = true;
+      // Snap to zero when slow enough
+      if (
+        Math.sqrt(this.vx * this.vx + this.vy * this.vy) <
+        INERTIA_MIN_VELOCITY
+      ) {
+        this.vx = 0;
+        this.vy = 0;
+      }
+    }
+
+    // 3. Smooth zoom
+    const zoomDiff = Math.abs(this._zoom - this.targetZoom);
+    if (zoomDiff > 0.0001) {
+      // Remember world point under focal screen position
+      const [wx, wy] = this.screenToWorld(
+        this.zoomFocalScreenX,
+        this.zoomFocalScreenY
+      );
+      // Exponential lerp
+      const lerpFactor = 1 - Math.exp(-ZOOM_SMOOTHING_SPEED * dt / 1000);
+      this._zoom += (this.targetZoom - this._zoom) * lerpFactor;
+      // Adjust pan so the world point stays under the focal position
+      const [wx2, wy2] = this.screenToWorld(
+        this.zoomFocalScreenX,
+        this.zoomFocalScreenY
+      );
+      this.x -= wx2 - wx;
+      this.y -= wy2 - wy;
+      changed = true;
+      // Snap when close enough
+      if (Math.abs(this._zoom - this.targetZoom) < 0.0001) {
+        this._zoom = this.targetZoom;
+      }
+    }
+
+    return changed;
   }
 
   /** Convert screen coordinates to world coordinates */

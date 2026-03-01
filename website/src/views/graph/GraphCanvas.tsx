@@ -496,12 +496,6 @@ export function GraphCanvas({
     // Render loop — always renders (fast for ~1335 nodes)
     // Handles smooth interpolation of colors/sizes toward targets.
     const renderLoop = () => {
-      // Tick camera animation
-      if (camera.isAnimating) {
-        camera.tick();
-        onCameraChange();
-      }
-
       const renderer = rendererRef.current;
       if (renderer) {
         const interp = interpRef.current;
@@ -509,6 +503,11 @@ export function GraphCanvas({
         const now = performance.now();
         const dt = interp.lastTime > 0 ? now - interp.lastTime : 0;
         interp.lastTime = now;
+
+        // Update camera (animation, inertia, smooth zoom)
+        if (camera.update(dt)) {
+          onCameraChange();
+        }
         const factor = dt > 0 ? 1 - Math.exp(-dt / TRANSITION_TAU) : 1;
 
         // Lerp node colors

@@ -3,6 +3,8 @@
 import { Camera } from "./Camera";
 
 const CLICK_DISTANCE_THRESHOLD = 5;
+/** Max time (ms) between last move and release for inertia to apply. */
+const INERTIA_RELEASE_THRESHOLD = 50;
 
 /** Callbacks for graph interaction events. */
 export type InteractionCallbacks = {
@@ -25,6 +27,11 @@ export class InteractionHandler {
   private dragStartX = 0;
   private dragStartY = 0;
   private totalDragDist = 0;
+
+  // Velocity tracking for inertia
+  private lastMoveTime = 0;
+  private velocityX = 0;
+  private velocityY = 0;
 
   // Pinch state
   private lastPinchDist = 0;
@@ -86,6 +93,9 @@ export class InteractionHandler {
     this.dragStartX = e.clientX;
     this.dragStartY = e.clientY;
     this.totalDragDist = 0;
+    this.lastMoveTime = performance.now();
+    this.velocityX = 0;
+    this.velocityY = 0;
     // Listen on window so dragging works even when mouse moves over labels
     window.addEventListener("mousemove", this.boundMouseMove);
     window.addEventListener("mouseup", this.boundMouseUp);
@@ -96,6 +106,19 @@ export class InteractionHandler {
       const dx = e.clientX - this.dragStartX;
       const dy = e.clientY - this.dragStartY;
       this.totalDragDist += Math.sqrt(dx * dx + dy * dy);
+
+      // Track velocity for inertia
+      const now = performance.now();
+      const moveDt = now - this.lastMoveTime;
+      if (moveDt > 0) {
+        const instantVx = dx / moveDt;
+        const instantVy = dy / moveDt;
+        // Exponential moving average
+        this.velocityX = 0.8 * instantVx + 0.2 * this.velocityX;
+        this.velocityY = 0.8 * instantVy + 0.2 * this.velocityY;
+      }
+      this.lastMoveTime = now;
+
       this.camera.pan(dx, dy);
       this.dragStartX = e.clientX;
       this.dragStartY = e.clientY;
@@ -133,7 +156,21 @@ export class InteractionHandler {
       );
       const hit = this.callbacks.hitTest(wx, wy);
       this.callbacks.onNodeClick(hit);
+    } else if (
+      this.state === "dragging" &&
+      this.totalDragDist >= CLICK_DISTANCE_THRESHOLD
+    ) {
+      // Real drag — apply inertia if finger was still moving
+      const timeSinceLastMove = performance.now() - this.lastMoveTime;
+      if (timeSinceLastMove < INERTIA_RELEASE_THRESHOLD) {
+        // Convert screen px/ms to world units/ms
+        const worldVx = -this.velocityX / this.camera.zoom;
+        const worldVy = -this.velocityY / this.camera.zoom;
+        this.camera.setVelocity(worldVx, worldVy);
+      }
     }
+    this.velocityX = 0;
+    this.velocityY = 0;
     this.state = "idle";
   }
 
@@ -143,7 +180,7 @@ export class InteractionHandler {
     const sx = (e.clientX - rect.left) * window.devicePixelRatio;
     const sy = (e.clientY - rect.top) * window.devicePixelRatio;
     const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
-    this.camera.zoomAt(sx, sy, factor);
+    this.camera.smoothZoomAt(sx, sy, factor);
     this.callbacks.onViewChange();
   }
 
@@ -154,6 +191,9 @@ export class InteractionHandler {
       this.dragStartX = e.touches[0].clientX;
       this.dragStartY = e.touches[0].clientY;
       this.totalDragDist = 0;
+      this.lastMoveTime = performance.now();
+      this.velocityX = 0;
+      this.velocityY = 0;
     } else if (e.touches.length === 2) {
       this.state = "pinching";
       const dx = e.touches[1].clientX - e.touches[0].clientX;
@@ -170,6 +210,18 @@ export class InteractionHandler {
       const dx = e.touches[0].clientX - this.dragStartX;
       const dy = e.touches[0].clientY - this.dragStartY;
       this.totalDragDist += Math.sqrt(dx * dx + dy * dy);
+
+      // Track velocity for inertia
+      const now = performance.now();
+      const moveDt = now - this.lastMoveTime;
+      if (moveDt > 0) {
+        const instantVx = dx / moveDt;
+        const instantVy = dy / moveDt;
+        this.velocityX = 0.8 * instantVx + 0.2 * this.velocityX;
+        this.velocityY = 0.8 * instantVy + 0.2 * this.velocityY;
+      }
+      this.lastMoveTime = now;
+
       this.camera.pan(dx, dy);
       this.dragStartX = e.touches[0].clientX;
       this.dragStartY = e.touches[0].clientY;
@@ -184,7 +236,7 @@ export class InteractionHandler {
       // Zoom
       const factor = dist / this.lastPinchDist;
       const rect = this.canvas.getBoundingClientRect();
-      this.camera.zoomAt(
+      this.camera.smoothZoomAt(
         (centerX - rect.left) * window.devicePixelRatio,
         (centerY - rect.top) * window.devicePixelRatio,
         factor
@@ -219,7 +271,21 @@ export class InteractionHandler {
       );
       const hit = this.callbacks.hitTest(wx, wy);
       this.callbacks.onNodeClick(hit);
+    } else if (
+      this.state === "dragging" &&
+      this.totalDragDist >= CLICK_DISTANCE_THRESHOLD &&
+      e.changedTouches.length === 1
+    ) {
+      // Touch drag release — apply inertia
+      const timeSinceLastMove = performance.now() - this.lastMoveTime;
+      if (timeSinceLastMove < INERTIA_RELEASE_THRESHOLD) {
+        const worldVx = -this.velocityX / this.camera.zoom;
+        const worldVy = -this.velocityY / this.camera.zoom;
+        this.camera.setVelocity(worldVx, worldVy);
+      }
     }
+    this.velocityX = 0;
+    this.velocityY = 0;
     if (e.touches.length === 0) {
       this.state = "idle";
     } else if (e.touches.length === 1) {
@@ -228,6 +294,7 @@ export class InteractionHandler {
       this.dragStartX = e.touches[0].clientX;
       this.dragStartY = e.touches[0].clientY;
       this.totalDragDist = CLICK_DISTANCE_THRESHOLD + 1; // prevent click on release
+      this.lastMoveTime = performance.now();
     }
   }
 }
