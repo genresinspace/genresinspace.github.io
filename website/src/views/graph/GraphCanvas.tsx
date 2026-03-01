@@ -642,7 +642,7 @@ export function GraphCanvas({
           nodePositions[idx * 2],
           nodePositions[idx * 2 + 1],
           Math.max(camera.zoom, 2),
-          300
+          600
         );
       }
     }
