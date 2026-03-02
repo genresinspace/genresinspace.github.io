@@ -229,6 +229,9 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
     // Jaccard bridge multiplier: how much longer bridge edges are vs cluster edges.
     // rest_length ranges from link_distance to link_distance * bridge_mult
     let bridge_mult = env_f64("BRIDGE_MULT", 7.0);
+    // Charge for isolated (degree-0) nodes. Lower = less repulsion from core,
+    // so the ring orbits closer. Default 1.0 matches the base charge.
+    let isolated_charge = env_f64("ISO_CHARGE", 0.2);
 
     eprintln!("  repulsion={repulsion} theta={theta} spring={link_spring} dist={link_distance}");
     eprintln!("  gravity={gravity} gravity_iso={gravity_isolated} spin={spin}");
@@ -301,7 +304,12 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         for (i, pos) in positions.iter().enumerate() {
             // Degree-weighted charge: hub nodes repel more strongly,
             // creating natural voids between clusters.
-            let charge = 1.0 + (degrees[i] as f64).powf(charge_exponent);
+            // Isolated nodes get a reduced charge so they orbit closer to core.
+            let charge = if degrees[i] == 0 {
+                isolated_charge
+            } else {
+                1.0 + (degrees[i] as f64).powf(charge_exponent)
+            };
             tree.insert(root, *pos, i, charge);
         }
 
