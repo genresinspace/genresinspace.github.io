@@ -326,7 +326,7 @@ export function GraphCanvas({
     const arr = new Float32Array(data.edges.length * 8); // 4 components * 2 vertices
     const dimmedColor = parseColor("hsla(0, 0%, 20%, 0.1)");
 
-    const selectedAlpha = 0.9;
+    const selectedAlpha = 0.6;
     const unselectedAlpha = 0.1;
 
     for (let i = 0; i < data.edges.length; i++) {
