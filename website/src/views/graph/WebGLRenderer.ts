@@ -83,8 +83,8 @@ in float v_t;
 out vec4 fragColor;
 void main() {
   // Tint edge endpoints with node colors (RGB only, preserve edge alpha)
-  float srcBlend = smoothstep(0.35, 0.0, v_t);
-  float tgtBlend = smoothstep(0.65, 1.0, v_t);
+  float srcBlend = smoothstep(0.45, 0.0, v_t);
+  float tgtBlend = smoothstep(0.55, 1.0, v_t);
   vec4 color = v_edgeColor;
   color.rgb = mix(color.rgb, v_srcNodeColor.rgb, srcBlend);
   color.rgb = mix(color.rgb, v_tgtNodeColor.rgb, tgtBlend);
@@ -97,7 +97,7 @@ precision highp float;
 uniform mat3 u_view;
 uniform float u_arrowSize; // arrow length in world units
 uniform float u_time;      // seconds, for animation
-const float WORLD_SPEED = 40.0; // world units per second
+const float WORLD_SPEED = 30.0; // world units per second
 // Per-vertex: triangle template
 in vec2 a_template;
 // Per-instance: edge endpoint and direction
