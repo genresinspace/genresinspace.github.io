@@ -210,7 +210,7 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         return vec![];
     }
 
-    let repulsion = env_f64("REPULSION", 55000.0);
+    let repulsion = env_f64("REPULSION", 50000.0);
     let theta = env_f64("THETA", 0.8);
     let link_spring = env_f64("LINK_SPRING", 28.0);
     let link_distance = env_f64("LINK_DISTANCE", 4.0);
@@ -218,17 +218,17 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
     let gravity_isolated = env_f64("GRAVITY_ISOLATED", 0.80);
     let spin = env_f64("SPIN", 25.0);
     let friction = env_f64("FRICTION", 0.85);
-    let iterations = env_usize("ITERATIONS", 25000);
+    let iterations = env_usize("ITERATIONS", 30000);
     let max_velocity = env_f64("MAX_VELOCITY", 25.0);
     let cooling_rate = env_f64("COOLING_RATE", 0.8);
     // Charge exponent: how aggressively hub nodes repel.
     // 0.5 = sqrt(degree), 1.0 = linear, 0.0 = uniform charge
-    let charge_exponent = env_f64("CHARGE_EXP", 1.4);
+    let charge_exponent = env_f64("CHARGE_EXP", 1.5);
     // Spring normalization: 0 = equal weight, 0.5 = sqrt, 1.0 = linear
     let spring_norm = env_f64("SPRING_NORM", 0.5);
     // Jaccard bridge multiplier: how much longer bridge edges are vs cluster edges.
     // rest_length ranges from link_distance to link_distance * bridge_mult
-    let bridge_mult = env_f64("BRIDGE_MULT", 6.0);
+    let bridge_mult = env_f64("BRIDGE_MULT", 7.0);
 
     eprintln!("  repulsion={repulsion} theta={theta} spring={link_spring} dist={link_distance}");
     eprintln!("  gravity={gravity} gravity_iso={gravity_isolated} spin={spin}");

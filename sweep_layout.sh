@@ -12,26 +12,26 @@ run_config() {
     echo
 }
 
-# Refine J2 (triangular 3-lobed) — close the ring gap
+# Final refinements — focus on convergence
 
-# K1: J2 with more spin to spread ring
-run_config "K1_more_spin" \
-    REPULSION=50000 GRAVITY=0.25 GRAVITY_ISOLATED=0.75 LINK_SPRING=28 LINK_DISTANCE=4 \
-    COOLING_RATE=0.8 ITERATIONS=25000 CHARGE_EXP=1.5 SPIN=30 BRIDGE_MULT=6.0
-
-# K2: J2 with even higher iso gravity
-run_config "K2_hi_iso" \
-    REPULSION=50000 GRAVITY=0.25 GRAVITY_ISOLATED=0.85 LINK_SPRING=28 LINK_DISTANCE=4 \
-    COOLING_RATE=0.8 ITERATIONS=25000 CHARGE_EXP=1.5 SPIN=25 BRIDGE_MULT=6.0
-
-# K3: J2 with slightly less charge (1.4) for a less extreme shape
-run_config "K3_charge14" \
+# M1: K3 base but with 35k iters (more time to settle)
+run_config "M1_k3_long" \
     REPULSION=55000 GRAVITY=0.25 GRAVITY_ISOLATED=0.80 LINK_SPRING=28 LINK_DISTANCE=4 \
-    COOLING_RATE=0.8 ITERATIONS=25000 CHARGE_EXP=1.4 SPIN=25 BRIDGE_MULT=6.0
+    COOLING_RATE=0.8 ITERATIONS=35000 CHARGE_EXP=1.4 SPIN=25 BRIDGE_MULT=6.0
 
-# K4: J2 + higher core gravity to compact the lobes
-run_config "K4_core_grav" \
-    REPULSION=50000 GRAVITY=0.30 GRAVITY_ISOLATED=0.80 LINK_SPRING=28 LINK_DISTANCE=4 \
-    COOLING_RATE=0.8 ITERATIONS=25000 CHARGE_EXP=1.5 SPIN=25 BRIDGE_MULT=6.0
+# M2: bridge=8, cooling=0.8 (not glacial), 30k iters
+run_config "M2_bridge8_settled" \
+    REPULSION=55000 GRAVITY=0.25 GRAVITY_ISOLATED=0.80 LINK_SPRING=28 LINK_DISTANCE=4 \
+    COOLING_RATE=0.8 ITERATIONS=30000 CHARGE_EXP=1.4 SPIN=25 BRIDGE_MULT=8.0
+
+# M3: charge=1.5, bridge=7, 30k iters
+run_config "M3_charge15_bridge7" \
+    REPULSION=50000 GRAVITY=0.25 GRAVITY_ISOLATED=0.80 LINK_SPRING=28 LINK_DISTANCE=4 \
+    COOLING_RATE=0.8 ITERATIONS=30000 CHARGE_EXP=1.5 SPIN=25 BRIDGE_MULT=7.0
+
+# M4: charge=1.4, bridge=6, glacial but longer (50k at 0.5 = ends at 0.37)
+run_config "M4_truly_glacial" \
+    REPULSION=55000 GRAVITY=0.25 GRAVITY_ISOLATED=0.80 LINK_SPRING=28 LINK_DISTANCE=4 \
+    COOLING_RATE=0.5 ITERATIONS=50000 CHARGE_EXP=1.4 SPIN=25 BRIDGE_MULT=6.0
 
 echo "Done! Check layout_*.png files."
