@@ -2,9 +2,47 @@
 //!
 //! Computes 2D positions for graph nodes using:
 //! - Quadtree-based Barnes-Hut approximation for O(n log n) repulsion
-//! - Spring forces along edges (attraction toward rest length)
+//! - Jaccard-weighted spring forces along edges (community-aware attraction)
 //! - Gravity pulling toward center
-//! - Velocity integration with friction damping and linear cooling
+//! - Velocity integration with friction damping and exponential cooling
+//!
+//! All layout parameters can be overridden via environment variables for
+//! tuning (see `sweep_layout.sh` for examples). Key parameters:
+//!
+//! ## Repulsion
+//! - `REPULSION`: Global repulsive force strength.
+//! - `THETA`: Barnes-Hut opening angle. Lower = more accurate but slower.
+//! - `CHARGE_EXP`: Degree-charge exponent. Each node's charge in the
+//!   quadtree is `1 + degree^exp`. Values >1 make hubs repel super-linearly,
+//!   creating visible voids between major clusters.
+//! - `ISO_CHARGE`: Fixed charge for isolated (degree-0) nodes. Low values
+//!   reduce how much the connected core pushes them away, so the outer ring
+//!   orbits closer.
+//!
+//! ## Springs (edge attraction)
+//! - `LINK_SPRING`: Spring constant (Hooke's law).
+//! - `LINK_DISTANCE`: Base rest length for intra-cluster edges.
+//! - `BRIDGE_MULT`: Jaccard bridge multiplier. Each edge's rest length is
+//!   `LINK_DISTANCE * (BRIDGE_MULT - (BRIDGE_MULT-1) * jaccard)`, so edges
+//!   between nodes sharing many neighbors (high Jaccard) pull tight, while
+//!   inter-community bridges (low Jaccard) have up to `BRIDGE_MULT`× the
+//!   rest length. This is the single biggest contributor to cluster visibility.
+//! - `SPRING_NORM`: Per-endpoint force is divided by `degree^SPRING_NORM`,
+//!   so hub nodes aren't yanked equally hard by every edge.
+//!
+//! ## Gravity & isolated-node handling
+//! - `GRAVITY`: Gravity strength for connected nodes (pulls toward origin).
+//! - `GRAVITY_ISOLATED`: Gravity for degree-0 nodes (stronger = tighter ring).
+//! - `SPIN`: Tangential velocity added to isolated nodes so they distribute
+//!   around the ring instead of clumping. Scales with distance from origin.
+//!
+//! ## Simulation
+//! - `ITERATIONS`: Total simulation steps.
+//! - `COOLING_RATE`: Exponential cooling: `temperature = exp(-rate * t)`.
+//!   Lower values keep the simulation warm longer, giving clusters more time
+//!   to separate before freezing.
+//! - `FRICTION`: Velocity damping per step.
+//! - `MAX_VELOCITY`: Velocity clamp (scaled by temperature).
 
 use rayon::prelude::*;
 
@@ -221,16 +259,9 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
     let iterations = env_usize("ITERATIONS", 30000);
     let max_velocity = env_f64("MAX_VELOCITY", 25.0);
     let cooling_rate = env_f64("COOLING_RATE", 0.8);
-    // Charge exponent: how aggressively hub nodes repel.
-    // 0.5 = sqrt(degree), 1.0 = linear, 0.0 = uniform charge
     let charge_exponent = env_f64("CHARGE_EXP", 1.5);
-    // Spring normalization: 0 = equal weight, 0.5 = sqrt, 1.0 = linear
     let spring_norm = env_f64("SPRING_NORM", 0.5);
-    // Jaccard bridge multiplier: how much longer bridge edges are vs cluster edges.
-    // rest_length ranges from link_distance to link_distance * bridge_mult
     let bridge_mult = env_f64("BRIDGE_MULT", 7.0);
-    // Charge for isolated (degree-0) nodes. Lower = less repulsion from core,
-    // so the ring orbits closer. Default 1.0 matches the base charge.
     let isolated_charge = env_f64("ISO_CHARGE", 0.2);
 
     eprintln!("  repulsion={repulsion} theta={theta} spring={link_spring} dist={link_distance}");
