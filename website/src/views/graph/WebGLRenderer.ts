@@ -97,7 +97,7 @@ precision highp float;
 uniform mat3 u_view;
 uniform float u_arrowSize; // arrow length in world units
 uniform float u_time;      // seconds, for animation
-const float WORLD_SPEED = 80.0; // world units per second
+const float WORLD_SPEED = 40.0; // world units per second
 // Per-vertex: triangle template
 in vec2 a_template;
 // Per-instance: edge endpoint and direction

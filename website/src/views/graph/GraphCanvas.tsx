@@ -21,8 +21,8 @@ import { PathInfo } from "./pathInfo";
  *  ~98.5% converged at 500ms. */
 const TRANSITION_TAU = 120;
 
-/** Number of arrow instances per animated (selected) edge. */
-const ARROWS_PER_SELECTED_EDGE = 4;
+/** World-unit spacing between arrows on animated (selected) edges. */
+const ARROW_SPACING = 60;
 
 /** Parse a CSS color string to RGBA floats [0..1]. */
 function parseColor(css: string): [number, number, number, number] {
@@ -426,13 +426,26 @@ export function GraphCanvas({
       }
     }
 
-    // Count total instances
-    let totalInstances = 0;
+    // Collect visible edges and compute per-edge arrow counts
     const visibleEdges: number[] = [];
+    const arrowCounts: number[] = [];
+    let totalInstances = 0;
     for (let i = 0; i < data.edges.length; i++) {
-      if (settings.visibleTypes[data.edges[i].ty]) {
-        visibleEdges.push(i);
-        totalInstances += animatedEdges.has(i) ? ARROWS_PER_SELECTED_EDGE : 1;
+      if (!settings.visibleTypes[data.edges[i].ty]) continue;
+      visibleEdges.push(i);
+      if (animatedEdges.has(i)) {
+        const edge = data.edges[i];
+        const si = nodeIdToInt(edge.source);
+        const ti = nodeIdToInt(edge.target);
+        const dx = nodePositions[ti * 2] - nodePositions[si * 2];
+        const dy = nodePositions[ti * 2 + 1] - nodePositions[si * 2 + 1];
+        const len = Math.sqrt(dx * dx + dy * dy);
+        const count = Math.max(1, Math.round(len / ARROW_SPACING));
+        arrowCounts.push(count);
+        totalInstances += count;
+      } else {
+        arrowCounts.push(1);
+        totalInstances += 1;
       }
     }
 
@@ -443,7 +456,8 @@ export function GraphCanvas({
     const edgeIndices: number[] = [];
 
     let j = 0;
-    for (const i of visibleEdges) {
+    for (let vi = 0; vi < visibleEdges.length; vi++) {
+      const i = visibleEdges[vi];
       const edge = data.edges[i];
       const ti = nodeIdToInt(edge.target);
       const si = nodeIdToInt(edge.source);
@@ -453,7 +467,7 @@ export function GraphCanvas({
       const dx = tx - nodePositions[si * 2];
       const dy = ty - nodePositions[si * 2 + 1];
 
-      const instanceCount = animatedEdges.has(i) ? ARROWS_PER_SELECTED_EDGE : 1;
+      const instanceCount = arrowCounts[vi];
       for (let k = 0; k < instanceCount; k++) {
         targets[j * 2] = tx;
         targets[j * 2 + 1] = ty;
