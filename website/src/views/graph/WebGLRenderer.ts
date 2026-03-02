@@ -106,6 +106,7 @@ in vec2 a_direction;
 in vec4 a_color;
 in float a_targetSize; // node diameter in world units
 in float a_phase;      // <0: static midpoint; >=0: animated phase offset
+in float a_speed;      // speed multiplier (1.0 = full speed)
 out vec4 v_color;
 void main() {
   // Direction in world space
@@ -125,7 +126,7 @@ void main() {
     float marginSrc = u_arrowSize * 1.5;
     float marginTgt = a_targetSize * 0.5 + u_arrowSize;
     float usableLen = max(edgeLen - marginSrc - marginTgt, 1.0);
-    float t = fract(a_phase + u_time * WORLD_SPEED / usableLen);
+    float t = fract(a_phase + u_time * WORLD_SPEED * a_speed / usableLen);
     arrowTip = source + dir * (marginSrc + t * usableLen);
   }
 
@@ -213,6 +214,7 @@ export class WebGLRenderer {
   private arrowColorBuf: WebGLBuffer;
   private arrowTargetSizeBuf: WebGLBuffer;
   private arrowPhaseBuf: WebGLBuffer;
+  private arrowSpeedBuf: WebGLBuffer;
   private arrowCount = 0;
 
   constructor(gl: WebGL2RenderingContext) {
@@ -327,6 +329,7 @@ export class WebGLRenderer {
     this.arrowColorBuf = gl.createBuffer()!;
     this.arrowTargetSizeBuf = gl.createBuffer()!;
     this.arrowPhaseBuf = gl.createBuffer()!;
+    this.arrowSpeedBuf = gl.createBuffer()!;
 
     gl.bindVertexArray(this.arrowVAO);
 
@@ -368,6 +371,12 @@ export class WebGLRenderer {
     gl.enableVertexAttribArray(aPhaseLoc);
     gl.vertexAttribPointer(aPhaseLoc, 1, gl.FLOAT, false, 0, 0);
     gl.vertexAttribDivisor(aPhaseLoc, 1);
+
+    const aSpeedLoc = gl.getAttribLocation(this.arrowProgram, "a_speed");
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.arrowSpeedBuf);
+    gl.enableVertexAttribArray(aSpeedLoc);
+    gl.vertexAttribPointer(aSpeedLoc, 1, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(aSpeedLoc, 1);
 
     gl.bindVertexArray(null);
   }
@@ -455,7 +464,8 @@ export class WebGLRenderer {
     directions: Float32Array,
     colors: Float32Array,
     targetSizes: Float32Array,
-    phases: Float32Array
+    phases: Float32Array,
+    speeds: Float32Array
   ): void {
     const gl = this.gl;
     this.arrowCount = targets.length / 2;
@@ -474,6 +484,9 @@ export class WebGLRenderer {
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.arrowPhaseBuf);
     gl.bufferData(gl.ARRAY_BUFFER, phases, gl.DYNAMIC_DRAW);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.arrowSpeedBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, speeds, gl.DYNAMIC_DRAW);
   }
 
   /** Render frame. */
@@ -571,5 +584,6 @@ export class WebGLRenderer {
     gl.deleteBuffer(this.arrowColorBuf);
     gl.deleteBuffer(this.arrowTargetSizeBuf);
     gl.deleteBuffer(this.arrowPhaseBuf);
+    gl.deleteBuffer(this.arrowSpeedBuf);
   }
 }

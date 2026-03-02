@@ -148,6 +148,7 @@ export function GraphCanvas({
       targets: Float32Array;
       directions: Float32Array;
       phases: Float32Array;
+      speeds: Float32Array;
       targetNodeIndices: number[];
       edgeIndices: number[];
     } | null,
@@ -399,8 +400,9 @@ export function GraphCanvas({
 
   // Precompute arrow geometry — expands animated edges into multiple instances
   const arrowGeometry = useMemo(() => {
-    // Determine which edges are animated (highlighted due to selection)
-    const animatedEdges = new Set<number>();
+    // Determine which edges are animated — map from edge index to distance
+    // (distance 0 = direct, 1 = neighbour-of-neighbour, etc.)
+    const animatedEdges = new Map<number, number>();
     if (selectedId) {
       for (let i = 0; i < data.edges.length; i++) {
         if (!settings.visibleTypes[data.edges[i].ty]) continue;
@@ -413,27 +415,29 @@ export function GraphCanvas({
             targetIndex !== -1 &&
             Math.abs(sourceIndex - targetIndex) === 1
           ) {
-            animatedEdges.add(i);
+            animatedEdges.set(i, 0);
           }
         } else if (edge.source === selectedId || edge.target === selectedId) {
-          animatedEdges.add(i);
+          animatedEdges.set(i, 0);
         } else {
           const distance = pathInfo.edgeDistances.get(edge);
-          if (distance !== undefined && distance <= 1) {
-            animatedEdges.add(i);
+          if (distance !== undefined && distance < maxDistance) {
+            animatedEdges.set(i, distance);
           }
         }
       }
     }
 
-    // Collect visible edges and compute per-edge arrow counts
+    // Collect visible edges and compute per-edge arrow counts and speeds
     const visibleEdges: number[] = [];
     const arrowCounts: number[] = [];
+    const edgeSpeeds: number[] = [];
     let totalInstances = 0;
     for (let i = 0; i < data.edges.length; i++) {
       if (!settings.visibleTypes[data.edges[i].ty]) continue;
       visibleEdges.push(i);
-      if (animatedEdges.has(i)) {
+      const dist = animatedEdges.get(i);
+      if (dist !== undefined) {
         const edge = data.edges[i];
         const si = nodeIdToInt(edge.source);
         const ti = nodeIdToInt(edge.target);
@@ -442,9 +446,12 @@ export function GraphCanvas({
         const len = Math.sqrt(dx * dx + dy * dy);
         const count = Math.max(1, Math.round(len / ARROW_SPACING));
         arrowCounts.push(count);
+        // Direct edges (dist 0-1) at full speed; further edges slow down
+        edgeSpeeds.push(dist <= 1 ? 1.0 : Math.pow(0.5, dist - 1));
         totalInstances += count;
       } else {
         arrowCounts.push(1);
+        edgeSpeeds.push(1.0);
         totalInstances += 1;
       }
     }
@@ -452,6 +459,7 @@ export function GraphCanvas({
     const targets = new Float32Array(totalInstances * 2);
     const directions = new Float32Array(totalInstances * 2);
     const phases = new Float32Array(totalInstances);
+    const speeds = new Float32Array(totalInstances);
     const targetNodeIndices: number[] = [];
     const edgeIndices: number[] = [];
 
@@ -468,19 +476,21 @@ export function GraphCanvas({
       const dy = ty - nodePositions[si * 2 + 1];
 
       const instanceCount = arrowCounts[vi];
+      const speed = edgeSpeeds[vi];
       for (let k = 0; k < instanceCount; k++) {
         targets[j * 2] = tx;
         targets[j * 2 + 1] = ty;
         directions[j * 2] = dx;
         directions[j * 2 + 1] = dy;
         phases[j] = instanceCount === 1 ? -1.0 : k / instanceCount;
+        speeds[j] = speed;
         targetNodeIndices.push(ti);
         edgeIndices.push(i);
         j++;
       }
     }
 
-    return { targets, directions, phases, targetNodeIndices, edgeIndices };
+    return { targets, directions, phases, speeds, targetNodeIndices, edgeIndices };
   }, [data.edges, nodePositions, settings.visibleTypes, selectedId, pathInfo, path]);
 
   // Store target arrays for the render loop's interpolation
@@ -698,7 +708,8 @@ export function GraphCanvas({
             geom.directions,
             interp.arrowColors,
             interp.arrowTargetSizes!,
-            geom.phases
+            geom.phases,
+            geom.speeds
           );
         }
 
