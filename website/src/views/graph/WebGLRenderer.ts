@@ -126,7 +126,9 @@ void main() {
     float marginSrc = u_arrowSize * 1.5;
     float marginTgt = a_targetSize * 0.5 + u_arrowSize;
     float usableLen = max(edgeLen - marginSrc - marginTgt, 1.0);
-    float t = fract(a_phase + u_time * WORLD_SPEED * a_speed / usableLen);
+    // Use edgeLen (static) for cycle rate to avoid speed jumps when
+    // a_targetSize changes during hover/selection interpolation
+    float t = fract(a_phase + u_time * WORLD_SPEED * a_speed / edgeLen);
     arrowTip = source + dir * (marginSrc + t * usableLen);
   }
 
