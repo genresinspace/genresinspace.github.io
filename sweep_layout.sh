@@ -12,26 +12,26 @@ run_config() {
     echo
 }
 
-# Combine F4's core (high rep, charge=1.2, bridge=5) with F2's ring (high grav)
+# Refine J2 (triangular 3-lobed) — close the ring gap
 
-# G1: F4 core params + higher iso gravity, lower spin to close ring
-run_config "G1_f4_fix_ring" \
-    REPULSION=60000 GRAVITY=0.20 GRAVITY_ISOLATED=0.65 LINK_SPRING=22 LINK_DISTANCE=5 \
-    COOLING_RATE=1.2 ITERATIONS=18000 CHARGE_EXP=1.2 SPIN=25 BRIDGE_MULT=5.0
+# K1: J2 with more spin to spread ring
+run_config "K1_more_spin" \
+    REPULSION=50000 GRAVITY=0.25 GRAVITY_ISOLATED=0.75 LINK_SPRING=28 LINK_DISTANCE=4 \
+    COOLING_RATE=0.8 ITERATIONS=25000 CHARGE_EXP=1.5 SPIN=30 BRIDGE_MULT=6.0
 
-# G2: Same but spin=20
-run_config "G2_low_spin" \
-    REPULSION=60000 GRAVITY=0.20 GRAVITY_ISOLATED=0.65 LINK_SPRING=22 LINK_DISTANCE=5 \
-    COOLING_RATE=1.2 ITERATIONS=18000 CHARGE_EXP=1.2 SPIN=20 BRIDGE_MULT=5.0
+# K2: J2 with even higher iso gravity
+run_config "K2_hi_iso" \
+    REPULSION=50000 GRAVITY=0.25 GRAVITY_ISOLATED=0.85 LINK_SPRING=28 LINK_DISTANCE=4 \
+    COOLING_RATE=0.8 ITERATIONS=25000 CHARGE_EXP=1.5 SPIN=25 BRIDGE_MULT=6.0
 
-# G3: Moderate repulsion, very high gravity on both
-run_config "G3_hi_grav" \
-    REPULSION=50000 GRAVITY=0.25 GRAVITY_ISOLATED=0.70 LINK_SPRING=20 LINK_DISTANCE=5 \
-    COOLING_RATE=1.2 ITERATIONS=18000 CHARGE_EXP=1.2 SPIN=25 BRIDGE_MULT=5.0
+# K3: J2 with slightly less charge (1.4) for a less extreme shape
+run_config "K3_charge14" \
+    REPULSION=55000 GRAVITY=0.25 GRAVITY_ISOLATED=0.80 LINK_SPRING=28 LINK_DISTANCE=4 \
+    COOLING_RATE=0.8 ITERATIONS=25000 CHARGE_EXP=1.4 SPIN=25 BRIDGE_MULT=6.0
 
-# G4: F4 with more iterations + slow cooling for convergence
-run_config "G4_long_run" \
-    REPULSION=60000 GRAVITY=0.20 GRAVITY_ISOLATED=0.60 LINK_SPRING=22 LINK_DISTANCE=5 \
-    COOLING_RATE=1.0 ITERATIONS=25000 CHARGE_EXP=1.2 SPIN=25 BRIDGE_MULT=5.0
+# K4: J2 + higher core gravity to compact the lobes
+run_config "K4_core_grav" \
+    REPULSION=50000 GRAVITY=0.30 GRAVITY_ISOLATED=0.80 LINK_SPRING=28 LINK_DISTANCE=4 \
+    COOLING_RATE=0.8 ITERATIONS=25000 CHARGE_EXP=1.5 SPIN=25 BRIDGE_MULT=6.0
 
 echo "Done! Check layout_*.png files."
