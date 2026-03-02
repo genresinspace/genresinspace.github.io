@@ -603,7 +603,7 @@ export function GraphCanvas({
         renderer.render(
           camera.getViewMatrix(),
           bg,
-          stateRef.current.arrowSizeScale * 2,
+          stateRef.current.arrowSizeScale * 6,
           camera.zoom * (window.devicePixelRatio || 1)
         );
       }

@@ -85,15 +85,13 @@ in vec4 a_color;
 in float a_targetSize; // node diameter in world units
 out vec4 v_color;
 void main() {
-  // Direction in world space, normalized
-  vec2 dir = normalize(a_direction);
+  // Direction in world space
+  float edgeLen = length(a_direction);
+  vec2 dir = a_direction / edgeLen;
   vec2 perp = vec2(-dir.y, dir.x);
 
-  // a_targetSize is node diameter in world units (same as node shader)
-  float nodeRadiusWorld = a_targetSize * 0.5;
-
-  // Arrow tip at target node edge, pointing inward along edge direction
-  vec2 arrowTip = a_target - dir * nodeRadiusWorld;
+  // Place arrow at centre of the edge
+  vec2 arrowTip = a_target - dir * edgeLen * 0.5;
 
   // Build triangle in world space
   vec2 worldPos = arrowTip
