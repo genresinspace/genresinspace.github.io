@@ -151,6 +151,11 @@ export function GraphCanvas({
       targetNodeIndices: number[];
       edgeIndices: number[];
     } | null,
+    edgeNodeIndices: null as {
+      src: Int32Array;
+      tgt: Int32Array;
+    } | null,
+    edgeCount: 0,
   });
   stateRef.current.selectedId = selectedId;
   stateRef.current.hoveredId = hoveredId;
@@ -164,6 +169,8 @@ export function GraphCanvas({
     nodeSizes: null as Float32Array | null,
     arrowColors: null as Float32Array | null,
     arrowTargetSizes: null as Float32Array | null,
+    edgeSrcNodeColors: null as Float32Array | null,
+    edgeTgtNodeColors: null as Float32Array | null,
     lastTime: 0,
   });
 
@@ -195,6 +202,17 @@ export function GraphCanvas({
     }
     return arr;
   }, [data.edges, nodePositions]);
+
+  // Precompute per-edge source/target node indices for endpoint tinting
+  const edgeNodeIndices = useMemo(() => {
+    const src = new Int32Array(data.edges.length);
+    const tgt = new Int32Array(data.edges.length);
+    for (let i = 0; i < data.edges.length; i++) {
+      src[i] = nodeIdToInt(data.edges[i].source);
+      tgt[i] = nodeIdToInt(data.edges[i].target);
+    }
+    return { src, tgt };
+  }, [data.edges]);
 
   const maxDistance = settings.general.maxInfluenceDistance + 1;
 
@@ -456,6 +474,8 @@ export function GraphCanvas({
   stateRef.current.targetEdgeColors = edgeColors;
   stateRef.current.targetNodeSizes = nodeSizes;
   stateRef.current.arrowGeom = arrowGeometry;
+  stateRef.current.edgeNodeIndices = edgeNodeIndices;
+  stateRef.current.edgeCount = data.edges.length;
 
   // Initialize WebGL
   useEffect(() => {
@@ -611,6 +631,35 @@ export function GraphCanvas({
             }
           }
           renderer.setNodeSizes(interp.nodeSizes);
+        }
+
+        // Compute per-edge node colors for endpoint tinting
+        const eni = targets.edgeNodeIndices;
+        if (eni && interp.nodeColors) {
+          const n = targets.edgeCount;
+          if (
+            !interp.edgeSrcNodeColors ||
+            interp.edgeSrcNodeColors.length !== n * 4
+          ) {
+            interp.edgeSrcNodeColors = new Float32Array(n * 4);
+            interp.edgeTgtNodeColors = new Float32Array(n * 4);
+          }
+          for (let i = 0; i < n; i++) {
+            const si = eni.src[i];
+            const ti = eni.tgt[i];
+            interp.edgeSrcNodeColors[i * 4] = interp.nodeColors[si * 4];
+            interp.edgeSrcNodeColors[i * 4 + 1] = interp.nodeColors[si * 4 + 1];
+            interp.edgeSrcNodeColors[i * 4 + 2] = interp.nodeColors[si * 4 + 2];
+            interp.edgeSrcNodeColors[i * 4 + 3] = interp.nodeColors[si * 4 + 3];
+            interp.edgeTgtNodeColors![i * 4] = interp.nodeColors[ti * 4];
+            interp.edgeTgtNodeColors![i * 4 + 1] = interp.nodeColors[ti * 4 + 1];
+            interp.edgeTgtNodeColors![i * 4 + 2] = interp.nodeColors[ti * 4 + 2];
+            interp.edgeTgtNodeColors![i * 4 + 3] = interp.nodeColors[ti * 4 + 3];
+          }
+          renderer.setEdgeNodeColors(
+            interp.edgeSrcNodeColors,
+            interp.edgeTgtNodeColors!
+          );
         }
 
         // Compute arrow colors/sizes from interpolated edge/node data

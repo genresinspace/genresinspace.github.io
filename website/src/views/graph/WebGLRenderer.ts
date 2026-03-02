@@ -42,7 +42,12 @@ in vec2 a_src;
 in vec2 a_tgt;
 in vec4 a_srcColor;
 in vec4 a_tgtColor;
-out vec4 v_color;
+in vec4 a_srcNodeColor;
+in vec4 a_tgtNodeColor;
+out vec4 v_edgeColor;
+out vec4 v_srcNodeColor;
+out vec4 v_tgtNodeColor;
+out float v_t;
 void main() {
   // Edge direction in world space
   vec2 dir = a_tgt - a_src;
@@ -50,7 +55,10 @@ void main() {
   if (len < 1e-6) {
     vec3 pos = u_view * vec3(a_src, 1.0);
     gl_Position = vec4(pos.xy, 0.0, 1.0);
-    v_color = a_srcColor;
+    v_edgeColor = a_srcColor;
+    v_srcNodeColor = a_srcNodeColor;
+    v_tgtNodeColor = a_tgtNodeColor;
+    v_t = 0.0;
     return;
   }
   vec2 perp = vec2(-dir.y, dir.x) / len;
@@ -60,15 +68,27 @@ void main() {
                 + perp * a_template.y * u_width;
   vec3 pos = u_view * vec3(worldPos, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
-  v_color = mix(a_srcColor, a_tgtColor, a_template.x);
+  v_edgeColor = mix(a_srcColor, a_tgtColor, a_template.x);
+  v_srcNodeColor = a_srcNodeColor;
+  v_tgtNodeColor = a_tgtNodeColor;
+  v_t = a_template.x;
 }`;
 
 const EDGE_FS = `#version 300 es
 precision highp float;
-in vec4 v_color;
+in vec4 v_edgeColor;
+in vec4 v_srcNodeColor;
+in vec4 v_tgtNodeColor;
+in float v_t;
 out vec4 fragColor;
 void main() {
-  fragColor = v_color;
+  // Tint edge endpoints with node colors (RGB only, preserve edge alpha)
+  float srcBlend = smoothstep(0.35, 0.0, v_t);
+  float tgtBlend = smoothstep(0.65, 1.0, v_t);
+  vec4 color = v_edgeColor;
+  color.rgb = mix(color.rgb, v_srcNodeColor.rgb, srcBlend);
+  color.rgb = mix(color.rgb, v_tgtNodeColor.rgb, tgtBlend);
+  fragColor = color;
 }`;
 
 // Arrow vertex shader (instanced triangles, world-space sizing)
@@ -180,6 +200,8 @@ export class WebGLRenderer {
   private edgeTgtBuf: WebGLBuffer;
   private edgeSrcColorBuf: WebGLBuffer;
   private edgeTgtColorBuf: WebGLBuffer;
+  private edgeSrcNodeColorBuf: WebGLBuffer;
+  private edgeTgtNodeColorBuf: WebGLBuffer;
   private edgeCount = 0;
 
   // Arrow rendering
@@ -230,6 +252,8 @@ export class WebGLRenderer {
     this.edgeTgtBuf = gl.createBuffer()!;
     this.edgeSrcColorBuf = gl.createBuffer()!;
     this.edgeTgtColorBuf = gl.createBuffer()!;
+    this.edgeSrcNodeColorBuf = gl.createBuffer()!;
+    this.edgeTgtNodeColorBuf = gl.createBuffer()!;
 
     gl.bindVertexArray(this.edgeVAO);
 
@@ -271,6 +295,26 @@ export class WebGLRenderer {
     gl.enableVertexAttribArray(eTgtColorLoc);
     gl.vertexAttribPointer(eTgtColorLoc, 4, gl.FLOAT, false, 0, 0);
     gl.vertexAttribDivisor(eTgtColorLoc, 1);
+
+    // Per-instance: source node color (for endpoint tinting)
+    const eSrcNodeColorLoc = gl.getAttribLocation(
+      this.edgeProgram,
+      "a_srcNodeColor"
+    );
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeSrcNodeColorBuf);
+    gl.enableVertexAttribArray(eSrcNodeColorLoc);
+    gl.vertexAttribPointer(eSrcNodeColorLoc, 4, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(eSrcNodeColorLoc, 1);
+
+    // Per-instance: target node color (for endpoint tinting)
+    const eTgtNodeColorLoc = gl.getAttribLocation(
+      this.edgeProgram,
+      "a_tgtNodeColor"
+    );
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTgtNodeColorBuf);
+    gl.enableVertexAttribArray(eTgtNodeColorLoc);
+    gl.vertexAttribPointer(eTgtNodeColorLoc, 4, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(eTgtNodeColorLoc, 1);
 
     gl.bindVertexArray(null);
 
@@ -393,6 +437,18 @@ export class WebGLRenderer {
     gl.bufferData(gl.ARRAY_BUFFER, tgtColors, gl.DYNAMIC_DRAW);
   }
 
+  /** Upload per-edge node colors for endpoint tinting (RGBA per endpoint). */
+  setEdgeNodeColors(
+    srcNodeColors: Float32Array,
+    tgtNodeColors: Float32Array
+  ): void {
+    const gl = this.gl;
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeSrcNodeColorBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, srcNodeColors, gl.DYNAMIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTgtNodeColorBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, tgtNodeColors, gl.DYNAMIC_DRAW);
+  }
+
   /** Upload arrow instance data. */
   setArrows(
     targets: Float32Array,
@@ -507,6 +563,8 @@ export class WebGLRenderer {
     gl.deleteBuffer(this.edgeTgtBuf);
     gl.deleteBuffer(this.edgeSrcColorBuf);
     gl.deleteBuffer(this.edgeTgtColorBuf);
+    gl.deleteBuffer(this.edgeSrcNodeColorBuf);
+    gl.deleteBuffer(this.edgeTgtNodeColorBuf);
     gl.deleteBuffer(this.arrowTemplateBuf);
     gl.deleteBuffer(this.arrowTargetBuf);
     gl.deleteBuffer(this.arrowDirBuf);
