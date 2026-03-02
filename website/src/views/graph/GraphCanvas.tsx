@@ -664,15 +664,15 @@ export function GraphCanvas({
       }
       const stddev = Math.sqrt(variance / netPositions.length);
 
-      // Zoom to fit 1.5 stddev radius (excludes outliers)
-      const fitRadius = Math.max(stddev * 2, 20); // minimum radius to avoid extreme zoom
+      // Zoom to fit 2 stddev radius; large minimum so spatial neighbours stay visible
+      const fitRadius = Math.max(stddev * 2, 150);
       const availableSize = Math.min(
         camera.canvasW - Math.abs(camera.viewportOffsetX) - 100,
         camera.canvasH - Math.abs(camera.viewportOffsetY) - 100
       );
       const fitZoom = availableSize / (fitRadius * 2);
 
-      camera.animateTo(mx, my, Math.max(fitZoom, camera.minZoomLevel), 600);
+      camera.animateTo(mx, my, Math.max(fitZoom, camera.minZoomLevel), 900);
     }
   }, [
     selectedId,

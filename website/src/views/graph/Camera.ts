@@ -242,22 +242,24 @@ export class Camera {
     if (this.animating) {
       const elapsed = performance.now() - this.animStartTime;
       const t = Math.min(elapsed / this.animDuration, 1);
-      // Ease-out cubic
-      const ease = 1 - Math.pow(1 - t, 3);
+      // Ease-out cubic — compromise between snappy start and visible deceleration
+      const u = 1 - t;
+      const ease = 1 - u * u * u;
       this.x = this.animStartX + (this.animTargetX - this.animStartX) * ease;
       this.y = this.animStartY + (this.animTargetY - this.animStartY) * ease;
-      this._zoom =
-        this.animStartZoom +
-        (this.animTargetZoom - this.animStartZoom) * ease;
+      // Interpolate zoom in log-space for perceptually smooth scaling
+      const logStart = Math.log(this.animStartZoom);
+      const logTarget = Math.log(this.animTargetZoom);
+      this._zoom = Math.exp(logStart + (logTarget - logStart) * ease);
       if (t >= 1) {
         this.animating = false;
       }
       changed = true;
     }
 
-    // 2. Inertia
+    // 2. Inertia (skip during animateTo)
     const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-    if (speed > INERTIA_MIN_VELOCITY) {
+    if (!this.animating && speed > INERTIA_MIN_VELOCITY) {
       this.x += this.vx * dt;
       this.y += this.vy * dt;
       const decay = Math.exp(-INERTIA_DAMPING * dt / 1000);
@@ -280,9 +282,9 @@ export class Camera {
       }
     }
 
-    // 3. Smooth zoom
+    // 3. Smooth zoom (skip during animateTo — animation handles zoom directly)
     const zoomDiff = Math.abs(this._zoom - this.targetZoom);
-    if (zoomDiff > 0.0001) {
+    if (!this.animating && zoomDiff > 0.0001) {
       // Remember world point under focal screen position
       const [wx, wy] = this.screenToWorld(
         this.zoomFocalScreenX,
