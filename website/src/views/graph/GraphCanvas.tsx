@@ -304,7 +304,7 @@ export function GraphCanvas({
     const dimmedColor = parseColor("hsla(0, 0%, 20%, 0.1)");
 
     const selectedAlpha = 0.8;
-    const unselectedAlpha = 0.08;
+    const unselectedAlpha = 0.1;
 
     for (let i = 0; i < data.edges.length; i++) {
       const edge = data.edges[i];
