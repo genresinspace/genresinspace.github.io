@@ -76,6 +76,8 @@ const ARROW_VS = `#version 300 es
 precision highp float;
 uniform mat3 u_view;
 uniform float u_arrowSize; // arrow length in world units
+uniform float u_time;      // seconds, for animation
+const float WORLD_SPEED = 80.0; // world units per second
 // Per-vertex: triangle template
 in vec2 a_template;
 // Per-instance: edge endpoint and direction
@@ -83,6 +85,7 @@ in vec2 a_target;
 in vec2 a_direction;
 in vec4 a_color;
 in float a_targetSize; // node diameter in world units
+in float a_phase;      // <0: static midpoint; >=0: animated phase offset
 out vec4 v_color;
 void main() {
   // Direction in world space
@@ -90,8 +93,21 @@ void main() {
   vec2 dir = a_direction / edgeLen;
   vec2 perp = vec2(-dir.y, dir.x);
 
-  // Place arrow at centre of the edge
-  vec2 arrowTip = a_target - dir * edgeLen * 0.5;
+  // Source position = target - direction
+  vec2 source = a_target - a_direction;
+
+  vec2 arrowTip;
+  if (a_phase < 0.0) {
+    // Static: place arrow at centre of the edge
+    arrowTip = a_target - dir * edgeLen * 0.5;
+  } else {
+    // Animated: slide along the edge within node-radius margins
+    float marginSrc = u_arrowSize * 1.5;
+    float marginTgt = a_targetSize * 0.5 + u_arrowSize;
+    float usableLen = max(edgeLen - marginSrc - marginTgt, 1.0);
+    float t = fract(a_phase + u_time * WORLD_SPEED / usableLen);
+    arrowTip = source + dir * (marginSrc + t * usableLen);
+  }
 
   // Build triangle in world space
   vec2 worldPos = arrowTip
@@ -174,6 +190,7 @@ export class WebGLRenderer {
   private arrowDirBuf: WebGLBuffer;
   private arrowColorBuf: WebGLBuffer;
   private arrowTargetSizeBuf: WebGLBuffer;
+  private arrowPhaseBuf: WebGLBuffer;
   private arrowCount = 0;
 
   constructor(gl: WebGL2RenderingContext) {
@@ -265,6 +282,7 @@ export class WebGLRenderer {
     this.arrowDirBuf = gl.createBuffer()!;
     this.arrowColorBuf = gl.createBuffer()!;
     this.arrowTargetSizeBuf = gl.createBuffer()!;
+    this.arrowPhaseBuf = gl.createBuffer()!;
 
     gl.bindVertexArray(this.arrowVAO);
 
@@ -300,6 +318,12 @@ export class WebGLRenderer {
     gl.enableVertexAttribArray(aTSizeLoc);
     gl.vertexAttribPointer(aTSizeLoc, 1, gl.FLOAT, false, 0, 0);
     gl.vertexAttribDivisor(aTSizeLoc, 1);
+
+    const aPhaseLoc = gl.getAttribLocation(this.arrowProgram, "a_phase");
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.arrowPhaseBuf);
+    gl.enableVertexAttribArray(aPhaseLoc);
+    gl.vertexAttribPointer(aPhaseLoc, 1, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(aPhaseLoc, 1);
 
     gl.bindVertexArray(null);
   }
@@ -374,7 +398,8 @@ export class WebGLRenderer {
     targets: Float32Array,
     directions: Float32Array,
     colors: Float32Array,
-    targetSizes: Float32Array
+    targetSizes: Float32Array,
+    phases: Float32Array
   ): void {
     const gl = this.gl;
     this.arrowCount = targets.length / 2;
@@ -390,6 +415,9 @@ export class WebGLRenderer {
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.arrowTargetSizeBuf);
     gl.bufferData(gl.ARRAY_BUFFER, targetSizes, gl.DYNAMIC_DRAW);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.arrowPhaseBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, phases, gl.DYNAMIC_DRAW);
   }
 
   /** Render frame. */
@@ -397,7 +425,8 @@ export class WebGLRenderer {
     viewMatrix: Float32Array,
     backgroundColor: [number, number, number, number],
     arrowSizeScale: number,
-    cameraZoom: number
+    cameraZoom: number,
+    time: number
   ): void {
     const gl = this.gl;
     gl.clearColor(...backgroundColor);
@@ -433,6 +462,10 @@ export class WebGLRenderer {
       gl.uniform1f(
         gl.getUniformLocation(this.arrowProgram, "u_arrowSize"),
         arrowSizeScale
+      );
+      gl.uniform1f(
+        gl.getUniformLocation(this.arrowProgram, "u_time"),
+        time
       );
       gl.bindVertexArray(this.arrowVAO);
       gl.drawArraysInstanced(gl.TRIANGLES, 0, 3, this.arrowCount);
@@ -479,5 +512,6 @@ export class WebGLRenderer {
     gl.deleteBuffer(this.arrowDirBuf);
     gl.deleteBuffer(this.arrowColorBuf);
     gl.deleteBuffer(this.arrowTargetSizeBuf);
+    gl.deleteBuffer(this.arrowPhaseBuf);
   }
 }

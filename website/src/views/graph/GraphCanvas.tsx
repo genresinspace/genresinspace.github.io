@@ -21,6 +21,9 @@ import { PathInfo } from "./pathInfo";
  *  ~98.5% converged at 500ms. */
 const TRANSITION_TAU = 120;
 
+/** Number of arrow instances per animated (selected) edge. */
+const ARROWS_PER_SELECTED_EDGE = 4;
+
 /** Parse a CSS color string to RGBA floats [0..1]. */
 function parseColor(css: string): [number, number, number, number] {
   // Handle hsla/hsl
@@ -144,6 +147,7 @@ export function GraphCanvas({
     arrowGeom: null as {
       targets: Float32Array;
       directions: Float32Array;
+      phases: Float32Array;
       targetNodeIndices: number[];
       edgeIndices: number[];
     } | null,
@@ -375,38 +379,77 @@ export function GraphCanvas({
     path,
   ]);
 
-  // Precompute arrow geometry (static — only changes when edge visibility changes)
+  // Precompute arrow geometry — expands animated edges into multiple instances
   const arrowGeometry = useMemo(() => {
+    // Determine which edges are animated (highlighted due to selection)
+    const animatedEdges = new Set<number>();
+    if (selectedId) {
+      for (let i = 0; i < data.edges.length; i++) {
+        if (!settings.visibleTypes[data.edges[i].ty]) continue;
+        const edge = data.edges[i];
+        if (path) {
+          const sourceIndex = path.indexOf(edge.source);
+          const targetIndex = path.indexOf(edge.target);
+          if (
+            sourceIndex !== -1 &&
+            targetIndex !== -1 &&
+            Math.abs(sourceIndex - targetIndex) === 1
+          ) {
+            animatedEdges.add(i);
+          }
+        } else if (edge.source === selectedId || edge.target === selectedId) {
+          animatedEdges.add(i);
+        } else {
+          const distance = pathInfo.edgeDistances.get(edge);
+          if (distance !== undefined && distance <= 1) {
+            animatedEdges.add(i);
+          }
+        }
+      }
+    }
+
+    // Count total instances
+    let totalInstances = 0;
     const visibleEdges: number[] = [];
     for (let i = 0; i < data.edges.length; i++) {
       if (settings.visibleTypes[data.edges[i].ty]) {
         visibleEdges.push(i);
+        totalInstances += animatedEdges.has(i) ? ARROWS_PER_SELECTED_EDGE : 1;
       }
     }
 
-    const targets = new Float32Array(visibleEdges.length * 2);
-    const directions = new Float32Array(visibleEdges.length * 2);
+    const targets = new Float32Array(totalInstances * 2);
+    const directions = new Float32Array(totalInstances * 2);
+    const phases = new Float32Array(totalInstances);
     const targetNodeIndices: number[] = [];
+    const edgeIndices: number[] = [];
 
-    for (let j = 0; j < visibleEdges.length; j++) {
-      const i = visibleEdges[j];
+    let j = 0;
+    for (const i of visibleEdges) {
       const edge = data.edges[i];
       const ti = nodeIdToInt(edge.target);
       const si = nodeIdToInt(edge.source);
 
-      targets[j * 2] = nodePositions[ti * 2];
-      targets[j * 2 + 1] = nodePositions[ti * 2 + 1];
+      const tx = nodePositions[ti * 2];
+      const ty = nodePositions[ti * 2 + 1];
+      const dx = tx - nodePositions[si * 2];
+      const dy = ty - nodePositions[si * 2 + 1];
 
-      const dx = nodePositions[ti * 2] - nodePositions[si * 2];
-      const dy = nodePositions[ti * 2 + 1] - nodePositions[si * 2 + 1];
-      directions[j * 2] = dx;
-      directions[j * 2 + 1] = dy;
-
-      targetNodeIndices.push(ti);
+      const instanceCount = animatedEdges.has(i) ? ARROWS_PER_SELECTED_EDGE : 1;
+      for (let k = 0; k < instanceCount; k++) {
+        targets[j * 2] = tx;
+        targets[j * 2 + 1] = ty;
+        directions[j * 2] = dx;
+        directions[j * 2 + 1] = dy;
+        phases[j] = instanceCount === 1 ? -1.0 : k / instanceCount;
+        targetNodeIndices.push(ti);
+        edgeIndices.push(i);
+        j++;
+      }
     }
 
-    return { targets, directions, targetNodeIndices, edgeIndices: visibleEdges };
-  }, [data.edges, nodePositions, settings.visibleTypes]);
+    return { targets, directions, phases, targetNodeIndices, edgeIndices };
+  }, [data.edges, nodePositions, settings.visibleTypes, selectedId, pathInfo, path]);
 
   // Store target arrays for the render loop's interpolation
   stateRef.current.targetNodeColors = nodeColors;
@@ -591,7 +634,8 @@ export function GraphCanvas({
             geom.targets,
             geom.directions,
             interp.arrowColors,
-            interp.arrowTargetSizes!
+            interp.arrowTargetSizes!,
+            geom.phases
           );
         }
 
@@ -604,7 +648,8 @@ export function GraphCanvas({
           camera.getViewMatrix(),
           bg,
           stateRef.current.arrowSizeScale * 6,
-          camera.zoom * (window.devicePixelRatio || 1)
+          camera.zoom * (window.devicePixelRatio || 1),
+          now / 1000
         );
       }
       animFrameRef.current = requestAnimationFrame(renderLoop);
