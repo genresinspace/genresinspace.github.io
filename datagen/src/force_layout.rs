@@ -8,17 +8,14 @@
 
 use rayon::prelude::*;
 
-// Layout constants — tuned to approximate Cosmograph's GPU force simulation.
-const REPULSION: f64 = 15000.0;
-const THETA: f64 = 1.0;
-const LINK_SPRING: f64 = 2.5;
-const LINK_DISTANCE: f64 = 10.0;
-const GRAVITY: f64 = 0.06;
-const GRAVITY_ISOLATED: f64 = 0.06;
-const SPIN: f64 = 10.0;
-const FRICTION: f64 = 0.85;
-const ITERATIONS: usize = 5000;
-const MAX_VELOCITY: f64 = 25.0;
+// Layout constants (overridable via environment variables for tuning)
+fn env_f64(name: &str, default: f64) -> f64 {
+    std::env::var(name).ok().and_then(|v| v.parse().ok()).unwrap_or(default)
+}
+fn env_usize(name: &str, default: usize) -> usize {
+    std::env::var(name).ok().and_then(|v| v.parse().ok()).unwrap_or(default)
+}
+
 const MAX_TREE_DEPTH: usize = 40;
 
 /// A node in the quadtree, either a leaf or an internal node with up to 4 children.
@@ -155,7 +152,7 @@ impl QuadTreeArena {
     }
 
     /// Compute repulsive force on a node from the tree.
-    fn compute_repulsion(&self, root: usize, px: f64, py: f64, force: &mut [f64; 2]) {
+    fn compute_repulsion(&self, root: usize, px: f64, py: f64, repulsion: f64, theta: f64, force: &mut [f64; 2]) {
         let node = &self.nodes[root];
         if node.mass == 0.0 {
             return;
@@ -165,23 +162,21 @@ impl QuadTreeArena {
         let dy = py - node.cy;
         let dist_sq = dx * dx + dy * dy;
 
-        // If this is a leaf with a single node, or if sufficiently far away
         let [min_x, _, max_x, _] = node.bounds;
         let size = max_x - min_x;
 
         let is_leaf = node.children.iter().all(|c| c.is_none());
-        let is_far = size * size < THETA * THETA * dist_sq;
+        let is_far = size * size < theta * theta * dist_sq;
 
         if (is_leaf || is_far) && dist_sq > 1e-6 {
             let dist = dist_sq.sqrt().max(1.0);
-            let f = REPULSION * node.mass / (dist * dist);
+            let f = repulsion * node.mass / (dist * dist);
             force[0] += dx / dist * f;
             force[1] += dy / dist * f;
         } else if !is_leaf {
-            // Recurse into children
             for child in &node.children {
                 if let Some(child_idx) = child {
-                    self.compute_repulsion(*child_idx, px, py, force);
+                    self.compute_repulsion(*child_idx, px, py, repulsion, theta, force);
                 }
             }
         }
@@ -215,12 +210,52 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         return vec![];
     }
 
-    // Compute node degrees for gravity scaling
+    let repulsion = env_f64("REPULSION", 60000.0);
+    let theta = env_f64("THETA", 0.8);
+    let link_spring = env_f64("LINK_SPRING", 22.0);
+    let link_distance = env_f64("LINK_DISTANCE", 5.0);
+    let gravity = env_f64("GRAVITY", 0.20);
+    let gravity_isolated = env_f64("GRAVITY_ISOLATED", 0.65);
+    let spin = env_f64("SPIN", 25.0);
+    let friction = env_f64("FRICTION", 0.85);
+    let iterations = env_usize("ITERATIONS", 18000);
+    let max_velocity = env_f64("MAX_VELOCITY", 25.0);
+    let cooling_rate = env_f64("COOLING_RATE", 1.2);
+    // Charge exponent: how aggressively hub nodes repel.
+    // 0.5 = sqrt(degree), 1.0 = linear, 0.0 = uniform charge
+    let charge_exponent = env_f64("CHARGE_EXP", 1.2);
+    // Spring normalization: 0 = equal weight, 0.5 = sqrt, 1.0 = linear
+    let spring_norm = env_f64("SPRING_NORM", 0.5);
+    // Jaccard bridge multiplier: how much longer bridge edges are vs cluster edges.
+    // rest_length ranges from link_distance to link_distance * bridge_mult
+    let bridge_mult = env_f64("BRIDGE_MULT", 5.0);
+
+    eprintln!("  repulsion={repulsion} theta={theta} spring={link_spring} dist={link_distance}");
+    eprintln!("  gravity={gravity} gravity_iso={gravity_isolated} spin={spin}");
+    eprintln!("  friction={friction} iterations={iterations} cooling={cooling_rate}");
+    eprintln!("  charge_exp={charge_exponent} spring_norm={spring_norm}");
+
+    // Compute node degrees and adjacency lists for Jaccard similarity
     let mut degrees = vec![0u32; num_nodes];
+    let mut neighbors: Vec<std::collections::HashSet<usize>> = vec![Default::default(); num_nodes];
     for &(src, tgt) in adjacency {
         degrees[src] += 1;
         degrees[tgt] += 1;
+        neighbors[src].insert(tgt);
+        neighbors[tgt].insert(src);
     }
+
+    // Pre-compute per-edge Jaccard similarity: |N(u)∩N(v)| / |N(u)∪N(v)|.
+    // High similarity → intra-cluster edge (short rest length)
+    // Low similarity → inter-cluster bridge (long rest length)
+    let edge_jaccard: Vec<f64> = adjacency
+        .iter()
+        .map(|&(src, tgt)| {
+            let intersection = neighbors[src].intersection(&neighbors[tgt]).count();
+            let union = neighbors[src].union(&neighbors[tgt]).count();
+            if union == 0 { 0.0 } else { intersection as f64 / union as f64 }
+        })
+        .collect();
 
     // Deterministic initial positions: seeded PRNG for uniform random placement
     // Using a simple xorshift64 for reproducibility without extra dependencies.
@@ -239,11 +274,8 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
 
     let mut velocities = vec![[0.0_f64; 2]; num_nodes];
 
-    for iter in 0..ITERATIONS {
-        // Exponential cooling: starts hot, stays warm longer for large-scale rearrangement,
-        // then cools rapidly for fine adjustment. Decay rate matched to Cosmograph's style.
-        // Slower decay: stays warm for ~60% of iterations, then cools rapidly.
-        let temperature = (-2.5 * iter as f64 / ITERATIONS as f64).exp();
+    for iter in 0..iterations {
+        let temperature = (-cooling_rate * iter as f64 / iterations as f64).exp();
 
         // Build quadtree
         let (min_x, min_y, max_x, max_y) = positions.iter().fold(
@@ -267,7 +299,10 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
             max_y + padding,
         ]);
         for (i, pos) in positions.iter().enumerate() {
-            tree.insert(root, *pos, i, 1.0);
+            // Degree-weighted charge: hub nodes repel more strongly,
+            // creating natural voids between clusters.
+            let charge = 1.0 + (degrees[i] as f64).powf(charge_exponent);
+            tree.insert(root, *pos, i, charge);
         }
 
         // Compute repulsive forces (parallel)
@@ -275,26 +310,31 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
             .into_par_iter()
             .map(|i| {
                 let mut force = [0.0, 0.0];
-                tree.compute_repulsion(root, positions[i][0], positions[i][1], &mut force);
+                tree.compute_repulsion(root, positions[i][0], positions[i][1], repulsion, theta, &mut force);
                 force
             })
             .collect();
 
         // Compute spring forces along edges (sequential accumulation).
-        // Each endpoint receives force inversely weighted by its degree, so hub
-        // nodes aren't yanked equally hard by every single edge — this lets
-        // peripheral clusters form tight groups while hubs act as bridges.
+        // Rest length is modulated by Jaccard similarity: edges between nodes
+        // that share many neighbors (intra-cluster) get shorter rest lengths,
+        // while bridge edges (low similarity) get longer rest lengths.
         let mut spring_forces = vec![[0.0_f64; 2]; num_nodes];
-        for &(src, tgt) in adjacency {
+        for (edge_idx, &(src, tgt)) in adjacency.iter().enumerate() {
             let dx = positions[tgt][0] - positions[src][0];
             let dy = positions[tgt][1] - positions[src][1];
             let dist = (dx * dx + dy * dy).sqrt().max(0.1);
-            let displacement = dist - LINK_DISTANCE;
-            let f = LINK_SPRING * displacement;
+            // Jaccard=1 → rest_length = link_distance (tight cluster)
+            // Jaccard=0 → rest_length = link_distance * bridge_mult (loose bridge)
+            let jaccard = edge_jaccard[edge_idx];
+            let rest_length = link_distance * (bridge_mult - (bridge_mult - 1.0) * jaccard);
+            let displacement = dist - rest_length;
+            let f = link_spring * displacement;
             let fx = dx / dist * f;
             let fy = dy / dist * f;
-            let src_weight = 1.0 / (degrees[src] as f64).max(1.0);
-            let tgt_weight = 1.0 / (degrees[tgt] as f64).max(1.0);
+            // Weight by inverse degree^spring_norm so hubs aren't yanked as hard
+            let src_weight = 1.0 / (degrees[src] as f64).max(1.0).powf(spring_norm);
+            let tgt_weight = 1.0 / (degrees[tgt] as f64).max(1.0).powf(spring_norm);
             spring_forces[src][0] += fx * src_weight;
             spring_forces[src][1] += fy * src_weight;
             spring_forces[tgt][0] -= fx * tgt_weight;
@@ -302,37 +342,33 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         }
 
         // Integrate forces
-        let max_vel = MAX_VELOCITY * temperature;
+        let max_vel = max_velocity * temperature;
         for i in 0..num_nodes {
-            let gravity = if degrees[i] == 0 {
-                GRAVITY_ISOLATED
+            let g = if degrees[i] == 0 {
+                gravity_isolated
             } else {
-                GRAVITY
+                gravity
             };
-            let gx = -positions[i][0] * gravity;
-            let gy = -positions[i][1] * gravity;
+            let gx = -positions[i][0] * g;
+            let gy = -positions[i][1] * g;
 
             let fx = (repulsive_forces[i][0] + spring_forces[i][0] + gx) * temperature;
             let fy = (repulsive_forces[i][1] + spring_forces[i][1] + gy) * temperature;
 
-            velocities[i][0] = clamp_abs((velocities[i][0] + fx) * FRICTION, max_vel);
-            velocities[i][1] = clamp_abs((velocities[i][1] + fy) * FRICTION, max_vel);
+            velocities[i][0] = clamp_abs((velocities[i][0] + fx) * friction, max_vel);
+            velocities[i][1] = clamp_abs((velocities[i][1] + fy) * friction, max_vel);
 
-            // Tangential spin for isolated nodes: push perpendicular to the
-            // radial direction so they spread around the cluster orbit.
+            // Tangential spin for isolated nodes
             if degrees[i] == 0 {
                 let dx = positions[i][0];
                 let dy = positions[i][1];
                 let r = (dx * dx + dy * dy).sqrt().max(1.0);
                 let tx = -dy / r;
                 let ty = dx / r;
-                // Scale spin with distance — nodes pushed further out by
-                // dense regions move faster tangentially, spending less time
-                // on the dense side.
                 let dist_factor = (r / 200.0).max(0.5);
-                let spin = SPIN * temperature * dist_factor;
-                velocities[i][0] += tx * spin;
-                velocities[i][1] += ty * spin;
+                let sp = spin * temperature * dist_factor;
+                velocities[i][0] += tx * sp;
+                velocities[i][1] += ty * sp;
             }
 
             positions[i][0] += velocities[i][0];
@@ -357,7 +393,7 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         }
 
         if iter % 100 == 0 {
-            println!("  layout iteration {iter}/{ITERATIONS} (temperature: {temperature:.3})");
+            println!("  layout iteration {iter}/{iterations} (temperature: {temperature:.3})");
         }
     }
 
