@@ -83,8 +83,8 @@ in float v_t;
 out vec4 fragColor;
 void main() {
   // Tint edge endpoints with node colors (RGB only, preserve edge alpha)
-  float srcBlend = smoothstep(0.45, 0.0, v_t);
-  float tgtBlend = smoothstep(0.55, 1.0, v_t);
+  float srcBlend = pow(smoothstep(0.45, 0.0, v_t), 0.4);
+  float tgtBlend = pow(smoothstep(0.55, 1.0, v_t), 0.4);
   vec4 color = v_edgeColor;
   color.rgb = mix(color.rgb, v_srcNodeColor.rgb, srcBlend);
   color.rgb = mix(color.rgb, v_tgtNodeColor.rgb, tgtBlend);
