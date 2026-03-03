@@ -86,7 +86,7 @@ export const colourStyles = {
   notice: {
     yellow: "bg-yellow-50 dark:bg-yellow-100/90 text-yellow-900",
     red: "bg-red-50 dark:bg-red-100/90 text-red-900",
-    blue: "bg-blue-50 dark:bg-blue-100/90 text-blue-900",
+    blue: "bg-blue-50 dark:bg-slate-800 text-blue-900 dark:text-slate-100",
     green: "bg-green-50 dark:bg-green-100/90 text-green-900",
   },
 
