@@ -1,5 +1,8 @@
 /** WebGL2 renderer for graph nodes, edges, and arrowheads. */
 
+const EDGE_SEGMENTS = 8;
+export const EDGE_CURVATURE = 0.15;
+
 // Vertex shader for nodes (point sprites)
 // a_size is already in device pixels from CPU side
 const NODE_VS = `#version 300 es
@@ -30,12 +33,13 @@ void main() {
   fragColor = vec4(v_color.rgb, v_color.a * alpha);
 }`;
 
-// Vertex shader for edges (instanced quads for consistent line width)
+// Vertex shader for edges (instanced multi-segment bezier strips)
 const EDGE_VS = `#version 300 es
 precision highp float;
 uniform mat3 u_view;
-uniform float u_width; // half-width in world units
-// Per-vertex: quad template (x: 0 or 1 along edge, y: -1 or +1 across)
+uniform float u_width;     // half-width in world units
+uniform float u_curvature; // bezier curvature factor
+// Per-vertex: quad template (x: t along curve 0..1, y: -1 or +1 across)
 in vec2 a_template;
 // Per-instance
 in vec2 a_src;
@@ -48,8 +52,17 @@ out vec4 v_edgeColor;
 out vec4 v_srcNodeColor;
 out vec4 v_tgtNodeColor;
 out float v_t;
+
+vec2 bezier(vec2 p0, vec2 p1, vec2 p2, float t) {
+  float u = 1.0 - t;
+  return u * u * p0 + 2.0 * u * t * p1 + t * t * p2;
+}
+
+vec2 bezierTangent(vec2 p0, vec2 p1, vec2 p2, float t) {
+  return 2.0 * (1.0 - t) * (p1 - p0) + 2.0 * t * (p2 - p1);
+}
+
 void main() {
-  // Edge direction in world space
   vec2 dir = a_tgt - a_src;
   float len = length(dir);
   if (len < 1e-6) {
@@ -61,17 +74,27 @@ void main() {
     v_t = 0.0;
     return;
   }
-  vec2 perp = vec2(-dir.y, dir.x) / len;
 
-  // Interpolate along edge, offset perpendicular in world space
-  vec2 worldPos = mix(a_src, a_tgt, a_template.x)
-                + perp * a_template.y * u_width;
+  // Deterministic sign flip so parallel edges curve opposite ways
+  float sign = (a_src.x + a_src.y < a_tgt.x + a_tgt.y) ? 1.0 : -1.0;
+  vec2 straight = dir / len;
+  vec2 perp = vec2(-straight.y, straight.x);
+  vec2 mid = (a_src + a_tgt) * 0.5;
+  vec2 ctrl = mid + perp * sign * u_curvature * len;
+
+  float t = a_template.x;
+  vec2 curvePos = bezier(a_src, ctrl, a_tgt, t);
+  vec2 tangent = bezierTangent(a_src, ctrl, a_tgt, t);
+  float tLen = length(tangent);
+  vec2 tPerp = vec2(-tangent.y, tangent.x) / tLen;
+
+  vec2 worldPos = curvePos + tPerp * a_template.y * u_width;
   vec3 pos = u_view * vec3(worldPos, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
-  v_edgeColor = mix(a_srcColor, a_tgtColor, a_template.x);
+  v_edgeColor = mix(a_srcColor, a_tgtColor, t);
   v_srcNodeColor = a_srcNodeColor;
   v_tgtNodeColor = a_tgtNodeColor;
-  v_t = a_template.x;
+  v_t = t;
 }`;
 
 const EDGE_FS = `#version 300 es
@@ -97,6 +120,7 @@ precision highp float;
 uniform mat3 u_view;
 uniform float u_arrowSize; // arrow length in world units
 uniform float u_time;      // seconds, for animation
+uniform float u_curvature; // bezier curvature factor
 const float WORLD_SPEED = 30.0; // world units per second
 // Per-vertex: triangle template
 in vec2 a_template;
@@ -108,29 +132,46 @@ in float a_targetSize; // node diameter in world units
 in float a_phase;      // <0: static midpoint; >=0: animated phase offset
 in float a_speed;      // speed multiplier (1.0 = full speed)
 out vec4 v_color;
-void main() {
-  // Direction in world space
-  float edgeLen = length(a_direction);
-  vec2 dir = a_direction / edgeLen;
-  vec2 perp = vec2(-dir.y, dir.x);
 
-  // Source position = target - direction
+vec2 bezier(vec2 p0, vec2 p1, vec2 p2, float t) {
+  float u = 1.0 - t;
+  return u * u * p0 + 2.0 * u * t * p1 + t * t * p2;
+}
+
+vec2 bezierTangent(vec2 p0, vec2 p1, vec2 p2, float t) {
+  return 2.0 * (1.0 - t) * (p1 - p0) + 2.0 * t * (p2 - p1);
+}
+
+void main() {
+  float edgeLen = length(a_direction);
+  vec2 straightDir = a_direction / edgeLen;
   vec2 source = a_target - a_direction;
 
-  vec2 arrowTip;
+  // Bezier control point (same logic as edge shader)
+  float sign = (source.x + source.y < a_target.x + a_target.y) ? 1.0 : -1.0;
+  vec2 perpEdge = vec2(-straightDir.y, straightDir.x);
+  vec2 mid = (source + a_target) * 0.5;
+  vec2 ctrl = mid + perpEdge * sign * u_curvature * edgeLen;
+
+  float tCurve;
   if (a_phase < 0.0) {
-    // Static: place arrow at centre of the edge
-    arrowTip = a_target - dir * edgeLen * 0.5;
+    // Static: place arrow at centre of the curve
+    tCurve = 0.5;
   } else {
-    // Animated: slide along the edge within node-radius margins
+    // Animated: slide along the curve within node-radius margins
     float marginSrc = u_arrowSize * 1.5;
     float marginTgt = a_targetSize * 0.5 + u_arrowSize;
     float usableLen = max(edgeLen - marginSrc - marginTgt, 1.0);
-    // Use edgeLen (static) for cycle rate to avoid speed jumps when
-    // a_targetSize changes during hover/selection interpolation
-    float t = fract(a_phase + u_time * WORLD_SPEED * a_speed / edgeLen);
-    arrowTip = source + dir * (marginSrc + t * usableLen);
+    float linearT = fract(a_phase + u_time * WORLD_SPEED * a_speed / edgeLen);
+    // Map linear position to curve t parameter (approximate)
+    tCurve = (marginSrc + linearT * usableLen) / edgeLen;
   }
+
+  vec2 arrowTip = bezier(source, ctrl, a_target, tCurve);
+  vec2 tangent = bezierTangent(source, ctrl, a_target, tCurve);
+  float tLen = length(tangent);
+  vec2 dir = tangent / tLen;
+  vec2 perp = vec2(-dir.y, dir.x);
 
   // Build triangle in world space
   vec2 worldPos = arrowTip
@@ -261,11 +302,22 @@ export class WebGLRenderer {
 
     gl.bindVertexArray(this.edgeVAO);
 
-    // Quad template: two triangles forming a strip along the edge
-    // x: 0=src end, 1=tgt end; y: -1 or +1 (perpendicular offset)
-    const edgeTemplate = new Float32Array([
-      0, -1, 1, -1, 1, 1, 0, -1, 1, 1, 0, 1,
-    ]);
+    // Multi-segment template: EDGE_SEGMENTS quads along the curve
+    // x: t parameter (0..1), y: -1 or +1 (perpendicular offset)
+    const edgeTemplate = new Float32Array(EDGE_SEGMENTS * 6 * 2);
+    for (let i = 0; i < EDGE_SEGMENTS; i++) {
+      const t0 = i / EDGE_SEGMENTS;
+      const t1 = (i + 1) / EDGE_SEGMENTS;
+      const off = i * 12;
+      // Triangle 1: (t0,-1), (t1,-1), (t1,+1)
+      edgeTemplate[off + 0] = t0; edgeTemplate[off + 1] = -1;
+      edgeTemplate[off + 2] = t1; edgeTemplate[off + 3] = -1;
+      edgeTemplate[off + 4] = t1; edgeTemplate[off + 5] = 1;
+      // Triangle 2: (t0,-1), (t1,+1), (t0,+1)
+      edgeTemplate[off + 6] = t0; edgeTemplate[off + 7] = -1;
+      edgeTemplate[off + 8] = t1; edgeTemplate[off + 9] = 1;
+      edgeTemplate[off + 10] = t0; edgeTemplate[off + 11] = 1;
+    }
     gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTemplateBuf);
     gl.bufferData(gl.ARRAY_BUFFER, edgeTemplate, gl.STATIC_DRAW);
     const eTmplLoc = gl.getAttribLocation(this.edgeProgram, "a_template");
@@ -497,7 +549,8 @@ export class WebGLRenderer {
     backgroundColor: [number, number, number, number],
     arrowSizeScale: number,
     cameraZoom: number,
-    time: number
+    time: number,
+    curvature: number
   ): void {
     const gl = this.gl;
     gl.clearColor(...backgroundColor);
@@ -518,8 +571,17 @@ export class WebGLRenderer {
         gl.getUniformLocation(this.edgeProgram, "u_width"),
         0.5 // half-width in world units; scales with zoom like nodes
       );
+      gl.uniform1f(
+        gl.getUniformLocation(this.edgeProgram, "u_curvature"),
+        curvature
+      );
       gl.bindVertexArray(this.edgeVAO);
-      gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, this.edgeCount);
+      gl.drawArraysInstanced(
+        gl.TRIANGLES,
+        0,
+        EDGE_SEGMENTS * 6,
+        this.edgeCount
+      );
     }
 
     // Draw arrows
@@ -537,6 +599,10 @@ export class WebGLRenderer {
       gl.uniform1f(
         gl.getUniformLocation(this.arrowProgram, "u_time"),
         time
+      );
+      gl.uniform1f(
+        gl.getUniformLocation(this.arrowProgram, "u_curvature"),
+        curvature
       );
       gl.bindVertexArray(this.arrowVAO);
       gl.drawArraysInstanced(gl.TRIANGLES, 0, 3, this.arrowCount);

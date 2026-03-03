@@ -10,6 +10,7 @@ export type SettingsData = {
     autoplayMixes: boolean;
     maxInfluenceDistance: number;
     arrowSizeScale: number;
+    curvedEdges: boolean;
     experimentalPathfinding: boolean;
   };
 };
@@ -145,6 +146,14 @@ export const GENERAL_CONTROLS: GeneralControlDesc[] = [
     max: 3,
     step: 0.1,
     default: 1.5,
+  },
+  {
+    type: "boolean",
+    name: "curvedEdges",
+    label: "Curved Edges",
+    description:
+      "Whether to draw edges as curved arcs instead of straight lines. May impact performance on lower-spec devices.",
+    default: true,
   },
   {
     type: "boolean",

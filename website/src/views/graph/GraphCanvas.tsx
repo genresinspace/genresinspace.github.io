@@ -12,7 +12,7 @@ import {
 import { useTheme } from "../../theme";
 
 import type { Camera } from "./Camera";
-import { WebGLRenderer } from "./WebGLRenderer";
+import { WebGLRenderer, EDGE_CURVATURE } from "./WebGLRenderer";
 import { hitTestNode, HOVER_HIT_BUFFER } from "./HitTest";
 import { InteractionHandler } from "./Interaction";
 import { PathInfo } from "./pathInfo";
@@ -140,6 +140,7 @@ export function GraphCanvas({
     sizes: null as Float32Array | null,
     theme: theme as string,
     arrowSizeScale: settings.general.arrowSizeScale,
+    curvedEdges: settings.general.curvedEdges,
     // Target arrays for smooth transitions
     targetNodeColors: null as Float32Array | null,
     targetEdgeColors: null as Float32Array | null,
@@ -162,6 +163,7 @@ export function GraphCanvas({
   stateRef.current.hoveredId = hoveredId;
   stateRef.current.theme = theme;
   stateRef.current.arrowSizeScale = settings.general.arrowSizeScale;
+  stateRef.current.curvedEdges = settings.general.curvedEdges;
 
   // Interpolated state for smooth transitions
   const interpRef = useRef({
@@ -722,7 +724,8 @@ export function GraphCanvas({
           bg,
           stateRef.current.arrowSizeScale * 6,
           camera.zoom,
-          now / 1000
+          now / 1000,
+          stateRef.current.curvedEdges ? EDGE_CURVATURE : 0.0
         );
       }
       animFrameRef.current = requestAnimationFrame(renderLoop);
