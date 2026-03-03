@@ -1,9 +1,3 @@
-@keyframes label-fade-in {
-  from {
-    opacity: 0;
-  }
-}
-
 .node-label-container {
   user-select: none;
   -webkit-user-select: none;
@@ -25,7 +19,6 @@
     "JetBrains Mono", "Fira Code", "SF Mono", Monaco, "Cascadia Code",
     "Roboto Mono", Consolas, "Courier New", monospace;
   border-radius: 8px;
-  animation: label-fade-in 500ms ease-out;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;

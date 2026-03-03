@@ -17,7 +17,7 @@ import { PathInfo } from "./pathInfo";
 
 import "../graph.css";
 
-const MAX_VISIBLE_LABELS = 60;
+const MAX_VISIBLE_LABELS = 100;
 /** Labels stay at base size until zoom exceeds this, then grow proportionally. */
 const LABEL_ZOOM_THRESHOLD = 1.5;
 /** Fraction of full zoom-scaling applied to labels beyond the threshold (0=fixed, 1=full). */
@@ -162,13 +162,43 @@ export function Labels({
     [camera, selectedId, setSelectedId, onCameraChange]
   );
 
+  const prevLabelIdsRef = useRef<Set<string>>(new Set());
+  /** Cached label selection — reused between full recomputations. */
+  const cachedSelectionRef = useRef<{
+    ids: Set<string>;
+    boundsMinX: number;
+    boundsMinY: number;
+    boundsMaxX: number;
+    boundsMaxY: number;
+    zoom: number;
+    selectedId: string | null;
+  } | null>(null);
+
   const stableLabels = useMemo(() => {
     if (!settings.general.showLabels)
       return { result: [] as LabelCandidate[], allCandidates: [] as LabelCandidate[] };
 
     const [minX, minY, maxX, maxY] = camera.getVisibleBounds();
+    const camZoom = camera.zoom;
 
-    // Build candidate list
+    // Decide whether to reuse the cached label selection or recompute.
+    // The CSS transform trick in Graph.tsx handles smooth inter-frame movement,
+    // so we only need to reselect labels when the camera moves significantly.
+    const cached = cachedSelectionRef.current;
+    let needsReselect = !cached || cached.selectedId !== selectedId;
+    if (cached && !needsReselect) {
+      const prevW = cached.boundsMaxX - cached.boundsMinX;
+      const prevH = cached.boundsMaxY - cached.boundsMinY;
+      const panFracX = prevW > 0 ? Math.abs((minX + maxX) / 2 - (cached.boundsMinX + cached.boundsMaxX) / 2) / prevW : 1;
+      const panFracY = prevH > 0 ? Math.abs((minY + maxY) / 2 - (cached.boundsMinY + cached.boundsMaxY) / 2) / prevH : 1;
+      const zoomRatio = cached.zoom > 0 ? camZoom / cached.zoom : 2;
+      // Reselect if panned >25% of viewport or zoom changed by >20%
+      if (panFracX > 0.25 || panFracY > 0.25 || zoomRatio > 1.2 || zoomRatio < 1 / 1.2) {
+        needsReselect = true;
+      }
+    }
+
+    // Build candidate list (always needed for fresh screen positions)
     const candidates: LabelCandidate[] = [];
 
     for (let i = 0; i < data.nodes.length; i++) {
@@ -182,9 +212,6 @@ export function Labels({
       const [sx, sy] = camera.worldToScreen(wx, wy);
       const baseFontSize = 10 + (node.edges.length / maxDegree) * 6;
       const zoomScale = camera.zoom;
-      // At overview zoom, use full base size; once zoomed in enough,
-      // transition to scaling with zoom at half rate
-      // Beyond threshold, labels grow at LABEL_ZOOM_RATE of the full zoom rate
       const fullScale = zoomScale / LABEL_ZOOM_THRESHOLD;
       const fontSize = baseFontSize * Math.max(1, 1 + (fullScale - 1) * LABEL_ZOOM_RATE);
 
@@ -193,7 +220,6 @@ export function Labels({
       let inSelectedNet = false;
       let selectionDistance = Infinity;
 
-      // Check if in selection net
       if (selectedId) {
         if (node.id === selectedId) {
           priority += 100000;
@@ -226,15 +252,67 @@ export function Labels({
       });
     }
 
-    // Placement tiers — selected-net first so it can never be displaced:
-    // 1. Selected-net labels (sorted by priority)
-    // 2. Other visible labels (sorted by degree)
+    // If we can reuse the previous selection, just filter to cached IDs
+    // with fresh screen positions. This keeps labels stable during small
+    // pans/zooms — the CSS transform handles smooth movement between frames.
+    if (!needsReselect && cached) {
+      const result = candidates.filter((c) => cached.ids.has(c.node.id));
+      return { result, allCandidates: candidates };
+    }
+
+    // Full reselection — selected-net first, then spatially diverse grid
     const selectedCandidates = candidates
       .filter((c) => c.inSelectedNet)
       .sort((a, b) => b.priority - a.priority);
     const otherCandidates = candidates
       .filter((c) => !c.inSelectedNet)
       .sort((a, b) => b.priority - a.priority);
+
+    const screenW = camera.canvasW || 1;
+    const screenH = camera.canvasH || 1;
+    const GRID_COLS = 8;
+    const GRID_ROWS = 6;
+    const cellW = screenW / GRID_COLS;
+    const cellH = screenH / GRID_ROWS;
+    const grid: LabelCandidate[][] = Array.from(
+      { length: GRID_COLS * GRID_ROWS },
+      () => []
+    );
+    const prevIds = prevLabelIdsRef.current;
+    for (const c of otherCandidates) {
+      const col = Math.min(Math.floor(c.screenX / cellW), GRID_COLS - 1);
+      const row = Math.min(Math.floor(c.screenY / cellH), GRID_ROWS - 1);
+      if (col >= 0 && row >= 0) {
+        grid[row * GRID_COLS + col].push(c);
+      }
+    }
+    // Within each cell: prefer previously-visible labels (stability),
+    // then sort by priority.
+    for (const cell of grid) {
+      cell.sort((a, b) => {
+        const aKeep = prevIds.has(a.node.id) ? 1 : 0;
+        const bKeep = prevIds.has(b.node.id) ? 1 : 0;
+        if (aKeep !== bKeep) return bKeep - aKeep;
+        return b.priority - a.priority;
+      });
+    }
+    // Round-robin: take one candidate from each non-empty cell, repeat
+    const spatialOrder: LabelCandidate[] = [];
+    const usedIds = new Set<string>();
+    let remaining = true;
+    for (let round = 0; remaining; round++) {
+      remaining = false;
+      for (const cell of grid) {
+        if (round < cell.length) {
+          remaining = true;
+          const c = cell[round];
+          if (!usedIds.has(c.node.id)) {
+            usedIds.add(c.node.id);
+            spatialOrder.push(c);
+          }
+        }
+      }
+    }
 
     // Greedy overlap culling
     const placed: { x: number; y: number; w: number; h: number }[] = [];
@@ -259,7 +337,20 @@ export function Labels({
     };
 
     for (const c of selectedCandidates) tryPlace(c);
-    for (const c of otherCandidates) tryPlace(c);
+    for (const c of spatialOrder) tryPlace(c);
+
+    // Cache for throttling
+    const newIds = new Set(result.map((c) => c.node.id));
+    prevLabelIdsRef.current = newIds;
+    cachedSelectionRef.current = {
+      ids: newIds,
+      boundsMinX: minX,
+      boundsMinY: minY,
+      boundsMaxX: maxX,
+      boundsMaxY: maxY,
+      zoom: camZoom,
+      selectedId,
+    };
 
     return { result, allCandidates: candidates };
   }, [
