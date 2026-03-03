@@ -275,11 +275,13 @@ export function GraphCanvas({
 
       if (selectedId && !isHovered) {
         if (isHighlightedDueToSelection(node.id, true)) {
-          const dist = node.id === selectedId
+          const dist = path?.includes(node.id)
             ? 0
-            : pathInfo.immediateNeighbours.has(node.id) && !pathInfo.nodeDistances.has(node.id)
-              ? 1
-              : pathInfo.nodeDistances.get(node.id) ?? maxDistance;
+            : node.id === selectedId
+              ? 0
+              : pathInfo.immediateNeighbours.has(node.id) && !pathInfo.nodeDistances.has(node.id)
+                ? 1
+                : pathInfo.nodeDistances.get(node.id) ?? maxDistance;
           // dist 0-1: full opacity; beyond that: exponential falloff
           const alpha = dist <= 1 ? 1.0 : Math.pow(NODE_OPACITY_FALLOFF, dist - 1);
           arr[i * 4] = r;

@@ -60,6 +60,7 @@ function buildCandidates(
   selectedId: string | null,
   pathInfo: PathInfo,
   maxDistance: number,
+  path: string[] | null,
 ): LabelCandidate[] {
   const [minX, minY, maxX, maxY] = bounds;
   const candidates: LabelCandidate[] = [];
@@ -81,7 +82,16 @@ function buildCandidates(
     let selectionDistance = Infinity;
 
     if (selectedId) {
-      if (node.id === selectedId) {
+      if (path !== null) {
+        // Pathfinding mode: only path nodes are in the selected net
+        const pathIndex = path.indexOf(node.id);
+        if (pathIndex !== -1) {
+          // Highest priority; path endpoints even higher
+          priority += 200000 - pathIndex;
+          inSelectedNet = true;
+          selectionDistance = 0;
+        }
+      } else if (node.id === selectedId) {
         priority += 100000;
         inSelectedNet = true;
         selectionDistance = 0;
@@ -397,6 +407,7 @@ export function Labels({
   hoveredId,
   setHoveredId,
   pathInfo,
+  path,
   camera,
   nodePositions,
   cameraVersion,
@@ -409,6 +420,7 @@ export function Labels({
   hoveredId: string | null;
   setHoveredId: (id: string | null) => void;
   pathInfo: PathInfo;
+  path: string[] | null;
   camera: Camera;
   nodePositions: Float32Array;
   cameraVersion: number;
@@ -454,7 +466,7 @@ export function Labels({
 
     const candidates = buildCandidates(
       data.nodes, nodePositions, camera, bounds,
-      maxDegree, selectedId, pathInfo, maxDistance,
+      maxDegree, selectedId, pathInfo, maxDistance, path,
     );
 
     // Reuse previous selection with fresh screen positions when possible
@@ -481,7 +493,7 @@ export function Labels({
     return { result, allCandidates: candidates };
   }, [
     data.nodes, camera, nodePositions,
-    settings.general.showLabels, selectedId, pathInfo,
+    settings.general.showLabels, selectedId, pathInfo, path,
     maxDegree, maxDistance, cameraVersion,
   ]);
 

@@ -125,6 +125,7 @@ export function Graph({
         hoveredId={hoveredId}
         setHoveredId={setHoveredId}
         pathInfo={pathInfo}
+        path={path}
         camera={cameraRef.current}
         nodePositions={nodePositions}
         cameraVersion={cameraVersion}
