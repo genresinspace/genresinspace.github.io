@@ -12,9 +12,12 @@
 //! ## Repulsion
 //! - `REPULSION`: Global repulsive force strength.
 //! - `THETA`: Barnes-Hut opening angle. Lower = more accurate but slower.
+//! - `BASE_CHARGE`: Minimum charge for connected nodes (default 3). Higher
+//!   values ensure even low-degree nodes repel each other enough to avoid
+//!   clumping.
 //! - `CHARGE_EXP`: Degree-charge exponent. Each node's charge in the
-//!   quadtree is `1 + degree^exp`. Values >1 make hubs repel super-linearly,
-//!   creating visible voids between major clusters.
+//!   quadtree is `BASE_CHARGE + degree^exp`. Values >1 make hubs repel
+//!   super-linearly, creating visible voids between major clusters.
 //! - `ISO_CHARGE`: Fixed charge for isolated (degree-0) nodes. Low values
 //!   reduce how much the connected core pushes them away, so the outer ring
 //!   orbits closer.
@@ -32,9 +35,12 @@
 //!
 //! ## Gravity & isolated-node handling
 //! - `GRAVITY`: Gravity strength for connected nodes (pulls toward origin).
-//! - `GRAVITY_ISOLATED`: Gravity for degree-0 nodes (stronger = tighter ring).
+//! - `GRAVITY_ISOLATED`: Gravity for isolated nodes (stronger = tighter ring).
 //! - `SPIN`: Tangential velocity added to isolated nodes so they distribute
 //!   around the ring instead of clumping. Scales with distance from origin.
+//! - `ISO_COMPONENT_MAX`: Maximum component size to treat as "isolated".
+//!   Nodes in components with at most this many members get the isolated
+//!   treatment (reduced charge, stronger gravity, spin).
 //!
 //! ## Simulation
 //! - `ITERATIONS`: Total simulation steps.
@@ -248,26 +254,27 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         return vec![];
     }
 
-    let repulsion = env_f64("REPULSION", 50000.0);
+    let repulsion = env_f64("REPULSION", 170000.0);
     let theta = env_f64("THETA", 0.8);
     let link_spring = env_f64("LINK_SPRING", 28.0);
-    let link_distance = env_f64("LINK_DISTANCE", 4.0);
-    let gravity = env_f64("GRAVITY", 0.25);
-    let gravity_isolated = env_f64("GRAVITY_ISOLATED", 0.80);
+    let link_distance = env_f64("LINK_DISTANCE", 10.0);
+    let gravity = env_f64("GRAVITY", 0.75);
+    let gravity_isolated = env_f64("GRAVITY_ISOLATED", 1.10);
     let spin = env_f64("SPIN", 25.0);
     let friction = env_f64("FRICTION", 0.85);
-    let iterations = env_usize("ITERATIONS", 30000);
+    let iterations = env_usize("ITERATIONS", 50000);
     let max_velocity = env_f64("MAX_VELOCITY", 25.0);
     let cooling_rate = env_f64("COOLING_RATE", 0.8);
-    let charge_exponent = env_f64("CHARGE_EXP", 1.5);
+    let charge_exponent = env_f64("CHARGE_EXP", 1.2);
     let spring_norm = env_f64("SPRING_NORM", 0.5);
     let bridge_mult = env_f64("BRIDGE_MULT", 7.0);
     let isolated_charge = env_f64("ISO_CHARGE", 0.2);
+    let base_charge = env_f64("BASE_CHARGE", 1.0);
 
     eprintln!("  repulsion={repulsion} theta={theta} spring={link_spring} dist={link_distance}");
     eprintln!("  gravity={gravity} gravity_iso={gravity_isolated} spin={spin}");
     eprintln!("  friction={friction} iterations={iterations} cooling={cooling_rate}");
-    eprintln!("  charge_exp={charge_exponent} spring_norm={spring_norm}");
+    eprintln!("  charge_exp={charge_exponent} spring_norm={spring_norm} base_charge={base_charge}");
 
     // Compute node degrees and adjacency lists for Jaccard similarity
     let mut degrees = vec![0u32; num_nodes];
@@ -278,6 +285,42 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         neighbors[src].insert(tgt);
         neighbors[tgt].insert(src);
     }
+
+    // Connected components via BFS — nodes in small components get isolated
+    // treatment (stronger gravity, reduced charge, spin) so they orbit near
+    // the core instead of being flung outside the isolated ring.
+    let iso_component_max = env_usize("ISO_COMPONENT_MAX", 5);
+    let is_isolated = {
+        let mut component_id = vec![usize::MAX; num_nodes];
+        let mut current_id = 0usize;
+        for start in 0..num_nodes {
+            if component_id[start] != usize::MAX {
+                continue;
+            }
+            let mut queue = std::collections::VecDeque::new();
+            queue.push_back(start);
+            component_id[start] = current_id;
+            while let Some(node) = queue.pop_front() {
+                for &nbr in &neighbors[node] {
+                    if component_id[nbr] == usize::MAX {
+                        component_id[nbr] = current_id;
+                        queue.push_back(nbr);
+                    }
+                }
+            }
+            current_id += 1;
+        }
+        // Count component sizes
+        let mut component_size = vec![0usize; current_id];
+        for &cid in &component_id {
+            component_size[cid] += 1;
+        }
+        // A node is "isolated" if its component has <= iso_component_max nodes
+        let isolated: Vec<bool> = (0..num_nodes)
+            .map(|i| component_size[component_id[i]] <= iso_component_max)
+            .collect();
+        isolated
+    };
 
     // Pre-compute per-edge Jaccard similarity: |N(u)∩N(v)| / |N(u)∪N(v)|.
     // High similarity → intra-cluster edge (short rest length)
@@ -332,16 +375,20 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
             max_x + padding,
             max_y + padding,
         ]);
+        let charges: Vec<f64> = (0..num_nodes)
+            .map(|i| {
+                // Degree-weighted charge: hub nodes repel more strongly,
+                // creating natural voids between clusters.
+                // Isolated nodes get a reduced charge so they orbit closer to core.
+                if is_isolated[i] {
+                    isolated_charge
+                } else {
+                    base_charge + (degrees[i] as f64).powf(charge_exponent)
+                }
+            })
+            .collect();
         for (i, pos) in positions.iter().enumerate() {
-            // Degree-weighted charge: hub nodes repel more strongly,
-            // creating natural voids between clusters.
-            // Isolated nodes get a reduced charge so they orbit closer to core.
-            let charge = if degrees[i] == 0 {
-                isolated_charge
-            } else {
-                1.0 + (degrees[i] as f64).powf(charge_exponent)
-            };
-            tree.insert(root, *pos, i, charge);
+            tree.insert(root, *pos, i, charges[i]);
         }
 
         // Compute repulsive forces (parallel)
@@ -383,7 +430,7 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         // Integrate forces
         let max_vel = max_velocity * temperature;
         for i in 0..num_nodes {
-            let g = if degrees[i] == 0 {
+            let g = if is_isolated[i] {
                 gravity_isolated
             } else {
                 gravity
@@ -398,7 +445,7 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
             velocities[i][1] = clamp_abs((velocities[i][1] + fy) * friction, max_vel);
 
             // Tangential spin for isolated nodes
-            if degrees[i] == 0 {
+            if is_isolated[i] {
                 let dx = positions[i][0];
                 let dy = positions[i][1];
                 let r = (dx * dx + dy * dy).sqrt().max(1.0);
