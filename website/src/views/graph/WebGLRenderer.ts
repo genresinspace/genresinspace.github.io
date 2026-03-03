@@ -1,7 +1,20 @@
 /** WebGL2 renderer for graph nodes, edges, and arrowheads. */
 
-const EDGE_SEGMENTS = 8;
-export const EDGE_CURVATURE = 0.15;
+import {
+  EDGE_SEGMENTS,
+  EDGE_WIDTH,
+  EDGE_SRC_TINT_RANGE,
+  EDGE_TGT_TINT_RANGE,
+  EDGE_TINT_POWER,
+  NODE_EDGE_SMOOTH,
+  ARROW_WORLD_SPEED,
+  ARROW_MARGIN_SRC,
+  ARROW_MARGIN_TGT_RADIUS,
+  ARROW_WIDTH_RATIO,
+} from "./graphConstants";
+
+// Re-export for consumers that previously imported from here
+export { EDGE_CURVATURE } from "./graphConstants";
 
 // Vertex shader for nodes (point sprites)
 // a_size is already in device pixels from CPU side
@@ -29,7 +42,7 @@ void main() {
   float dist = dot(p, p);
   if (dist > 1.0) discard;
   // Smooth edge
-  float alpha = 1.0 - smoothstep(0.8, 1.0, dist);
+  float alpha = 1.0 - smoothstep(${NODE_EDGE_SMOOTH[0].toFixed(1)}, ${NODE_EDGE_SMOOTH[1].toFixed(1)}, dist);
   fragColor = vec4(v_color.rgb, v_color.a * alpha);
 }`;
 
@@ -106,8 +119,8 @@ in float v_t;
 out vec4 fragColor;
 void main() {
   // Tint edge endpoints with node colors (RGB only, preserve edge alpha)
-  float srcBlend = pow(smoothstep(0.45, 0.0, v_t), 0.4);
-  float tgtBlend = pow(smoothstep(0.55, 1.0, v_t), 0.4);
+  float srcBlend = pow(smoothstep(${EDGE_SRC_TINT_RANGE[0].toFixed(2)}, ${EDGE_SRC_TINT_RANGE[1].toFixed(2)}, v_t), ${EDGE_TINT_POWER.toFixed(1)});
+  float tgtBlend = pow(smoothstep(${EDGE_TGT_TINT_RANGE[0].toFixed(2)}, ${EDGE_TGT_TINT_RANGE[1].toFixed(2)}, v_t), ${EDGE_TINT_POWER.toFixed(1)});
   vec4 color = v_edgeColor;
   color.rgb = mix(color.rgb, v_srcNodeColor.rgb, srcBlend);
   color.rgb = mix(color.rgb, v_tgtNodeColor.rgb, tgtBlend);
@@ -121,7 +134,7 @@ uniform mat3 u_view;
 uniform float u_arrowSize; // arrow length in world units
 uniform float u_time;      // seconds, for animation
 uniform float u_curvature; // bezier curvature factor
-const float WORLD_SPEED = 30.0; // world units per second
+const float WORLD_SPEED = ${ARROW_WORLD_SPEED.toFixed(1)}; // world units per second
 // Per-vertex: triangle template
 in vec2 a_template;
 // Per-instance: edge endpoint and direction
@@ -159,8 +172,8 @@ void main() {
     tCurve = 0.5;
   } else {
     // Animated: slide along the curve within node-radius margins
-    float marginSrc = u_arrowSize * 1.5;
-    float marginTgt = a_targetSize * 0.5 + u_arrowSize;
+    float marginSrc = u_arrowSize * ${ARROW_MARGIN_SRC.toFixed(1)};
+    float marginTgt = a_targetSize * ${ARROW_MARGIN_TGT_RADIUS.toFixed(1)} + u_arrowSize;
     float usableLen = max(edgeLen - marginSrc - marginTgt, 1.0);
     float linearT = fract(a_phase + u_time * WORLD_SPEED * a_speed / edgeLen);
     // Map linear position to curve t parameter (approximate)
@@ -176,7 +189,7 @@ void main() {
   // Build triangle in world space
   vec2 worldPos = arrowTip
     + dir * (a_template.x * u_arrowSize)
-    + perp * (a_template.y * u_arrowSize * 0.4);
+    + perp * (a_template.y * u_arrowSize * ${ARROW_WIDTH_RATIO.toFixed(1)});
 
   vec3 pos = u_view * vec3(worldPos, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
@@ -569,7 +582,7 @@ export class WebGLRenderer {
       );
       gl.uniform1f(
         gl.getUniformLocation(this.edgeProgram, "u_width"),
-        0.5 // half-width in world units; scales with zoom like nodes
+        EDGE_WIDTH
       );
       gl.uniform1f(
         gl.getUniformLocation(this.edgeProgram, "u_curvature"),

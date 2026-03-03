@@ -12,17 +12,40 @@ import {
 import { useTheme } from "../../theme";
 
 import type { Camera } from "./Camera";
-import { WebGLRenderer, EDGE_CURVATURE } from "./WebGLRenderer";
+import { WebGLRenderer } from "./WebGLRenderer";
 import { hitTestNode, HOVER_HIT_BUFFER } from "./HitTest";
 import { InteractionHandler } from "./Interaction";
 import { PathInfo } from "./pathInfo";
-
-/** Exponential decay time constant for hover transitions (ms).
- *  ~98.5% converged at 500ms. */
-const TRANSITION_TAU = 120;
-
-/** World-unit spacing between arrows on animated (selected) edges. */
-const ARROW_SPACING = 60;
+import {
+  EDGE_CURVATURE,
+  EDGE_SELECTED_SATURATION,
+  EDGE_UNSELECTED_SATURATION,
+  EDGE_SELECTED_ALPHA,
+  EDGE_UNSELECTED_ALPHA,
+  EDGE_OPACITY_FALLOFF,
+  NODE_SIZE_BASE,
+  NODE_SIZE_MIN_FRAC,
+  NODE_SIZE_DEGREE_FRAC,
+  NODE_SHRINK_UNSELECTED,
+  NODE_GROW_FOCUSED,
+  NODE_GROW_HOVERED,
+  NODE_DIM_RGB,
+  NODE_DIM_ALPHA,
+  NODE_OPACITY_FALLOFF,
+  NODE_LIGHTNESS_LIGHT,
+  NODE_LIGHTNESS_DARK,
+  ARROW_SPACING,
+  ARROW_SIZE_MULTIPLIER,
+  ARROW_SPEED_FALLOFF,
+  TRANSITION_TAU,
+  HOVER_DEBOUNCE_MS,
+  BG_LIGHT,
+  BG_DARK,
+  FIT_STDDEV_MULT,
+  FIT_RADIUS_MIN,
+  FIT_PADDING,
+  FIT_ANIM_DURATION,
+} from "./graphConstants";
 
 /** Parse a CSS color string to RGBA floats [0..1]. */
 function parseColor(css: string): [number, number, number, number] {
@@ -179,7 +202,7 @@ export function GraphCanvas({
 
   const maxDegree = data.max_degree;
   // Graph-specific node lightness: brighter on light mode's darker charcoal bg
-  const graphNodeLightness = theme === "light" ? 72 : 60;
+  const graphNodeLightness = theme === "light" ? NODE_LIGHTNESS_LIGHT : NODE_LIGHTNESS_DARK;
 
   // Precompute node positions (flat Float32Array)
   const nodePositions = useMemo(() => {
@@ -258,16 +281,16 @@ export function GraphCanvas({
               ? 1
               : pathInfo.nodeDistances.get(node.id) ?? maxDistance;
           // dist 0-1: full opacity; beyond that: exponential falloff
-          const alpha = dist <= 1 ? 1.0 : Math.pow(0.25, dist - 1);
+          const alpha = dist <= 1 ? 1.0 : Math.pow(NODE_OPACITY_FALLOFF, dist - 1);
           arr[i * 4] = r;
           arr[i * 4 + 1] = g;
           arr[i * 4 + 2] = b;
           arr[i * 4 + 3] = alpha;
         } else {
-          arr[i * 4] = r * 0.3;
-          arr[i * 4 + 1] = g * 0.3;
-          arr[i * 4 + 2] = b * 0.3;
-          arr[i * 4 + 3] = 0.06;
+          arr[i * 4] = r * NODE_DIM_RGB;
+          arr[i * 4 + 1] = g * NODE_DIM_RGB;
+          arr[i * 4 + 2] = b * NODE_DIM_RGB;
+          arr[i * 4 + 3] = NODE_DIM_ALPHA;
         }
       } else {
         arr[i * 4] = r;
@@ -293,21 +316,21 @@ export function GraphCanvas({
     const arr = new Float32Array(data.nodes.length);
     for (let i = 0; i < data.nodes.length; i++) {
       const node = data.nodes[i];
-      let size = 60.0 * (0.2 + (node.edges.length / maxDegree) * 0.8);
+      let size = NODE_SIZE_BASE * (NODE_SIZE_MIN_FRAC + (node.edges.length / maxDegree) * NODE_SIZE_DEGREE_FRAC);
 
       // Shrink if not highlighted when something is selected
       if (selectedId && !isHighlightedDueToSelection(node.id, true)) {
-        size -= 1.5;
+        size -= NODE_SHRINK_UNSELECTED;
       }
 
       // Grow if focused
       if (focusedId === node.id) {
-        size += 1.5;
+        size += NODE_GROW_FOCUSED;
       }
 
       // Grow if hovered
       if (hoveredId === node.id) {
-        size += 2.5;
+        size += NODE_GROW_HOVERED;
       }
 
       arr[i] = Math.max(size, 1.0);
@@ -328,8 +351,8 @@ export function GraphCanvas({
     const arr = new Float32Array(data.edges.length * 8); // 4 components * 2 vertices
     const dimmedColor = parseColor("hsla(0, 0%, 20%, 0.1)");
 
-    const selectedAlpha = 0.6;
-    const unselectedAlpha = 0.1;
+    const selectedAlpha = EDGE_SELECTED_ALPHA;
+    const unselectedAlpha = EDGE_UNSELECTED_ALPHA;
 
     for (let i = 0; i < data.edges.length; i++) {
       const edge = data.edges[i];
@@ -356,27 +379,27 @@ export function GraphCanvas({
               targetIndex !== -1 &&
               Math.abs(sourceIndex - targetIndex) === 1
             ) {
-              color = edgeColour(90, selectedAlpha);
+              color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha);
             } else {
               color = dimmedColor;
             }
           } else if (edge.source === selectedId || edge.target === selectedId) {
             // Direct edges from/to selected node: full visibility
-            color = edgeColour(90, selectedAlpha);
+            color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha);
           } else {
             const distance = pathInfo.edgeDistances.get(edge);
             if (distance !== undefined && distance < maxDistance) {
               // distance 1 = immediate neighbour edges (full), beyond = falloff
               const alpha = distance <= 1
                 ? selectedAlpha
-                : selectedAlpha * Math.pow(0.25, distance - 1);
-              color = edgeColour(90, alpha);
+                : selectedAlpha * Math.pow(EDGE_OPACITY_FALLOFF, distance - 1);
+              color = edgeColour(EDGE_SELECTED_SATURATION, alpha);
             } else {
               color = dimmedColor;
             }
           }
         } else {
-          color = edgeColour(70, unselectedAlpha);
+          color = edgeColour(EDGE_UNSELECTED_SATURATION, unselectedAlpha);
         }
       }
 
@@ -449,7 +472,7 @@ export function GraphCanvas({
         const count = Math.max(1, Math.round(len / ARROW_SPACING));
         arrowCounts.push(count);
         // Direct edges (dist 0-1) at full speed; further edges slow down
-        edgeSpeeds.push(dist <= 1 ? 1.0 : Math.pow(0.5, dist - 1));
+        edgeSpeeds.push(dist <= 1 ? 1.0 : Math.pow(ARROW_SPEED_FALLOFF, dist - 1));
         totalInstances += count;
       } else {
         arrowCounts.push(1);
@@ -546,7 +569,6 @@ export function GraphCanvas({
 
     // Debounced hover
     let hoverTimer: ReturnType<typeof setTimeout> | null = null;
-    const HOVER_DEBOUNCE_MS = 80;
 
     // Set up interaction
     const interaction = new InteractionHandler(camera, canvas, {
@@ -716,13 +738,11 @@ export function GraphCanvas({
 
         // Dark graph background for both modes; slightly lighter for light mode
         const bg: [number, number, number, number] =
-          stateRef.current.theme === "light"
-            ? [0.12, 0.12, 0.14, 1]
-            : [0, 0, 0, 1];
+          stateRef.current.theme === "light" ? BG_LIGHT : BG_DARK;
         renderer.render(
           camera.getViewMatrix(),
           bg,
-          stateRef.current.arrowSizeScale * 6,
+          stateRef.current.arrowSizeScale * ARROW_SIZE_MULTIPLIER,
           camera.zoom,
           now / 1000,
           stateRef.current.curvedEdges ? EDGE_CURVATURE : 0.0
@@ -786,14 +806,14 @@ export function GraphCanvas({
       const stddev = Math.sqrt(variance / netPositions.length);
 
       // Zoom to fit 2 stddev radius; large minimum so spatial neighbours stay visible
-      const fitRadius = Math.max(stddev * 2, 150);
+      const fitRadius = Math.max(stddev * FIT_STDDEV_MULT, FIT_RADIUS_MIN);
       const availableSize = Math.min(
-        camera.canvasW - Math.abs(camera.viewportOffsetX) - 100,
-        camera.canvasH - Math.abs(camera.viewportOffsetY) - 100
+        camera.canvasW - Math.abs(camera.viewportOffsetX) - FIT_PADDING,
+        camera.canvasH - Math.abs(camera.viewportOffsetY) - FIT_PADDING
       );
       const fitZoom = availableSize / (fitRadius * 2);
 
-      camera.animateTo(mx, my, Math.max(fitZoom, camera.minZoomLevel), 900);
+      camera.animateTo(mx, my, Math.max(fitZoom, camera.minZoomLevel), FIT_ANIM_DURATION);
     }
   }, [
     selectedId,

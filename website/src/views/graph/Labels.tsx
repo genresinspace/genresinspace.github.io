@@ -14,19 +14,24 @@ import { useTheme } from "../../theme";
 
 import type { Camera } from "./Camera";
 import { PathInfo } from "./pathInfo";
+import {
+  MAX_VISIBLE_LABELS,
+  LABEL_ZOOM_THRESHOLD,
+  LABEL_ZOOM_RATE,
+  LABEL_LIGHTNESS_BOOST,
+  LABEL_GRID_COLS,
+  LABEL_GRID_ROWS,
+  LABEL_FONT_SIZE_BASE,
+  LABEL_FONT_SIZE_DEGREE,
+  LABEL_OPACITY_FALLOFF,
+  LABEL_HOVER_BRIGHTNESS,
+  LABEL_DIM_BRIGHTNESS,
+  LABEL_DIM_OPACITY,
+} from "./graphConstants";
 
 import "../graph.css";
 
-const MAX_VISIBLE_LABELS = 100;
-/** Labels stay at base size until zoom exceeds this, then grow proportionally. */
-const LABEL_ZOOM_THRESHOLD = 1.5;
-/** Fraction of full zoom-scaling applied to labels beyond the threshold (0=fixed, 1=full). */
-const LABEL_ZOOM_RATE = 0.25;
-/** Extra HSL lightness added to graph labels to compensate for the dark graph background. */
-const LABEL_LIGHTNESS_BOOST = 5;
 const DRAG_THRESHOLD = 5;
-const GRID_COLS = 8;
-const GRID_ROWS = 6;
 
 type LabelCandidate = {
   nodeIndex: number;
@@ -67,7 +72,7 @@ function buildCandidates(
     if (wx < minX || wx > maxX || wy < minY || wy > maxY) continue;
 
     const [sx, sy] = camera.worldToScreen(wx, wy);
-    const baseFontSize = 10 + (node.edges.length / maxDegree) * 6;
+    const baseFontSize = LABEL_FONT_SIZE_BASE + (node.edges.length / maxDegree) * LABEL_FONT_SIZE_DEGREE;
     const fullScale = camera.zoom / LABEL_ZOOM_THRESHOLD;
     const fontSize = baseFontSize * Math.max(1, 1 + (fullScale - 1) * LABEL_ZOOM_RATE);
 
@@ -125,17 +130,17 @@ function selectLabels(
   // Spatial bucketing: divide the screen into a grid and interleave
   // the best candidate from each cell so labels spread across the
   // full graph instead of clustering in the dense center.
-  const cellW = screenW / GRID_COLS;
-  const cellH = screenH / GRID_ROWS;
+  const cellW = screenW / LABEL_GRID_COLS;
+  const cellH = screenH / LABEL_GRID_ROWS;
   const grid: LabelCandidate[][] = Array.from(
-    { length: GRID_COLS * GRID_ROWS },
+    { length: LABEL_GRID_COLS * LABEL_GRID_ROWS },
     () => []
   );
   for (const c of otherCandidates) {
-    const col = Math.min(Math.floor(c.screenX / cellW), GRID_COLS - 1);
-    const row = Math.min(Math.floor(c.screenY / cellH), GRID_ROWS - 1);
+    const col = Math.min(Math.floor(c.screenX / cellW), LABEL_GRID_COLS - 1);
+    const row = Math.min(Math.floor(c.screenY / cellH), LABEL_GRID_ROWS - 1);
     if (col >= 0 && row >= 0) {
-      grid[row * GRID_COLS + col].push(c);
+      grid[row * LABEL_GRID_COLS + col].push(c);
     }
   }
 
@@ -324,15 +329,15 @@ function updateLabelStyle(
   let filterStyle = "";
   let opacityStyle = 1;
   if (isHovered) {
-    filterStyle = "brightness(1.6)";
+    filterStyle = `brightness(${LABEL_HOVER_BRIGHTNESS})`;
   } else if (selectedId) {
     if (label.inSelectedNet) {
       opacityStyle = label.selectionDistance <= 1
         ? 1.0
-        : Math.pow(0.25, label.selectionDistance - 1);
+        : Math.pow(LABEL_OPACITY_FALLOFF, label.selectionDistance - 1);
     } else {
-      filterStyle = "brightness(0.4)";
-      opacityStyle = 0.2;
+      filterStyle = `brightness(${LABEL_DIM_BRIGHTNESS})`;
+      opacityStyle = LABEL_DIM_OPACITY;
     }
   }
 
