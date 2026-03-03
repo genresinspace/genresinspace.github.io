@@ -23,6 +23,12 @@ fn main() -> anyhow::Result<()> {
         node.y = pos[1];
     }
 
+    let hues = datagen::color_propagation::compute_hues(num_nodes, &adjacency);
+    for (node, &hue) in data.nodes.iter_mut().zip(hues.iter()) {
+        node.hue = hue;
+    }
+    println!("Computed color propagation for {num_nodes} nodes");
+
     std::fs::write(data_path, serde_json::to_string_pretty(&data)?)?;
     println!("Updated {data_path:?}");
     Ok(())

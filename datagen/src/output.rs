@@ -89,6 +89,7 @@ pub fn produce(
             label: processed_genre.name.clone(),
             x: 0.0,
             y: 0.0,
+            hue: 0.0,
         };
 
         graph.nodes.push(node);
@@ -270,6 +271,16 @@ pub fn produce(
         }
         println!(
             "{:.2}s: computed force-directed layout for {} nodes",
+            start.elapsed().as_secs_f32(),
+            graph.nodes.len()
+        );
+
+        let hues = crate::color_propagation::compute_hues(graph.nodes.len(), &adjacency);
+        for (node, &hue) in graph.nodes.iter_mut().zip(hues.iter()) {
+            node.hue = hue;
+        }
+        println!(
+            "{:.2}s: computed color propagation for {} nodes",
             start.elapsed().as_secs_f32(),
             graph.nodes.len()
         );

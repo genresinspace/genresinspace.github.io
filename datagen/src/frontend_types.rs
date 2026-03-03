@@ -46,6 +46,9 @@ pub struct NodeData {
     pub x: f64,
     /// Y position from force-directed layout.
     pub y: f64,
+    /// Hue (0–360) from color propagation.
+    #[serde(default)]
+    pub hue: f64,
 }
 
 /// The type of relationship between two genres.
