@@ -46,11 +46,13 @@ export function SelectedNodeInfo({
   setFocusedId,
   shouldShowMixes,
   shouldAutoplayMixes,
+  isCameraAnimating,
 }: {
   selectedId: string | null;
   setFocusedId: (id: string | null) => void;
   shouldShowMixes: boolean;
   shouldAutoplayMixes: boolean;
+  isCameraAnimating?: boolean;
 }) {
   const { nodes, edges, max_degree: maxDegree } = useDataContext();
   const [activeTab, setActiveTab] = useState<"connections" | "artists">(
@@ -74,6 +76,7 @@ export function SelectedNodeInfo({
             <FeaturedMix
               genreData={genreData}
               shouldAutoplayMixes={shouldAutoplayMixes}
+              isCameraAnimating={isCameraAnimating}
             />
           )}
 
@@ -174,9 +177,11 @@ function GenreHeader({
 function FeaturedMix({
   genreData,
   shouldAutoplayMixes,
+  isCameraAnimating,
 }: {
   genreData: GenreFileData;
   shouldAutoplayMixes: boolean;
+  isCameraAnimating?: boolean;
 }) {
   const mixes = genreData.mixes;
   return mixes ? (
@@ -192,6 +197,7 @@ function FeaturedMix({
             key={JSON.stringify(mix)}
             mix={mix}
             autoplay={shouldAutoplayMixes}
+            isCameraAnimating={isCameraAnimating}
           />
         ))}
       </div>
@@ -211,15 +217,26 @@ function FeaturedMix({
 function MixItem({
   mix,
   autoplay,
+  isCameraAnimating,
 }: {
   mix: { playlist: string; note?: string } | { video: string; note?: string };
   autoplay: boolean;
+  isCameraAnimating?: boolean;
 }) {
   return (
     <div
       className={`${colourStyles.node.infoBackground} overflow-hidden shadow-md rounded-xl`}
     >
-      {"video" in mix ? (
+      {isCameraAnimating ? (
+        <div
+          className="relative w-full bg-black flex items-center justify-center text-slate-500"
+          style={{ paddingBottom: "56.25%" }}
+        >
+          <span className="absolute inset-0 flex items-center justify-center">
+            Loading...
+          </span>
+        </div>
+      ) : "video" in mix ? (
         <YouTubeEmbed videoId={mix.video} autoplay={autoplay} />
       ) : (
         <YouTubeEmbed playlistId={mix.playlist} autoplay={autoplay} />

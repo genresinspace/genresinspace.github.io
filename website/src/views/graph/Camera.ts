@@ -196,6 +196,11 @@ export class Camera {
     }
   }
 
+  /** Whether the camera is currently playing an animateTo() transition. */
+  get isAnimating(): boolean {
+    return this.animating;
+  }
+
   /** Animate camera to a world position over durationMs. */
   animateTo(
     worldX: number,

@@ -17,6 +17,7 @@ export function Graph({
   path,
   viewportOffsetX,
   viewportOffsetY,
+  onCameraAnimatingChange,
 }: {
   settings: SettingsData;
   selectedId: string | null;
@@ -25,6 +26,7 @@ export function Graph({
   path: string[] | null;
   viewportOffsetX: number;
   viewportOffsetY: number;
+  onCameraAnimatingChange?: (animating: boolean) => void;
 }) {
   const data = useDataContext();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -36,8 +38,17 @@ export function Graph({
   // Direct DOM refs for instant label tracking (avoids React re-render lag)
   const labelContainerRef = useRef<HTMLDivElement>(null);
   const labelSnapshotRef = useRef({ x: 0, y: 0, zoom: 1, screenCenterX: 0, screenCenterY: 0 });
+  const wasAnimatingRef = useRef(false);
+  const onCameraAnimatingChangeRef = useRef(onCameraAnimatingChange);
+  onCameraAnimatingChangeRef.current = onCameraAnimatingChange;
 
   const onCameraChange = useCallback(() => {
+    // Notify parent when camera animation starts/stops
+    const isAnim = cameraRef.current.isAnimating;
+    if (isAnim !== wasAnimatingRef.current) {
+      wasAnimatingRef.current = isAnim;
+      onCameraAnimatingChangeRef.current?.(isAnim);
+    }
     // Apply CSS transform to labels container immediately (same frame as WebGL)
     const container = labelContainerRef.current;
     if (container) {
