@@ -78,10 +78,53 @@ export function Labels({
     nodeId: string;
   } | null>(null);
 
-  // Handle pointerdown on a label: track for drag vs click
+  // Handle pointerdown on a label: track for drag vs click.
+  // Touch uses touchmove/touchend (not pointermove) so we can check
+  // e.touches.length and stop panning when multitouch begins.
   const onLabelPointerDown = useCallback(
     (e: React.PointerEvent, nodeId: string) => {
       e.preventDefault();
+
+      if (e.pointerType === "touch") {
+        let totalDist = 0;
+        let lastX = e.clientX;
+        let lastY = e.clientY;
+        let sawMultitouch = false;
+
+        const onMove = (te: TouchEvent) => {
+          // When a second finger arrives, stop panning — the canvas will
+          // handle pinch via its own touchmove (which sees all touches).
+          if (te.touches.length >= 2) {
+            sawMultitouch = true;
+            return;
+          }
+          const touch = te.touches[0];
+          const dx = touch.clientX - lastX;
+          const dy = touch.clientY - lastY;
+          totalDist += Math.hypot(dx, dy);
+          camera.pan(dx, dy);
+          lastX = touch.clientX;
+          lastY = touch.clientY;
+          onCameraChange();
+        };
+
+        const onEnd = (te: TouchEvent) => {
+          if (te.touches.length > 0) return; // other fingers still active
+          if (!sawMultitouch && totalDist < DRAG_THRESHOLD) {
+            setSelectedId(selectedId === nodeId ? null : nodeId);
+          }
+          window.removeEventListener("touchmove", onMove);
+          window.removeEventListener("touchend", onEnd);
+          window.removeEventListener("touchcancel", onEnd);
+        };
+
+        window.addEventListener("touchmove", onMove);
+        window.addEventListener("touchend", onEnd);
+        window.addEventListener("touchcancel", onEnd);
+        return;
+      }
+
+      // Mouse: full drag tracking with camera pan
       dragStateRef.current = {
         startX: e.clientX,
         startY: e.clientY,
@@ -245,7 +288,7 @@ export function Labels({
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 overflow-hidden"
+      className="absolute inset-0 overflow-hidden node-label-container"
       style={{ pointerEvents: "none", willChange: "transform" }}
     >
       {labels.map((label) => {
@@ -287,9 +330,6 @@ export function Labels({
             key={label.node.id}
             className="node-label"
             style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
               transform: `translate(${label.screenX}px, ${label.screenY}px) translate(-50%, -100%)`,
               fontSize: `${label.fontSize}px`,
               backgroundColor: bgColor,
@@ -297,9 +337,6 @@ export function Labels({
               color: textColor,
               filter: filterStyle,
               opacity: opacityStyle,
-              whiteSpace: "nowrap",
-              pointerEvents: "auto",
-              cursor: "pointer",
             }}
             onPointerEnter={() => setHoveredId(label.node.id)}
             onPointerLeave={() => {
