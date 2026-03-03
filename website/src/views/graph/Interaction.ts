@@ -200,6 +200,34 @@ export class InteractionHandler {
 
   private onTouchMove(e: TouchEvent): void {
     e.preventDefault();
+
+    // Handle state/touch-count mismatches — e.touches includes ALL page
+    // touches, so fingers on label overlays can change the count without
+    // the canvas seeing touchstart/touchend for them.
+    if (this.state === "dragging" && e.touches.length === 2) {
+      // Second finger appeared (possibly on a label) — transition to pinch
+      this.state = "pinching";
+      const dx = e.touches[1].clientX - e.touches[0].clientX;
+      const dy = e.touches[1].clientY - e.touches[0].clientY;
+      this.lastPinchDist = Math.sqrt(dx * dx + dy * dy);
+      this.lastPinchCenterX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      this.lastPinchCenterY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+      this.velocityX = 0;
+      this.velocityY = 0;
+      return;
+    }
+    if (this.state === "pinching" && e.touches.length === 1) {
+      // Went from two fingers to one (finger lifted from label) — transition to drag
+      this.state = "dragging";
+      this.dragStartX = e.touches[0].clientX;
+      this.dragStartY = e.touches[0].clientY;
+      this.totalDragDist = CLICK_DISTANCE_THRESHOLD + 1; // prevent click on release
+      this.lastMoveTime = performance.now();
+      this.velocityX = 0;
+      this.velocityY = 0;
+      return;
+    }
+
     if (this.state === "dragging" && e.touches.length === 1) {
       const dx = e.touches[0].clientX - this.dragStartX;
       const dy = e.touches[0].clientY - this.dragStartY;
@@ -227,10 +255,11 @@ export class InteractionHandler {
       const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
       const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
 
-      // Zoom
+      // Zoom — use instant zoomAt so pinch tracks fingers directly
+      // (smoothZoomAt adds lag since the target moves continuously)
       const factor = dist / this.lastPinchDist;
       const rect = this.canvas.getBoundingClientRect();
-      this.camera.smoothZoomAt(
+      this.camera.zoomAt(
         centerX - rect.left,
         centerY - rect.top,
         factor
