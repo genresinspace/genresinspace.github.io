@@ -128,10 +128,7 @@ export class InteractionHandler {
       const rect = this.canvas.getBoundingClientRect();
       const sx = e.clientX - rect.left;
       const sy = e.clientY - rect.top;
-      const [wx, wy] = this.camera.screenToWorld(
-        sx * window.devicePixelRatio,
-        sy * window.devicePixelRatio
-      );
+      const [wx, wy] = this.camera.screenToWorld(sx, sy);
       const hit = this.callbacks.hitTest(wx, wy);
       this.callbacks.onNodeHover(hit);
     }
@@ -150,10 +147,7 @@ export class InteractionHandler {
       const rect = this.canvas.getBoundingClientRect();
       const sx = e.clientX - rect.left;
       const sy = e.clientY - rect.top;
-      const [wx, wy] = this.camera.screenToWorld(
-        sx * window.devicePixelRatio,
-        sy * window.devicePixelRatio
-      );
+      const [wx, wy] = this.camera.screenToWorld(sx, sy);
       const hit = this.callbacks.hitTest(wx, wy);
       this.callbacks.onNodeClick(hit);
     } else if (
@@ -177,8 +171,8 @@ export class InteractionHandler {
   private onWheel(e: WheelEvent): void {
     e.preventDefault();
     const rect = this.canvas.getBoundingClientRect();
-    const sx = (e.clientX - rect.left) * window.devicePixelRatio;
-    const sy = (e.clientY - rect.top) * window.devicePixelRatio;
+    const sx = e.clientX - rect.left;
+    const sy = e.clientY - rect.top;
     const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
     this.camera.smoothZoomAt(sx, sy, factor);
     this.callbacks.onViewChange();
@@ -237,8 +231,8 @@ export class InteractionHandler {
       const factor = dist / this.lastPinchDist;
       const rect = this.canvas.getBoundingClientRect();
       this.camera.smoothZoomAt(
-        (centerX - rect.left) * window.devicePixelRatio,
-        (centerY - rect.top) * window.devicePixelRatio,
+        centerX - rect.left,
+        centerY - rect.top,
         factor
       );
 
@@ -265,10 +259,7 @@ export class InteractionHandler {
       const rect = this.canvas.getBoundingClientRect();
       const sx = touch.clientX - rect.left;
       const sy = touch.clientY - rect.top;
-      const [wx, wy] = this.camera.screenToWorld(
-        sx * window.devicePixelRatio,
-        sy * window.devicePixelRatio
-      );
+      const [wx, wy] = this.camera.screenToWorld(sx, sy);
       const hit = this.callbacks.hitTest(wx, wy);
       this.callbacks.onNodeClick(hit);
     } else if (

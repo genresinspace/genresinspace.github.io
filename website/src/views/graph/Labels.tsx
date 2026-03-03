@@ -18,7 +18,7 @@ import { PathInfo } from "./pathInfo";
 import "../graph.css";
 
 const MAX_VISIBLE_LABELS = 60;
-/** Labels stay at base size until zoom/dpr exceeds this, then grow proportionally. */
+/** Labels stay at base size until zoom exceeds this, then grow proportionally. */
 const LABEL_ZOOM_THRESHOLD = 1.5;
 /** Fraction of full zoom-scaling applied to labels beyond the threshold (0=fixed, 1=full). */
 const LABEL_ZOOM_RATE = 0.25;
@@ -123,7 +123,6 @@ export function Labels({
     if (!settings.general.showLabels)
       return { result: [] as LabelCandidate[], allCandidates: [] as LabelCandidate[] };
 
-    const dpr = window.devicePixelRatio || 1;
     const [minX, minY, maxX, maxY] = camera.getVisibleBounds();
 
     // Build candidate list
@@ -139,7 +138,7 @@ export function Labels({
 
       const [sx, sy] = camera.worldToScreen(wx, wy);
       const baseFontSize = 10 + (node.edges.length / maxDegree) * 6;
-      const zoomScale = camera.zoom / dpr;
+      const zoomScale = camera.zoom;
       // At overview zoom, use full base size; once zoomed in enough,
       // transition to scaling with zoom at half rate
       // Beyond threshold, labels grow at LABEL_ZOOM_RATE of the full zoom rate
@@ -201,8 +200,8 @@ export function Labels({
     const tryPlace = (c: LabelCandidate): boolean => {
       if (result.length >= MAX_VISIBLE_LABELS) return false;
       const charWidth = c.fontSize * 0.6;
-      const w = c.node.label.length * charWidth * dpr + 16 * dpr;
-      const h = (c.fontSize + 4) * dpr;
+      const w = c.node.label.length * charWidth + 16;
+      const h = c.fontSize + 4;
       const x = c.screenX - w / 2;
       const y = c.screenY - h;
 
@@ -242,8 +241,6 @@ export function Labels({
     const hovered = allCandidates.find((c) => c.node.id === hoveredId);
     return hovered ? [...result, hovered] : result;
   }, [stableLabels, hoveredId]);
-
-  const dpr = window.devicePixelRatio || 1;
 
   return (
     <div
@@ -293,7 +290,7 @@ export function Labels({
               position: "absolute",
               left: 0,
               top: 0,
-              transform: `translate(${label.screenX / dpr}px, ${label.screenY / dpr}px) translate(-50%, -100%)`,
+              transform: `translate(${label.screenX}px, ${label.screenY}px) translate(-50%, -100%)`,
               fontSize: `${label.fontSize}px`,
               backgroundColor: bgColor,
               borderBottom: `4px solid ${borderColor}`,
@@ -311,8 +308,8 @@ export function Labels({
             onWheel={(e) => {
               // Forward wheel events to the camera so zoom works over labels
               const rect = containerRef.current!.getBoundingClientRect();
-              const sx = (e.clientX - rect.left) * (window.devicePixelRatio || 1);
-              const sy = (e.clientY - rect.top) * (window.devicePixelRatio || 1);
+              const sx = e.clientX - rect.left;
+              const sy = e.clientY - rect.top;
               const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
               camera.smoothZoomAt(sx, sy, factor);
               onCameraChange();

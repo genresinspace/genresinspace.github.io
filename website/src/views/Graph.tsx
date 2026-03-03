@@ -54,12 +54,11 @@ export function Graph({
     if (container) {
       const snap = labelSnapshotRef.current;
       const state = cameraRef.current.getState();
-      const dpr = window.devicePixelRatio || 1;
       if (snap.zoom > 0) {
         const s = state.zoom / snap.zoom;
-        const tx = (snap.x - state.x) * state.zoom / dpr;
-        const ty = (snap.y - state.y) * state.zoom / dpr;
-        container.style.transformOrigin = `${state.screenCenterX / dpr}px ${state.screenCenterY / dpr}px`;
+        const tx = (snap.x - state.x) * state.zoom;
+        const ty = (snap.y - state.y) * state.zoom;
+        container.style.transformOrigin = `${state.screenCenterX}px ${state.screenCenterY}px`;
         container.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
       }
     }

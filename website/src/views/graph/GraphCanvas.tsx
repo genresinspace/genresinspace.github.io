@@ -521,11 +521,10 @@ export function GraphCanvas({
 
     // Size canvas
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
+      canvas.width = w;
+      canvas.height = h;
       gl.viewport(0, 0, canvas.width, canvas.height);
       camera.setCanvasSize(canvas.width, canvas.height);
       onCameraChange();
@@ -722,7 +721,7 @@ export function GraphCanvas({
           camera.getViewMatrix(),
           bg,
           stateRef.current.arrowSizeScale * 6,
-          camera.zoom * (window.devicePixelRatio || 1),
+          camera.zoom,
           now / 1000
         );
       }
@@ -744,8 +743,8 @@ export function GraphCanvas({
   // Update viewport offset
   useEffect(() => {
     camera.setViewportOffset(
-      viewportOffsetX * (window.devicePixelRatio || 1),
-      viewportOffsetY * (window.devicePixelRatio || 1)
+      viewportOffsetX,
+      viewportOffsetY
     );
     onCameraChange();
   }, [viewportOffsetX, viewportOffsetY, camera, onCameraChange]);
