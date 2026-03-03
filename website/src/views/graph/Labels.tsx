@@ -1,6 +1,6 @@
 /** HTML label overlay with conflict-avoidance layout. */
 
-import { useMemo, useRef, useCallback, type RefObject } from "react";
+import { useMemo, useRef, useLayoutEffect, type RefObject } from "react";
 
 import {
   nodeColour,
@@ -71,96 +71,22 @@ export function Labels({
     theme === "light" ? NodeColourLightnessLight : NodeColourLightnessDark;
   const maxDegree = data.max_degree;
   const maxDistance = settings.general.maxInfluenceDistance + 1;
-  const dragStateRef = useRef<{
-    startX: number;
-    startY: number;
-    totalDist: number;
-    nodeId: string;
-  } | null>(null);
 
-  // Handle pointerdown on a label: track for drag vs click.
-  // Touch uses touchmove/touchend (not pointermove) so we can check
-  // e.touches.length and stop panning when multitouch begins.
-  const onLabelPointerDown = useCallback(
-    (e: React.PointerEvent, nodeId: string) => {
-      e.preventDefault();
-
-      if (e.pointerType === "touch") {
-        let totalDist = 0;
-        let lastX = e.clientX;
-        let lastY = e.clientY;
-        let sawMultitouch = false;
-
-        const onMove = (te: TouchEvent) => {
-          // When a second finger arrives, stop panning — the canvas will
-          // handle pinch via its own touchmove (which sees all touches).
-          if (te.touches.length >= 2) {
-            sawMultitouch = true;
-            return;
-          }
-          const touch = te.touches[0];
-          const dx = touch.clientX - lastX;
-          const dy = touch.clientY - lastY;
-          totalDist += Math.hypot(dx, dy);
-          camera.pan(dx, dy);
-          lastX = touch.clientX;
-          lastY = touch.clientY;
-          onCameraChange();
-        };
-
-        const onEnd = (te: TouchEvent) => {
-          if (te.touches.length > 0) return; // other fingers still active
-          if (!sawMultitouch && totalDist < DRAG_THRESHOLD) {
-            setSelectedId(selectedId === nodeId ? null : nodeId);
-          }
-          window.removeEventListener("touchmove", onMove);
-          window.removeEventListener("touchend", onEnd);
-          window.removeEventListener("touchcancel", onEnd);
-        };
-
-        window.addEventListener("touchmove", onMove);
-        window.addEventListener("touchend", onEnd);
-        window.addEventListener("touchcancel", onEnd);
-        return;
-      }
-
-      // Mouse: full drag tracking with camera pan
-      dragStateRef.current = {
-        startX: e.clientX,
-        startY: e.clientY,
-        totalDist: 0,
-        nodeId,
-      };
-
-      const onMove = (me: PointerEvent) => {
-        const state = dragStateRef.current;
-        if (!state) return;
-        const dx = me.clientX - state.startX;
-        const dy = me.clientY - state.startY;
-        state.totalDist += Math.sqrt(dx * dx + dy * dy);
-        // Pan camera directly
-        camera.pan(dx, dy);
-        state.startX = me.clientX;
-        state.startY = me.clientY;
-        onCameraChange();
-      };
-
-      const onUp = () => {
-        const state = dragStateRef.current;
-        if (state && state.totalDist < DRAG_THRESHOLD) {
-          // Click — toggle selection
-          setSelectedId(selectedId === state.nodeId ? null : state.nodeId);
-        }
-        dragStateRef.current = null;
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onUp);
-      };
-
-      window.addEventListener("pointermove", onMove);
-      window.addEventListener("pointerup", onUp);
-    },
-    [camera, selectedId, setSelectedId, onCameraChange]
-  );
+  // Refs for current values so imperative event handlers avoid stale closures
+  const selectedIdRef = useRef(selectedId);
+  selectedIdRef.current = selectedId;
+  const hoveredIdRef = useRef(hoveredId);
+  hoveredIdRef.current = hoveredId;
+  const cameraRef = useRef(camera);
+  cameraRef.current = camera;
+  const onCameraChangeRef = useRef(onCameraChange);
+  onCameraChangeRef.current = onCameraChange;
+  const setSelectedIdRef = useRef(setSelectedId);
+  setSelectedIdRef.current = setSelectedId;
+  const setHoveredIdRef = useRef(setHoveredId);
+  setHoveredIdRef.current = setHoveredId;
+  const containerRefRef = useRef(containerRef);
+  containerRefRef.current = containerRef;
 
   const prevLabelIdsRef = useRef<Set<string>>(new Set());
   /** Cached label selection — reused between full recomputations. */
@@ -376,78 +302,198 @@ export function Labels({
     return hovered ? [...result, hovered] : result;
   }, [stableLabels, hoveredId]);
 
+  // --- Imperative DOM management ---
+  // We bypass React reconciliation for label elements so we can reliably
+  // control CSS animations (fade-in on enter) and avoid React re-keying
+  // causing spurious animation replays.
+  const labelElementsRef = useRef<Map<string, HTMLDivElement>>(new Map());
+  /** Exiting elements that are fading out but still need position updates. */
+  const exitingElementsRef = useRef<Map<string, { el: HTMLDivElement; nodeIndex: number }>>(new Map());
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const elements = labelElementsRef.current;
+    const exiting = exitingElementsRef.current;
+    const currentIds = new Set<string>();
+
+    for (const label of labels) {
+      currentIds.add(label.node.id);
+
+      // If this label was exiting, cancel the exit — it's back
+      if (exiting.has(label.node.id)) {
+        const entry = exiting.get(label.node.id)!;
+        entry.el.classList.remove("node-label-exit");
+        exiting.delete(label.node.id);
+        elements.set(label.node.id, entry.el);
+      }
+
+      let el = elements.get(label.node.id);
+
+      if (!el) {
+        el = document.createElement("div");
+        el.className = "node-label node-label-enter";
+        el.textContent = label.node.label;
+
+        // Remove enter animation class after it finishes
+        el.addEventListener("animationend", () => {
+          el!.classList.remove("node-label-enter");
+        }, { once: true });
+
+        // Attach event listeners — they read current state from refs
+        const nodeId = label.node.id;
+
+        el.addEventListener("pointerenter", () => {
+          setHoveredIdRef.current(nodeId);
+        });
+        el.addEventListener("pointerleave", () => {
+          if (hoveredIdRef.current === nodeId) setHoveredIdRef.current(null);
+        });
+        el.addEventListener("wheel", (e) => {
+          const rect = containerRefRef.current.current!.getBoundingClientRect();
+          const sx = e.clientX - rect.left;
+          const sy = e.clientY - rect.top;
+          const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+          cameraRef.current.smoothZoomAt(sx, sy, factor);
+          onCameraChangeRef.current();
+        }, { passive: true });
+        el.addEventListener("pointerdown", (e) => {
+          e.preventDefault();
+          const cam = cameraRef.current;
+          const onChange = onCameraChangeRef.current;
+
+          if (e.pointerType === "touch") {
+            let totalDist = 0;
+            let lastX = e.clientX;
+            let lastY = e.clientY;
+            let sawMultitouch = false;
+
+            const onMove = (te: TouchEvent) => {
+              if (te.touches.length >= 2) { sawMultitouch = true; return; }
+              const touch = te.touches[0];
+              const dx = touch.clientX - lastX;
+              const dy = touch.clientY - lastY;
+              totalDist += Math.hypot(dx, dy);
+              cam.pan(dx, dy);
+              lastX = touch.clientX;
+              lastY = touch.clientY;
+              onChange();
+            };
+            const onEnd = (te: TouchEvent) => {
+              if (te.touches.length > 0) return;
+              if (!sawMultitouch && totalDist < DRAG_THRESHOLD) {
+                const sid = selectedIdRef.current;
+                setSelectedIdRef.current(sid === nodeId ? null : nodeId);
+              }
+              window.removeEventListener("touchmove", onMove);
+              window.removeEventListener("touchend", onEnd);
+              window.removeEventListener("touchcancel", onEnd);
+            };
+            window.addEventListener("touchmove", onMove);
+            window.addEventListener("touchend", onEnd);
+            window.addEventListener("touchcancel", onEnd);
+            return;
+          }
+
+          // Mouse drag tracking
+          const dragState = { startX: e.clientX, startY: e.clientY, totalDist: 0 };
+          const onMove = (me: PointerEvent) => {
+            const dx = me.clientX - dragState.startX;
+            const dy = me.clientY - dragState.startY;
+            dragState.totalDist += Math.sqrt(dx * dx + dy * dy);
+            cam.pan(dx, dy);
+            dragState.startX = me.clientX;
+            dragState.startY = me.clientY;
+            onChange();
+          };
+          const onUp = () => {
+            if (dragState.totalDist < DRAG_THRESHOLD) {
+              const sid = selectedIdRef.current;
+              setSelectedIdRef.current(sid === nodeId ? null : nodeId);
+            }
+            window.removeEventListener("pointermove", onMove);
+            window.removeEventListener("pointerup", onUp);
+          };
+          window.addEventListener("pointermove", onMove);
+          window.addEventListener("pointerup", onUp);
+        });
+
+        container.appendChild(el);
+        elements.set(nodeId, el);
+      }
+
+      // Update styles on every sync
+      const bgColor = nodeColour(
+        label.node,
+        maxDegree,
+        colorLightness.GraphLabelBackgroundBorder + LABEL_LIGHTNESS_BOOST
+      );
+      const borderColor = nodeColour(
+        label.node,
+        maxDegree,
+        colorLightness.GraphLabelBackground + LABEL_LIGHTNESS_BOOST
+      );
+      const textColor = nodeColour(
+        label.node,
+        maxDegree,
+        colorLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST
+      );
+
+      const isHovered = hoveredId === label.node.id;
+      let filterStyle = "";
+      let opacityStyle = 1;
+      if (isHovered) {
+        filterStyle = "brightness(1.6)";
+      } else if (selectedId) {
+        if (label.inSelectedNet) {
+          opacityStyle = label.selectionDistance <= 1
+            ? 1.0
+            : Math.pow(0.25, label.selectionDistance - 1);
+        } else {
+          filterStyle = "brightness(0.4)";
+          opacityStyle = 0.2;
+        }
+      }
+
+      const s = el.style;
+      s.transform = `translate(${label.screenX}px, ${label.screenY}px) translate(-50%, -100%)`;
+      s.fontSize = `${label.fontSize}px`;
+      s.backgroundColor = bgColor;
+      s.borderBottom = `4px solid ${borderColor}`;
+      s.color = textColor;
+      s.filter = filterStyle;
+      s.opacity = String(opacityStyle);
+    }
+
+    // Start fade-out for elements no longer in the active set
+    for (const [id, el] of elements) {
+      if (!currentIds.has(id)) {
+        elements.delete(id);
+        const nodeIndex = parseInt(id, 10);
+        el.classList.add("node-label-exit");
+        exiting.set(id, { el, nodeIndex });
+        const remove = () => { el.remove(); exiting.delete(id); };
+        el.addEventListener("animationend", remove, { once: true });
+        setTimeout(remove, 250);
+      }
+    }
+
+    // Update positions of exiting elements so they follow the camera
+    for (const [, { el, nodeIndex }] of exiting) {
+      const wx = nodePositions[nodeIndex * 2];
+      const wy = nodePositions[nodeIndex * 2 + 1];
+      const [sx, sy] = camera.worldToScreen(wx, wy);
+      el.style.transform = `translate(${sx}px, ${sy}px) translate(-50%, -100%)`;
+    }
+  }, [labels, colorLightness, maxDegree, selectedId, hoveredId, camera, nodePositions, cameraVersion]);
+
+  // Render just the container — children are managed imperatively
   return (
     <div
       ref={containerRef}
       className="absolute inset-0 overflow-hidden node-label-container"
       style={{ pointerEvents: "none", willChange: "transform" }}
-    >
-      {labels.map((label) => {
-        const bgColor = nodeColour(
-          label.node,
-          maxDegree,
-          colorLightness.GraphLabelBackgroundBorder + LABEL_LIGHTNESS_BOOST
-        );
-        const borderColor = nodeColour(
-          label.node,
-          maxDegree,
-          colorLightness.GraphLabelBackground + LABEL_LIGHTNESS_BOOST
-        );
-        const textColor = nodeColour(
-          label.node,
-          maxDegree,
-          colorLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST
-        );
-
-        // Hover overrides all dimming — hovered labels are always fully visible
-        const isHovered = hoveredId === label.node.id;
-        let filterStyle: string | undefined;
-        let opacityStyle = 1;
-        if (isHovered) {
-          filterStyle = "brightness(1.6)";
-        } else if (selectedId) {
-          if (label.inSelectedNet) {
-            opacityStyle = label.selectionDistance <= 1
-              ? 1.0
-              : Math.pow(0.25, label.selectionDistance - 1);
-          } else {
-            filterStyle = "brightness(0.4)";
-            opacityStyle = 0.2;
-          }
-        }
-
-        return (
-          <div
-            key={label.node.id}
-            className="node-label"
-            style={{
-              transform: `translate(${label.screenX}px, ${label.screenY}px) translate(-50%, -100%)`,
-              fontSize: `${label.fontSize}px`,
-              backgroundColor: bgColor,
-              borderBottom: `4px solid ${borderColor}`,
-              color: textColor,
-              filter: filterStyle,
-              opacity: opacityStyle,
-            }}
-            onPointerEnter={() => setHoveredId(label.node.id)}
-            onPointerLeave={() => {
-              if (hoveredId === label.node.id) setHoveredId(null);
-            }}
-            onWheel={(e) => {
-              // Forward wheel events to the camera so zoom works over labels
-              const rect = containerRef.current!.getBoundingClientRect();
-              const sx = e.clientX - rect.left;
-              const sy = e.clientY - rect.top;
-              const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
-              camera.smoothZoomAt(sx, sy, factor);
-              onCameraChange();
-            }}
-            onPointerDown={(e) => onLabelPointerDown(e, label.node.id)}
-          >
-            {label.node.label}
-          </div>
-        );
-      })}
-    </div>
+    />
   );
 }
