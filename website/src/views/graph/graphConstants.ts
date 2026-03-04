@@ -9,15 +9,15 @@ export const EDGE_SEGMENTS = 8;
 /** Bezier curvature factor (0 = straight, higher = more arc). */
 export const EDGE_CURVATURE = 0.15;
 /** Edge half-width in world units. */
-export const EDGE_WIDTH = 0.5;
+export const EDGE_WIDTH = 0.6;
 /** Edge color saturation (HSL) when selected or in path. */
 export const EDGE_SELECTED_SATURATION = 90;
 /** Edge color saturation (HSL) when nothing is selected. */
 export const EDGE_UNSELECTED_SATURATION = 70;
 /** Edge alpha when connected to the selected node. */
-export const EDGE_SELECTED_ALPHA = 0.6;
+export const EDGE_SELECTED_ALPHA = 0.4;
 /** Edge alpha when not connected to the selected node. */
-export const EDGE_UNSELECTED_ALPHA = 0.1;
+export const EDGE_UNSELECTED_ALPHA = 0.15;
 /** Exponential base for edge opacity falloff with distance (0–1). */
 export const EDGE_OPACITY_FALLOFF = 0.25;
 
@@ -61,15 +61,15 @@ export const NODE_LIGHTNESS_DARK = 60;
 /** World-unit spacing between arrows on animated edges. */
 export const ARROW_SPACING = 60;
 /** Arrow animation speed in world units per second. */
-export const ARROW_WORLD_SPEED = 30.0;
+export const ARROW_WORLD_SPEED = 20.0;
 /** Source-end margin as a multiple of arrow size. */
 export const ARROW_MARGIN_SRC = 1.5;
 /** Target-end margin: fraction of target node radius. */
 export const ARROW_MARGIN_TGT_RADIUS = 0.5;
 /** Arrow width as a fraction of arrow length. */
-export const ARROW_WIDTH_RATIO = 0.4;
+export const ARROW_WIDTH_RATIO = 0.3;
 /** Multiplier applied to the arrowSizeScale setting. */
-export const ARROW_SIZE_MULTIPLIER = 6;
+export const ARROW_SIZE_MULTIPLIER = 12;
 /** Exponential base for arrow speed falloff with distance (0–1). */
 export const ARROW_SPEED_FALLOFF = 0.5;
 
@@ -89,11 +89,11 @@ export const BG_DARK: [number, number, number, number] = [0, 0, 0, 1];
 /** Fit neighbourhood to this many standard deviations. */
 export const FIT_STDDEV_MULT = 2;
 /** Minimum world-unit radius when zooming to a selected neighbourhood. */
-export const FIT_RADIUS_MIN = 150;
+export const FIT_RADIUS_MIN = 250;
 /** Screen-pixel padding around the neighbourhood when auto-fitting. */
-export const FIT_PADDING = 100;
+export const FIT_PADDING = 200;
 /** Duration (ms) of the zoom-to-neighbourhood animation. */
-export const FIT_ANIM_DURATION = 900;
+export const FIT_ANIM_DURATION = 1200;
 
 // ── Labels ───────────────────────────────────────────────────────────
 /** Maximum number of labels displayed simultaneously. */
