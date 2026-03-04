@@ -1,4 +1,4 @@
-import { Dispatch, useReducer, useEffect, useMemo } from "react";
+import { Dispatch, useReducer, useEffect, useRef, useMemo } from "react";
 
 import {
   EdgeData,
@@ -113,182 +113,58 @@ export function Search({
   visibleTypes: VisibleTypes;
   experimentalPathfinding: boolean;
 }) {
-  switch (searchState.type) {
-    case "initial":
-      return (
-        <SearchInitial
-          searchState={searchState}
-          searchDispatch={searchDispatch}
-          setFocusedId={setFocusedId}
-          setSelectedId={setSelectedId}
-        />
-      );
-    case "selected":
-      return (
-        <SearchSelected
-          searchState={searchState}
-          searchDispatch={searchDispatch}
-          setFocusedId={setFocusedId}
-          experimentalPathfinding={experimentalPathfinding}
-        />
-      );
-    case "path":
-      return (
-        <SearchPath
-          searchState={searchState}
-          searchDispatch={searchDispatch}
-          setFocusedId={setFocusedId}
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-          visibleTypes={visibleTypes}
-          experimentalPathfinding={experimentalPathfinding}
-        />
-      );
-  }
-}
-
-function SearchInitial({
-  searchState,
-  searchDispatch,
-  setFocusedId,
-  setSelectedId,
-}: {
-  searchState: Extract<SearchState, { type: "initial" }>;
-  searchDispatch: Dispatch<SearchAction>;
-  setFocusedId: (id: string | null) => void;
-  setSelectedId: (id: string | null) => void;
-}) {
-  return (
-    <div>
-      <SearchBar>
-        <SearchInput
-          placeholder="Search for genre..."
-          value={searchState.sourceQuery}
-          onChange={(value) =>
-            searchDispatch({
-              type: "set-source-query",
-              sourceQuery: value,
-            })
-          }
-        />
-      </SearchBar>
-
-      <GenreResultsList>
-        {searchState.sourceResults.map((node) => (
-          <GenreResultItem
-            key={node.id}
-            node={node}
-            setFocusedId={setFocusedId}
-            onClick={() => {
-              setSelectedId(node.id);
-            }}
-          />
-        ))}
-      </GenreResultsList>
-    </div>
-  );
-}
-
-function SearchSelected({
-  searchState,
-  searchDispatch,
-  setFocusedId,
-  experimentalPathfinding,
-}: {
-  searchState: Extract<SearchState, { type: "selected" }>;
-  searchDispatch: Dispatch<SearchAction>;
-  setFocusedId: (id: string | null) => void;
-  experimentalPathfinding: boolean;
-}) {
   const { nodes } = useDataContext();
+  const sourceRef = useRef<HTMLInputElement>(null);
+  const destRef = useRef<HTMLInputElement>(null);
 
-  return (
-    <div>
-      <SearchBar>
-        <SearchInput
-          placeholder="Search for genre..."
-          value={nodes[nodeIdToInt(searchState.sourceId)].label}
-          onChange={(value) =>
-            searchDispatch({
-              type: "set-source-query",
-              sourceQuery: value,
-            })
-          }
-        />
-        {experimentalPathfinding && (
-          <SearchInput
-            placeholder="Destination..."
-            value={searchState.destinationQuery}
-            onChange={(value) =>
-              searchDispatch({
-                type: "selected|path:set-destination-query",
-                destinationQuery: value,
-              })
-            }
-            onClear={() => {
-              searchDispatch({
-                type: "selected|path:set-destination-query",
-                destinationQuery: "",
-              });
-            }}
-          />
-        )}
-      </SearchBar>
+  // Restore focus after state transitions
+  useEffect(() => {
+    if (searchState.focusTarget === "source") {
+      sourceRef.current?.focus();
+    } else if (searchState.focusTarget === "destination") {
+      destRef.current?.focus();
+    }
+  }, [searchState]);
 
-      {experimentalPathfinding && (
-        <GenreResultsList>
-          {searchState.destinationResults.map((node) => (
-            <GenreResultItem
-              key={node.id}
-              node={node}
-              setFocusedId={setFocusedId}
-              onClick={() => {
-                searchDispatch({
-                  type: "selected:select-destination",
-                  destinationId: node.id,
-                });
-              }}
-            />
-          ))}
-        </GenreResultsList>
-      )}
-    </div>
-  );
-}
+  // Derive source input value
+  const sourceValue =
+    searchState.type === "initial"
+      ? searchState.sourceQuery
+      : nodes[nodeIdToInt(searchState.sourceId)].label;
 
-function SearchPath({
-  searchState,
-  searchDispatch,
-  setFocusedId,
-  selectedId,
-  setSelectedId,
-  visibleTypes,
-  experimentalPathfinding,
-}: {
-  searchState: Extract<SearchState, { type: "path" }>;
-  searchDispatch: Dispatch<SearchAction>;
-  setFocusedId: (id: string | null) => void;
-  selectedId: string | null;
-  setSelectedId: (id: string | null) => void;
-  visibleTypes: VisibleTypes;
-  experimentalPathfinding: boolean;
-}) {
-  const { nodes } = useDataContext();
+  // Derive destination input value
+  const destValue =
+    searchState.type === "selected"
+      ? searchState.destinationQuery
+      : searchState.type === "path"
+        ? nodes[nodeIdToInt(searchState.destinationId)].label
+        : "";
 
-  // If experimental pathfinding is disabled, don't render anything while transitioning
-  if (!experimentalPathfinding) {
-    return null;
-  }
+  const showDest = experimentalPathfinding && searchState.type !== "initial";
+  const isPath = searchState.type === "path" && experimentalPathfinding;
+
+  // Results list
+  const results =
+    searchState.type === "initial"
+      ? searchState.sourceResults
+      : searchState.type === "selected" && experimentalPathfinding
+        ? searchState.destinationResults
+        : null;
 
   return (
     <div>
       <div
-        className={`flex items-center rounded-xl overflow-hidden ${colourStyles.search.container}`}
+        className={
+          isPath
+            ? `flex items-center rounded-xl overflow-hidden ${colourStyles.search.container}`
+            : undefined
+        }
       >
         <SearchBar>
           <SearchInput
+            ref={sourceRef}
             placeholder="Search for genre..."
-            value={nodes[nodeIdToInt(searchState.sourceId)].label}
+            value={sourceValue}
             onChange={(value) =>
               searchDispatch({
                 type: "set-source-query",
@@ -296,89 +172,120 @@ function SearchPath({
               })
             }
           />
-          <SearchInput
-            placeholder="Destination..."
-            value={nodes[nodeIdToInt(searchState.destinationId)].label}
-            onChange={(value) =>
-              searchDispatch({
-                type: "selected|path:set-destination-query",
-                destinationQuery: value,
-              })
-            }
-            onClear={() => {
-              searchDispatch({
-                type: "selected|path:set-destination-query",
-                destinationQuery: "",
-              });
-            }}
-          />
-        </SearchBar>
-        <button
-          className={`ml-2 px-2 py-1 rounded-lg ${colourStyles.search.button} transition-colors`}
-          onClick={() => {
-            searchDispatch({
-              type: "path:swap-source-and-destination",
-            });
-          }}
-          title="Swap source and destination"
-        >
-          <SwapIcon width={16} height={16} stroke="#9ca3af" />
-        </button>
-      </div>
-
-      {searchState.path ? (
-        <GenreResultsList>
-          {searchState.path.map((nodeId) => (
-            <GenreResultItem
-              key={nodeId}
-              node={nodes[nodeIdToInt(nodeId)]}
-              setFocusedId={setFocusedId}
-              isSelected={nodeId === selectedId}
-              onClick={() => {
-                setSelectedId(nodeId);
+          {showDest && (
+            <SearchInput
+              ref={destRef}
+              placeholder="Destination..."
+              value={destValue}
+              onChange={(value) =>
+                searchDispatch({
+                  type: "selected|path:set-destination-query",
+                  destinationQuery: value,
+                })
+              }
+              onClear={() => {
+                searchDispatch({
+                  type: "selected|path:set-destination-query",
+                  destinationQuery: "",
+                });
               }}
             />
-          ))}
-        </GenreResultsList>
-      ) : (
-        <div className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-          No path found from {nodes[nodeIdToInt(searchState.sourceId)].label} to{" "}
-          {nodes[nodeIdToInt(searchState.destinationId)].label} through{" "}
-          {getFormattedThroughLabels(visibleTypes)}.{" "}
+          )}
+        </SearchBar>
+        {isPath && (
           <button
-            className="text-teal-600 dark:text-blue-400 hover:underline"
+            className={`ml-2 px-2 py-1 rounded-lg ${colourStyles.search.button} transition-colors`}
             onClick={() => {
               searchDispatch({
                 type: "path:swap-source-and-destination",
               });
             }}
+            title="Swap source and destination"
           >
-            Try swapping direction?
+            <SwapIcon width={16} height={16} stroke="#9ca3af" />
           </button>
-        </div>
+        )}
+      </div>
+
+      {results && (
+        <GenreResultsList>
+          {results.map((node) => (
+            <GenreResultItem
+              key={node.id}
+              node={node}
+              setFocusedId={setFocusedId}
+              onClick={() => {
+                if (searchState.type === "initial") {
+                  setSelectedId(node.id);
+                } else if (searchState.type === "selected") {
+                  searchDispatch({
+                    type: "selected:select-destination",
+                    destinationId: node.id,
+                  });
+                }
+              }}
+            />
+          ))}
+        </GenreResultsList>
+      )}
+
+      {isPath && searchState.type === "path" && (
+        <>
+          {searchState.path ? (
+            <GenreResultsList>
+              {searchState.path.map((nodeId) => (
+                <GenreResultItem
+                  key={nodeId}
+                  node={nodes[nodeIdToInt(nodeId)]}
+                  setFocusedId={setFocusedId}
+                  isSelected={nodeId === selectedId}
+                  onClick={() => {
+                    setSelectedId(nodeId);
+                  }}
+                />
+              ))}
+            </GenreResultsList>
+          ) : (
+            <div className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+              No path found from{" "}
+              {nodes[nodeIdToInt(searchState.sourceId)].label} to{" "}
+              {nodes[nodeIdToInt(searchState.destinationId)].label} through{" "}
+              {getFormattedThroughLabels(visibleTypes)}.{" "}
+              <button
+                className="text-teal-600 dark:text-blue-400 hover:underline"
+                onClick={() => {
+                  searchDispatch({
+                    type: "path:swap-source-and-destination",
+                  });
+                }}
+              >
+                Try swapping direction?
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
 }
 
 // Reusable components
-function SearchInput({
-  placeholder,
-  value,
-  onChange,
-  onClear,
-}: {
-  placeholder: string;
-  value: string;
-  onChange: (value: string) => void;
-  onClear?: () => void;
-}) {
+const SearchInput = React.forwardRef<
+  HTMLInputElement,
+  {
+    placeholder: string;
+    value: string;
+    onChange: (value: string) => void;
+    onClear?: () => void;
+  }
+>(function SearchInput({ placeholder, value, onChange, onClear }, ref) {
   return (
     <div className="relative">
       <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
         <SearchIcon width={16} height={16} stroke="#9ca3af" />
       </div>
       <input
+        ref={ref}
         type="text"
         placeholder={placeholder}
         className={`w-full p-2 pl-8 rounded-lg ${colourStyles.search.input}`}
@@ -396,7 +303,7 @@ function SearchInput({
       )}
     </div>
   );
-}
+});
 
 function SearchBar({ children }: { children: React.ReactNode }) {
   return (
