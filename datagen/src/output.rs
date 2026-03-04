@@ -275,7 +275,7 @@ pub fn produce(
             graph.nodes.len()
         );
 
-        let hues = crate::color_propagation::compute_hues(graph.nodes.len(), &adjacency);
+        let hues = datagen::color_propagation::compute_hues(graph.nodes.len(), &adjacency);
         for (node, &hue) in graph.nodes.iter_mut().zip(hues.iter()) {
             node.hue = hue;
         }
