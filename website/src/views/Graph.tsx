@@ -37,7 +37,13 @@ export function Graph({
 
   // Direct DOM refs for instant label tracking (avoids React re-render lag)
   const labelContainerRef = useRef<HTMLDivElement>(null);
-  const labelSnapshotRef = useRef({ x: 0, y: 0, zoom: 1, screenCenterX: 0, screenCenterY: 0 });
+  const labelSnapshotRef = useRef({
+    x: 0,
+    y: 0,
+    zoom: 1,
+    screenCenterX: 0,
+    screenCenterY: 0,
+  });
   const wasAnimatingRef = useRef(false);
   const onCameraAnimatingChangeRef = useRef(onCameraAnimatingChange);
   onCameraAnimatingChangeRef.current = onCameraAnimatingChange;

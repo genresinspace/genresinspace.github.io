@@ -60,7 +60,7 @@ function buildCandidates(
   selectedId: string | null,
   pathInfo: PathInfo,
   maxDistance: number,
-  path: string[] | null,
+  path: string[] | null
 ): LabelCandidate[] {
   const [minX, minY, maxX, maxY] = bounds;
   const candidates: LabelCandidate[] = [];
@@ -73,9 +73,12 @@ function buildCandidates(
     if (wx < minX || wx > maxX || wy < minY || wy > maxY) continue;
 
     const [sx, sy] = camera.worldToScreen(wx, wy);
-    const baseFontSize = LABEL_FONT_SIZE_BASE + (node.edges.length / maxDegree) * LABEL_FONT_SIZE_DEGREE;
+    const baseFontSize =
+      LABEL_FONT_SIZE_BASE +
+      (node.edges.length / maxDegree) * LABEL_FONT_SIZE_DEGREE;
     const fullScale = camera.zoom / LABEL_ZOOM_THRESHOLD;
-    const fontSize = baseFontSize * Math.max(1, 1 + (fullScale - 1) * LABEL_ZOOM_RATE);
+    const fontSize =
+      baseFontSize * Math.max(1, 1 + (fullScale - 1) * LABEL_ZOOM_RATE);
 
     let priority = node.edges.length;
     let inSelectedNet = false;
@@ -111,8 +114,14 @@ function buildCandidates(
     }
 
     candidates.push({
-      nodeIndex: i, node, screenX: sx, screenY: sy,
-      fontSize, priority, inSelectedNet, selectionDistance,
+      nodeIndex: i,
+      node,
+      screenX: sx,
+      screenY: sy,
+      fontSize,
+      priority,
+      inSelectedNet,
+      selectionDistance,
     });
   }
 
@@ -128,7 +137,7 @@ function selectLabels(
   candidates: LabelCandidate[],
   screenW: number,
   screenH: number,
-  prevIds: Set<string>,
+  prevIds: Set<string>
 ): LabelCandidate[] {
   const selectedCandidates = candidates
     .filter((c) => c.inSelectedNet)
@@ -226,14 +235,22 @@ type LabelRefs = {
 };
 
 /** Create a label DOM element with event listeners that read state from refs. */
-function createLabelElement(nodeId: string, text: string, refs: LabelRefs): HTMLDivElement {
+function createLabelElement(
+  nodeId: string,
+  text: string,
+  refs: LabelRefs
+): HTMLDivElement {
   const el = document.createElement("div");
   el.className = "node-label node-label-enter";
   el.textContent = text;
 
-  el.addEventListener("animationend", () => {
-    el.classList.remove("node-label-enter");
-  }, { once: true });
+  el.addEventListener(
+    "animationend",
+    () => {
+      el.classList.remove("node-label-enter");
+    },
+    { once: true }
+  );
 
   el.addEventListener("pointerenter", () => {
     refs.setHoveredId.current(nodeId);
@@ -241,14 +258,18 @@ function createLabelElement(nodeId: string, text: string, refs: LabelRefs): HTML
   el.addEventListener("pointerleave", () => {
     if (refs.hoveredId.current === nodeId) refs.setHoveredId.current(null);
   });
-  el.addEventListener("wheel", (e) => {
-    const rect = refs.containerRef.current.current!.getBoundingClientRect();
-    const sx = e.clientX - rect.left;
-    const sy = e.clientY - rect.top;
-    const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
-    refs.camera.current.smoothZoomAt(sx, sy, factor);
-    refs.onCameraChange.current();
-  }, { passive: true });
+  el.addEventListener(
+    "wheel",
+    (e) => {
+      const rect = refs.containerRef.current.current!.getBoundingClientRect();
+      const sx = e.clientX - rect.left;
+      const sy = e.clientY - rect.top;
+      const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+      refs.camera.current.smoothZoomAt(sx, sy, factor);
+      refs.onCameraChange.current();
+    },
+    { passive: true }
+  );
   el.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     const cam = refs.camera.current;
@@ -261,7 +282,10 @@ function createLabelElement(nodeId: string, text: string, refs: LabelRefs): HTML
       let sawMultitouch = false;
 
       const onMove = (te: TouchEvent) => {
-        if (te.touches.length >= 2) { sawMultitouch = true; return; }
+        if (te.touches.length >= 2) {
+          sawMultitouch = true;
+          return;
+        }
         const touch = te.touches[0];
         const dx = touch.clientX - lastX;
         const dy = touch.clientY - lastY;
@@ -318,21 +342,26 @@ function updateLabelStyle(
   el: HTMLDivElement,
   label: LabelCandidate,
   maxDegree: number,
-  colorLightness: typeof NodeColourLightnessDark | typeof NodeColourLightnessLight,
+  colorLightness:
+    | typeof NodeColourLightnessDark
+    | typeof NodeColourLightnessLight,
   hoveredId: string | null,
-  selectedId: string | null,
+  selectedId: string | null
 ): void {
   const bgColor = nodeColour(
-    label.node, maxDegree,
-    colorLightness.GraphLabelBackgroundBorder + LABEL_LIGHTNESS_BOOST,
+    label.node,
+    maxDegree,
+    colorLightness.GraphLabelBackgroundBorder + LABEL_LIGHTNESS_BOOST
   );
   const borderColor = nodeColour(
-    label.node, maxDegree,
-    colorLightness.GraphLabelBackground + LABEL_LIGHTNESS_BOOST,
+    label.node,
+    maxDegree,
+    colorLightness.GraphLabelBackground + LABEL_LIGHTNESS_BOOST
   );
   const textColor = nodeColour(
-    label.node, maxDegree,
-    colorLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST,
+    label.node,
+    maxDegree,
+    colorLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST
   );
 
   const isHovered = hoveredId === label.node.id;
@@ -342,9 +371,10 @@ function updateLabelStyle(
     filterStyle = `brightness(${LABEL_HOVER_BRIGHTNESS})`;
   } else if (selectedId) {
     if (label.inSelectedNet) {
-      opacityStyle = label.selectionDistance <= 1
-        ? 1.0
-        : Math.pow(LABEL_OPACITY_FALLOFF, label.selectionDistance - 1);
+      opacityStyle =
+        label.selectionDistance <= 1
+          ? 1.0
+          : Math.pow(LABEL_OPACITY_FALLOFF, label.selectionDistance - 1);
     } else {
       filterStyle = `brightness(${LABEL_DIM_BRIGHTNESS})`;
       opacityStyle = LABEL_DIM_OPACITY;
@@ -380,19 +410,31 @@ function needsReselection(
   cached: SelectionCache | null,
   bounds: [number, number, number, number],
   zoom: number,
-  selectedId: string | null,
+  selectedId: string | null
 ): boolean {
   if (!cached || cached.selectedId !== selectedId) return true;
 
   const [minX, minY, maxX, maxY] = bounds;
   const prevW = cached.boundsMaxX - cached.boundsMinX;
   const prevH = cached.boundsMaxY - cached.boundsMinY;
-  const panFracX = prevW > 0 ? Math.abs((minX + maxX) / 2 - (cached.boundsMinX + cached.boundsMaxX) / 2) / prevW : 1;
-  const panFracY = prevH > 0 ? Math.abs((minY + maxY) / 2 - (cached.boundsMinY + cached.boundsMaxY) / 2) / prevH : 1;
+  const panFracX =
+    prevW > 0
+      ? Math.abs(
+          (minX + maxX) / 2 - (cached.boundsMinX + cached.boundsMaxX) / 2
+        ) / prevW
+      : 1;
+  const panFracY =
+    prevH > 0
+      ? Math.abs(
+          (minY + maxY) / 2 - (cached.boundsMinY + cached.boundsMaxY) / 2
+        ) / prevH
+      : 1;
   const zoomRatio = cached.zoom > 0 ? zoom / cached.zoom : 2;
 
   // Reselect if panned >25% of viewport or zoom changed by >20%
-  return panFracX > 0.25 || panFracY > 0.25 || zoomRatio > 1.2 || zoomRatio < 1 / 1.2;
+  return (
+    panFracX > 0.25 || panFracY > 0.25 || zoomRatio > 1.2 || zoomRatio < 1 / 1.2
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -457,7 +499,10 @@ export function Labels({
 
   const stableLabels = useMemo(() => {
     if (!settings.general.showLabels)
-      return { result: [] as LabelCandidate[], allCandidates: [] as LabelCandidate[] };
+      return {
+        result: [] as LabelCandidate[],
+        allCandidates: [] as LabelCandidate[],
+      };
 
     const bounds = camera.getVisibleBounds();
     const camZoom = camera.zoom;
@@ -465,8 +510,15 @@ export function Labels({
     const reselect = needsReselection(cached, bounds, camZoom, selectedId);
 
     const candidates = buildCandidates(
-      data.nodes, nodePositions, camera, bounds,
-      maxDegree, selectedId, pathInfo, maxDistance, path,
+      data.nodes,
+      nodePositions,
+      camera,
+      bounds,
+      maxDegree,
+      selectedId,
+      pathInfo,
+      maxDistance,
+      path
     );
 
     // Reuse previous selection with fresh screen positions when possible
@@ -478,23 +530,36 @@ export function Labels({
     }
 
     const result = selectLabels(
-      candidates, camera.canvasW || 1, camera.canvasH || 1, prevLabelIdsRef.current,
+      candidates,
+      camera.canvasW || 1,
+      camera.canvasH || 1,
+      prevLabelIdsRef.current
     );
 
     const newIds = new Set(result.map((c) => c.node.id));
     prevLabelIdsRef.current = newIds;
     cachedSelectionRef.current = {
       ids: newIds,
-      boundsMinX: bounds[0], boundsMinY: bounds[1],
-      boundsMaxX: bounds[2], boundsMaxY: bounds[3],
-      zoom: camZoom, selectedId,
+      boundsMinX: bounds[0],
+      boundsMinY: bounds[1],
+      boundsMaxX: bounds[2],
+      boundsMaxY: bounds[3],
+      zoom: camZoom,
+      selectedId,
     };
 
     return { result, allCandidates: candidates };
   }, [
-    data.nodes, camera, nodePositions,
-    settings.general.showLabels, selectedId, pathInfo, path,
-    maxDegree, maxDistance, cameraVersion,
+    data.nodes,
+    camera,
+    nodePositions,
+    settings.general.showLabels,
+    selectedId,
+    pathInfo,
+    path,
+    maxDegree,
+    maxDistance,
+    cameraVersion,
   ]);
 
   // Ensure hovered label is always shown, even if culled by overlap.
@@ -509,7 +574,9 @@ export function Labels({
 
   // --- Imperative DOM sync ---
   const labelElementsRef = useRef<Map<string, HTMLDivElement>>(new Map());
-  const exitingElementsRef = useRef<Map<string, { el: HTMLDivElement; nodeIndex: number }>>(new Map());
+  const exitingElementsRef = useRef<
+    Map<string, { el: HTMLDivElement; nodeIndex: number }>
+  >(new Map());
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -537,7 +604,14 @@ export function Labels({
         elements.set(label.node.id, el);
       }
 
-      updateLabelStyle(el, label, maxDegree, colorLightness, hoveredId, selectedId);
+      updateLabelStyle(
+        el,
+        label,
+        maxDegree,
+        colorLightness,
+        hoveredId,
+        selectedId
+      );
     }
 
     // Start fade-out for removed labels
@@ -547,7 +621,10 @@ export function Labels({
         const nodeIndex = parseInt(id, 10);
         el.classList.add("node-label-exit");
         exiting.set(id, { el, nodeIndex });
-        const remove = () => { el.remove(); exiting.delete(id); };
+        const remove = () => {
+          el.remove();
+          exiting.delete(id);
+        };
         el.addEventListener("animationend", remove, { once: true });
         setTimeout(remove, 250);
       }
@@ -560,7 +637,16 @@ export function Labels({
       const [sx, sy] = camera.worldToScreen(wx, wy);
       el.style.transform = `translate(${sx}px, ${sy}px) translate(-50%, -100%)`;
     }
-  }, [labels, colorLightness, maxDegree, selectedId, hoveredId, camera, nodePositions, cameraVersion]);
+  }, [
+    labels,
+    colorLightness,
+    maxDegree,
+    selectedId,
+    hoveredId,
+    camera,
+    nodePositions,
+    cameraVersion,
+  ]);
 
   return (
     <div

@@ -138,7 +138,7 @@ fn main() -> anyhow::Result<()> {
         start,
         &extracted_data.dump_meta,
         mixes_path,
-        &website_public_path,
+        website_public_path,
         &links_to_articles,
         &processed_genres,
         &processed_artists,

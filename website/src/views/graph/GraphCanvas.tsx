@@ -202,7 +202,8 @@ export function GraphCanvas({
 
   const maxDegree = data.max_degree;
   // Graph-specific node lightness: brighter on light mode's darker charcoal bg
-  const graphNodeLightness = theme === "light" ? NODE_LIGHTNESS_LIGHT : NODE_LIGHTNESS_DARK;
+  const graphNodeLightness =
+    theme === "light" ? NODE_LIGHTNESS_LIGHT : NODE_LIGHTNESS_DARK;
 
   // Precompute node positions (flat Float32Array)
   const nodePositions = useMemo(() => {
@@ -279,11 +280,13 @@ export function GraphCanvas({
             ? 0
             : node.id === selectedId
               ? 0
-              : pathInfo.immediateNeighbours.has(node.id) && !pathInfo.nodeDistances.has(node.id)
+              : pathInfo.immediateNeighbours.has(node.id) &&
+                  !pathInfo.nodeDistances.has(node.id)
                 ? 1
-                : pathInfo.nodeDistances.get(node.id) ?? maxDistance;
+                : (pathInfo.nodeDistances.get(node.id) ?? maxDistance);
           // dist 0-1: full opacity; beyond that: exponential falloff
-          const alpha = dist <= 1 ? 1.0 : Math.pow(NODE_OPACITY_FALLOFF, dist - 1);
+          const alpha =
+            dist <= 1 ? 1.0 : Math.pow(NODE_OPACITY_FALLOFF, dist - 1);
           arr[i * 4] = r;
           arr[i * 4 + 1] = g;
           arr[i * 4 + 2] = b;
@@ -318,7 +321,10 @@ export function GraphCanvas({
     const arr = new Float32Array(data.nodes.length);
     for (let i = 0; i < data.nodes.length; i++) {
       const node = data.nodes[i];
-      let size = NODE_SIZE_BASE * (NODE_SIZE_MIN_FRAC + (node.edges.length / maxDegree) * NODE_SIZE_DEGREE_FRAC);
+      let size =
+        NODE_SIZE_BASE *
+        (NODE_SIZE_MIN_FRAC +
+          (node.edges.length / maxDegree) * NODE_SIZE_DEGREE_FRAC);
 
       // Shrink if not highlighted when something is selected
       if (selectedId && !isHighlightedDueToSelection(node.id, true)) {
@@ -392,9 +398,11 @@ export function GraphCanvas({
             const distance = pathInfo.edgeDistances.get(edge);
             if (distance !== undefined && distance < maxDistance) {
               // distance 1 = immediate neighbour edges (full), beyond = falloff
-              const alpha = distance <= 1
-                ? selectedAlpha
-                : selectedAlpha * Math.pow(EDGE_OPACITY_FALLOFF, distance - 1);
+              const alpha =
+                distance <= 1
+                  ? selectedAlpha
+                  : selectedAlpha *
+                    Math.pow(EDGE_OPACITY_FALLOFF, distance - 1);
               color = edgeColour(EDGE_SELECTED_SATURATION, alpha);
             } else {
               color = dimmedColor;
@@ -474,7 +482,9 @@ export function GraphCanvas({
         const count = Math.max(1, Math.round(len / ARROW_SPACING));
         arrowCounts.push(count);
         // Direct edges (dist 0-1) at full speed; further edges slow down
-        edgeSpeeds.push(dist <= 1 ? 1.0 : Math.pow(ARROW_SPEED_FALLOFF, dist - 1));
+        edgeSpeeds.push(
+          dist <= 1 ? 1.0 : Math.pow(ARROW_SPEED_FALLOFF, dist - 1)
+        );
         totalInstances += count;
       } else {
         arrowCounts.push(1);
@@ -517,8 +527,22 @@ export function GraphCanvas({
       }
     }
 
-    return { targets, directions, phases, speeds, targetNodeIndices, edgeIndices };
-  }, [data.edges, nodePositions, settings.visibleTypes, selectedId, pathInfo, path]);
+    return {
+      targets,
+      directions,
+      phases,
+      speeds,
+      targetNodeIndices,
+      edgeIndices,
+    };
+  }, [
+    data.edges,
+    nodePositions,
+    settings.visibleTypes,
+    selectedId,
+    pathInfo,
+    path,
+  ]);
 
   // Store target arrays for the render loop's interpolation
   stateRef.current.targetNodeColors = nodeColors;
@@ -701,9 +725,12 @@ export function GraphCanvas({
             interp.edgeSrcNodeColors[i * 4 + 2] = interp.nodeColors[si * 4 + 2];
             interp.edgeSrcNodeColors[i * 4 + 3] = interp.nodeColors[si * 4 + 3];
             interp.edgeTgtNodeColors![i * 4] = interp.nodeColors[ti * 4];
-            interp.edgeTgtNodeColors![i * 4 + 1] = interp.nodeColors[ti * 4 + 1];
-            interp.edgeTgtNodeColors![i * 4 + 2] = interp.nodeColors[ti * 4 + 2];
-            interp.edgeTgtNodeColors![i * 4 + 3] = interp.nodeColors[ti * 4 + 3];
+            interp.edgeTgtNodeColors![i * 4 + 1] =
+              interp.nodeColors[ti * 4 + 1];
+            interp.edgeTgtNodeColors![i * 4 + 2] =
+              interp.nodeColors[ti * 4 + 2];
+            interp.edgeTgtNodeColors![i * 4 + 3] =
+              interp.nodeColors[ti * 4 + 3];
           }
           renderer.setEdgeNodeColors(
             interp.edgeSrcNodeColors,
@@ -767,10 +794,7 @@ export function GraphCanvas({
 
   // Update viewport offset
   useEffect(() => {
-    camera.setViewportOffset(
-      viewportOffsetX,
-      viewportOffsetY
-    );
+    camera.setViewportOffset(viewportOffsetX, viewportOffsetY);
     onCameraChange();
   }, [viewportOffsetX, viewportOffsetY, camera, onCameraChange]);
 
@@ -794,15 +818,20 @@ export function GraphCanvas({
       }
 
       // Compute mean
-      let mx = 0, my = 0;
-      for (const [px, py] of netPositions) { mx += px; my += py; }
+      let mx = 0,
+        my = 0;
+      for (const [px, py] of netPositions) {
+        mx += px;
+        my += py;
+      }
       mx /= netPositions.length;
       my /= netPositions.length;
 
       // Compute stddev of distances from mean
       let variance = 0;
       for (const [px, py] of netPositions) {
-        const dx = px - mx, dy = py - my;
+        const dx = px - mx,
+          dy = py - my;
         variance += dx * dx + dy * dy;
       }
       const stddev = Math.sqrt(variance / netPositions.length);
@@ -815,7 +844,12 @@ export function GraphCanvas({
       );
       const fitZoom = availableSize / (fitRadius * 2);
 
-      camera.animateTo(mx, my, Math.max(fitZoom, camera.minZoomLevel), FIT_ANIM_DURATION);
+      camera.animateTo(
+        mx,
+        my,
+        Math.max(fitZoom, camera.minZoomLevel),
+        FIT_ANIM_DURATION
+      );
     }
   }, [
     selectedId,

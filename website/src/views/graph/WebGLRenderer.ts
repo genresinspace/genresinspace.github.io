@@ -323,13 +323,19 @@ export class WebGLRenderer {
       const t1 = (i + 1) / EDGE_SEGMENTS;
       const off = i * 12;
       // Triangle 1: (t0,-1), (t1,-1), (t1,+1)
-      edgeTemplate[off + 0] = t0; edgeTemplate[off + 1] = -1;
-      edgeTemplate[off + 2] = t1; edgeTemplate[off + 3] = -1;
-      edgeTemplate[off + 4] = t1; edgeTemplate[off + 5] = 1;
+      edgeTemplate[off + 0] = t0;
+      edgeTemplate[off + 1] = -1;
+      edgeTemplate[off + 2] = t1;
+      edgeTemplate[off + 3] = -1;
+      edgeTemplate[off + 4] = t1;
+      edgeTemplate[off + 5] = 1;
       // Triangle 2: (t0,-1), (t1,+1), (t0,+1)
-      edgeTemplate[off + 6] = t0; edgeTemplate[off + 7] = -1;
-      edgeTemplate[off + 8] = t1; edgeTemplate[off + 9] = 1;
-      edgeTemplate[off + 10] = t0; edgeTemplate[off + 11] = 1;
+      edgeTemplate[off + 6] = t0;
+      edgeTemplate[off + 7] = -1;
+      edgeTemplate[off + 8] = t1;
+      edgeTemplate[off + 9] = 1;
+      edgeTemplate[off + 10] = t0;
+      edgeTemplate[off + 11] = 1;
     }
     gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTemplateBuf);
     gl.bufferData(gl.ARRAY_BUFFER, edgeTemplate, gl.STATIC_DRAW);
@@ -609,10 +615,7 @@ export class WebGLRenderer {
         gl.getUniformLocation(this.arrowProgram, "u_arrowSize"),
         arrowSizeScale
       );
-      gl.uniform1f(
-        gl.getUniformLocation(this.arrowProgram, "u_time"),
-        time
-      );
+      gl.uniform1f(gl.getUniformLocation(this.arrowProgram, "u_time"), time);
       gl.uniform1f(
         gl.getUniformLocation(this.arrowProgram, "u_curvature"),
         curvature

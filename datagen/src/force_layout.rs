@@ -218,10 +218,8 @@ impl QuadTreeArena {
             force[0] += dx / dist * f;
             force[1] += dy / dist * f;
         } else if !is_leaf {
-            for child in &node.children {
-                if let Some(child_idx) = child {
-                    self.compute_repulsion(*child_idx, px, py, repulsion, theta, force);
-                }
+            for child_idx in node.children.iter().flatten() {
+                self.compute_repulsion(*child_idx, px, py, repulsion, theta, force);
             }
         }
     }

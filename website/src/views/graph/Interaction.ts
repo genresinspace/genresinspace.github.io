@@ -259,11 +259,7 @@ export class InteractionHandler {
       // (smoothZoomAt adds lag since the target moves continuously)
       const factor = dist / this.lastPinchDist;
       const rect = this.canvas.getBoundingClientRect();
-      this.camera.zoomAt(
-        centerX - rect.left,
-        centerY - rect.top,
-        factor
-      );
+      this.camera.zoomAt(centerX - rect.left, centerY - rect.top, factor);
 
       // Pan
       this.camera.pan(

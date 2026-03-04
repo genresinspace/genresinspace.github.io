@@ -267,7 +267,7 @@ export class Camera {
     if (!this.animating && speed > INERTIA_MIN_VELOCITY) {
       this.x += this.vx * dt;
       this.y += this.vy * dt;
-      const decay = Math.exp(-INERTIA_DAMPING * dt / 1000);
+      const decay = Math.exp((-INERTIA_DAMPING * dt) / 1000);
       this.vx *= decay;
       this.vy *= decay;
       // Clamp position; kill velocity if we hit a boundary
@@ -279,8 +279,7 @@ export class Camera {
       changed = true;
       // Snap to zero when slow enough
       if (
-        Math.sqrt(this.vx * this.vx + this.vy * this.vy) <
-        INERTIA_MIN_VELOCITY
+        Math.sqrt(this.vx * this.vx + this.vy * this.vy) < INERTIA_MIN_VELOCITY
       ) {
         this.vx = 0;
         this.vy = 0;
@@ -296,7 +295,7 @@ export class Camera {
         this.zoomFocalScreenY
       );
       // Exponential lerp
-      const lerpFactor = 1 - Math.exp(-ZOOM_SMOOTHING_SPEED * dt / 1000);
+      const lerpFactor = 1 - Math.exp((-ZOOM_SMOOTHING_SPEED * dt) / 1000);
       this._zoom += (this.targetZoom - this._zoom) * lerpFactor;
       // Adjust pan so the world point stays under the focal position
       const [wx2, wy2] = this.screenToWorld(
