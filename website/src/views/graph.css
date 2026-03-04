@@ -25,11 +25,15 @@
 }
 
 @keyframes label-fade-in {
-  from { opacity: 0; }
+  from {
+    opacity: 0;
+  }
 }
 
 @keyframes label-fade-out {
-  to { opacity: 0; }
+  to {
+    opacity: 0;
+  }
 }
 
 .node-label-enter {

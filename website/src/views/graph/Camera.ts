@@ -7,6 +7,7 @@ const INERTIA_MIN_VELOCITY = 0.001;
 /** Exponential lerp rate for smooth zoom (higher = snappier). */
 const ZOOM_SMOOTHING_SPEED = 8;
 
+/** 2D orthographic camera with pan, zoom, and viewport offset support. */
 export class Camera {
   /** Camera center in world space */
   private x = 0;

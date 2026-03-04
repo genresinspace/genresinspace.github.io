@@ -13,7 +13,7 @@ import {
   ARROW_WIDTH_RATIO,
 } from "./graphConstants";
 
-// Re-export for consumers that previously imported from here
+/** Re-export edge curvature constant for consumers that previously imported from here. */
 export { EDGE_CURVATURE } from "./graphConstants";
 
 // Vertex shader for nodes (point sprites)
