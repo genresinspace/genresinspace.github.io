@@ -26,6 +26,10 @@ import {
   LABEL_GRID_ROWS,
   LABEL_FONT_SIZE_BASE,
   LABEL_FONT_SIZE_DEGREE,
+  LABEL_CHAR_WIDTH_RATIO,
+  LABEL_PADDING_H,
+  LABEL_PADDING_V,
+  LABEL_GAP,
   LABEL_OPACITY_FALLOFF,
   LABEL_HOVER_BRIGHTNESS,
   LABEL_DIM_BRIGHTNESS,
@@ -200,7 +204,9 @@ function selectLabels(
     LABEL_COUNT_MIN,
     Math.min(
       LABEL_COUNT_MAX,
-      Math.round(MAX_VISIBLE_LABELS * ((screenW * screenH) / LABEL_REFERENCE_AREA))
+      Math.round(
+        MAX_VISIBLE_LABELS * ((screenW * screenH) / LABEL_REFERENCE_AREA)
+      )
     )
   );
 
@@ -210,9 +216,9 @@ function selectLabels(
 
   const tryPlace = (c: LabelCandidate): boolean => {
     if (result.length >= maxLabels) return false;
-    const charWidth = c.fontSize * 0.6;
-    const w = c.node.label.length * charWidth + 16;
-    const h = c.fontSize + 4;
+    const charWidth = c.fontSize * LABEL_CHAR_WIDTH_RATIO;
+    const w = c.node.label.length * charWidth + LABEL_PADDING_H + LABEL_GAP;
+    const h = c.fontSize + LABEL_PADDING_V + LABEL_GAP;
     const x = c.screenX - w / 2;
     const y = c.screenY - h;
 

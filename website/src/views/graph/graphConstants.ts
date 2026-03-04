@@ -110,6 +110,12 @@ export const LABEL_ZOOM_THRESHOLD = 1.5;
 export const LABEL_ZOOM_RATE = 0.5;
 /** Estimated character width as a fraction of font size (for overlap culling). */
 export const LABEL_CHAR_WIDTH_RATIO = 0.65;
+/** Horizontal padding inside each label (px, both sides combined). */
+export const LABEL_PADDING_H = 16;
+/** Vertical padding + border height inside each label (px). */
+export const LABEL_PADDING_V = 8;
+/** Inter-label gap added to bounding boxes for overlap culling (px). */
+export const LABEL_GAP = 4;
 /** Extra HSL lightness added to labels for the dark graph background. */
 export const LABEL_LIGHTNESS_BOOST = 5;
 /** Screen-pixel grid columns for spatial label bucketing. */
