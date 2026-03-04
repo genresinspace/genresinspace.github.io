@@ -96,8 +96,14 @@ export const FIT_PADDING = 200;
 export const FIT_ANIM_DURATION = 1200;
 
 // ── Labels ───────────────────────────────────────────────────────────
-/** Maximum number of labels displayed simultaneously. */
+/** Maximum number of labels displayed simultaneously (at reference resolution). */
 export const MAX_VISIBLE_LABELS = 100;
+/** Reference screen area (px²) at which MAX_VISIBLE_LABELS applies. */
+export const LABEL_REFERENCE_AREA = 1920 * 1080;
+/** Minimum label count regardless of screen size. */
+export const LABEL_COUNT_MIN = 15;
+/** Maximum label count regardless of screen size. */
+export const LABEL_COUNT_MAX = 200;
 /** Zoom level where labels start scaling (fixed size until reached). */
 export const LABEL_ZOOM_THRESHOLD = 1.5;
 /** Fraction of full zoom-scaling applied to labels beyond the threshold. */

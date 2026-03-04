@@ -16,6 +16,9 @@ import type { Camera } from "./Camera";
 import { PathInfo } from "./pathInfo";
 import {
   MAX_VISIBLE_LABELS,
+  LABEL_REFERENCE_AREA,
+  LABEL_COUNT_MIN,
+  LABEL_COUNT_MAX,
   LABEL_ZOOM_THRESHOLD,
   LABEL_ZOOM_RATE,
   LABEL_LIGHTNESS_BOOST,
@@ -192,12 +195,21 @@ function selectLabels(
     }
   }
 
+  // Scale label budget by viewport area relative to reference resolution
+  const maxLabels = Math.max(
+    LABEL_COUNT_MIN,
+    Math.min(
+      LABEL_COUNT_MAX,
+      Math.round(MAX_VISIBLE_LABELS * ((screenW * screenH) / LABEL_REFERENCE_AREA))
+    )
+  );
+
   // Greedy overlap culling
   const placed: { x: number; y: number; w: number; h: number }[] = [];
   const result: LabelCandidate[] = [];
 
   const tryPlace = (c: LabelCandidate): boolean => {
-    if (result.length >= MAX_VISIBLE_LABELS) return false;
+    if (result.length >= maxLabels) return false;
     const charWidth = c.fontSize * 0.6;
     const w = c.node.label.length * charWidth + 16;
     const h = c.fontSize + 4;
