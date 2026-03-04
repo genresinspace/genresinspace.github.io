@@ -90,8 +90,8 @@ export const BG_DARK: [number, number, number, number] = [0, 0, 0, 1];
 export const FIT_STDDEV_MULT = 2;
 /** Minimum world-unit radius when zooming to a selected neighbourhood. */
 export const FIT_RADIUS_MIN = 250;
-/** Screen-pixel padding around the neighbourhood when auto-fitting. */
-export const FIT_PADDING = 200;
+/** Padding around the neighbourhood when auto-fitting (fraction of smaller viewport axis). */
+export const FIT_PADDING_FRAC = 0.1;
 /** Duration (ms) of the zoom-to-neighbourhood animation. */
 export const FIT_ANIM_DURATION = 1200;
 
@@ -107,7 +107,9 @@ export const LABEL_COUNT_MAX = 200;
 /** Zoom level where labels start scaling (fixed size until reached). */
 export const LABEL_ZOOM_THRESHOLD = 1.5;
 /** Fraction of full zoom-scaling applied to labels beyond the threshold. */
-export const LABEL_ZOOM_RATE = 0.25;
+export const LABEL_ZOOM_RATE = 0.5;
+/** Estimated character width as a fraction of font size (for overlap culling). */
+export const LABEL_CHAR_WIDTH_RATIO = 0.65;
 /** Extra HSL lightness added to labels for the dark graph background. */
 export const LABEL_LIGHTNESS_BOOST = 5;
 /** Screen-pixel grid columns for spatial label bucketing. */

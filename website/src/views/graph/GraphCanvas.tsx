@@ -43,7 +43,7 @@ import {
   BG_DARK,
   FIT_STDDEV_MULT,
   FIT_RADIUS_MIN,
-  FIT_PADDING,
+  FIT_PADDING_FRAC,
   FIT_ANIM_DURATION,
 } from "./graphConstants";
 
@@ -838,10 +838,10 @@ export function GraphCanvas({
 
       // Zoom to fit 2 stddev radius; large minimum so spatial neighbours stay visible
       const fitRadius = Math.max(stddev * FIT_STDDEV_MULT, FIT_RADIUS_MIN);
-      const availableSize = Math.min(
-        camera.canvasW - Math.abs(camera.viewportOffsetX) - FIT_PADDING,
-        camera.canvasH - Math.abs(camera.viewportOffsetY) - FIT_PADDING
-      );
+      const rawW = camera.canvasW - Math.abs(camera.viewportOffsetX);
+      const rawH = camera.canvasH - Math.abs(camera.viewportOffsetY);
+      const padding = Math.min(rawW, rawH) * FIT_PADDING_FRAC;
+      const availableSize = Math.min(rawW - padding, rawH - padding);
       const fitZoom = availableSize / (fitRadius * 2);
 
       camera.animateTo(
