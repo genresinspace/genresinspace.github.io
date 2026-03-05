@@ -16,22 +16,18 @@ export function Notice({
   const colourClasses = {
     yellow: {
       bg: colourStyles.notice.yellow,
-      border: "border-yellow-400",
       text: "text-yellow-900",
     },
     red: {
       bg: colourStyles.notice.red,
-      border: "border-red-400",
       text: "text-red-900",
     },
     blue: {
       bg: colourStyles.notice.blue,
-      border: "border-blue-400",
-      text: "text-blue-900",
+      text: "text-blue-900 dark:text-slate-100",
     },
     green: {
       bg: colourStyles.notice.green,
-      border: "border-green-400",
       text: "text-green-900",
     },
   };
@@ -40,7 +36,7 @@ export function Notice({
 
   return (
     <div
-      className={`${classes.bg} ${roundTop ? "rounded-xl" : "rounded-b-xl"} border ${classes.border} p-4`}
+      className={`${classes.bg} ${roundTop ? "rounded-xl" : "rounded-b-xl"} p-4`}
     >
       <div className={classes.text}>{children}</div>
     </div>

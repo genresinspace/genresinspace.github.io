@@ -5,29 +5,14 @@ use std::{
 };
 
 use anyhow::Context as _;
-use serde::{Deserialize, Serialize, ser::SerializeTuple};
+use serde::{Deserialize, Serialize};
 
 use crate::{
-    extract, genre_top_artists, links, process,
-    types::{GenreMixes, GenreName, PageDataId, PageName},
+    extract,
+    frontend_types::{EdgeData, EdgeType, FrontendData, NodeData},
+    genre_top_artists, links, process,
+    types::{GenreMixes, PageDataId, PageName},
 };
-
-#[derive(Debug, Serialize)]
-struct FrontendData {
-    wikipedia_domain: String,
-    wikipedia_db_name: String,
-    dump_date: String,
-    nodes: Vec<NodeData>,
-    edges: BTreeSet<EdgeData>,
-    max_degree: usize,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct NodeData {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    page_title: Option<String>,
-    label: GenreName,
-}
 
 #[derive(Debug, Serialize, Deserialize)]
 struct GenreFileData {
@@ -50,35 +35,6 @@ struct ArtistFileData {
 #[serde(transparent)]
 /// Maps link targets to page IDs.
 struct LinksToPageIds(BTreeMap<String, PageDataId>);
-
-#[derive(Debug, Serialize, Deserialize, Hash, PartialEq, Eq, PartialOrd, Ord)]
-enum EdgeType {
-    Derivative,
-    Subgenre,
-    FusionGenre,
-}
-#[derive(Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
-struct EdgeData {
-    source: PageDataId,
-    target: PageDataId,
-    ty: EdgeType,
-}
-impl Serialize for EdgeData {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let mut tup = serializer.serialize_tuple(3)?;
-        tup.serialize_element(&self.source)?;
-        tup.serialize_element(&self.target)?;
-        tup.serialize_element(&match self.ty {
-            EdgeType::Derivative => 0,
-            EdgeType::Subgenre => 1,
-            EdgeType::FusionGenre => 2,
-        })?;
-        tup.end()
-    }
-}
 
 /// Given processed genres, produce a graph and save it to `data.json` to be rendered by the website.
 #[allow(clippy::too_many_arguments)]
@@ -131,6 +87,9 @@ pub fn produce(
         let node = NodeData {
             page_title: (processed_genre.name.0 != page_title).then_some(page_title),
             label: processed_genre.name.clone(),
+            x: 0.0,
+            y: 0.0,
+            hue: 0.0,
         };
 
         graph.nodes.push(node);
@@ -296,6 +255,35 @@ pub fn produce(
                 ty: EdgeType::Subgenre,
             });
         }
+    }
+
+    // Run force-directed layout to compute node positions
+    {
+        let adjacency: Vec<(usize, usize)> = graph
+            .edges
+            .iter()
+            .map(|e| (e.source.0, e.target.0))
+            .collect();
+        let positions = crate::force_layout::compute(graph.nodes.len(), &adjacency);
+        for (node, pos) in graph.nodes.iter_mut().zip(positions.iter()) {
+            node.x = pos[0];
+            node.y = pos[1];
+        }
+        println!(
+            "{:.2}s: computed force-directed layout for {} nodes",
+            start.elapsed().as_secs_f32(),
+            graph.nodes.len()
+        );
+
+        let hues = datagen::color_propagation::compute_hues(graph.nodes.len(), &adjacency);
+        for (node, &hue) in graph.nodes.iter_mut().zip(hues.iter()) {
+            node.hue = hue;
+        }
+        println!(
+            "{:.2}s: computed color propagation for {} nodes",
+            start.elapsed().as_secs_f32(),
+            graph.nodes.len()
+        );
     }
 
     // Third pass (over edges): build node->edges sets for calculating max degree

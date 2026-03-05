@@ -1,10 +1,4 @@
-import { useCosmograph } from "@cosmograph/react";
-
-import {
-  ControlDesc,
-  GENERAL_CONTROLS,
-  SIMULATION_CONTROLS,
-} from "../../settings";
+import { ControlDesc, GENERAL_CONTROLS } from "../../settings";
 import { SettingsData } from "../../settings";
 
 import {
@@ -13,7 +7,7 @@ import {
   InputDescription,
 } from "../components/Input";
 import { Section } from "../components/Section";
-import { SettingsIcon, MusicIcon } from "../components/icons";
+import { SettingsIcon } from "../components/icons";
 import { useTheme } from "../../theme";
 import { colourStyles } from "../colours";
 
@@ -25,7 +19,6 @@ export function Settings({
   settings: SettingsData;
   setSettings: (settings: SettingsData) => void;
 }) {
-  const cosmographContext = useCosmograph();
   const { theme, toggleTheme } = useTheme();
 
   return (
@@ -53,18 +46,6 @@ export function Settings({
         settingsSection={settings.general}
         setSettingsSection={(value) => {
           setSettings({ ...settings, general: value });
-        }}
-      />
-      <ControlSection
-        name="Simulation"
-        icon={<MusicIcon />}
-        sectionDesc={SIMULATION_CONTROLS}
-        settingsSection={settings.simulation}
-        setSettingsSection={(value) => {
-          setSettings({ ...settings, simulation: value });
-          if (cosmographContext) {
-            cosmographContext.cosmograph?.start();
-          }
         }}
       />
     </div>

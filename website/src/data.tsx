@@ -69,6 +69,12 @@ export type NodeOnDiskData = {
   page_title?: string;
   /** The node's label. */
   label: string;
+  /** The node's precomputed x position from force-directed layout. */
+  x: number;
+  /** The node's precomputed y position from force-directed layout. */
+  y: number;
+  /** The node's precomputed hue (0–360) from color propagation. */
+  hue: number;
 };
 
 /** A node in the graph. */
@@ -145,11 +151,7 @@ export function nodeColour(
   lightness: number,
   saturationBoost: number = 0
 ) {
-  const hash = node.id
-    .split("")
-    .reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) >>> 0, 0);
-  const hue = Math.abs(hash % 360);
-  const colour = `hsl(${hue}, ${
+  const colour = `hsl(${node.hue}, ${
     ((node.edges.length / maxDegree) * 0.8 + 0.2) * 100 + saturationBoost
   }%, ${lightness}%)`;
   return colour;

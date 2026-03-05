@@ -439,22 +439,26 @@ export function useSearchState(
 ): [SearchState, Dispatch<SearchAction>] {
   const [state, dispatch] = useReducer(
     (prevState: SearchState, action: SearchAction): SearchState => {
-      const buildInitialState = (sourceQuery: string): SearchState => ({
+      const buildInitialState = (
+        sourceQuery: string,
+        focusTarget?: "source"
+      ): SearchState => ({
         type: "initial",
         sourceQuery,
         sourceResults: getFilteredResults(sourceQuery, nodes, selectedId),
-        focusTarget: "source",
+        focusTarget,
       });
 
       const buildSelectedState = (
         sourceId: string,
-        destinationQuery: string
+        destinationQuery: string,
+        focusTarget?: "source" | "destination"
       ): SearchState => ({
         type: "selected",
         sourceId,
         destinationQuery,
         destinationResults: getFilteredResults(destinationQuery, nodes, null),
-        focusTarget: destinationQuery ? "destination" : "source",
+        focusTarget,
       });
 
       const buildPathState = (
@@ -465,12 +469,11 @@ export function useSearchState(
         sourceId,
         destinationId,
         path: computePath(nodes, edges, visibleTypes, sourceId, destinationId),
-        focusTarget: "source",
       });
 
       switch (action.type) {
         case "set-source-query":
-          return buildInitialState(action.sourceQuery);
+          return buildInitialState(action.sourceQuery, "source");
         case "select-node":
           if (prevState.type === "initial" || prevState.type === "selected") {
             return buildSelectedState(action.nodeId, "");

@@ -27,6 +27,7 @@ export function Sidebar({
   isFullscreen,
   isMinimized,
   searchComponent,
+  isCameraAnimating,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
@@ -37,6 +38,7 @@ export function Sidebar({
   isFullscreen?: boolean;
   isMinimized?: boolean;
   searchComponent?: React.ReactNode;
+  isCameraAnimating?: boolean;
 }) {
   const collapseThreshold = 100;
   const minWidth = 200;
@@ -115,6 +117,7 @@ export function Sidebar({
           isFullscreen={isFullscreen}
           isMinimized={isMinimized}
           searchComponent={searchComponent}
+          isCameraAnimating={isCameraAnimating}
         />
       </div>
     </div>
@@ -132,6 +135,7 @@ function SidebarContent({
   isFullscreen,
   isMinimized,
   searchComponent,
+  isCameraAnimating,
 }: {
   settings: SettingsData;
   setSettings: React.Dispatch<React.SetStateAction<SettingsData>>;
@@ -143,6 +147,7 @@ function SidebarContent({
   isFullscreen?: boolean;
   isMinimized?: boolean;
   searchComponent?: React.ReactNode;
+  isCameraAnimating?: boolean;
 }) {
   const [activeTab, setActiveTab] = useState<
     "information" | "selected" | "settings"
@@ -242,6 +247,7 @@ function SidebarContent({
                   setFocusedId={setFocusedId}
                   shouldShowMixes={settings.general.showMixes}
                   shouldAutoplayMixes={settings.general.autoplayMixes}
+                  isCameraAnimating={isCameraAnimating}
                 />
               ) : (
                 <Settings settings={settings} setSettings={setSettings} />

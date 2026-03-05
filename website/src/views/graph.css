@@ -1,4 +1,17 @@
+.node-label-container {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+
 .node-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  pointer-events: auto;
+  cursor: pointer;
   font-weight: normal !important;
   padding: 2px 8px !important;
   margin: 0 !important;
@@ -6,12 +19,28 @@
     "JetBrains Mono", "Fira Code", "SF Mono", Monaco, "Cascadia Code",
     "Roboto Mono", Consolas, "Courier New", monospace;
   border-radius: 8px;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
-.node-label:hover {
-  filter: brightness(1.6);
+@keyframes label-fade-in {
+  from {
+    opacity: 0;
+  }
 }
 
-.node-hovered-label {
-  filter: brightness(1.6);
+@keyframes label-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.node-label-enter {
+  animation: label-fade-in 300ms ease-out;
+}
+
+.node-label-exit {
+  animation: label-fade-out 200ms ease-in forwards;
+  pointer-events: none;
 }
