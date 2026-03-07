@@ -501,6 +501,8 @@ export function WikitextTemplate({
     case "music-genre-stub":
       // Stub notice: don't care
       return null;
+    case "new_archival_link_needed":
+      return <Fix>new archival link needed</Fix>;
     // eslint-disable-next-line no-fallthrough
     case "music_of_cape_verde":
     // Category box: don't care
@@ -549,6 +551,12 @@ export function WikitextTemplate({
     case "notatypo":
     case "proper_name":
       return <>{node.parameters.map((c) => c.value).join("")}</>;
+    case "nobold":
+      return (
+        <span style={{ fontWeight: "normal" }}>
+          <Wikitext wikitext={node.parameters[0].value} />
+        </span>
+      );
     case "noitalic":
       return (
         <span className="not-italic">
@@ -816,6 +824,9 @@ export function WikitextTemplate({
     case "wikt-lang":
     case "wt":
       return <WiktLang node={node} />;
+    case "webarchive":
+      // Citation/reference template for archived links; not relevant
+      return null;
     case "wikibooks":
       // Book links not relevant to a description
       return null;
