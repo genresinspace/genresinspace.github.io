@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, Dispatch } from "react";
+import { useEffect, useState, useCallback, useRef, Dispatch } from "react";
 
 import { Graph } from "./views/Graph";
 import {
@@ -100,6 +100,24 @@ function LoadedApp({ data }: { data: Data }) {
   const [mobileSidebarHeight, setMobileSidebarHeight] = useState(50); // percentage
   const [isDraggingSidebar, setIsDraggingSidebar] = useState(false);
   const [dragStartHeight, setDragStartHeight] = useState(50); // track where drag started
+
+  // Track actual rendered sidebar dimensions for camera offset
+  const sidebarContainerRef = useRef<HTMLDivElement>(null);
+  const [sidebarWidth, setSidebarWidth] = useState(SIDEBAR_DEFAULT_WIDTH);
+  const [sidebarHeightPx, setSidebarHeightPx] = useState(0);
+
+  useEffect(() => {
+    const el = sidebarContainerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setSidebarWidth(entry.contentRect.width);
+        setSidebarHeightPx(entry.contentRect.height);
+      }
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Detect mobile screen size (768px is Tailwind's md breakpoint)
   const [isMobile, setIsMobile] = useState(() =>
@@ -232,10 +250,8 @@ function LoadedApp({ data }: { data: Data }) {
     isMobile && mobileSidebarHeight <= MOBILE_SIDEBAR_MIN_HEIGHT;
 
   // Compute viewport offset for the camera to center the visible area
-  const viewportOffsetX = isMobile ? 0 : -SIDEBAR_DEFAULT_WIDTH;
-  const viewportOffsetY = isMobile
-    ? -(window.innerHeight * mobileSidebarHeight) / 100
-    : 0;
+  const viewportOffsetX = isMobile ? 0 : -sidebarWidth;
+  const viewportOffsetY = isMobile ? -sidebarHeightPx : 0;
 
   const searchComponent = (
     <Search
@@ -277,6 +293,7 @@ function LoadedApp({ data }: { data: Data }) {
 
         {/* Sidebar - overlays graph: bottom sheet on mobile, right panel on desktop */}
         <div
+          ref={sidebarContainerRef}
           className="absolute bottom-[env(safe-area-inset-bottom)] w-full md:bottom-0 md:right-0 md:top-0 md:w-auto z-10"
           style={
             isMobile
