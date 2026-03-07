@@ -209,16 +209,27 @@ function Legend({
 
 function CommitFooter() {
   return (
-    <footer className="text-sm text-slate-600 dark:text-slate-500 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900">
-      Commit{" "}
-      <code>
-        <EL href={`${REPO_LINK}/tree/${commit.commit}`}>{commit.commit}</EL>
-      </code>{" "}
-      on{" "}
-      <time dateTime={commit.date}>
-        {new Date(commit.date).toLocaleString()}
-      </time>
-      .
+    <footer className="text-sm text-slate-600 dark:text-slate-500 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 flex flex-col gap-2">
+      <p>
+        Genre and artist descriptions are sourced from{" "}
+        <EL href="https://en.wikipedia.org/">Wikipedia</EL> and are available
+        under the{" "}
+        <EL href="https://creativecommons.org/licenses/by-sa/4.0/">
+          CC BY-SA 4.0
+        </EL>
+        . Descriptions may be truncated from the original articles.
+      </p>
+      <p>
+        Commit{" "}
+        <code>
+          <EL href={`${REPO_LINK}/tree/${commit.commit}`}>{commit.commit}</EL>
+        </code>{" "}
+        on{" "}
+        <time dateTime={commit.date}>
+          {new Date(commit.date).toLocaleString()}
+        </time>
+        .
+      </p>
     </footer>
   );
 }
