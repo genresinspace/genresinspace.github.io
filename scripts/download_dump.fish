@@ -27,7 +27,7 @@ function main
     end
 
     set -l date $argv[1]
-    set -l directory $argv[2]
+    set -l directory (string replace -r '/$' '' $argv[2])
 
     # Validate date format
     if not validate_date $date
