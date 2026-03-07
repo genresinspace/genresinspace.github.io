@@ -24,16 +24,20 @@ export function DisableTooltips({ children }: { children: React.ReactNode }) {
 }
 
 interface TooltipProps {
-  position: { x: number; y: number };
+  anchorRect: { left: number; bottom: number; width: number };
   isOpen: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   children: React.ReactNode;
 }
 
+/** Gap between the anchor element and the tooltip, in pixels. */
+const TOOLTIP_GAP = 4;
+const TOOLTIP_WIDTH = 250;
+
 /** A tooltip that appears when hovering over a node. */
 export function Tooltip({
-  position,
+  anchorRect,
   isOpen,
   onMouseEnter,
   onMouseLeave,
@@ -41,30 +45,22 @@ export function Tooltip({
 }: TooltipProps) {
   if (!isOpen) return null;
 
-  // Position tooltip slightly offset from initial mouse position
-  const xOffset = 10;
-  const yOffset = 10;
-  const tooltipX = position.x + xOffset;
-  const tooltipY = position.y + yOffset;
+  // Position at bottom-left of anchor element
+  let tooltipX = anchorRect.left;
+  let tooltipY = anchorRect.bottom + TOOLTIP_GAP;
 
-  // Calculate max coordinates to prevent tooltip from going off-screen
-  const tooltipWidth = 250;
-  const tooltipHeight = 200; // Approximate height, can be adjusted
-  const maxX = window.innerWidth - tooltipWidth - 10;
-  const maxY = window.innerHeight - tooltipHeight - 10;
-
-  // Adjust position if needed to keep tooltip on screen
-  const adjustedX = Math.min(tooltipX, maxX);
-  const adjustedY = Math.min(tooltipY, maxY);
+  // Keep tooltip on screen horizontally
+  const maxX = window.innerWidth - TOOLTIP_WIDTH - 10;
+  tooltipX = Math.max(10, Math.min(tooltipX, maxX));
 
   return createPortal(
     <div
       className={`fixed z-[9999] ${colourStyles.tooltip.background} border border-slate-300 dark:border-slate-800 rounded-xl p-4 shadow-md`}
       style={{
-        left: `${adjustedX}px`,
-        top: `${adjustedY}px`,
-        width: `${tooltipWidth}px`,
-        maxWidth: `${tooltipWidth}px`,
+        left: `${tooltipX}px`,
+        top: `${tooltipY}px`,
+        width: `${TOOLTIP_WIDTH}px`,
+        maxWidth: `${TOOLTIP_WIDTH}px`,
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -119,7 +115,7 @@ export function useTooltip({
   onDataFetch?: () => Promise<void>;
 } = {}) {
   const [showPreview, setShowPreview] = useState(false);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const [anchorRect, setAnchorRect] = useState({ left: 0, bottom: 0, width: 0 });
   const tooltipHoveredRef = useRef(false);
   const timeoutRef = useRef<number | undefined>(undefined);
 
@@ -150,7 +146,8 @@ export function useTooltip({
 
       // Only show preview if we're not already inside a tooltip and not on a touch device
       if (hoverPreview && !insideTooltip && !isTouchDevice) {
-        setTooltipPosition({ x: e.clientX, y: e.clientY });
+        const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+        setAnchorRect({ left: rect.left, bottom: rect.bottom, width: rect.width });
         setShowPreview(true);
 
         // Fetch data if provided
@@ -190,7 +187,7 @@ export function useTooltip({
 
   return {
     showPreview,
-    tooltipPosition,
+    anchorRect,
     handleMouseEnter,
     handleMouseLeave,
     handleTooltipMouseEnter,

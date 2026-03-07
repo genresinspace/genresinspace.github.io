@@ -32,7 +32,7 @@ export function GenreLink({
 
   const {
     showPreview,
-    tooltipPosition,
+    anchorRect,
     handleMouseEnter,
     handleMouseLeave,
     handleTooltipMouseEnter,
@@ -66,7 +66,7 @@ export function GenreLink({
 
       {genreData?.description && showPreview && (
         <Tooltip
-          position={tooltipPosition}
+          anchorRect={anchorRect}
           isOpen={showPreview}
           onMouseEnter={handleTooltipMouseEnter}
           onMouseLeave={handleTooltipMouseLeave}
