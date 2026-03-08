@@ -47,6 +47,9 @@ jobs:
       - name: Run cargo clippy (WASM)
         run: cargo clippy -p frontend_wasm --target wasm32-unknown-unknown -- -D warnings
 
+      - name: Check all genres have mixes
+        run: cargo run --bin check_missing_mixes --release
+
       - name: Build WASM
         run: wasm-pack build --target web frontend_wasm -d ../website/frontend_wasm
 
