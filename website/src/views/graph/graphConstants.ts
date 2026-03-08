@@ -125,8 +125,8 @@ export const LABEL_FONT_SIZE_BASE = 10;
 export const LABEL_FONT_SIZE_DEGREE = 6;
 /** Label opacity falloff base per distance step. */
 export const LABEL_OPACITY_FALLOFF = 0.25;
-/** CSS brightness when a label is hovered. */
-export const LABEL_HOVER_BRIGHTNESS = 1.6;
+/** HSL lightness boost added to each label colour when hovered. */
+export const LABEL_HOVER_LIGHTNESS_BOOST = 5;
 /** CSS brightness for labels outside the selected net. */
 export const LABEL_DIM_BRIGHTNESS = 0.4;
 /** Opacity for labels outside the selected net. */

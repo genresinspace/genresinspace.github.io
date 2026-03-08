@@ -31,7 +31,7 @@ import {
   LABEL_PADDING_V,
   LABEL_GAP,
   LABEL_OPACITY_FALLOFF,
-  LABEL_HOVER_BRIGHTNESS,
+  LABEL_HOVER_LIGHTNESS_BOOST,
   LABEL_DIM_BRIGHTNESS,
   LABEL_DIM_OPACITY,
 } from "./graphConstants";
@@ -366,28 +366,28 @@ function updateLabelStyle(
   hoveredId: string | null,
   selectedId: string | null
 ): void {
+  const isHovered = hoveredId === label.node.id;
+  const hoverBoost = isHovered ? LABEL_HOVER_LIGHTNESS_BOOST : 0;
+
   const bgColor = nodeColour(
     label.node,
     maxDegree,
-    colorLightness.GraphLabelBackgroundBorder + LABEL_LIGHTNESS_BOOST
+    colorLightness.GraphLabelBackgroundBorder + LABEL_LIGHTNESS_BOOST + hoverBoost
   );
   const borderColor = nodeColour(
     label.node,
     maxDegree,
-    colorLightness.GraphLabelBackground + LABEL_LIGHTNESS_BOOST
+    colorLightness.GraphLabelBackground + LABEL_LIGHTNESS_BOOST + hoverBoost
   );
   const textColor = nodeColour(
     label.node,
     maxDegree,
-    colorLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST
+    colorLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST + hoverBoost
   );
 
-  const isHovered = hoveredId === label.node.id;
   let filterStyle = "";
   let opacityStyle = 1;
-  if (isHovered) {
-    filterStyle = `brightness(${LABEL_HOVER_BRIGHTNESS})`;
-  } else if (selectedId) {
+  if (selectedId && !isHovered) {
     if (label.inSelectedNet) {
       opacityStyle =
         label.selectionDistance <= 1
