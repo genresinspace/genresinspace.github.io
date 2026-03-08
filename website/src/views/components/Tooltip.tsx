@@ -47,7 +47,7 @@ export function Tooltip({
 
   // Position at bottom-left of anchor element
   let tooltipX = anchorRect.left;
-  let tooltipY = anchorRect.bottom + TOOLTIP_GAP;
+  const tooltipY = anchorRect.bottom + TOOLTIP_GAP;
 
   // Keep tooltip on screen horizontally
   const maxX = window.innerWidth - TOOLTIP_WIDTH - 10;
@@ -115,7 +115,11 @@ export function useTooltip({
   onDataFetch?: () => Promise<void>;
 } = {}) {
   const [showPreview, setShowPreview] = useState(false);
-  const [anchorRect, setAnchorRect] = useState({ left: 0, bottom: 0, width: 0 });
+  const [anchorRect, setAnchorRect] = useState({
+    left: 0,
+    bottom: 0,
+    width: 0,
+  });
   const tooltipHoveredRef = useRef(false);
   const timeoutRef = useRef<number | undefined>(undefined);
 
@@ -147,7 +151,11 @@ export function useTooltip({
       // Only show preview if we're not already inside a tooltip and not on a touch device
       if (hoverPreview && !insideTooltip && !isTouchDevice) {
         const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-        setAnchorRect({ left: rect.left, bottom: rect.bottom, width: rect.width });
+        setAnchorRect({
+          left: rect.left,
+          bottom: rect.bottom,
+          width: rect.width,
+        });
         setShowPreview(true);
 
         // Fetch data if provided
