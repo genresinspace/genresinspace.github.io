@@ -260,7 +260,7 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
     let gravity_isolated = env_f64("GRAVITY_ISOLATED", 1.10);
     let spin = env_f64("SPIN", 25.0);
     let friction = env_f64("FRICTION", 0.85);
-    let iterations = env_usize("ITERATIONS", 50000);
+    let iterations = env_usize("ITERATIONS", 2000);
     let max_velocity = env_f64("MAX_VELOCITY", 25.0);
     let cooling_rate = env_f64("COOLING_RATE", 0.8);
     let charge_exponent = env_f64("CHARGE_EXP", 1.2);
