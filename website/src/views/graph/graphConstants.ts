@@ -42,9 +42,6 @@ export const NODE_SHRINK_UNSELECTED = 1.5;
 export const NODE_GROW_FOCUSED = 1.5;
 /** World units to grow the hovered node. */
 export const NODE_GROW_HOVERED = 2.5;
-/** Smoothstep range for the node circle's anti-aliased edge. */
-export const NODE_EDGE_SMOOTH: [number, number] = [0.8, 1.0];
-
 // ── Node colors ──────────────────────────────────────────────────────
 /** RGB multiplier for non-highlighted nodes when a selection is active. */
 export const NODE_DIM_RGB = 0.3;

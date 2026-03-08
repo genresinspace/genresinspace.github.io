@@ -6,7 +6,6 @@ import {
   EDGE_SRC_TINT_RANGE,
   EDGE_TGT_TINT_RANGE,
   EDGE_TINT_POWER,
-  NODE_EDGE_SMOOTH,
   ARROW_WORLD_SPEED,
   ARROW_MARGIN_SRC,
   ARROW_MARGIN_TGT_RADIUS,
@@ -41,9 +40,7 @@ void main() {
   vec2 p = gl_PointCoord * 2.0 - 1.0;
   float dist = dot(p, p);
   if (dist > 1.0) discard;
-  // Smooth edge
-  float alpha = 1.0 - smoothstep(${NODE_EDGE_SMOOTH[0].toFixed(1)}, ${NODE_EDGE_SMOOTH[1].toFixed(1)}, dist);
-  fragColor = vec4(v_color.rgb, v_color.a * alpha);
+  fragColor = v_color;
 }`;
 
 // Vertex shader for edges (instanced multi-segment bezier strips)
