@@ -302,9 +302,17 @@ export function GraphCanvas({
           arr[i * 4 + 2] = b;
           arr[i * 4 + 3] = alpha;
         } else {
-          arr[i * 4] = r * NODE_DIM_RGB;
-          arr[i * 4 + 1] = g * NODE_DIM_RGB;
-          arr[i * 4 + 2] = b * NODE_DIM_RGB;
+          if (theme === "light") {
+            // Fade toward white on light background
+            arr[i * 4] = r * NODE_DIM_RGB + (1 - NODE_DIM_RGB);
+            arr[i * 4 + 1] = g * NODE_DIM_RGB + (1 - NODE_DIM_RGB);
+            arr[i * 4 + 2] = b * NODE_DIM_RGB + (1 - NODE_DIM_RGB);
+          } else {
+            // Fade toward black on dark background
+            arr[i * 4] = r * NODE_DIM_RGB;
+            arr[i * 4 + 1] = g * NODE_DIM_RGB;
+            arr[i * 4 + 2] = b * NODE_DIM_RGB;
+          }
           arr[i * 4 + 3] = NODE_DIM_ALPHA;
         }
       } else {
@@ -324,6 +332,7 @@ export function GraphCanvas({
     isHighlightedDueToSelection,
     pathInfo,
     maxDistance,
+    theme,
   ]);
 
   // Compute node sizes (in world units — shader multiplies by zoom)
@@ -367,7 +376,9 @@ export function GraphCanvas({
   // Compute edge colors
   const edgeColors = useMemo(() => {
     const arr = new Float32Array(data.edges.length * 8); // 4 components * 2 vertices
-    const dimmedColor = parseColor("hsla(0, 0%, 20%, 0.1)");
+    const dimmedColor = parseColor(
+      theme === "light" ? "hsla(0, 0%, 80%, 0.1)" : "hsla(0, 0%, 20%, 0.1)"
+    );
 
     const selectedAlpha = EDGE_SELECTED_ALPHA;
     const unselectedAlpha = EDGE_UNSELECTED_ALPHA;
@@ -389,8 +400,7 @@ export function GraphCanvas({
           );
 
         const isHoveredEdge =
-          hoveredId &&
-          (edge.source === hoveredId || edge.target === hoveredId);
+          hoveredId && (edge.source === hoveredId || edge.target === hoveredId);
 
         if (selectedId) {
           if (path) {
@@ -403,10 +413,7 @@ export function GraphCanvas({
             ) {
               color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha);
             } else if (isHoveredEdge) {
-              color = edgeColour(
-                EDGE_SELECTED_SATURATION,
-                selectedAlpha * 0.8
-              );
+              color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha * 0.8);
             } else {
               color = dimmedColor;
             }
@@ -424,10 +431,7 @@ export function GraphCanvas({
                     Math.pow(EDGE_OPACITY_FALLOFF, distance - 1);
               color = edgeColour(EDGE_SELECTED_SATURATION, alpha);
             } else if (isHoveredEdge) {
-              color = edgeColour(
-                EDGE_SELECTED_SATURATION,
-                selectedAlpha * 0.8
-              );
+              color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha * 0.8);
             } else {
               color = dimmedColor;
             }
@@ -458,6 +462,7 @@ export function GraphCanvas({
     pathInfo,
     maxDistance,
     path,
+    theme,
   ]);
 
   // Precompute arrow geometry — expands animated edges into multiple instances
@@ -874,7 +879,8 @@ export function GraphCanvas({
           stateRef.current.curvedEdges ? EDGE_CURVATURE : 0.0,
           stateRef.current.cursorWorldX,
           stateRef.current.cursorWorldY,
-          CURSOR_PROXIMITY_RADIUS
+          CURSOR_PROXIMITY_RADIUS,
+          stateRef.current.theme === "light" ? -1.0 : 1.0
         );
       }
       animFrameRef.current = requestAnimationFrame(renderLoop);

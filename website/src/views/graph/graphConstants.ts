@@ -50,7 +50,7 @@ export const NODE_DIM_ALPHA = 0.06;
 /** Exponential base for node opacity falloff with distance (0–1). */
 export const NODE_OPACITY_FALLOFF = 0.25;
 /** HSL lightness for graph nodes on a light-mode background. */
-export const NODE_LIGHTNESS_LIGHT = 72;
+export const NODE_LIGHTNESS_LIGHT = 45;
 /** HSL lightness for graph nodes on a dark-mode background. */
 export const NODE_LIGHTNESS_DARK = 60;
 
@@ -82,7 +82,7 @@ export const HOVER_DEBOUNCE_MS = 80;
 
 // ── Background ───────────────────────────────────────────────────────
 /** Graph background color for light mode (RGBA 0–1). */
-export const BG_LIGHT: [number, number, number, number] = [0.12, 0.12, 0.14, 1];
+export const BG_LIGHT: [number, number, number, number] = [1, 1, 1, 1];
 /** Graph background color for dark mode (RGBA 0–1). */
 export const BG_DARK: [number, number, number, number] = [0, 0, 0, 1];
 
@@ -119,6 +119,8 @@ export const LABEL_PADDING_V = 8;
 export const LABEL_GAP = 4;
 /** Extra HSL lightness added to labels for the dark graph background. */
 export const LABEL_LIGHTNESS_BOOST = 5;
+/** Extra HSL lightness added to labels for the light graph background (negative = darken). */
+export const LABEL_LIGHTNESS_BOOST_LIGHT = -5;
 /** Screen-pixel grid columns for spatial label bucketing. */
 export const LABEL_GRID_COLS = 8;
 /** Screen-pixel grid rows for spatial label bucketing. */

@@ -23,6 +23,7 @@ uniform mat3 u_view;
 uniform float u_zoom;
 uniform vec2 u_cursorWorld;
 uniform float u_proximityRadius;
+uniform float u_proximityBrighten;
 in vec2 a_position;
 in float a_size;
 in vec4 a_color;
@@ -38,7 +39,7 @@ void main() {
   float proximity = 1.0 - smoothstep(0.0, u_proximityRadius, cursorDist);
   vec4 color = a_color;
   color.a = mix(color.a, min(color.a + 0.35, 1.0), proximity);
-  color.rgb = mix(color.rgb, min(color.rgb + 0.25, 1.0), proximity);
+  color.rgb = clamp(color.rgb + u_proximityBrighten * vec3(0.25) * proximity, 0.0, 1.0);
   v_color = color;
   v_selected = a_selected;
 }`;
@@ -607,7 +608,8 @@ export class WebGLRenderer {
     curvature: number,
     cursorWorldX: number,
     cursorWorldY: number,
-    proximityRadius: number
+    proximityRadius: number,
+    proximityBrighten: number
   ): void {
     const gl = this.gl;
     gl.clearColor(...backgroundColor);
@@ -682,6 +684,10 @@ export class WebGLRenderer {
       gl.uniform1f(
         gl.getUniformLocation(this.nodeProgram, "u_proximityRadius"),
         proximityRadius
+      );
+      gl.uniform1f(
+        gl.getUniformLocation(this.nodeProgram, "u_proximityBrighten"),
+        proximityBrighten
       );
       gl.bindVertexArray(this.nodeVAO);
       gl.drawArrays(gl.POINTS, 0, this.nodeCount);
