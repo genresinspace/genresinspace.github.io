@@ -168,9 +168,6 @@ function LoadedApp({ data }: { data: Data }) {
     };
   }, [searchMode, searchState, searchDispatch, setSelectedId]);
 
-  // Camera animation state — used to defer heavy sidebar content (e.g. iframes)
-  const [isCameraAnimating, setIsCameraAnimating] = useState(false);
-
   // Mobile sidebar state
   const [mobileSidebarHeight, setMobileSidebarHeight] = useState(50); // percentage
   const [isDraggingSidebar, setIsDraggingSidebar] = useState(false);
@@ -353,7 +350,6 @@ function LoadedApp({ data }: { data: Data }) {
               path={searchState.type === "path" ? searchState.path : null}
               viewportOffsetX={viewportOffsetX}
               viewportOffsetY={viewportOffsetY}
-              onCameraAnimatingChange={setIsCameraAnimating}
               searchMode={searchMode}
               onSetAsSource={onSetAsSource}
               onSetAsDestination={onSetAsDestination}
@@ -394,7 +390,6 @@ function LoadedApp({ data }: { data: Data }) {
             isFullscreen={isFullscreen}
             isMinimized={isMinimized}
             searchComponent={isFullscreen ? searchComponent : undefined}
-            isCameraAnimating={isCameraAnimating}
           />
         </div>
       </div>

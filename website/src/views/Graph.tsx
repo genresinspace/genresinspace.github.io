@@ -17,7 +17,6 @@ export function Graph({
   path,
   viewportOffsetX,
   viewportOffsetY,
-  onCameraAnimatingChange,
   searchMode,
   onSetAsSource,
   onSetAsDestination,
@@ -29,7 +28,7 @@ export function Graph({
   path: string[] | null;
   viewportOffsetX: number;
   viewportOffsetY: number;
-  onCameraAnimatingChange?: (animating: boolean) => void;
+
   searchMode: SearchMode;
   onSetAsSource: ((nodeId: string) => void) | null;
   onSetAsDestination: ((nodeId: string) => void) | null;
@@ -52,17 +51,7 @@ export function Graph({
   });
   // Shared cursor world position — written by GraphCanvas, read by Labels
   const cursorWorldRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const wasAnimatingRef = useRef(false);
-  const onCameraAnimatingChangeRef = useRef(onCameraAnimatingChange);
-  onCameraAnimatingChangeRef.current = onCameraAnimatingChange;
-
   const onCameraChange = useCallback(() => {
-    // Notify parent when camera animation starts/stops
-    const isAnim = cameraRef.current.isAnimating;
-    if (isAnim !== wasAnimatingRef.current) {
-      wasAnimatingRef.current = isAnim;
-      onCameraAnimatingChangeRef.current?.(isAnim);
-    }
     // Apply CSS transform to labels container immediately (same frame as WebGL)
     const container = labelContainerRef.current;
     if (container) {
