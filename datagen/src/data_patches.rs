@@ -143,6 +143,7 @@ pub fn edges_to_reject() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         // disco or house; LGBTQ communities were central to those scenes, but that's
         // cultural context, not genre derivation
         ("LGBTQ music", "Disco", D),
+        ("LGBTQ music", "Glam rock", D),
         ("LGBTQ music", "House music", D),
         // Louisiana Creole/Cajun music influencing country and R&B is reasonable, but
         // a direct influence on hip-hop is too much of a stretch
