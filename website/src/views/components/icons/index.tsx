@@ -17,4 +17,13 @@ export * from "./SubgenreIcon";
 export * from "./FusionGenreIcon";
 export * from "./ResizeHandleIcon";
 export * from "./SwapIcon";
-// Export additional icons as you create them
+export * from "./NoteIcon";
+export * from "./WikipediaIcon";
+export * from "./SpeakerIcon";
+export * from "./MicrophoneIcon";
+export * from "./PlayIcon";
+export * from "./PauseIcon";
+export * from "./DiceIcon";
+export * from "./ResetIcon";
+export * from "./ArrowLeftIcon";
+export * from "./ArrowRightIcon";

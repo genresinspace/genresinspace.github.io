@@ -302,14 +302,17 @@ function handleLabelClick(nodeId: string, refs: LabelRefs): void {
 const ACTION_BTN_BASE =
   "hidden absolute top-0 -bottom-1 px-2 cursor-pointer pointer-events-auto whitespace-nowrap items-center border-b-4 transition-opacity duration-200";
 
+const ARROW_LEFT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>`;
+const ARROW_RIGHT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m0 0l-7-7m7 7l-7 7"/></svg>`;
+
 /** Create the flanking "to" (left) and "from" (right) action buttons for a label. */
 function createActionButtons(
   nodeId: string,
   refs: LabelRefs
 ): { toBtn: HTMLButtonElement; fromBtn: HTMLButtonElement } {
-  const makeButton = (label: string, onClick: () => void) => {
+  const makeButton = (html: string, onClick: () => void) => {
     const btn = document.createElement("button");
-    btn.textContent = label;
+    btn.innerHTML = html;
     btn.addEventListener("pointerdown", (e) => {
       e.stopPropagation();
     });
@@ -321,7 +324,7 @@ function createActionButtons(
   };
 
   // "from" on the left — set as source
-  const fromBtn = makeButton("← from", () => {
+  const fromBtn = makeButton(`${ARROW_LEFT_SVG}&nbsp;from`, () => {
     refs.onSetAsSource.current?.(nodeId);
   });
   fromBtn.className = `${ACTION_BTN_BASE} right-full rounded-l-lg`;
@@ -330,7 +333,7 @@ function createActionButtons(
   fromBtn.style.color = "#e2e8f0";
 
   // "to" on the right — set as destination
-  const toBtn = makeButton("to →", () => {
+  const toBtn = makeButton(`to&nbsp;${ARROW_RIGHT_SVG}`, () => {
     refs.onSetAsDestination.current?.(nodeId);
   });
   toBtn.className = `${ACTION_BTN_BASE} left-full rounded-r-lg`;

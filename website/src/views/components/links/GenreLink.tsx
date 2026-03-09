@@ -8,6 +8,7 @@ import {
 import { useGenre } from "../../../services/dataCache";
 import { Tooltip, useTooltip } from "../Tooltip";
 import { WikitextTooltipContent } from "../Tooltip";
+import { NoteIcon } from "../icons";
 
 /**
  * A link to a genre.
@@ -61,7 +62,14 @@ export function GenreLink({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        ♪ {props.children}
+        <span className="whitespace-nowrap">
+          <NoteIcon
+            width={14}
+            height={14}
+            className="inline-block align-[-0.1em]"
+          />{" "}
+          {props.children}
+        </span>
       </a>
 
       {genreData?.description && showPreview && (

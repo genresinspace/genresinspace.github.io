@@ -1,4 +1,5 @@
 import { colourStyles } from "../colours";
+import { ResetIcon } from "./icons";
 
 /** Wraps an input and shows a description below it */
 export function InputDescription({
@@ -44,7 +45,7 @@ export function CheckboxInput({
           onClick={() => onChange(name, defaultValue)}
           aria-label="Reset to default"
         >
-          ↺
+          <ResetIcon width={14} height={14} />
         </button>
       </div>
       <div
@@ -99,7 +100,7 @@ export function RangeInput({
             onClick={() => onChange(name, defaultValue)}
             aria-label="Reset to default"
           >
-            ↺
+            <ResetIcon width={14} height={14} />
           </button>
         </div>
       </div>

@@ -4,6 +4,13 @@ import { wikimediaCommmonsAssetUrl } from "../urls";
 import { Wikitext } from "../wikitexts/Wikitext";
 import { templateToObject } from "./util";
 import { colourStyles } from "../../../colours";
+import {
+  SpeakerIcon,
+  MusicIcon,
+  MicrophoneIcon,
+  PlayIcon,
+  PauseIcon,
+} from "../../icons";
 
 interface AudioPlayerProps {
   filename: string;
@@ -116,9 +123,9 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           {isPlaying ? (
-            <span className="text-sm">⏸️</span>
+            <PauseIcon width={14} height={14} />
           ) : (
-            <span className="text-sm">▶️</span>
+            <PlayIcon width={14} height={14} />
           )}
         </button>
         <div className="grow">
@@ -201,9 +208,9 @@ export function Listen({
   const embed = params["embed"] === "yes";
 
   // Determine icon based on type
-  let icon = "🔊"; // default sound icon
-  if (type === "music") icon = "🎵";
-  if (type === "speech") icon = "🎤";
+  let icon: React.ReactNode = <SpeakerIcon width={20} height={20} />;
+  if (type === "music") icon = <MusicIcon width={20} height={20} />;
+  if (type === "speech") icon = <MicrophoneIcon width={20} height={20} />;
 
   // Custom image can override default icon
   const customImage = params["image"];

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { colourStyles } from "../colours";
+import { ChevronDownIcon } from "./icons";
 
 /** A collapsible component; the children are not rendered when collapsed. */
 export function Collapsible({
@@ -25,12 +26,12 @@ export function Collapsible({
         aria-expanded={isOpen}
       >
         <span
-          className="text-sm w-4 flex-shrink-0 transition-transform duration-200"
+          className="text-sm w-4 flex-shrink-0 transition-transform duration-200 flex items-center justify-center"
           style={{
             transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)",
           }}
         >
-          ▼
+          <ChevronDownIcon width={14} height={14} />
         </span>
         <span className="text-left">{title}</span>
       </button>

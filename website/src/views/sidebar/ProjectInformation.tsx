@@ -20,7 +20,7 @@ import { ExternalLink as EL } from "../components/links/ExternalLink";
 import { dumpUrl } from "../components/wikipedia/urls";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { Section } from "../components/Section";
-import { InfoIcon, MapIcon, QuestionIcon } from "../components/icons";
+import { InfoIcon, MapIcon, QuestionIcon, DiceIcon } from "../components/icons";
 import { useGenre } from "../../services/dataCache";
 import { colourStyles } from "../colours";
 
@@ -125,7 +125,7 @@ function RandomGenre({
           className={`p-1 ${colourStyles.project.button} w-8 flex items-center justify-center text-white transition-colors`}
           title="Get another random genre"
         >
-          🎲
+          <DiceIcon width={16} height={16} stroke="white" />
         </button>
         <button
           onClick={() => (window.location.hash = `${randomId}`)}

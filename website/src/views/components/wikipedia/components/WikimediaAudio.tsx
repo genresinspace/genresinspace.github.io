@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { wikimediaCommmonsAssetUrl } from "../urls";
+import { SpeakerIcon } from "../../icons";
 
 interface WikimediaAudioProps {
   audioFile: string;
@@ -12,7 +13,7 @@ interface WikimediaAudioProps {
  */
 export function WikimediaAudio({
   audioFile,
-  symbol = "🔊",
+  symbol = <SpeakerIcon width={16} height={16} className="inline-block" />,
   className = "cursor-pointer",
 }: WikimediaAudioProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
