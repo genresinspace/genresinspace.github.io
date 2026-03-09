@@ -552,7 +552,13 @@ export function useSearchState(
           sourceId,
           destinationQuery,
           destinationId,
-          path: computePath(nodes, edges, visibleTypes, sourceId, destinationId),
+          path: computePath(
+            nodes,
+            edges,
+            visibleTypes,
+            sourceId,
+            destinationId
+          ),
         };
       };
 
