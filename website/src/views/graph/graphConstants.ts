@@ -127,6 +127,8 @@ export const LABEL_FONT_SIZE_DEGREE = 6;
 export const LABEL_OPACITY_FALLOFF = 0.25;
 /** HSL lightness boost added to each label colour when hovered. */
 export const LABEL_HOVER_LIGHTNESS_BOOST = 5;
+/** HSL lightness boost added to each label colour when selected. */
+export const LABEL_SELECTED_LIGHTNESS_BOOST = 20;
 /** CSS brightness for labels outside the selected net. */
 export const LABEL_DIM_BRIGHTNESS = 0.4;
 /** Opacity for labels outside the selected net. */
