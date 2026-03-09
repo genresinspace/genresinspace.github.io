@@ -170,6 +170,7 @@ export function GraphCanvas({
     // Target arrays for smooth transitions
     targetNodeColors: null as Float32Array | null,
     targetEdgeColors: null as Float32Array | null,
+    edgeWidthScales: null as Float32Array | null,
     targetNodeSizes: null as Float32Array | null,
     arrowGeom: null as {
       targets: Float32Array;
@@ -467,6 +468,27 @@ export function GraphCanvas({
     theme,
   ]);
 
+  // Compute per-edge width scales (2x for path edges)
+  const edgeWidthScales = useMemo(() => {
+    const arr = new Float32Array(data.edges.length);
+    arr.fill(1.0);
+    if (path) {
+      for (let i = 0; i < data.edges.length; i++) {
+        const edge = data.edges[i];
+        const sourceIndex = path.indexOf(edge.source);
+        const targetIndex = path.indexOf(edge.target);
+        if (
+          sourceIndex !== -1 &&
+          targetIndex !== -1 &&
+          Math.abs(sourceIndex - targetIndex) === 1
+        ) {
+          arr[i] = 2.0;
+        }
+      }
+    }
+    return arr;
+  }, [data.edges, path]);
+
   // Precompute arrow geometry — expands animated edges into multiple instances
   // Stable arrow geometry for selected net (doesn't change on hover)
   const netArrowGeometry = useMemo(() => {
@@ -596,6 +618,7 @@ export function GraphCanvas({
   // Store target arrays for the render loop's interpolation
   stateRef.current.targetNodeColors = nodeColors;
   stateRef.current.targetEdgeColors = edgeColors;
+  stateRef.current.edgeWidthScales = edgeWidthScales;
   stateRef.current.targetNodeSizes = nodeSizes;
   stateRef.current.arrowGeom = arrowGeometry;
   stateRef.current.edgeNodeIndices = edgeNodeIndices;
@@ -764,6 +787,11 @@ export function GraphCanvas({
             }
           }
           renderer.setEdgeColors(interp.edgeColors);
+        }
+
+        // Upload edge width scales (no interpolation needed)
+        if (targets.edgeWidthScales) {
+          renderer.setEdgeWidthScales(targets.edgeWidthScales);
         }
 
         // Lerp node sizes

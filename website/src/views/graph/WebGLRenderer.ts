@@ -77,6 +77,7 @@ in vec4 a_srcColor;
 in vec4 a_tgtColor;
 in vec4 a_srcNodeColor;
 in vec4 a_tgtNodeColor;
+in float a_widthScale;
 out vec4 v_edgeColor;
 out vec4 v_srcNodeColor;
 out vec4 v_tgtNodeColor;
@@ -117,7 +118,7 @@ void main() {
   float tLen = length(tangent);
   vec2 tPerp = vec2(-tangent.y, tangent.x) / tLen;
 
-  vec2 worldPos = curvePos + tPerp * a_template.y * u_width;
+  vec2 worldPos = curvePos + tPerp * a_template.y * u_width * a_widthScale;
   vec3 pos = u_view * vec3(worldPos, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
   v_edgeColor = mix(a_srcColor, a_tgtColor, t);
@@ -276,6 +277,7 @@ export class WebGLRenderer {
   private edgeTgtColorBuf: WebGLBuffer;
   private edgeSrcNodeColorBuf: WebGLBuffer;
   private edgeTgtNodeColorBuf: WebGLBuffer;
+  private edgeWidthScaleBuf: WebGLBuffer;
   private edgeCount = 0;
 
   // Arrow rendering
@@ -335,6 +337,7 @@ export class WebGLRenderer {
     this.edgeTgtColorBuf = gl.createBuffer()!;
     this.edgeSrcNodeColorBuf = gl.createBuffer()!;
     this.edgeTgtNodeColorBuf = gl.createBuffer()!;
+    this.edgeWidthScaleBuf = gl.createBuffer()!;
 
     gl.bindVertexArray(this.edgeVAO);
 
@@ -413,6 +416,16 @@ export class WebGLRenderer {
     gl.enableVertexAttribArray(eTgtNodeColorLoc);
     gl.vertexAttribPointer(eTgtNodeColorLoc, 4, gl.FLOAT, false, 0, 0);
     gl.vertexAttribDivisor(eTgtNodeColorLoc, 1);
+
+    // Per-instance: width scale (1.0 = normal, 2.0 = double width for path edges)
+    const eWidthScaleLoc = gl.getAttribLocation(
+      this.edgeProgram,
+      "a_widthScale"
+    );
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeWidthScaleBuf);
+    gl.enableVertexAttribArray(eWidthScaleLoc);
+    gl.vertexAttribPointer(eWidthScaleLoc, 1, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(eWidthScaleLoc, 1);
 
     gl.bindVertexArray(null);
 
@@ -566,6 +579,13 @@ export class WebGLRenderer {
     gl.bufferData(gl.ARRAY_BUFFER, srcNodeColors, gl.DYNAMIC_DRAW);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeTgtNodeColorBuf);
     gl.bufferData(gl.ARRAY_BUFFER, tgtNodeColors, gl.DYNAMIC_DRAW);
+  }
+
+  /** Upload per-edge width scale factors (1 float per edge). */
+  setEdgeWidthScales(scales: Float32Array): void {
+    const gl = this.gl;
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.edgeWidthScaleBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, scales, gl.DYNAMIC_DRAW);
   }
 
   /** Upload arrow instance data. */
@@ -722,6 +742,7 @@ export class WebGLRenderer {
     gl.deleteBuffer(this.edgeTgtColorBuf);
     gl.deleteBuffer(this.edgeSrcNodeColorBuf);
     gl.deleteBuffer(this.edgeTgtNodeColorBuf);
+    gl.deleteBuffer(this.edgeWidthScaleBuf);
     gl.deleteBuffer(this.arrowTemplateBuf);
     gl.deleteBuffer(this.arrowTargetBuf);
     gl.deleteBuffer(this.arrowDirBuf);
