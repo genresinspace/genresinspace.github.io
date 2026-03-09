@@ -445,7 +445,7 @@ function GenreResultsList({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto mt-2">
+    <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto mt-2 p-1">
       {label && (
         <div className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400 px-1">
           {label}
