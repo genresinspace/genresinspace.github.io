@@ -63,6 +63,12 @@ npm run lint
 npm run format
 ```
 
+Clippy warnings can often be auto-fixed:
+
+```bash
+cargo clippy --fix -- -D warnings
+```
+
 ## Regenerating data
 
 To regenerate the full dataset (requires Wikipedia dumps and a `config.toml`):
