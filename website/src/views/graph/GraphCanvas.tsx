@@ -381,7 +381,9 @@ export function GraphCanvas({
     );
 
     const selectedAlpha = EDGE_SELECTED_ALPHA;
-    const unselectedAlpha = EDGE_UNSELECTED_ALPHA;
+    // Reduce unselected edge visibility on light backgrounds where they're more prominent
+    const unselectedAlpha =
+      theme === "light" ? EDGE_UNSELECTED_ALPHA * 0.6 : EDGE_UNSELECTED_ALPHA;
 
     for (let i = 0; i < data.edges.length; i++) {
       const edge = data.edges[i];
@@ -870,6 +872,7 @@ export function GraphCanvas({
         // Dark graph background for both modes; slightly lighter for light mode
         const bg: [number, number, number, number] =
           stateRef.current.theme === "light" ? BG_LIGHT : BG_DARK;
+        const isLight = stateRef.current.theme === "light";
         renderer.render(
           camera.getViewMatrix(),
           bg,
@@ -880,7 +883,8 @@ export function GraphCanvas({
           stateRef.current.cursorWorldX,
           stateRef.current.cursorWorldY,
           CURSOR_PROXIMITY_RADIUS,
-          stateRef.current.theme === "light" ? -1.0 : 1.0
+          isLight ? -1.0 : 1.0,
+          isLight ? [0, 0, 0] : [1, 1, 1]
         );
       }
       animFrameRef.current = requestAnimationFrame(renderLoop);

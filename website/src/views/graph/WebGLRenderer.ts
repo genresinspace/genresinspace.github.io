@@ -46,6 +46,7 @@ void main() {
 
 const NODE_FS = `#version 300 es
 precision highp float;
+uniform vec3 u_ringColor;
 in vec4 v_color;
 in float v_selected;
 out vec4 fragColor;
@@ -53,9 +54,9 @@ void main() {
   vec2 p = gl_PointCoord * 2.0 - 1.0;
   float dist = dot(p, p);
   if (dist > 1.0) discard;
-  // White inner stroke for selected node
+  // Ring highlight for selected node
   if (v_selected > 0.5 && dist > 0.5) {
-    fragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    fragColor = vec4(u_ringColor, 1.0);
   } else {
     fragColor = v_color;
   }
@@ -609,7 +610,8 @@ export class WebGLRenderer {
     cursorWorldX: number,
     cursorWorldY: number,
     proximityRadius: number,
-    proximityBrighten: number
+    proximityBrighten: number,
+    ringColor: [number, number, number]
   ): void {
     const gl = this.gl;
     gl.clearColor(...backgroundColor);
@@ -688,6 +690,10 @@ export class WebGLRenderer {
       gl.uniform1f(
         gl.getUniformLocation(this.nodeProgram, "u_proximityBrighten"),
         proximityBrighten
+      );
+      gl.uniform3f(
+        gl.getUniformLocation(this.nodeProgram, "u_ringColor"),
+        ...ringColor
       );
       gl.bindVertexArray(this.nodeVAO);
       gl.drawArrays(gl.POINTS, 0, this.nodeCount);
