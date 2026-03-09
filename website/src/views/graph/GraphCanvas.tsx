@@ -159,6 +159,7 @@ export function GraphCanvas({
   const stateRef = useRef({
     selectedId,
     hoveredId,
+    path: path as string[] | null,
     positions: null as Float32Array | null,
     sizes: null as Float32Array | null,
     theme: theme as string,
@@ -184,6 +185,7 @@ export function GraphCanvas({
   });
   stateRef.current.selectedId = selectedId;
   stateRef.current.hoveredId = hoveredId;
+  stateRef.current.path = path;
   stateRef.current.theme = theme;
   stateRef.current.arrowSizeScale = settings.general.arrowSizeScale;
   stateRef.current.curvedEdges = settings.general.curvedEdges;
@@ -197,6 +199,8 @@ export function GraphCanvas({
     arrowTargetSizes: null as Float32Array | null,
     edgeSrcNodeColors: null as Float32Array | null,
     edgeTgtNodeColors: null as Float32Array | null,
+    nodeSelected: null as Float32Array | null,
+    prevSelectedId: null as string | null,
     lastTime: 0,
   });
 
@@ -606,7 +610,28 @@ export function GraphCanvas({
         }
         if (idx !== null) {
           const nodeId = data.nodes[idx].id;
-          setSelectedId(stateRef.current.selectedId !== nodeId ? nodeId : null);
+          const sid = stateRef.current.selectedId;
+          const currentPath = stateRef.current.path;
+
+          if (currentPath) {
+            // Path mode: only on-path nodes are clickable
+            if (currentPath.includes(nodeId)) {
+              if (sid === nodeId) {
+                // Clicking the selected node: revert to source or clear
+                const sourceId = currentPath[0];
+                if (sourceId && sourceId !== nodeId) {
+                  setSelectedId(sourceId);
+                } else {
+                  setSelectedId(null);
+                }
+              } else {
+                setSelectedId(nodeId);
+              }
+            }
+            // Off-path: no-op (use long-press/hover for buttons)
+          } else {
+            setSelectedId(sid !== nodeId ? nodeId : null);
+          }
         } else {
           setSelectedId(null);
         }
@@ -765,6 +790,24 @@ export function GraphCanvas({
           );
         }
 
+        // Update selection indicator
+        if (targets.selectedId !== interp.prevSelectedId) {
+          interp.prevSelectedId = targets.selectedId;
+          const count = data.nodes.length;
+          if (!interp.nodeSelected || interp.nodeSelected.length !== count) {
+            interp.nodeSelected = new Float32Array(count);
+          } else {
+            interp.nodeSelected.fill(0);
+          }
+          if (targets.selectedId) {
+            const idx = nodeIdToInt(targets.selectedId);
+            if (idx >= 0 && idx < count) {
+              interp.nodeSelected[idx] = 1.0;
+            }
+          }
+          renderer.setNodeSelected(interp.nodeSelected);
+        }
+
         // Dark graph background for both modes; slightly lighter for light mode
         const bg: [number, number, number, number] =
           stateRef.current.theme === "light" ? BG_LIGHT : BG_DARK;
@@ -800,43 +843,28 @@ export function GraphCanvas({
 
   // Buffer uploads are now handled in the render loop via interpolation.
 
-  // Animate to fit the selected node's neighbourhood
-  useEffect(() => {
-    if (selectedId && settings.general.zoomOnSelect) {
-      const idx = nodeIdToInt(selectedId);
-      if (idx < 0 || idx >= data.nodes.length) return;
+  // Helper: animate camera to fit a set of positions
+  const animateToFitPositions = useCallback(
+    (positions: [number, number][]) => {
+      if (positions.length === 0) return;
 
-      // Gather positions of the selected node + immediate neighbours
-      const netPositions: [number, number][] = [
-        [nodePositions[idx * 2], nodePositions[idx * 2 + 1]],
-      ];
-      for (const id of pathInfo.immediateNeighbours) {
-        const ni = nodeIdToInt(id);
-        if (ni >= 0 && ni < data.nodes.length) {
-          netPositions.push([nodePositions[ni * 2], nodePositions[ni * 2 + 1]]);
-        }
-      }
-
-      // Compute mean
       let mx = 0,
         my = 0;
-      for (const [px, py] of netPositions) {
+      for (const [px, py] of positions) {
         mx += px;
         my += py;
       }
-      mx /= netPositions.length;
-      my /= netPositions.length;
+      mx /= positions.length;
+      my /= positions.length;
 
-      // Compute stddev of distances from mean
       let variance = 0;
-      for (const [px, py] of netPositions) {
+      for (const [px, py] of positions) {
         const dx = px - mx,
           dy = py - my;
         variance += dx * dx + dy * dy;
       }
-      const stddev = Math.sqrt(variance / netPositions.length);
+      const stddev = Math.sqrt(variance / positions.length);
 
-      // Zoom to fit 2 stddev radius; large minimum so spatial neighbours stay visible
       const fitRadius = Math.max(stddev * FIT_STDDEV_MULT, FIT_RADIUS_MIN);
       const rawW = camera.canvasW - Math.abs(camera.viewportOffsetX);
       const rawH = camera.canvasH - Math.abs(camera.viewportOffsetY);
@@ -850,14 +878,59 @@ export function GraphCanvas({
         Math.max(fitZoom, camera.minZoomLevel),
         FIT_ANIM_DURATION
       );
+    },
+    [camera]
+  );
+
+  // Animate to fit the selected node's neighbourhood
+  useEffect(() => {
+    if (!selectedId || !settings.general.zoomOnSelect) return;
+    // When a path is active, path zoom is handled separately
+    if (path && path.length > 0) return;
+
+    const idx = nodeIdToInt(selectedId);
+    if (idx < 0 || idx >= data.nodes.length) return;
+
+    const positions: [number, number][] = [
+      [nodePositions[idx * 2], nodePositions[idx * 2 + 1]],
+    ];
+    for (const id of pathInfo.immediateNeighbours) {
+      const ni = nodeIdToInt(id);
+      if (ni >= 0 && ni < data.nodes.length) {
+        positions.push([nodePositions[ni * 2], nodePositions[ni * 2 + 1]]);
+      }
     }
+
+    animateToFitPositions(positions);
   }, [
     selectedId,
     settings.general.zoomOnSelect,
     data.nodes.length,
     nodePositions,
     pathInfo,
-    camera,
+    path,
+    animateToFitPositions,
+  ]);
+
+  // Animate to fit the entire path when it changes
+  useEffect(() => {
+    if (!path || path.length === 0 || !settings.general.zoomOnSelect) return;
+
+    const positions: [number, number][] = [];
+    for (const id of path) {
+      const ni = nodeIdToInt(id);
+      if (ni >= 0 && ni < data.nodes.length) {
+        positions.push([nodePositions[ni * 2], nodePositions[ni * 2 + 1]]);
+      }
+    }
+
+    animateToFitPositions(positions);
+  }, [
+    path,
+    settings.general.zoomOnSelect,
+    data.nodes.length,
+    nodePositions,
+    animateToFitPositions,
   ]);
 
   return (

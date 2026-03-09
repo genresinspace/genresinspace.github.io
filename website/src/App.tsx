@@ -1,4 +1,11 @@
-import { useEffect, useState, useCallback, useRef, Dispatch } from "react";
+import {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  useMemo,
+  Dispatch,
+} from "react";
 
 import { Graph } from "./views/Graph";
 import {
@@ -28,6 +35,39 @@ const ENABLE_ARROW_KEY_NAVIGATION = import.meta.env.DEV;
 
 // Minimum height for mobile sidebar when collapsed (percentage of viewport)
 const MOBILE_SIDEBAR_MIN_HEIGHT = 10;
+
+/** Parse hash string into source, optional destination, and optional selected IDs */
+function parseHash(hash: string): {
+  sourceId: string | null;
+  destinationId: string | null;
+  selectedId: string | null;
+} {
+  const raw = hash.startsWith("#") ? hash.slice(1) : hash;
+  if (!raw) return { sourceId: null, destinationId: null, selectedId: null };
+
+  const parts = raw.split(",");
+  const sourceId = parts[0] || null;
+  const destinationId = parts.length > 1 ? parts[1] || null : null;
+  const selectedId = parts.length > 2 ? parts[2] || null : null;
+  return { sourceId, destinationId, selectedId };
+}
+
+/** Build a hash string from source, optional destination, and optional selected IDs */
+function buildHash(
+  sourceId: string | null,
+  destinationId: string | null,
+  selectedId: string | null
+): string {
+  if (!sourceId) return "";
+  if (destinationId) {
+    // Only include selectedId if it differs from sourceId
+    if (selectedId && selectedId !== sourceId) {
+      return `#${sourceId},${destinationId},${selectedId}`;
+    }
+    return `#${sourceId},${destinationId}`;
+  }
+  return `#${sourceId}`;
+}
 
 /** The main app component */
 function App() {
@@ -92,6 +132,41 @@ function LoadedApp({ data }: { data: Data }) {
     searchState,
     searchDispatch,
   } = useSelectedIdAndFilterAndFocus(data, settings);
+
+  const searchMode = searchState.type;
+
+  const onSetAsSource = useMemo(() => {
+    if (searchMode !== "path") return null;
+    return (nodeId: string) => {
+      if (searchState.type === "path") {
+        searchDispatch({
+          type: "restore-path",
+          sourceId: nodeId,
+          destinationId: searchState.destinationId,
+        });
+        setSelectedId(nodeId);
+      }
+    };
+  }, [searchMode, searchState, searchDispatch, setSelectedId]);
+
+  const onSetAsDestination = useMemo(() => {
+    if (searchMode === "initial") return null;
+    return (nodeId: string) => {
+      if (searchState.type === "selected") {
+        searchDispatch({
+          type: "selected:select-destination",
+          destinationId: nodeId,
+        });
+      } else if (searchState.type === "path") {
+        searchDispatch({
+          type: "restore-path",
+          sourceId: searchState.sourceId,
+          destinationId: nodeId,
+        });
+      }
+      setSelectedId(nodeId);
+    };
+  }, [searchMode, searchState, searchDispatch, setSelectedId]);
 
   // Camera animation state — used to defer heavy sidebar content (e.g. iframes)
   const [isCameraAnimating, setIsCameraAnimating] = useState(false);
@@ -261,7 +336,6 @@ function LoadedApp({ data }: { data: Data }) {
       searchDispatch={searchDispatch}
       visibleTypes={settings.visibleTypes}
       setSelectedId={setSelectedId}
-      experimentalPathfinding={settings.general.experimentalPathfinding}
     />
   );
 
@@ -280,6 +354,9 @@ function LoadedApp({ data }: { data: Data }) {
               viewportOffsetX={viewportOffsetX}
               viewportOffsetY={viewportOffsetY}
               onCameraAnimatingChange={setIsCameraAnimating}
+              searchMode={searchMode}
+              onSetAsSource={onSetAsSource}
+              onSetAsDestination={onSetAsDestination}
             />
           </div>
         )}
@@ -338,8 +415,8 @@ function useSelectedIdAndFilterAndFocus(
 } {
   // Selection
   const [selectedId, setSelectedIdRaw] = useState<string | null>(() => {
-    const hash = window.location.hash.slice(1);
-    return hash || null;
+    const { sourceId } = parseHash(window.location.hash);
+    return sourceId;
   });
 
   // Search state
@@ -347,18 +424,17 @@ function useSelectedIdAndFilterAndFocus(
     data.nodes,
     data.edges,
     settings.visibleTypes,
-    selectedId,
-    settings.general.experimentalPathfinding
+    selectedId
   );
+
+  // Use a ref to access searchState in callbacks without re-creating them
+  const searchStateRef = useRef(searchState);
+  searchStateRef.current = searchState;
 
   useEffect(() => {
     // Ensure the path is rebuilt when the visible types change
     searchDispatch({ type: "path:rebuild" });
-  }, [
-    searchDispatch,
-    settings.visibleTypes,
-    settings.general.experimentalPathfinding,
-  ]);
+  }, [searchDispatch, settings.visibleTypes]);
 
   // Focus
   const [focusedId, setFocusedRawId] = useState<string | null>(null);
@@ -376,6 +452,7 @@ function useSelectedIdAndFilterAndFocus(
   );
 
   // Wrapper function to handle updating selectedId, filter, focus, and title
+  // This is used for graph clicks (direct source selection)
   const setSelectedId = useCallback(
     (newId: string | null) => {
       setSelectedIdRaw(newId);
@@ -391,23 +468,95 @@ function useSelectedIdAndFilterAndFocus(
       } else {
         searchDispatch({ type: "selected:clear-source" });
         document.title = "genres in space";
+        if (window.location.hash) {
+          window.history.pushState(null, "", window.location.pathname);
+        }
       }
       setFocusedId(newId);
-
-      if (newId && window.location.hash !== `#${newId}`) {
-        window.history.pushState(null, "", `#${newId}`);
-      } else if (!newId && window.location.hash) {
-        window.history.pushState(null, "", window.location.pathname);
-      }
     },
     [data, setFocusedId, searchDispatch]
   );
 
-  // Handle hash changes
+  // Sync URL hash whenever search state or selectedId changes
+  // Clearing the hash is handled imperatively in setSelectedId(null)
+  useEffect(() => {
+    if (searchState.type === "initial") return;
+
+    const sourceId = searchState.sourceId;
+    const destinationId =
+      searchState.type === "path" ? searchState.destinationId : null;
+    const newHash = buildHash(sourceId, destinationId, selectedId);
+
+    if (window.location.hash !== newHash) {
+      window.history.pushState(null, "", newHash);
+    }
+  }, [searchState, selectedId]);
+
+  // Handle hash changes (browser back/forward, GenreLink clicks)
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash.slice(1);
-      setSelectedId(hash || null);
+      const {
+        sourceId,
+        destinationId,
+        selectedId: hashSelectedId,
+      } = parseHash(window.location.hash);
+      const currentState = searchStateRef.current;
+
+      if (sourceId && destinationId) {
+        // Full path: #sourceId,destinationId[,selectedId]
+        const effectiveSelectedId = hashSelectedId || sourceId;
+        setSelectedIdRaw(effectiveSelectedId);
+        const nodeData = data.nodes[nodeIdToInt(effectiveSelectedId)];
+        if (nodeData) {
+          document.title = `genres in space: ${nodeData.label}`;
+        }
+        setFocusedId(effectiveSelectedId);
+        searchDispatch({
+          type: "restore-path",
+          sourceId,
+          destinationId,
+        });
+      } else if (sourceId) {
+        // Single node: #sourceId — use hash-navigate for context-aware behavior
+        if (
+          (currentState.type === "selected" || currentState.type === "path") &&
+          currentState.sourceId !== sourceId
+        ) {
+          // In selected/path state with a different node — hash-navigate sets destination
+          const currentSourceId = currentState.sourceId;
+          // Keep selectedId as the current source (for graph focus)
+          setSelectedIdRaw(currentSourceId);
+          document.title = `genres in space: ${data.nodes[nodeIdToInt(currentSourceId)].label}`;
+          setFocusedId(currentSourceId);
+          searchDispatch({
+            type: "hash-navigate",
+            nodeId: sourceId,
+          });
+          // Update hash to reflect full path state
+          const newHash = buildHash(currentSourceId, sourceId, currentSourceId);
+          if (window.location.hash !== newHash) {
+            window.history.replaceState(null, "", newHash);
+          }
+        } else {
+          // In initial state, or same node as source — treat as source selection
+          setSelectedIdRaw(sourceId);
+          const nodeData = data.nodes[nodeIdToInt(sourceId)];
+          if (nodeData) {
+            document.title = `genres in space: ${nodeData.label}`;
+          }
+          setFocusedId(sourceId);
+          searchDispatch({
+            type: "hash-navigate",
+            nodeId: sourceId,
+          });
+        }
+      } else {
+        // Empty hash — clear selection
+        setSelectedIdRaw(null);
+        document.title = "genres in space";
+        setFocusedId(null);
+        searchDispatch({ type: "selected:clear-source" });
+      }
     };
 
     // Handle initial load
@@ -415,7 +564,7 @@ function useSelectedIdAndFilterAndFocus(
 
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [setSelectedId]);
+  }, [setFocusedId, searchDispatch, data]);
 
   return {
     selectedId,

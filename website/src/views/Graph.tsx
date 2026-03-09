@@ -5,7 +5,7 @@ import { SettingsData } from "../settings";
 
 import { Camera } from "./graph/Camera";
 import { GraphCanvas } from "./graph/GraphCanvas";
-import { Labels } from "./graph/Labels";
+import { Labels, SearchMode } from "./graph/Labels";
 import { getPathsWithinDistance, EMPTY_PATH_INFO } from "./graph/pathInfo";
 
 /** Graph component using custom WebGL renderer with precomputed positions. */
@@ -18,6 +18,9 @@ export function Graph({
   viewportOffsetX,
   viewportOffsetY,
   onCameraAnimatingChange,
+  searchMode,
+  onSetAsSource,
+  onSetAsDestination,
 }: {
   settings: SettingsData;
   selectedId: string | null;
@@ -27,6 +30,9 @@ export function Graph({
   viewportOffsetX: number;
   viewportOffsetY: number;
   onCameraAnimatingChange?: (animating: boolean) => void;
+  searchMode: SearchMode;
+  onSetAsSource: ((nodeId: string) => void) | null;
+  onSetAsDestination: ((nodeId: string) => void) | null;
 }) {
   const data = useDataContext();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -137,6 +143,9 @@ export function Graph({
         cameraVersion={cameraVersion}
         onCameraChange={onCameraChange}
         containerRef={labelContainerRef}
+        searchMode={searchMode}
+        onSetAsSource={onSetAsSource}
+        onSetAsDestination={onSetAsDestination}
       />
     </div>
   );

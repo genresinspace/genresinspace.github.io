@@ -11,7 +11,6 @@ export type SettingsData = {
     maxInfluenceDistance: number;
     arrowSizeScale: number;
     curvedEdges: boolean;
-    experimentalPathfinding: boolean;
   };
 };
 
@@ -154,14 +153,6 @@ export const GENERAL_CONTROLS: GeneralControlDesc[] = [
     description:
       "Whether to draw edges as curved arcs instead of straight lines. May impact performance on lower-spec devices.",
     default: true,
-  },
-  {
-    type: "boolean",
-    name: "experimentalPathfinding",
-    label: "Experimental Pathfinding",
-    description:
-      "I'm working on letting you find the path between two genres (i.e. all of the intermediate genres of influence between them). I'm still working on making it work well, but you can play around with it if you'd like.",
-    default: false,
   },
 ];
 

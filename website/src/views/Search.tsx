@@ -32,6 +32,7 @@ export type SearchState =
   | {
       // node selected, search for a destination node
       type: "selected";
+      sourceQuery: string;
       sourceId: string;
       destinationQuery: string;
       destinationResults: NodeData[];
@@ -40,7 +41,9 @@ export type SearchState =
   | {
       // source and destination selected, show path if available
       type: "path";
+      sourceQuery: string;
       sourceId: string;
+      destinationQuery: string;
       destinationId: string;
       path: string[] | null;
       focusTarget?: "source" | "destination";
@@ -54,11 +57,16 @@ export type SearchAction =
       sourceQuery: string;
     }
   | {
-      // any state: select a node
+      // any state: select a node (from graph click)
       // initial/selected: transition into `selected` state with sourceId = nodeId
       // path: if node is on the path, do nothing; otherwise, update path with same destination but with new source
       type: "select-node";
       nodeId: string;
+    }
+  | {
+      // `selected`/`path`: update source text without leaving state
+      type: "selected|path:set-source-query";
+      sourceQuery: string;
     }
   | {
       // `selected`: clear the source node, transition into `initial` state
@@ -79,8 +87,9 @@ export type SearchAction =
       type: "path:swap-source-and-destination";
     }
   | {
-      // `path`: clear the path, transition into `selected` state
+      // `path`: clear the path, transition into `selected` state with given source
       type: "path:clear";
+      newSourceId: string;
     }
   | {
       // `path`: return to the source node, but preserve destination; transition into `selected` state
@@ -91,8 +100,15 @@ export type SearchAction =
       type: "path:rebuild";
     }
   | {
-      // `path`: experimental pathfinding was disabled, transition into `selected` state
-      type: "path:disable-experimental";
+      // single node from URL/link — updates destination in pathfinding, source otherwise
+      type: "hash-navigate";
+      nodeId: string;
+    }
+  | {
+      // full path state from URL — restores source + destination + computes path
+      type: "restore-path";
+      sourceId: string;
+      destinationId: string;
     };
 
 /** Search dropdown that searches over genres and shows results */
@@ -103,7 +119,6 @@ export function Search({
   searchState,
   searchDispatch,
   visibleTypes,
-  experimentalPathfinding,
 }: {
   selectedId: string | null;
   setSelectedId: (id: string | null) => void;
@@ -111,11 +126,13 @@ export function Search({
   searchState: SearchState;
   searchDispatch: Dispatch<SearchAction>;
   visibleTypes: VisibleTypes;
-  experimentalPathfinding: boolean;
 }) {
   const { nodes } = useDataContext();
   const sourceRef = useRef<HTMLInputElement>(null);
   const destRef = useRef<HTMLInputElement>(null);
+  const isTouchDevice =
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches;
 
   // Restore focus after state transitions
   useEffect(() => {
@@ -126,30 +143,41 @@ export function Search({
     }
   }, [searchState]);
 
-  // Derive source input value
-  const sourceValue =
-    searchState.type === "initial"
-      ? searchState.sourceQuery
-      : nodes[nodeIdToInt(searchState.sourceId)].label;
-
-  // Derive destination input value
+  // Source and destination values always come directly from state
+  const sourceValue = searchState.sourceQuery;
   const destValue =
     searchState.type === "selected"
       ? searchState.destinationQuery
       : searchState.type === "path"
-        ? nodes[nodeIdToInt(searchState.destinationId)].label
+        ? searchState.destinationQuery
         : "";
 
-  const showDest = experimentalPathfinding && searchState.type !== "initial";
-  const isPath = searchState.type === "path" && experimentalPathfinding;
+  const showDest = searchState.type !== "initial";
+  const isPath = searchState.type === "path";
+
+  // Source results when editing in selected/path state
+  // (shown when sourceQuery differs from the node's label)
+  const sourceResultsOnEdit = useMemo(() => {
+    if (searchState.type === "initial") return null;
+    if (searchState.sourceQuery.length < 2) return null;
+    const nodeLabel = nodes[nodeIdToInt(searchState.sourceId)].label;
+    if (searchState.sourceQuery === nodeLabel) return null;
+    return getFilteredResults(searchState.sourceQuery, nodes, null);
+  }, [searchState, nodes]);
 
   // Results list
   const results =
     searchState.type === "initial"
       ? searchState.sourceResults
-      : searchState.type === "selected" && experimentalPathfinding
-        ? searchState.destinationResults
-        : null;
+      : sourceResultsOnEdit
+        ? sourceResultsOnEdit
+        : searchState.type === "selected"
+          ? searchState.destinationResults
+          : null;
+
+  // Whether results are source results (initial search or editing source in selected/path)
+  const resultsAreSource =
+    searchState.type === "initial" || sourceResultsOnEdit !== null;
 
   return (
     <div>
@@ -165,12 +193,19 @@ export function Search({
             ref={sourceRef}
             placeholder="Search for genre..."
             value={sourceValue}
-            onChange={(value) =>
-              searchDispatch({
-                type: "set-source-query",
-                sourceQuery: value,
-              })
-            }
+            onChange={(value) => {
+              if (searchState.type === "initial") {
+                searchDispatch({
+                  type: "set-source-query",
+                  sourceQuery: value,
+                });
+              } else {
+                searchDispatch({
+                  type: "selected|path:set-source-query",
+                  sourceQuery: value,
+                });
+              }
+            }}
           />
           {showDest && (
             <SearchInput
@@ -184,10 +219,18 @@ export function Search({
                 })
               }
               onClear={() => {
-                searchDispatch({
-                  type: "selected|path:set-destination-query",
-                  destinationQuery: "",
-                });
+                if (searchState.type === "path") {
+                  searchDispatch({
+                    type: "path:clear",
+                    newSourceId: selectedId ?? searchState.sourceId,
+                  });
+                  setSelectedId(selectedId ?? searchState.sourceId);
+                } else {
+                  searchDispatch({
+                    type: "selected|path:set-destination-query",
+                    destinationQuery: "",
+                  });
+                }
               }}
             />
           )}
@@ -207,15 +250,29 @@ export function Search({
         )}
       </div>
 
-      {results && (
-        <GenreResultsList>
+      {showDest && isTouchDevice && (
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+          Long-press a label, then swipe left/right to set source/destination.
+        </p>
+      )}
+
+      {results && results.length > 0 && (
+        <GenreResultsList
+          label={
+            showDest
+              ? resultsAreSource
+                ? "Source results"
+                : "Destination results"
+              : undefined
+          }
+        >
           {results.map((node) => (
             <GenreResultItem
               key={node.id}
               node={node}
               setFocusedId={setFocusedId}
               onClick={() => {
-                if (searchState.type === "initial") {
+                if (resultsAreSource) {
                   setSelectedId(node.id);
                 } else if (searchState.type === "selected") {
                   searchDispatch({
@@ -232,7 +289,7 @@ export function Search({
       {isPath && searchState.type === "path" && (
         <>
           {searchState.path ? (
-            <GenreResultsList>
+            <GenreResultsList label="Path">
               {searchState.path.map((nodeId) => (
                 <GenreResultItem
                   key={nodeId}
@@ -353,7 +410,11 @@ function GenreResultItem({
       }`}
       onMouseEnter={() => setFocusedId(node.id)}
       onMouseLeave={() => setFocusedId(null)}
-      onClick={onClick}
+      onClick={(e) => {
+        // Prevent the GenreLink's href from also triggering hash navigation
+        e.preventDefault();
+        onClick?.();
+      }}
     >
       <GenreLink node={node} hoverPreview={false}>
         {node.label}
@@ -376,9 +437,20 @@ function GenreResultItem({
   );
 }
 
-function GenreResultsList({ children }: { children: React.ReactNode }) {
+function GenreResultsList({
+  label,
+  children,
+}: {
+  label?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto mt-2">
+      {label && (
+        <div className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400 px-1">
+          {label}
+        </div>
+      )}
       {children}
     </div>
   );
@@ -434,11 +506,12 @@ export function useSearchState(
   nodes: NodeData[],
   edges: EdgeData[],
   visibleTypes: VisibleTypes,
-  selectedId: string | null,
-  experimentalPathfinding: boolean
+  selectedId: string | null
 ): [SearchState, Dispatch<SearchAction>] {
   const [state, dispatch] = useReducer(
     (prevState: SearchState, action: SearchAction): SearchState => {
+      const labelOf = (id: string) => nodes[nodeIdToInt(id)].label;
+
       const buildInitialState = (
         sourceQuery: string,
         focusTarget?: "source"
@@ -451,10 +524,12 @@ export function useSearchState(
 
       const buildSelectedState = (
         sourceId: string,
+        sourceQuery: string,
         destinationQuery: string,
         focusTarget?: "source" | "destination"
       ): SearchState => ({
         type: "selected",
+        sourceQuery,
         sourceId,
         destinationQuery,
         destinationResults: getFilteredResults(destinationQuery, nodes, null),
@@ -463,33 +538,46 @@ export function useSearchState(
 
       const buildPathState = (
         sourceId: string,
-        destinationId: string
-      ): SearchState => ({
-        type: "path",
-        sourceId,
-        destinationId,
-        path: computePath(nodes, edges, visibleTypes, sourceId, destinationId),
-      });
+        sourceQuery: string,
+        destinationId: string,
+        destinationQuery: string
+      ): SearchState => {
+        // Self-path: collapse to selected
+        if (sourceId === destinationId) {
+          return buildSelectedState(sourceId, sourceQuery, "", undefined);
+        }
+        return {
+          type: "path",
+          sourceQuery,
+          sourceId,
+          destinationQuery,
+          destinationId,
+          path: computePath(nodes, edges, visibleTypes, sourceId, destinationId),
+        };
+      };
 
       switch (action.type) {
         case "set-source-query":
           return buildInitialState(action.sourceQuery, "source");
         case "select-node":
           if (prevState.type === "initial" || prevState.type === "selected") {
-            return buildSelectedState(action.nodeId, "");
+            return buildSelectedState(
+              action.nodeId,
+              labelOf(action.nodeId),
+              "",
+              undefined
+            );
           } else {
-            if (prevState.path && prevState.path.includes(action.nodeId)) {
-              return prevState;
-            } else {
-              return buildPathState(action.nodeId, prevState.destinationId);
-            }
-          }
-        case "selected:clear-source":
-          if (prevState.type !== "selected") {
-            // Called by the app, so gracefully ignore clear-source requests in the wrong state
+            // In path state: don't modify the path, just let selectedId update
             return prevState;
           }
-
+        case "selected|path:set-source-query":
+          if (prevState.type !== "selected" && prevState.type !== "path") {
+            return prevState;
+          }
+          return { ...prevState, sourceQuery: action.sourceQuery };
+        case "selected:clear-source":
+          if (prevState.type === "initial") return prevState;
           return buildInitialState("");
         case "selected|path:set-destination-query":
           if (prevState.type !== "selected" && prevState.type !== "path") {
@@ -500,6 +588,7 @@ export function useSearchState(
 
           return {
             type: "selected",
+            sourceQuery: prevState.sourceQuery,
             sourceId: prevState.sourceId,
             destinationQuery: action.destinationQuery,
             destinationResults: getFilteredResults(
@@ -516,7 +605,12 @@ export function useSearchState(
             );
           }
 
-          return buildPathState(prevState.sourceId, action.destinationId);
+          return buildPathState(
+            prevState.sourceId,
+            prevState.sourceQuery,
+            action.destinationId,
+            labelOf(action.destinationId)
+          );
         case "path:swap-source-and-destination":
           if (prevState.type !== "path") {
             throw new Error(
@@ -524,7 +618,12 @@ export function useSearchState(
             );
           }
 
-          return buildPathState(prevState.destinationId, prevState.sourceId);
+          return buildPathState(
+            prevState.destinationId,
+            labelOf(prevState.destinationId),
+            prevState.sourceId,
+            labelOf(prevState.sourceId)
+          );
         case "path:clear":
           if (prevState.type !== "path") {
             throw new Error(
@@ -532,7 +631,11 @@ export function useSearchState(
             );
           }
 
-          return buildSelectedState(prevState.sourceId, "");
+          return buildSelectedState(
+            action.newSourceId,
+            labelOf(action.newSourceId),
+            ""
+          );
         case "path:return-to-selected":
           if (prevState.type !== "path") {
             throw new Error(
@@ -542,21 +645,59 @@ export function useSearchState(
 
           return buildSelectedState(
             prevState.sourceId,
-            nodes[nodeIdToInt(prevState.sourceId)].label
+            prevState.sourceQuery,
+            labelOf(prevState.sourceId)
           );
         case "path:rebuild":
           if (prevState.type !== "path") {
             // Called by the app, so gracefully ignore rebuild requests in the wrong state
             return prevState;
           }
-          return buildPathState(prevState.sourceId, prevState.destinationId);
-        case "path:disable-experimental":
-          if (prevState.type !== "path") {
-            throw new Error(
-              `path:disable-experimental from non-path state (${prevState.type})`
+          return buildPathState(
+            prevState.sourceId,
+            prevState.sourceQuery,
+            prevState.destinationId,
+            prevState.destinationQuery
+          );
+        case "hash-navigate":
+          if (prevState.type === "initial") {
+            // No source yet — treat as selecting a source
+            return buildSelectedState(
+              action.nodeId,
+              labelOf(action.nodeId),
+              "",
+              undefined
+            );
+          } else if (prevState.type === "selected") {
+            if (prevState.sourceId === action.nodeId) {
+              return prevState;
+            }
+            // Source exists — set as destination, transition to path
+            return buildPathState(
+              prevState.sourceId,
+              prevState.sourceQuery,
+              action.nodeId,
+              labelOf(action.nodeId)
+            );
+          } else {
+            if (prevState.sourceId === action.nodeId) {
+              return prevState;
+            }
+            // In path state — rebuild path with same source, new destination
+            return buildPathState(
+              prevState.sourceId,
+              prevState.sourceQuery,
+              action.nodeId,
+              labelOf(action.nodeId)
             );
           }
-          return buildSelectedState(prevState.sourceId, "");
+        case "restore-path":
+          return buildPathState(
+            action.sourceId,
+            labelOf(action.sourceId),
+            action.destinationId,
+            labelOf(action.destinationId)
+          );
         default:
           return action satisfies never;
       }
@@ -567,13 +708,6 @@ export function useSearchState(
       sourceResults: [],
     }
   );
-
-  // Effect to handle when experimentalPathfinding is disabled while in path state
-  useEffect(() => {
-    if (!experimentalPathfinding && state.type === "path") {
-      dispatch({ type: "path:disable-experimental" });
-    }
-  }, [experimentalPathfinding, state.type, dispatch]);
 
   return [state, dispatch];
 }

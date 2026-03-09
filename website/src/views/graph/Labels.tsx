@@ -32,6 +32,7 @@ import {
   LABEL_GAP,
   LABEL_OPACITY_FALLOFF,
   LABEL_HOVER_LIGHTNESS_BOOST,
+  LABEL_SELECTED_LIGHTNESS_BOOST,
   LABEL_DIM_BRIGHTNESS,
   LABEL_DIM_OPACITY,
 } from "./graphConstants";
@@ -242,6 +243,13 @@ function selectLabels(
 // Imperative DOM helpers
 // ---------------------------------------------------------------------------
 
+/** Current search/pathfinding mode, determines label click and button behavior. */
+export type SearchMode = "initial" | "selected" | "path";
+
+const LONG_PRESS_MS = 500;
+const SWIPE_THRESHOLD = 40;
+const TOUCH_LIFT_PX = 50;
+
 type LabelRefs = {
   selectedId: RefObject<string | null>;
   hoveredId: RefObject<string | null>;
@@ -250,6 +258,133 @@ type LabelRefs = {
   setSelectedId: RefObject<(id: string | null) => void>;
   setHoveredId: RefObject<(id: string | null) => void>;
   containerRef: RefObject<RefObject<HTMLDivElement | null>>;
+  searchMode: RefObject<SearchMode>;
+  path: RefObject<string[] | null>;
+  onSetAsSource: RefObject<((nodeId: string) => void) | null>;
+  onSetAsDestination: RefObject<((nodeId: string) => void) | null>;
+};
+
+/** Handle a label click based on current search mode. */
+function handleLabelClick(nodeId: string, refs: LabelRefs): void {
+  const sid = refs.selectedId.current;
+  const mode = refs.searchMode.current;
+
+  if (mode === "path") {
+    const currentPath = refs.path.current;
+    if (currentPath && currentPath.includes(nodeId)) {
+      if (sid === nodeId) {
+        // Clicking the currently-viewed on-path node: revert to source or clear
+        const sourceId = currentPath[0];
+        if (sourceId && sourceId !== nodeId) {
+          refs.setSelectedId.current(sourceId);
+        } else {
+          refs.setSelectedId.current(null);
+        }
+      } else {
+        // Select on-path node for viewing
+        refs.setSelectedId.current(nodeId);
+      }
+    }
+    // Off-path: no-op (use long-press for buttons on mobile, hover on desktop)
+  } else {
+    // initial/selected: toggle selection
+    refs.setSelectedId.current(sid === nodeId ? null : nodeId);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Label action buttons (desktop hover + mobile swipe)
+// ---------------------------------------------------------------------------
+
+/** Shared base classes for label action buttons — matches .node-label styling. */
+const ACTION_BTN_BASE =
+  "hidden absolute top-0 -bottom-1 px-2 cursor-pointer pointer-events-auto whitespace-nowrap items-center border-b-4 transition-opacity duration-200";
+
+/** Create the flanking "to" (left) and "from" (right) action buttons for a label. */
+function createActionButtons(
+  nodeId: string,
+  refs: LabelRefs
+): { toBtn: HTMLButtonElement; fromBtn: HTMLButtonElement } {
+  const makeButton = (label: string, onClick: () => void) => {
+    const btn = document.createElement("button");
+    btn.textContent = label;
+    btn.addEventListener("pointerdown", (e) => {
+      e.stopPropagation();
+    });
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      onClick();
+    });
+    return btn;
+  };
+
+  // "from" on the left — set as source
+  const fromBtn = makeButton("← from", () => {
+    refs.onSetAsSource.current?.(nodeId);
+  });
+  fromBtn.className = `${ACTION_BTN_BASE} right-full rounded-l-lg`;
+  fromBtn.style.background = "rgba(234, 88, 12, 0.75)";
+  fromBtn.style.borderBottomColor = "rgba(194, 68, 2, 0.85)";
+  fromBtn.style.color = "#e2e8f0";
+
+  // "to" on the right — set as destination
+  const toBtn = makeButton("to →", () => {
+    refs.onSetAsDestination.current?.(nodeId);
+  });
+  toBtn.className = `${ACTION_BTN_BASE} left-full rounded-r-lg`;
+  toBtn.style.background = "rgba(59, 130, 246, 0.75)";
+  toBtn.style.borderBottomColor = "rgba(49, 110, 206, 0.85)";
+  toBtn.style.color = "#e2e8f0";
+
+  return { toBtn, fromBtn };
+}
+
+/** Update which action buttons are visible based on search mode. */
+function updateActionButtons(
+  el: HTMLDivElement,
+  toBtn: HTMLButtonElement,
+  fromBtn: HTMLButtonElement,
+  nodeId: string,
+  refs: LabelRefs
+): void {
+  const mode = refs.searchMode.current;
+  const show = (btn: HTMLButtonElement) => {
+    btn.classList.remove("hidden");
+    btn.classList.add("flex");
+  };
+  const hide = (btn: HTMLButtonElement) => {
+    btn.classList.add("hidden");
+    btn.classList.remove("flex");
+  };
+
+  let showTo = false;
+  let showFrom = false;
+
+  if (mode === "selected") {
+    // Don't show "to" for the source node itself
+    showTo = refs.selectedId.current !== nodeId;
+  } else if (mode === "path") {
+    const currentPath = refs.path.current;
+    const isSource = currentPath && currentPath[0] === nodeId;
+    const isDestination =
+      currentPath && currentPath[currentPath.length - 1] === nodeId;
+    showTo = !isSource && !isDestination;
+    showFrom = !isSource;
+  }
+
+  if (showTo) show(toBtn);
+  else hide(toBtn);
+  if (showFrom) show(fromBtn);
+  else hide(fromBtn);
+
+  // Square off label corners where buttons connect (from=left, to=right)
+  el.style.borderRadius = `${showFrom ? 0 : 8}px ${showTo ? 0 : 8}px ${showTo ? 0 : 8}px ${showFrom ? 0 : 8}px`;
+}
+
+type LabelEntry = {
+  el: HTMLDivElement;
+  toBtn: HTMLButtonElement;
+  fromBtn: HTMLButtonElement;
 };
 
 /** Create a label DOM element with event listeners that read state from refs. */
@@ -257,10 +392,17 @@ function createLabelElement(
   nodeId: string,
   text: string,
   refs: LabelRefs
-): HTMLDivElement {
+): LabelEntry {
   const el = document.createElement("div");
-  el.className = "node-label node-label-enter";
-  el.textContent = text;
+  el.className = "node-label node-label-enter relative";
+
+  const textSpan = document.createElement("span");
+  textSpan.textContent = text;
+  el.appendChild(textSpan);
+
+  const { toBtn, fromBtn } = createActionButtons(nodeId, refs);
+  el.appendChild(toBtn);
+  el.appendChild(fromBtn);
 
   el.addEventListener(
     "animationend",
@@ -270,11 +412,22 @@ function createLabelElement(
     { once: true }
   );
 
+  el.addEventListener("contextmenu", (e) => e.preventDefault());
+
   el.addEventListener("pointerenter", () => {
     refs.setHoveredId.current(nodeId);
+    updateActionButtons(el, toBtn, fromBtn, nodeId, refs);
   });
   el.addEventListener("pointerleave", () => {
     if (refs.hoveredId.current === nodeId) refs.setHoveredId.current(null);
+    // Keep buttons visible if this node is currently selected
+    if (refs.selectedId.current !== nodeId) {
+      toBtn.classList.add("hidden");
+      toBtn.classList.remove("flex");
+      fromBtn.classList.add("hidden");
+      fromBtn.classList.remove("flex");
+      el.style.borderRadius = "";
+    }
   });
   el.addEventListener(
     "wheel",
@@ -298,26 +451,149 @@ function createLabelElement(
       let lastX = e.clientX;
       let lastY = e.clientY;
       let sawMultitouch = false;
+      let longPressed = false;
+      let lpStartX = e.clientX;
+      let swipeShowTo = false;
+      let swipeShowFrom = false;
+
+      // Prevent iOS selection/callout during touch interaction
+      el.style.touchAction = "none";
+
+      // Long-press timer: animate label upward and fade in swipe indicators
+      let lpTimer: ReturnType<typeof setTimeout> | null = setTimeout(() => {
+        lpTimer = null;
+        const mode = refs.searchMode.current;
+        // Determine available actions
+        if (mode === "selected") {
+          swipeShowTo = refs.selectedId.current !== nodeId;
+          swipeShowFrom = false;
+        } else if (mode === "path") {
+          const currentPath = refs.path.current;
+          const isSource = currentPath && currentPath[0] === nodeId;
+          const isDestination =
+            currentPath && currentPath[currentPath.length - 1] === nodeId;
+          swipeShowTo = !isSource && !isDestination;
+          swipeShowFrom = !isSource;
+        }
+        if (!swipeShowTo && !swipeShowFrom) return;
+
+        longPressed = true;
+        lpStartX = lastX;
+
+        // Lift label above finger with animated transition
+        el.dataset.touchActive = "1";
+        el.style.zIndex = "10";
+        el.style.transition = "transform 200ms ease-out";
+        const currentTransform = el.style.transform;
+        el.style.transform = currentTransform.replace(
+          /translate\(([^,]+),\s*([^)]+)\)/,
+          (_, x, y) =>
+            `translate(${x}, ${parseFloat(y) - TOUCH_LIFT_PX}px)`
+        );
+        // Clear transition after animation so layout updates don't animate
+        setTimeout(() => {
+          el.style.transition = "";
+        }, 200);
+
+        // Show buttons with fade-in: start at opacity 0, transition to 0.5
+        updateActionButtons(el, toBtn, fromBtn, nodeId, refs);
+        if (swipeShowFrom) {
+          fromBtn.style.opacity = "0";
+          requestAnimationFrame(() => {
+            fromBtn.style.opacity = "0.5";
+          });
+        }
+        if (swipeShowTo) {
+          toBtn.style.opacity = "0";
+          requestAnimationFrame(() => {
+            toBtn.style.opacity = "0.5";
+          });
+        }
+      }, LONG_PRESS_MS);
 
       const onMove = (te: TouchEvent) => {
         if (te.touches.length >= 2) {
           sawMultitouch = true;
+          if (lpTimer) {
+            clearTimeout(lpTimer);
+            lpTimer = null;
+          }
+          // Clear touch state on multitouch
+          delete el.dataset.touchActive;
+          el.style.zIndex = "";
+          el.style.transition = "";
+          el.style.touchAction = "";
           return;
         }
         const touch = te.touches[0];
         const dx = touch.clientX - lastX;
         const dy = touch.clientY - lastY;
         totalDist += Math.hypot(dx, dy);
-        cam.pan(dx, dy);
+
+        if (longPressed) {
+          // Swipe mode: highlight buttons based on direction, don't pan
+          te.preventDefault();
+          const swipeDx = touch.clientX - lpStartX;
+          // Swipe left = "from" (left button), swipe right = "to" (right button)
+          if (swipeShowFrom) {
+            fromBtn.style.opacity =
+              swipeDx < -SWIPE_THRESHOLD ? "1" : "0.5";
+          }
+          if (swipeShowTo) {
+            toBtn.style.opacity =
+              swipeDx > SWIPE_THRESHOLD ? "1" : "0.5";
+          }
+        } else {
+          // Normal pan mode — cancel long-press once dragging starts
+          if (totalDist > DRAG_THRESHOLD) {
+            if (lpTimer) {
+              clearTimeout(lpTimer);
+              lpTimer = null;
+            }
+            el.style.touchAction = "";
+          }
+          cam.pan(dx, dy);
+          onChange();
+        }
         lastX = touch.clientX;
         lastY = touch.clientY;
-        onChange();
       };
+      const cleanupTouch = () => {
+        delete el.dataset.touchActive;
+        el.style.zIndex = "";
+        el.style.transition = "";
+        el.style.touchAction = "";
+        fromBtn.style.opacity = "";
+        toBtn.style.opacity = "";
+        toBtn.classList.add("hidden");
+        toBtn.classList.remove("flex");
+        fromBtn.classList.add("hidden");
+        fromBtn.classList.remove("flex");
+        el.style.borderRadius = "";
+      };
+
       const onEnd = (te: TouchEvent) => {
         if (te.touches.length > 0) return;
-        if (!sawMultitouch && totalDist < DRAG_THRESHOLD) {
-          const sid = refs.selectedId.current;
-          refs.setSelectedId.current(sid === nodeId ? null : nodeId);
+        if (lpTimer) {
+          clearTimeout(lpTimer);
+          lpTimer = null;
+        }
+
+        if (longPressed) {
+          const swipeDx = lastX - lpStartX;
+          cleanupTouch();
+
+          // Trigger action based on swipe direction
+          if (swipeShowFrom && swipeDx < -SWIPE_THRESHOLD) {
+            refs.onSetAsSource.current?.(nodeId);
+          } else if (swipeShowTo && swipeDx > SWIPE_THRESHOLD) {
+            refs.onSetAsDestination.current?.(nodeId);
+          }
+        } else {
+          cleanupTouch();
+          if (!sawMultitouch && totalDist < DRAG_THRESHOLD) {
+            handleLabelClick(nodeId, refs);
+          }
         }
         window.removeEventListener("touchmove", onMove);
         window.removeEventListener("touchend", onEnd);
@@ -342,8 +618,7 @@ function createLabelElement(
     };
     const onUp = () => {
       if (dragState.totalDist < DRAG_THRESHOLD) {
-        const sid = refs.selectedId.current;
-        refs.setSelectedId.current(sid === nodeId ? null : nodeId);
+        handleLabelClick(nodeId, refs);
       }
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
@@ -352,7 +627,7 @@ function createLabelElement(
     window.addEventListener("pointerup", onUp);
   });
 
-  return el;
+  return { el, toBtn, fromBtn };
 }
 
 /** Update a label element's inline styles to reflect current state. */
@@ -367,22 +642,25 @@ function updateLabelStyle(
   selectedId: string | null
 ): void {
   const isHovered = hoveredId === label.node.id;
-  const hoverBoost = isHovered ? LABEL_HOVER_LIGHTNESS_BOOST : 0;
+  const isSelected = selectedId === label.node.id;
+  const boost =
+    (isHovered ? LABEL_HOVER_LIGHTNESS_BOOST : 0) +
+    (isSelected ? LABEL_SELECTED_LIGHTNESS_BOOST : 0);
 
   const bgColor = nodeColour(
     label.node,
     maxDegree,
-    colorLightness.GraphLabelBackgroundBorder + LABEL_LIGHTNESS_BOOST + hoverBoost
+    colorLightness.GraphLabelBackgroundBorder + LABEL_LIGHTNESS_BOOST + boost
   );
   const borderColor = nodeColour(
     label.node,
     maxDegree,
-    colorLightness.GraphLabelBackground + LABEL_LIGHTNESS_BOOST + hoverBoost
+    colorLightness.GraphLabelBackground + LABEL_LIGHTNESS_BOOST + boost
   );
   const textColor = nodeColour(
     label.node,
     maxDegree,
-    colorLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST + hoverBoost
+    colorLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST + boost
   );
 
   let filterStyle = "";
@@ -400,7 +678,8 @@ function updateLabelStyle(
   }
 
   const s = el.style;
-  s.transform = `translate(${label.screenX}px, ${label.screenY}px) translate(-50%, -100%)`;
+  const touchOffset = el.dataset.touchActive ? -TOUCH_LIFT_PX : 0;
+  s.transform = `translate(${label.screenX}px, ${label.screenY + touchOffset}px) translate(-50%, -100%)`;
   s.fontSize = `${label.fontSize}px`;
   s.backgroundColor = bgColor;
   s.borderBottom = `4px solid ${borderColor}`;
@@ -473,6 +752,9 @@ export function Labels({
   cameraVersion,
   onCameraChange,
   containerRef,
+  searchMode,
+  onSetAsSource,
+  onSetAsDestination,
 }: {
   settings: SettingsData;
   selectedId: string | null;
@@ -486,6 +768,9 @@ export function Labels({
   cameraVersion: number;
   onCameraChange: () => void;
   containerRef: RefObject<HTMLDivElement | null>;
+  searchMode: SearchMode;
+  onSetAsSource: ((nodeId: string) => void) | null;
+  onSetAsDestination: ((nodeId: string) => void) | null;
 }) {
   const data = useDataContext();
   const { theme } = useTheme();
@@ -503,6 +788,10 @@ export function Labels({
     setSelectedId: useRef(setSelectedId),
     setHoveredId: useRef(setHoveredId),
     containerRef: useRef(containerRef),
+    searchMode: useRef(searchMode),
+    path: useRef(path),
+    onSetAsSource: useRef(onSetAsSource),
+    onSetAsDestination: useRef(onSetAsDestination),
   };
   refs.selectedId.current = selectedId;
   refs.hoveredId.current = hoveredId;
@@ -511,6 +800,10 @@ export function Labels({
   refs.setSelectedId.current = setSelectedId;
   refs.setHoveredId.current = setHoveredId;
   refs.containerRef.current = containerRef;
+  refs.searchMode.current = searchMode;
+  refs.path.current = path;
+  refs.onSetAsSource.current = onSetAsSource;
+  refs.onSetAsDestination.current = onSetAsDestination;
 
   const prevLabelIdsRef = useRef<Set<string>>(new Set());
   const cachedSelectionRef = useRef<SelectionCache | null>(null);
@@ -591,7 +884,7 @@ export function Labels({
   }, [stableLabels, hoveredId]);
 
   // --- Imperative DOM sync ---
-  const labelElementsRef = useRef<Map<string, HTMLDivElement>>(new Map());
+  const labelElementsRef = useRef<Map<string, LabelEntry>>(new Map());
   const exitingElementsRef = useRef<
     Map<string, { el: HTMLDivElement; nodeIndex: number }>
   >(new Map());
@@ -609,41 +902,67 @@ export function Labels({
 
       // Cancel exit if this label is back
       if (exiting.has(label.node.id)) {
-        const entry = exiting.get(label.node.id)!;
-        entry.el.classList.remove("node-label-exit");
+        const exitEntry = exiting.get(label.node.id)!;
+        exitEntry.el.classList.remove("node-label-exit");
         exiting.delete(label.node.id);
-        elements.set(label.node.id, entry.el);
+        // Re-wrap as LabelEntry (buttons are still children of the element)
+        const toBtn = exitEntry.el.querySelector(
+          "button:first-of-type"
+        ) as HTMLButtonElement;
+        const fromBtn = exitEntry.el.querySelector(
+          "button:last-of-type"
+        ) as HTMLButtonElement;
+        elements.set(label.node.id, { el: exitEntry.el, toBtn, fromBtn });
       }
 
-      let el = elements.get(label.node.id);
-      if (!el) {
-        el = createLabelElement(label.node.id, label.node.label, refs);
-        container.appendChild(el);
-        elements.set(label.node.id, el);
+      let entry = elements.get(label.node.id);
+      if (!entry) {
+        entry = createLabelElement(label.node.id, label.node.label, refs);
+        container.appendChild(entry.el);
+        elements.set(label.node.id, entry);
       }
 
       updateLabelStyle(
-        el,
+        entry.el,
         label,
         maxDegree,
         colorLightness,
         hoveredId,
         selectedId
       );
+
+      // Show/hide buttons for selected or hovered nodes (desktop)
+      const isSelected = selectedId === label.node.id;
+      const isHovered = hoveredId === label.node.id;
+      if (isSelected || isHovered) {
+        updateActionButtons(
+          entry.el,
+          entry.toBtn,
+          entry.fromBtn,
+          label.node.id,
+          refs
+        );
+      } else {
+        entry.toBtn.classList.add("hidden");
+        entry.toBtn.classList.remove("flex");
+        entry.fromBtn.classList.add("hidden");
+        entry.fromBtn.classList.remove("flex");
+        entry.el.style.borderRadius = "";
+      }
     }
 
     // Start fade-out for removed labels
-    for (const [id, el] of elements) {
+    for (const [id, entry] of elements) {
       if (!currentIds.has(id)) {
         elements.delete(id);
         const nodeIndex = parseInt(id, 10);
-        el.classList.add("node-label-exit");
-        exiting.set(id, { el, nodeIndex });
+        entry.el.classList.add("node-label-exit");
+        exiting.set(id, { el: entry.el, nodeIndex });
         const remove = () => {
-          el.remove();
+          entry.el.remove();
           exiting.delete(id);
         };
-        el.addEventListener("animationend", remove, { once: true });
+        entry.el.addEventListener("animationend", remove, { once: true });
         setTimeout(remove, 250);
       }
     }
@@ -664,6 +983,8 @@ export function Labels({
     camera,
     nodePositions,
     cameraVersion,
+    searchMode,
+    path,
   ]);
 
   return (
