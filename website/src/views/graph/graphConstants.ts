@@ -9,7 +9,7 @@ export const EDGE_SEGMENTS = 8;
 /** Bezier curvature factor (0 = straight, higher = more arc). */
 export const EDGE_CURVATURE = 0.15;
 /** Edge half-width in world units. */
-export const EDGE_WIDTH = 0.6;
+export const EDGE_WIDTH = 0.48;
 /** Edge color saturation (HSL) when selected or in path. */
 export const EDGE_SELECTED_SATURATION = 90;
 /** Edge color saturation (HSL) when nothing is selected. */
@@ -58,11 +58,11 @@ export const NODE_LIGHTNESS_DARK = 60;
 /** World-unit spacing between arrows on animated edges. */
 export const ARROW_SPACING = 60;
 /** Arrow animation speed in world units per second. */
-export const ARROW_WORLD_SPEED = 20.0;
+export const ARROW_WORLD_SPEED = 30.0;
 /** Source-end margin as a multiple of arrow size. */
-export const ARROW_MARGIN_SRC = 1.5;
+export const ARROW_MARGIN_SRC = 0;
 /** Target-end margin: fraction of target node radius. */
-export const ARROW_MARGIN_TGT_RADIUS = 0.5;
+export const ARROW_MARGIN_TGT_RADIUS = 0.3;
 /** Arrow width as a fraction of arrow length. */
 export const ARROW_WIDTH_RATIO = 0.3;
 /** Multiplier applied to the arrowSizeScale setting. */

@@ -144,7 +144,7 @@ export const GENERAL_CONTROLS: GeneralControlDesc[] = [
     min: 0.5,
     max: 3,
     step: 0.1,
-    default: 1.5,
+    default: 1,
   },
   {
     type: "boolean",

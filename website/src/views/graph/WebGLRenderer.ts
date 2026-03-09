@@ -179,7 +179,7 @@ void main() {
   } else {
     // Animated: slide along the curve within node-radius margins
     float marginSrc = u_arrowSize * ${ARROW_MARGIN_SRC.toFixed(1)};
-    float marginTgt = a_targetSize * ${ARROW_MARGIN_TGT_RADIUS.toFixed(1)} + u_arrowSize;
+    float marginTgt = a_targetSize * ${ARROW_MARGIN_TGT_RADIUS.toFixed(1)};
     float usableLen = max(edgeLen - marginSrc - marginTgt, 1.0);
     float linearT = fract(a_phase + u_time * WORLD_SPEED * a_speed / edgeLen);
     // Map linear position to curve t parameter (approximate)
@@ -494,6 +494,13 @@ export class WebGLRenderer {
     const gl = this.gl;
     gl.bindBuffer(gl.ARRAY_BUFFER, this.nodeSelectedBuf);
     gl.bufferData(gl.ARRAY_BUFFER, selected, gl.DYNAMIC_DRAW);
+  }
+
+  /** Initialize the node selected buffer to all zeros for a given node count. */
+  initNodeSelected(count: number): void {
+    const gl = this.gl;
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.nodeSelectedBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(count), gl.DYNAMIC_DRAW);
   }
 
   /** Upload edge endpoint positions (2 vertices per edge, flat x,y pairs).

@@ -34,7 +34,6 @@ import {
   NODE_OPACITY_FALLOFF,
   NODE_LIGHTNESS_LIGHT,
   NODE_LIGHTNESS_DARK,
-  ARROW_SPACING,
   ARROW_SIZE_MULTIPLIER,
   ARROW_SPEED_FALLOFF,
   TRANSITION_TAU,
@@ -176,6 +175,8 @@ export function GraphCanvas({
       speeds: Float32Array;
       targetNodeIndices: number[];
       edgeIndices: number[];
+      netArrowCount: number;
+      hoverColors: Float32Array;
     } | null,
     edgeNodeIndices: null as {
       src: Int32Array;
@@ -382,6 +383,10 @@ export function GraphCanvas({
                 : fusionGenreColour(saturation, alpha)
           );
 
+        const isHoveredEdge =
+          hoveredId &&
+          (edge.source === hoveredId || edge.target === hoveredId);
+
         if (selectedId) {
           if (path) {
             const sourceIndex = path.indexOf(edge.source);
@@ -392,6 +397,11 @@ export function GraphCanvas({
               Math.abs(sourceIndex - targetIndex) === 1
             ) {
               color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha);
+            } else if (isHoveredEdge) {
+              color = edgeColour(
+                EDGE_SELECTED_SATURATION,
+                selectedAlpha * 0.8
+              );
             } else {
               color = dimmedColor;
             }
@@ -408,10 +418,17 @@ export function GraphCanvas({
                   : selectedAlpha *
                     Math.pow(EDGE_OPACITY_FALLOFF, distance - 1);
               color = edgeColour(EDGE_SELECTED_SATURATION, alpha);
+            } else if (isHoveredEdge) {
+              color = edgeColour(
+                EDGE_SELECTED_SATURATION,
+                selectedAlpha * 0.8
+              );
             } else {
               color = dimmedColor;
             }
           }
+        } else if (isHoveredEdge) {
+          color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha * 0.8);
         } else {
           color = edgeColour(EDGE_UNSELECTED_SATURATION, unselectedAlpha);
         }
@@ -431,6 +448,7 @@ export function GraphCanvas({
   }, [
     data.edges,
     selectedId,
+    hoveredId,
     settings.visibleTypes,
     pathInfo,
     maxDistance,
@@ -438,10 +456,9 @@ export function GraphCanvas({
   ]);
 
   // Precompute arrow geometry — expands animated edges into multiple instances
-  const arrowGeometry = useMemo(() => {
-    // Determine which edges are animated — map from edge index to distance
-    // (distance 0 = direct, 1 = neighbour-of-neighbour, etc.)
-    const animatedEdges = new Map<number, number>();
+  // Stable arrow geometry for selected net (doesn't change on hover)
+  const netArrowGeometry = useMemo(() => {
+    const netEdges = new Map<number, number>();
     if (selectedId) {
       for (let i = 0; i < data.edges.length; i++) {
         if (!settings.visibleTypes[data.edges[i].ty]) continue;
@@ -454,48 +471,38 @@ export function GraphCanvas({
             targetIndex !== -1 &&
             Math.abs(sourceIndex - targetIndex) === 1
           ) {
-            animatedEdges.set(i, 0);
+            netEdges.set(i, 0);
           }
         } else if (edge.source === selectedId || edge.target === selectedId) {
-          animatedEdges.set(i, 0);
+          netEdges.set(i, 0);
         } else {
           const distance = pathInfo.edgeDistances.get(edge);
           if (distance !== undefined && distance < maxDistance) {
-            animatedEdges.set(i, distance);
+            netEdges.set(i, distance);
           }
         }
       }
     }
+    return netEdges;
+  }, [data.edges, settings.visibleTypes, selectedId, pathInfo, path]);
 
-    // Collect visible edges and compute per-edge arrow counts and speeds
-    const visibleEdges: number[] = [];
-    const arrowCounts: number[] = [];
-    const edgeSpeeds: number[] = [];
-    let totalInstances = 0;
-    for (let i = 0; i < data.edges.length; i++) {
-      if (!settings.visibleTypes[data.edges[i].ty]) continue;
-      visibleEdges.push(i);
-      const dist = animatedEdges.get(i);
-      if (dist !== undefined) {
+  // Combined arrow geometry: stable net arrows first, then hover arrows appended
+  const arrowGeometry = useMemo(() => {
+    // Build hover edges (not already in selected net)
+    const hoverEdges: number[] = [];
+    if (hoveredId) {
+      for (let i = 0; i < data.edges.length; i++) {
+        if (!settings.visibleTypes[data.edges[i].ty]) continue;
+        if (netArrowGeometry.has(i)) continue;
         const edge = data.edges[i];
-        const si = nodeIdToInt(edge.source);
-        const ti = nodeIdToInt(edge.target);
-        const dx = nodePositions[ti * 2] - nodePositions[si * 2];
-        const dy = nodePositions[ti * 2 + 1] - nodePositions[si * 2 + 1];
-        const len = Math.sqrt(dx * dx + dy * dy);
-        const count = Math.max(1, Math.round(len / ARROW_SPACING));
-        arrowCounts.push(count);
-        // Direct edges (dist 0-1) at full speed; further edges slow down
-        edgeSpeeds.push(
-          dist <= 1 ? 1.0 : Math.pow(ARROW_SPEED_FALLOFF, dist - 1)
-        );
-        totalInstances += count;
-      } else {
-        arrowCounts.push(1);
-        edgeSpeeds.push(1.0);
-        totalInstances += 1;
+        if (edge.source === hoveredId || edge.target === hoveredId) {
+          hoverEdges.push(i);
+        }
       }
     }
+
+    const netCount = netArrowGeometry.size;
+    const totalInstances = netCount + hoverEdges.length;
 
     const targets = new Float32Array(totalInstances * 2);
     const directions = new Float32Array(totalInstances * 2);
@@ -504,31 +511,56 @@ export function GraphCanvas({
     const targetNodeIndices: number[] = [];
     const edgeIndices: number[] = [];
 
+    // Fill net arrows first (stable portion)
     let j = 0;
-    for (let vi = 0; vi < visibleEdges.length; vi++) {
-      const i = visibleEdges[vi];
+    for (const [i, dist] of netArrowGeometry) {
       const edge = data.edges[i];
       const ti = nodeIdToInt(edge.target);
       const si = nodeIdToInt(edge.source);
-
       const tx = nodePositions[ti * 2];
       const ty = nodePositions[ti * 2 + 1];
-      const dx = tx - nodePositions[si * 2];
-      const dy = ty - nodePositions[si * 2 + 1];
+      targets[j * 2] = tx;
+      targets[j * 2 + 1] = ty;
+      directions[j * 2] = tx - nodePositions[si * 2];
+      directions[j * 2 + 1] = ty - nodePositions[si * 2 + 1];
+      phases[j] = (j * 0.6180339887) % 1.0;
+      speeds[j] = dist <= 1 ? 1.0 : Math.pow(ARROW_SPEED_FALLOFF, dist - 1);
+      targetNodeIndices.push(ti);
+      edgeIndices.push(i);
+      j++;
+    }
 
-      const instanceCount = arrowCounts[vi];
-      const speed = edgeSpeeds[vi];
-      for (let k = 0; k < instanceCount; k++) {
-        targets[j * 2] = tx;
-        targets[j * 2 + 1] = ty;
-        directions[j * 2] = dx;
-        directions[j * 2 + 1] = dy;
-        phases[j] = instanceCount === 1 ? -1.0 : k / instanceCount;
-        speeds[j] = speed;
-        targetNodeIndices.push(ti);
-        edgeIndices.push(i);
-        j++;
-      }
+    // Append hover arrows and precompute their type-based colors
+    const hoverColors = new Float32Array(hoverEdges.length * 4);
+    for (let hi = 0; hi < hoverEdges.length; hi++) {
+      const i = hoverEdges[hi];
+      const edge = data.edges[i];
+      const ti = nodeIdToInt(edge.target);
+      const si = nodeIdToInt(edge.source);
+      const tx = nodePositions[ti * 2];
+      const ty = nodePositions[ti * 2 + 1];
+      targets[j * 2] = tx;
+      targets[j * 2 + 1] = ty;
+      directions[j * 2] = tx - nodePositions[si * 2];
+      directions[j * 2 + 1] = ty - nodePositions[si * 2 + 1];
+      phases[j] = (hi * 0.6180339887) % 1.0;
+      speeds[j] = 1.0;
+      targetNodeIndices.push(ti);
+      edgeIndices.push(i);
+
+      const hoverAlpha = EDGE_SELECTED_ALPHA * 0.8;
+      const color = parseColor(
+        edge.ty === EdgeType.Derivative
+          ? derivativeColour(EDGE_SELECTED_SATURATION, hoverAlpha)
+          : edge.ty === EdgeType.Subgenre
+            ? subgenreColour(EDGE_SELECTED_SATURATION, hoverAlpha)
+            : fusionGenreColour(EDGE_SELECTED_SATURATION, hoverAlpha)
+      );
+      hoverColors[hi * 4] = color[0];
+      hoverColors[hi * 4 + 1] = color[1];
+      hoverColors[hi * 4 + 2] = color[2];
+      hoverColors[hi * 4 + 3] = color[3];
+      j++;
     }
 
     return {
@@ -538,14 +570,15 @@ export function GraphCanvas({
       speeds,
       targetNodeIndices,
       edgeIndices,
+      netArrowCount: netCount,
+      hoverColors,
     };
   }, [
     data.edges,
     nodePositions,
     settings.visibleTypes,
-    selectedId,
-    pathInfo,
-    path,
+    hoveredId,
+    netArrowGeometry,
   ]);
 
   // Store target arrays for the render loop's interpolation
@@ -592,6 +625,7 @@ export function GraphCanvas({
     // Upload static positions
     renderer.setNodePositions(nodePositions);
     renderer.setEdgePositions(edgePositions);
+    renderer.initNodeSelected(data.nodes.length);
 
     // Fit to content
     camera.setViewportOffset(viewportOffsetX, viewportOffsetY);
@@ -773,10 +807,19 @@ export function GraphCanvas({
           }
           for (let j = 0; j < n; j++) {
             const ei = geom.edgeIndices[j];
-            interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
-            interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
-            interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
-            interp.arrowColors[j * 4 + 3] = interp.edgeColors[ei * 8 + 3];
+            if (j >= geom.netArrowCount) {
+              // Hover arrows use precomputed type-based colors
+              const hi = j - geom.netArrowCount;
+              interp.arrowColors[j * 4] = geom.hoverColors[hi * 4];
+              interp.arrowColors[j * 4 + 1] = geom.hoverColors[hi * 4 + 1];
+              interp.arrowColors[j * 4 + 2] = geom.hoverColors[hi * 4 + 2];
+              interp.arrowColors[j * 4 + 3] = geom.hoverColors[hi * 4 + 3];
+            } else {
+              interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
+              interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
+              interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
+              interp.arrowColors[j * 4 + 3] = interp.edgeColors[ei * 8 + 3];
+            }
             interp.arrowTargetSizes![j] =
               interp.nodeSizes[geom.targetNodeIndices[j]];
           }
