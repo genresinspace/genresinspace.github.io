@@ -35,6 +35,7 @@ import {
   LABEL_SELECTED_LIGHTNESS_BOOST,
   LABEL_DIM_BRIGHTNESS,
   LABEL_DIM_OPACITY,
+  CURSOR_PROXIMITY_RADIUS,
 } from "./graphConstants";
 
 import "../graph.css";
@@ -639,13 +640,22 @@ function updateLabelStyle(
     | typeof NodeColourLightnessDark
     | typeof NodeColourLightnessLight,
   hoveredId: string | null,
-  selectedId: string | null
+  selectedId: string | null,
+  cursorWorld: { x: number; y: number }
 ): void {
   const isHovered = hoveredId === label.node.id;
   const isSelected = selectedId === label.node.id;
+
+  // Cursor proximity factor (0 = far, 1 = at cursor)
+  const dx = label.node.x - cursorWorld.x;
+  const dy = label.node.y - cursorWorld.y;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  const proximity = Math.max(0, 1 - dist / CURSOR_PROXIMITY_RADIUS);
+
   const boost =
     (isHovered ? LABEL_HOVER_LIGHTNESS_BOOST : 0) +
-    (isSelected ? LABEL_SELECTED_LIGHTNESS_BOOST : 0);
+    (isSelected ? LABEL_SELECTED_LIGHTNESS_BOOST : 0) +
+    proximity * 5;
 
   const bgColor = nodeColour(
     label.node,
@@ -674,6 +684,11 @@ function updateLabelStyle(
     } else {
       filterStyle = `brightness(${LABEL_DIM_BRIGHTNESS})`;
       opacityStyle = LABEL_DIM_OPACITY;
+    }
+    // Boost dimmed labels near cursor
+    if (proximity > 0 && !label.inSelectedNet) {
+      opacityStyle = Math.min(1, opacityStyle + proximity * 0.8);
+      filterStyle = `brightness(${LABEL_DIM_BRIGHTNESS + proximity * (1 - LABEL_DIM_BRIGHTNESS)})`;
     }
   }
 
@@ -755,6 +770,7 @@ export function Labels({
   searchMode,
   onSetAsSource,
   onSetAsDestination,
+  cursorWorldRef,
 }: {
   settings: SettingsData;
   selectedId: string | null;
@@ -771,6 +787,7 @@ export function Labels({
   searchMode: SearchMode;
   onSetAsSource: ((nodeId: string) => void) | null;
   onSetAsDestination: ((nodeId: string) => void) | null;
+  cursorWorldRef: RefObject<{ x: number; y: number }>;
 }) {
   const data = useDataContext();
   const { theme } = useTheme();
@@ -873,15 +890,78 @@ export function Labels({
     cameraVersion,
   ]);
 
-  // Ensure hovered label is always shown, even if culled by overlap.
+  // Ensure hovered label and cursor-proximity labels are always shown.
   const labels = useMemo(() => {
     const { result, allCandidates } = stableLabels;
-    if (!hoveredId || result.some((c) => c.node.id === hoveredId)) {
-      return result;
+    const resultIds = new Set(result.map((c) => c.node.id));
+    const extras: LabelCandidate[] = [];
+
+    // Force-show hovered label
+    if (hoveredId && !resultIds.has(hoveredId)) {
+      const hovered = allCandidates.find((c) => c.node.id === hoveredId);
+      if (hovered) {
+        extras.push(hovered);
+        resultIds.add(hoveredId);
+      }
     }
-    const hovered = allCandidates.find((c) => c.node.id === hoveredId);
-    return hovered ? [...result, hovered] : result;
-  }, [stableLabels, hoveredId]);
+
+    // Force-show labels near cursor, with overlap culling
+    const cx = cursorWorldRef.current.x;
+    const cy = cursorWorldRef.current.y;
+    const r2 = CURSOR_PROXIMITY_RADIUS * CURSOR_PROXIMITY_RADIUS;
+
+    // Build placed-box array from existing labels for overlap checks
+    const placed: { x: number; y: number; w: number; h: number }[] = [];
+    for (const c of result) {
+      const charWidth = c.fontSize * LABEL_CHAR_WIDTH_RATIO;
+      const w = c.node.label.length * charWidth + LABEL_PADDING_H + LABEL_GAP;
+      const h = c.fontSize + LABEL_PADDING_V + LABEL_GAP;
+      placed.push({ x: c.screenX - w / 2, y: c.screenY - h, w, h });
+    }
+    for (const c of extras) {
+      const charWidth = c.fontSize * LABEL_CHAR_WIDTH_RATIO;
+      const w = c.node.label.length * charWidth + LABEL_PADDING_H + LABEL_GAP;
+      const h = c.fontSize + LABEL_PADDING_V + LABEL_GAP;
+      placed.push({ x: c.screenX - w / 2, y: c.screenY - h, w, h });
+    }
+
+    // Sort proximity candidates by distance to cursor (closest first)
+    const proximityCandidates = allCandidates
+      .filter((c) => {
+        if (resultIds.has(c.node.id)) return false;
+        const dx = c.node.x - cx;
+        const dy = c.node.y - cy;
+        return dx * dx + dy * dy < r2;
+      })
+      .sort((a, b) => {
+        const da = (a.node.x - cx) ** 2 + (a.node.y - cy) ** 2;
+        const db = (b.node.x - cx) ** 2 + (b.node.y - cy) ** 2;
+        return da - db;
+      });
+
+    for (const c of proximityCandidates) {
+      const charWidth = c.fontSize * LABEL_CHAR_WIDTH_RATIO;
+      const w = c.node.label.length * charWidth + LABEL_PADDING_H + LABEL_GAP;
+      const h = c.fontSize + LABEL_PADDING_V + LABEL_GAP;
+      const x = c.screenX - w / 2;
+      const y = c.screenY - h;
+
+      let overlaps = false;
+      for (const p of placed) {
+        if (x < p.x + p.w && x + w > p.x && y < p.y + p.h && y + h > p.y) {
+          overlaps = true;
+          break;
+        }
+      }
+      if (!overlaps) {
+        extras.push(c);
+        resultIds.add(c.node.id);
+        placed.push({ x, y, w, h });
+      }
+    }
+
+    return extras.length > 0 ? [...result, ...extras] : result;
+  }, [stableLabels, hoveredId, cursorWorldRef, cameraVersion]);
 
   // --- Imperative DOM sync ---
   const labelElementsRef = useRef<Map<string, LabelEntry>>(new Map());
@@ -928,7 +1008,8 @@ export function Labels({
         maxDegree,
         colorLightness,
         hoveredId,
-        selectedId
+        selectedId,
+        cursorWorldRef.current
       );
 
       // Show/hide buttons for selected or hovered nodes (desktop)

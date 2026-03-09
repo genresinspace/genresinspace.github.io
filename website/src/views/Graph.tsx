@@ -50,6 +50,8 @@ export function Graph({
     screenCenterX: 0,
     screenCenterY: 0,
   });
+  // Shared cursor world position — written by GraphCanvas, read by Labels
+  const cursorWorldRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const wasAnimatingRef = useRef(false);
   const onCameraAnimatingChangeRef = useRef(onCameraAnimatingChange);
   onCameraAnimatingChangeRef.current = onCameraAnimatingChange;
@@ -129,6 +131,7 @@ export function Graph({
         viewportOffsetY={viewportOffsetY}
         camera={cameraRef.current}
         onCameraChange={onCameraChange}
+        cursorWorldRef={cursorWorldRef}
       />
       <Labels
         settings={settings}
@@ -146,6 +149,7 @@ export function Graph({
         searchMode={searchMode}
         onSetAsSource={onSetAsSource}
         onSetAsDestination={onSetAsDestination}
+        cursorWorldRef={cursorWorldRef}
       />
     </div>
   );

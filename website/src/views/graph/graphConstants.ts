@@ -70,6 +70,10 @@ export const ARROW_SIZE_MULTIPLIER = 12;
 /** Exponential base for arrow speed falloff with distance (0–1). */
 export const ARROW_SPEED_FALLOFF = 0.5;
 
+// ── Cursor proximity ────────────────────────────────────────────────
+/** Radius (world units) within which nodes are subtly highlighted near cursor. */
+export const CURSOR_PROXIMITY_RADIUS = 120;
+
 // ── Transitions & interaction ────────────────────────────────────────
 /** Exponential decay time constant for hover transitions (ms). */
 export const TRANSITION_TAU = 120;

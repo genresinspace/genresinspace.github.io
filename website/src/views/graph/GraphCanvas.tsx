@@ -44,6 +44,7 @@ import {
   FIT_RADIUS_MIN,
   FIT_PADDING_FRAC,
   FIT_ANIM_DURATION,
+  CURSOR_PROXIMITY_RADIUS,
 } from "./graphConstants";
 
 /** Parse a CSS color string to RGBA floats [0..1]. */
@@ -133,6 +134,7 @@ export function GraphCanvas({
   viewportOffsetY,
   camera,
   onCameraChange,
+  cursorWorldRef,
 }: {
   settings: SettingsData;
   selectedId: string | null;
@@ -146,6 +148,7 @@ export function GraphCanvas({
   viewportOffsetY: number;
   camera: Camera;
   onCameraChange: () => void;
+  cursorWorldRef: React.RefObject<{ x: number; y: number }>;
 }) {
   const data = useDataContext();
   const { theme } = useTheme();
@@ -183,6 +186,8 @@ export function GraphCanvas({
       tgt: Int32Array;
     } | null,
     edgeCount: 0,
+    cursorWorldX: 0,
+    cursorWorldY: 0,
   });
   stateRef.current.selectedId = selectedId;
   stateRef.current.hoveredId = hoveredId;
@@ -682,6 +687,12 @@ export function GraphCanvas({
           hoverTimer = null;
         }, HOVER_DEBOUNCE_MS);
       },
+      onCursorMove: (wx, wy) => {
+        stateRef.current.cursorWorldX = wx;
+        stateRef.current.cursorWorldY = wy;
+        cursorWorldRef.current.x = wx;
+        cursorWorldRef.current.y = wy;
+      },
       onViewChange: () => {
         onCameraChange();
       },
@@ -860,7 +871,10 @@ export function GraphCanvas({
           stateRef.current.arrowSizeScale * ARROW_SIZE_MULTIPLIER,
           camera.zoom,
           now / 1000,
-          stateRef.current.curvedEdges ? EDGE_CURVATURE : 0.0
+          stateRef.current.curvedEdges ? EDGE_CURVATURE : 0.0,
+          stateRef.current.cursorWorldX,
+          stateRef.current.cursorWorldY,
+          CURSOR_PROXIMITY_RADIUS
         );
       }
       animFrameRef.current = requestAnimationFrame(renderLoop);

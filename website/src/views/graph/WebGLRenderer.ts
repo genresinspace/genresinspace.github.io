@@ -21,6 +21,8 @@ const NODE_VS = `#version 300 es
 precision highp float;
 uniform mat3 u_view;
 uniform float u_zoom;
+uniform vec2 u_cursorWorld;
+uniform float u_proximityRadius;
 in vec2 a_position;
 in float a_size;
 in vec4 a_color;
@@ -31,7 +33,13 @@ void main() {
   vec3 pos = u_view * vec3(a_position, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
   gl_PointSize = a_size * u_zoom;
-  v_color = a_color;
+  // Proximity highlight: boost alpha/brightness near cursor
+  float cursorDist = length(a_position - u_cursorWorld);
+  float proximity = 1.0 - smoothstep(0.0, u_proximityRadius, cursorDist);
+  vec4 color = a_color;
+  color.a = mix(color.a, min(color.a + 0.35, 1.0), proximity);
+  color.rgb = mix(color.rgb, min(color.rgb + 0.25, 1.0), proximity);
+  v_color = color;
   v_selected = a_selected;
 }`;
 
@@ -596,7 +604,10 @@ export class WebGLRenderer {
     arrowSizeScale: number,
     cameraZoom: number,
     time: number,
-    curvature: number
+    curvature: number,
+    cursorWorldX: number,
+    cursorWorldY: number,
+    proximityRadius: number
   ): void {
     const gl = this.gl;
     gl.clearColor(...backgroundColor);
@@ -662,6 +673,15 @@ export class WebGLRenderer {
       gl.uniform1f(
         gl.getUniformLocation(this.nodeProgram, "u_zoom"),
         cameraZoom
+      );
+      gl.uniform2f(
+        gl.getUniformLocation(this.nodeProgram, "u_cursorWorld"),
+        cursorWorldX,
+        cursorWorldY
+      );
+      gl.uniform1f(
+        gl.getUniformLocation(this.nodeProgram, "u_proximityRadius"),
+        proximityRadius
       );
       gl.bindVertexArray(this.nodeVAO);
       gl.drawArrays(gl.POINTS, 0, this.nodeCount);

@@ -10,6 +10,7 @@ const INERTIA_RELEASE_THRESHOLD = 50;
 export type InteractionCallbacks = {
   onNodeClick: (nodeIndex: number | null) => void;
   onNodeHover: (nodeIndex: number | null) => void;
+  onCursorMove: (worldX: number, worldY: number) => void;
   onViewChange: () => void;
   hitTest: (worldX: number, worldY: number) => number | null;
 };
@@ -129,6 +130,7 @@ export class InteractionHandler {
       const sx = e.clientX - rect.left;
       const sy = e.clientY - rect.top;
       const [wx, wy] = this.camera.screenToWorld(sx, sy);
+      this.callbacks.onCursorMove(wx, wy);
       const hit = this.callbacks.hitTest(wx, wy);
       this.callbacks.onNodeHover(hit);
     }
