@@ -47,6 +47,7 @@ cargo test
 cargo clippy -- -D warnings
 cargo clippy -p frontend_wasm --target wasm32-unknown-unknown -- -D warnings
 cargo run --bin check_missing_mixes --release
+cargo run --bin check_suspicious_edges --release
 
 # WASM
 wasm-pack build --target web frontend_wasm -d ../website/frontend_wasm

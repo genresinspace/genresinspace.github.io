@@ -8,10 +8,10 @@ use anyhow::Context as _;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    extract,
+    data_patches, extract,
     frontend_types::{EdgeData, EdgeType, FrontendData, NodeData},
     genre_top_artists, links, process,
-    types::{GenreMixes, PageDataId, PageName},
+    types::{GenreMixes, GenreName, PageDataId, PageName},
 };
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -146,22 +146,25 @@ pub fn produce(
             source_page: &process::ProcessedGenre,
             ty: &str,
             link: &str,
-        ) -> anyhow::Result<Option<PageDataId>> {
+        ) -> anyhow::Result<Option<(PageDataId, GenreName)>> {
             // Not all links correspond to a genre, so we return an `Option`
             let Some(page) = links_to_articles.map(link) else {
                 return Ok(None);
             };
-            if !processed_genres.0.contains_key(&page) {
+            let Some(genre) = processed_genres.0.get(&page) else {
                 // This isn't a genre, so we don't need to get its ID
                 return Ok(None);
-            }
-            Ok(Some(page_to_id.get(&page).copied().with_context(|| {
+            };
+            let id = page_to_id.get(&page).copied().with_context(|| {
                 format!("{}: Missing page ID for {ty} `{link}`", source_page.page)
-            })?))
+            })?;
+            Ok(Some((id, genre.name.clone())))
         }
 
+        let rejected_edges = data_patches::edges_to_reject();
+
         for stylistic_origin in &processed_genre.stylistic_origins {
-            if let Some(source_id) = get_id_for_page(
+            if let Some((source_id, source_name)) = get_id_for_page(
                 links_to_articles,
                 processed_genres,
                 &page_to_id,
@@ -170,6 +173,10 @@ pub fn produce(
                 stylistic_origin,
             )? {
                 if source_id == genre_id {
+                    continue;
+                }
+                let edge_key = (source_name, processed_genre.name.clone(), EdgeType::Derivative);
+                if rejected_edges.contains(&edge_key) {
                     continue;
                 }
 
@@ -181,7 +188,7 @@ pub fn produce(
             }
         }
         for derivative in &processed_genre.derivatives {
-            if let Some(target_id) = get_id_for_page(
+            if let Some((target_id, target_name)) = get_id_for_page(
                 links_to_articles,
                 processed_genres,
                 &page_to_id,
@@ -190,6 +197,10 @@ pub fn produce(
                 derivative,
             )? {
                 if target_id == genre_id {
+                    continue;
+                }
+                let edge_key = (processed_genre.name.clone(), target_name, EdgeType::Derivative);
+                if rejected_edges.contains(&edge_key) {
                     continue;
                 }
 
@@ -201,7 +212,7 @@ pub fn produce(
             }
         }
         for subgenre in &processed_genre.subgenres {
-            if let Some(target_id) = get_id_for_page(
+            if let Some((target_id, target_name)) = get_id_for_page(
                 links_to_articles,
                 processed_genres,
                 &page_to_id,
@@ -210,6 +221,10 @@ pub fn produce(
                 subgenre,
             )? {
                 if target_id == genre_id {
+                    continue;
+                }
+                let edge_key = (processed_genre.name.clone(), target_name, EdgeType::Subgenre);
+                if rejected_edges.contains(&edge_key) {
                     continue;
                 }
 
@@ -221,7 +236,7 @@ pub fn produce(
             }
         }
         for fusion_genre in &processed_genre.fusion_genres {
-            if let Some(target_id) = get_id_for_page(
+            if let Some((target_id, target_name)) = get_id_for_page(
                 links_to_articles,
                 processed_genres,
                 &page_to_id,
@@ -230,6 +245,10 @@ pub fn produce(
                 fusion_genre,
             )? {
                 if target_id == genre_id {
+                    continue;
+                }
+                let edge_key = (processed_genre.name.clone(), target_name, EdgeType::FusionGenre);
+                if rejected_edges.contains(&edge_key) {
                     continue;
                 }
 

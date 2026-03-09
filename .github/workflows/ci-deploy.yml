@@ -50,6 +50,9 @@ jobs:
       - name: Check all genres have mixes
         run: cargo run --bin check_missing_mixes --release
 
+      - name: Check for suspicious genre edges
+        run: cargo run --bin check_suspicious_edges --release
+
       - name: Build WASM
         run: wasm-pack build --target web frontend_wasm -d ../website/frontend_wasm
 
