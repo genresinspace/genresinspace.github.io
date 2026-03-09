@@ -24,23 +24,32 @@ uniform float u_zoom;
 in vec2 a_position;
 in float a_size;
 in vec4 a_color;
+in float a_selected;
 out vec4 v_color;
+out float v_selected;
 void main() {
   vec3 pos = u_view * vec3(a_position, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
   gl_PointSize = a_size * u_zoom;
   v_color = a_color;
+  v_selected = a_selected;
 }`;
 
 const NODE_FS = `#version 300 es
 precision highp float;
 in vec4 v_color;
+in float v_selected;
 out vec4 fragColor;
 void main() {
   vec2 p = gl_PointCoord * 2.0 - 1.0;
   float dist = dot(p, p);
   if (dist > 1.0) discard;
-  fragColor = v_color;
+  // White inner stroke for selected node
+  if (v_selected > 0.5 && dist > 0.5) {
+    fragColor = vec4(1.0, 1.0, 1.0, 1.0);
+  } else {
+    fragColor = v_color;
+  }
 }`;
 
 // Vertex shader for edges (instanced multi-segment bezier strips)
@@ -244,6 +253,7 @@ export class WebGLRenderer {
   private nodePositionBuf: WebGLBuffer;
   private nodeSizeBuf: WebGLBuffer;
   private nodeColorBuf: WebGLBuffer;
+  private nodeSelectedBuf: WebGLBuffer;
   private nodeCount = 0;
 
   // Edge rendering (instanced quads)
@@ -279,11 +289,13 @@ export class WebGLRenderer {
     this.nodePositionBuf = gl.createBuffer()!;
     this.nodeSizeBuf = gl.createBuffer()!;
     this.nodeColorBuf = gl.createBuffer()!;
+    this.nodeSelectedBuf = gl.createBuffer()!;
 
     gl.bindVertexArray(this.nodeVAO);
     const nPosLoc = gl.getAttribLocation(this.nodeProgram, "a_position");
     const nSizeLoc = gl.getAttribLocation(this.nodeProgram, "a_size");
     const nColorLoc = gl.getAttribLocation(this.nodeProgram, "a_color");
+    const nSelectedLoc = gl.getAttribLocation(this.nodeProgram, "a_selected");
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this.nodePositionBuf);
     gl.enableVertexAttribArray(nPosLoc);
@@ -296,6 +308,10 @@ export class WebGLRenderer {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.nodeColorBuf);
     gl.enableVertexAttribArray(nColorLoc);
     gl.vertexAttribPointer(nColorLoc, 4, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.nodeSelectedBuf);
+    gl.enableVertexAttribArray(nSelectedLoc);
+    gl.vertexAttribPointer(nSelectedLoc, 1, gl.FLOAT, false, 0, 0);
 
     gl.bindVertexArray(null);
 
@@ -471,6 +487,13 @@ export class WebGLRenderer {
     const gl = this.gl;
     gl.bindBuffer(gl.ARRAY_BUFFER, this.nodeColorBuf);
     gl.bufferData(gl.ARRAY_BUFFER, colors, gl.DYNAMIC_DRAW);
+  }
+
+  /** Upload node selected state (1.0 for selected, 0.0 otherwise). */
+  setNodeSelected(selected: Float32Array): void {
+    const gl = this.gl;
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.nodeSelectedBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, selected, gl.DYNAMIC_DRAW);
   }
 
   /** Upload edge endpoint positions (2 vertices per edge, flat x,y pairs).
@@ -652,6 +675,7 @@ export class WebGLRenderer {
     gl.deleteBuffer(this.nodePositionBuf);
     gl.deleteBuffer(this.nodeSizeBuf);
     gl.deleteBuffer(this.nodeColorBuf);
+    gl.deleteBuffer(this.nodeSelectedBuf);
     gl.deleteBuffer(this.edgeTemplateBuf);
     gl.deleteBuffer(this.edgeSrcBuf);
     gl.deleteBuffer(this.edgeTgtBuf);
