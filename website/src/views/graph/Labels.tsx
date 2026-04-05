@@ -1092,7 +1092,11 @@ export function Labels({
     <div
       ref={containerRef}
       className="absolute inset-0 overflow-hidden node-label-container"
-      style={{ pointerEvents: "none", willChange: "transform" }}
+      style={{
+        pointerEvents: "none",
+        willChange: "transform",
+        transformOrigin: "0 0",
+      }}
     />
   );
 }
