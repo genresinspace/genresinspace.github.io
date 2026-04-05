@@ -1,7 +1,7 @@
 /** Props for an icon component */
 export type IconProps = {
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   className?: string;
   style?: React.CSSProperties;
 };

@@ -19,8 +19,8 @@ export function WikipediaLink({
     <ExternalLink {...rest} href={wikiPageUrl(wikiUrl, pageTitle)}>
       <span className="whitespace-nowrap">
         <WikipediaIcon
-          width={14}
-          height={14}
+          width="1em"
+          height="1em"
           className="inline-block align-[-0.1em]"
         />{" "}
         {children}
