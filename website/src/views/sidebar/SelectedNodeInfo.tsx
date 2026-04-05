@@ -66,7 +66,7 @@ export function SelectedNodeInfo({
 
   return (
     <div className="flex flex-col gap-2">
-      <GenreHeader node={node} genreData={genreData} maxDegree={maxDegree} />
+      <GenreHeader node={node} maxDegree={maxDegree} />
 
       {genreData && (
         <>
@@ -125,11 +125,9 @@ function EmptyState() {
 /** Header section with genre title and controls */
 function GenreHeader({
   node,
-  genreData,
   maxDegree,
 }: {
   node: NodeData;
-  genreData: GenreFileData | null;
   maxDegree: number;
 }) {
   const nodeColourLightness = useNodeColourLightness();
@@ -151,21 +149,6 @@ function GenreHeader({
       >
         {node.label}
       </WikipediaLink>
-
-      <div
-        className={`text-slate-600 dark:text-slate-400 text-xs flex items-center ${colourStyles.node.infoBackground} px-3 py-2`}
-      >
-        {genreData ? (
-          <>
-            Last updated:{" "}
-            <em className="ml-1">
-              {new Date(genreData.last_revision_date).toLocaleString()}
-            </em>
-          </>
-        ) : (
-          "Loading..."
-        )}
-      </div>
     </div>
   );
 }
