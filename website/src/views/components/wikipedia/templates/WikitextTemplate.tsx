@@ -83,6 +83,10 @@ export function WikitextTemplate({
     case `'-`:
     case "single+space":
       return <span style={{ paddingRight: "0.15em" }}>&#39;</span>;
+    case "space+double":
+      return <span style={{ paddingLeft: "0.15em" }}>&quot;</span>;
+    case "ai-retrieved_source":
+      return <Fix>AI-retrieved source</Fix>;
     case "aka":
     case "also_known_as":
     case "a.k.a.":
@@ -162,6 +166,7 @@ export function WikitextTemplate({
     case "clarification_needed":
       return <Fix>clarification needed</Fix>;
     case "clarify_span":
+    case "clarification_needed_span":
       return <Fix>clarify</Fix>;
     case "clear":
     case "clear_left":
@@ -574,6 +579,9 @@ export function WikitextTemplate({
       return <>ʻ</>;
     case "original_research_inline":
       return <Fix>original research?</Fix>;
+    case "out_of_date":
+      // Article-level message box; not relevant to a description
+      return null;
     case "page_needed":
     case "pn":
       return <Fix>page needed</Fix>;
@@ -818,6 +826,9 @@ export function WikitextTemplate({
     case "which":
     case "which?":
       return <Fix>which?</Fix>;
+    case "where":
+    case "where?":
+      return <Fix>where?</Fix>;
     case "who":
     case "who?":
       return <Fix>who?</Fix>;
