@@ -163,6 +163,7 @@ export class InteractionHandler {
         const worldVx = -this.velocityX / this.camera.zoom;
         const worldVy = -this.velocityY / this.camera.zoom;
         this.camera.setVelocity(worldVx, worldVy);
+        this.callbacks.onViewChange();
       }
     }
     this.velocityX = 0;
@@ -300,6 +301,7 @@ export class InteractionHandler {
         const worldVx = -this.velocityX / this.camera.zoom;
         const worldVy = -this.velocityY / this.camera.zoom;
         this.camera.setVelocity(worldVx, worldVy);
+        this.callbacks.onViewChange();
       }
     }
     this.velocityX = 0;

@@ -1,14 +1,14 @@
-import { useMemo, useRef, useState, useCallback, useLayoutEffect } from "react";
+import { useRef, useEffect } from "react";
 
 import { useDataContext } from "../data";
-import { SettingsData } from "../settings";
+import { useTheme } from "../theme";
+import type { SettingsData } from "../settings";
+import { GraphView } from "./graph/GraphView";
+import type { SearchMode } from "./graph/GraphViewLabels";
 
-import { Camera } from "./graph/Camera";
-import { GraphCanvas } from "./graph/GraphCanvas";
-import { Labels, SearchMode } from "./graph/Labels";
-import { getPathsWithinDistance, EMPTY_PATH_INFO } from "./graph/pathInfo";
+import "./graph.css";
 
-/** Graph component using custom WebGL renderer with precomputed positions. */
+/** Thin React wrapper that creates DOM elements and delegates to GraphView. */
 export function Graph({
   settings,
   selectedId,
@@ -28,118 +28,86 @@ export function Graph({
   path: string[] | null;
   viewportOffsetX: number;
   viewportOffsetY: number;
-
   searchMode: SearchMode;
   onSetAsSource: ((nodeId: string) => void) | null;
   onSetAsDestination: ((nodeId: string) => void) | null;
 }) {
   const data = useDataContext();
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-  // Single shared camera instance used by both GraphCanvas and Labels
-  const cameraRef = useRef<Camera>(new Camera());
-  // Counter to trigger label re-renders when camera changes
-  const [cameraVersion, setCameraVersion] = useState(0);
-
-  // Direct DOM refs for instant label tracking (avoids React re-render lag)
+  const { theme } = useTheme();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const labelContainerRef = useRef<HTMLDivElement>(null);
-  const labelSnapshotRef = useRef({
-    x: 0,
-    y: 0,
-    zoom: 1,
-    screenCenterX: 0,
-    screenCenterY: 0,
+  const viewRef = useRef<GraphView | null>(null);
+
+  // Stable callback refs so GraphView always calls the latest versions
+  const callbackRefs = useRef({
+    setSelectedId,
+    onSetAsSource,
+    onSetAsDestination,
   });
-  // Shared cursor world position — written by GraphCanvas, read by Labels
-  const cursorWorldRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const onCameraChange = useCallback(() => {
-    // Apply CSS transform to labels container immediately (same frame as WebGL)
-    const container = labelContainerRef.current;
-    if (container) {
-      const snap = labelSnapshotRef.current;
-      const state = cameraRef.current.getState();
-      if (snap.zoom > 0) {
-        const s = state.zoom / snap.zoom;
-        const tx = (snap.x - state.x) * state.zoom;
-        const ty = (snap.y - state.y) * state.zoom;
-        container.style.transformOrigin = `${state.screenCenterX}px ${state.screenCenterY}px`;
-        container.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
-      }
-    }
-    // Trigger React re-layout for label visibility/overlap recalculation
-    setCameraVersion((v) => v + 1);
-  }, []);
+  callbackRefs.current = { setSelectedId, onSetAsSource, onSetAsDestination };
 
-  // After React commits new label positions, reset the container transform
-  // and snapshot the camera state. useLayoutEffect runs before browser paint,
-  // so there's no flash of double-transformed labels.
-  useLayoutEffect(() => {
-    labelSnapshotRef.current = cameraRef.current.getState();
-    const container = labelContainerRef.current;
-    if (container) {
-      container.style.transform = "";
-      container.style.transformOrigin = "";
-    }
-  }, [cameraVersion]);
+  // Create GraphView once (recreate only if data changes)
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const labelContainer = labelContainerRef.current;
+    if (!canvas || !labelContainer) return;
 
-  const maxDistance = settings.general.maxInfluenceDistance + 1;
+    const view = new GraphView(canvas, labelContainer, data, settings, theme, {
+      setSelectedId: (id) => callbackRefs.current.setSelectedId(id),
+      onSetAsSource: (id) => callbackRefs.current.onSetAsSource?.(id),
+      onSetAsDestination: (id) => callbackRefs.current.onSetAsDestination?.(id),
+    });
+    viewRef.current = view;
 
-  // Compute coverage net for selected node
-  const pathInfo = useMemo(() => {
-    if (!selectedId) return EMPTY_PATH_INFO;
-    return getPathsWithinDistance(
-      selectedId,
-      data.nodes,
-      data.edges,
-      settings.visibleTypes,
-      maxDistance
-    );
-  }, [selectedId, data.nodes, data.edges, maxDistance, settings.visibleTypes]);
+    return () => {
+      view.destroy();
+      viewRef.current = null;
+    };
+    // Only recreate on data change; settings/theme/callbacks are forwarded via setters
+  }, [data]);
 
-  // Precompute positions flat array for Labels
-  const nodePositions = useMemo(() => {
-    const arr = new Float32Array(data.nodes.length * 2);
-    for (let i = 0; i < data.nodes.length; i++) {
-      arr[i * 2] = data.nodes[i].x;
-      arr[i * 2 + 1] = data.nodes[i].y;
-    }
-    return arr;
-  }, [data.nodes]);
+  // Forward prop changes to GraphView
+  useEffect(() => {
+    viewRef.current?.setSelectedId(selectedId);
+  }, [selectedId]);
+  useEffect(() => {
+    viewRef.current?.setFocusedId(focusedId);
+  }, [focusedId]);
+  useEffect(() => {
+    viewRef.current?.setPath(path);
+  }, [path]);
+  useEffect(() => {
+    viewRef.current?.setSettings(settings);
+  }, [settings]);
+  useEffect(() => {
+    viewRef.current?.setTheme(theme);
+  }, [theme]);
+  useEffect(() => {
+    viewRef.current?.setSearchMode(searchMode);
+  }, [searchMode]);
+  useEffect(() => {
+    viewRef.current?.setViewportOffset(viewportOffsetX, viewportOffsetY);
+  }, [viewportOffsetX, viewportOffsetY]);
 
   return (
     <div className="relative w-full h-full">
-      <GraphCanvas
-        settings={settings}
-        selectedId={selectedId}
-        setSelectedId={setSelectedId}
-        focusedId={focusedId}
-        hoveredId={hoveredId}
-        setHoveredId={setHoveredId}
-        pathInfo={pathInfo}
-        path={path}
-        viewportOffsetX={viewportOffsetX}
-        viewportOffsetY={viewportOffsetY}
-        camera={cameraRef.current}
-        onCameraChange={onCameraChange}
-        cursorWorldRef={cursorWorldRef}
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full"
+        style={{ touchAction: "none" }}
       />
-      <Labels
-        settings={settings}
-        selectedId={selectedId}
-        setSelectedId={setSelectedId}
-        hoveredId={hoveredId}
-        setHoveredId={setHoveredId}
-        pathInfo={pathInfo}
-        path={path}
-        camera={cameraRef.current}
-        nodePositions={nodePositions}
-        cameraVersion={cameraVersion}
-        onCameraChange={onCameraChange}
-        containerRef={labelContainerRef}
-        searchMode={searchMode}
-        onSetAsSource={onSetAsSource}
-        onSetAsDestination={onSetAsDestination}
-        cursorWorldRef={cursorWorldRef}
+      <div
+        ref={labelContainerRef}
+        className="absolute inset-0 overflow-hidden node-label-container"
+        style={{
+          pointerEvents: "none",
+          willChange: "transform",
+          transformOrigin: "0 0",
+        }}
       />
     </div>
   );
 }
+
+/** Re-export SearchMode for consumers that imported it from the old Labels module. */
+export type { SearchMode };

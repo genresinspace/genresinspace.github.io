@@ -202,6 +202,15 @@ export class Camera {
     return this.animating;
   }
 
+  /** Whether the camera has any pending motion (animation, inertia, or smooth zoom). */
+  get isActive(): boolean {
+    if (this.animating) return true;
+    const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+    if (speed > INERTIA_MIN_VELOCITY) return true;
+    if (Math.abs(this._zoom - this.targetZoom) > 0.0001) return true;
+    return false;
+  }
+
   /** Animate camera to a world position over durationMs. */
   animateTo(
     worldX: number,
