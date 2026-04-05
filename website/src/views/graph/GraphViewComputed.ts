@@ -466,15 +466,64 @@ export type ArrowGeometry = {
 };
 
 /**
- * Combined arrow geometry: stable net arrows first, then hover arrows appended.
+ * Combined arrow geometry.
+ *
+ * When nothing is selected/hovered: one static midpoint arrow per visible edge.
+ * When selected/hovered: animated net arrows + animated hover arrows (no static).
  */
 export function computeArrowGeometry(
   edges: EdgeData[],
   nodePositions: Float32Array,
   visibleTypes: VisibleTypes,
+  selectedId: string | null,
   hoveredId: string | null,
   netArrowGeometry: Map<number, number>
 ): ArrowGeometry {
+  // --- No selection and no hover: static midpoint arrows on all visible edges ---
+  if (!selectedId && !hoveredId) {
+    const visibleEdges: number[] = [];
+    for (let i = 0; i < edges.length; i++) {
+      if (visibleTypes[edges[i].ty]) visibleEdges.push(i);
+    }
+    const n = visibleEdges.length;
+    const targets = new Float32Array(n * 2);
+    const directions = new Float32Array(n * 2);
+    const phases = new Float32Array(n);
+    const speeds = new Float32Array(n);
+    const targetNodeIndices: number[] = [];
+    const edgeIndices: number[] = [];
+
+    for (let j = 0; j < n; j++) {
+      const i = visibleEdges[j];
+      const edge = edges[i];
+      const ti = nodeIdToInt(edge.target);
+      const si = nodeIdToInt(edge.source);
+      const tx = nodePositions[ti * 2];
+      const ty = nodePositions[ti * 2 + 1];
+      targets[j * 2] = tx;
+      targets[j * 2 + 1] = ty;
+      directions[j * 2] = tx - nodePositions[si * 2];
+      directions[j * 2 + 1] = ty - nodePositions[si * 2 + 1];
+      phases[j] = -1.0; // negative phase = static midpoint in shader
+      speeds[j] = 0.0;
+      targetNodeIndices.push(ti);
+      edgeIndices.push(i);
+    }
+
+    return {
+      targets,
+      directions,
+      phases,
+      speeds,
+      targetNodeIndices,
+      edgeIndices,
+      netArrowCount: n,
+      hoverColors: new Float32Array(0),
+    };
+  }
+
+  // --- Selection/hover active: animated arrows ---
+
   // Build hover edges (not already in selected net)
   const hoverEdges: number[] = [];
   if (hoveredId) {

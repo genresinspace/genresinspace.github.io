@@ -587,6 +587,7 @@ export class GraphView {
         this.data.edges,
         this.nodePositions,
         this.settings.visibleTypes,
+        this.selectedId,
         this.hoveredId,
         this.netArrowGeom
       );
@@ -789,7 +790,7 @@ export class GraphView {
       !hasConverged(interp.edgeColors, this.targetEdgeColors) ||
       !hasConverged(interp.nodeSizes, this.targetNodeSizes);
     const hasAnimatedArrows =
-      this.arrowGeom !== null && this.arrowGeom.edgeIndices.length > 0;
+      this.selectedId !== null || this.hoveredId !== null;
 
     if (this.camera.isActive || interpolating || hasAnimatedArrows) {
       this.scheduleRender();
