@@ -589,7 +589,9 @@ export class GraphView {
         this.settings.visibleTypes,
         this.selectedId,
         this.hoveredId,
-        this.netArrowGeom
+        this.netArrowGeom,
+        this.targetNodeSizes,
+        performance.now() / 1000
       );
     }
 

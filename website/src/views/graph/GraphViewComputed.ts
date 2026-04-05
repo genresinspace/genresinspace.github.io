@@ -33,6 +33,8 @@ import {
   NODE_DIM_ALPHA,
   NODE_OPACITY_FALLOFF,
   ARROW_SPEED_FALLOFF,
+  ARROW_WORLD_SPEED,
+  ARROW_MARGIN_TGT_RADIUS,
 } from "./graphConstants";
 
 /** Parse a CSS color string to RGBA floats [0..1]. */
@@ -471,13 +473,41 @@ export type ArrowGeometry = {
  * When nothing is selected/hovered: one static midpoint arrow per visible edge.
  * When selected/hovered: animated net arrows + animated hover arrows (no static).
  */
+/**
+ * Compute phase offset so an arrow starts at the curve midpoint at the given time.
+ * Shader formula: linearT = fract(phase + time * WORLD_SPEED * speed / edgeLen)
+ * tCurve = (marginSrc + linearT * usableLen) / edgeLen
+ * We want tCurve = 0.5 at the given time.
+ */
+function midpointPhase(
+  edgeLen: number,
+  targetSize: number,
+  speed: number,
+  time: number
+): number {
+  const marginTgt = targetSize * ARROW_MARGIN_TGT_RADIUS;
+  const usableLen = Math.max(edgeLen - marginTgt, 1.0);
+  const midLinearT = (0.5 * edgeLen) / usableLen;
+  // phase = fract(midLinearT - time * WORLD_SPEED * speed / edgeLen)
+  const raw = midLinearT - (time * ARROW_WORLD_SPEED * speed) / edgeLen;
+  return ((raw % 1.0) + 1.0) % 1.0;
+}
+
+/**
+ * Combined arrow geometry.
+ *
+ * When nothing is selected/hovered: one static midpoint arrow per visible edge.
+ * When selected/hovered: animated arrows starting from midpoint.
+ */
 export function computeArrowGeometry(
   edges: EdgeData[],
   nodePositions: Float32Array,
   visibleTypes: VisibleTypes,
   selectedId: string | null,
   hoveredId: string | null,
-  netArrowGeometry: Map<number, number>
+  netArrowGeometry: Map<number, number>,
+  nodeSizes: Float32Array | null,
+  currentTime: number
 ): ArrowGeometry {
   // --- No selection and no hover: static midpoint arrows on all visible edges ---
   if (!selectedId && !hoveredId) {
@@ -555,12 +585,19 @@ export function computeArrowGeometry(
     const si = nodeIdToInt(edge.source);
     const tx = nodePositions[ti * 2];
     const ty = nodePositions[ti * 2 + 1];
+    const sx = nodePositions[si * 2];
+    const sy = nodePositions[si * 2 + 1];
+    const dx = tx - sx;
+    const dy = ty - sy;
+    const edgeLen = Math.sqrt(dx * dx + dy * dy);
     targets[j * 2] = tx;
     targets[j * 2 + 1] = ty;
-    directions[j * 2] = tx - nodePositions[si * 2];
-    directions[j * 2 + 1] = ty - nodePositions[si * 2 + 1];
-    phases[j] = (j * 0.6180339887) % 1.0;
-    speeds[j] = dist <= 1 ? 1.0 : Math.pow(ARROW_SPEED_FALLOFF, dist - 1);
+    directions[j * 2] = dx;
+    directions[j * 2 + 1] = dy;
+    const speed = dist <= 1 ? 1.0 : Math.pow(ARROW_SPEED_FALLOFF, dist - 1);
+    const tgtSize = nodeSizes ? nodeSizes[ti] : 5.0;
+    phases[j] = midpointPhase(edgeLen, tgtSize, speed, currentTime);
+    speeds[j] = speed;
     targetNodeIndices.push(ti);
     edgeIndices.push(i);
     j++;
@@ -575,11 +612,17 @@ export function computeArrowGeometry(
     const si = nodeIdToInt(edge.source);
     const tx = nodePositions[ti * 2];
     const ty = nodePositions[ti * 2 + 1];
+    const sx = nodePositions[si * 2];
+    const sy = nodePositions[si * 2 + 1];
+    const dx = tx - sx;
+    const dy = ty - sy;
+    const edgeLen = Math.sqrt(dx * dx + dy * dy);
     targets[j * 2] = tx;
     targets[j * 2 + 1] = ty;
-    directions[j * 2] = tx - nodePositions[si * 2];
-    directions[j * 2 + 1] = ty - nodePositions[si * 2 + 1];
-    phases[j] = (hi * 0.6180339887) % 1.0;
+    directions[j * 2] = dx;
+    directions[j * 2 + 1] = dy;
+    const tgtSize = nodeSizes ? nodeSizes[ti] : 5.0;
+    phases[j] = midpointPhase(edgeLen, tgtSize, 1.0, currentTime);
     speeds[j] = 1.0;
     targetNodeIndices.push(ti);
     edgeIndices.push(i);
