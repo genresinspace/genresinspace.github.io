@@ -61,8 +61,14 @@ export function Graph({
         const s = state.zoom / snap.zoom;
         const tx = (snap.x - state.x) * state.zoom;
         const ty = (snap.y - state.y) * state.zoom;
-        container.style.transformOrigin = `${state.screenCenterX}px ${state.screenCenterY}px`;
-        container.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
+        // Fold transformOrigin into translate to avoid changing it each frame,
+        // which triggers repaints in Firefox. scale(s) around (cx,cy) is
+        // equivalent to translate(cx,cy) scale(s) translate(-cx,-cy).
+        const cx = state.screenCenterX;
+        const cy = state.screenCenterY;
+        const ox = cx * (1 - s) + tx;
+        const oy = cy * (1 - s) + ty;
+        container.style.transform = `translate(${ox}px, ${oy}px) scale(${s})`;
       }
     }
     // Trigger React re-layout for label visibility/overlap recalculation
@@ -77,7 +83,6 @@ export function Graph({
     const container = labelContainerRef.current;
     if (container) {
       container.style.transform = "";
-      container.style.transformOrigin = "";
     }
   }, [cameraVersion]);
 
