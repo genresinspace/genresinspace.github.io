@@ -796,7 +796,9 @@ export function GraphCanvas({
       const interp = interpRef.current;
       const targets = stateRef.current;
       const now = performance.now();
-      const dt = interp.lastTime > 0 ? now - interp.lastTime : 0;
+      // Cap dt to avoid huge jumps when waking from idle
+      const rawDt = interp.lastTime > 0 ? now - interp.lastTime : 0;
+      const dt = Math.min(rawDt, 100);
       interp.lastTime = now;
 
       // Update camera (animation, inertia, smooth zoom)
@@ -977,6 +979,7 @@ export function GraphCanvas({
     return () => {
       if (hoverTimer) clearTimeout(hoverTimer);
       cancelAnimationFrame(animFrameRef.current);
+      renderScheduledRef.current = false;
       resizeObserver.disconnect();
       interaction.destroy();
       renderer.destroy();
