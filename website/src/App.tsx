@@ -423,8 +423,6 @@ function useSelectedIdAndFilterAndFocus(
   );
 
   // Use a ref to access searchState in callbacks without re-creating them
-  const searchStateRef = useRef(searchState);
-  searchStateRef.current = searchState;
 
   useEffect(() => {
     // Ensure the path is rebuilt when the visible types change
@@ -495,8 +493,6 @@ function useSelectedIdAndFilterAndFocus(
         destinationId,
         selectedId: hashSelectedId,
       } = parseHash(window.location.hash);
-      const currentState = searchStateRef.current;
-
       if (sourceId && destinationId) {
         // Full path: #sourceId,destinationId[,selectedId]
         const effectiveSelectedId = hashSelectedId || sourceId;
@@ -512,36 +508,18 @@ function useSelectedIdAndFilterAndFocus(
           destinationId,
         });
       } else if (sourceId) {
-        // Single node: #sourceId — use hash-navigate for context-aware behavior
-        if (
-          (currentState.type === "selected" || currentState.type === "path") &&
-          currentState.sourceId !== sourceId
-        ) {
-          // In selected/path state with a different node — hash-navigate sets destination
-          const currentSourceId = currentState.sourceId;
-          // Keep selectedId as the current source (for graph focus)
-          setSelectedIdRaw(currentSourceId);
-          document.title = `genres in space: ${data.nodes[nodeIdToInt(currentSourceId)].label}`;
-          setFocusedId(currentSourceId);
-          searchDispatch({
-            type: "hash-navigate",
-            nodeId: sourceId,
-          });
-          // Update hash to reflect full path state
-          const newHash = buildHash(currentSourceId, sourceId, currentSourceId);
-          if (window.location.hash !== newHash) {
-            window.history.replaceState(null, "", newHash);
-          }
-        } else {
-          // In initial state, or same node as source — treat as source selection
+        // Single node: #sourceId — always select as new source
+        {
           setSelectedIdRaw(sourceId);
           const nodeData = data.nodes[nodeIdToInt(sourceId)];
           if (nodeData) {
             document.title = `genres in space: ${nodeData.label}`;
           }
           setFocusedId(sourceId);
+          // Clear any existing path/selection, then select the new node
+          searchDispatch({ type: "selected:clear-source" });
           searchDispatch({
-            type: "hash-navigate",
+            type: "select-node",
             nodeId: sourceId,
           });
         }
