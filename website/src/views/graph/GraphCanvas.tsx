@@ -156,6 +156,7 @@ export function GraphCanvas({
   const rendererRef = useRef<WebGLRenderer | null>(null);
   const interactionRef = useRef<InteractionHandler | null>(null);
   const animFrameRef = useRef<number>(0);
+  const renderScheduledRef = useRef(false);
 
   // Stable refs for current state (avoid re-creating interaction handler)
   const stateRef = useRef({
@@ -624,6 +625,21 @@ export function GraphCanvas({
   stateRef.current.edgeNodeIndices = edgeNodeIndices;
   stateRef.current.edgeCount = data.edges.length;
 
+  // Wake the render loop when targets change
+  useEffect(() => {
+    const sr = (stateRef.current as Record<string, unknown>).scheduleRender;
+    if (typeof sr === "function") (sr as () => void)();
+  }, [
+    nodeColors,
+    edgeColors,
+    edgeWidthScales,
+    nodeSizes,
+    arrowGeometry,
+    settings.general.arrowSizeScale,
+    settings.general.curvedEdges,
+    theme,
+  ]);
+
   // Initialize WebGL
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -642,6 +658,18 @@ export function GraphCanvas({
     const renderer = new WebGLRenderer(gl);
     rendererRef.current = renderer;
 
+    /** Schedule a render frame if one isn't already pending. */
+    const scheduleRender = () => {
+      if (!renderScheduledRef.current) {
+        renderScheduledRef.current = true;
+        animFrameRef.current = requestAnimationFrame(() => renderLoop());
+      }
+    };
+
+    // Expose scheduleRender on stateRef so external updates can wake the loop
+    (stateRef.current as Record<string, unknown>).scheduleRender =
+      scheduleRender;
+
     // Size canvas
     const resize = () => {
       const w = canvas.clientWidth;
@@ -651,6 +679,7 @@ export function GraphCanvas({
       gl.viewport(0, 0, canvas.width, canvas.height);
       camera.setCanvasSize(canvas.width, canvas.height);
       onCameraChange();
+      scheduleRender();
     };
 
     resize();
@@ -722,9 +751,11 @@ export function GraphCanvas({
         stateRef.current.cursorWorldY = wy;
         cursorWorldRef.current.x = wx;
         cursorWorldRef.current.y = wy;
+        scheduleRender();
       },
       onViewChange: () => {
         onCameraChange();
+        scheduleRender();
       },
       hitTest: (wx, wy) => {
         return hitTestNode(
@@ -738,186 +769,210 @@ export function GraphCanvas({
     });
     interactionRef.current = interaction;
 
-    // Render loop — always renders (fast for ~1335 nodes)
+    // On-demand render loop — only runs when something has changed.
     // Handles smooth interpolation of colors/sizes toward targets.
-    const renderLoop = () => {
+
+    /** Check if interpolated arrays have converged to targets (max abs delta < threshold). */
+    const hasConverged = (
+      interp: Float32Array | null,
+      target: Float32Array | null,
+      threshold: number = 0.001
+    ): boolean => {
+      if (!interp || !target) return true;
+      if (interp.length !== target.length) return false;
+      for (let i = 0; i < interp.length; i++) {
+        if (Math.abs(interp[i] - target[i]) > threshold) return false;
+      }
+      return true;
+    };
+
+    // Use let + assignment so the earlier-defined scheduleRender closure can call it
+    // eslint-disable-next-line prefer-const
+    let renderLoop = () => {
+      renderScheduledRef.current = false;
       const renderer = rendererRef.current;
-      if (renderer) {
-        const interp = interpRef.current;
-        const targets = stateRef.current;
-        const now = performance.now();
-        const dt = interp.lastTime > 0 ? now - interp.lastTime : 0;
-        interp.lastTime = now;
+      if (!renderer) return;
 
-        // Update camera (animation, inertia, smooth zoom)
-        if (camera.update(dt)) {
-          onCameraChange();
+      const interp = interpRef.current;
+      const targets = stateRef.current;
+      const now = performance.now();
+      const dt = interp.lastTime > 0 ? now - interp.lastTime : 0;
+      interp.lastTime = now;
+
+      // Update camera (animation, inertia, smooth zoom)
+      if (camera.update(dt)) {
+        onCameraChange();
+      }
+      const factor = dt > 0 ? 1 - Math.exp(-dt / TRANSITION_TAU) : 1;
+
+      // Lerp node colors
+      if (targets.targetNodeColors) {
+        if (
+          !interp.nodeColors ||
+          interp.nodeColors.length !== targets.targetNodeColors.length
+        ) {
+          interp.nodeColors = new Float32Array(targets.targetNodeColors);
+        } else {
+          const src = targets.targetNodeColors;
+          const dst = interp.nodeColors;
+          for (let i = 0; i < dst.length; i++) {
+            dst[i] += (src[i] - dst[i]) * factor;
+          }
         }
-        const factor = dt > 0 ? 1 - Math.exp(-dt / TRANSITION_TAU) : 1;
+        renderer.setNodeColors(interp.nodeColors);
+      }
 
-        // Lerp node colors
-        if (targets.targetNodeColors) {
-          if (
-            !interp.nodeColors ||
-            interp.nodeColors.length !== targets.targetNodeColors.length
-          ) {
-            interp.nodeColors = new Float32Array(targets.targetNodeColors);
-          } else {
-            const src = targets.targetNodeColors;
-            const dst = interp.nodeColors;
-            for (let i = 0; i < dst.length; i++) {
-              dst[i] += (src[i] - dst[i]) * factor;
-            }
+      // Lerp edge colors
+      if (targets.targetEdgeColors) {
+        if (
+          !interp.edgeColors ||
+          interp.edgeColors.length !== targets.targetEdgeColors.length
+        ) {
+          interp.edgeColors = new Float32Array(targets.targetEdgeColors);
+        } else {
+          const src = targets.targetEdgeColors;
+          const dst = interp.edgeColors;
+          for (let i = 0; i < dst.length; i++) {
+            dst[i] += (src[i] - dst[i]) * factor;
           }
-          renderer.setNodeColors(interp.nodeColors);
         }
+        renderer.setEdgeColors(interp.edgeColors);
+      }
 
-        // Lerp edge colors
-        if (targets.targetEdgeColors) {
-          if (
-            !interp.edgeColors ||
-            interp.edgeColors.length !== targets.targetEdgeColors.length
-          ) {
-            interp.edgeColors = new Float32Array(targets.targetEdgeColors);
-          } else {
-            const src = targets.targetEdgeColors;
-            const dst = interp.edgeColors;
-            for (let i = 0; i < dst.length; i++) {
-              dst[i] += (src[i] - dst[i]) * factor;
-            }
+      // Upload edge width scales (no interpolation needed)
+      if (targets.edgeWidthScales) {
+        renderer.setEdgeWidthScales(targets.edgeWidthScales);
+      }
+
+      // Lerp node sizes
+      if (targets.targetNodeSizes) {
+        if (
+          !interp.nodeSizes ||
+          interp.nodeSizes.length !== targets.targetNodeSizes.length
+        ) {
+          interp.nodeSizes = new Float32Array(targets.targetNodeSizes);
+        } else {
+          const src = targets.targetNodeSizes;
+          const dst = interp.nodeSizes;
+          for (let i = 0; i < dst.length; i++) {
+            dst[i] += (src[i] - dst[i]) * factor;
           }
-          renderer.setEdgeColors(interp.edgeColors);
         }
+        renderer.setNodeSizes(interp.nodeSizes);
+      }
 
-        // Upload edge width scales (no interpolation needed)
-        if (targets.edgeWidthScales) {
-          renderer.setEdgeWidthScales(targets.edgeWidthScales);
+      // Compute per-edge node colors for endpoint tinting
+      const eni = targets.edgeNodeIndices;
+      if (eni && interp.nodeColors) {
+        const n = targets.edgeCount;
+        if (
+          !interp.edgeSrcNodeColors ||
+          interp.edgeSrcNodeColors.length !== n * 4
+        ) {
+          interp.edgeSrcNodeColors = new Float32Array(n * 4);
+          interp.edgeTgtNodeColors = new Float32Array(n * 4);
         }
-
-        // Lerp node sizes
-        if (targets.targetNodeSizes) {
-          if (
-            !interp.nodeSizes ||
-            interp.nodeSizes.length !== targets.targetNodeSizes.length
-          ) {
-            interp.nodeSizes = new Float32Array(targets.targetNodeSizes);
-          } else {
-            const src = targets.targetNodeSizes;
-            const dst = interp.nodeSizes;
-            for (let i = 0; i < dst.length; i++) {
-              dst[i] += (src[i] - dst[i]) * factor;
-            }
-          }
-          renderer.setNodeSizes(interp.nodeSizes);
+        for (let i = 0; i < n; i++) {
+          const si = eni.src[i];
+          const ti = eni.tgt[i];
+          interp.edgeSrcNodeColors[i * 4] = interp.nodeColors[si * 4];
+          interp.edgeSrcNodeColors[i * 4 + 1] = interp.nodeColors[si * 4 + 1];
+          interp.edgeSrcNodeColors[i * 4 + 2] = interp.nodeColors[si * 4 + 2];
+          interp.edgeSrcNodeColors[i * 4 + 3] = interp.nodeColors[si * 4 + 3];
+          interp.edgeTgtNodeColors![i * 4] = interp.nodeColors[ti * 4];
+          interp.edgeTgtNodeColors![i * 4 + 1] = interp.nodeColors[ti * 4 + 1];
+          interp.edgeTgtNodeColors![i * 4 + 2] = interp.nodeColors[ti * 4 + 2];
+          interp.edgeTgtNodeColors![i * 4 + 3] = interp.nodeColors[ti * 4 + 3];
         }
-
-        // Compute per-edge node colors for endpoint tinting
-        const eni = targets.edgeNodeIndices;
-        if (eni && interp.nodeColors) {
-          const n = targets.edgeCount;
-          if (
-            !interp.edgeSrcNodeColors ||
-            interp.edgeSrcNodeColors.length !== n * 4
-          ) {
-            interp.edgeSrcNodeColors = new Float32Array(n * 4);
-            interp.edgeTgtNodeColors = new Float32Array(n * 4);
-          }
-          for (let i = 0; i < n; i++) {
-            const si = eni.src[i];
-            const ti = eni.tgt[i];
-            interp.edgeSrcNodeColors[i * 4] = interp.nodeColors[si * 4];
-            interp.edgeSrcNodeColors[i * 4 + 1] = interp.nodeColors[si * 4 + 1];
-            interp.edgeSrcNodeColors[i * 4 + 2] = interp.nodeColors[si * 4 + 2];
-            interp.edgeSrcNodeColors[i * 4 + 3] = interp.nodeColors[si * 4 + 3];
-            interp.edgeTgtNodeColors![i * 4] = interp.nodeColors[ti * 4];
-            interp.edgeTgtNodeColors![i * 4 + 1] =
-              interp.nodeColors[ti * 4 + 1];
-            interp.edgeTgtNodeColors![i * 4 + 2] =
-              interp.nodeColors[ti * 4 + 2];
-            interp.edgeTgtNodeColors![i * 4 + 3] =
-              interp.nodeColors[ti * 4 + 3];
-          }
-          renderer.setEdgeNodeColors(
-            interp.edgeSrcNodeColors,
-            interp.edgeTgtNodeColors!
-          );
-        }
-
-        // Compute arrow colors/sizes from interpolated edge/node data
-        const geom = targets.arrowGeom;
-        if (geom && interp.edgeColors && interp.nodeSizes) {
-          const n = geom.edgeIndices.length;
-          if (!interp.arrowColors || interp.arrowColors.length !== n * 4) {
-            interp.arrowColors = new Float32Array(n * 4);
-            interp.arrowTargetSizes = new Float32Array(n);
-          }
-          for (let j = 0; j < n; j++) {
-            const ei = geom.edgeIndices[j];
-            if (j >= geom.netArrowCount) {
-              // Hover arrows use precomputed type-based colors
-              const hi = j - geom.netArrowCount;
-              interp.arrowColors[j * 4] = geom.hoverColors[hi * 4];
-              interp.arrowColors[j * 4 + 1] = geom.hoverColors[hi * 4 + 1];
-              interp.arrowColors[j * 4 + 2] = geom.hoverColors[hi * 4 + 2];
-              interp.arrowColors[j * 4 + 3] = geom.hoverColors[hi * 4 + 3];
-            } else {
-              interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
-              interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
-              interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
-              interp.arrowColors[j * 4 + 3] = interp.edgeColors[ei * 8 + 3];
-            }
-            interp.arrowTargetSizes![j] =
-              interp.nodeSizes[geom.targetNodeIndices[j]];
-          }
-          renderer.setArrows(
-            geom.targets,
-            geom.directions,
-            interp.arrowColors,
-            interp.arrowTargetSizes!,
-            geom.phases,
-            geom.speeds
-          );
-        }
-
-        // Update selection indicator
-        if (targets.selectedId !== interp.prevSelectedId) {
-          interp.prevSelectedId = targets.selectedId;
-          const count = data.nodes.length;
-          if (!interp.nodeSelected || interp.nodeSelected.length !== count) {
-            interp.nodeSelected = new Float32Array(count);
-          } else {
-            interp.nodeSelected.fill(0);
-          }
-          if (targets.selectedId) {
-            const idx = nodeIdToInt(targets.selectedId);
-            if (idx >= 0 && idx < count) {
-              interp.nodeSelected[idx] = 1.0;
-            }
-          }
-          renderer.setNodeSelected(interp.nodeSelected);
-        }
-
-        // Dark graph background for both modes; slightly lighter for light mode
-        const bg: [number, number, number, number] =
-          stateRef.current.theme === "light" ? BG_LIGHT : BG_DARK;
-        const isLight = stateRef.current.theme === "light";
-        renderer.render(
-          camera.getViewMatrix(),
-          bg,
-          stateRef.current.arrowSizeScale * ARROW_SIZE_MULTIPLIER,
-          camera.zoom,
-          now / 1000,
-          stateRef.current.curvedEdges ? EDGE_CURVATURE : 0.0,
-          stateRef.current.cursorWorldX,
-          stateRef.current.cursorWorldY,
-          CURSOR_PROXIMITY_RADIUS,
-          isLight ? -1.0 : 1.0,
-          isLight ? [0, 0, 0] : [1, 1, 1]
+        renderer.setEdgeNodeColors(
+          interp.edgeSrcNodeColors,
+          interp.edgeTgtNodeColors!
         );
       }
-      animFrameRef.current = requestAnimationFrame(renderLoop);
+
+      // Compute arrow colors/sizes from interpolated edge/node data
+      const geom = targets.arrowGeom;
+      if (geom && interp.edgeColors && interp.nodeSizes) {
+        const n = geom.edgeIndices.length;
+        if (!interp.arrowColors || interp.arrowColors.length !== n * 4) {
+          interp.arrowColors = new Float32Array(n * 4);
+          interp.arrowTargetSizes = new Float32Array(n);
+        }
+        for (let j = 0; j < n; j++) {
+          const ei = geom.edgeIndices[j];
+          if (j >= geom.netArrowCount) {
+            // Hover arrows use precomputed type-based colors
+            const hi = j - geom.netArrowCount;
+            interp.arrowColors[j * 4] = geom.hoverColors[hi * 4];
+            interp.arrowColors[j * 4 + 1] = geom.hoverColors[hi * 4 + 1];
+            interp.arrowColors[j * 4 + 2] = geom.hoverColors[hi * 4 + 2];
+            interp.arrowColors[j * 4 + 3] = geom.hoverColors[hi * 4 + 3];
+          } else {
+            interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
+            interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
+            interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
+            interp.arrowColors[j * 4 + 3] = interp.edgeColors[ei * 8 + 3];
+          }
+          interp.arrowTargetSizes![j] =
+            interp.nodeSizes[geom.targetNodeIndices[j]];
+        }
+        renderer.setArrows(
+          geom.targets,
+          geom.directions,
+          interp.arrowColors,
+          interp.arrowTargetSizes!,
+          geom.phases,
+          geom.speeds
+        );
+      }
+
+      // Update selection indicator
+      if (targets.selectedId !== interp.prevSelectedId) {
+        interp.prevSelectedId = targets.selectedId;
+        const count = data.nodes.length;
+        if (!interp.nodeSelected || interp.nodeSelected.length !== count) {
+          interp.nodeSelected = new Float32Array(count);
+        } else {
+          interp.nodeSelected.fill(0);
+        }
+        if (targets.selectedId) {
+          const idx = nodeIdToInt(targets.selectedId);
+          if (idx >= 0 && idx < count) {
+            interp.nodeSelected[idx] = 1.0;
+          }
+        }
+        renderer.setNodeSelected(interp.nodeSelected);
+      }
+
+      // Dark graph background for both modes; slightly lighter for light mode
+      const bg: [number, number, number, number] =
+        stateRef.current.theme === "light" ? BG_LIGHT : BG_DARK;
+      const isLight = stateRef.current.theme === "light";
+      renderer.render(
+        camera.getViewMatrix(),
+        bg,
+        stateRef.current.arrowSizeScale * ARROW_SIZE_MULTIPLIER,
+        camera.zoom,
+        now / 1000,
+        stateRef.current.curvedEdges ? EDGE_CURVATURE : 0.0,
+        stateRef.current.cursorWorldX,
+        stateRef.current.cursorWorldY,
+        CURSOR_PROXIMITY_RADIUS,
+        isLight ? -1.0 : 1.0,
+        isLight ? [0, 0, 0] : [1, 1, 1]
+      );
+
+      // Continue rendering if camera is active or interpolation hasn't converged
+      const interpolating =
+        !hasConverged(interp.nodeColors, targets.targetNodeColors) ||
+        !hasConverged(interp.edgeColors, targets.targetEdgeColors) ||
+        !hasConverged(interp.nodeSizes, targets.targetNodeSizes);
+
+      if (camera.isActive || interpolating) {
+        scheduleRender();
+      }
     };
-    animFrameRef.current = requestAnimationFrame(renderLoop);
+    scheduleRender();
 
     return () => {
       if (hoverTimer) clearTimeout(hoverTimer);
@@ -934,6 +989,8 @@ export function GraphCanvas({
   useEffect(() => {
     camera.setViewportOffset(viewportOffsetX, viewportOffsetY);
     onCameraChange();
+    const sr = (stateRef.current as Record<string, unknown>).scheduleRender;
+    if (typeof sr === "function") (sr as () => void)();
   }, [viewportOffsetX, viewportOffsetY, camera, onCameraChange]);
 
   // Buffer uploads are now handled in the render loop via interpolation.
@@ -973,6 +1030,8 @@ export function GraphCanvas({
         Math.max(fitZoom, camera.minZoomLevel),
         FIT_ANIM_DURATION
       );
+      const sr = (stateRef.current as Record<string, unknown>).scheduleRender;
+      if (typeof sr === "function") (sr as () => void)();
     },
     [camera]
   );
