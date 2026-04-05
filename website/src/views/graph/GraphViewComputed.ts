@@ -463,6 +463,9 @@ export type ArrowGeometry = {
   speeds: Float32Array;
   targetNodeIndices: number[];
   edgeIndices: number[];
+  /** Number of static midpoint arrows (at the start of the arrays). */
+  staticArrowCount: number;
+  /** Number of animated net arrows (after static, before hover). */
   netArrowCount: number;
   hoverColors: Float32Array;
 };
@@ -496,63 +499,26 @@ function midpointPhase(
 /**
  * Combined arrow geometry.
  *
- * When nothing is selected/hovered: one static midpoint arrow per visible edge.
- * When selected/hovered: animated arrows starting from midpoint.
+ * Layout: [static arrows | net arrows | hover arrows]
+ * Static arrows are always present for all visible edges (midpoint, phase=-1).
+ * When selected/hovered, animated net/hover arrows are appended.
+ * The render loop controls static arrow opacity via a fade multiplier.
  */
 export function computeArrowGeometry(
   edges: EdgeData[],
   nodePositions: Float32Array,
   visibleTypes: VisibleTypes,
-  selectedId: string | null,
   hoveredId: string | null,
   netArrowGeometry: Map<number, number>,
   nodeSizes: Float32Array | null,
   currentTime: number
 ): ArrowGeometry {
-  // --- No selection and no hover: static midpoint arrows on all visible edges ---
-  if (!selectedId && !hoveredId) {
-    const visibleEdges: number[] = [];
-    for (let i = 0; i < edges.length; i++) {
-      if (visibleTypes[edges[i].ty]) visibleEdges.push(i);
-    }
-    const n = visibleEdges.length;
-    const targets = new Float32Array(n * 2);
-    const directions = new Float32Array(n * 2);
-    const phases = new Float32Array(n);
-    const speeds = new Float32Array(n);
-    const targetNodeIndices: number[] = [];
-    const edgeIndices: number[] = [];
-
-    for (let j = 0; j < n; j++) {
-      const i = visibleEdges[j];
-      const edge = edges[i];
-      const ti = nodeIdToInt(edge.target);
-      const si = nodeIdToInt(edge.source);
-      const tx = nodePositions[ti * 2];
-      const ty = nodePositions[ti * 2 + 1];
-      targets[j * 2] = tx;
-      targets[j * 2 + 1] = ty;
-      directions[j * 2] = tx - nodePositions[si * 2];
-      directions[j * 2 + 1] = ty - nodePositions[si * 2 + 1];
-      phases[j] = -1.0; // negative phase = static midpoint in shader
-      speeds[j] = 0.0;
-      targetNodeIndices.push(ti);
-      edgeIndices.push(i);
-    }
-
-    return {
-      targets,
-      directions,
-      phases,
-      speeds,
-      targetNodeIndices,
-      edgeIndices,
-      netArrowCount: n,
-      hoverColors: new Float32Array(0),
-    };
+  // Collect all visible edges for static arrows
+  const visibleEdges: number[] = [];
+  for (let i = 0; i < edges.length; i++) {
+    if (visibleTypes[edges[i].ty]) visibleEdges.push(i);
   }
-
-  // --- Selection/hover active: animated arrows ---
+  const staticCount = visibleEdges.length;
 
   // Build hover edges (not already in selected net)
   const hoverEdges: number[] = [];
@@ -568,7 +534,7 @@ export function computeArrowGeometry(
   }
 
   const netCount = netArrowGeometry.size;
-  const totalInstances = netCount + hoverEdges.length;
+  const totalInstances = staticCount + netCount + hoverEdges.length;
 
   const targets = new Float32Array(totalInstances * 2);
   const directions = new Float32Array(totalInstances * 2);
@@ -576,9 +542,28 @@ export function computeArrowGeometry(
   const speeds = new Float32Array(totalInstances);
   const targetNodeIndices: number[] = [];
   const edgeIndices: number[] = [];
-
-  // Fill net arrows first (stable portion)
   let j = 0;
+
+  // --- Static midpoint arrows for all visible edges ---
+  for (let vi = 0; vi < staticCount; vi++) {
+    const i = visibleEdges[vi];
+    const edge = edges[i];
+    const ti = nodeIdToInt(edge.target);
+    const si = nodeIdToInt(edge.source);
+    const tx = nodePositions[ti * 2];
+    const ty = nodePositions[ti * 2 + 1];
+    targets[j * 2] = tx;
+    targets[j * 2 + 1] = ty;
+    directions[j * 2] = tx - nodePositions[si * 2];
+    directions[j * 2 + 1] = ty - nodePositions[si * 2 + 1];
+    phases[j] = -1.0; // negative = static midpoint in shader
+    speeds[j] = 0.0;
+    targetNodeIndices.push(ti);
+    edgeIndices.push(i);
+    j++;
+  }
+
+  // --- Animated net arrows ---
   for (const [i, dist] of netArrowGeometry) {
     const edge = edges[i];
     const ti = nodeIdToInt(edge.target);
@@ -649,6 +634,7 @@ export function computeArrowGeometry(
     speeds,
     targetNodeIndices,
     edgeIndices,
+    staticArrowCount: staticCount,
     netArrowCount: netCount,
     hoverColors,
   };

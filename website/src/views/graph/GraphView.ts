@@ -122,6 +122,12 @@ function hasConverged(
 }
 
 // ---------------------------------------------------------------------------
+// Static arrow fade duration (seconds)
+// ---------------------------------------------------------------------------
+
+const STATIC_ARROW_FADE_DURATION = 0.5;
+
+// ---------------------------------------------------------------------------
 // Label commit throttle interval
 // ---------------------------------------------------------------------------
 
@@ -192,6 +198,11 @@ export class GraphView {
   private animFrameId = 0;
   private renderScheduled = false;
   private hoverTimer: ReturnType<typeof setTimeout> | null = null;
+
+  // --- Static arrow fade ---
+  // 1.0 = fully visible (nothing selected), 0.0 = fully hidden (selection active)
+  private staticArrowOpacity = 1.0;
+  private staticArrowOpacityTarget = 1.0;
 
   // --- Dirty flags ---
   private dirty: DirtyFlags = allDirty();
@@ -375,6 +386,7 @@ export class GraphView {
     this.dirty.arrows = true;
     this.dirty.labels = true;
     this.dirty.selection = true;
+    this.updateStaticArrowFadeTarget();
     this.scheduleRender();
   }
 
@@ -393,6 +405,7 @@ export class GraphView {
     this.dirty.edgeColors = true;
     this.dirty.arrows = true;
     this.dirty.labels = true;
+    this.updateStaticArrowFadeTarget();
     this.scheduleRender();
   }
 
@@ -478,6 +491,11 @@ export class GraphView {
     this.interaction.destroy();
     this.renderer.destroy();
     this.labelManager.destroy();
+  }
+
+  private updateStaticArrowFadeTarget(): void {
+    this.staticArrowOpacityTarget =
+      this.selectedId !== null || this.hoveredId !== null ? 0.0 : 1.0;
   }
 
   // ==========================================================================
@@ -587,7 +605,6 @@ export class GraphView {
         this.data.edges,
         this.nodePositions,
         this.settings.visibleTypes,
-        this.selectedId,
         this.hoveredId,
         this.netArrowGeom,
         this.targetNodeSizes,
@@ -628,6 +645,23 @@ export class GraphView {
       this.onCameraChange();
     }
     const factor = dt > 0 ? 1 - Math.exp(-dt / TRANSITION_TAU) : 1;
+
+    // Lerp static arrow opacity toward target
+    const dtSec = dt / 1000;
+    if (this.staticArrowOpacity !== this.staticArrowOpacityTarget) {
+      const fadeSpeed = 1.0 / STATIC_ARROW_FADE_DURATION;
+      if (this.staticArrowOpacity < this.staticArrowOpacityTarget) {
+        this.staticArrowOpacity = Math.min(
+          this.staticArrowOpacityTarget,
+          this.staticArrowOpacity + fadeSpeed * dtSec
+        );
+      } else {
+        this.staticArrowOpacity = Math.max(
+          this.staticArrowOpacityTarget,
+          this.staticArrowOpacity - fadeSpeed * dtSec
+        );
+      }
+    }
 
     // Lerp node colors
     if (this.targetNodeColors) {
@@ -715,6 +749,7 @@ export class GraphView {
     }
 
     // Compute arrow colors/sizes from interpolated edge/node data
+    // Layout: [static | net | hover]. Static arrows get fading opacity.
     const geom = this.arrowGeom;
     if (geom && interp.edgeColors && interp.nodeSizes) {
       const n = geom.edgeIndices.length;
@@ -722,15 +757,26 @@ export class GraphView {
         interp.arrowColors = new Float32Array(n * 4);
         interp.arrowTargetSizes = new Float32Array(n);
       }
+      const staticEnd = geom.staticArrowCount;
+      const netEnd = staticEnd + geom.netArrowCount;
       for (let j = 0; j < n; j++) {
         const ei = geom.edgeIndices[j];
-        if (j >= geom.netArrowCount) {
-          const hi = j - geom.netArrowCount;
+        if (j >= netEnd) {
+          // Hover arrows: precomputed type-based colors
+          const hi = j - netEnd;
           interp.arrowColors[j * 4] = geom.hoverColors[hi * 4];
           interp.arrowColors[j * 4 + 1] = geom.hoverColors[hi * 4 + 1];
           interp.arrowColors[j * 4 + 2] = geom.hoverColors[hi * 4 + 2];
           interp.arrowColors[j * 4 + 3] = geom.hoverColors[hi * 4 + 3];
+        } else if (j < staticEnd) {
+          // Static arrows: color from edge, with fade opacity
+          interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
+          interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
+          interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
+          interp.arrowColors[j * 4 + 3] =
+            interp.edgeColors[ei * 8 + 3] * this.staticArrowOpacity;
         } else {
+          // Net arrows: color from interpolated edge colors
           interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
           interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
           interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
@@ -793,8 +839,15 @@ export class GraphView {
       !hasConverged(interp.nodeSizes, this.targetNodeSizes);
     const hasAnimatedArrows =
       this.selectedId !== null || this.hoveredId !== null;
+    const arrowFading =
+      this.staticArrowOpacity !== this.staticArrowOpacityTarget;
 
-    if (this.camera.isActive || interpolating || hasAnimatedArrows) {
+    if (
+      this.camera.isActive ||
+      interpolating ||
+      hasAnimatedArrows ||
+      arrowFading
+    ) {
       this.scheduleRender();
     }
   }
