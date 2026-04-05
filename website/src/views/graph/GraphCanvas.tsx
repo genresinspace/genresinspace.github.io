@@ -796,9 +796,7 @@ export function GraphCanvas({
       const interp = interpRef.current;
       const targets = stateRef.current;
       const now = performance.now();
-      // Cap dt to avoid huge jumps when waking from idle
-      const rawDt = interp.lastTime > 0 ? now - interp.lastTime : 0;
-      const dt = Math.min(rawDt, 100);
+      const dt = interp.lastTime > 0 ? now - interp.lastTime : 0;
       interp.lastTime = now;
 
       // Update camera (animation, inertia, smooth zoom)
