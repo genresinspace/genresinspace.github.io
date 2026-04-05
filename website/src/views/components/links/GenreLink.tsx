@@ -5,6 +5,7 @@ import {
   nodePageTitle,
   useDataContext,
 } from "../../../data";
+import { colourStyles } from "../../colours";
 import { useGenre } from "../../../services/dataCache";
 import { Tooltip, useTooltip } from "../Tooltip";
 import { WikitextTooltipContent } from "../Tooltip";
@@ -54,7 +55,7 @@ export function GenreLink({
       <a
         {...props}
         href={`#${node.id}`}
-        className={`text-[var(--node-color)] hover:text-[var(--node-color-hover)] ${props.className ?? ""}`}
+        className={`${colourStyles.genreLink.text} ${props.className ?? ""}`}
         style={{
           ["--node-color" as string]: genreColour,
           ["--node-color-hover" as string]: genreColourHover,

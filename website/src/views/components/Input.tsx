@@ -14,9 +14,7 @@ export function InputDescription({
   return (
     <div className={`${className || ""}`}>
       {children}
-      <p className="text-sm text-slate-600 dark:text-slate-500 mt-1">
-        {description}
-      </p>
+      <p className={`text-sm ${colourStyles.text.muted} mt-1`}>{description}</p>
     </div>
   );
 }
@@ -96,7 +94,7 @@ export function RangeInput({
           </span>
           <button
             type="button"
-            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.secondary} rounded-r-lg`}
+            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.primary} rounded-r-lg`}
             onClick={() => onChange(name, defaultValue)}
             aria-label="Reset to default"
           >

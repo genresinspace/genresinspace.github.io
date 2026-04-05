@@ -1,3 +1,5 @@
+import { colourStyles } from "../../colours";
+
 /**
  * A link to an external URL that opens in a new tab.
  */
@@ -11,7 +13,7 @@ export function ExternalLink({
       className={
         nostyle
           ? props.className
-          : `text-blue-400 hover:underline ${props.className ?? ""}`
+          : `${colourStyles.text.link} hover:underline ${props.className ?? ""}`
       }
       target="_blank"
       rel="noopener noreferrer"

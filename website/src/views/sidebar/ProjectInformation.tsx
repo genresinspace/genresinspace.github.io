@@ -122,7 +122,7 @@ function RandomGenre({
       <span className="flex flex-row">
         <button
           onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
-          className={`p-1 ${colourStyles.project.button} w-8 flex items-center justify-center text-white transition-colors`}
+          className={`p-1 ${colourStyles.button.inactive} w-8 flex items-center justify-center ${colourStyles.text.onAccent} transition-colors`}
           title="Get another random genre"
         >
           <DiceIcon width={16} height={16} stroke="white" />
@@ -134,7 +134,7 @@ function RandomGenre({
           onMouseLeave={() => setFocusedId(null)}
         >
           <span
-            className={`font-bold block px-2 py-1 ${colourStyles.project.title} text-white transition-all duration-250`}
+            className={`font-bold block px-2 py-1 ${colourStyles.project.title} transition-all duration-250`}
             style={{
               ["--node-color" as string]: randomNodeColour,
               ["--node-hovered-color" as string]: randomNodeHoveredColour,
@@ -209,7 +209,9 @@ function Legend({
 
 function CommitFooter() {
   return (
-    <footer className="text-sm text-slate-600 dark:text-slate-500 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 flex flex-col gap-2">
+    <footer
+      className={`text-sm ${colourStyles.text.muted} ${colourStyles.bg.card} px-4 py-3 rounded-xl flex flex-col gap-2`}
+    >
       <p>
         Genre and artist descriptions are sourced from{" "}
         <EL href="https://en.wikipedia.org/">Wikipedia</EL> and are available

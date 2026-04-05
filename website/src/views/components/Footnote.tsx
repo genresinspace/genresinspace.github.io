@@ -9,13 +9,13 @@ export function Footnote({ children }: { children: React.ReactNode }) {
 
   const body = visible ? (
     <span
-      className={`block p-2 my-2 ${colourStyles.footnote.background} rounded-lg border border-neutral-700`}
+      className={`block p-2 my-2 ${colourStyles.footnote.background} rounded-lg border ${colourStyles.border.divider}`}
     >
       {children}
       <sup>
         <button
           onClick={() => setVisible(false)}
-          className="text-neutral-400 hover:text-white"
+          className={colourStyles.text.toggle}
         >
           [hide]
         </button>
@@ -25,7 +25,7 @@ export function Footnote({ children }: { children: React.ReactNode }) {
     <sup>
       <button
         onClick={() => setVisible(true)}
-        className="text-neutral-400 hover:text-white"
+        className={colourStyles.text.toggle}
       >
         [show]
       </button>

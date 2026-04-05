@@ -4,6 +4,7 @@ import React from "react";
 import { useWikiUrl } from "../urls";
 import { Footnote } from "../../Footnote";
 import { Wikitext } from "../wikitexts/Wikitext";
+import { colourStyles } from "../../../colours";
 
 import { Zh } from "./Zh";
 import { Mongolunicode } from "./Mongolunicode";
@@ -474,7 +475,7 @@ export function WikitextTemplate({
         <span>
           <abbr
             title="literal translation"
-            className="text-sm border-b border-dotted border-gray-500 cursor-help"
+            className={`text-sm border-b border-dotted ${colourStyles.border.abbr} cursor-help`}
           >
             lit.
           </abbr>{" "}

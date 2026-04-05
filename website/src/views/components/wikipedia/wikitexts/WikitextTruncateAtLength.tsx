@@ -82,7 +82,7 @@ export function WikitextTruncateAtLength(props: {
         />
         <button
           onClick={() => setExpanded(false)}
-          className={`inline-block ml-1 text-xs text-neutral-400 hover:text-white px-0.5 rounded-lg ${colourStyles.wikitext.inline} transition-colors cursor-pointer`}
+          className={`inline-block ml-1 text-xs ${colourStyles.text.toggle} px-0.5 rounded-lg ${colourStyles.wikitext.toggle} transition-colors cursor-pointer`}
         >
           Show less
         </button>
@@ -98,7 +98,7 @@ export function WikitextTruncateAtLength(props: {
           {expandable ? (
             <span
               onClick={() => setExpanded(true)}
-              className="inline-block text-blue-400 hover:text-blue-300 cursor-pointer transition-colors"
+              className={`inline-block ${colourStyles.text.linkHover} cursor-pointer transition-colors`}
               title="Show more"
             >
               ...

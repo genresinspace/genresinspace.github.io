@@ -92,12 +92,14 @@ export function Sidebar({
       {/* Desktop resize handle - hidden on mobile, supports touch on tablets */}
       <div
         className={`hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 w-4 h-8 ${colourStyles.sidebar.resizer} cursor-ew-resize items-center justify-center z-20 ${
-          isResizing ? colourStyles.sidebar.resizerActive : ""
+          isResizing ? colourStyles.bg.handle : ""
         }`}
         onMouseDown={() => setIsResizing(true)}
         onTouchStart={() => setIsResizing(true)}
       >
-        <ResizeHandleIcon className="text-slate-600 dark:text-slate-400 w-3 h-3" />
+        <ResizeHandleIcon
+          className={`${colourStyles.text.secondary} w-3 h-3`}
+        />
       </div>
 
       <div
@@ -161,14 +163,14 @@ function SidebarContent({
   return (
     <div
       style={isMobile ? { userSelect: "auto" } : { width, userSelect: "auto" }}
-      className={`h-full ${colourStyles.sidebar.background} ${isMobile ? `${colourStyles.sidebar.mobileBackground} rounded-t-2xl` : ""} text-slate-900 dark:text-white box-border flex flex-col overflow-hidden md:w-auto`}
+      className={`h-full ${colourStyles.sidebar.background} ${isMobile ? `${colourStyles.sidebar.mobileBackground} rounded-t-2xl` : ""} ${colourStyles.text.primary} box-border flex flex-col overflow-hidden md:w-auto`}
     >
       {/* Mobile drag handle - visible only on mobile */}
       <div
         className="md:hidden w-full flex justify-center py-3 cursor-grab active:cursor-grabbing touch-none shrink-0"
         onTouchStart={onMobileDragStart}
       >
-        <div className="w-16 h-3 bg-slate-400 dark:bg-slate-600 rounded-full" />
+        <div className={`w-16 h-3 ${colourStyles.bg.handle} rounded-full`} />
       </div>
 
       {/* Content hidden when minimized on mobile */}
@@ -212,7 +214,7 @@ function SidebarContent({
                     key={tab.id}
                     className={`flex-1 p-2 rounded-lg cursor-pointer flex items-center justify-center overflow-hidden ${
                       activeTab === tab.id
-                        ? colourStyles.sidebar.itemActive
+                        ? `${colourStyles.button.active} font-bold`
                         : colourStyles.sidebar.itemInactive
                     } transition-colors duration-200`}
                     onClick={() => setActiveTab(tab.id as typeof activeTab)}

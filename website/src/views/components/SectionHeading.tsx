@@ -13,9 +13,7 @@ export function SectionHeading({
     <div
       className={`flex items-center gap-2 p-2 w-full ${colourStyles.section.heading}`}
     >
-      {icon && (
-        <span className="text-slate-600 dark:text-slate-300">{icon}</span>
-      )}
+      {icon && <span className={colourStyles.text.icon}>{icon}</span>}
       <h3 className="text-lg font-bold">{children}</h3>
     </div>
   );

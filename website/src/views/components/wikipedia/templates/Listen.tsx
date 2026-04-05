@@ -119,7 +119,7 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
       <div className="flex items-center space-x-2">
         <button
           onClick={togglePlayPause}
-          className={`w-8 h-8 flex items-center justify-center ${colourStyles.audio.button} rounded-full text-gray-200`}
+          className={`w-8 h-8 flex items-center justify-center ${colourStyles.audio.button} rounded-full ${colourStyles.audio.playerText}`}
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           {isPlaying ? (
@@ -135,10 +135,12 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
             max={duration || 100}
             value={currentTime}
             onChange={handleSliderChange}
-            className={`w-full h-2 ${colourStyles.audio.progress} rounded-lg appearance-none cursor-pointer`}
+            className={`w-full h-2 ${colourStyles.bg.interactive} rounded-lg appearance-none cursor-pointer`}
           />
         </div>
-        <div className="text-xs text-gray-300 w-14 text-right">
+        <div
+          className={`text-xs ${colourStyles.audio.playerTextMuted} w-14 text-right`}
+        >
           {formatTime(currentTime)} / {formatTime(duration)}
         </div>
       </div>
@@ -217,34 +219,42 @@ export function Listen({
   const showIcon = customImage !== "none";
 
   // Plain style removes borders and backgrounds
-  let styleClass = `border border-neutral-800 rounded-lg ${colourStyles.audio.container} p-3 mb-4`;
+  let styleClass = `border ${colourStyles.border.audioContainer} rounded-lg ${colourStyles.bg.app} p-3 mb-4`;
   if (plain) styleClass = "";
   if (embed) styleClass = "p-1";
 
   return (
-    <div className={`${styleClass} max-w-xs text-gray-200`}>
+    <div className={`${styleClass} max-w-xs ${colourStyles.audio.playerText}`}>
       {header && <div className="font-bold mb-2">{header}</div>}
 
       {files.map((file, index) => (
         <div
           key={index}
-          className={index > 0 ? "mt-4 pt-3 border-t border-neutral-600" : ""}
+          className={
+            index > 0
+              ? `mt-4 pt-3 border-t ${colourStyles.border.audioSection}`
+              : ""
+          }
         >
           <div className="flex items-start mb-2">
             {showIcon && !plain && !embed && (
               <div className="mr-2 text-xl">{icon}</div>
             )}
             <div>
-              <div className="font-medium text-gray-100">{file.title}</div>
+              <div className={`font-medium ${colourStyles.audio.playerTitle}`}>
+                {file.title}
+              </div>
               {file.description && (
-                <div className="text-sm text-gray-300">
+                <div
+                  className={`text-sm ${colourStyles.audio.playerTextMuted}`}
+                >
                   <Wikitext wikitext={file.description} />
                 </div>
               )}
             </div>
           </div>
 
-          <div className="border-t border-neutral-600 pt-2">
+          <div className={`border-t ${colourStyles.border.audioSection} pt-2`}>
             <AudioPlayer
               filename={file.filename}
               title={file.title}

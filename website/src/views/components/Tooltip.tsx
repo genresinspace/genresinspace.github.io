@@ -55,7 +55,7 @@ export function Tooltip({
 
   return createPortal(
     <div
-      className={`fixed z-[9999] ${colourStyles.tooltip.background} border border-slate-300 dark:border-slate-800 rounded-xl p-4 shadow-md`}
+      className={`fixed z-[9999] ${colourStyles.tooltip.background} border ${colourStyles.border.dark} rounded-xl p-4 shadow-md`}
       style={{
         left: `${tooltipX}px`,
         top: `${tooltipY}px`,
@@ -87,7 +87,7 @@ export function WikitextTooltipContent({
   return (
     <DisableTooltips>
       <WikitextTruncateAtLength wikitext={description} length={length} />
-      <small className="block mt-2 text-xs text-gray-500 dark:text-gray-400">
+      <small className={`block mt-2 text-xs ${colourStyles.text.meta}`}>
         Last updated: {new Date(last_revision_date).toLocaleString()}
       </small>
     </DisableTooltips>

@@ -77,7 +77,7 @@ export function SelectedNodeInfo({
             />
           )}
 
-          <div className="px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900">
+          <div className={`px-4 py-3 rounded-xl ${colourStyles.bg.card}`}>
             {genreData ? (
               genreData.description ? (
                 <WikitextTruncateAtNewline
@@ -114,7 +114,9 @@ export function SelectedNodeInfo({
 /** Displayed when no genre is selected */
 function EmptyState() {
   return (
-    <div className="flex items-center justify-center h-full p-6 text-slate-600 dark:text-slate-400">
+    <div
+      className={`flex items-center justify-center h-full p-6 ${colourStyles.text.secondary}`}
+    >
       <p className="text-center">
         No genre selected. Click on a node in the graph to view details.
       </p>
@@ -138,10 +140,10 @@ function GenreHeader({
   );
 
   return (
-    <div className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900">
+    <div className={`rounded-xl overflow-hidden ${colourStyles.bg.card}`}>
       <WikipediaLink
         pageTitle={nodePageTitle(node)}
-        className={`${colourStyles.node.background} ${colourStyles.node.hover} text-white p-2 block text-3xl font-bold text-center transition-all duration-200`}
+        className={`${colourStyles.node.background} ${colourStyles.node.hover} ${colourStyles.text.onAccent} p-2 block text-3xl font-bold text-center transition-all duration-200`}
         nostyle={true}
         style={{
           ["--node-color" as string]: selectedNodeColour,
@@ -200,7 +202,7 @@ function MixItem({
 }) {
   return (
     <div
-      className={`${colourStyles.node.infoBackground} overflow-hidden shadow-md rounded-xl`}
+      className={`${colourStyles.bg.elevated} overflow-hidden shadow-md rounded-xl`}
     >
       {"video" in mix ? (
         <YouTubeEmbed videoId={mix.video} autoplay={autoplay} />
@@ -271,8 +273,8 @@ function ConnectionsAndArtists({
             key={tab.id}
             className={`flex-1 px-3 py-1.5 rounded-lg cursor-pointer flex items-center justify-center ${
               activeTab === tab.id
-                ? colourStyles.node.buttonActive
-                : colourStyles.node.buttonInactive
+                ? `${colourStyles.button.active} font-bold`
+                : colourStyles.button.inactive
             } transition-colors duration-200`}
             onClick={() => setActiveTab(tab.id)}
           >
@@ -417,7 +419,7 @@ function Connections({
       {connections.map(({ textParts, type, nodes }, index) => (
         <div
           key={index}
-          className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900"
+          className={`rounded-xl overflow-hidden ${colourStyles.bg.card}`}
         >
           <Collapsible
             title={<ConnectionHeading textParts={textParts} type={type} />}
@@ -461,7 +463,7 @@ function ConnectionItem({
   return (
     <div
       key={node.id}
-      className={!isLast ? "pb-3 border-b border-neutral-700" : ""}
+      className={!isLast ? `pb-3 border-b ${colourStyles.border.divider}` : ""}
     >
       <GenreLink
         node={node}
@@ -471,7 +473,7 @@ function ConnectionItem({
       >
         {node.label || node.id}
       </GenreLink>
-      <small className="block text-xs text-slate-600 dark:text-slate-400">
+      <small className={`block ${colourStyles.text.secondary}`}>
         {genreData ? (
           shortDescription ? (
             <DisableTooltips>
@@ -564,7 +566,9 @@ function TopArtists({
   setFocusedId: (id: string | null) => void;
 }) {
   return genreData.top_artists && genreData.top_artists.length > 0 ? (
-    <div className="flex flex-col gap-3 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900">
+    <div
+      className={`flex flex-col gap-3 px-4 py-3 rounded-xl ${colourStyles.bg.card}`}
+    >
       {genreData.top_artists.map((artistPage, index) => (
         <Artist
           artistPage={artistPage}
@@ -597,7 +601,9 @@ function Artist({
   const { nodes } = useDataContext();
 
   return (
-    <div className={!isLast ? "pb-3 border-b border-neutral-700" : ""}>
+    <div
+      className={!isLast ? `pb-3 border-b ${colourStyles.border.divider}` : ""}
+    >
       {artistData ? (
         <div>
           <div className="flex items-center gap-1">
@@ -635,7 +641,7 @@ function Artist({
                 </>
               ))}
           </div>
-          <div className="text-xs text-slate-600 dark:text-slate-400">
+          <div className={`text-xs ${colourStyles.text.secondary}`}>
             {artistData?.description ? (
               <WikitextTruncateAtLength
                 wikitext={artistData.description}

@@ -78,10 +78,12 @@ function App() {
     return (
       <ThemeProvider>
         <div
-          className={`flex w-screen h-screen items-center justify-center ${colourStyles.app.background} text-slate-900 dark:text-white`}
+          className={`flex w-screen h-screen items-center justify-center ${colourStyles.bg.app} ${colourStyles.text.primary}`}
         >
           <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-slate-300 dark:border-slate-600 border-t-teal-600 dark:border-t-white rounded-full animate-spin" />
+            <div
+              className={`w-12 h-12 border-4 ${colourStyles.loading.spinner} rounded-full animate-spin`}
+            />
             <div>Loading...</div>
           </div>
         </div>

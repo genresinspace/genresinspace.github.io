@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { ExternalLink } from "../../links/ExternalLink";
 import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
 import { wikiPageUrl, wikiUrl } from "../urls";
+import { colourStyles } from "../../../colours";
 
 /**
  * Renders a link to a Wikipedia article, with an optional link to a foreign-language Wikipedia article.
@@ -36,7 +37,7 @@ export function InterlanguageLink({
             {i > 0 && "; "}
             <ExternalLink
               href={wikiPageUrl(wikiUrl(`${lang}.wikipedia.org`), page)}
-              className="text-gray-500"
+              className={colourStyles.text.metaInline}
             >
               {lang}
             </ExternalLink>

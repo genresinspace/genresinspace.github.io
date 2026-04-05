@@ -1,3 +1,5 @@
+import { colourStyles } from "../colours";
+
 /** A YouTube embed for either a video or a playlist */
 export function YouTubeEmbed({
   videoId,
@@ -19,12 +21,16 @@ export function YouTubeEmbed({
 
   return (
     <div
-      className={`relative w-full bg-black ${className || ""}`}
+      className={`relative w-full ${colourStyles.youtube.background} ${className || ""}`}
       style={{ paddingBottom: "56.25%" }}
     >
       {/* Loading placeholder */}
-      <div className="absolute inset-0 flex items-center justify-center text-slate-500">
-        <div className="w-8 h-8 border-2 border-slate-600 border-t-slate-400 rounded-full animate-spin" />
+      <div
+        className={`absolute inset-0 flex items-center justify-center ${colourStyles.youtube.loadingText}`}
+      >
+        <div
+          className={`w-8 h-8 border-2 ${colourStyles.youtube.spinner} rounded-full animate-spin`}
+        />
       </div>
       <iframe
         className="absolute top-0 left-0 w-full h-full"

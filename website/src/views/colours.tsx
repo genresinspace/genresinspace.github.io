@@ -1,88 +1,176 @@
 /**
- * Centralized colour styles for the application
+ * Centralized colour styles for the application.
  *
- * Modern, harmonious color palette
+ * All colour classes are defined here so the entire UI can be reskinned
+ * from this single file. Base colour tokens at the top cascade into the
+ * component styles below — change a token to update every style that uses it.
+ *
+ * This file contains ONLY colour-related Tailwind classes. Structural
+ * concerns (font-weight, font-size, border-width, shadow, etc.) belong
+ * at the callsite.
+ *
+ * Modern, harmonious color palette:
  * - Dark mode: Deep slate with teal accents
  * - Light mode: Clean whites with warm blue-gray and teal accents
  */
+
+// ---------------------------------------------------------------------------
+// Base colour tokens — the building blocks for all component styles
+// ---------------------------------------------------------------------------
+
+// Text
+const textPrimary = "text-slate-900 dark:text-white";
+const textSecondary = "text-slate-600 dark:text-slate-400";
+const textTertiary = "text-slate-500 dark:text-slate-400";
+const textMuted = "text-slate-600 dark:text-slate-500";
+const textIcon = "text-slate-600 dark:text-slate-300";
+const textOnAccent = "text-white";
+
+// Backgrounds
+const bgApp = "bg-white dark:bg-slate-900";
+const bgCard = "bg-slate-50 dark:bg-slate-900";
+const bgElevated = "bg-slate-100 dark:bg-slate-800";
+const bgElevatedSubtle = "bg-slate-100 dark:bg-slate-800/50";
+const bgInteractive = "bg-slate-200 dark:bg-slate-700";
+const bgInteractiveAlt = "bg-slate-200 dark:bg-slate-800";
+const bgInput = "bg-slate-300 dark:bg-slate-700";
+const bgAccent = "bg-teal-600 dark:bg-teal-700";
+const bgHandle = "bg-slate-400 dark:bg-slate-600";
+
+// Hovers
+const hoverSubtle = "hover:bg-slate-100 dark:hover:bg-slate-800";
+const hoverMedium = "hover:bg-slate-300 dark:hover:bg-slate-600";
+const hoverStrong = "hover:bg-slate-400 dark:hover:bg-slate-600";
+const hoverAccent = "hover:bg-teal-700 dark:hover:bg-teal-600";
+const hoverInteractiveAlt = "hover:bg-slate-300 dark:hover:bg-slate-700";
+
+// Borders
+const borderLight = "border-slate-300 dark:border-slate-600";
+const borderMedium = "border-slate-300 dark:border-slate-700";
+const borderDark = "border-slate-300 dark:border-slate-800";
+const borderDivider = "border-neutral-700";
+
+// ---------------------------------------------------------------------------
+// Component styles — organised by component / feature area
+// ---------------------------------------------------------------------------
+
+/** All component colour styles, composed from the base tokens above. */
 export const colourStyles = {
-  // Main application backgrounds
-  app: {
-    background: "bg-white dark:bg-slate-900",
+  // -- Common reusable tokens -----------------------------------------------
+
+  text: {
+    primary: textPrimary,
+    secondary: textSecondary,
+    tertiary: textTertiary,
+    muted: textMuted,
+    icon: textIcon,
+    onAccent: textOnAccent,
+    link: "text-blue-400",
+    linkHover: "text-blue-400 hover:text-blue-300",
+    accentLink: "text-teal-600 dark:text-blue-400",
+    toggle: "text-neutral-400 hover:text-white",
+    meta: "text-gray-500 dark:text-gray-400",
+    metaInline: "text-gray-500",
   },
 
-  // Sidebar styles
+  bg: {
+    app: bgApp,
+    card: bgCard,
+    elevated: bgElevated,
+    elevatedSubtle: bgElevatedSubtle,
+    interactive: bgInteractive,
+    interactiveAlt: bgInteractiveAlt,
+    input: bgInput,
+    accent: bgAccent,
+    handle: bgHandle,
+    black: "bg-black",
+  },
+
+  hover: {
+    subtle: hoverSubtle,
+    medium: hoverMedium,
+    strong: hoverStrong,
+    accent: hoverAccent,
+    interactiveAlt: hoverInteractiveAlt,
+  },
+
+  border: {
+    light: borderLight,
+    medium: borderMedium,
+    dark: borderDark,
+    divider: borderDivider,
+    selectedRing: "ring-blue-500",
+    audioSection: "border-neutral-600",
+    audioContainer: "border-neutral-800",
+    abbr: "border-gray-500",
+  },
+
+  // Shared button colour patterns (callsite adds font-bold etc.)
+  button: {
+    active: `${bgAccent} ${textOnAccent}`,
+    inactive: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
+  },
+
+  // -- Component-specific compositions --------------------------------------
+
+  // Loading state
+  loading: {
+    spinner:
+      "border-slate-300 dark:border-slate-600 border-t-teal-600 dark:border-t-white",
+  },
+
+  // Sidebar
   sidebar: {
     background: "bg-transparent",
     mobileBackground: "bg-slate-100 dark:bg-slate-950",
-    hover: "hover:bg-slate-100 dark:hover:bg-slate-800",
-    resizer:
-      "bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600",
-    resizerActive: "bg-slate-400 dark:bg-slate-600",
-    itemActive: "bg-teal-600 dark:bg-teal-700 font-bold text-white",
-    itemInactive:
-      "bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white",
+    resizer: `${bgInput} ${hoverStrong}`,
+    itemInactive: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 
-  // Node styles
+  // Graph node
   node: {
     background: "bg-[var(--node-color)]",
     hover: "hover:filter hover:brightness-[1.6]",
-    infoBackground: "bg-slate-100 dark:bg-slate-800",
-    buttonActive: "bg-teal-600 dark:bg-teal-700 font-bold text-white",
-    buttonInactive:
-      "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
   },
 
-  // Project information styles
+  // Project information
   project: {
-    button:
-      "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
-    title:
-      "bg-[var(--node-color)] hover:bg-[var(--node-hovered-color)] text-white",
-    subtitle: "bg-[var(--node-color)] text-white",
+    title: `bg-[var(--node-color)] hover:bg-[var(--node-hovered-color)] ${textOnAccent}`,
+    subtitle: `bg-[var(--node-color)] ${textOnAccent}`,
   },
 
-  // Search styles
+  // Search
   search: {
-    container:
-      "bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white border border-slate-300 dark:border-slate-600",
-    button:
-      "bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
-    input:
-      "bg-slate-300 dark:bg-slate-700 text-slate-950 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400",
-    results:
-      "bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white shadow-md",
-    item: "bg-slate-100 dark:bg-slate-900 hover:bg-slate-400 dark:hover:bg-slate-700 text-slate-900 dark:text-white shadow-md",
+    container: `${bgInteractive} ${textPrimary} ${borderLight}`,
+    button: `${bgInput} ${hoverStrong} ${textPrimary}`,
+    input: `${bgInput} text-slate-950 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400`,
+    item: "bg-slate-100 dark:bg-slate-900 hover:bg-slate-400 dark:hover:bg-slate-700 text-slate-900 dark:text-white",
   },
 
-  // Wikipedia component styles
+  // Wikipedia wikitext toggle (show more / show less)
   wikitext: {
-    button:
-      "bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white",
-    inline:
-      "bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white",
+    toggle: `${bgInteractiveAlt} ${hoverInteractiveAlt}`,
   },
 
-  // Audio/Listen component styles
+  // Audio / Listen components
   audio: {
-    button:
-      "bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white",
-    progress: "bg-slate-200 dark:bg-slate-700",
-    container: "bg-white dark:bg-slate-900 text-slate-900 dark:text-white",
+    button: `${bgInteractive} ${hoverMedium}`,
+    playerText: "text-gray-200",
+    playerTextMuted: "text-gray-300",
+    playerTitle: "text-gray-100",
   },
 
-  // Tooltip styles
+  // Tooltip
   tooltip: {
-    background: "bg-white dark:bg-slate-950 text-slate-900 dark:text-white",
+    background: `bg-white dark:bg-slate-950 ${textPrimary}`,
   },
 
-  // Section styles
+  // Section heading
   section: {
-    heading: "bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white",
+    heading: `${bgInteractiveAlt} ${textPrimary}`,
   },
 
-  // Notice styles
+  // Notice / alert (bg + text combined)
   notice: {
     yellow: "bg-yellow-50 dark:bg-yellow-100/90 text-yellow-900",
     red: "bg-red-50 dark:bg-red-100/90 text-red-900",
@@ -90,27 +178,41 @@ export const colourStyles = {
     green: "bg-green-50 dark:bg-green-100/90 text-green-900",
   },
 
-  // Input styles
+  // Input / control
   input: {
-    primary:
-      "bg-teal-600 dark:bg-teal-700 hover:bg-teal-700 dark:hover:bg-teal-600 text-white",
-    label: "bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white",
-    secondary:
-      "bg-teal-600 dark:bg-teal-700 hover:bg-teal-700 dark:hover:bg-teal-600 text-white",
+    primary: `${bgAccent} ${hoverAccent} ${textOnAccent}`,
+    label: `${bgInteractive} ${textPrimary}`,
   },
 
-  // Footnote styles
+  // Footnote
   footnote: {
-    background: "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white",
+    background: `${bgElevated} ${textPrimary}`,
   },
 
-  // Collapsible styles
+  // Collapsible
   collapsible: {
-    background:
-      "bg-slate-100 dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-900 dark:text-white",
+    background: `${bgElevatedSubtle} hover:bg-slate-200 dark:hover:bg-slate-800 ${textPrimary}`,
   },
 
-  // Asset icon styles (from assets/icon.html)
+  // Blockquote
+  blockquote: {
+    border: "border-gray-300 dark:border-gray-700",
+    text: "text-gray-700 dark:text-gray-300",
+  },
+
+  // YouTube embed
+  youtube: {
+    background: "bg-black",
+    loadingText: "text-slate-500",
+    spinner: "border-slate-600 border-t-slate-400",
+  },
+
+  // Genre link
+  genreLink: {
+    text: "text-[var(--node-color)] hover:text-[var(--node-color-hover)]",
+  },
+
+  // Asset icon page (assets/icon.html — uses gray/blue instead of slate/teal)
   icon: {
     body: "bg-white dark:bg-black",
     sidebar: "bg-slate-100 dark:bg-gray-900 text-slate-900 dark:text-white",

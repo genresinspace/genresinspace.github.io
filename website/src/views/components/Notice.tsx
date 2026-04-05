@@ -13,32 +13,11 @@ export function Notice({
   colour?: "yellow" | "red" | "blue" | "green";
   roundTop?: boolean;
 }) {
-  const colourClasses = {
-    yellow: {
-      bg: colourStyles.notice.yellow,
-      text: "text-yellow-900",
-    },
-    red: {
-      bg: colourStyles.notice.red,
-      text: "text-red-900",
-    },
-    blue: {
-      bg: colourStyles.notice.blue,
-      text: "text-blue-900 dark:text-slate-100",
-    },
-    green: {
-      bg: colourStyles.notice.green,
-      text: "text-green-900",
-    },
-  };
-
-  const classes = colourClasses[colour];
-
   return (
     <div
-      className={`${classes.bg} ${roundTop ? "rounded-xl" : "rounded-b-xl"} p-4`}
+      className={`${colourStyles.notice[colour]} ${roundTop ? "rounded-xl" : "rounded-b-xl"} p-4`}
     >
-      <div className={classes.text}>{children}</div>
+      {children}
     </div>
   );
 }

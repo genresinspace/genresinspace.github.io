@@ -18,7 +18,7 @@ export function Collapsible({
 
   return (
     <div
-      className={`${showBorder ? "border border-slate-300 dark:border-slate-800 rounded-xl" : ""} overflow-hidden`}
+      className={`${showBorder ? `border ${colourStyles.border.dark} rounded-xl` : ""} overflow-hidden`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}

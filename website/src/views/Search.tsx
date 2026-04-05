@@ -184,7 +184,7 @@ export function Search({
       <div
         className={
           isPath
-            ? `flex items-center rounded-xl overflow-hidden ${colourStyles.search.container}`
+            ? `flex items-center rounded-xl overflow-hidden border ${colourStyles.search.container}`
             : undefined
         }
       >
@@ -251,7 +251,7 @@ export function Search({
       </div>
 
       {showDest && isTouchDevice && (
-        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+        <p className={`mt-1 text-xs ${colourStyles.text.tertiary}`}>
           Long-press a label, then swipe left/right to set source/destination.
         </p>
       )}
@@ -303,13 +303,13 @@ export function Search({
               ))}
             </GenreResultsList>
           ) : (
-            <div className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            <div className={`mt-2 text-sm ${colourStyles.text.secondary}`}>
               No path found from{" "}
               {nodes[nodeIdToInt(searchState.sourceId)].label} to{" "}
               {nodes[nodeIdToInt(searchState.destinationId)].label} through{" "}
               {getFormattedThroughLabels(visibleTypes)}.{" "}
               <button
-                className="text-teal-600 dark:text-blue-400 hover:underline"
+                className={`${colourStyles.text.accentLink} hover:underline`}
                 onClick={() => {
                   searchDispatch({
                     type: "path:swap-source-and-destination",
@@ -365,13 +365,13 @@ const SearchInput = React.forwardRef<
 function SearchBar({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${colourStyles.search.results} rounded-xl overflow-hidden flex flex-col flex-grow gap-2`}
+      className={`${colourStyles.bg.interactive} ${colourStyles.text.primary} shadow-md rounded-xl overflow-hidden flex flex-col flex-grow gap-2`}
     >
       <div className="flex-1 flex flex-col gap-0">
         {React.Children.map(children, (child, index) => {
           if (index > 0) {
             return (
-              <div className="border-t border-slate-300 dark:border-slate-600">
+              <div className={`border-t ${colourStyles.border.light}`}>
                 {child}
               </div>
             );
@@ -405,8 +405,8 @@ function GenreResultItem({
 
   return (
     <div
-      className={`p-2 rounded-lg ${colourStyles.search.item} transition-colors ${
-        isSelected ? "ring-2 ring-blue-500" : ""
+      className={`p-2 rounded-lg ${colourStyles.search.item} shadow-md transition-colors ${
+        isSelected ? `ring-2 ${colourStyles.border.selectedRing}` : ""
       }`}
       onMouseEnter={() => setFocusedId(node.id)}
       onMouseLeave={() => setFocusedId(null)}
@@ -447,7 +447,9 @@ function GenreResultsList({
   return (
     <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto mt-2 p-1">
       {label && (
-        <div className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400 px-1">
+        <div
+          className={`text-xs font-medium uppercase tracking-wide ${colourStyles.text.tertiary} px-1`}
+        >
           {label}
         </div>
       )}

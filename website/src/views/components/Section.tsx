@@ -1,5 +1,6 @@
 import React from "react";
 import { SectionHeading } from "./SectionHeading";
+import { colourStyles } from "../colours";
 
 /** Reusable component for sections with a heading and optional icon */
 export function Section({
@@ -12,7 +13,7 @@ export function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900">
+    <section className={`rounded-xl overflow-hidden ${colourStyles.bg.card}`}>
       <SectionHeading icon={icon}>{heading}</SectionHeading>
       <div>{children}</div>
     </section>

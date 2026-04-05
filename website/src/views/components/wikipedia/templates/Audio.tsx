@@ -63,16 +63,16 @@ function AudioLink({ filename, label }: AudioLinkProps) {
         preload="none"
         onEnded={handleEnded}
       />
-      <span className="text-gray-300">({label}</span>
+      <span className={colourStyles.audio.playerTextMuted}>({label}</span>
       <button
         onClick={togglePlayPause}
-        className={`inline-flex items-center justify-center w-4 h-4 text-xs ${colourStyles.audio.button} rounded-full text-gray-200 cursor-pointer`}
+        className={`inline-flex items-center justify-center w-4 h-4 text-xs ${colourStyles.audio.button} rounded-full ${colourStyles.audio.playerText} cursor-pointer`}
         aria-label={isPlaying ? "Pause audio" : "Play audio"}
         title={isPlaying ? "Pause audio" : "Play audio"}
       >
         {isPlaying ? "⏸️" : "🔊"}
       </button>
-      <span className="text-gray-300">)</span>
+      <span className={colourStyles.audio.playerTextMuted}>)</span>
     </span>
   );
 }
