@@ -38,7 +38,7 @@ export function Graph({
   const labelContainerRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<GraphView | null>(null);
 
-  // Stable callback refs so GraphView always calls the latest versions
+  // Stable refs so the constructor effect can read current prop values
   const callbackRefs = useRef({
     setSelectedId,
     onSetAsSource,
@@ -46,17 +46,55 @@ export function Graph({
   });
   callbackRefs.current = { setSelectedId, onSetAsSource, onSetAsDestination };
 
+  const propsRef = useRef({
+    selectedId,
+    focusedId,
+    path,
+    settings,
+    theme,
+    searchMode,
+    viewportOffsetX,
+    viewportOffsetY,
+  });
+  propsRef.current = {
+    selectedId,
+    focusedId,
+    path,
+    settings,
+    theme,
+    searchMode,
+    viewportOffsetX,
+    viewportOffsetY,
+  };
+
   // Create GraphView once (recreate only if data changes)
   useEffect(() => {
     const canvas = canvasRef.current;
     const labelContainer = labelContainerRef.current;
     if (!canvas || !labelContainer) return;
 
-    const view = new GraphView(canvas, labelContainer, data, settings, theme, {
-      setSelectedId: (id) => callbackRefs.current.setSelectedId(id),
-      onSetAsSource: (id) => callbackRefs.current.onSetAsSource?.(id),
-      onSetAsDestination: (id) => callbackRefs.current.onSetAsDestination?.(id),
-    });
+    const p = propsRef.current;
+    const view = new GraphView(
+      canvas,
+      labelContainer,
+      data,
+      p.settings,
+      p.theme,
+      {
+        setSelectedId: (id) => callbackRefs.current.setSelectedId(id),
+        onSetAsSource: (id) => callbackRefs.current.onSetAsSource?.(id),
+        onSetAsDestination: (id) =>
+          callbackRefs.current.onSetAsDestination?.(id),
+      },
+      {
+        selectedId: p.selectedId,
+        focusedId: p.focusedId,
+        path: p.path,
+        searchMode: p.searchMode,
+        viewportOffsetX: p.viewportOffsetX,
+        viewportOffsetY: p.viewportOffsetY,
+      }
+    );
     viewRef.current = view;
 
     return () => {

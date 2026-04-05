@@ -229,7 +229,15 @@ export class GraphView {
     data: Data,
     settings: SettingsData,
     theme: Theme,
-    callbacks: GraphViewCallbacks
+    callbacks: GraphViewCallbacks,
+    initialState?: {
+      selectedId?: string | null;
+      focusedId?: string | null;
+      path?: string[] | null;
+      searchMode?: SearchMode;
+      viewportOffsetX?: number;
+      viewportOffsetY?: number;
+    }
   ) {
     this.labelContainer = labelContainer;
     this.data = data;
@@ -237,10 +245,26 @@ export class GraphView {
     this.theme = theme;
     this.callbacks = callbacks;
 
+    // Apply initial state before first render
+    if (initialState) {
+      if (initialState.selectedId != null)
+        this.selectedId = initialState.selectedId;
+      if (initialState.focusedId != null)
+        this.focusedId = initialState.focusedId;
+      if (initialState.path != null) this.path = initialState.path;
+      if (initialState.searchMode != null)
+        this.searchMode = initialState.searchMode;
+    }
+
     // 1. Compute static arrays
     this.nodePositions = computeNodePositions(data.nodes);
     this.edgePositions = computeEdgePositions(data.edges, this.nodePositions);
     this.edgeNodeIndices = computeEdgeNodeIndices(data.edges);
+
+    // Update static arrow fade based on initial selection
+    this.updateStaticArrowFadeTarget();
+    // Snap opacity immediately (no fade on load)
+    this.staticArrowOpacity = this.staticArrowOpacityTarget;
 
     // 2. Camera
     this.camera = new Camera();
@@ -249,6 +273,12 @@ export class GraphView {
     canvas.width = w;
     canvas.height = h;
     this.camera.setCanvasSize(w, h);
+    if (initialState?.viewportOffsetX != null) {
+      this.camera.setViewportOffset(
+        initialState.viewportOffsetX,
+        initialState.viewportOffsetY ?? 0
+      );
+    }
     this.camera.fitToContent(this.nodePositions);
 
     // 3. WebGL
@@ -622,6 +652,12 @@ export class GraphView {
     if (this.path !== this.prevPathForZoom) {
       this.prevPathForZoom = this.path;
       this.animateToPath();
+    }
+
+    // Repaint labels when state changes (theme, selection, settings, etc.)
+    if (d.labels) {
+      d.labels = false;
+      this.commitLabels();
     }
   }
 
