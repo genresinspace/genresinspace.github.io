@@ -51,6 +51,11 @@ export function Graph({
   });
   // Shared cursor world position — written by GraphCanvas, read by Labels
   const cursorWorldRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  // Throttle React label re-renders: CSS transform tracks the camera at full
+  // framerate, so React only needs to commit new label positions periodically.
+  const lastLabelCommitRef = useRef(0);
+  const pendingLabelCommitRef = useRef(0);
+  const LABEL_COMMIT_INTERVAL = 33; // ~30 fps for label layout
   const onCameraChange = useCallback(() => {
     // Apply CSS transform to labels container immediately (same frame as WebGL)
     const container = labelContainerRef.current;
@@ -71,8 +76,23 @@ export function Graph({
         container.style.transform = `translate(${ox}px, ${oy}px) scale(${s})`;
       }
     }
-    // Trigger React re-layout for label visibility/overlap recalculation
-    setCameraVersion((v) => v + 1);
+    // Throttle React re-renders for label layout recalculation.
+    // The CSS transform above keeps labels visually in sync at full framerate;
+    // React only needs to update which labels are visible and their positions.
+    const now = performance.now();
+    if (now - lastLabelCommitRef.current >= LABEL_COMMIT_INTERVAL) {
+      lastLabelCommitRef.current = now;
+      cancelAnimationFrame(pendingLabelCommitRef.current);
+      pendingLabelCommitRef.current = 0;
+      setCameraVersion((v) => v + 1);
+    } else if (!pendingLabelCommitRef.current) {
+      // Schedule a trailing update so we always commit after motion stops
+      pendingLabelCommitRef.current = requestAnimationFrame(() => {
+        pendingLabelCommitRef.current = 0;
+        lastLabelCommitRef.current = performance.now();
+        setCameraVersion((v) => v + 1);
+      });
+    }
   }, []);
 
   // After React commits new label positions, reset the container transform
