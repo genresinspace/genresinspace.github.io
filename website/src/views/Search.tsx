@@ -763,60 +763,34 @@ function computePath(
   source: string,
   destination: string
 ): string[] | null {
-  // Dijkstra's algorithm to find shortest path
-  const distances = new Map<string, number>();
+  // BFS — all edges have unit weight so BFS finds the shortest path in O(V+E)
   const previous = new Map<string, string>();
-  const unvisited = new Set<string>();
   const visited = new Set<string>();
+  const queue: string[] = [source];
+  visited.add(source);
 
-  // Initialize distances
-  nodes.forEach((node) => {
-    distances.set(node.id, Infinity);
-    unvisited.add(node.id);
-  });
-  distances.set(source, 0);
+  while (queue.length > 0) {
+    const currentId = queue.shift()!;
 
-  while (unvisited.size > 0) {
-    // Find unvisited node with smallest distance
-    let currentId: string | null = null;
-    let smallestDistance = Infinity;
-    for (const id of unvisited) {
-      const distance = distances.get(id)!;
-      if (distance < smallestDistance) {
-        smallestDistance = distance;
-        currentId = id;
-      }
-    }
-
-    if (!currentId || smallestDistance === Infinity) break;
-
-    // If we reached the destination, reconstruct the path
     if (currentId === destination) {
       const path: string[] = [];
-      let current = currentId;
+      let current: string | undefined = currentId;
       while (current) {
         path.unshift(current);
-        current = previous.get(current)!;
+        current = previous.get(current);
       }
       return path;
     }
 
-    // Mark as visited
-    unvisited.delete(currentId);
-    visited.add(currentId);
-
-    // Update distances to neighbors
     const currentNode = nodes[nodeIdToInt(currentId)];
     for (const edgeIndex of currentNode.edges) {
       const edge = edges[edgeIndex];
       if (edge.source === currentId && visibleTypes[edge.ty]) {
         const neighborId = edge.target;
         if (!visited.has(neighborId)) {
-          const newDistance = distances.get(currentId)! + 1;
-          if (newDistance < distances.get(neighborId)!) {
-            distances.set(neighborId, newDistance);
-            previous.set(neighborId, currentId);
-          }
+          visited.add(neighborId);
+          previous.set(neighborId, currentId);
+          queue.push(neighborId);
         }
       }
     }
