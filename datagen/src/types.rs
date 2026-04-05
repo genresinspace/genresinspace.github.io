@@ -1,5 +1,5 @@
 //! Types used throughout the program that are not specific to any stage.
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use serde::{Deserialize, Serialize};
 
@@ -8,16 +8,55 @@ pub use shared::PageName;
 #[derive(Debug, Deserialize)]
 /// The configuration for the program.
 pub struct Config {
-    /// The path to the Wikipedia dump.
-    pub wikipedia_dump_path: PathBuf,
-    /// The path to the Wikipedia index.
-    pub wikipedia_index_path: PathBuf,
-    /// The path to the Wikipedia link targets SQL dump.
-    pub wikipedia_linktargets_path: PathBuf,
-    /// The path to the Wikipedia links SQL dump.
-    pub wikipedia_links_path: PathBuf,
+    /// The directory containing Wikipedia dump files.
+    pub wikipedia_dump_dir: PathBuf,
     /// The YouTube API key.
     pub youtube_api_key: String,
+}
+
+/// Resolved paths to Wikipedia dump files within the dump directory.
+pub struct WikipediaPaths {
+    /// The path to the Wikipedia articles dump (*.xml.bz2).
+    pub dump_path: PathBuf,
+    /// The path to the Wikipedia index (*-index.txt.bz2).
+    pub index_path: PathBuf,
+    /// The path to the Wikipedia link targets SQL dump (*-linktarget.sql.gz).
+    pub linktargets_path: PathBuf,
+    /// The path to the Wikipedia links SQL dump (*-pagelinks.sql.gz).
+    pub links_path: PathBuf,
+}
+
+impl Config {
+    /// Resolve Wikipedia dump file paths by scanning the dump directory for known suffixes.
+    pub fn resolve_wikipedia_paths(&self) -> anyhow::Result<WikipediaPaths> {
+        let dir = &self.wikipedia_dump_dir;
+        anyhow::ensure!(dir.is_dir(), "wikipedia_dump_dir {dir:?} is not a directory");
+
+        /// Find exactly one file in `dir` whose name ends with `suffix`.
+        fn find(dir: &Path, suffix: &str) -> anyhow::Result<PathBuf> {
+            let mut found = None;
+            for entry in std::fs::read_dir(dir)? {
+                let entry = entry?;
+                let name = entry.file_name();
+                let name = name.to_string_lossy();
+                if name.ends_with(suffix) {
+                    anyhow::ensure!(
+                        found.is_none(),
+                        "multiple files matching *{suffix} in {dir:?}"
+                    );
+                    found = Some(entry.path());
+                }
+            }
+            found.ok_or_else(|| anyhow::anyhow!("no file matching *{suffix} in {dir:?}"))
+        }
+
+        Ok(WikipediaPaths {
+            dump_path: find(dir, "-pages-articles-multistream.xml.bz2")?,
+            index_path: find(dir, "-pages-articles-multistream-index.txt.bz2")?,
+            linktargets_path: find(dir, "-linktarget.sql.gz")?,
+            links_path: find(dir, "-pagelinks.sql.gz")?,
+        })
+    }
 }
 
 /// A newtype for an ID assigned to a page for the graph.

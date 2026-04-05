@@ -26,9 +26,13 @@ fn main() -> anyhow::Result<()> {
         toml::from_str(&config_str).context("Failed to parse config.toml")?
     };
 
+    let wiki_paths = config
+        .resolve_wikipedia_paths()
+        .context("Failed to resolve Wikipedia dump files")?;
+
     let dump_date = util::parse_wiki_dump_date(
-        &config
-            .wikipedia_dump_path
+        &wiki_paths
+            .dump_path
             .file_stem()
             .unwrap()
             .to_string_lossy(),
@@ -36,13 +40,13 @@ fn main() -> anyhow::Result<()> {
     .with_context(|| {
         format!(
             "Failed to parse Wikipedia dump date from {:?}",
-            config.wikipedia_dump_path
+            wiki_paths.dump_path
         )
     })?;
 
     let index_date = util::parse_wiki_dump_date(
-        &config
-            .wikipedia_index_path
+        &wiki_paths
+            .index_path
             .file_stem()
             .unwrap()
             .to_string_lossy(),
@@ -50,7 +54,7 @@ fn main() -> anyhow::Result<()> {
     .with_context(|| {
         format!(
             "Failed to parse Wikipedia dump date from {:?}",
-            config.wikipedia_index_path
+            wiki_paths.index_path
         )
     })?;
 
@@ -64,12 +68,13 @@ fn main() -> anyhow::Result<()> {
     let output_path = Path::new("output").join(dump_date.to_string());
     let start = std::time::Instant::now();
 
-    let extracted_data = extract::from_data_dump(&config, start, dump_date, &output_path)?;
+    let extracted_data =
+        extract::from_data_dump(&wiki_paths, start, dump_date, &output_path)?;
 
     let artist_inbound_link_counts = link_counts::read(
         start,
-        &config.wikipedia_linktargets_path,
-        &config.wikipedia_links_path,
+        &wiki_paths.linktargets_path,
+        &wiki_paths.links_path,
         &extracted_data.artists.0,
         &output_path,
     )?;

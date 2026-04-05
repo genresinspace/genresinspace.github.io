@@ -12,7 +12,7 @@ use rayon::iter::{IntoParallelRefIterator as _, ParallelIterator as _};
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    types::{Config, PageName},
+    types::{PageName, WikipediaPaths},
     util,
 };
 
@@ -120,7 +120,7 @@ impl IntermediateData {
 ///
 /// We extract all redirects as we may need to resolve redirects to redirects.
 pub fn from_data_dump(
-    config: &Config,
+    wiki_paths: &WikipediaPaths,
     start: std::time::Instant,
     dump_date: jiff::civil::Date,
     output_path: &Path,
@@ -190,10 +190,10 @@ pub fn from_data_dump(
     std::fs::create_dir_all(output_path).context("Failed to create output directory")?;
 
     // Load offsets to allow for multithreaded read
-    let offsets = load_offsets(start, config, &offsets_path)?;
+    let offsets = load_offsets(start, wiki_paths, &offsets_path)?;
 
     // Memory-map dump into memory and hope the OS will evict the pages once we're done looking at them
-    let dump_file = std::fs::File::open(&config.wikipedia_dump_path)
+    let dump_file = std::fs::File::open(&wiki_paths.dump_path)
         .context("Failed to open Wikipedia dump")?;
     let dump_file =
         unsafe { memmap2::Mmap::map(&dump_file).context("Failed to memory-map Wikipedia dump")? };
@@ -267,7 +267,7 @@ pub fn from_data_dump(
 /// Load the offsets from the Wikipedia index file.
 fn load_offsets(
     start: std::time::Instant,
-    config: &Config,
+    wiki_paths: &WikipediaPaths,
     offsets_path: &Path,
 ) -> anyhow::Result<Vec<usize>> {
     if offsets_path.exists() {
@@ -285,7 +285,7 @@ fn load_offsets(
         return Ok(offsets);
     }
 
-    let index_file = std::fs::read(&config.wikipedia_index_path)
+    let index_file = std::fs::read(&wiki_paths.index_path)
         .context("Failed to open Wikipedia index file")?;
     let index_file = std::io::BufReader::new(bzip2::bufread::BzDecoder::new(&index_file[..]));
     let mut offsets = BTreeSet::<usize>::new();
