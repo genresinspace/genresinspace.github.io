@@ -133,6 +133,9 @@ pub fn edges_to_reject() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         // Americana is a 1990s genre label; R&B (1940s) and rock and roll (1950s) predate it
         ("Americana", "Rhythm and blues", D),
         ("Americana", "Rock and roll", D),
+        // Chillstep (dubstep subgenre) and chillwave (indie/lo-fi synth-pop) share a
+        // "chill" aesthetic but are unrelated genre lineages
+        ("Chillstep", "Chillwave", D),
         // C-pop (Chinese popular music) did not influence R&B
         ("C-pop", "Rhythm and blues", D),
         // Ethiopian hip hop (1990s+) cannot have influenced genres from decades earlier
@@ -145,6 +148,10 @@ pub fn edges_to_reject() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         ("LGBTQ music", "Disco", D),
         ("LGBTQ music", "Glam rock", D),
         ("LGBTQ music", "House music", D),
+        // Same reasoning: LGBTQ music is a cultural category, not a musical ancestor;
+        // hyperpop has strong queer cultural ties but its sound derives from
+        // electronic/pop production, not from LGBTQ music as a genre
+        ("LGBTQ music", "Hyperpop", D),
         // Louisiana Creole/Cajun music influencing country and R&B is reasonable, but
         // a direct influence on hip-hop is too much of a stretch
         ("Louisiana Creole and Cajun music", "Hip-hop", D),
