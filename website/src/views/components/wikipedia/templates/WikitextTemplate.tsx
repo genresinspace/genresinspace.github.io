@@ -508,7 +508,6 @@ export function WikitextTemplate({
       return null;
     case "new_archival_link_needed":
       return <Fix>new archival link needed</Fix>;
-    // eslint-disable-next-line no-fallthrough
     case "music_of_cape_verde":
     // Category box: don't care
     // eslint-disable-next-line no-fallthrough
