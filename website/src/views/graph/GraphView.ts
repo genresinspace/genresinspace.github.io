@@ -759,6 +759,12 @@ export class GraphView {
       }
       const staticEnd = geom.staticArrowCount;
       const netEnd = staticEnd + geom.netArrowCount;
+      // Collect edge indices that have animated arrows so we can hide
+      // their static duplicates immediately (no doubling during fade).
+      const animatedEdges = new Set<number>();
+      for (let k = staticEnd; k < n; k++) {
+        animatedEdges.add(geom.edgeIndices[k]);
+      }
       for (let j = 0; j < n; j++) {
         const ei = geom.edgeIndices[j];
         if (j >= netEnd) {
@@ -769,12 +775,16 @@ export class GraphView {
           interp.arrowColors[j * 4 + 2] = geom.hoverColors[hi * 4 + 2];
           interp.arrowColors[j * 4 + 3] = geom.hoverColors[hi * 4 + 3];
         } else if (j < staticEnd) {
-          // Static arrows: color from edge, with fade opacity
+          // Static arrows: color from edge, with fade opacity.
+          // If this edge also has an animated arrow, hide immediately
+          // to avoid doubling.
+          const alpha = animatedEdges.has(ei)
+            ? 0.0
+            : interp.edgeColors[ei * 8 + 3] * this.staticArrowOpacity;
           interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
           interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
           interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
-          interp.arrowColors[j * 4 + 3] =
-            interp.edgeColors[ei * 8 + 3] * this.staticArrowOpacity;
+          interp.arrowColors[j * 4 + 3] = alpha;
         } else {
           // Net arrows: color from interpolated edge colors
           interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
