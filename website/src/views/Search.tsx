@@ -718,6 +718,25 @@ export function useSearchState(
   return [state, dispatch];
 }
 
+/** Normalize a string: strip diacritics and lowercase (expensive — cache results). */
+const normalizeStr = (str: string) =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+/** Cache of normalized labels, keyed by the nodes array identity. */
+let normalizedLabelCache: { nodes: NodeData[]; labels: string[] } | null = null;
+
+function getNormalizedLabels(nodes: NodeData[]): string[] {
+  if (normalizedLabelCache && normalizedLabelCache.nodes === nodes) {
+    return normalizedLabelCache.labels;
+  }
+  const labels = nodes.map((n) => normalizeStr(n.label));
+  normalizedLabelCache = { nodes, labels };
+  return labels;
+}
+
 function getFilteredResults(
   filter: string,
   nodes: NodeData[],
@@ -733,17 +752,11 @@ function getFilteredResults(
     return [];
   }
 
-  // Normalize the filter string to remove diacritics and convert to lowercase
-  const normalizeStr = (str: string) =>
-    str
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-
   const normalizedFilter = normalizeStr(filter);
+  const normalizedLabels = getNormalizedLabels(nodes);
 
   return nodes
-    .filter((node) => normalizeStr(node.label).includes(normalizedFilter))
+    .filter((_, i) => normalizedLabels[i].includes(normalizedFilter))
     .sort((a, b) => {
       // Sort by closest length first
       const lengthDiffA = Math.abs(a.label.length - filter.length);
