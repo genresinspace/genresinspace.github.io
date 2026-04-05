@@ -782,13 +782,16 @@ export class GraphView {
       isLight ? [0, 0, 0] : [1, 1, 1]
     );
 
-    // Continue rendering if camera is active or interpolation hasn't converged
+    // Continue rendering if camera is active, interpolation hasn't converged,
+    // or animated arrows are visible (their phase depends on wall-clock time).
     const interpolating =
       !hasConverged(interp.nodeColors, this.targetNodeColors) ||
       !hasConverged(interp.edgeColors, this.targetEdgeColors) ||
       !hasConverged(interp.nodeSizes, this.targetNodeSizes);
+    const hasAnimatedArrows =
+      this.arrowGeom !== null && this.arrowGeom.edgeIndices.length > 0;
 
-    if (this.camera.isActive || interpolating) {
+    if (this.camera.isActive || interpolating || hasAnimatedArrows) {
       this.scheduleRender();
     }
   }
