@@ -10,8 +10,8 @@
  * at the callsite.
  *
  * Modern, harmonious color palette:
- * - Dark mode: Deep slate with teal accents
- * - Light mode: Clean whites with warm blue-gray and teal accents
+ * - Dark mode: Deep slate with purple accents
+ * - Light mode: Slate grays with purple accents
  */
 
 // ---------------------------------------------------------------------------
@@ -24,21 +24,21 @@ const textSecondary = "text-slate-600 dark:text-slate-400";
 const textOnAccent = "text-white";
 
 // Backgrounds
-const bgApp = "bg-white dark:bg-slate-900";
-const bgCard = "bg-slate-50 dark:bg-slate-900";
-const bgElevated = "bg-slate-100 dark:bg-slate-800";
+const bgApp = "bg-slate-100 dark:bg-slate-900";
+const bgCard = "bg-slate-200 dark:bg-slate-900";
+const bgElevated = "bg-slate-200 dark:bg-slate-800";
 const bgInteractive = "bg-slate-200 dark:bg-slate-700";
 const bgInput = "bg-slate-300 dark:bg-slate-700";
-const bgAccent = "bg-teal-600 dark:bg-teal-700";
-const bgHandle = "bg-slate-400 dark:bg-slate-600";
+const bgAccent = "bg-purple-600 dark:bg-purple-700";
+const bgHandle = "bg-slate-500 dark:bg-slate-600";
 
 // Hovers
-const hoverSubtle = "hover:bg-slate-100 dark:hover:bg-slate-800";
+const hoverSubtle = "hover:bg-slate-300 dark:hover:bg-slate-800";
 const hoverMedium = "hover:bg-slate-400 dark:hover:bg-slate-600";
-const hoverAccent = "hover:bg-teal-700 dark:hover:bg-teal-600";
+const hoverAccent = "hover:bg-purple-700 dark:hover:bg-purple-600";
 
 // Borders
-const borderLight = "border-slate-300 dark:border-slate-600";
+const borderLight = "border-slate-400 dark:border-slate-600";
 const borderDivider = "border-neutral-700";
 
 // ---------------------------------------------------------------------------
@@ -55,7 +55,7 @@ export const colourStyles = {
     onAccent: textOnAccent,
     link: "text-blue-400",
     linkHover: "text-blue-400 hover:text-blue-300",
-    accentLink: "text-teal-600 dark:text-blue-400",
+    accentLink: "text-purple-600 dark:text-purple-400",
     toggle: "text-neutral-400 hover:text-white",
     meta: "text-gray-500 dark:text-gray-400",
     metaInline: "text-gray-500",
@@ -98,13 +98,13 @@ export const colourStyles = {
   // Loading state
   loading: {
     spinner:
-      "border-slate-300 dark:border-slate-600 border-t-teal-600 dark:border-t-white",
+      "border-slate-400 dark:border-slate-600 border-t-purple-600 dark:border-t-white",
   },
 
   // Sidebar
   sidebar: {
     background: "bg-transparent",
-    mobileBackground: "bg-slate-100 dark:bg-slate-950",
+    mobileBackground: "bg-slate-200 dark:bg-slate-950",
     itemInactive: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 
@@ -123,8 +123,8 @@ export const colourStyles = {
   // Search
   search: {
     button: `${bgInput} ${hoverMedium} ${textPrimary}`,
-    input: `${bgInput} text-slate-950 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400`,
-    item: "bg-slate-100 dark:bg-slate-900 hover:bg-slate-400 dark:hover:bg-slate-700 text-slate-900 dark:text-white",
+    input: `${bgInput} text-slate-950 dark:text-white placeholder:text-slate-600 dark:placeholder:text-slate-400`,
+    item: "bg-slate-200 dark:bg-slate-900 hover:bg-slate-500 dark:hover:bg-slate-700 text-slate-900 dark:text-white",
   },
 
   // Audio / Listen components
@@ -136,7 +136,12 @@ export const colourStyles = {
 
   // Tooltip
   tooltip: {
-    background: `bg-white dark:bg-slate-950 ${textPrimary}`,
+    background: `bg-slate-100 dark:bg-slate-950 ${textPrimary}`,
+  },
+
+  // Section heading
+  section: {
+    heading: `bg-slate-400 dark:bg-slate-800 ${textOnAccent}`,
   },
 
   // Notice / alert (bg + text combined)
@@ -160,7 +165,7 @@ export const colourStyles = {
 
   // Collapsible
   collapsible: {
-    background: `bg-slate-100 dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-800 ${textPrimary}`,
+    background: `bg-slate-300 dark:bg-slate-800/50 hover:bg-slate-400 dark:hover:bg-slate-800 ${textPrimary}`,
   },
 
   // Blockquote
@@ -181,26 +186,26 @@ export const colourStyles = {
     text: "text-[var(--node-color)] hover:text-[var(--node-color-hover)]",
   },
 
-  // Asset icon page (assets/icon.html — uses gray/blue instead of slate/teal)
+  // Asset icon page (assets/icon.html — uses gray/blue instead of slate/purple)
   icon: {
-    body: "bg-white dark:bg-black",
-    sidebar: "bg-slate-100 dark:bg-gray-900 text-slate-900 dark:text-white",
-    input: "bg-slate-200 dark:bg-gray-800 text-slate-900 dark:text-white",
+    body: "bg-slate-100 dark:bg-black",
+    sidebar: "bg-slate-200 dark:bg-gray-900 text-slate-900 dark:text-white",
+    input: "bg-slate-300 dark:bg-gray-800 text-slate-900 dark:text-white",
     button:
-      "bg-slate-200 dark:bg-gray-700 hover:bg-slate-300 dark:hover:bg-gray-600 text-slate-900 dark:text-white",
+      "bg-slate-300 dark:bg-gray-700 hover:bg-slate-400 dark:hover:bg-gray-600 text-slate-900 dark:text-white",
     buttonPrimary:
-      "bg-teal-600 dark:bg-blue-700 hover:bg-teal-700 dark:hover:bg-blue-600 text-white",
+      "bg-purple-600 dark:bg-blue-700 hover:bg-purple-700 dark:hover:bg-blue-600 text-white",
     buttonDisabled:
-      "bg-slate-300 dark:bg-gray-800 text-slate-500 dark:text-gray-500",
+      "bg-slate-400 dark:bg-gray-800 text-slate-500 dark:text-gray-500",
     buttonActive:
-      "bg-teal-700 dark:bg-blue-600 hover:bg-teal-800 dark:hover:bg-blue-700 text-white",
+      "bg-purple-700 dark:bg-blue-600 hover:bg-purple-800 dark:hover:bg-blue-700 text-white",
     listContainer:
-      "bg-slate-50 dark:bg-gray-950 text-slate-900 dark:text-white",
+      "bg-slate-200 dark:bg-gray-950 text-slate-900 dark:text-white",
     listItem:
-      "hover:bg-slate-100 dark:hover:bg-gray-800 text-slate-900 dark:text-white",
+      "hover:bg-slate-300 dark:hover:bg-gray-800 text-slate-900 dark:text-white",
     listItemActive:
-      "bg-teal-100 dark:bg-blue-900 text-slate-900 dark:text-white",
-    content: "bg-slate-100 dark:bg-gray-800 text-slate-900 dark:text-white",
+      "bg-purple-100 dark:bg-blue-900 text-slate-900 dark:text-white",
+    content: "bg-slate-200 dark:bg-gray-800 text-slate-900 dark:text-white",
   },
 } as const;
 
