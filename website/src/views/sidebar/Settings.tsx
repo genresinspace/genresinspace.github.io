@@ -102,7 +102,7 @@ function Control<T>({
 }) {
   return (
     <div
-      className={`border-b ${colourStyles.border.medium} pb-3 last:border-0 last:pb-0`}
+      className={`border-b ${colourStyles.border.light} pb-3 last:border-0 last:pb-0`}
     >
       <InputDescription description={control.description}>
         {control.type === "number" ? (

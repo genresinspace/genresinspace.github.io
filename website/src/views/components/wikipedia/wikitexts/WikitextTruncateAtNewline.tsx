@@ -42,7 +42,7 @@ export function WikitextTruncateAtNewline(props: {
       {index !== -1 && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className={`w-full p-2 text-sm ${colourStyles.text.toggle} ${colourStyles.wikitext.toggle} mx-auto block transition-colors rounded-lg`}
+          className={`w-full p-2 text-sm ${colourStyles.text.toggle} ${colourStyles.bg.interactive} ${colourStyles.hover.medium} mx-auto block transition-colors rounded-lg`}
         >
           {expanded ? "Show less" : "Show more"}
         </button>

@@ -184,7 +184,7 @@ export function Search({
       <div
         className={
           isPath
-            ? `flex items-center rounded-xl overflow-hidden border ${colourStyles.search.container}`
+            ? `flex items-center rounded-xl overflow-hidden border ${colourStyles.bg.interactive} ${colourStyles.text.primary} ${colourStyles.border.light}`
             : undefined
         }
       >
@@ -251,7 +251,7 @@ export function Search({
       </div>
 
       {showDest && isTouchDevice && (
-        <p className={`mt-1 text-xs ${colourStyles.text.tertiary}`}>
+        <p className={`mt-1 text-xs ${colourStyles.text.secondary}`}>
           Long-press a label, then swipe left/right to set source/destination.
         </p>
       )}
@@ -448,7 +448,7 @@ function GenreResultsList({
     <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto mt-2 p-1">
       {label && (
         <div
-          className={`text-xs font-medium uppercase tracking-wide ${colourStyles.text.tertiary} px-1`}
+          className={`text-xs font-medium uppercase tracking-wide ${colourStyles.text.secondary} px-1`}
         >
           {label}
         </div>

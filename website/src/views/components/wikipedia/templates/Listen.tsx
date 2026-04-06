@@ -119,7 +119,7 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
       <div className="flex items-center space-x-2">
         <button
           onClick={togglePlayPause}
-          className={`w-8 h-8 flex items-center justify-center ${colourStyles.audio.button} rounded-full ${colourStyles.audio.playerText}`}
+          className={`w-8 h-8 flex items-center justify-center ${colourStyles.bg.interactive} ${colourStyles.hover.medium} rounded-full ${colourStyles.audio.playerText}`}
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           {isPlaying ? (

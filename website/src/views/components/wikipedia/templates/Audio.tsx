@@ -66,7 +66,7 @@ function AudioLink({ filename, label }: AudioLinkProps) {
       <span className={colourStyles.audio.playerTextMuted}>({label}</span>
       <button
         onClick={togglePlayPause}
-        className={`inline-flex items-center justify-center w-4 h-4 text-xs ${colourStyles.audio.button} rounded-full ${colourStyles.audio.playerText} cursor-pointer`}
+        className={`inline-flex items-center justify-center w-4 h-4 text-xs ${colourStyles.bg.interactive} ${colourStyles.hover.medium} rounded-full ${colourStyles.audio.playerText} cursor-pointer`}
         aria-label={isPlaying ? "Pause audio" : "Play audio"}
         title={isPlaying ? "Pause audio" : "Play audio"}
       >

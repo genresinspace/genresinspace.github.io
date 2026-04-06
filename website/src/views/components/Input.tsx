@@ -14,7 +14,9 @@ export function InputDescription({
   return (
     <div className={`${className || ""}`}>
       {children}
-      <p className={`text-sm ${colourStyles.text.muted} mt-1`}>{description}</p>
+      <p className={`text-sm ${colourStyles.text.secondary} mt-1`}>
+        {description}
+      </p>
     </div>
   );
 }

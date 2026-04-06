@@ -82,7 +82,7 @@ export function WikitextTruncateAtLength(props: {
         />
         <button
           onClick={() => setExpanded(false)}
-          className={`inline-block ml-1 text-xs ${colourStyles.text.toggle} px-0.5 rounded-lg ${colourStyles.wikitext.toggle} transition-colors cursor-pointer`}
+          className={`inline-block ml-1 text-xs ${colourStyles.text.toggle} px-0.5 rounded-lg ${colourStyles.bg.interactive} ${colourStyles.hover.medium} transition-colors cursor-pointer`}
         >
           Show less
         </button>

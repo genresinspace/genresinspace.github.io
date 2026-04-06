@@ -21,33 +21,24 @@
 // Text
 const textPrimary = "text-slate-900 dark:text-white";
 const textSecondary = "text-slate-600 dark:text-slate-400";
-const textTertiary = "text-slate-500 dark:text-slate-400";
-const textMuted = "text-slate-600 dark:text-slate-500";
-const textIcon = "text-slate-600 dark:text-slate-300";
 const textOnAccent = "text-white";
 
 // Backgrounds
 const bgApp = "bg-white dark:bg-slate-900";
 const bgCard = "bg-slate-50 dark:bg-slate-900";
 const bgElevated = "bg-slate-100 dark:bg-slate-800";
-const bgElevatedSubtle = "bg-slate-100 dark:bg-slate-800/50";
 const bgInteractive = "bg-slate-200 dark:bg-slate-700";
-const bgInteractiveAlt = "bg-slate-200 dark:bg-slate-800";
 const bgInput = "bg-slate-300 dark:bg-slate-700";
 const bgAccent = "bg-teal-600 dark:bg-teal-700";
 const bgHandle = "bg-slate-400 dark:bg-slate-600";
 
 // Hovers
 const hoverSubtle = "hover:bg-slate-100 dark:hover:bg-slate-800";
-const hoverMedium = "hover:bg-slate-300 dark:hover:bg-slate-600";
-const hoverStrong = "hover:bg-slate-400 dark:hover:bg-slate-600";
+const hoverMedium = "hover:bg-slate-400 dark:hover:bg-slate-600";
 const hoverAccent = "hover:bg-teal-700 dark:hover:bg-teal-600";
-const hoverInteractiveAlt = "hover:bg-slate-300 dark:hover:bg-slate-700";
 
 // Borders
 const borderLight = "border-slate-300 dark:border-slate-600";
-const borderMedium = "border-slate-300 dark:border-slate-700";
-const borderDark = "border-slate-300 dark:border-slate-800";
 const borderDivider = "border-neutral-700";
 
 // ---------------------------------------------------------------------------
@@ -61,9 +52,6 @@ export const colourStyles = {
   text: {
     primary: textPrimary,
     secondary: textSecondary,
-    tertiary: textTertiary,
-    muted: textMuted,
-    icon: textIcon,
     onAccent: textOnAccent,
     link: "text-blue-400",
     linkHover: "text-blue-400 hover:text-blue-300",
@@ -77,9 +65,7 @@ export const colourStyles = {
     app: bgApp,
     card: bgCard,
     elevated: bgElevated,
-    elevatedSubtle: bgElevatedSubtle,
     interactive: bgInteractive,
-    interactiveAlt: bgInteractiveAlt,
     input: bgInput,
     accent: bgAccent,
     handle: bgHandle,
@@ -89,15 +75,11 @@ export const colourStyles = {
   hover: {
     subtle: hoverSubtle,
     medium: hoverMedium,
-    strong: hoverStrong,
     accent: hoverAccent,
-    interactiveAlt: hoverInteractiveAlt,
   },
 
   border: {
     light: borderLight,
-    medium: borderMedium,
-    dark: borderDark,
     divider: borderDivider,
     selectedRing: "ring-blue-500",
     audioSection: "border-neutral-600",
@@ -123,7 +105,6 @@ export const colourStyles = {
   sidebar: {
     background: "bg-transparent",
     mobileBackground: "bg-slate-100 dark:bg-slate-950",
-    resizer: `${bgInput} ${hoverStrong}`,
     itemInactive: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 
@@ -141,20 +122,13 @@ export const colourStyles = {
 
   // Search
   search: {
-    container: `${bgInteractive} ${textPrimary} ${borderLight}`,
-    button: `${bgInput} ${hoverStrong} ${textPrimary}`,
+    button: `${bgInput} ${hoverMedium} ${textPrimary}`,
     input: `${bgInput} text-slate-950 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400`,
     item: "bg-slate-100 dark:bg-slate-900 hover:bg-slate-400 dark:hover:bg-slate-700 text-slate-900 dark:text-white",
   },
 
-  // Wikipedia wikitext toggle (show more / show less)
-  wikitext: {
-    toggle: `${bgInteractiveAlt} ${hoverInteractiveAlt}`,
-  },
-
   // Audio / Listen components
   audio: {
-    button: `${bgInteractive} ${hoverMedium}`,
     playerText: "text-gray-200",
     playerTextMuted: "text-gray-300",
     playerTitle: "text-gray-100",
@@ -163,11 +137,6 @@ export const colourStyles = {
   // Tooltip
   tooltip: {
     background: `bg-white dark:bg-slate-950 ${textPrimary}`,
-  },
-
-  // Section heading
-  section: {
-    heading: `${bgInteractiveAlt} ${textPrimary}`,
   },
 
   // Notice / alert (bg + text combined)
@@ -191,7 +160,7 @@ export const colourStyles = {
 
   // Collapsible
   collapsible: {
-    background: `${bgElevatedSubtle} hover:bg-slate-200 dark:hover:bg-slate-800 ${textPrimary}`,
+    background: `bg-slate-100 dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-800 ${textPrimary}`,
   },
 
   // Blockquote

@@ -210,7 +210,7 @@ function Legend({
 function CommitFooter() {
   return (
     <footer
-      className={`text-sm ${colourStyles.text.muted} ${colourStyles.bg.card} px-4 py-3 rounded-xl flex flex-col gap-2`}
+      className={`text-sm ${colourStyles.text.secondary} ${colourStyles.bg.card} px-4 py-3 rounded-xl flex flex-col gap-2`}
     >
       <p>
         Genre and artist descriptions are sourced from{" "}

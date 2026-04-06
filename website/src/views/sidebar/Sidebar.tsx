@@ -91,7 +91,7 @@ export function Sidebar({
     <div className="relative h-full overflow-visible">
       {/* Desktop resize handle - hidden on mobile, supports touch on tablets */}
       <div
-        className={`hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 w-4 h-8 ${colourStyles.sidebar.resizer} cursor-ew-resize items-center justify-center z-20 ${
+        className={`hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 w-4 h-8 ${colourStyles.bg.input} ${colourStyles.hover.medium} cursor-ew-resize items-center justify-center z-20 ${
           isResizing ? colourStyles.bg.handle : ""
         }`}
         onMouseDown={() => setIsResizing(true)}
