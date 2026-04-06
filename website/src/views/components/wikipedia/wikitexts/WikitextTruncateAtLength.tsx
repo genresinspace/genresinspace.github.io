@@ -8,7 +8,7 @@ import {
   WikitextTruncateAtNewline,
 } from "./WikitextTruncateAtNewline";
 import { WikitextNodes } from "./WikitextNodes";
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { colourStyles } from "../../../colours";
 import { estimateTemplateLength } from "../templates/WikitextTemplate";
 
@@ -81,12 +81,9 @@ export function WikitextTruncateAtLength(props: {
           wikitext={props.wikitext}
           expandable={false}
         />
-        <button
-          onClick={() => setExpanded(false)}
-          className={`inline-block ml-1 text-xs ${colourStyles.text.toggle} px-0.5 rounded-lg ${colourStyles.bg.interactive} ${colourStyles.hover.medium} transition-colors cursor-pointer`}
-        >
+        <ToggleButton onClick={() => setExpanded(false)}>
           Show less
-        </button>
+        </ToggleButton>
       </>
     );
   }
@@ -97,19 +94,32 @@ export function WikitextTruncateAtLength(props: {
       {isTruncated && (
         <>
           {expandable ? (
-            <span
-              onClick={() => setExpanded(true)}
-              className={`inline-block ${colourStyles.text.linkHover} cursor-pointer transition-colors`}
-              title="Show more"
-            >
-              ...
-            </span>
+            <ToggleButton onClick={() => setExpanded(true)}>
+              Show more
+            </ToggleButton>
           ) : (
             <span>...</span>
           )}
         </>
       )}
     </>
+  );
+}
+
+function ToggleButton({
+  onClick,
+  children,
+}: {
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`inline-block ml-1 text-xs ${colourStyles.text.toggle} px-1 rounded-lg ${colourStyles.bg.interactive} ${colourStyles.hover.medium} transition-colors cursor-pointer`}
+    >
+      {children}
+    </button>
   );
 }
 
