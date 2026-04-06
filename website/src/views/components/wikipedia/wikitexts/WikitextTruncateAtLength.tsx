@@ -10,6 +10,7 @@ import {
 import { WikitextNodes } from "./WikitextNodes";
 import { useState, useMemo } from "react";
 import { colourStyles } from "../../../colours";
+import { estimateTemplateLength } from "../templates/WikitextTemplate";
 
 /**
  * Like `Wikitext`, but renders up to a character limit before truncating with a `...` suffix.
@@ -117,11 +118,7 @@ function estimateNodeLength({
 }: Spanned<WikitextSimplifiedNode>): number {
   switch (node.type) {
     case "template":
-      // this is so bad
-      return (
-        node.parameters.map((p) => p.value.length).reduce((a, b) => a + b, 0) /
-        Math.max(node.parameters.length, 1)
-      );
+      return estimateTemplateLength(node);
     case "link":
       return node.text.length;
     case "ext-link":
