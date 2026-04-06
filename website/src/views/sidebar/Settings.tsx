@@ -8,7 +8,7 @@ import {
 } from "../components/Input";
 import { Section } from "../components/Section";
 import { SettingsIcon } from "../components/icons";
-import { useTheme } from "../../theme";
+import { useTheme, LIGHT_MODE_ENABLED } from "../../theme";
 import { colourStyles } from "../colours";
 
 /** Renders the settings sidebar. */
@@ -24,20 +24,22 @@ export function Settings({
   return (
     <div className="flex flex-col gap-2">
       {/* Theme Toggle Section */}
-      <Section heading="Appearance" icon={<SettingsIcon />}>
-        <div className="p-4">
-          <InputDescription description="Switch between light and dark mode">
-            <button
-              onClick={toggleTheme}
-              className={`w-full px-4 py-2 rounded-lg ${colourStyles.input.primary} transition-colors`}
-            >
-              {theme === "light"
-                ? "Switch to Dark Mode"
-                : "Switch to Light Mode"}
-            </button>
-          </InputDescription>
-        </div>
-      </Section>
+      {LIGHT_MODE_ENABLED && (
+        <Section heading="Appearance" icon={<SettingsIcon />}>
+          <div className="p-4">
+            <InputDescription description="Switch between light and dark mode">
+              <button
+                onClick={toggleTheme}
+                className={`w-full px-4 py-2 rounded-lg ${colourStyles.input.primary} transition-colors`}
+              >
+                {theme === "light"
+                  ? "Switch to Dark Mode"
+                  : "Switch to Light Mode"}
+              </button>
+            </InputDescription>
+          </div>
+        </Section>
+      )}
 
       <ControlSection
         name="General"

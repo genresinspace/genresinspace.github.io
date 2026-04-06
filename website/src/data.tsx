@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { useTheme } from "./theme";
+import { useTheme, LIGHT_MODE_ENABLED } from "./theme";
 
 /** The data that is identical between {@link DataOnDisk} and {@link Data}. */
 export type DataShared = {
@@ -149,6 +149,7 @@ export const NodeColourLightnessLight = {
 /** Hook to get the correct node colour lightness values based on the current theme */
 export function useNodeColourLightness() {
   const { theme } = useTheme();
+  if (!LIGHT_MODE_ENABLED) return NodeColourLightnessDark;
   return theme === "light" ? NodeColourLightnessLight : NodeColourLightnessDark;
 }
 

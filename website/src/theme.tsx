@@ -6,6 +6,9 @@ import {
   ReactNode,
 } from "react";
 
+/** Set to true to re-enable the light/dark mode toggle in settings. */
+export const LIGHT_MODE_ENABLED = false;
+
 /** The theme mode */
 export type Theme = "light" | "dark";
 
@@ -21,6 +24,8 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: ReactNode }) {
   // Theme state - localStorage is the single source of truth
   const [theme, setTheme] = useState<Theme>(() => {
+    if (!LIGHT_MODE_ENABLED) return "dark";
+
     // Initialize from localStorage, or system preference if not set
     const stored = localStorage.getItem("theme");
     if (stored === "light" || stored === "dark") {
@@ -53,6 +58,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   // Listen for system preference changes and update localStorage/state
   useEffect(() => {
+    if (!LIGHT_MODE_ENABLED) return;
+
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = (e: MediaQueryListEvent) => {
       const newTheme = e.matches ? "dark" : "light";
@@ -65,6 +72,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const toggleTheme = () => {
+    if (!LIGHT_MODE_ENABLED) return;
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
