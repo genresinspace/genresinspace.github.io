@@ -184,6 +184,7 @@ const canonicalHandlers = {
   dead_link: fix("dead link"),
   deprecated_source: fix("deprecated source?"),
   disambiguation_needed: fix("disambiguation needed"),
+  discuss: fix("discuss"),
   disputed_inline: fix("disputed"),
   dubious: fix("dubious"),
   excessive_citations_inline: fix("excessive citations"),
@@ -941,8 +942,10 @@ const aliases: [string, CanonicalTemplateName][] = [
   ["citesource", "citation_needed"],
   ["fact", "citation_needed"],
   ["facts", "citation_needed"],
+  ["reference_needed", "citation_needed"],
   ["source_needed", "citation_needed"],
   ["source?", "source"],
+  ["citation_needed_(lead)", "citation_needed_lead"],
   ["not_verified_in_body", "citation_needed_lead"],
   ["clarification_needed", "clarify"],
   ["clarification_needed_span", "clarify_span"],
@@ -964,6 +967,7 @@ const aliases: [string, CanonicalTemplateName][] = [
   ["who?", "who"],
 
   // component
+  ["asof", "as_of"],
   ["blockquote", "quote"],
   ["cquote", "quote"],
   ["efn-ua", "efn"],
@@ -1024,6 +1028,21 @@ for (const [alias, canonical] of aliases) {
 // ---------------------------------------------------------------------------
 
 /**
+ * Evaluates a {{#expr:}} parser function expression. Only allows numeric
+ * arithmetic — anything else falls back to the original text.
+ */
+function evaluateExpr(expr: string): string {
+  const trimmed = expr.trim();
+  if (!/^[\d\s+\-*/().]+$/.test(trimmed)) return trimmed;
+  try {
+    const result = new Function(`"use strict"; return (${trimmed});`)();
+    return Number.isFinite(result) ? String(result) : trimmed;
+  } catch {
+    return trimmed;
+  }
+}
+
+/**
  * Custom error class for missing templates
  */
 export class MissingTemplateError extends Error {
@@ -1051,6 +1070,10 @@ export function WikitextTemplate({ node }: { node: TemplateNode }) {
     return null;
   }
 
+  if (templateName.startsWith("#expr:")) {
+    return <>{evaluateExpr(node.name.slice(node.name.indexOf(":") + 1))}</>;
+  }
+
   const handler = templateHandlers.get(templateName);
   if (handler) {
     return <>{handler.render(node)}</>;
@@ -1067,6 +1090,10 @@ export function estimateTemplateLength(node: TemplateNode): number {
     .toLowerCase();
 
   if (name.startsWith("defaultsort")) return 0;
+
+  if (name.startsWith("#expr:")) {
+    return evaluateExpr(node.name.slice(node.name.indexOf(":") + 1)).length;
+  }
 
   const handler = templateHandlers.get(name);
   if (!handler) {
