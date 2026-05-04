@@ -1,12 +1,13 @@
 {
-  "description": "'''Pop rock''' (also typeset as '''pop/rock''') is [[rock music]] with greater emphasis on conventional [[songwriting]] and recording craft, and less emphasis on attitude than standard rock music. Originating in the late 1950s as an alternative to normal [[rock and roll]], early pop rock was influenced by the [[Beat (music)|beat]], arrangements, and original style of rock and roll (and sometimes [[doo-wop]]). It is categorized both as a distinct [[music genre]] and as continuous categories of pop and rock. The detractors of pop rock often deride it as a slick, commercial product and less [[Authenticity in art#Authenticity of performance|authentic]] than rock music.",
-  "last_revision_date": "2026-03-11T06:00:10Z",
+  "description": "'''Pop rock''' (also typeset as '''pop/rock''') is [[rock music]] with greater emphasis on professional [[songwriting]] and recording craft, and less emphasis on attitude than standard rock music. Originating in the late 1950s as an alternative to normal [[rock and roll]], early pop rock was influenced by the [[Beat (music)|beat]], arrangements, and original style of rock and roll (and sometimes [[doo-wop]]). It is categorized both as a distinct [[music genre]] and as continuous categories of pop and rock. The detractors of pop rock often deride it as a slick, commercial product and less [[Authenticity in art#Authenticity of performance|authentic]] than rock music.",
+  "last_revision_date": "2026-04-02T00:07:53Z",
   "mixes": [
     {
       "playlist": "PL3iCmuUup4emlYLfXxuk_J8ckseFYbfpe"
     }
   ],
   "top_artists": [
+    "Elton John",
     "U2",
     "Coldplay",
     "Bruce Springsteen",
@@ -15,7 +16,6 @@
     "ABBA",
     "Maroon 5",
     "Pink (singer)",
-    "Robbie Williams",
-    "Bryan Adams"
+    "Robbie Williams"
   ]
 }

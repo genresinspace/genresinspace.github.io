@@ -1,9 +1,10 @@
 {
   "name": "Grupo Firme",
-  "description": "'''Grupo Firme''' is a [[regional Mexican]] band based in [[Tijuana]], [[Baja California]], that specializes in [[Sinaloa|Sinaloan]] music. Formed in 2014, they have received nominations for a variety of awards that include [[Latin Grammy Awards|Latin Grammy]], [[Premios Juventud]] and [[Lo Nuestro Awards|Premio Lo Nuestro]], being the winner in 2021 of the latter in five categories.",
-  "last_revision_date": "2026-02-25T09:12:00Z",
+  "description": "'''Grupo Firme''' is a [[regional Mexican]] band based in [[Tijuana]], [[Baja California]]. Formed in 2014, they have received nominations for a variety of awards that include [[Latin Grammy Awards|Latin Grammy]], [[Premios Juventud]] and [[Lo Nuestro Awards|Premio Lo Nuestro]], being the winner in 2021 of the latter in five categories.",
+  "last_revision_date": "2026-04-22T02:33:53Z",
   "genres": [
     95,
-    1134
+    755,
+    1139
   ]
 }
