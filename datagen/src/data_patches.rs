@@ -155,6 +155,9 @@ pub fn edges_to_reject() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         // Louisiana Creole/Cajun music influencing country and R&B is reasonable, but
         // a direct influence on hip-hop is too much of a stretch
         ("Louisiana Creole and Cajun music", "Hip-hop", D),
+        // Maskandi is Zulu folk guitar music; kwaito's documented influences are house,
+        // mbaqanga, hip-hop, R&B, and bubblegum disco — shared geography isn't lineage
+        ("Maskandi", "Kwaito", D),
         // Narcocorrido is a 1970s+ Mexican subgenre; country music (1920s+) predates it
         ("Narcocorrido", "Country music", D),
         // Trip hop emerged from Bristol (Massive Attack, Portishead); no evidence
@@ -268,6 +271,7 @@ pub fn edges_to_accept() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         ("Memphis soul", "Funk", D),
         // Mento is a precursor in the mento → ska → rocksteady → reggae lineage
         ("Mento", "Reggae", D),
+        ("Mento", "Ska", D),
         // New Mexico music has regional connections to country
         ("New Mexico music", "Country music", D),
         // New musick and post-punk were connected movements
