@@ -63,13 +63,13 @@ export function ProjectInformation({
             </EL>
             , if you're curious.
           </p>
-          <p>Try clicking on a genre, or check out a random genre: </p>
-          <RandomGenre
-            nodes={nodes}
-            maxDegree={maxDegree}
-            setFocusedId={setFocusedId}
-          />
+          <p>Try clicking on a genre, or check out a random genre below.</p>
         </div>
+        <RandomGenre
+          nodes={nodes}
+          maxDegree={maxDegree}
+          setFocusedId={setFocusedId}
+        />
       </Section>
       <Section heading="Legend" icon={<MapIcon />}>
         <Legend visibleTypes={visibleTypes} setVisibleTypes={setVisibleTypes} />
@@ -118,7 +118,7 @@ function RandomGenre({
   );
 
   return (
-    <span className="flex flex-col w-full rounded-lg overflow-hidden">
+    <span className="flex flex-col w-full">
       <span className="flex flex-row">
         <button
           onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
