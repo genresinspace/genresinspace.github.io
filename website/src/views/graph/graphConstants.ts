@@ -8,8 +8,13 @@
 export const EDGE_SEGMENTS = 8;
 /** Bezier curvature factor (0 = straight, higher = more arc). */
 export const EDGE_CURVATURE = 0.15;
-/** Edge half-width in world units. */
+/** Edge half-width at zoom = 1 (world units when EDGE_ARROW_SCREEN_SPACE = 0). */
 export const EDGE_WIDTH = 0.48;
+/** How much edges and arrows compensate for camera zoom.
+ *  0 = pure world-space: geometry is a fixed world size, so screen size scales linearly with zoom.
+ *  1 = pure camera-space: geometry is a fixed screen size, so world size shrinks as you zoom in.
+ *  Values in between blend the two — at k the screen size scales like zoom^(1-k). */
+export const EDGE_ARROW_SCREEN_SPACE = 0.8;
 /** Edge color saturation (HSL) when selected or in path. */
 export const EDGE_SELECTED_SATURATION = 90;
 /** Edge color saturation (HSL) when nothing is selected. */

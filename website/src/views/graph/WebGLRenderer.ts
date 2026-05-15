@@ -6,6 +6,7 @@ import {
   EDGE_SRC_TINT_RANGE,
   EDGE_TGT_TINT_RANGE,
   EDGE_TINT_POWER,
+  EDGE_ARROW_SCREEN_SPACE,
   ARROW_WORLD_SPEED,
   ARROW_MARGIN_SRC,
   ARROW_MARGIN_TGT_RADIUS,
@@ -66,8 +67,10 @@ void main() {
 const EDGE_VS = `#version 300 es
 precision highp float;
 uniform mat3 u_view;
-uniform float u_width;     // half-width in world units
+uniform float u_width;     // half-width at zoom = 1
+uniform float u_zoom;      // camera zoom (pixels per world unit)
 uniform float u_curvature; // bezier curvature factor
+const float SCREEN_SPACE = ${EDGE_ARROW_SCREEN_SPACE.toFixed(3)};
 // Per-vertex: quad template (x: t along curve 0..1, y: -1 or +1 across)
 in vec2 a_template;
 // Per-instance
@@ -118,7 +121,8 @@ void main() {
   float tLen = length(tangent);
   vec2 tPerp = vec2(-tangent.y, tangent.x) / tLen;
 
-  vec2 worldPos = curvePos + tPerp * a_template.y * u_width * a_widthScale;
+  float zoomScale = pow(u_zoom, -SCREEN_SPACE);
+  vec2 worldPos = curvePos + tPerp * a_template.y * u_width * a_widthScale * zoomScale;
   vec3 pos = u_view * vec3(worldPos, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
   v_edgeColor = mix(a_srcColor, a_tgtColor, t);
@@ -148,10 +152,12 @@ void main() {
 const ARROW_VS = `#version 300 es
 precision highp float;
 uniform mat3 u_view;
-uniform float u_arrowSize; // arrow length in world units
+uniform float u_arrowSize; // arrow length at zoom = 1
+uniform float u_zoom;      // camera zoom (pixels per world unit)
 uniform float u_time;      // seconds, for animation
 uniform float u_curvature; // bezier curvature factor
 const float WORLD_SPEED = ${ARROW_WORLD_SPEED.toFixed(1)}; // world units per second
+const float SCREEN_SPACE = ${EDGE_ARROW_SCREEN_SPACE.toFixed(3)};
 // Per-vertex: triangle template
 in vec2 a_template;
 // Per-instance: edge endpoint and direction
@@ -183,13 +189,15 @@ void main() {
   vec2 mid = (source + a_target) * 0.5;
   vec2 ctrl = mid + perpEdge * sign * u_curvature * edgeLen;
 
+  float arrowSize = u_arrowSize * pow(u_zoom, -SCREEN_SPACE);
+
   float tCurve;
   if (a_phase < 0.0) {
     // Static: place arrow at centre of the curve
     tCurve = 0.5;
   } else {
     // Animated: slide along the curve within node-radius margins
-    float marginSrc = u_arrowSize * ${ARROW_MARGIN_SRC.toFixed(1)};
+    float marginSrc = arrowSize * ${ARROW_MARGIN_SRC.toFixed(1)};
     float marginTgt = a_targetSize * ${ARROW_MARGIN_TGT_RADIUS.toFixed(1)};
     float usableLen = max(edgeLen - marginSrc - marginTgt, 1.0);
     float linearT = fract(a_phase + u_time * WORLD_SPEED * a_speed / edgeLen);
@@ -205,8 +213,8 @@ void main() {
 
   // Build triangle in world space
   vec2 worldPos = arrowTip
-    + dir * (a_template.x * u_arrowSize)
-    + perp * (a_template.y * u_arrowSize * ${ARROW_WIDTH_RATIO.toFixed(1)});
+    + dir * (a_template.x * arrowSize)
+    + perp * (a_template.y * arrowSize * ${ARROW_WIDTH_RATIO.toFixed(1)});
 
   vec3 pos = u_view * vec3(worldPos, 1.0);
   gl_Position = vec4(pos.xy, 0.0, 1.0);
@@ -653,6 +661,10 @@ export class WebGLRenderer {
         EDGE_WIDTH
       );
       gl.uniform1f(
+        gl.getUniformLocation(this.edgeProgram, "u_zoom"),
+        cameraZoom
+      );
+      gl.uniform1f(
         gl.getUniformLocation(this.edgeProgram, "u_curvature"),
         curvature
       );
@@ -676,6 +688,10 @@ export class WebGLRenderer {
       gl.uniform1f(
         gl.getUniformLocation(this.arrowProgram, "u_arrowSize"),
         arrowSizeScale
+      );
+      gl.uniform1f(
+        gl.getUniformLocation(this.arrowProgram, "u_zoom"),
+        cameraZoom
       );
       gl.uniform1f(gl.getUniformLocation(this.arrowProgram, "u_time"), time);
       gl.uniform1f(
