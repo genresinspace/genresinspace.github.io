@@ -184,7 +184,7 @@ export function Search({
       <div
         className={
           isPath
-            ? `flex items-center rounded-xl overflow-hidden border ${colourStyles.bg.interactive} ${colourStyles.text.primary} ${colourStyles.border.light}`
+            ? `flex items-center overflow-hidden border ${colourStyles.bg.interactive} ${colourStyles.text.primary} ${colourStyles.border.light}`
             : undefined
         }
       >
@@ -237,7 +237,7 @@ export function Search({
         </SearchBar>
         {isPath && (
           <button
-            className={`ml-2 px-2 py-1 rounded-lg ${colourStyles.search.button} transition-colors`}
+            className={`ml-2 px-2 py-1 ${colourStyles.search.button} transition-colors`}
             onClick={() => {
               searchDispatch({
                 type: "path:swap-source-and-destination",
@@ -345,7 +345,7 @@ const SearchInput = React.forwardRef<
         ref={ref}
         type="text"
         placeholder={placeholder}
-        className={`w-full p-2 pl-8 rounded-lg ${colourStyles.search.input}`}
+        className={`w-full p-2 pl-8 ${colourStyles.search.input}`}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -365,7 +365,7 @@ const SearchInput = React.forwardRef<
 function SearchBar({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${colourStyles.bg.interactive} ${colourStyles.text.primary} shadow-md rounded-xl overflow-hidden flex flex-col flex-grow gap-2`}
+      className={`${colourStyles.bg.shell} ${colourStyles.text.primary} flex flex-col flex-grow gap-2`}
     >
       <div className="flex-1 flex flex-col gap-0">
         {React.Children.map(children, (child, index) => {
@@ -405,7 +405,7 @@ function GenreResultItem({
 
   return (
     <div
-      className={`p-2 rounded-lg ${colourStyles.search.item} shadow-md transition-colors ${
+      className={`p-2 ${colourStyles.search.item} transition-colors ${
         isSelected ? `ring-2 ${colourStyles.border.selectedRing}` : ""
       }`}
       onMouseEnter={() => setFocusedId(node.id)}

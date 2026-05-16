@@ -13,7 +13,7 @@ export function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className={`rounded-xl overflow-hidden ${colourStyles.bg.card}`}>
+    <section className={colourStyles.bg.card}>
       <SectionHeading icon={icon}>{heading}</SectionHeading>
       <div>{children}</div>
     </section>

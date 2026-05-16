@@ -11,6 +11,7 @@ import {
   EyeIcon,
   ResizeHandleIcon,
 } from "../components/icons";
+import { Tabs } from "../components/Tabs";
 import { colourStyles } from "../colours";
 
 /** Default width of the sidebar in pixels */
@@ -163,14 +164,14 @@ function SidebarContent({
   return (
     <div
       style={isMobile ? { userSelect: "auto" } : { width, userSelect: "auto" }}
-      className={`h-full ${colourStyles.sidebar.background} ${isMobile ? `${colourStyles.sidebar.mobileBackground} rounded-t-2xl` : ""} ${colourStyles.text.primary} box-border flex flex-col overflow-hidden md:w-auto`}
+      className={`h-full ${colourStyles.sidebar.background} ${isMobile ? colourStyles.sidebar.mobileBackground : ""} ${colourStyles.text.primary} box-border flex flex-col overflow-hidden md:w-auto`}
     >
       {/* Mobile drag handle - visible only on mobile */}
       <div
         className="md:hidden w-full flex justify-center py-3 cursor-grab active:cursor-grabbing touch-none shrink-0"
         onTouchStart={onMobileDragStart}
       >
-        <div className={`w-16 h-3 ${colourStyles.bg.handle} rounded-full`} />
+        <div className={`w-16 h-3 ${colourStyles.bg.handle}`} />
       </div>
 
       {/* Content hidden when minimized on mobile */}
@@ -185,45 +186,31 @@ function SidebarContent({
             className={`flex-1 flex flex-col min-h-0 ${isMobile ? "" : "pr-2"}`}
           >
             {/* Fixed navigation bar at top */}
-            <div className="flex shrink-0 gap-2 py-2">
-              {[
-                {
-                  id: "selected" as const,
-                  label: "Selected",
-                  icon: <EyeIcon className="mr-2" />,
-                  show: () => selectedId !== null,
-                },
+            <Tabs
+              items={[
+                ...(selectedId !== null
+                  ? [
+                      {
+                        id: "selected" as const,
+                        label: "Selected",
+                        icon: <EyeIcon />,
+                      },
+                    ]
+                  : []),
                 {
                   id: "information" as const,
                   label: "Info",
-                  icon: <InfoIcon width={16} height={16} className="mr-2" />,
-                  show: () => true,
+                  icon: <InfoIcon width={16} height={16} />,
                 },
                 {
                   id: "settings" as const,
                   label: "Settings",
-                  icon: (
-                    <SettingsIcon width={16} height={16} className="mr-2" />
-                  ),
-                  show: () => true,
+                  icon: <SettingsIcon width={16} height={16} />,
                 },
-              ]
-                .filter((tab) => tab.show())
-                .map((tab) => (
-                  <button
-                    key={tab.id}
-                    className={`flex-1 p-2 rounded-lg cursor-pointer flex items-center justify-center overflow-hidden ${
-                      activeTab === tab.id
-                        ? `${colourStyles.button.active} font-bold`
-                        : colourStyles.sidebar.itemInactive
-                    } transition-colors duration-200`}
-                    onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                  >
-                    {tab.icon}
-                    {tab.label}
-                  </button>
-                ))}
-            </div>
+              ]}
+              activeId={activeTab}
+              onChange={setActiveTab}
+            />
 
             {/* Scrollable content area */}
             <div

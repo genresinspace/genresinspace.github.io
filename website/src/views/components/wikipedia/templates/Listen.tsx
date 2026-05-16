@@ -119,7 +119,7 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
       <div className="flex items-center space-x-2">
         <button
           onClick={togglePlayPause}
-          className={`w-8 h-8 flex items-center justify-center ${colourStyles.bg.interactive} ${colourStyles.hover.medium} rounded-full ${colourStyles.audio.playerText}`}
+          className={`w-8 h-8 flex items-center justify-center ${colourStyles.bg.interactive} ${colourStyles.hover.medium} ${colourStyles.audio.playerText}`}
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           {isPlaying ? (
@@ -135,7 +135,7 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
             max={duration || 100}
             value={currentTime}
             onChange={handleSliderChange}
-            className={`w-full h-2 ${colourStyles.bg.interactive} rounded-lg appearance-none cursor-pointer`}
+            className={`w-full h-2 ${colourStyles.bg.interactive} appearance-none cursor-pointer`}
           />
         </div>
         <div
@@ -219,7 +219,7 @@ export function Listen({
   const showIcon = customImage !== "none";
 
   // Plain style removes borders and backgrounds
-  let styleClass = `border ${colourStyles.border.audioContainer} rounded-lg ${colourStyles.bg.app} p-3 mb-4`;
+  let styleClass = `border ${colourStyles.border.audioContainer} ${colourStyles.bg.app} p-3 mb-4`;
   if (plain) styleClass = "";
   if (embed) styleClass = "p-1";
 

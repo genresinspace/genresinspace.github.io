@@ -1,3 +1,15 @@
 @import "tailwindcss";
 
 @variant dark (&:where(.dark, .dark *));
+
+@utility glass-shell {
+  @apply bg-slate-950/70 backdrop-blur-md border border-white/10;
+}
+
+@utility glass-panel {
+  @apply bg-white/5;
+}
+
+@utility glass-floating {
+  @apply bg-slate-900/50 backdrop-blur-lg border border-white/15;
+}

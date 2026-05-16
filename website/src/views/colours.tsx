@@ -9,9 +9,10 @@
  * concerns (font-weight, font-size, border-width, shadow, etc.) belong
  * at the callsite.
  *
- * Modern, harmonious color palette:
- * - Dark mode: Deep slate with purple accents
- * - Light mode: Slate grays with purple accents
+ * Glassmorphic dark design: layers translucent panels over the graph using
+ * three tiers (shell, panel, floating) defined as @utility classes in
+ * tailwind.css. Dark mode is enforced; light-mode tokens are not separately
+ * art-directed.
  */
 
 // ---------------------------------------------------------------------------
@@ -19,27 +20,28 @@
 // ---------------------------------------------------------------------------
 
 // Text
-const textPrimary = "text-slate-900 dark:text-white";
-const textSecondary = "text-slate-600 dark:text-slate-400";
+const textPrimary = "text-white";
+const textSecondary = "text-slate-400";
 const textOnAccent = "text-white";
 
-// Backgrounds
-const bgApp = "bg-slate-100 dark:bg-slate-900";
-const bgCard = "bg-slate-200 dark:bg-slate-900";
-const bgElevated = "bg-slate-200 dark:bg-slate-800";
-const bgInteractive = "bg-slate-200 dark:bg-slate-700";
-const bgInput = "bg-slate-300 dark:bg-slate-700";
-const bgAccent = "bg-purple-600 dark:bg-purple-700";
-const bgHandle = "bg-slate-500 dark:bg-slate-600";
+// Backgrounds — glass tiers
+const bgApp = "bg-slate-950";
+const bgShell = "glass-shell";
+const bgCard = "glass-panel";
+const bgElevated = "glass-panel";
+const bgInteractive = "bg-white/10";
+const bgInput = "bg-black/30";
+const bgAccent = "bg-purple-600";
+const bgHandle = "bg-white/30";
 
 // Hovers
-const hoverSubtle = "hover:bg-slate-300 dark:hover:bg-slate-800";
-const hoverMedium = "hover:bg-slate-400 dark:hover:bg-slate-600";
-const hoverAccent = "hover:bg-purple-700 dark:hover:bg-purple-600";
+const hoverSubtle = "hover:bg-white/10";
+const hoverMedium = "hover:bg-white/15";
+const hoverAccent = "hover:bg-purple-700";
 
 // Borders
-const borderLight = "border-slate-400 dark:border-slate-600";
-const borderDivider = "border-neutral-700";
+const borderLight = "border-white/10";
+const borderDivider = "border-white/5";
 
 // ---------------------------------------------------------------------------
 // Component styles — organised by component / feature area
@@ -63,6 +65,7 @@ export const colourStyles = {
 
   bg: {
     app: bgApp,
+    shell: bgShell,
     card: bgCard,
     elevated: bgElevated,
     interactive: bgInteractive,
@@ -89,7 +92,7 @@ export const colourStyles = {
 
   // Shared button colour patterns (callsite adds font-bold etc.)
   button: {
-    active: `${bgAccent} ${textOnAccent}`,
+    active: `bg-purple-500/30 ${textOnAccent}`,
     inactive: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
   },
 
@@ -97,14 +100,13 @@ export const colourStyles = {
 
   // Loading state
   loading: {
-    spinner:
-      "border-slate-400 dark:border-slate-600 border-t-purple-600 dark:border-t-white",
+    spinner: "border-white/20 border-t-purple-400",
   },
 
   // Sidebar
   sidebar: {
-    background: "bg-transparent",
-    mobileBackground: "bg-slate-200 dark:bg-slate-950",
+    background: bgShell,
+    mobileBackground: bgShell,
     itemInactive: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 
@@ -122,9 +124,9 @@ export const colourStyles = {
 
   // Search
   search: {
-    button: `${bgInput} ${hoverMedium} ${textPrimary}`,
-    input: `${bgInput} text-slate-950 dark:text-white placeholder:text-slate-600 dark:placeholder:text-slate-400`,
-    item: "bg-slate-200 dark:bg-slate-900 hover:bg-slate-500 dark:hover:bg-slate-700 text-slate-900 dark:text-white",
+    button: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
+    input: `${bgInput} ${textPrimary} placeholder:text-slate-400`,
+    item: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 
   // Audio / Listen components
@@ -136,20 +138,22 @@ export const colourStyles = {
 
   // Tooltip
   tooltip: {
-    background: `bg-slate-100 dark:bg-slate-950 ${textPrimary}`,
+    background: `glass-floating ${textPrimary}`,
   },
 
   // Section heading
   section: {
-    heading: `bg-slate-400 dark:bg-slate-800 ${textOnAccent}`,
+    heading: `bg-white/5 ${textOnAccent}`,
   },
 
   // Notice / alert (bg + text combined)
   notice: {
-    yellow: "bg-yellow-50 dark:bg-yellow-100/90 text-yellow-900",
-    red: "bg-red-50 dark:bg-red-100/90 text-red-900",
-    blue: "bg-blue-50 dark:bg-slate-800 text-blue-900 dark:text-slate-100",
-    green: "bg-green-50 dark:bg-green-100/90 text-green-900",
+    yellow:
+      "bg-yellow-500/10 backdrop-blur-md border border-yellow-500/30 text-yellow-100",
+    red: "bg-red-500/10 backdrop-blur-md border border-red-500/30 text-red-100",
+    blue: "bg-blue-500/10 backdrop-blur-md border border-blue-500/30 text-blue-100",
+    green:
+      "bg-green-500/10 backdrop-blur-md border border-green-500/30 text-green-100",
   },
 
   // Input / control
@@ -165,7 +169,7 @@ export const colourStyles = {
 
   // Collapsible
   collapsible: {
-    background: `bg-slate-300 dark:bg-slate-800/50 hover:bg-slate-400 dark:hover:bg-slate-800 ${textPrimary}`,
+    background: `bg-black/30 hover:bg-black/40 ${textPrimary}`,
   },
 
   // Blockquote

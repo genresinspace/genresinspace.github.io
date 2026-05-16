@@ -28,6 +28,7 @@ import { WikipediaLink } from "../components/wikipedia/links/WikipediaLink";
 import { Wikitext } from "../components/wikipedia/wikitexts/Wikitext";
 import { WikitextTruncateAtNewline } from "../components/wikipedia/wikitexts/WikitextTruncateAtNewline";
 import { Collapsible } from "../components/Collapsible";
+import { Tabs } from "../components/Tabs";
 
 import {
   DerivativeIcon,
@@ -77,7 +78,7 @@ export function SelectedNodeInfo({
             />
           )}
 
-          <div className={`px-4 py-3 rounded-xl ${colourStyles.bg.card}`}>
+          <div className={`px-4 py-3 ${colourStyles.bg.card}`}>
             {genreData ? (
               genreData.description ? (
                 <WikitextTruncateAtNewline
@@ -140,7 +141,7 @@ function GenreHeader({
   );
 
   return (
-    <div className={`rounded-xl overflow-hidden ${colourStyles.bg.card}`}>
+    <div className={`overflow-hidden ${colourStyles.bg.card}`}>
       <WikipediaLink
         pageTitle={nodePageTitle(node)}
         className={`${colourStyles.node.background} ${colourStyles.node.hover} ${colourStyles.text.onAccent} p-2 block text-3xl font-bold text-center transition-all duration-200`}
@@ -201,16 +202,14 @@ function MixItem({
   autoplay: boolean;
 }) {
   return (
-    <div
-      className={`${colourStyles.bg.elevated} overflow-hidden shadow-md rounded-xl`}
-    >
+    <div className={`${colourStyles.bg.elevated} overflow-hidden`}>
       {"video" in mix ? (
         <YouTubeEmbed videoId={mix.video} autoplay={autoplay} />
       ) : (
         <YouTubeEmbed playlistId={mix.playlist} autoplay={autoplay} />
       )}
       {mix.note && (
-        <Notice colour="blue" roundTop={false}>
+        <Notice colour="blue">
           <Wikitext wikitext={mix.note} />
         </Notice>
       )}
@@ -257,31 +256,14 @@ function ConnectionsAndArtists({
 }) {
   return (
     <div>
-      {/* Tab switcher */}
-      <div className="flex gap-2 pb-2">
-        {[
-          {
-            id: "connections" as const,
-            label: "Connections",
-          },
-          {
-            id: "artists" as const,
-            label: "Top Artists",
-          },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            className={`flex-1 px-3 py-1.5 rounded-lg cursor-pointer flex items-center justify-center ${
-              activeTab === tab.id
-                ? `${colourStyles.button.active} font-bold`
-                : colourStyles.button.inactive
-            } transition-colors duration-200`}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+      <Tabs
+        items={[
+          { id: "connections" as const, label: "Connections" },
+          { id: "artists" as const, label: "Top Artists" },
+        ]}
+        activeId={activeTab}
+        onChange={setActiveTab}
+      />
 
       {/* Tab content */}
       {activeTab === "connections" ? (
@@ -417,10 +399,7 @@ function Connections({
   return (
     <div className="flex flex-col gap-2">
       {connections.map(({ textParts, type, nodes }, index) => (
-        <div
-          key={index}
-          className={`rounded-xl overflow-hidden ${colourStyles.bg.card}`}
-        >
+        <div key={index} className={`overflow-hidden ${colourStyles.bg.card}`}>
           <Collapsible
             title={<ConnectionHeading textParts={textParts} type={type} />}
             defaultOpen={true}
@@ -566,9 +545,7 @@ function TopArtists({
   setFocusedId: (id: string | null) => void;
 }) {
   return genreData.top_artists && genreData.top_artists.length > 0 ? (
-    <div
-      className={`flex flex-col gap-3 px-4 py-3 rounded-xl ${colourStyles.bg.card}`}
-    >
+    <div className={`flex flex-col gap-3 px-4 py-3 ${colourStyles.bg.card}`}>
       {genreData.top_artists.map((artistPage, index) => (
         <Artist
           artistPage={artistPage}

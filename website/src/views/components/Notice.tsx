@@ -7,17 +7,9 @@ import { colourStyles } from "../colours";
 export function Notice({
   children,
   colour = "yellow",
-  roundTop = true,
 }: {
   children: React.ReactNode;
   colour?: "yellow" | "red" | "blue" | "green";
-  roundTop?: boolean;
 }) {
-  return (
-    <div
-      className={`${colourStyles.notice[colour]} ${roundTop ? "rounded-xl" : "rounded-b-xl"} p-4`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={`${colourStyles.notice[colour]} p-4`}>{children}</div>;
 }

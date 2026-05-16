@@ -377,7 +377,7 @@ function createActionButtons(
   const fromBtn = makeButton(`${ARROW_LEFT_SVG}&nbsp;from`, () => {
     callbacks.onSetAsSource(nodeId);
   });
-  fromBtn.className = `${ACTION_BTN_BASE} right-full rounded-l-lg`;
+  fromBtn.className = `${ACTION_BTN_BASE} right-full`;
   fromBtn.style.background = "rgba(234, 88, 12, 0.75)";
   fromBtn.style.borderBottomColor = "rgba(194, 68, 2, 0.85)";
   fromBtn.style.color = "#e2e8f0";
@@ -386,7 +386,7 @@ function createActionButtons(
   const toBtn = makeButton(`to&nbsp;${ARROW_RIGHT_SVG}`, () => {
     callbacks.onSetAsDestination(nodeId);
   });
-  toBtn.className = `${ACTION_BTN_BASE} left-full rounded-r-lg`;
+  toBtn.className = `${ACTION_BTN_BASE} left-full`;
   toBtn.style.background = "rgba(59, 130, 246, 0.75)";
   toBtn.style.borderBottomColor = "rgba(49, 110, 206, 0.85)";
   toBtn.style.color = "#e2e8f0";
