@@ -2,9 +2,16 @@ import { REPO_LINK } from "../../data";
 import { Collapsible } from "../components/Collapsible";
 
 import { ExternalLink } from "../components/links/ExternalLink";
+import { dumpUrl } from "../components/wikipedia/urls";
 
 /** The FAQ for the project. */
-export function FAQ({ dumpDate }: { dumpDate: string }) {
+export function FAQ({
+  databaseName,
+  dumpDate,
+}: {
+  databaseName: string;
+  dumpDate: string;
+}) {
   const faqs = [
     {
       question: "Why build this?",
@@ -56,6 +63,13 @@ export function FAQ({ dumpDate }: { dumpDate: string }) {
             which allow me to efficiently process every article and link to my
             heart's content. To keep the data relatively up-to-date, I update
             the snapshot used roughly every month.
+          </p>
+          <p>
+            The dump in use dates to{" "}
+            <ExternalLink href={dumpUrl(databaseName, dumpDate)}>
+              {dumpDate}
+            </ExternalLink>
+            .
           </p>
         </>
       ),

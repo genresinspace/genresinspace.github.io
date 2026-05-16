@@ -14,10 +14,7 @@ import { stripGenreNamePrefixFromDescription } from "../../util/stripGenreNamePr
 
 import { FAQ } from "./FAQ";
 
-import { Footnote } from "../components/Footnote";
-
 import { ExternalLink as EL } from "../components/links/ExternalLink";
-import { dumpUrl } from "../components/wikipedia/urls";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { Section } from "../components/Section";
 import { InfoIcon, MapIcon, QuestionIcon, DiceIcon } from "../components/icons";
@@ -36,7 +33,6 @@ export function ProjectInformation({
 }) {
   const {
     nodes,
-    edges,
     wikipedia_db_name: databaseName,
     dump_date: dumpDate,
     max_degree: maxDegree,
@@ -47,19 +43,15 @@ export function ProjectInformation({
       <Section heading="About" icon={<InfoIcon />}>
         <div className="flex flex-col gap-2 p-4">
           <p>
-            A graph of every music genre on English Wikipedia
-            <Footnote>
-              {nodes.length} genres, {edges.length} connections, as of{" "}
-              <EL href={dumpUrl(databaseName, dumpDate)}>{dumpDate}</EL>.
-            </Footnote>
-            , by <EL href="https://philpax.me">Philpax</EL>. Inspired by{" "}
-            <EL href="https://eightyeightthirty.one/">8831</EL> and{" "}
-            <EL href="https://musicmap.info/">musicmap</EL>.
+            A graph of all {nodes.length} music genres on English Wikipedia, by{" "}
+            <EL href="https://philpax.me">philpax</EL>.
           </p>
           <p>
-            <EL href={REPO_LINK}>Source code</EL>.{" "}
+            Inspired by <EL href="https://eightyeightthirty.one/">8831</EL> and{" "}
+            <EL href="https://musicmap.info/">musicmap</EL>. Here's the{" "}
+            <EL href={REPO_LINK}>source code</EL> and the{" "}
             <EL href="https://upload.wikimedia.org/wikipedia/commons/1/19/Under_construction_graphic.gif">
-              Blog post
+              blog post
             </EL>
             , if you're curious.
           </p>
@@ -75,7 +67,7 @@ export function ProjectInformation({
         <Legend visibleTypes={visibleTypes} setVisibleTypes={setVisibleTypes} />
       </Section>
       <Section heading="FAQ" icon={<QuestionIcon />}>
-        <FAQ dumpDate={dumpDate} />
+        <FAQ databaseName={databaseName} dumpDate={dumpDate} />
       </Section>
       <CommitFooter />
       <div>
