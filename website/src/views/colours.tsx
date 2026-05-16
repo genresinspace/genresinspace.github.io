@@ -90,9 +90,9 @@ export const colourStyles = {
     abbr: "border-gray-500",
   },
 
-  // Shared button colour patterns (callsite adds font-bold etc.)
+  // Shared button colour pattern (callsite adds font-bold etc.)
   button: {
-    active: `bg-purple-500/30 backdrop-blur-md ${textOnAccent}`,
+    active: `bg-purple-500/40 backdrop-blur-md ${textOnAccent}`,
     inactive: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
   },
 
