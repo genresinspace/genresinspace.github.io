@@ -6,7 +6,6 @@
 
 import type { Data } from "../../data";
 import { nodeIdToInt } from "../../data";
-import type { Theme } from "../../theme";
 import type { SettingsData } from "../../settings";
 import { Camera } from "./Camera";
 import { WebGLRenderer } from "./WebGLRenderer";
@@ -37,13 +36,11 @@ import {
 import {
   TRANSITION_TAU,
   HOVER_DEBOUNCE_MS,
-  BG_LIGHT,
-  BG_DARK,
+  BG,
   ARROW_SIZE_MULTIPLIER,
   EDGE_CURVATURE,
   CURSOR_PROXIMITY_RADIUS,
-  NODE_LIGHTNESS_LIGHT,
-  NODE_LIGHTNESS_DARK,
+  NODE_LIGHTNESS,
   FIT_STDDEV_MULT,
   FIT_RADIUS_MIN,
   FIT_PADDING_FRAC,
@@ -168,7 +165,6 @@ export class GraphView {
   private hoveredId: string | null = null;
   private path: string[] | null = null;
   private settings: SettingsData;
-  private theme: Theme = "dark";
   private searchMode: SearchMode = "initial";
 
   // --- Derived state ---
@@ -228,7 +224,6 @@ export class GraphView {
     labelContainer: HTMLDivElement,
     data: Data,
     settings: SettingsData,
-    theme: Theme,
     callbacks: GraphViewCallbacks,
     initialState?: {
       selectedId?: string | null;
@@ -242,7 +237,6 @@ export class GraphView {
     this.labelContainer = labelContainer;
     this.data = data;
     this.settings = settings;
-    this.theme = theme;
     this.callbacks = callbacks;
 
     // Apply initial state before first render
@@ -486,15 +480,6 @@ export class GraphView {
     this.scheduleRender();
   }
 
-  setTheme(theme: Theme): void {
-    if (theme === this.theme) return;
-    this.theme = theme;
-    this.dirty.nodeColors = true;
-    this.dirty.edgeColors = true;
-    this.dirty.labels = true;
-    this.scheduleRender();
-  }
-
   setSearchMode(mode: SearchMode): void {
     if (mode === this.searchMode) return;
     this.searchMode = mode;
@@ -546,8 +531,7 @@ export class GraphView {
   private recomputeIfDirty(): void {
     const d = this.dirty;
     const maxDistance = this.settings.general.maxInfluenceDistance + 1;
-    const graphNodeLightness =
-      this.theme === "light" ? NODE_LIGHTNESS_LIGHT : NODE_LIGHTNESS_DARK;
+    const graphNodeLightness = NODE_LIGHTNESS;
 
     if (d.pathInfo) {
       d.pathInfo = false;
@@ -574,8 +558,7 @@ export class GraphView {
         graphNodeLightness,
         this.pathInfo,
         maxDistance,
-        this.path,
-        this.theme
+        this.path
       );
     }
 
@@ -602,8 +585,7 @@ export class GraphView {
         this.settings.visibleTypes,
         this.pathInfo,
         maxDistance,
-        this.path,
-        this.theme
+        this.path
       );
     }
 
@@ -859,13 +841,9 @@ export class GraphView {
       this.renderer.setNodeSelected(interp.nodeSelected);
     }
 
-    // Render
-    const bg: [number, number, number, number] =
-      this.theme === "light" ? BG_LIGHT : BG_DARK;
-    const isLight = this.theme === "light";
     this.renderer.render(
       this.camera.getViewMatrix(),
-      bg,
+      BG,
       this.settings.general.arrowSizeScale * ARROW_SIZE_MULTIPLIER,
       this.camera.zoom,
       now / 1000,
@@ -873,8 +851,8 @@ export class GraphView {
       this.cursorWorld.x,
       this.cursorWorld.y,
       CURSOR_PROXIMITY_RADIUS,
-      isLight ? -1.0 : 1.0,
-      isLight ? [0, 0, 0] : [1, 1, 1]
+      1.0,
+      [1, 1, 1]
     );
 
     // Continue rendering if camera is active, interpolation hasn't converged,
@@ -945,8 +923,7 @@ export class GraphView {
       this.pathInfo,
       maxDistance,
       this.path,
-      this.settings.general.showLabels,
-      this.theme
+      this.settings.general.showLabels
     );
 
     // Snapshot camera state and reset transform (equivalent to the useLayoutEffect)

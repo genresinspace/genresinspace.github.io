@@ -5,8 +5,7 @@
 
 import {
   nodeColour,
-  NodeColourLightnessDark,
-  NodeColourLightnessLight,
+  NodeColourLightness,
   type NodeData,
   nodeIdToInt,
 } from "../../data";
@@ -20,7 +19,6 @@ import {
   LABEL_ZOOM_THRESHOLD,
   LABEL_ZOOM_RATE,
   LABEL_LIGHTNESS_BOOST,
-  LABEL_LIGHTNESS_BOOST_LIGHT,
   LABEL_GRID_COLS,
   LABEL_GRID_ROWS,
   LABEL_FONT_SIZE_BASE,
@@ -394,7 +392,7 @@ function createActionButtons(
 
 /** Update which action buttons are visible based on search mode. */
 function updateActionButtons(
-  el: HTMLDivElement,
+  _el: HTMLDivElement,
   toBtn: HTMLButtonElement,
   fromBtn: HTMLButtonElement,
   nodeId: string,
@@ -436,15 +434,10 @@ function updateLabelStyle(
   el: HTMLDivElement,
   label: LabelCandidate,
   maxDegree: number,
-  colorLightness:
-    | typeof NodeColourLightnessDark
-    | typeof NodeColourLightnessLight,
   hoveredId: string | null,
   selectedId: string | null,
-  cursorWorld: { x: number; y: number },
-  theme: string
+  cursorWorld: { x: number; y: number }
 ): void {
-  const isLight = theme === "light";
   const isHovered = hoveredId === label.node.id;
   const isSelected = selectedId === label.node.id;
 
@@ -454,25 +447,22 @@ function updateLabelStyle(
   const dist = Math.sqrt(dx * dx + dy * dy);
   const proximity = Math.max(0, 1 - dist / CURSOR_PROXIMITY_RADIUS);
 
-  const lightnessBoost = isLight
-    ? LABEL_LIGHTNESS_BOOST_LIGHT
-    : LABEL_LIGHTNESS_BOOST;
-  const proximityBoostDir = isLight ? -5 : 5;
-
   const boost =
     (isHovered ? LABEL_HOVER_LIGHTNESS_BOOST : 0) +
     (isSelected ? LABEL_SELECTED_LIGHTNESS_BOOST : 0) +
-    proximity * proximityBoostDir;
+    proximity * 5;
 
   const bgColor = nodeColour(
     label.node,
     maxDegree,
-    colorLightness.GraphLabelBackgroundBorder + lightnessBoost + boost
+    NodeColourLightness.GraphLabelBackgroundBorder +
+      LABEL_LIGHTNESS_BOOST +
+      boost
   );
   const textColor = nodeColour(
     label.node,
     maxDegree,
-    colorLightness.GraphLabelText + lightnessBoost + boost
+    NodeColourLightness.GraphLabelText + LABEL_LIGHTNESS_BOOST + boost
   );
 
   let filterStyle = "";
@@ -484,23 +474,13 @@ function updateLabelStyle(
           ? 1.0
           : Math.pow(LABEL_OPACITY_FALLOFF, label.selectionDistance - 1);
     } else {
-      if (isLight) {
-        // On white bg, use opacity-only dimming (brightness would darken)
-        filterStyle = "";
-        opacityStyle = 0.15;
-      } else {
-        filterStyle = `brightness(${LABEL_DIM_BRIGHTNESS})`;
-        opacityStyle = LABEL_DIM_OPACITY;
-      }
+      filterStyle = `brightness(${LABEL_DIM_BRIGHTNESS})`;
+      opacityStyle = LABEL_DIM_OPACITY;
     }
     // Boost dimmed labels near cursor
     if (proximity > 0 && !label.inSelectedNet) {
-      if (isLight) {
-        opacityStyle = Math.min(1, opacityStyle + proximity * 0.8);
-      } else {
-        opacityStyle = Math.min(1, opacityStyle + proximity * 0.8);
-        filterStyle = `brightness(${LABEL_DIM_BRIGHTNESS + proximity * (1 - LABEL_DIM_BRIGHTNESS)})`;
-      }
+      opacityStyle = Math.min(1, opacityStyle + proximity * 0.8);
+      filterStyle = `brightness(${LABEL_DIM_BRIGHTNESS + proximity * (1 - LABEL_DIM_BRIGHTNESS)})`;
     }
   }
 
@@ -557,12 +537,9 @@ export class LabelManager {
     pathInfo: PathInfo,
     maxDistance: number,
     path: string[] | null,
-    showLabels: boolean,
-    theme: string
+    showLabels: boolean
   ): void {
     const camera = this.camera;
-    const colorLightness =
-      theme === "light" ? NodeColourLightnessLight : NodeColourLightnessDark;
 
     // --- Stable label selection (equivalent to stableLabels useMemo) ---
     let stableResult: LabelCandidate[];
@@ -727,11 +704,9 @@ export class LabelManager {
         entry.el,
         label,
         maxDegree,
-        colorLightness,
         hoveredId,
         selectedId,
-        this.cursorWorld,
-        theme
+        this.cursorWorld
       );
 
       // Show/hide buttons for selected or hovered nodes (desktop)

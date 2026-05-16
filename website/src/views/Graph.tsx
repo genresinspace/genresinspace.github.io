@@ -1,7 +1,6 @@
 import { useRef, useEffect } from "react";
 
 import { useDataContext } from "../data";
-import { useTheme } from "../theme";
 import type { SettingsData } from "../settings";
 import { GraphView } from "./graph/GraphView";
 import type { SearchMode } from "./graph/GraphViewLabels";
@@ -33,7 +32,6 @@ export function Graph({
   onSetAsDestination: ((nodeId: string) => void) | null;
 }) {
   const data = useDataContext();
-  const { theme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const labelContainerRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<GraphView | null>(null);
@@ -51,7 +49,6 @@ export function Graph({
     focusedId,
     path,
     settings,
-    theme,
     searchMode,
     viewportOffsetX,
     viewportOffsetY,
@@ -61,7 +58,6 @@ export function Graph({
     focusedId,
     path,
     settings,
-    theme,
     searchMode,
     viewportOffsetX,
     viewportOffsetY,
@@ -79,7 +75,6 @@ export function Graph({
       labelContainer,
       data,
       p.settings,
-      p.theme,
       {
         setSelectedId: (id) => callbackRefs.current.setSelectedId(id),
         onSetAsSource: (id) => callbackRefs.current.onSetAsSource?.(id),
@@ -101,7 +96,7 @@ export function Graph({
       view.destroy();
       viewRef.current = null;
     };
-    // Only recreate on data change; settings/theme/callbacks are forwarded via setters
+    // Only recreate on data change; settings/callbacks are forwarded via setters
   }, [data]);
 
   // Forward prop changes to GraphView
@@ -117,9 +112,6 @@ export function Graph({
   useEffect(() => {
     viewRef.current?.setSettings(settings);
   }, [settings]);
-  useEffect(() => {
-    viewRef.current?.setTheme(theme);
-  }, [theme]);
   useEffect(() => {
     viewRef.current?.setSearchMode(searchMode);
   }, [searchMode]);

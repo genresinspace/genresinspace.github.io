@@ -11,8 +11,7 @@
  *
  * Glassmorphic dark design: layers translucent panels over the graph using
  * three tiers (shell, panel, floating) defined as @utility classes in
- * tailwind.css. Dark mode is enforced; light-mode tokens are not separately
- * art-directed.
+ * tailwind.css. The app is dark-only — no light-mode tokens.
  */
 
 // ---------------------------------------------------------------------------
@@ -57,9 +56,9 @@ export const colourStyles = {
     onAccent: textOnAccent,
     link: "text-blue-400",
     linkHover: "text-blue-400 hover:text-blue-300",
-    accentLink: "text-purple-600 dark:text-purple-400",
+    accentLink: "text-purple-400",
     toggle: "text-neutral-400 hover:text-white",
-    meta: "text-gray-500 dark:text-gray-400",
+    meta: "text-gray-400",
     metaInline: "text-gray-500",
   },
 
@@ -175,8 +174,8 @@ export const colourStyles = {
 
   // Blockquote
   blockquote: {
-    border: "border-gray-300 dark:border-gray-700",
-    text: "text-gray-700 dark:text-gray-300",
+    border: "border-gray-700",
+    text: "text-gray-300",
   },
 
   // YouTube embed
@@ -189,28 +188,6 @@ export const colourStyles = {
   // Genre link
   genreLink: {
     text: "text-[var(--node-color)] hover:text-[var(--node-color-hover)]",
-  },
-
-  // Asset icon page (assets/icon.html — uses gray/blue instead of slate/purple)
-  icon: {
-    body: "bg-slate-100 dark:bg-black",
-    sidebar: "bg-slate-200 dark:bg-gray-900 text-slate-900 dark:text-white",
-    input: "bg-slate-300 dark:bg-gray-800 text-slate-900 dark:text-white",
-    button:
-      "bg-slate-300 dark:bg-gray-700 hover:bg-slate-400 dark:hover:bg-gray-600 text-slate-900 dark:text-white",
-    buttonPrimary:
-      "bg-purple-600 dark:bg-blue-700 hover:bg-purple-700 dark:hover:bg-blue-600 text-white",
-    buttonDisabled:
-      "bg-slate-400 dark:bg-gray-800 text-slate-500 dark:text-gray-500",
-    buttonActive:
-      "bg-purple-700 dark:bg-blue-600 hover:bg-purple-800 dark:hover:bg-blue-700 text-white",
-    listContainer:
-      "bg-slate-200 dark:bg-gray-950 text-slate-900 dark:text-white",
-    listItem:
-      "hover:bg-slate-300 dark:hover:bg-gray-800 text-slate-900 dark:text-white",
-    listItemActive:
-      "bg-purple-100 dark:bg-blue-900 text-slate-900 dark:text-white",
-    content: "bg-slate-200 dark:bg-gray-800 text-slate-900 dark:text-white",
   },
 } as const;
 

@@ -187,8 +187,7 @@ export function computeNodeColors(
   graphNodeLightness: number,
   pathInfo: PathInfo,
   maxDistance: number,
-  path: string[] | null,
-  theme: string
+  path: string[] | null
 ): Float32Array {
   const arr = new Float32Array(nodes.length * 4);
   for (let i = 0; i < nodes.length; i++) {
@@ -226,17 +225,10 @@ export function computeNodeColors(
         arr[i * 4 + 2] = b;
         arr[i * 4 + 3] = alpha;
       } else {
-        if (theme === "light") {
-          // Fade toward white on light background
-          arr[i * 4] = r * NODE_DIM_RGB + (1 - NODE_DIM_RGB);
-          arr[i * 4 + 1] = g * NODE_DIM_RGB + (1 - NODE_DIM_RGB);
-          arr[i * 4 + 2] = b * NODE_DIM_RGB + (1 - NODE_DIM_RGB);
-        } else {
-          // Fade toward black on dark background
-          arr[i * 4] = r * NODE_DIM_RGB;
-          arr[i * 4 + 1] = g * NODE_DIM_RGB;
-          arr[i * 4 + 2] = b * NODE_DIM_RGB;
-        }
+        // Fade toward black on dark background
+        arr[i * 4] = r * NODE_DIM_RGB;
+        arr[i * 4 + 1] = g * NODE_DIM_RGB;
+        arr[i * 4 + 2] = b * NODE_DIM_RGB;
         arr[i * 4 + 3] = NODE_DIM_ALPHA;
       }
     } else {
@@ -306,18 +298,13 @@ export function computeEdgeColors(
   visibleTypes: VisibleTypes,
   pathInfo: PathInfo,
   maxDistance: number,
-  path: string[] | null,
-  theme: string
+  path: string[] | null
 ): Float32Array {
   const arr = new Float32Array(edges.length * 8); // 4 components * 2 vertices
-  const dimmedColor = parseColor(
-    theme === "light" ? "hsla(0, 0%, 80%, 0.1)" : "hsla(0, 0%, 20%, 0.1)"
-  );
+  const dimmedColor = parseColor("hsla(0, 0%, 20%, 0.1)");
 
   const selectedAlpha = EDGE_SELECTED_ALPHA;
-  // Reduce unselected edge visibility on light backgrounds where they're more prominent
-  const unselectedAlpha =
-    theme === "light" ? EDGE_UNSELECTED_ALPHA * 0.6 : EDGE_UNSELECTED_ALPHA;
+  const unselectedAlpha = EDGE_UNSELECTED_ALPHA;
 
   for (let i = 0; i < edges.length; i++) {
     const edge = edges[i];

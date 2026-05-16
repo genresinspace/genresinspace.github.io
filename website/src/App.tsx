@@ -26,7 +26,6 @@ import {
 import { Sidebar, SIDEBAR_DEFAULT_WIDTH } from "./views/sidebar/Sidebar";
 import { DataCache, DataCacheContext } from "./services/dataCache";
 import { colourStyles } from "./views/colours";
-import { ThemeProvider } from "./theme";
 
 import "./tailwind.css";
 
@@ -76,26 +75,22 @@ function App() {
 
   if (loading.state === "loading") {
     return (
-      <ThemeProvider>
-        <div
-          className={`flex w-screen h-screen items-center justify-center ${colourStyles.bg.app} ${colourStyles.text.primary}`}
-        >
-          <div className="flex flex-col items-center gap-4">
-            <div
-              className={`w-12 h-12 border-4 ${colourStyles.loading.spinner} rounded-full animate-spin`}
-            />
-            <div>Loading...</div>
-          </div>
+      <div
+        className={`flex w-screen h-screen items-center justify-center ${colourStyles.bg.app} ${colourStyles.text.primary}`}
+      >
+        <div className="flex flex-col items-center gap-4">
+          <div
+            className={`w-12 h-12 border-4 ${colourStyles.loading.spinner} rounded-full animate-spin`}
+          />
+          <div>Loading...</div>
         </div>
-      </ThemeProvider>
+      </div>
     );
   } else {
     return (
-      <ThemeProvider>
-        <DataCacheContext.Provider value={dataCache}>
-          <LoadedApp data={loading.data} />
-        </DataCacheContext.Provider>
-      </ThemeProvider>
+      <DataCacheContext.Provider value={dataCache}>
+        <LoadedApp data={loading.data} />
+      </DataCacheContext.Provider>
     );
   }
 }

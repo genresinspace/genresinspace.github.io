@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@variant dark (&:where(.dark, .dark *));
-
 @utility glass-shell {
   @apply bg-neutral-950/70 backdrop-blur-md;
 }
