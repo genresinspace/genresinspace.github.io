@@ -19,12 +19,15 @@ import { NoteIcon } from "../icons";
 export function GenreLink({
   node,
   hoverPreview = true,
+  noIcon = false,
   onMouseEnter: onMouseEnterProp,
   onMouseLeave: onMouseLeaveProp,
   ...props
 }: Omit<React.ComponentProps<"a">, "href"> & {
   node: NodeData;
   hoverPreview?: boolean;
+  /** Skip the built-in NoteIcon (e.g. when the icon is supplied by the surrounding component). */
+  noIcon?: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
@@ -59,18 +62,23 @@ export function GenreLink({
         style={{
           ["--node-color" as string]: genreColour,
           ["--node-color-hover" as string]: genreColourHover,
+          ...(props.style ?? {}),
         }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <span className="whitespace-nowrap">
-          <NoteIcon
-            width={14}
-            height={14}
-            className="inline-block align-[-0.1em]"
-          />{" "}
-          {props.children}
-        </span>
+        {noIcon ? (
+          props.children
+        ) : (
+          <span className="whitespace-nowrap">
+            <NoteIcon
+              width={14}
+              height={14}
+              className="inline-block align-[-0.1em]"
+            />{" "}
+            {props.children}
+          </span>
+        )}
       </a>
 
       {genreData?.description && showPreview && (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   parse_and_simplify_wikitext,
   Spanned,
@@ -18,11 +18,15 @@ export function isNewlineNode({
 
 /**
  * Like `Wikitext`, but only renders up to the first paragraph break or newline.
+ *
+ * If `prefix` is provided, it is rendered inline before the wikitext content
+ * (useful for prepending a link to the start of the first sentence).
  */
 export function WikitextTruncateAtNewline(props: {
   wikitext: string;
   expandable: boolean;
   className?: string;
+  prefix?: React.ReactNode;
 }) {
   const nodes = parse_and_simplify_wikitext(props.wikitext);
   const index = nodes.findIndex(isNewlineNode);
@@ -35,6 +39,7 @@ export function WikitextTruncateAtNewline(props: {
   return props.expandable ? (
     <div className={`flex flex-col gap-2 ${props.className || ""}`}>
       <div>
+        {props.prefix}
         <WikitextNodes
           nodes={index !== -1 && !expanded ? nodes.slice(0, index) : nodes}
         />
@@ -49,6 +54,9 @@ export function WikitextTruncateAtNewline(props: {
       )}
     </div>
   ) : (
-    <WikitextNodes nodes={index !== -1 ? nodes.slice(0, index) : nodes} />
+    <>
+      {props.prefix}
+      <WikitextNodes nodes={index !== -1 ? nodes.slice(0, index) : nodes} />
+    </>
   );
 }

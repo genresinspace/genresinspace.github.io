@@ -29,11 +29,13 @@ import { Wikitext } from "../components/wikipedia/wikitexts/Wikitext";
 import { WikitextTruncateAtNewline } from "../components/wikipedia/wikitexts/WikitextTruncateAtNewline";
 import { Collapsible } from "../components/Collapsible";
 import { Tabs } from "../components/Tabs";
+import { SectionHeading } from "../components/SectionHeading";
 
 import {
   DerivativeIcon,
   SubgenreIcon,
   FusionGenreIcon,
+  NoteIcon,
 } from "../components/icons";
 import yt_icon_red_digital from "../components/icons/yt_icon_red_digital.png";
 
@@ -78,20 +80,7 @@ export function SelectedNodeInfo({
             />
           )}
 
-          <div className={`px-4 py-3 ${colourStyles.bg.card}`}>
-            {genreData ? (
-              genreData.description ? (
-                <WikitextTruncateAtNewline
-                  wikitext={genreData.description}
-                  expandable={true}
-                />
-              ) : (
-                "No description available."
-              )
-            ) : (
-              "Loading..."
-            )}
-          </div>
+          <GenreDescription node={node} genreData={genreData} />
 
           <ConnectionsAndArtists
             node={node}
@@ -125,7 +114,7 @@ function EmptyState() {
   );
 }
 
-/** Header section with genre title and controls */
+/** Header section with the genre name on a node-coloured background. */
 function GenreHeader({
   node,
   maxDegree,
@@ -141,17 +130,65 @@ function GenreHeader({
   );
 
   return (
-    <div className={`overflow-hidden ${colourStyles.bg.card}`}>
-      <WikipediaLink
-        pageTitle={nodePageTitle(node)}
-        className={`${colourStyles.node.background} ${colourStyles.node.hover} ${colourStyles.text.onAccent} p-2 block text-3xl font-bold text-center transition-all duration-200`}
-        nostyle={true}
-        style={{
-          ["--node-color" as string]: selectedNodeColour,
-        }}
+    <SectionHeading
+      icon={<NoteIcon stroke="white" />}
+      style={{ backgroundColor: selectedNodeColour }}
+    >
+      <GenreLink
+        node={node}
+        hoverPreview={false}
+        noIcon
+        style={{ color: "white" }}
       >
         {node.label}
-      </WikipediaLink>
+      </GenreLink>
+    </SectionHeading>
+  );
+}
+
+/**
+ * Description card. If the description starts with the genre name (as
+ * detected by stripGenreNamePrefixFromDescription), the name is replaced with
+ * a WikipediaLink — the inverse of what's done elsewhere when the name is
+ * already shown separately.
+ */
+function GenreDescription({
+  node,
+  genreData,
+}: {
+  node: NodeData;
+  genreData: GenreFileData;
+}) {
+  const description = genreData.description;
+
+  if (!description) {
+    return (
+      <div className={`px-4 py-3 ${colourStyles.bg.card}`}>
+        No description available.
+      </div>
+    );
+  }
+
+  const stripped = stripGenreNamePrefixFromDescription(node.label, description);
+  const prefixDetected = stripped !== description;
+
+  return (
+    <div className={`px-4 py-3 ${colourStyles.bg.card}`}>
+      <WikitextTruncateAtNewline
+        wikitext={prefixDetected ? stripped : description}
+        expandable={true}
+        prefix={
+          prefixDetected ? (
+            <>
+              <strong>
+                <WikipediaLink pageTitle={nodePageTitle(node)}>
+                  {node.label}
+                </WikipediaLink>
+              </strong>{" "}
+            </>
+          ) : undefined
+        }
+      />
     </div>
   );
 }

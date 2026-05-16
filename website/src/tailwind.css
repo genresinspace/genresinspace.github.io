@@ -3,7 +3,7 @@
 @variant dark (&:where(.dark, .dark *));
 
 @utility glass-shell {
-  @apply bg-slate-950/70 backdrop-blur-md border border-white/10;
+  @apply bg-slate-950/70 backdrop-blur-md;
 }
 
 @utility glass-panel {
