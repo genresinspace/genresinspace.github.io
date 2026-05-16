@@ -69,30 +69,28 @@ export function SelectedNodeInfo({
 
   return (
     <div className="flex flex-col gap-2">
-      <GenreHeader node={node} maxDegree={maxDegree} />
+      <div className="flex flex-col">
+        <GenreHeader node={node} maxDegree={maxDegree} />
+        {genreData && shouldShowMixes && (
+          <FeaturedMix
+            genreData={genreData}
+            shouldAutoplayMixes={shouldAutoplayMixes}
+          />
+        )}
+        {genreData && <GenreDescription node={node} genreData={genreData} />}
+      </div>
 
       {genreData && (
-        <>
-          {shouldShowMixes && (
-            <FeaturedMix
-              genreData={genreData}
-              shouldAutoplayMixes={shouldAutoplayMixes}
-            />
-          )}
-
-          <GenreDescription node={node} genreData={genreData} />
-
-          <ConnectionsAndArtists
-            node={node}
-            genreData={genreData}
-            nodes={nodes}
-            edges={edges}
-            selectedId={selectedId}
-            setFocusedId={setFocusedId}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-          />
-        </>
+        <ConnectionsAndArtists
+          node={node}
+          genreData={genreData}
+          nodes={nodes}
+          edges={edges}
+          selectedId={selectedId}
+          setFocusedId={setFocusedId}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
       )}
       <div>
         {/* intentionally empty div to use the gap for bottom-margin */}
