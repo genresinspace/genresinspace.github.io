@@ -237,7 +237,7 @@ function MixItem({
   autoplay: boolean;
 }) {
   return (
-    <div className={`${colourStyles.bg.elevated} overflow-hidden`}>
+    <div className={`${colourStyles.bg.card} overflow-hidden`}>
       {"video" in mix ? (
         <YouTubeEmbed videoId={mix.video} autoplay={autoplay} />
       ) : (

@@ -21,18 +21,18 @@
 
 // Text
 const textPrimary = "text-white";
-const textSecondary = "text-slate-400";
+const textSecondary = "text-neutral-400";
 const textOnAccent = "text-white";
 
 // Backgrounds — glass tiers
-const bgApp = "bg-slate-950";
+const bgApp = "bg-neutral-950";
 const bgShell = "glass-shell";
-const bgCard = "glass-panel";
+const bgCard = "glass-shell";
 const bgElevated = "glass-panel";
-const bgInteractive = "bg-white/10";
-const bgInput = "bg-black/30";
+const bgInteractive = "bg-white/10 backdrop-blur-md";
+const bgInput = "bg-black/30 backdrop-blur-md";
 const bgAccent = "bg-purple-600";
-const bgHandle = "bg-white/30";
+const bgHandle = "bg-white/30 backdrop-blur-md";
 
 // Hovers
 const hoverSubtle = "hover:bg-white/10";
@@ -92,7 +92,7 @@ export const colourStyles = {
 
   // Shared button colour patterns (callsite adds font-bold etc.)
   button: {
-    active: `bg-purple-500/30 ${textOnAccent}`,
+    active: `bg-purple-500/30 backdrop-blur-md ${textOnAccent}`,
     inactive: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
   },
 
@@ -103,10 +103,11 @@ export const colourStyles = {
     spinner: "border-white/20 border-t-purple-400",
   },
 
-  // Sidebar
+  // Sidebar — no background on the shell so empty space shows the graph
+  // through; individual sections provide their own glass via bg.card.
   sidebar: {
-    background: bgShell,
-    mobileBackground: bgShell,
+    background: "",
+    mobileBackground: "",
     itemInactive: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 
@@ -125,7 +126,7 @@ export const colourStyles = {
   // Search
   search: {
     button: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
-    input: `${bgInput} ${textPrimary} placeholder:text-slate-400`,
+    input: `${bgInput} ${textPrimary} placeholder:text-neutral-400`,
     item: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 
@@ -143,17 +144,17 @@ export const colourStyles = {
 
   // Section heading
   section: {
-    heading: `bg-white/5 ${textOnAccent}`,
+    heading: `bg-white/10 backdrop-blur-md ${textOnAccent}`,
   },
 
   // Notice / alert (bg + text combined)
   notice: {
     yellow:
-      "bg-yellow-500/10 backdrop-blur-md border border-yellow-500/30 text-yellow-100",
-    red: "bg-red-500/10 backdrop-blur-md border border-red-500/30 text-red-100",
-    blue: "bg-blue-500/10 backdrop-blur-md border border-blue-500/30 text-blue-100",
+      "bg-yellow-500/15 backdrop-blur-md border border-yellow-500/40 text-yellow-100",
+    red: "bg-red-500/15 backdrop-blur-md border border-red-500/40 text-red-100",
+    blue: "bg-blue-500/15 backdrop-blur-md border border-blue-500/40 text-blue-100",
     green:
-      "bg-green-500/10 backdrop-blur-md border border-green-500/30 text-green-100",
+      "bg-green-500/15 backdrop-blur-md border border-green-500/40 text-green-100",
   },
 
   // Input / control
@@ -169,7 +170,7 @@ export const colourStyles = {
 
   // Collapsible
   collapsible: {
-    background: `bg-black/30 hover:bg-black/40 ${textPrimary}`,
+    background: `bg-white/5 hover:bg-white/15 backdrop-blur-md ${textPrimary}`,
   },
 
   // Blockquote
@@ -181,8 +182,8 @@ export const colourStyles = {
   // YouTube embed
   youtube: {
     background: "bg-black",
-    loadingText: "text-slate-500",
-    spinner: "border-slate-600 border-t-slate-400",
+    loadingText: "text-neutral-500",
+    spinner: "border-neutral-600 border-t-neutral-400",
   },
 
   // Genre link
