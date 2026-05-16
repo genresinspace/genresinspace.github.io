@@ -97,7 +97,7 @@ const SWIPE_THRESHOLD = 40;
 const TOUCH_LIFT_PX = 50;
 
 const ACTION_BTN_BASE =
-  "hidden absolute top-0 -bottom-1 px-2 cursor-pointer pointer-events-auto whitespace-nowrap items-center border-b-4 transition-opacity duration-200";
+  "hidden absolute top-0 bottom-0 px-2 cursor-pointer pointer-events-auto whitespace-nowrap items-center transition-opacity duration-200";
 
 const ARROW_LEFT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>`;
 const ARROW_RIGHT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m0 0l-7-7m7 7l-7 7"/></svg>`;
@@ -379,8 +379,7 @@ function createActionButtons(
   });
   fromBtn.className = `${ACTION_BTN_BASE} right-full`;
   fromBtn.style.background = "rgba(234, 88, 12, 0.75)";
-  fromBtn.style.borderBottomColor = "rgba(194, 68, 2, 0.85)";
-  fromBtn.style.color = "#e2e8f0";
+  fromBtn.style.color = "#e2e8f0cc";
 
   // "to" on the right -- set as destination
   const toBtn = makeButton(`to&nbsp;${ARROW_RIGHT_SVG}`, () => {
@@ -388,8 +387,7 @@ function createActionButtons(
   });
   toBtn.className = `${ACTION_BTN_BASE} left-full`;
   toBtn.style.background = "rgba(59, 130, 246, 0.75)";
-  toBtn.style.borderBottomColor = "rgba(49, 110, 206, 0.85)";
-  toBtn.style.color = "#e2e8f0";
+  toBtn.style.color = "#e2e8f0cc";
 
   return { toBtn, fromBtn };
 }
@@ -431,9 +429,6 @@ function updateActionButtons(
   else hide(toBtn);
   if (showFrom) show(fromBtn);
   else hide(fromBtn);
-
-  // Square off label corners where buttons connect (from=left, to=right)
-  el.style.borderRadius = `${showFrom ? 0 : 8}px ${showTo ? 0 : 8}px ${showTo ? 0 : 8}px ${showFrom ? 0 : 8}px`;
 }
 
 /** Update a label element's inline styles to reflect current state. */
@@ -474,11 +469,6 @@ function updateLabelStyle(
     maxDegree,
     colorLightness.GraphLabelBackgroundBorder + lightnessBoost + boost
   );
-  const borderColor = nodeColour(
-    label.node,
-    maxDegree,
-    colorLightness.GraphLabelBackground + lightnessBoost + boost
-  );
   const textColor = nodeColour(
     label.node,
     maxDegree,
@@ -518,8 +508,7 @@ function updateLabelStyle(
   const touchOffset = el.dataset.touchActive ? -TOUCH_LIFT_PX : 0;
   s.transform = `translate(${label.screenX}px, ${label.screenY + touchOffset}px) translate(-50%, -100%)`;
   s.fontSize = `${label.fontSize}px`;
-  s.backgroundColor = bgColor;
-  s.borderBottom = `4px solid ${borderColor}`;
+  s.backgroundColor = `color-mix(in srgb, ${bgColor} 80%, transparent)`;
   s.color = textColor;
   s.filter = filterStyle;
   s.opacity = String(opacityStyle);
@@ -761,7 +750,6 @@ export class LabelManager {
         entry.toBtn.classList.remove("flex");
         entry.fromBtn.classList.add("hidden");
         entry.fromBtn.classList.remove("flex");
-        entry.el.style.borderRadius = "";
       }
     }
 
@@ -858,7 +846,6 @@ export class LabelManager {
         toBtn.classList.remove("flex");
         fromBtn.classList.add("hidden");
         fromBtn.classList.remove("flex");
-        el.style.borderRadius = "";
       }
     });
     el.addEventListener(
@@ -998,7 +985,6 @@ export class LabelManager {
           toBtn.classList.remove("flex");
           fromBtn.classList.add("hidden");
           fromBtn.classList.remove("flex");
-          el.style.borderRadius = "";
         };
 
         const onEnd = (te: TouchEvent) => {

@@ -214,7 +214,7 @@ function SidebarContent({
 
             {/* Scrollable content area */}
             <div
-              className="flex-1 overflow-y-auto min-h-0 mt-2"
+              className="flex-1 overflow-y-auto min-h-0 md:mt-2"
               ref={sidebarContentRef}
             >
               {activeTab === "information" ? (
