@@ -143,7 +143,7 @@ export const colourStyles = {
 
   // Section heading
   section: {
-    heading: `bg-white/10 backdrop-blur-md ${textOnAccent}`,
+    heading: `bg-[#231a36]/60 backdrop-blur-md ${textOnAccent}`,
   },
 
   // Notice / alert (bg + text combined)
