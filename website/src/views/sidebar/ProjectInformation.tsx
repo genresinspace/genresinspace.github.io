@@ -39,7 +39,7 @@ export function ProjectInformation({
   } = useDataContext();
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col md:gap-2">
       <Section heading="About" icon={<InfoIcon />}>
         <div className="flex flex-col gap-2 p-4">
           <p>

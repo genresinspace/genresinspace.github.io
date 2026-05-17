@@ -16,13 +16,15 @@ export function Tabs<T extends string>({
   items,
   activeId,
   onChange,
+  className,
 }: {
   items: readonly TabItem<T>[];
   activeId: T;
   onChange: (id: T) => void;
+  className?: string;
 }) {
   return (
-    <div className="flex shrink-0">
+    <div className={`flex shrink-0 ${className || ""}`}>
       {items.map((tab) => (
         <button
           key={tab.id}

@@ -182,9 +182,7 @@ function SidebarContent({
             <div className="w-full p-2 shrink-0">{searchComponent}</div>
           )}
 
-          <div
-            className={`flex-1 flex flex-col min-h-0 ${isMobile ? "" : "pr-2"}`}
-          >
+          <div className={`flex-1 flex flex-col min-h-0`}>
             {/* Fixed navigation bar at top */}
             <Tabs
               items={[
@@ -210,11 +208,12 @@ function SidebarContent({
               ]}
               activeId={activeTab}
               onChange={setActiveTab}
+              className="md:my-2"
             />
 
             {/* Scrollable content area */}
             <div
-              className="flex-1 overflow-y-auto min-h-0 md:mt-2"
+              className="flex-1 overflow-y-auto min-h-0"
               ref={sidebarContentRef}
             >
               {activeTab === "information" ? (
