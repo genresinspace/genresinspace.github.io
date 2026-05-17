@@ -7,7 +7,7 @@ import {
   Dispatch,
 } from "react";
 
-import { Graph } from "./views/Graph";
+import { Graph, ZoomRequest } from "./views/Graph";
 import {
   Search,
   SearchAction,
@@ -28,6 +28,17 @@ import { DataCache, DataCacheContext } from "./services/dataCache";
 import { colourStyles } from "./views/colours";
 
 import "./tailwind.css";
+
+/** Options for the wrapper `setSelectedId`. */
+export type SetSelectedOptions = {
+  /** If set, also request a zoom-to-fit after the selection is applied. */
+  zoom?: "selection" | "path";
+};
+/** Signature shared by the wrapper `setSelectedId` and its prop type. */
+export type SetSelectedId = (
+  id: string | null,
+  opts?: SetSelectedOptions
+) => void;
 
 // Global constant for arrow key navigation (developer tool)
 const ENABLE_ARROW_KEY_NAVIGATION = import.meta.env.DEV;
@@ -128,6 +139,8 @@ function LoadedApp({ data }: { data: Data }) {
     setFocusedId,
     searchState,
     searchDispatch,
+    zoomRequest,
+    requestZoom,
   } = useSelectedIdAndFilterAndFocus(data, settings);
 
   const searchMode = searchState.type;
@@ -330,6 +343,7 @@ function LoadedApp({ data }: { data: Data }) {
       searchDispatch={searchDispatch}
       visibleTypes={settings.visibleTypes}
       setSelectedId={setSelectedId}
+      requestZoom={requestZoom}
     />
   );
 
@@ -350,6 +364,7 @@ function LoadedApp({ data }: { data: Data }) {
               searchMode={searchMode}
               onSetAsSource={onSetAsSource}
               onSetAsDestination={onSetAsDestination}
+              zoomRequest={zoomRequest}
             />
           </div>
         )}
@@ -399,17 +414,28 @@ function useSelectedIdAndFilterAndFocus(
   settings: SettingsData
 ): {
   selectedId: string | null;
-  setSelectedId: (newId: string | null) => void;
+  setSelectedId: SetSelectedId;
   focusedId: string | null;
   setFocusedId: (id: string | null) => void;
   searchState: SearchState;
   searchDispatch: Dispatch<SearchAction>;
+  zoomRequest: ZoomRequest | null;
+  requestZoom: (kind: ZoomRequest["kind"]) => void;
 } {
   // Selection
   const [selectedId, setSelectedIdRaw] = useState<string | null>(() => {
     const { sourceId } = parseHash(window.location.hash);
     return sourceId;
   });
+
+  // Pending zoom-to-fit triggered by URL navigation (direct URL, browser
+  // back/forward, GenreLink href). Direct setSelectedId calls (graph clicks,
+  // search list clicks) deliberately do not set this.
+  const [zoomRequest, setZoomRequest] = useState<ZoomRequest | null>(null);
+  const requestZoom = useCallback(
+    (kind: ZoomRequest["kind"]) => setZoomRequest({ kind }),
+    []
+  );
 
   // Search state
   const [searchState, searchDispatch] = useSearchState(
@@ -428,23 +454,29 @@ function useSelectedIdAndFilterAndFocus(
 
   // Focus
   const [focusedId, setFocusedRawId] = useState<string | null>(null);
-  const setFocusedId = useCallback(
-    (id: string | null) => {
-      if (id) {
-        setFocusedRawId(id);
-      } else if (selectedId) {
-        setFocusedRawId(selectedId);
-      } else {
-        setFocusedRawId(null);
-      }
-    },
-    [data, selectedId, setFocusedRawId]
-  );
+  // Read selectedId via ref so setFocusedId stays referentially stable.
+  // Why: the hashchange effect below depends on setFocusedId; if that callback
+  // changed on every selection it would re-fire handleHashChange and trigger
+  // unwanted zooms on graph clicks (URL is updated by pushState before the
+  // effect re-runs).
+  const selectedIdRef = useRef(selectedId);
+  selectedIdRef.current = selectedId;
+  const setFocusedId = useCallback((id: string | null) => {
+    if (id) {
+      setFocusedRawId(id);
+    } else if (selectedIdRef.current) {
+      setFocusedRawId(selectedIdRef.current);
+    } else {
+      setFocusedRawId(null);
+    }
+  }, []);
 
-  // Wrapper function to handle updating selectedId, filter, focus, and title
-  // This is used for graph clicks (direct source selection)
+  // Wrapper that updates selectedId, search state, focus, and title. Callers
+  // pass `{ zoom: "selection" | "path" }` when the action should also trigger
+  // a zoom-to-fit (e.g. picking from the search list, setting a path
+  // endpoint). Direct graph clicks pass no options so they do not zoom.
   const setSelectedId = useCallback(
-    (newId: string | null) => {
+    (newId: string | null, opts?: SetSelectedOptions) => {
       setSelectedIdRaw(newId);
       if (newId) {
         const nodeData = data.nodes[nodeIdToInt(newId)];
@@ -463,6 +495,9 @@ function useSelectedIdAndFilterAndFocus(
         }
       }
       setFocusedId(newId);
+      // Default to no-zoom: explicitly clear any previously-set request so
+      // callers must opt in to zooming.
+      setZoomRequest(opts?.zoom ? { kind: opts.zoom } : null);
     },
     [data, setFocusedId, searchDispatch]
   );
@@ -504,6 +539,7 @@ function useSelectedIdAndFilterAndFocus(
           sourceId,
           destinationId,
         });
+        setZoomRequest({ kind: "path" });
       } else if (sourceId) {
         // Single node: #sourceId — always select as new source
         {
@@ -519,6 +555,7 @@ function useSelectedIdAndFilterAndFocus(
             type: "select-node",
             nodeId: sourceId,
           });
+          setZoomRequest({ kind: "selection" });
         }
       } else {
         // Empty hash — clear selection
@@ -543,6 +580,8 @@ function useSelectedIdAndFilterAndFocus(
     setFocusedId,
     searchState,
     searchDispatch,
+    zoomRequest,
+    requestZoom,
   };
 }
 

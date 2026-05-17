@@ -4,7 +4,6 @@ import { EdgeType } from "./data";
 export type SettingsData = {
   visibleTypes: VisibleTypes;
   general: {
-    zoomOnSelect: boolean;
     showLabels: boolean;
     showMixes: boolean;
     autoplayMixes: boolean;
@@ -96,14 +95,6 @@ export type GeneralControlDesc = ControlDesc & {
 };
 /** The general settings controls. */
 export const GENERAL_CONTROLS: GeneralControlDesc[] = [
-  {
-    type: "boolean",
-    name: "zoomOnSelect",
-    label: "Zoom on select",
-    description:
-      "Whether or not to zoom / pan the graph upon selecting a node.",
-    default: true,
-  },
   {
     type: "boolean",
     name: "showLabels",

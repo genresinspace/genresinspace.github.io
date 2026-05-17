@@ -215,9 +215,9 @@ export class GraphView {
   };
   private cursorWorld = { x: 0, y: 0 };
 
-  // --- Previous values for zoom-to-fit triggers ---
-  private prevSelectedIdForZoom: string | null = null;
-  private prevPathForZoom: string[] | null = null;
+  // --- Deferred zoom-to-fit request ---
+  // Set by requestZoomToSelection/Path; consumed after pathInfo recomputes.
+  private pendingZoom: "selection" | "path" | null = null;
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -497,6 +497,16 @@ export class GraphView {
     this.callbacks = { ...this.callbacks, ...callbacks };
   }
 
+  requestZoomToSelection(): void {
+    this.pendingZoom = "selection";
+    this.scheduleRender();
+  }
+
+  requestZoomToPath(): void {
+    this.pendingZoom = "path";
+    this.scheduleRender();
+  }
+
   destroy(): void {
     if (this.hoverTimer) clearTimeout(this.hoverTimer);
     cancelAnimationFrame(this.animFrameId);
@@ -624,16 +634,15 @@ export class GraphView {
       );
     }
 
-    // Zoom-to-fit on selection change
-    if (this.selectedId !== this.prevSelectedIdForZoom) {
-      this.prevSelectedIdForZoom = this.selectedId;
-      this.animateToSelection();
-    }
-
-    // Zoom-to-fit on path change
-    if (this.path !== this.prevPathForZoom) {
-      this.prevPathForZoom = this.path;
-      this.animateToPath();
+    // Fire any pending zoom request now that pathInfo is up to date.
+    if (this.pendingZoom !== null) {
+      const kind = this.pendingZoom;
+      this.pendingZoom = null;
+      if (kind === "selection") {
+        this.animateToSelection();
+      } else {
+        this.animateToPath();
+      }
     }
 
     // Repaint labels when state changes (theme, selection, settings, etc.)
@@ -972,7 +981,7 @@ export class GraphView {
   }
 
   private animateToSelection(): void {
-    if (!this.selectedId || !this.settings.general.zoomOnSelect) return;
+    if (!this.selectedId) return;
     if (this.path && this.path.length > 0) return;
 
     const idx = nodeIdToInt(this.selectedId);
@@ -995,12 +1004,7 @@ export class GraphView {
   }
 
   private animateToPath(): void {
-    if (
-      !this.path ||
-      this.path.length === 0 ||
-      !this.settings.general.zoomOnSelect
-    )
-      return;
+    if (!this.path || this.path.length === 0) return;
 
     const positions: [number, number][] = [];
     for (const id of this.path) {

@@ -7,6 +7,9 @@ import type { SearchMode } from "./graph/GraphViewLabels";
 
 import "./graph.css";
 
+/** A pending zoom-to-fit request. Object identity drives re-fires. */
+export type ZoomRequest = { kind: "selection" | "path" };
+
 /** Thin React wrapper that creates DOM elements and delegates to GraphView. */
 export function Graph({
   settings,
@@ -19,6 +22,7 @@ export function Graph({
   searchMode,
   onSetAsSource,
   onSetAsDestination,
+  zoomRequest,
 }: {
   settings: SettingsData;
   selectedId: string | null;
@@ -30,6 +34,7 @@ export function Graph({
   searchMode: SearchMode;
   onSetAsSource: ((nodeId: string) => void) | null;
   onSetAsDestination: ((nodeId: string) => void) | null;
+  zoomRequest: ZoomRequest | null;
 }) {
   const data = useDataContext();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -118,6 +123,16 @@ export function Graph({
   useEffect(() => {
     viewRef.current?.setViewportOffset(viewportOffsetX, viewportOffsetY);
   }, [viewportOffsetX, viewportOffsetY]);
+  // Declared last so that selectedId/path have already been forwarded to the
+  // view when this fires — the request resolves against fresh state.
+  useEffect(() => {
+    if (!zoomRequest) return;
+    if (zoomRequest.kind === "path") {
+      viewRef.current?.requestZoomToPath();
+    } else {
+      viewRef.current?.requestZoomToSelection();
+    }
+  }, [zoomRequest]);
 
   return (
     <div className="relative w-full h-full">

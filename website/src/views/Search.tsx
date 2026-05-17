@@ -16,6 +16,8 @@ import { SearchIcon } from "./components/icons/SearchIcon";
 import { SwapIcon } from "./components/icons/SwapIcon";
 import { CloseIcon } from "./components/icons/CloseIcon";
 import { VISIBLE_TYPES_BY_TYPE, VisibleTypes } from "../settings";
+import type { SetSelectedId } from "../App";
+import type { ZoomRequest } from "./Graph";
 import React from "react";
 import { useGenre } from "../services/dataCache";
 import { colourStyles } from "./colours";
@@ -119,13 +121,15 @@ export function Search({
   searchState,
   searchDispatch,
   visibleTypes,
+  requestZoom,
 }: {
   selectedId: string | null;
-  setSelectedId: (id: string | null) => void;
+  setSelectedId: SetSelectedId;
   setFocusedId: (id: string | null) => void;
   searchState: SearchState;
   searchDispatch: Dispatch<SearchAction>;
   visibleTypes: VisibleTypes;
+  requestZoom: (kind: ZoomRequest["kind"]) => void;
 }) {
   const { nodes } = useDataContext();
   const sourceRef = useRef<HTMLInputElement>(null);
@@ -224,7 +228,9 @@ export function Search({
                     type: "path:clear",
                     newSourceId: selectedId ?? searchState.sourceId,
                   });
-                  setSelectedId(selectedId ?? searchState.sourceId);
+                  setSelectedId(selectedId ?? searchState.sourceId, {
+                    zoom: "selection",
+                  });
                 } else {
                   searchDispatch({
                     type: "selected|path:set-destination-query",
@@ -242,6 +248,7 @@ export function Search({
               searchDispatch({
                 type: "path:swap-source-and-destination",
               });
+              requestZoom("path");
             }}
             title="Swap source and destination"
           >
@@ -273,12 +280,13 @@ export function Search({
               setFocusedId={setFocusedId}
               onClick={() => {
                 if (resultsAreSource) {
-                  setSelectedId(node.id);
+                  setSelectedId(node.id, { zoom: "selection" });
                 } else if (searchState.type === "selected") {
                   searchDispatch({
                     type: "selected:select-destination",
                     destinationId: node.id,
                   });
+                  requestZoom("path");
                 }
               }}
             />
@@ -297,7 +305,7 @@ export function Search({
                   setFocusedId={setFocusedId}
                   isSelected={nodeId === selectedId}
                   onClick={() => {
-                    setSelectedId(nodeId);
+                    setSelectedId(nodeId, { zoom: "selection" });
                   }}
                 />
               ))}
@@ -314,6 +322,7 @@ export function Search({
                   searchDispatch({
                     type: "path:swap-source-and-destination",
                   });
+                  requestZoom("path");
                 }}
               >
                 Try swapping direction?
