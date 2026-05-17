@@ -164,7 +164,7 @@ function SidebarContent({
   return (
     <div
       style={isMobile ? { userSelect: "auto" } : { width, userSelect: "auto" }}
-      className={`h-full ${colourStyles.sidebar.background} ${isMobile ? colourStyles.sidebar.mobileBackground : ""} ${colourStyles.text.primary} box-border flex flex-col overflow-hidden md:w-auto`}
+      className={`h-full ${colourStyles.sidebar.background} ${isMobile ? colourStyles.sidebar.mobileBackground : ""} ${colourStyles.text.primary} box-border flex flex-col overflow-hidden md:w-auto md:mr-2`}
     >
       {/* Mobile drag handle - visible only on mobile */}
       <div
