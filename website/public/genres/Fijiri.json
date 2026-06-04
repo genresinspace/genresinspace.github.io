@@ -1,10 +1,12 @@
 {
-  "description": "'''''Fijiri''''' ([[Arabic]]: '''الفجيري'''; sometimes spelled '''''fijri''''', '''''fidjeri''''', or '''''fjiri''''') is the specific repertoire of [[vocal music]] sung by the [[pearl divers]] of Eastern Arabia's [[Arab states of the Persian Gulf|coastal Gulf states]], especially [[Bahrain]] and [[Kuwait]]. A lead singer is backed up by a [[choir|chorus]] of accompanying singers and clapping. The accompanying instruments to a ''fidjeri'' ensemble are a small double-sided hand-[[drum]], known as the ''[[mirwas|mirwās]]'' ({{langx|ar|المرواس}}) and the ''jāhlah'' ({{langx|ar|الجاهلة}}), a clay pot played with both hands.\n\nThere are eight genres of fijiri: Sanginni (sung on the beach, not on the boat), Bahri, Adsani, Mkholfi, Haddadi, Hasawi, Zumayya, and Dan, the last two actually being subgenres of Hasawi and Mkholfi respectively. Bahri and Adsani are the two main genres. Pearl diver singers are referred to in Arabic as ''nahham'' ({{langx|ar|نهام}}).\n\n[[Salem Allan]] and Ahmad Butabbaniya are two of the most well-known fijiri singers from Bahrain.",
-  "last_revision_date": "2025-05-27T01:52:11Z",
+  "description": "'''{{tlit|ar|Fijiri}}''' ({{langx|ar|الفجيري|rtl=yes}}; sometimes spelled '''{{tlit|ar|fijri}}''', '''{{tlit|ar|fidjeri}}''', or '''{{tlit|ar|fjiri}}''') is the specific repertoire of [[vocal music]] sung by the [[pearl divers]] of Eastern Arabia's [[Arab states of the Persian Gulf|coastal Gulf states]], especially [[Bahrain]] and [[Kuwait]]. A lead singer is backed up by a [[choir|chorus]] of accompanying singers and clapping. The accompanying instruments to a {{tlit|ar|fidjeri}} ensemble are a small double-sided hand-[[drum]], known as the {{tlit|ar|[[mirwas|mirwās]]}} ({{lang|ar|المرواس|rtl=yes}}) and the {{tlit|ar|jāhlah}} ({{lang|ar|الجاهلة|rtl=yes}}), a clay pot played with both hands.\n\nThere are eight genres of {{tlit|ar|fijiri}}: {{tlit|ar|sanginni}} (sung on the beach, not on the boat), {{tlit|ar|bahri}}, {{tlit|ar|adsani}}, {{tlit|ar|mkholfi}}, {{tlit|ar|haddadi}}, {{tlit|ar|hasawi}}, {{tlit|ar|zumayya}}, and {{tlit|ar|dan}}; the last two are viewed as subgenres of {{tlit|ar|hasawi}} and {{tlit|ar|mkholfi}} respectively. {{tlit|ar|Bahri}} and {{tlit|ar|adsani}} are the two main genres.{{cn|date=May 2026}} Pearl diver singers are referred to in Arabic as {{tlit|ar|nahham}} ({{lang|ar|نهام|rtl=yes}}). [[Salem Allan]] and Ahmad Butabbaniya are two of the most well-known {{tlit|ar|fijiri}} singers from Bahrain.",
+  "last_revision_date": "2026-05-11T03:36:27Z",
   "mixes": [
     {
       "video": "IirxkpDiUuQ"
     }
   ],
-  "top_artists": []
+  "top_artists": [
+    "Salem Allan"
+  ]
 }
