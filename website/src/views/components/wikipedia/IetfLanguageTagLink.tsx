@@ -86,6 +86,7 @@ export function IetfLanguageTagLink({
     jv: { pageTitle: "Javanese language", name: "Javanese" },
     jvd: { pageTitle: "Javindo", name: "Javindo" },
     ka: { pageTitle: "Georgian language", name: "Georgian" },
+    kab: { pageTitle: "Kabyle language", name: "Kabyle" },
     kea: { pageTitle: "Kabuverdianu language", name: "Kabuverdianu" },
     kk: { pageTitle: "Kazakh language", name: "Kazakh" },
     kl: { pageTitle: "Greenlandic language", name: "Greenlandic" },

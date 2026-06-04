@@ -197,6 +197,7 @@ const canonicalHandlers = {
   peacock_inline: fix("peacock prose"),
   primary_source_inline: fix("non-primary source needed"),
   pronunciation_needed: fix("pronunciation?"),
+  relevance_inline: fix("relevance?"),
   "self-published_inline": fix("self-published source?"),
   source: fix("citation needed"),
   technical_inline: fix("jargon"),
@@ -274,6 +275,17 @@ const canonicalHandlers = {
       (node.parameters[0]?.value.length ?? 0) +
       (node.parameters[1]?.value.length ?? 0) +
       1,
+  },
+  "css-style": {
+    render: (node: TemplateNode) => (
+      <Wikitext
+        wikitext={
+          node.parameters[1]?.value ?? node.parameters[0]?.value ?? ""
+        }
+      />
+    ),
+    estimateLength: (node: TemplateNode) =>
+      (node.parameters[1]?.value ?? node.parameters[0]?.value ?? "").length,
   },
   cyrl: {
     render: (node: TemplateNode) => <>Cyrillic: {node.parameters[0].value}</>,
