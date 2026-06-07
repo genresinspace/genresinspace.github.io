@@ -132,6 +132,9 @@ fn genre_unclear_fixes() -> BTreeMap<PageName, (Option<Timestamp>, GenreName)> {
 pub fn edges_to_reject() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
     use EdgeType::Derivative as D;
     [
+        // "Acoustic music" is a broad instrumentation descriptor, not a genre lineage;
+        // honky-tonk descends from early country/Western swing, not from "acoustic music"
+        ("Acoustic music", "Honky-tonk", D),
         // Americana is a 1990s genre label; R&B (1940s) and rock and roll (1950s) predate it
         ("Americana", "Rhythm and blues", D),
         ("Americana", "Rock and roll", D),
@@ -220,6 +223,8 @@ pub fn edges_to_accept() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         ("Cadence rampa", "Zouk", D),
         // Cajun music influenced country, particularly in Louisiana
         ("Cajun music", "Country music", D),
+        // The cakewalk's syncopated dance music is a direct precursor to ragtime
+        ("Cakewalk", "Ragtime", D),
         // College rock is the direct precursor to alternative and indie rock
         ("College rock", "Alternative rock", D),
         ("College rock", "Indie rock", D),
@@ -327,6 +332,7 @@ pub fn edges_to_accept() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         ("Spiritual", "Rhythm and blues", D),
         // Dick Dale and surf rock influenced punk rock
         ("Surf music", "Punk rock", D),
+        ("Surf rock", "Punk rock", D),
         // Symphonic mugham is a form of world music
         ("Symphonic mugham", "World music", D),
         // Tejano and country have cross-pollinated
