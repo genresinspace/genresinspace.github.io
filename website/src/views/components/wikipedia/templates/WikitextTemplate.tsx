@@ -279,9 +279,7 @@ const canonicalHandlers = {
   "css-style": {
     render: (node: TemplateNode) => (
       <Wikitext
-        wikitext={
-          node.parameters[1]?.value ?? node.parameters[0]?.value ?? ""
-        }
+        wikitext={node.parameters[1]?.value ?? node.parameters[0]?.value ?? ""}
       />
     ),
     estimateLength: (node: TemplateNode) =>
