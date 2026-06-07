@@ -18,6 +18,8 @@ pub fn pages_to_ignore() -> Vec<PageName> {
     [
         // Redefines jazz as a genre; redundant with the "Jazz" article
         ("Outline of jazz", None),
+        // Redefines disco as a genre; redundant with the "Disco" article"
+        ("History of disco", None),
         // The "Styles of pop music" page redefined these genres instead of linking to
         // dedicated articles with subsections describing them (including their infoboxes).
         // I've fixed this in <https://en.wikipedia.org/w/index.php?title=Styles_of_pop_music&oldid=1288729877>,
