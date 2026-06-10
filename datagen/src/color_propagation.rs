@@ -40,19 +40,14 @@ fn env_usize(name: &str, default: usize) -> usize {
 /// Uses atan2 on summed unit vectors so that wrapping is handled correctly
 /// (e.g. averaging 350° and 10° yields ≈0°, not 180°).
 fn weighted_circular_mean_hue(hues_and_weights: &[(f64, f64)]) -> f64 {
-    let (sin_sum, cos_sum) =
-        hues_and_weights
-            .iter()
-            .fold((0.0_f64, 0.0_f64), |(s, c), &(h, w)| {
-                let r = h.to_radians();
-                (s + w * r.sin(), c + w * r.cos())
-            });
+    let (sin_sum, cos_sum) = hues_and_weights
+        .iter()
+        .fold((0.0_f64, 0.0_f64), |(s, c), &(h, w)| {
+            let r = h.to_radians();
+            (s + w * r.sin(), c + w * r.cos())
+        });
     let mean = sin_sum.atan2(cos_sum).to_degrees();
-    if mean < 0.0 {
-        mean + 360.0
-    } else {
-        mean
-    }
+    if mean < 0.0 { mean + 360.0 } else { mean }
 }
 
 /// Deterministic fallback hue for isolated / unreached nodes.
@@ -64,11 +59,7 @@ fn fallback_hue(index: usize) -> f64 {
 /// Shortest signed angular distance from `a` to `b` on a 0–360 circle.
 fn angular_distance(a: f64, b: f64) -> f64 {
     let d = (b - a).rem_euclid(360.0);
-    if d > 180.0 {
-        d - 360.0
-    } else {
-        d
-    }
+    if d > 180.0 { d - 360.0 } else { d }
 }
 
 /// Compute a hue (0–360) for every node in the graph.
@@ -204,8 +195,7 @@ mod tests {
         let hues = compute_hues_with_params(7, &edges, 2, 50, 0.5);
         // Node 5 should get a degree-weighted circular mean: node 0 (weight 4)
         // and node 1 (weight 2).
-        let expected =
-            weighted_circular_mean_hue(&[(hues[0], 4.0), (hues[1], 2.0)]);
+        let expected = weighted_circular_mean_hue(&[(hues[0], 4.0), (hues[1], 2.0)]);
         assert!(
             angular_distance(expected, hues[5]).abs() < 1.0,
             "expected≈{expected}, got hues[5]={}",
@@ -213,8 +203,7 @@ mod tests {
         );
         // The result should be closer to node 0's hue than node 1's
         assert!(
-            angular_distance(hues[0], hues[5]).abs()
-                < angular_distance(hues[1], hues[5]).abs(),
+            angular_distance(hues[0], hues[5]).abs() < angular_distance(hues[1], hues[5]).abs(),
             "should be closer to hues[0]={} than hues[1]={}, got hues[5]={}",
             hues[0],
             hues[1],

@@ -54,10 +54,16 @@ use rayon::prelude::*;
 
 // Layout constants (overridable via environment variables for tuning)
 fn env_f64(name: &str, default: f64) -> f64 {
-    std::env::var(name).ok().and_then(|v| v.parse().ok()).unwrap_or(default)
+    std::env::var(name)
+        .ok()
+        .and_then(|v| v.parse().ok())
+        .unwrap_or(default)
 }
 fn env_usize(name: &str, default: usize) -> usize {
-    std::env::var(name).ok().and_then(|v| v.parse().ok()).unwrap_or(default)
+    std::env::var(name)
+        .ok()
+        .and_then(|v| v.parse().ok())
+        .unwrap_or(default)
 }
 
 const MAX_TREE_DEPTH: usize = 40;
@@ -106,7 +112,14 @@ impl QuadTreeArena {
         self.insert_inner(root, pos, node_idx, charge, 0);
     }
 
-    fn insert_inner(&mut self, root: usize, pos: [f64; 2], node_idx: usize, charge: f64, depth: usize) {
+    fn insert_inner(
+        &mut self,
+        root: usize,
+        pos: [f64; 2],
+        node_idx: usize,
+        charge: f64,
+        depth: usize,
+    ) {
         if depth >= MAX_TREE_DEPTH {
             // At max depth, just accumulate mass
             let m = self.nodes[root].mass;
@@ -196,7 +209,15 @@ impl QuadTreeArena {
     }
 
     /// Compute repulsive force on a node from the tree.
-    fn compute_repulsion(&self, root: usize, px: f64, py: f64, repulsion: f64, theta: f64, force: &mut [f64; 2]) {
+    fn compute_repulsion(
+        &self,
+        root: usize,
+        px: f64,
+        py: f64,
+        repulsion: f64,
+        theta: f64,
+        force: &mut [f64; 2],
+    ) {
         let node = &self.nodes[root];
         if node.mass == 0.0 {
             return;
@@ -328,7 +349,11 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
         .map(|&(src, tgt)| {
             let intersection = neighbors[src].intersection(&neighbors[tgt]).count();
             let union = neighbors[src].union(&neighbors[tgt]).count();
-            if union == 0 { 0.0 } else { intersection as f64 / union as f64 }
+            if union == 0 {
+                0.0
+            } else {
+                intersection as f64 / union as f64
+            }
         })
         .collect();
 
@@ -394,7 +419,14 @@ pub fn compute(num_nodes: usize, adjacency: &[(usize, usize)]) -> Vec<[f64; 2]> 
             .into_par_iter()
             .map(|i| {
                 let mut force = [0.0, 0.0];
-                tree.compute_repulsion(root, positions[i][0], positions[i][1], repulsion, theta, &mut force);
+                tree.compute_repulsion(
+                    root,
+                    positions[i][0],
+                    positions[i][1],
+                    repulsion,
+                    theta,
+                    &mut force,
+                );
                 force
             })
             .collect();

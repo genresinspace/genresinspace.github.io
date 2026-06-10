@@ -30,7 +30,10 @@ impl Config {
     /// Resolve Wikipedia dump file paths by scanning the dump directory for known suffixes.
     pub fn resolve_wikipedia_paths(&self) -> anyhow::Result<WikipediaPaths> {
         let dir = &self.wikipedia_dump_dir;
-        anyhow::ensure!(dir.is_dir(), "wikipedia_dump_dir {dir:?} is not a directory");
+        anyhow::ensure!(
+            dir.is_dir(),
+            "wikipedia_dump_dir {dir:?} is not a directory"
+        );
 
         /// Find exactly one file in `dir` whose name ends with `suffix`.
         fn find(dir: &Path, suffix: &str) -> anyhow::Result<PathBuf> {

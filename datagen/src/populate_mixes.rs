@@ -6,7 +6,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-use wikitext_util::{nodes_inner_text_with_config, wikipedia_pwt_configuration, InnerTextConfig};
+use wikitext_util::{InnerTextConfig, nodes_inner_text_with_config, wikipedia_pwt_configuration};
 
 use crate::{extract, process, types::PageName};
 
@@ -132,7 +132,6 @@ pub fn run(
         let mix_path = mixes_path.join(PageName::sanitize(&pg.page));
         std::fs::write(mix_path, line)?;
     }
-
 
     Ok(())
 }

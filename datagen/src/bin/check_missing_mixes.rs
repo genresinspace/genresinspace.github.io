@@ -15,8 +15,7 @@ fn main() -> anyhow::Result<()> {
         .filter_map(Result::ok)
         .filter_map(|e| {
             let name = e.file_name().to_string_lossy().to_string();
-            name.strip_suffix(".json")
-                .map(shared::PageName::unsanitize)
+            name.strip_suffix(".json").map(shared::PageName::unsanitize)
         })
         .collect();
 

@@ -193,8 +193,8 @@ pub fn from_data_dump(
     let offsets = load_offsets(start, wiki_paths, &offsets_path)?;
 
     // Memory-map dump into memory and hope the OS will evict the pages once we're done looking at them
-    let dump_file = std::fs::File::open(&wiki_paths.dump_path)
-        .context("Failed to open Wikipedia dump")?;
+    let dump_file =
+        std::fs::File::open(&wiki_paths.dump_path).context("Failed to open Wikipedia dump")?;
     let dump_file =
         unsafe { memmap2::Mmap::map(&dump_file).context("Failed to memory-map Wikipedia dump")? };
 
@@ -285,8 +285,8 @@ fn load_offsets(
         return Ok(offsets);
     }
 
-    let index_file = std::fs::read(&wiki_paths.index_path)
-        .context("Failed to open Wikipedia index file")?;
+    let index_file =
+        std::fs::read(&wiki_paths.index_path).context("Failed to open Wikipedia index file")?;
     let index_file = std::io::BufReader::new(bzip2::bufread::BzDecoder::new(&index_file[..]));
     let mut offsets = BTreeSet::<usize>::new();
     for line in index_file.lines() {

@@ -49,13 +49,23 @@ fn main() -> anyhow::Result<()> {
 
         let source_name = GenreName(data.nodes[edge.source.0].label.0.clone());
         let target_name = GenreName(data.nodes[edge.target.0].label.0.clone());
-        let key = (source_name.clone(), target_name.clone(), EdgeType::Derivative);
+        let key = (
+            source_name.clone(),
+            target_name.clone(),
+            EdgeType::Derivative,
+        );
 
         if rejected.contains(&key) || accepted.contains(&key) {
             continue;
         }
 
-        flagged.push((source_name, source_degree, target_name, target_degree, ratio));
+        flagged.push((
+            source_name,
+            source_degree,
+            target_name,
+            target_degree,
+            ratio,
+        ));
     }
 
     if flagged.is_empty() {
@@ -63,10 +73,7 @@ fn main() -> anyhow::Result<()> {
         return Ok(());
     }
 
-    println!(
-        "{} suspicious edge(s) need review:\n",
-        flagged.len()
-    );
+    println!("{} suspicious edge(s) need review:\n", flagged.len());
     for (source, s_deg, target, t_deg, ratio) in &flagged {
         println!(
             "  {} (degree {}) -> {} (degree {}) [{:.1}x ratio]",
