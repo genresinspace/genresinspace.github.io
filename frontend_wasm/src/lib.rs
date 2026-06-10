@@ -2,6 +2,9 @@ use std::{str::FromStr as _, sync::LazyLock};
 
 use wasm_bindgen::prelude::*;
 
+mod search;
+pub use search::*;
+
 #[wasm_bindgen]
 pub fn parse_and_simplify_wikitext(
     wikitext: &str,
