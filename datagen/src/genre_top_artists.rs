@@ -18,7 +18,8 @@ pub type ArtistGenres = BTreeMap<types::PageName, BTreeSet<types::PageName>>;
 pub fn calculate(
     start: std::time::Instant,
     processed_artists: &process::ProcessedArtists,
-    artist_inbound_link_counts: &BTreeMap<types::PageName, usize>,
+    inbound_link_counts: &BTreeMap<types::PageName, usize>,
+    page_aliases: &links::PageAliases,
     links_to_articles: &links::LinksToArticles,
     output_path_gta: &Path,
     output_path_ag: &Path,
@@ -49,10 +50,9 @@ pub fn calculate(
     let mut artist_genres = ArtistGenres::new();
 
     for (artist_page, artist) in &processed_artists.0 {
-        let link_count = artist_inbound_link_counts
-            .get(artist_page)
-            .copied()
-            .unwrap_or(0) as f32;
+        // Includes links via the artist's redirects (e.g. "2Pac" → Tupac Shakur)
+        let link_count =
+            page_aliases.aggregated_link_count(artist_page, inbound_link_counts) as f32;
 
         for (genre_index, genre) in artist.genres.iter().enumerate() {
             let Some(page_name) = links_to_articles.map(genre) else {

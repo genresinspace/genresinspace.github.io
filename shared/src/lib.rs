@@ -129,3 +129,36 @@ impl FromStr for PageName {
         })
     }
 }
+
+/// Normalize text for search matching: lowercase + NFD + strip combining marks.
+///
+/// Used by both datagen (alias deduplication) and the frontend search index so
+/// that the two agree on what counts as "the same name".
+pub fn normalize_search_text(s: &str) -> String {
+    use unicode_normalization::UnicodeNormalization as _;
+    s.nfd()
+        .filter(|c| !unicode_normalization::char::is_combining_mark(*c))
+        .flat_map(|c| c.to_lowercase())
+        .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn normalize_search_text_lowercases() {
+        assert_eq!(normalize_search_text("Hip-Hop"), "hip-hop");
+    }
+
+    #[test]
+    fn normalize_search_text_strips_diacritics() {
+        assert_eq!(normalize_search_text("Pixadão"), "pixadao");
+        assert_eq!(normalize_search_text("Yé-yé"), "ye-ye");
+    }
+
+    #[test]
+    fn normalize_search_text_preserves_non_latin() {
+        assert_eq!(normalize_search_text("演歌"), "演歌");
+    }
+}

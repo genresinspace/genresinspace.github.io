@@ -30,33 +30,23 @@ fn main() -> anyhow::Result<()> {
         .resolve_wikipedia_paths()
         .context("Failed to resolve Wikipedia dump files")?;
 
-    let dump_date = util::parse_wiki_dump_date(
-        &wiki_paths
-            .dump_path
-            .file_stem()
-            .unwrap()
-            .to_string_lossy(),
-    )
-    .with_context(|| {
-        format!(
-            "Failed to parse Wikipedia dump date from {:?}",
-            wiki_paths.dump_path
-        )
-    })?;
+    let dump_date =
+        util::parse_wiki_dump_date(&wiki_paths.dump_path.file_stem().unwrap().to_string_lossy())
+            .with_context(|| {
+                format!(
+                    "Failed to parse Wikipedia dump date from {:?}",
+                    wiki_paths.dump_path
+                )
+            })?;
 
-    let index_date = util::parse_wiki_dump_date(
-        &wiki_paths
-            .index_path
-            .file_stem()
-            .unwrap()
-            .to_string_lossy(),
-    )
-    .with_context(|| {
-        format!(
-            "Failed to parse Wikipedia dump date from {:?}",
-            wiki_paths.index_path
-        )
-    })?;
+    let index_date =
+        util::parse_wiki_dump_date(&wiki_paths.index_path.file_stem().unwrap().to_string_lossy())
+            .with_context(|| {
+            format!(
+                "Failed to parse Wikipedia dump date from {:?}",
+                wiki_paths.index_path
+            )
+        })?;
 
     anyhow::ensure!(
         dump_date == index_date,
@@ -68,16 +58,7 @@ fn main() -> anyhow::Result<()> {
     let output_path = Path::new("output").join(dump_date.to_string());
     let start = std::time::Instant::now();
 
-    let extracted_data =
-        extract::from_data_dump(&wiki_paths, start, dump_date, &output_path)?;
-
-    let artist_inbound_link_counts = link_counts::read(
-        start,
-        &wiki_paths.linktargets_path,
-        &wiki_paths.links_path,
-        &extracted_data.artists.0,
-        &output_path,
-    )?;
+    let extracted_data = extract::from_data_dump(&wiki_paths, start, dump_date, &output_path)?;
 
     let processed_genres = process::genres(
         start,
@@ -101,17 +82,51 @@ fn main() -> anyhow::Result<()> {
         &output_path.join("processed_artists"),
     )?;
 
-    let links_to_articles = links::resolve(
+    // Resolved before link counting so that redirect pages can be tracked too.
+    let (links_to_articles, page_aliases) = links::resolve(
         start,
         &output_path.join("links_to_articles.json"),
+        &output_path.join("page_aliases.json"),
         processed_genres.0.keys().chain(processed_artists.0.keys()),
         extracted_data.redirects,
+    )?;
+
+    // Count inbound links to artist pages, genre root pages, and every
+    // redirect page that resolves to either — redirect-page counts are what
+    // give heading-genres and aliases ("Rap music" → Hip-hop) their weight.
+    let tracked_pages: std::collections::BTreeSet<types::PageName> = extracted_data
+        .artists
+        .0
+        .keys()
+        .cloned()
+        .chain(
+            processed_genres
+                .0
+                .keys()
+                .map(|page| page.with_opt_heading(None)),
+        )
+        .chain(
+            page_aliases
+                .0
+                .values()
+                .flatten()
+                .map(|alias| types::PageName::new(alias.as_str(), None)),
+        )
+        .collect();
+
+    let inbound_link_counts = link_counts::read(
+        start,
+        &wiki_paths.linktargets_path,
+        &wiki_paths.links_path,
+        &tracked_pages,
+        &output_path,
     )?;
 
     let (genre_top_artists, artist_genres) = genre_top_artists::calculate(
         start,
         &processed_artists,
-        &artist_inbound_link_counts,
+        &inbound_link_counts,
+        &page_aliases,
         &links_to_articles,
         &output_path.join("genre_top_artists.json"),
         &output_path.join("artist_genres.json"),
@@ -145,6 +160,8 @@ fn main() -> anyhow::Result<()> {
         mixes_path,
         website_public_path,
         &links_to_articles,
+        &page_aliases,
+        &inbound_link_counts,
         &processed_genres,
         &processed_artists,
         &genre_top_artists,

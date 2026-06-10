@@ -4,6 +4,7 @@ resolver = "2"
 
 [workspace.dependencies]
 serde = { version = "1.0", features = ["derive"] }
+unicode-normalization = "0.1"
 wikitext_util = { git = "https://github.com/philpax/wikitext_simplified.git" }
 wikitext_simplified = { git = "https://github.com/philpax/wikitext_simplified.git" }
 # wikitext_simplified = { path = "../wikitext_simplified/wikitext_simplified" }

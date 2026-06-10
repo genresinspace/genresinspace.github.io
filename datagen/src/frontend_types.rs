@@ -42,6 +42,12 @@ pub struct NodeData {
     pub page_title: Option<String>,
     /// The display label.
     pub label: GenreName,
+    /// Alternative names, derived from Wikipedia redirects (cleaned and deduplicated).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub aliases: Vec<String>,
+    /// Inbound Wikipedia link count for the genre's page and its redirects.
+    #[serde(default, skip_serializing_if = "is_zero")]
+    pub links: usize,
     /// X position from force-directed layout.
     pub x: f64,
     /// Y position from force-directed layout.
@@ -49,6 +55,10 @@ pub struct NodeData {
     /// Hue (0–360) from color propagation.
     #[serde(default)]
     pub hue: f64,
+}
+
+fn is_zero(n: &usize) -> bool {
+    *n == 0
 }
 
 /// The type of relationship between two genres.

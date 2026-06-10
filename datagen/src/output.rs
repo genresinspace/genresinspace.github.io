@@ -44,6 +44,8 @@ pub fn produce(
     mixes_path: &Path,
     output_path: &Path,
     links_to_articles: &links::LinksToArticles,
+    page_aliases: &links::PageAliases,
+    inbound_link_counts: &BTreeMap<PageName, usize>,
     processed_genres: &process::ProcessedGenres,
     processed_artists: &process::ProcessedArtists,
     genre_top_artists: &genre_top_artists::GenreTopArtists,
@@ -85,6 +87,12 @@ pub fn produce(
         let page_title = page.to_string();
 
         let node = NodeData {
+            aliases: clean_aliases(
+                &processed_genre.name.0,
+                &page_title,
+                page_aliases.0.get(page),
+            ),
+            links: page_aliases.aggregated_link_count(page, inbound_link_counts),
             page_title: (processed_genre.name.0 != page_title).then_some(page_title),
             label: processed_genre.name.clone(),
             x: 0.0,
@@ -175,7 +183,11 @@ pub fn produce(
                 if source_id == genre_id {
                     continue;
                 }
-                let edge_key = (source_name, processed_genre.name.clone(), EdgeType::Derivative);
+                let edge_key = (
+                    source_name,
+                    processed_genre.name.clone(),
+                    EdgeType::Derivative,
+                );
                 if rejected_edges.contains(&edge_key) {
                     continue;
                 }
@@ -199,7 +211,11 @@ pub fn produce(
                 if target_id == genre_id {
                     continue;
                 }
-                let edge_key = (processed_genre.name.clone(), target_name, EdgeType::Derivative);
+                let edge_key = (
+                    processed_genre.name.clone(),
+                    target_name,
+                    EdgeType::Derivative,
+                );
                 if rejected_edges.contains(&edge_key) {
                     continue;
                 }
@@ -223,7 +239,11 @@ pub fn produce(
                 if target_id == genre_id {
                     continue;
                 }
-                let edge_key = (processed_genre.name.clone(), target_name, EdgeType::Subgenre);
+                let edge_key = (
+                    processed_genre.name.clone(),
+                    target_name,
+                    EdgeType::Subgenre,
+                );
                 if rejected_edges.contains(&edge_key) {
                     continue;
                 }
@@ -247,7 +267,11 @@ pub fn produce(
                 if target_id == genre_id {
                     continue;
                 }
-                let edge_key = (processed_genre.name.clone(), target_name, EdgeType::FusionGenre);
+                let edge_key = (
+                    processed_genre.name.clone(),
+                    target_name,
+                    EdgeType::FusionGenre,
+                );
                 if rejected_edges.contains(&edge_key) {
                     continue;
                 }
@@ -367,4 +391,116 @@ pub fn produce(
     println!("{:.2}s: saved data.json", start.elapsed().as_secs_f32());
 
     Ok(())
+}
+
+/// Maximum aliases kept per genre; a defensive cap against redirect-farm pages.
+const MAX_ALIASES_PER_GENRE: usize = 32;
+/// Aliases longer than this are list-style redirect noise, not names.
+const MAX_ALIAS_LENGTH: usize = 60;
+
+/// Clean up raw redirect titles into display-worthy search aliases:
+/// strip one trailing parenthetical qualifier ("Bebop (music)" → "Bebop"),
+/// drop empties/overlong titles, and deduplicate (diacritic/case-insensitively)
+/// against the label, the page title, and each other.
+fn clean_aliases(
+    label: &str,
+    page_title: &str,
+    raw_aliases: Option<&BTreeSet<String>>,
+) -> Vec<String> {
+    let mut seen: BTreeSet<String> = [label, page_title]
+        .iter()
+        .map(|s| shared::normalize_search_text(s))
+        .collect();
+    let mut aliases: Vec<String> = vec![];
+    for alias in raw_aliases.into_iter().flatten() {
+        let alias = strip_parenthetical(alias).trim();
+        if alias.is_empty() || alias.chars().count() > MAX_ALIAS_LENGTH {
+            continue;
+        }
+        let normalized = shared::normalize_search_text(alias);
+        if normalized.is_empty() || !seen.insert(normalized) {
+            continue;
+        }
+        aliases.push(alias.to_string());
+    }
+    aliases.sort_by(|a, b| a.len().cmp(&b.len()).then_with(|| a.cmp(b)));
+    if aliases.len() > MAX_ALIASES_PER_GENRE {
+        println!(
+            "warning: capping aliases for `{label}` ({} candidates)",
+            aliases.len()
+        );
+        aliases.truncate(MAX_ALIASES_PER_GENRE);
+    }
+    aliases
+}
+
+/// Strip one trailing parenthetical qualifier: "Pop (music)" → "Pop".
+fn strip_parenthetical(alias: &str) -> &str {
+    match alias.rsplit_once(" (") {
+        Some((head, tail)) if tail.ends_with(')') && !head.is_empty() => head,
+        _ => alias,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn aliases(raw: &[&str]) -> Option<BTreeSet<String>> {
+        Some(raw.iter().map(|s| s.to_string()).collect())
+    }
+
+    #[test]
+    fn clean_aliases_strips_parenthetical_qualifiers() {
+        assert_eq!(
+            clean_aliases(
+                "Bebop",
+                "Bebop",
+                aliases(&["Bebop (music)", "Bop (jazz)"]).as_ref()
+            ),
+            vec!["Bop"]
+        );
+    }
+
+    #[test]
+    fn clean_aliases_dedups_against_label_and_page_title() {
+        assert_eq!(
+            clean_aliases(
+                "Hip-hop",
+                "Hip-hop music",
+                aliases(&["Hip hop", "HIP-HOP", "Hip-hop Music", "Rap music"]).as_ref()
+            ),
+            // "Hip hop" survives ("hip hop" != "hip-hop" normalized); exact
+            // case/diacritic variants of the label and page title do not.
+            vec!["Hip hop", "Rap music"]
+        );
+    }
+
+    #[test]
+    fn clean_aliases_drops_overlong_titles() {
+        let long = "List of every single genre that was ever considered hip hop by anyone";
+        assert_eq!(
+            clean_aliases("Hip-hop", "Hip-hop", aliases(&[long, "Rap"]).as_ref()),
+            vec!["Rap"]
+        );
+    }
+
+    #[test]
+    fn clean_aliases_sorts_by_length_then_alphabetically() {
+        assert_eq!(
+            clean_aliases(
+                "Drum and bass",
+                "Drum and bass",
+                aliases(&["Jungle music", "DnB", "D&B"]).as_ref()
+            ),
+            vec!["D&B", "DnB", "Jungle music"]
+        );
+    }
+
+    #[test]
+    fn strip_parenthetical_leaves_inner_parens_alone() {
+        assert_eq!(strip_parenthetical("A (B) (C)"), "A (B)");
+        assert_eq!(strip_parenthetical("(What) genre"), "(What) genre");
+        assert_eq!(strip_parenthetical("No qualifier"), "No qualifier");
+    }
 }

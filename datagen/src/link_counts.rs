@@ -1,9 +1,9 @@
 //! Reads the compressed Wikipedia links dump SQL to extract the number of links to each page we track.
 
 use std::{
-    collections::BTreeMap,
+    collections::{BTreeMap, BTreeSet},
     io::Read as _,
-    path::{Path, PathBuf},
+    path::Path,
 };
 
 use anyhow::Context as _;
@@ -14,10 +14,10 @@ pub(crate) fn read(
     start: std::time::Instant,
     wikipedia_linktargets_path: &Path,
     wikipedia_links_path: &Path,
-    page_names: &BTreeMap<types::PageName, PathBuf>,
+    tracked_pages: &BTreeSet<types::PageName>,
     output_path: &Path,
 ) -> anyhow::Result<BTreeMap<types::PageName, usize>> {
-    let output_file_path = output_path.join("artist_inbound_link_counts.json");
+    let output_file_path = output_path.join("inbound_link_counts.json");
     if output_file_path.is_file() {
         return serde_json::from_str(&std::fs::read_to_string(&output_file_path).with_context(
             || {
@@ -35,19 +35,24 @@ pub(crate) fn read(
         });
     }
 
-    let linktargets = linktargets::read(start, wikipedia_linktargets_path, page_names, output_path)
-        .with_context(|| {
-            format!(
-                "Failed to read linktargets from: {}",
-                wikipedia_linktargets_path.display()
-            )
-        })?;
+    let linktargets = linktargets::read(
+        start,
+        wikipedia_linktargets_path,
+        tracked_pages,
+        output_path,
+    )
+    .with_context(|| {
+        format!(
+            "Failed to read linktargets from: {}",
+            wikipedia_linktargets_path.display()
+        )
+    })?;
 
     links::read(
         start,
         wikipedia_links_path,
         &linktargets,
-        page_names,
+        tracked_pages,
         &output_file_path,
     )
     .with_context(|| {
@@ -117,10 +122,10 @@ mod linktargets {
     pub(crate) fn read(
         start: std::time::Instant,
         wikipedia_linktargets_path: &Path,
-        page_names: &BTreeMap<types::PageName, PathBuf>,
+        tracked_pages: &BTreeSet<types::PageName>,
         output_path: &Path,
     ) -> anyhow::Result<BTreeMap<u64, types::PageName>> {
-        let output_file_path = output_path.join("linktargets.json");
+        let output_file_path = output_path.join("linktargets_tracked.json");
         if output_file_path.is_file() {
             return serde_json::from_str(
                 &std::fs::read_to_string(&output_file_path).with_context(|| {
@@ -159,8 +164,13 @@ mod linktargets {
 
         let mut linktargets: BTreeMap<u64, types::PageName> = BTreeMap::new();
 
-        parse_linktarget_tuple_stream(&mut linktargets_file, start, page_names, &mut linktargets)
-            .context("Failed to parse linktarget tuples from stream")?;
+        parse_linktarget_tuple_stream(
+            &mut linktargets_file,
+            start,
+            tracked_pages,
+            &mut linktargets,
+        )
+        .context("Failed to parse linktarget tuples from stream")?;
 
         std::fs::write(
             &output_file_path,
@@ -180,7 +190,7 @@ mod linktargets {
     fn parse_linktarget_tuple_stream(
         stream: &mut impl std::io::BufRead,
         start: std::time::Instant,
-        page_names: &BTreeMap<types::PageName, PathBuf>,
+        tracked_pages: &BTreeSet<types::PageName>,
         output: &mut BTreeMap<u64, types::PageName>,
     ) -> anyhow::Result<()> {
         enum ParseState {
@@ -340,7 +350,7 @@ mod linktargets {
                         // Only process tuples with namespace 0
                         if lt_namespace == 0 {
                             let page_name = types::PageName::new(&lt_title, None);
-                            if page_names.contains_key(&page_name) {
+                            if tracked_pages.contains(&page_name) {
                                 output.insert(lt_id, page_name);
                             }
                         }
@@ -383,12 +393,12 @@ mod linktargets {
             types::PageName::new(name, None)
         }
 
-        static PAGE_NAMES: LazyLock<BTreeMap<types::PageName, PathBuf>> = LazyLock::new(|| {
-            let mut map = BTreeMap::new();
-            map.insert(pn("Example Page"), PathBuf::from("example_page"));
-            map.insert(pn("Another Example"), PathBuf::from("another_example"));
-            map.insert(pn("Test Article"), PathBuf::from("test_article"));
-            map
+        static PAGE_NAMES: LazyLock<BTreeSet<types::PageName>> = LazyLock::new(|| {
+            BTreeSet::from_iter([
+                pn("Example Page"),
+                pn("Another Example"),
+                pn("Test Article"),
+            ])
         });
 
         #[test]
@@ -474,8 +484,7 @@ mod linktargets {
 
         #[test]
         fn test_parse_linktarget_with_escaped_characters() {
-            let mut page_names = BTreeMap::new();
-            page_names.insert(pn("Example'Page"), PathBuf::from("example_page"));
+            let page_names = BTreeSet::from_iter([pn("Example'Page")]);
 
             let mut output = BTreeMap::new();
             let data = "(123,0,'Example\\'Page')";
@@ -500,7 +509,7 @@ mod links {
         start: std::time::Instant,
         wikipedia_links_path: &Path,
         linktargets: &BTreeMap<u64, types::PageName>,
-        page_names: &BTreeMap<types::PageName, PathBuf>,
+        tracked_pages: &BTreeSet<types::PageName>,
         output_file_path: &Path,
     ) -> anyhow::Result<BTreeMap<types::PageName, usize>> {
         println!(
@@ -517,30 +526,30 @@ mod links {
         common::skip_until_prefix(&mut links_file, b"INSERT INTO `pagelinks` VALUES ")
             .context("Failed to find INSERT INTO `pagelinks` VALUES statement in links file")?;
 
-        let mut artist_inbound_link_counts: BTreeMap<types::PageName, usize> =
-            page_names.keys().map(|id| (id.clone(), 0)).collect();
+        let mut inbound_link_counts: BTreeMap<types::PageName, usize> =
+            tracked_pages.iter().map(|id| (id.clone(), 0)).collect();
 
         parse_tuple_byte_stream(
             &mut links_file,
             start,
             linktargets,
-            &mut artist_inbound_link_counts,
+            &mut inbound_link_counts,
         )
         .context("Failed to parse pagelinks tuples from stream")?;
 
         std::fs::write(
             output_file_path,
-            serde_json::to_string_pretty(&artist_inbound_link_counts)
-                .context("Failed to serialize artist inbound link counts to JSON")?,
+            serde_json::to_string_pretty(&inbound_link_counts)
+                .context("Failed to serialize inbound link counts to JSON")?,
         )
         .with_context(|| {
             format!(
-                "Failed to write artist inbound link counts to file: {}",
+                "Failed to write inbound link counts to file: {}",
                 output_file_path.display()
             )
         })?;
 
-        Ok(artist_inbound_link_counts)
+        Ok(inbound_link_counts)
     }
 
     fn parse_tuple_byte_stream(
