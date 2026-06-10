@@ -68,6 +68,10 @@ export type NodeOnDiskData = {
   page_title?: string;
   /** The node's label. */
   label: string;
+  /** Alternative names, derived from Wikipedia redirects. Absent in older data. */
+  aliases?: string[];
+  /** Inbound Wikipedia link count for the genre's page. Absent in older data. */
+  links?: number;
   /** The node's precomputed x position from force-directed layout. */
   x: number;
   /** The node's precomputed y position from force-directed layout. */

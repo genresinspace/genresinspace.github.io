@@ -1,19 +1,8 @@
-import {
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-  useMemo,
-  Dispatch,
-} from "react";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 
 import { Graph, ZoomRequest } from "./views/Graph";
-import {
-  Search,
-  SearchAction,
-  SearchState,
-  useSearchState,
-} from "./views/Search";
+import { SearchPanel } from "./views/search/SearchPanel";
+import { RouteSearch, useRouteSearch } from "./views/search/useRouteState";
 import { DEFAULT_SETTINGS, SettingsData } from "./settings";
 import {
   Data,
@@ -137,46 +126,31 @@ function LoadedApp({ data }: { data: Data }) {
     setSelectedId,
     focusedId,
     setFocusedId,
-    searchState,
-    searchDispatch,
+    route,
+    routeDispatch,
+    path,
+    reversePath,
+    results,
+    searchMode,
     zoomRequest,
     requestZoom,
-  } = useSelectedIdAndFilterAndFocus(data, settings);
-
-  const searchMode = searchState.type;
+  } = useSelectionAndRoute(data, settings);
 
   const onSetAsSource = useMemo(() => {
     if (searchMode !== "path") return null;
     return (nodeId: string) => {
-      if (searchState.type === "path") {
-        searchDispatch({
-          type: "restore-path",
-          sourceId: nodeId,
-          destinationId: searchState.destinationId,
-        });
-        setSelectedId(nodeId);
-      }
+      routeDispatch({ type: "set-id", slot: "source", id: nodeId });
+      setSelectedId(nodeId);
     };
-  }, [searchMode, searchState, searchDispatch, setSelectedId]);
+  }, [searchMode, routeDispatch, setSelectedId]);
 
   const onSetAsDestination = useMemo(() => {
     if (searchMode === "initial") return null;
     return (nodeId: string) => {
-      if (searchState.type === "selected") {
-        searchDispatch({
-          type: "selected:select-destination",
-          destinationId: nodeId,
-        });
-      } else if (searchState.type === "path") {
-        searchDispatch({
-          type: "restore-path",
-          sourceId: searchState.sourceId,
-          destinationId: nodeId,
-        });
-      }
+      routeDispatch({ type: "set-id", slot: "destination", id: nodeId });
       setSelectedId(nodeId);
     };
-  }, [searchMode, searchState, searchDispatch, setSelectedId]);
+  }, [searchMode, routeDispatch, setSelectedId]);
 
   // Mobile sidebar state
   const [mobileSidebarHeight, setMobileSidebarHeight] = useState(50); // percentage
@@ -336,14 +310,20 @@ function LoadedApp({ data }: { data: Data }) {
   const viewportOffsetY = isMobile ? -sidebarHeightPx : 0;
 
   const searchComponent = (
-    <Search
+    <SearchPanel
+      route={route}
+      routeDispatch={routeDispatch}
+      path={path}
+      reversePath={reversePath}
+      results={results}
       selectedId={selectedId}
-      setFocusedId={setFocusedId}
-      searchState={searchState}
-      searchDispatch={searchDispatch}
-      visibleTypes={settings.visibleTypes}
       setSelectedId={setSelectedId}
+      setFocusedId={setFocusedId}
+      visibleTypes={settings.visibleTypes}
       requestZoom={requestZoom}
+      onSetAsSource={onSetAsSource}
+      onSetAsDestination={onSetAsDestination}
+      isMobile={isMobile}
     />
   );
 
@@ -358,7 +338,7 @@ function LoadedApp({ data }: { data: Data }) {
               selectedId={selectedId}
               setSelectedId={setSelectedId}
               focusedId={focusedId}
-              path={searchState.type === "path" ? searchState.path : null}
+              path={path}
               viewportOffsetX={viewportOffsetX}
               viewportOffsetY={viewportOffsetY}
               searchMode={searchMode}
@@ -409,16 +389,14 @@ function LoadedApp({ data }: { data: Data }) {
   );
 }
 
-function useSelectedIdAndFilterAndFocus(
+function useSelectionAndRoute(
   data: Data,
   settings: SettingsData
-): {
+): RouteSearch & {
   selectedId: string | null;
   setSelectedId: SetSelectedId;
   focusedId: string | null;
   setFocusedId: (id: string | null) => void;
-  searchState: SearchState;
-  searchDispatch: Dispatch<SearchAction>;
   zoomRequest: ZoomRequest | null;
   requestZoom: (kind: ZoomRequest["kind"]) => void;
 } {
@@ -437,20 +415,10 @@ function useSelectedIdAndFilterAndFocus(
     []
   );
 
-  // Search state
-  const [searchState, searchDispatch] = useSearchState(
-    data.nodes,
-    data.edges,
-    settings.visibleTypes,
-    selectedId
-  );
-
-  // Use a ref to access searchState in callbacks without re-creating them
-
-  useEffect(() => {
-    // Ensure the path is rebuilt when the visible types change
-    searchDispatch({ type: "path:rebuild" });
-  }, [searchDispatch, settings.visibleTypes]);
+  // Route state; the path, reverse path, and search results are derived from
+  // it, so a visibleTypes change recomputes them with no action required.
+  const routeSearch = useRouteSearch(data, settings.visibleTypes);
+  const { route, routeDispatch } = routeSearch;
 
   // Focus
   const [focusedId, setFocusedRawId] = useState<string | null>(null);
@@ -480,15 +448,16 @@ function useSelectedIdAndFilterAndFocus(
       setSelectedIdRaw(newId);
       if (newId) {
         const nodeData = data.nodes[nodeIdToInt(newId)];
-        searchDispatch({
-          type: "select-node",
-          nodeId: newId,
-        });
+        routeDispatch({ type: "select-node", id: newId });
         if (nodeData) {
           document.title = `genres in space: ${nodeData.label}`;
         }
       } else {
-        searchDispatch({ type: "selected:clear-source" });
+        routeDispatch({
+          type: "set-route",
+          sourceId: null,
+          destinationId: null,
+        });
         document.title = "genres in space";
         if (window.location.hash) {
           window.history.pushState(null, "", window.location.pathname);
@@ -499,23 +468,21 @@ function useSelectedIdAndFilterAndFocus(
       // callers must opt in to zooming.
       setZoomRequest(opts?.zoom ? { kind: opts.zoom } : null);
     },
-    [data, setFocusedId, searchDispatch]
+    [data, setFocusedId, routeDispatch]
   );
 
-  // Sync URL hash whenever search state or selectedId changes
+  // Sync URL hash whenever the route or selectedId changes
   // Clearing the hash is handled imperatively in setSelectedId(null)
+  const sourceId = route.source.id;
+  const destinationId = route.destination.id;
   useEffect(() => {
-    if (searchState.type === "initial") return;
+    if (!sourceId) return;
 
-    const sourceId = searchState.sourceId;
-    const destinationId =
-      searchState.type === "path" ? searchState.destinationId : null;
     const newHash = buildHash(sourceId, destinationId, selectedId);
-
     if (window.location.hash !== newHash) {
       window.history.pushState(null, "", newHash);
     }
-  }, [searchState, selectedId]);
+  }, [sourceId, destinationId, selectedId]);
 
   // Handle hash changes (browser back/forward, GenreLink clicks)
   useEffect(() => {
@@ -534,35 +501,28 @@ function useSelectedIdAndFilterAndFocus(
           document.title = `genres in space: ${nodeData.label}`;
         }
         setFocusedId(effectiveSelectedId);
-        searchDispatch({
-          type: "restore-path",
-          sourceId,
-          destinationId,
-        });
+        routeDispatch({ type: "set-route", sourceId, destinationId });
         setZoomRequest({ kind: "path" });
       } else if (sourceId) {
         // Single node: #sourceId — always select as new source
-        {
-          setSelectedIdRaw(sourceId);
-          const nodeData = data.nodes[nodeIdToInt(sourceId)];
-          if (nodeData) {
-            document.title = `genres in space: ${nodeData.label}`;
-          }
-          setFocusedId(sourceId);
-          // Clear any existing path/selection, then select the new node
-          searchDispatch({ type: "selected:clear-source" });
-          searchDispatch({
-            type: "select-node",
-            nodeId: sourceId,
-          });
-          setZoomRequest({ kind: "selection" });
+        setSelectedIdRaw(sourceId);
+        const nodeData = data.nodes[nodeIdToInt(sourceId)];
+        if (nodeData) {
+          document.title = `genres in space: ${nodeData.label}`;
         }
+        setFocusedId(sourceId);
+        routeDispatch({ type: "set-route", sourceId, destinationId: null });
+        setZoomRequest({ kind: "selection" });
       } else {
         // Empty hash — clear selection
         setSelectedIdRaw(null);
         document.title = "genres in space";
         setFocusedId(null);
-        searchDispatch({ type: "selected:clear-source" });
+        routeDispatch({
+          type: "set-route",
+          sourceId: null,
+          destinationId: null,
+        });
       }
     };
 
@@ -571,15 +531,14 @@ function useSelectedIdAndFilterAndFocus(
 
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [setFocusedId, searchDispatch, data]);
+  }, [setFocusedId, routeDispatch, data]);
 
   return {
+    ...routeSearch,
     selectedId,
     setSelectedId,
     focusedId,
     setFocusedId,
-    searchState,
-    searchDispatch,
     zoomRequest,
     requestZoom,
   };
