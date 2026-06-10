@@ -1,9 +1,10 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 import { useDataContext } from "../data";
 import type { SettingsData } from "../settings";
 import { GraphView } from "./graph/GraphView";
 import type { SearchMode } from "./graph/GraphViewLabels";
+import { Notice } from "./components/Notice";
 
 import "./graph.css";
 
@@ -40,6 +41,9 @@ export function Graph({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const labelContainerRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<GraphView | null>(null);
+  // Set when the WebGL renderer can't start (e.g. no WebGL2 support); we then
+  // show a notice in the graph area and leave the rest of the app usable.
+  const [glError, setGlError] = useState(false);
 
   // Stable refs so the constructor effect can read current prop values
   const callbackRefs = useRef({
@@ -75,26 +79,36 @@ export function Graph({
     if (!canvas || !labelContainer) return;
 
     const p = propsRef.current;
-    const view = new GraphView(
-      canvas,
-      labelContainer,
-      data,
-      p.settings,
-      {
-        setSelectedId: (id) => callbackRefs.current.setSelectedId(id),
-        onSetAsSource: (id) => callbackRefs.current.onSetAsSource?.(id),
-        onSetAsDestination: (id) =>
-          callbackRefs.current.onSetAsDestination?.(id),
-      },
-      {
-        selectedId: p.selectedId,
-        focusedId: p.focusedId,
-        path: p.path,
-        searchMode: p.searchMode,
-        viewportOffsetX: p.viewportOffsetX,
-        viewportOffsetY: p.viewportOffsetY,
-      }
-    );
+    let view: GraphView;
+    try {
+      view = new GraphView(
+        canvas,
+        labelContainer,
+        data,
+        p.settings,
+        {
+          setSelectedId: (id) => callbackRefs.current.setSelectedId(id),
+          onSetAsSource: (id) => callbackRefs.current.onSetAsSource?.(id),
+          onSetAsDestination: (id) =>
+            callbackRefs.current.onSetAsDestination?.(id),
+        },
+        {
+          selectedId: p.selectedId,
+          focusedId: p.focusedId,
+          path: p.path,
+          searchMode: p.searchMode,
+          viewportOffsetX: p.viewportOffsetX,
+          viewportOffsetY: p.viewportOffsetY,
+        }
+      );
+    } catch (e) {
+      // Most likely WebGL2 is unavailable; degrade to a notice and keep the
+      // rest of the app (search, sidebar) working. viewRef stays null, so the
+      // prop-forwarding effects below become no-ops.
+      console.error("Graph: failed to initialise the WebGL renderer", e);
+      setGlError(true);
+      return;
+    }
     viewRef.current = view;
 
     return () => {
@@ -150,6 +164,23 @@ export function Graph({
           transformOrigin: "0 0",
         }}
       />
+      {glError && (
+        <div className="absolute inset-0 flex items-center justify-center p-4">
+          <div className="max-w-md">
+            <Notice colour="yellow">
+              <p className="font-semibold mb-1">
+                Couldn&rsquo;t display the graph
+              </p>
+              <p className="text-sm">
+                Your browser doesn&rsquo;t support WebGL2, which the interactive
+                graph needs to render. You can still search for genres and
+                browse their details from the panels. Try updating your browser
+                or enabling hardware acceleration.
+              </p>
+            </Notice>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
