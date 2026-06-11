@@ -180,7 +180,7 @@ export function SearchPanel({
           pendingFocus.current = "source";
         }}
       >
-        <SearchIcon width={16} height={16} stroke="#8d97ad" />
+        <SearchIcon width={16} height={16} stroke="#9ba6bc" />
         Search genres...
       </button>
     );
@@ -255,7 +255,7 @@ export function SearchPanel({
             onClick={swap}
             title="Swap source and destination"
           >
-            <SwapIcon width={16} height={16} stroke="#8d97ad" />
+            <SwapIcon width={16} height={16} stroke="#9ba6bc" />
           </button>
         )}
       </div>
@@ -334,7 +334,7 @@ function SlotRow({
         <div className="w-6 flex-none flex items-center justify-center">
           <span
             className={`w-2.5 h-2.5 rounded-full ${
-              node ? "" : "border-2 border-[#8d97ad]"
+              node ? "" : "border-2 border-[#9ba6bc]"
             }`}
             style={
               node
@@ -364,14 +364,14 @@ function SlotRow({
             onClick={onClear}
             title={`Clear ${slotName}`}
           >
-            <CloseIcon width={16} height={16} stroke="#8d97ad" />
+            <CloseIcon width={16} height={16} stroke="#9ba6bc" />
           </button>
         </>
       ) : (
         <div className="relative flex-1 min-w-0 h-full">
           {!showRail && (
             <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
-              <SearchIcon width={16} height={16} stroke="#8d97ad" />
+              <SearchIcon width={16} height={16} stroke="#9ba6bc" />
             </div>
           )}
           <input
@@ -401,7 +401,7 @@ function SlotRow({
               onClick={onClear}
               title={`Clear ${slotName}`}
             >
-              <CloseIcon width={16} height={16} stroke="#8d97ad" />
+              <CloseIcon width={16} height={16} stroke="#9ba6bc" />
             </button>
           )}
         </div>

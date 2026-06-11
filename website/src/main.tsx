@@ -38,7 +38,7 @@ root.render(
           fontSize: "0.875rem",
           marginTop: "0.5rem",
           fontStyle: "italic",
-          color: "#8d97ad",
+          color: "#9ba6bc",
         }}
       >
         polishing the telescope lenses&hellip;

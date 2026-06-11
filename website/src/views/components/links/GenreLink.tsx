@@ -1,5 +1,5 @@
 import {
-  nodeColour,
+  nodeColourReadable,
   useNodeColourLightness,
   NodeData,
   nodePageTitle,
@@ -48,10 +48,15 @@ export function GenreLink({
     onMouseLeave: onMouseLeaveProp,
   });
 
+  // Readable variants: hue is preserved but lightness is lifted until the
+  // link clears a minimum contrast against the navy sidebar plates, so dark
+  // blues/violets don't sink into the background.
   const [genreColour, genreColourHover] = [
-    nodeColourLightness.LinkText,
-    nodeColourLightness.LinkTextHover,
-  ].map((lightness) => nodeColour(node, maxDegree, lightness, 30));
+    [nodeColourLightness.LinkText, 6] as const,
+    [nodeColourLightness.LinkTextHover, 7.5] as const,
+  ].map(([lightness, minContrast]) =>
+    nodeColourReadable(node, maxDegree, lightness, 30, minContrast)
+  );
 
   return (
     <>
@@ -71,10 +76,12 @@ export function GenreLink({
           props.children
         ) : (
           <span className="whitespace-nowrap">
+            {/* Small and translucent: a quiet wayfinding mark, not a glyph
+                competing with the link text itself. */}
             <NoteIcon
-              width={14}
-              height={14}
-              className="inline-block align-[-0.1em]"
+              width={11}
+              height={11}
+              className="inline-block align-[-0.05em] opacity-55"
             />{" "}
             {props.children}
           </span>

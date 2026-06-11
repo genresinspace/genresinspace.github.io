@@ -150,6 +150,49 @@ export function nodeColour(
   return colour;
 }
 
+/** Relative luminance (WCAG) of an HSL colour. */
+function hslLuminance(hue: number, sat: number, lightness: number): number {
+  const s = Math.min(sat, 100) / 100;
+  const l = lightness / 100;
+  const k = (n: number) => (n + hue / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const channel = (n: number) => {
+    const v = l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  };
+  return 0.2126 * channel(0) + 0.7152 * channel(8) + 0.0722 * channel(4);
+}
+
+/** Relative luminance of the navy instrument plates that inline genre links
+ *  sit on (see `plate-shell` in tailwind.css, #080d1c). */
+const PLATE_LUMINANCE = hslLuminance(222, 56, 7);
+
+/**
+ * Like {@link nodeColour}, but enforces a minimum WCAG contrast ratio against
+ * the sidebar's navy plates by lifting lightness for perceptually-dark hues
+ * (blues/violets read far darker than yellows at the same HSL lightness).
+ * Use for inline text links, where readability beats hue fidelity.
+ */
+export function nodeColourReadable(
+  node: NodeData,
+  maxDegree: number,
+  lightness: number,
+  saturationBoost: number = 0,
+  minContrast: number = 6
+) {
+  const sat =
+    ((node.edges.length / maxDegree) * 0.8 + 0.2) * 100 + saturationBoost;
+  let l = lightness;
+  while (
+    l < 92 &&
+    (hslLuminance(node.hue, sat, l) + 0.05) / (PLATE_LUMINANCE + 0.05) <
+      minContrast
+  ) {
+    l += 2;
+  }
+  return `hsl(${node.hue}, ${sat}%, ${l}%)`;
+}
+
 /** The types of edges in the graph. */
 export const EdgeType = {
   Derivative: 0,

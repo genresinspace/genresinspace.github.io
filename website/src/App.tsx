@@ -35,6 +35,25 @@ const ENABLE_ARROW_KEY_NAVIGATION = import.meta.env.DEV;
 // Minimum height for mobile sidebar when collapsed (percentage of viewport)
 const MOBILE_SIDEBAR_MIN_HEIGHT = 10;
 
+/**
+ * Normalize one hash part to a canonical node id. Hashes may carry a
+ * human-readable slug after the numeric id (e.g. "48 ambient" / "48%20ambient");
+ * everything downstream compares ids as exact strings ("48"), so the slug must
+ * be stripped here — otherwise e.g. the selected star never matches
+ * `node.id === selectedId` and loses its graph label.
+ */
+function canonicalNodeId(part: string | undefined): string | null {
+  if (!part) return null;
+  let decoded = part;
+  try {
+    decoded = decodeURIComponent(part);
+  } catch {
+    // Malformed escape sequence: fall back to the raw text
+  }
+  const id = parseInt(decoded, 10);
+  return Number.isFinite(id) ? String(id) : null;
+}
+
 /** Parse hash string into source, optional destination, and optional selected IDs */
 function parseHash(hash: string): {
   sourceId: string | null;
@@ -45,9 +64,9 @@ function parseHash(hash: string): {
   if (!raw) return { sourceId: null, destinationId: null, selectedId: null };
 
   const parts = raw.split(",");
-  const sourceId = parts[0] || null;
-  const destinationId = parts.length > 1 ? parts[1] || null : null;
-  const selectedId = parts.length > 2 ? parts[2] || null : null;
+  const sourceId = canonicalNodeId(parts[0]);
+  const destinationId = parts.length > 1 ? canonicalNodeId(parts[1]) : null;
+  const selectedId = parts.length > 2 ? canonicalNodeId(parts[2]) : null;
   return { sourceId, destinationId, selectedId };
 }
 

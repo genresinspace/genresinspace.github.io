@@ -135,22 +135,26 @@ export const LABEL_PADDING_V = 8;
 /** Inter-label gap added to bounding boxes for overlap culling (px). */
 export const LABEL_GAP = 4;
 /** Extra HSL lightness added to labels for the dark graph background. */
-export const LABEL_LIGHTNESS_BOOST = 5;
+export const LABEL_LIGHTNESS_BOOST = 7;
 /** Screen-pixel grid columns for spatial label bucketing. */
 export const LABEL_GRID_COLS = 8;
 /** Screen-pixel grid rows for spatial label bucketing. */
 export const LABEL_GRID_ROWS = 6;
 /** Base font size for labels (px). */
-export const LABEL_FONT_SIZE_BASE = 10;
-/** Max font size contribution from edge degree (px). */
-export const LABEL_FONT_SIZE_DEGREE = 6;
+export const LABEL_FONT_SIZE_BASE = 11;
+/** Max font size contribution from edge degree (px). Generous, so the
+ *  first-magnitude genres read like the big engraved names on a chart. */
+export const LABEL_FONT_SIZE_DEGREE = 9;
 /** Label opacity falloff base per distance step. */
 export const LABEL_OPACITY_FALLOFF = 0.25;
 /** HSL lightness boost added to each label colour when hovered. */
 export const LABEL_HOVER_LIGHTNESS_BOOST = 5;
 /** HSL lightness boost added to each label colour when selected. */
 export const LABEL_SELECTED_LIGHTNESS_BOOST = 20;
+/** Font-size multiplier for the selected node's label: the chart's primary
+ *  focus should be readable without leaning in, regardless of degree. */
+export const LABEL_SELECTED_SIZE_MULT = 1.35;
 /** CSS brightness for labels outside the selected net. */
-export const LABEL_DIM_BRIGHTNESS = 0.4;
+export const LABEL_DIM_BRIGHTNESS = 0.5;
 /** Opacity for labels outside the selected net. */
-export const LABEL_DIM_OPACITY = 0.2;
+export const LABEL_DIM_OPACITY = 0.28;

@@ -32,6 +32,7 @@ import {
   LABEL_SELECTED_LIGHTNESS_BOOST,
   LABEL_DIM_BRIGHTNESS,
   LABEL_DIM_OPACITY,
+  LABEL_SELECTED_SIZE_MULT,
   CURSOR_PROXIMITY_RADIUS,
 } from "./graphConstants";
 
@@ -131,8 +132,14 @@ function buildCandidates(
       LABEL_FONT_SIZE_BASE +
       (node.edges.length / maxDegree) * LABEL_FONT_SIZE_DEGREE;
     const fullScale = camera.zoom / LABEL_ZOOM_THRESHOLD;
+    const selectedMult =
+      selectedId !== null && node.id === selectedId
+        ? LABEL_SELECTED_SIZE_MULT
+        : 1;
     const fontSize =
-      baseFontSize * Math.max(1, 1 + (fullScale - 1) * LABEL_ZOOM_RATE);
+      baseFontSize *
+      selectedMult *
+      Math.max(1, 1 + (fullScale - 1) * LABEL_ZOOM_RATE);
 
     let priority = node.edges.length;
     let inSelectedNet = false;
@@ -488,8 +495,8 @@ function updateLabelStyle(
   const touchOffset = el.dataset.touchActive ? -TOUCH_LIFT_PX : 0;
   s.transform = `translate(${label.screenX}px, ${label.screenY + touchOffset}px) translate(-50%, -100%)`;
   s.fontSize = `${label.fontSize}px`;
-  s.backgroundColor = `color-mix(in srgb, ${bgColor} 70%, #04060f)`;
-  s.borderColor = `color-mix(in srgb, ${textColor} 35%, transparent)`;
+  s.backgroundColor = `color-mix(in srgb, ${bgColor} 78%, #04060f)`;
+  s.borderColor = `color-mix(in srgb, ${textColor} 50%, transparent)`;
   s.color = textColor;
   s.filter = filterStyle;
   s.opacity = String(opacityStyle);

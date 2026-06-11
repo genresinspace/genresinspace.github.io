@@ -173,7 +173,10 @@ function GenreDescription({
   const prefixDetected = stripped !== description;
 
   return (
-    <div className={`px-4 py-3 ${colourStyles.bg.card}`}>
+    // The primary reading surface: a notch larger and airier than the UI text
+    <div
+      className={`px-4 py-3 text-[1.0625rem] leading-[1.7] ${colourStyles.bg.card}`}
+    >
       <WikitextTruncateAtNewline
         wikitext={prefixDetected ? stripped : description}
         expandable={true}
@@ -489,7 +492,9 @@ function ConnectionItem({
       >
         {node.label || node.id}
       </GenreLink>
-      <small className={`block ${colourStyles.text.secondary}`}>
+      <small
+        className={`block mt-0.5 leading-normal ${colourStyles.text.secondary}`}
+      >
         {genreData ? (
           shortDescription ? (
             <DisableTooltips>
@@ -637,7 +642,7 @@ function Artist({
               />
             </a>
           </div>
-          <div className="text-xs mb-2">
+          <div className="text-[0.8125rem] mb-2">
             Known for:{" "}
             {artistData.genres
               .map((genreId) => nodes[genreId])
@@ -655,7 +660,9 @@ function Artist({
                 </>
               ))}
           </div>
-          <div className={`text-xs ${colourStyles.text.secondary}`}>
+          <div
+            className={`text-[0.8125rem] leading-normal ${colourStyles.text.secondary}`}
+          >
             {artistData?.description ? (
               <WikitextTruncateAtLength
                 wikitext={artistData.description}

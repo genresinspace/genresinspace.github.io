@@ -18,12 +18,16 @@
 // Base colour tokens — the building blocks for all component styles
 // ---------------------------------------------------------------------------
 
-// Text — warm starlight primary, cool slate secondary
+// Text — warm starlight primary, cool slate secondary. Secondary tones are
+// kept bright enough to clear ~6:1 contrast on the navy plates even at the
+// small sizes they're used for.
 const textPrimary = "text-[#e9e3d3]";
-const textSecondary = "text-[#93a0b9]";
+const textSecondary = "text-[#a6b2c9]";
 const textOnAccent = "text-[#f4eedd]";
 // Brass: the primary instrument accent
 const textBrass = "text-[#d9c08a]";
+// Brighter brass for active/selected emphasis (tabs, highlighted controls)
+const textBrassBright = "text-[#ecd9ae]";
 
 // Backgrounds — instrument plate tiers
 const bgApp = "bg-[#04060f]";
@@ -60,9 +64,9 @@ export const colourStyles = {
     link: "text-[#8fd0e0]",
     linkHover: "text-[#8fd0e0] hover:text-[#b8e4ef]",
     accentLink: "text-[#d9c08a]",
-    toggle: "text-[#93a0b9] hover:text-[#e9e3d3]",
-    meta: "text-[#8d97ad]",
-    metaInline: "text-[#76819a]",
+    toggle: "text-[#a6b2c9] hover:text-[#e9e3d3]",
+    meta: "text-[#9ba6bc]",
+    metaInline: "text-[#8893aa]",
   },
 
   bg: {
@@ -89,12 +93,12 @@ export const colourStyles = {
     selectedRing: "ring-[#c9a86a]",
     audioSection: "border-[#3a486b]",
     audioContainer: "border-[#1d2742]",
-    abbr: "border-[#76819a]",
+    abbr: "border-[#8893aa]",
   },
 
   // Shared button colour pattern (callsite adds font-bold etc.)
   button: {
-    active: `bg-[#c9a86a]/20 border-[#c9a86a] ${textBrass}`,
+    active: `bg-[#c9a86a]/25 border-[#e3cc97] ${textBrassBright}`,
     inactive: `bg-transparent border-transparent ${hoverSubtle} ${textSecondary} hover:text-[#e9e3d3]`,
   },
 
@@ -128,7 +132,7 @@ export const colourStyles = {
   // Search
   search: {
     button: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
-    input: `${bgInput} ${textPrimary} placeholder:text-[#6c7891]`,
+    input: `${bgInput} ${textPrimary} placeholder:text-[#8893aa]`,
     item: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 
@@ -182,7 +186,7 @@ export const colourStyles = {
   // YouTube embed
   youtube: {
     background: "bg-black",
-    loadingText: "text-[#76819a]",
+    loadingText: "text-[#8893aa]",
     spinner: "border-[#2a3a5c] border-t-[#c9a86a]",
   },
 

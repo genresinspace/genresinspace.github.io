@@ -174,7 +174,7 @@ function PathRow({
               onSetAsSource(node.id);
             }}
           >
-            <ArrowUpIcon width={16} height={16} stroke="#8d97ad" />
+            <ArrowUpIcon width={16} height={16} stroke="#9ba6bc" />
           </button>
         )}
         {onSetAsDestination && isEndpoint !== "destination" && (
@@ -189,7 +189,7 @@ function PathRow({
             <ArrowUpIcon
               width={16}
               height={16}
-              stroke="#8d97ad"
+              stroke="#9ba6bc"
               className="rotate-180"
             />
           </button>

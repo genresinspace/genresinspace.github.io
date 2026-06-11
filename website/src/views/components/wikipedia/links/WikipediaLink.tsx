@@ -18,10 +18,11 @@ export function WikipediaLink({
   return (
     <ExternalLink {...rest} href={wikiPageUrl(wikiUrl, pageTitle)}>
       <span className="whitespace-nowrap">
+        {/* Kept small and translucent so rows of inline links stay calm */}
         <WikipediaIcon
-          width="1em"
-          height="1em"
-          className="inline-block align-[-0.1em]"
+          width="0.8em"
+          height="0.8em"
+          className="inline-block align-[-0.05em] opacity-55"
         />{" "}
         {children}
       </span>
