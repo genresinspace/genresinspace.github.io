@@ -17,7 +17,12 @@ import { FAQ } from "./FAQ";
 import { ExternalLink as EL } from "../components/links/ExternalLink";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { Section } from "../components/Section";
-import { InfoIcon, MapIcon, QuestionIcon, DiceIcon } from "../components/icons";
+import {
+  InfoIcon,
+  MapIcon,
+  QuestionIcon,
+  ShuffleIcon,
+} from "../components/icons";
 import { useGenre } from "../../services/dataCache";
 import { colourStyles } from "../colours";
 
@@ -117,7 +122,7 @@ function RandomGenre({
           className={`p-1 ${colourStyles.bg.interactive} ${colourStyles.hover.medium} w-8 flex items-center justify-center ${colourStyles.text.onAccent} transition-colors`}
           title="Point the telescope somewhere new"
         >
-          <DiceIcon width={16} height={16} stroke="#f4eedd" />
+          <ShuffleIcon width={16} height={16} stroke="#f4eedd" />
         </button>
         <button
           onClick={() => (window.location.hash = `${randomId}`)}

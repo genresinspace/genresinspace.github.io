@@ -24,6 +24,7 @@ export * from "./MicrophoneIcon";
 export * from "./PlayIcon";
 export * from "./PauseIcon";
 export * from "./DiceIcon";
+export * from "./ShuffleIcon";
 export * from "./ResetIcon";
 export * from "./ArrowLeftIcon";
 export * from "./ArrowRightIcon";

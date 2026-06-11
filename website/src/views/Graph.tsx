@@ -4,7 +4,6 @@ import { useDataContext } from "../data";
 import type { SettingsData } from "../settings";
 import { GraphView } from "./graph/GraphView";
 import type { SearchMode } from "./graph/GraphViewLabels";
-import { CelestialBackdrop } from "./graph/CelestialBackdrop";
 import { Notice } from "./components/Notice";
 
 import "./graph.css";
@@ -156,7 +155,6 @@ export function Graph({
         className="w-full h-full"
         style={{ touchAction: "none" }}
       />
-      {!glError && <CelestialBackdrop />}
       <div
         ref={labelContainerRef}
         className="absolute inset-0 overflow-hidden node-label-container"
