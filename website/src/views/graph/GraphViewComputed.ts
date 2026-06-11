@@ -27,6 +27,7 @@ import {
   NODE_SIZE_MIN_FRAC,
   NODE_SIZE_DEGREE_FRAC,
   NODE_SHRINK_UNSELECTED,
+  NODE_GROW_SELECTED,
   NODE_GROW_FOCUSED,
   NODE_GROW_HOVERED,
   NODE_DIM_RGB,
@@ -35,6 +36,7 @@ import {
   ARROW_SPEED_FALLOFF,
   ARROW_WORLD_SPEED,
   ARROW_MARGIN_TGT_RADIUS,
+  BG,
 } from "./graphConstants";
 
 /** Parse a CSS color string to RGBA floats [0..1]. */
@@ -225,10 +227,10 @@ export function computeNodeColors(
         arr[i * 4 + 2] = b;
         arr[i * 4 + 3] = alpha;
       } else {
-        // Fade toward black on dark background
-        arr[i * 4] = r * NODE_DIM_RGB;
-        arr[i * 4 + 1] = g * NODE_DIM_RGB;
-        arr[i * 4 + 2] = b * NODE_DIM_RGB;
+        // Fade toward the deep-space background colour
+        arr[i * 4] = BG[0] + (r - BG[0]) * NODE_DIM_RGB;
+        arr[i * 4 + 1] = BG[1] + (g - BG[1]) * NODE_DIM_RGB;
+        arr[i * 4 + 2] = BG[2] + (b - BG[2]) * NODE_DIM_RGB;
         arr[i * 4 + 3] = NODE_DIM_ALPHA;
       }
     } else {
@@ -275,6 +277,11 @@ export function computeNodeSizes(
       size -= NODE_SHRINK_UNSELECTED;
     }
 
+    // Grow the selected star so its astrolabe reticle is legible
+    if (selectedId === node.id) {
+      size += NODE_GROW_SELECTED;
+    }
+
     // Grow if focused
     if (focusedId === node.id) {
       size += NODE_GROW_FOCUSED;
@@ -301,7 +308,8 @@ export function computeEdgeColors(
   path: string[] | null
 ): Float32Array {
   const arr = new Float32Array(edges.length * 8); // 4 components * 2 vertices
-  const dimmedColor = parseColor("hsla(0, 0%, 20%, 0.1)");
+  // De-emphasised edges fade toward a faint navy just above the background
+  const dimmedColor = parseColor("hsla(222, 45%, 18%, 0.1)");
 
   const selectedAlpha = EDGE_SELECTED_ALPHA;
   const unselectedAlpha = EDGE_UNSELECTED_ALPHA;

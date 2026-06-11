@@ -114,10 +114,10 @@ function RandomGenre({
       <span className="flex flex-row">
         <button
           onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
-          className={`p-1 ${colourStyles.button.inactive} w-8 flex items-center justify-center ${colourStyles.text.onAccent} transition-colors`}
-          title="Get another random genre"
+          className={`p-1 ${colourStyles.bg.interactive} ${colourStyles.hover.medium} w-8 flex items-center justify-center ${colourStyles.text.onAccent} transition-colors`}
+          title="Point the telescope somewhere new"
         >
-          <DiceIcon width={16} height={16} stroke="white" />
+          <DiceIcon width={16} height={16} stroke="#f4eedd" />
         </button>
         <button
           onClick={() => (window.location.hash = `${randomId}`)}

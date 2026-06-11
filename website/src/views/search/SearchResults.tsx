@@ -32,7 +32,7 @@ export function HighlightedText({
       parts.push(text.slice(position, start));
     }
     parts.push(
-      <strong key={index} className="font-semibold text-white">
+      <strong key={index} className="font-semibold text-[#f4eedd]">
         {text.slice(start, end)}
       </strong>
     );
@@ -77,7 +77,7 @@ export function GenreSnippet({ node }: { node: NodeData }) {
 export function ListLabel({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`text-xs font-medium uppercase tracking-wide ${colourStyles.text.secondary} px-1`}
+      className={`text-xs font-plate font-medium uppercase tracking-[0.2em] ${colourStyles.text.brass} px-1`}
     >
       {children}
     </div>
@@ -103,7 +103,7 @@ function ResultRow({
       ref={(el) => {
         if (highlighted) el?.scrollIntoView({ block: "nearest" });
       }}
-      className={`p-2 ${colourStyles.search.item} transition-colors cursor-pointer ${
+      className={`p-2 ${colourStyles.search.item} border ${colourStyles.border.divider} transition-colors cursor-pointer ${
         highlighted ? `ring-2 ${colourStyles.border.selectedRing}` : ""
       }`}
       onMouseEnter={() => setFocusedId(node.id)}

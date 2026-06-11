@@ -24,11 +24,13 @@ export function Tabs<T extends string>({
   className?: string;
 }) {
   return (
-    <div className={`flex shrink-0 ${className || ""}`}>
+    <div
+      className={`flex shrink-0 ${colourStyles.bg.shell} border ${colourStyles.border.divider} ${className || ""}`}
+    >
       {items.map((tab) => (
         <button
           key={tab.id}
-          className={`flex-1 p-2 cursor-pointer flex items-center justify-center gap-2 overflow-hidden transition-colors duration-200 ${
+          className={`flex-1 p-2 cursor-pointer flex items-center justify-center gap-2 overflow-hidden border-b-2 font-display font-semibold tracking-[0.1em] transition-colors duration-200 ${
             activeId === tab.id
               ? colourStyles.button.active
               : colourStyles.button.inactive

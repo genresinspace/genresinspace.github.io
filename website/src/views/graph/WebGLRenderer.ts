@@ -45,6 +45,9 @@ void main() {
   v_selected = a_selected;
 }`;
 
+// Stars: a hot near-white core with a soft chromatic glow falloff, so
+// high-degree genres read as first-magnitude stars. The selected star gets
+// an astrolabe-style reticle: a brass ring with four cardinal ticks.
 const NODE_FS = `#version 300 es
 precision highp float;
 uniform vec3 u_ringColor;
@@ -53,13 +56,31 @@ in float v_selected;
 out vec4 fragColor;
 void main() {
   vec2 p = gl_PointCoord * 2.0 - 1.0;
-  float dist = dot(p, p);
-  if (dist > 1.0) discard;
-  // Ring highlight for selected node
-  if (v_selected > 0.5 && dist > 0.5) {
-    fragColor = vec4(u_ringColor, 1.0);
-  } else {
-    fragColor = v_color;
+  float r = length(p);
+  if (r > 1.0) discard;
+
+  // Bright stellar core (solid out to ~0.3, feathering to ~0.55)
+  float core = 1.0 - smoothstep(0.3, 0.55, r);
+  // Soft glow halo filling the rest of the sprite
+  float halo = pow(max(1.0 - r, 0.0), 2.0) * 0.9;
+  float intensity = clamp(core + halo, 0.0, 1.0);
+
+  // Whiten the core toward starlight while the halo keeps the genre hue
+  vec3 col = mix(v_color.rgb, vec3(1.0), core * 0.4);
+  fragColor = vec4(col, v_color.a * intensity);
+
+  // Astrolabe reticle for the selected star
+  if (v_selected > 0.5) {
+    float ring = 1.0 - smoothstep(0.03, 0.1, abs(r - 0.8));
+    // Four cardinal ticks crossing the ring
+    float ax = abs(p.x);
+    float ay = abs(p.y);
+    float tickMask = step(min(ax, ay), 0.05) * step(0.6, r) * (1.0 - step(0.96, r));
+    float m = max(ring, tickMask);
+    fragColor = vec4(
+      mix(fragColor.rgb, u_ringColor, m),
+      max(fragColor.a, m * 0.95)
+    );
   }
 }`;
 

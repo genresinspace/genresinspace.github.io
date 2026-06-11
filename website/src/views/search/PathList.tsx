@@ -141,7 +141,7 @@ function PathRow({
 
   return (
     <div
-      className={`flex items-stretch ${colourStyles.search.item} transition-colors cursor-pointer ${
+      className={`flex items-stretch ${colourStyles.search.item} border ${colourStyles.border.divider} transition-colors cursor-pointer ${
         isSelected ? `ring-2 ${colourStyles.border.selectedRing}` : ""
       }`}
       onMouseEnter={() => setFocusedId(node.id)}
@@ -174,7 +174,7 @@ function PathRow({
               onSetAsSource(node.id);
             }}
           >
-            <ArrowUpIcon width={16} height={16} stroke="#9ca3af" />
+            <ArrowUpIcon width={16} height={16} stroke="#8d97ad" />
           </button>
         )}
         {onSetAsDestination && isEndpoint !== "destination" && (
@@ -189,7 +189,7 @@ function PathRow({
             <ArrowUpIcon
               width={16}
               height={16}
-              stroke="#9ca3af"
+              stroke="#8d97ad"
               className="rotate-180"
             />
           </button>

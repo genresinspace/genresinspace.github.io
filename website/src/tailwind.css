@@ -1,13 +1,111 @@
 @import "tailwindcss";
 
-@utility glass-shell {
-  @apply bg-[#0f0a17]/85 backdrop-blur-md;
+/* ---------------------------------------------------------------------------
+ * Star-atlas theme: typefaces for the observatory instrument panel.
+ * ------------------------------------------------------------------------- */
+@theme {
+  --font-display: "Cormorant SC", "Cormorant", Georgia, serif;
+  --font-body: "Spectral", Georgia, "Times New Roman", serif;
+  --font-plate: "Archivo Narrow", "Helvetica Neue", Arial, sans-serif;
 }
 
-@utility glass-panel {
-  @apply bg-white/10 backdrop-blur-md;
+/* ---------------------------------------------------------------------------
+ * Panel tiers: dark navy instrument plates. Crisp draftsmanship, not frost —
+ * near-opaque plates with hairline borders applied via colour tokens.
+ * ------------------------------------------------------------------------- */
+@utility plate-shell {
+  @apply bg-[#080d1c]/92;
 }
 
-@utility glass-floating {
-  @apply bg-[#1a1226]/70 backdrop-blur-lg border border-white/15;
+@utility plate-raised {
+  @apply bg-[#121b32]/85;
+}
+
+@utility plate-floating {
+  @apply bg-[#0a1122]/95 border border-[#c9a86a]/35 shadow-[0_4px_24px_rgba(0,0,0,0.55)];
+}
+
+/* ---------------------------------------------------------------------------
+ * Global chrome: scrollbars, selection, focus, form accents.
+ * ------------------------------------------------------------------------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 168, 106, 0.35) rgba(8, 13, 28, 0.6);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: rgba(8, 13, 28, 0.6);
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 106, 0.3);
+  border: 2px solid rgba(8, 13, 28, 0.8);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 106, 0.55);
+}
+
+::selection {
+  background: rgba(201, 168, 106, 0.35);
+  color: #f4eedd;
+}
+
+input[type="checkbox"],
+input[type="range"] {
+  accent-color: #c9a86a;
+}
+
+/* Brass focus ring instead of the browser default blue */
+:focus-visible {
+  outline: 1px solid rgba(201, 168, 106, 0.8);
+  outline-offset: 1px;
+}
+input[type="text"]:focus {
+  outline: 1px solid rgba(201, 168, 106, 0.6);
+  outline-offset: -1px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Range sliders as instrument dials: a hairline track with a brass knob.
+ * ------------------------------------------------------------------------- */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-track {
+  height: 2px;
+  background: #27334f;
+}
+input[type="range"]::-moz-range-progress {
+  height: 2px;
+  background: rgba(201, 168, 106, 0.75);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 9999px;
+  background: #c9a86a;
+  border: 2px solid #0a1122;
+  box-shadow: 0 0 0 1px rgba(201, 168, 106, 0.6);
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  background: #27334f;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -5.5px;
+  width: 13px;
+  height: 13px;
+  border-radius: 9999px;
+  background: #c9a86a;
+  border: 2px solid #0a1122;
+  box-shadow: 0 0 0 1px rgba(201, 168, 106, 0.6);
 }

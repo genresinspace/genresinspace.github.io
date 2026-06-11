@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>genres in space</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#04060f" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="genres in space" />
     <meta property="og:url" content="https://genresin.space/" />
@@ -18,10 +19,10 @@
     />
     <meta property="og:image" content="https://genresin.space/icon.png" />
 
-    <!-- Modern fonts from Google Fonts -->
+    <!-- Star-atlas faces: Cormorant for engraved display, Spectral for body, Archivo Narrow for designation plates -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Archivo+Narrow:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
       @import "tailwindcss";
@@ -30,30 +31,15 @@
       html {
         height: 100%;
         overflow: hidden;
-      }
-
-      /* Support light and dark mode backgrounds - matches graph background */
-      html.dark {
-        background-color: #000000;
-      }
-
-      html:not(.dark) {
-        background-color: #222222;
+        background-color: #04060f;
       }
 
       body {
         height: 100%;
         overflow: hidden;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-      }
-
-      /* Match body background to theme - matches graph background */
-      body.dark {
-        background-color: #000000;
-      }
-
-      body:not(.dark) {
-        background-color: #222222;
+        background-color: #04060f;
+        color: #e9e3d3;
+        font-family: 'Spectral', Georgia, 'Times New Roman', serif;
       }
 
       #root {
@@ -61,18 +47,67 @@
         height: 100vh;
         height: 100dvh; /* Dynamic viewport height - accounts for mobile browser UI */
       }
+
+      /* Pre-JS loading plate: shown until React mounts and replaces #root's children */
+      .atlas-boot {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1.25rem;
+        background:
+          radial-gradient(ellipse 75% 60% at 50% 42%, rgba(28, 42, 76, 0.35), rgba(4, 6, 15, 0) 70%),
+          #04060f;
+        color: #e9e3d3;
+        text-align: center;
+      }
+      .atlas-boot-ring {
+        width: 56px;
+        height: 56px;
+        border-radius: 9999px;
+        border: 1px solid rgba(201, 168, 106, 0.35);
+        border-top-color: #c9a86a;
+        animation: atlas-spin 1.6s linear infinite;
+      }
+      .atlas-boot-title {
+        font-family: 'Cormorant SC', 'Cormorant', serif;
+        font-weight: 600;
+        font-size: 1.5rem;
+        letter-spacing: 0.3em;
+        margin-left: 0.3em; /* optically recentre the letterspaced text */
+        color: #d9c08a;
+      }
+      .atlas-boot-sub {
+        font-family: 'Spectral', serif;
+        font-style: italic;
+        font-size: 0.875rem;
+        color: #8d97ad;
+      }
+      @keyframes atlas-spin {
+        to { transform: rotate(360deg); }
+      }
     </style>
     <link rel="stylesheet" href="/src/views/graph.css" />
   </head>
   <body class="m-0 p-0">
-    <div id="root" class="w-screen h-screen"></div>
+    <div id="root" class="w-screen h-screen">
+      <div class="atlas-boot">
+        <div class="atlas-boot-ring"></div>
+        <div>
+          <div class="atlas-boot-title">genres in space</div>
+          <div class="atlas-boot-sub">preparing the star atlas&hellip;</div>
+        </div>
+      </div>
+    </div>
     <noscript>
-      <div style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#222222;color:#ffffff;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-align:center;">
-        <div style="max-width:32rem;">
-          <h1 style="font-size:1.5rem;font-weight:600;margin:0 0 0.75rem;">genres in space</h1>
-          <p style="margin:0 0 0.75rem;opacity:0.85;">An interactive map of every music genre on English Wikipedia.</p>
-          <p style="margin:0 0 0.75rem;opacity:0.85;">It needs JavaScript to run. Please enable JavaScript and reload the page.</p>
-          <p style="margin:0;opacity:0.7;font-size:0.875rem;">Source and data: <a href="https://github.com/genresinspace/genresinspace.github.io" style="color:#a78bfa;">github.com/genresinspace</a></p>
+      <div style="position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#04060f;color:#e9e3d3;font-family:'Spectral',Georgia,serif;text-align:center;">
+        <div style="max-width:32rem;border:1px solid rgba(201,168,106,0.35);background:rgba(9,14,28,0.9);padding:2rem 1.75rem;">
+          <h1 style="font-family:'Cormorant SC','Cormorant',serif;font-size:1.5rem;font-weight:600;letter-spacing:0.25em;margin:0 0 0.75rem;color:#d9c08a;">genres in space</h1>
+          <p style="margin:0 0 0.75rem;opacity:0.9;">An interactive star atlas of every music genre on English Wikipedia.</p>
+          <p style="margin:0 0 0.75rem;opacity:0.9;">It needs JavaScript to run. Please enable JavaScript and reload the page.</p>
+          <p style="margin:0;opacity:0.7;font-size:0.875rem;">Source and data: <a href="https://github.com/genresinspace/genresinspace.github.io" style="color:#8fd0e0;">github.com/genresinspace</a></p>
         </div>
       </div>
     </noscript>

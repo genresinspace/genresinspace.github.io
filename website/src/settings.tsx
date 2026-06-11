@@ -28,17 +28,17 @@ export type VisibleTypeDesc = {
   description: string;
 };
 
-/** The colour of a derivative genre */
+/** The colour of a derivative genre — copper-rose, like an old brass engraving */
 export const derivativeColour = (saturation: number = 70, alpha: number = 1) =>
-  `hsla(0, ${saturation}%, 60%, ${alpha})`;
+  `hsla(16, ${saturation}%, 62%, ${alpha})`;
 
-/** The colour of a subgenre */
+/** The colour of a subgenre — sea-glass green, the secondary instrument tint */
 export const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
-  `hsla(120, ${saturation}%, 60%, ${alpha})`;
+  `hsla(160, ${saturation}%, 55%, ${alpha})`;
 
-/** The colour of a fusion genre */
+/** The colour of a fusion genre — periwinkle violet, between the other two */
 export const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
-  `hsla(240, ${saturation}%, 70%, ${alpha})`;
+  `hsla(252, ${saturation}%, 72%, ${alpha})`;
 
 /** Descriptions of the visible types in the graph */
 export const VISIBLE_TYPES: VisibleTypeDesc[] = [

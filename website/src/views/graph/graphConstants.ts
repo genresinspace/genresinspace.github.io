@@ -35,14 +35,19 @@ export const EDGE_TGT_TINT_RANGE: [number, number] = [0.55, 1.0];
 export const EDGE_TINT_POWER = 0.4;
 
 // ── Nodes ────────────────────────────────────────────────────────────
-/** Base world-unit diameter for nodes. */
-export const NODE_SIZE_BASE = 60.0;
+/** Base world-unit diameter for nodes. Larger than the old solid-disc
+ *  renderer because the star shader's bright core occupies only the inner
+ *  portion of the sprite; the rest is glow falloff. */
+export const NODE_SIZE_BASE = 84.0;
 /** Minimum fraction of base size (for 0-degree nodes). */
 export const NODE_SIZE_MIN_FRAC = 0.2;
 /** Fraction of base size contributed by edge degree. */
 export const NODE_SIZE_DEGREE_FRAC = 0.8;
 /** World units to shrink non-highlighted nodes when a selection is active. */
 export const NODE_SHRINK_UNSELECTED = 1.5;
+/** World units to grow the selected node, so its astrolabe reticle reads
+ *  clearly even at neighbourhood zoom. */
+export const NODE_GROW_SELECTED = 16.0;
 /** World units to grow the focused node. */
 export const NODE_GROW_FOCUSED = 1.5;
 /** World units to grow the hovered node. */
@@ -54,8 +59,8 @@ export const NODE_DIM_RGB = 0.3;
 export const NODE_DIM_ALPHA = 0.06;
 /** Exponential base for node opacity falloff with distance (0–1). */
 export const NODE_OPACITY_FALLOFF = 0.25;
-/** HSL lightness for graph nodes. */
-export const NODE_LIGHTNESS = 60;
+/** HSL lightness for graph nodes — lifted slightly toward starlight. */
+export const NODE_LIGHTNESS = 64;
 
 // ── Arrows ───────────────────────────────────────────────────────────
 /** World-unit spacing between arrows on animated edges. */
@@ -84,8 +89,19 @@ export const TRANSITION_TAU = 120;
 export const HOVER_DEBOUNCE_MS = 80;
 
 // ── Background ───────────────────────────────────────────────────────
-/** Graph background color (RGBA 0–1). */
-export const BG: [number, number, number, number] = [0, 0, 0, 1];
+/** Graph background color (RGBA 0–1) — deep-space blue-black (#04060f). */
+export const BG: [number, number, number, number] = [
+  4 / 255,
+  6 / 255,
+  15 / 255,
+  1,
+];
+/** Brass reticle colour for the selected star (RGB 0–1, #d9b573). */
+export const RETICLE_COLOR: [number, number, number] = [
+  217 / 255,
+  181 / 255,
+  115 / 255,
+];
 
 // ── Zoom-to-fit ──────────────────────────────────────────────────────
 /** Fit neighbourhood to this many standard deviations. */

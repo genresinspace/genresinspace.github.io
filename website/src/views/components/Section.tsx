@@ -13,7 +13,9 @@ export function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className={colourStyles.bg.card}>
+    <section
+      className={`${colourStyles.bg.card} border ${colourStyles.border.divider}`}
+    >
       <SectionHeading icon={icon}>{heading}</SectionHeading>
       <div>{children}</div>
     </section>

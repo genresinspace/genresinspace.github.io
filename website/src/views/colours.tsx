@@ -9,38 +9,40 @@
  * concerns (font-weight, font-size, border-width, shadow, etc.) belong
  * at the callsite.
  *
- * Glassmorphic dark design: layers translucent panels over the graph using
- * three tiers (shell, panel, floating) defined as @utility classes in
- * tailwind.css. The app is dark-only — no light-mode tokens.
+ * Star-atlas dark design: deep-space navy instrument plates (defined as
+ * @utility classes in tailwind.css) with brass hairlines and a pale-cyan
+ * secondary accent. The app is dark-only — no light-mode tokens.
  */
 
 // ---------------------------------------------------------------------------
 // Base colour tokens — the building blocks for all component styles
 // ---------------------------------------------------------------------------
 
-// Text
-const textPrimary = "text-white";
-const textSecondary = "text-neutral-400";
-const textOnAccent = "text-white";
+// Text — warm starlight primary, cool slate secondary
+const textPrimary = "text-[#e9e3d3]";
+const textSecondary = "text-[#93a0b9]";
+const textOnAccent = "text-[#f4eedd]";
+// Brass: the primary instrument accent
+const textBrass = "text-[#d9c08a]";
 
-// Backgrounds — glass tiers
-const bgApp = "bg-neutral-950";
-const bgShell = "glass-shell";
-const bgCard = "glass-shell";
-const bgElevated = "glass-panel";
-const bgInteractive = "bg-white/10 backdrop-blur-md";
-const bgInput = "bg-black/30 backdrop-blur-md";
-const bgAccent = "bg-purple-600";
-const bgHandle = "bg-white/30 backdrop-blur-md";
+// Backgrounds — instrument plate tiers
+const bgApp = "bg-[#04060f]";
+const bgShell = "plate-shell";
+const bgCard = "plate-shell";
+const bgElevated = "plate-raised";
+const bgInteractive = "bg-[#1a2440]/70";
+const bgInput = "bg-[#060a18]/80";
+const bgAccent = "bg-[#a8854a]";
+const bgHandle = "bg-[#c9a86a]/50";
 
 // Hovers
-const hoverSubtle = "hover:bg-white/10";
-const hoverMedium = "hover:bg-white/15";
-const hoverAccent = "hover:bg-purple-700";
+const hoverSubtle = "hover:bg-[#1c2845]/60";
+const hoverMedium = "hover:bg-[#243155]/80";
+const hoverAccent = "hover:bg-[#bd9a5e]";
 
-// Borders
-const borderLight = "border-white/10";
-const borderDivider = "border-white/5";
+// Borders — brass hairlines and faint navy dividers
+const borderLight = "border-[#c9a86a]/30";
+const borderDivider = "border-[#27334f]/80";
 
 // ---------------------------------------------------------------------------
 // Component styles — organised by component / feature area
@@ -54,12 +56,13 @@ export const colourStyles = {
     primary: textPrimary,
     secondary: textSecondary,
     onAccent: textOnAccent,
-    link: "text-blue-400",
-    linkHover: "text-blue-400 hover:text-blue-300",
-    accentLink: "text-purple-400",
-    toggle: "text-neutral-400 hover:text-white",
-    meta: "text-gray-400",
-    metaInline: "text-gray-500",
+    brass: textBrass,
+    link: "text-[#8fd0e0]",
+    linkHover: "text-[#8fd0e0] hover:text-[#b8e4ef]",
+    accentLink: "text-[#d9c08a]",
+    toggle: "text-[#93a0b9] hover:text-[#e9e3d3]",
+    meta: "text-[#8d97ad]",
+    metaInline: "text-[#76819a]",
   },
 
   bg: {
@@ -83,27 +86,27 @@ export const colourStyles = {
   border: {
     light: borderLight,
     divider: borderDivider,
-    selectedRing: "ring-blue-500",
-    audioSection: "border-neutral-600",
-    audioContainer: "border-neutral-800",
-    abbr: "border-gray-500",
+    selectedRing: "ring-[#c9a86a]",
+    audioSection: "border-[#3a486b]",
+    audioContainer: "border-[#1d2742]",
+    abbr: "border-[#76819a]",
   },
 
   // Shared button colour pattern (callsite adds font-bold etc.)
   button: {
-    active: `bg-purple-500/40 backdrop-blur-md ${textOnAccent}`,
-    inactive: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
+    active: `bg-[#c9a86a]/20 border-[#c9a86a] ${textBrass}`,
+    inactive: `bg-transparent border-transparent ${hoverSubtle} ${textSecondary} hover:text-[#e9e3d3]`,
   },
 
   // -- Component-specific compositions --------------------------------------
 
   // Loading state
   loading: {
-    spinner: "border-white/20 border-t-purple-400",
+    spinner: "border-[#c9a86a]/30 border-t-[#c9a86a]",
   },
 
   // Sidebar — no background on the shell so empty space shows the graph
-  // through; individual sections provide their own glass via bg.card.
+  // through; individual sections provide their own plates via bg.card.
   sidebar: {
     background: "",
     mobileBackground: "",
@@ -125,40 +128,38 @@ export const colourStyles = {
   // Search
   search: {
     button: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
-    input: `${bgInput} ${textPrimary} placeholder:text-neutral-400`,
+    input: `${bgInput} ${textPrimary} placeholder:text-[#6c7891]`,
     item: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 
   // Audio / Listen components
   audio: {
-    playerText: "text-gray-200",
-    playerTextMuted: "text-gray-300",
-    playerTitle: "text-gray-100",
+    playerText: "text-[#d4dae6]",
+    playerTextMuted: "text-[#aeb8ca]",
+    playerTitle: "text-[#e9e3d3]",
   },
 
   // Tooltip
   tooltip: {
-    background: `glass-floating ${textPrimary}`,
+    background: `plate-floating ${textPrimary}`,
   },
 
-  // Section heading
+  // Section heading — a cartouche strip on each instrument plate
   section: {
-    heading: `bg-[#231a36]/60 backdrop-blur-md ${textOnAccent}`,
+    heading: `bg-[#101a30]/90 border-b border-[#c9a86a]/25 ${textBrass}`,
   },
 
   // Notice / alert (bg + text combined)
   notice: {
-    yellow:
-      "bg-yellow-500/15 backdrop-blur-md border border-yellow-500/40 text-yellow-100",
-    red: "bg-red-500/15 backdrop-blur-md border border-red-500/40 text-red-100",
-    blue: "bg-blue-500/15 backdrop-blur-md border border-blue-500/40 text-blue-100",
-    green:
-      "bg-green-500/15 backdrop-blur-md border border-green-500/40 text-green-100",
+    yellow: "bg-[#c9a86a]/12 border border-[#c9a86a]/45 text-[#ecd9ae]",
+    red: "bg-[#a64242]/15 border border-[#c46a6a]/45 text-[#eec9c2]",
+    blue: "bg-[#4a90a8]/12 border border-[#6fb4c8]/40 text-[#cfe8ef]",
+    green: "bg-[#4a9a78]/12 border border-[#6dbb98]/40 text-[#cfeadd]",
   },
 
   // Input / control
   input: {
-    primary: `${bgAccent} ${hoverAccent} ${textOnAccent}`,
+    primary: `${bgAccent} ${hoverAccent} text-[#0a0f1e]`,
     label: `${bgInteractive} ${textPrimary}`,
   },
 
@@ -169,20 +170,20 @@ export const colourStyles = {
 
   // Collapsible
   collapsible: {
-    background: `bg-white/5 hover:bg-white/15 backdrop-blur-md ${textPrimary}`,
+    background: `bg-[#101a30]/70 hover:bg-[#1a2745]/80 ${textPrimary}`,
   },
 
   // Blockquote
   blockquote: {
-    border: "border-gray-700",
-    text: "text-gray-300",
+    border: "border-[#c9a86a]/40",
+    text: "text-[#c3cad8]",
   },
 
   // YouTube embed
   youtube: {
     background: "bg-black",
-    loadingText: "text-neutral-500",
-    spinner: "border-neutral-600 border-t-neutral-400",
+    loadingText: "text-[#76819a]",
+    spinner: "border-[#2a3a5c] border-t-[#c9a86a]",
   },
 
   // Genre link

@@ -129,7 +129,7 @@ function GenreHeader({
 
   return (
     <SectionHeading
-      icon={<NoteIcon stroke="white" />}
+      icon={<NoteIcon stroke="#f4eedd" />}
       style={{
         backgroundColor: `color-mix(in srgb, ${selectedNodeColour} 70%, transparent)`,
       }}
@@ -138,7 +138,7 @@ function GenreHeader({
         node={node}
         hoverPreview={false}
         noIcon
-        style={{ color: "white" }}
+        style={{ color: "#f4eedd" }}
       >
         {node.label}
       </GenreLink>

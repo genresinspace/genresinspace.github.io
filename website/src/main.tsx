@@ -14,14 +14,34 @@ root.render(
       alignItems: "center",
       justifyContent: "center",
       height: "100vh",
-      color: "#fff",
-      fontFamily: "sans-serif",
+      color: "#e9e3d3",
+      background:
+        "radial-gradient(ellipse 75% 60% at 50% 42%, rgba(28, 42, 76, 0.35), rgba(4, 6, 15, 0) 70%), #04060f",
+      fontFamily: "'Spectral', Georgia, serif",
     }}
   >
     <div style={{ textAlign: "center" }}>
-      <div>Loading...</div>
-      <div style={{ fontSize: "0.875rem", marginTop: "0.5rem", opacity: 0.7 }}>
-        Initializing WebAssembly module
+      <div
+        style={{
+          fontFamily: "'Cormorant SC', 'Cormorant', serif",
+          fontWeight: 600,
+          fontSize: "1.5rem",
+          letterSpacing: "0.3em",
+          marginLeft: "0.3em",
+          color: "#d9c08a",
+        }}
+      >
+        genres in space
+      </div>
+      <div
+        style={{
+          fontSize: "0.875rem",
+          marginTop: "0.5rem",
+          fontStyle: "italic",
+          color: "#8d97ad",
+        }}
+      >
+        polishing the telescope lenses&hellip;
       </div>
     </div>
   </div>
@@ -53,11 +73,20 @@ try {
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
-        color: "#fff",
-        fontFamily: "sans-serif",
+        color: "#e9e3d3",
+        background: "#04060f",
+        fontFamily: "'Spectral', Georgia, serif",
       }}
     >
-      <div style={{ textAlign: "center", maxWidth: "500px", padding: "1rem" }}>
+      <div
+        style={{
+          textAlign: "center",
+          maxWidth: "500px",
+          padding: "2rem 1.75rem",
+          border: "1px solid rgba(201, 168, 106, 0.35)",
+          background: "rgba(9, 14, 28, 0.9)",
+        }}
+      >
         <div style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>⚠️</div>
         <div style={{ marginBottom: "0.5rem" }}>Failed to load application</div>
         <div
@@ -69,11 +98,11 @@ try {
           onClick={() => window.location.reload()}
           style={{
             padding: "0.5rem 1rem",
-            backgroundColor: "#333",
-            color: "#fff",
-            border: "1px solid #666",
-            borderRadius: "0.5rem",
+            backgroundColor: "rgba(201, 168, 106, 0.15)",
+            color: "#d9c08a",
+            border: "1px solid rgba(201, 168, 106, 0.5)",
             cursor: "pointer",
+            fontFamily: "inherit",
           }}
         >
           Reload page

@@ -376,16 +376,16 @@ function createActionButtons(
     callbacks.onSetAsSource(nodeId);
   });
   fromBtn.className = `${ACTION_BTN_BASE} right-full`;
-  fromBtn.style.background = "rgba(234, 88, 12, 0.75)";
-  fromBtn.style.color = "#e2e8f0cc";
+  fromBtn.style.background = "rgba(170, 120, 52, 0.85)";
+  fromBtn.style.color = "#f4eeddee";
 
   // "to" on the right -- set as destination
   const toBtn = makeButton(`to&nbsp;${ARROW_RIGHT_SVG}`, () => {
     callbacks.onSetAsDestination(nodeId);
   });
   toBtn.className = `${ACTION_BTN_BASE} left-full`;
-  toBtn.style.background = "rgba(59, 130, 246, 0.75)";
-  toBtn.style.color = "#e2e8f0cc";
+  toBtn.style.background = "rgba(52, 116, 138, 0.85)";
+  toBtn.style.color = "#f4eeddee";
 
   return { toBtn, fromBtn };
 }
@@ -488,7 +488,8 @@ function updateLabelStyle(
   const touchOffset = el.dataset.touchActive ? -TOUCH_LIFT_PX : 0;
   s.transform = `translate(${label.screenX}px, ${label.screenY + touchOffset}px) translate(-50%, -100%)`;
   s.fontSize = `${label.fontSize}px`;
-  s.backgroundColor = `color-mix(in srgb, ${bgColor} 80%, transparent)`;
+  s.backgroundColor = `color-mix(in srgb, ${bgColor} 70%, #04060f)`;
+  s.borderColor = `color-mix(in srgb, ${textColor} 35%, transparent)`;
   s.color = textColor;
   s.filter = filterStyle;
   s.opacity = String(opacityStyle);

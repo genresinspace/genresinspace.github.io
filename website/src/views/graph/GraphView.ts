@@ -37,6 +37,7 @@ import {
   TRANSITION_TAU,
   HOVER_DEBOUNCE_MS,
   BG,
+  RETICLE_COLOR,
   ARROW_SIZE_MULTIPLIER,
   EDGE_CURVATURE,
   CURSOR_PROXIMITY_RADIUS,
@@ -861,7 +862,7 @@ export class GraphView {
       this.cursorWorld.y,
       CURSOR_PROXIMITY_RADIUS,
       1.0,
-      [1, 1, 1]
+      RETICLE_COLOR
     );
 
     // Continue rendering if camera is active, interpolation hasn't converged,
