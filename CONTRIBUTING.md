@@ -43,6 +43,7 @@ CI runs on every push. To pass locally, run the following from the repo root, do
 
 ```bash
 # Rust
+cargo fmt --all -- --check
 cargo test
 cargo clippy -- -D warnings
 cargo clippy -p frontend_wasm --target wasm32-unknown-unknown -- -D warnings
@@ -62,6 +63,12 @@ npm run lint
 
 ```bash
 npm run format
+```
+
+To auto-fix Rust formatting:
+
+```bash
+cargo fmt --all
 ```
 
 Clippy warnings can often be auto-fixed:

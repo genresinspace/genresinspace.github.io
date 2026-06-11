@@ -9,8 +9,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest && tsx tests/wikitext.ts",
-    "lint": "tsc --noEmit && eslint src && prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
+    "lint": "tsc --noEmit && eslint src && prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\" \"tests/**/*.ts\" \"*.{ts,js}\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\" \"tests/**/*.ts\" \"*.{ts,js}\""
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
