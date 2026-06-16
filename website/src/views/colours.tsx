@@ -5,9 +5,9 @@
  * from this single file. Base colour tokens at the top cascade into the
  * component styles below — change a token to update every style that uses it.
  *
- * This file contains ONLY colour-related Tailwind classes. Structural
- * concerns (font-weight, font-size, border-width, shadow, etc.) belong
- * at the callsite.
+ * This file contains ONLY colour-related Tailwind classes. Font sizes live
+ * in the parallel typography.ts (the textStyles tokens); other structural
+ * concerns (font-weight, border-width, shadow, etc.) belong at the callsite.
  *
  * Star-atlas dark design: deep-space navy instrument plates (defined as
  * @utility classes in tailwind.css) with brass hairlines and a pale-cyan

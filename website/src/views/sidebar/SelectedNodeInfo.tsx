@@ -42,6 +42,7 @@ import yt_icon_red_digital from "../components/icons/yt_icon_red_digital.png";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { useArtist, useGenre } from "../../services/dataCache";
 import { colourStyles } from "../colours";
+import { textStyles } from "../typography";
 
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
@@ -175,7 +176,7 @@ function GenreDescription({
   return (
     // The primary reading surface: matches the info-page body size for consistency
     <div
-      className={`px-4 py-3 text-base leading-[1.7] ${colourStyles.bg.card}`}
+      className={`px-4 py-3 ${textStyles.body} leading-[1.7] ${colourStyles.bg.card}`}
     >
       <WikitextTruncateAtNewline
         wikitext={prefixDetected ? stripped : description}
@@ -493,7 +494,7 @@ function ConnectionItem({
         {node.label || node.id}
       </GenreLink>
       <small
-        className={`block mt-0.5 text-base leading-normal ${colourStyles.text.secondary}`}
+        className={`block mt-0.5 ${textStyles.body} leading-normal ${colourStyles.text.secondary}`}
       >
         {genreData ? (
           shortDescription ? (
@@ -642,7 +643,7 @@ function Artist({
               />
             </a>
           </div>
-          <div className="text-base mb-2">
+          <div className={`${textStyles.body} mb-2`}>
             Known for:{" "}
             {artistData.genres
               .map((genreId) => nodes[genreId])
@@ -661,7 +662,7 @@ function Artist({
               ))}
           </div>
           <div
-            className={`text-base leading-normal ${colourStyles.text.secondary}`}
+            className={`${textStyles.body} leading-normal ${colourStyles.text.secondary}`}
           >
             {artistData?.description ? (
               <WikitextTruncateAtLength
@@ -671,7 +672,7 @@ function Artist({
             ) : (
               "No description available."
             )}
-            <div className="text-sm leading-none mt-1">
+            <div className={`${textStyles.small} leading-none mt-1`}>
               Last updated:{" "}
               <em>
                 {new Date(artistData.last_revision_date).toLocaleString()}

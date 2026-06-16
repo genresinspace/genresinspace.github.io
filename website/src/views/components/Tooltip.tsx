@@ -9,6 +9,7 @@ import React, {
 import { createPortal } from "react-dom";
 import { WikitextTruncateAtLength } from "./wikipedia/wikitexts/WikitextTruncateAtLength";
 import { colourStyles } from "../colours";
+import { textStyles } from "../typography";
 
 /** A context to track tooltip nesting. */
 export const TooltipContext = createContext(false);
@@ -87,7 +88,9 @@ export function WikitextTooltipContent({
   return (
     <DisableTooltips>
       <WikitextTruncateAtLength wikitext={description} length={length} />
-      <small className={`block mt-2 text-sm ${colourStyles.text.meta}`}>
+      <small
+        className={`block mt-2 ${textStyles.small} ${colourStyles.text.meta}`}
+      >
         Last updated: {new Date(last_revision_date).toLocaleString()}
       </small>
     </DisableTooltips>

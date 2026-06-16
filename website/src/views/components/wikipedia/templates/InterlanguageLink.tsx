@@ -4,6 +4,7 @@ import { ExternalLink } from "../../links/ExternalLink";
 import { WikipediaMaybeGenreLink } from "../links/WikipediaMaybeGenreLink";
 import { wikiPageUrl, wikiUrl } from "../urls";
 import { colourStyles } from "../../../colours";
+import { textStyles } from "../../../typography";
 
 /**
  * Renders a link to a Wikipedia article, with an optional link to a foreign-language Wikipedia article.
@@ -29,7 +30,7 @@ export function InterlanguageLink({
       <WikipediaMaybeGenreLink pageTitle={localTitle}>
         {localTitle}
       </WikipediaMaybeGenreLink>
-      <span className="text-base">
+      <span className={textStyles.body}>
         {" "}
         [
         {links.map(({ lang, page }, i) => (

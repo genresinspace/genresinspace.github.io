@@ -5,6 +5,7 @@ import { useWikiUrl } from "../urls";
 import { Footnote } from "../../Footnote";
 import { Wikitext } from "../wikitexts/Wikitext";
 import { colourStyles } from "../../../colours";
+import { textStyles } from "../../../typography";
 
 import { Zh } from "./Zh";
 import { Mongolunicode } from "./Mongolunicode";
@@ -589,7 +590,7 @@ const canonicalHandlers = {
         <span>
           <abbr
             title="literal translation"
-            className={`text-base border-b border-dotted ${colourStyles.border.abbr} cursor-help`}
+            className={`${textStyles.body} border-b border-dotted ${colourStyles.border.abbr} cursor-help`}
           >
             lit.
           </abbr>{" "}

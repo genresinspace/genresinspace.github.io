@@ -5,6 +5,7 @@ import type { SettingsData } from "../settings";
 import { GraphView } from "./graph/GraphView";
 import type { SearchMode } from "./graph/GraphViewLabels";
 import { Notice } from "./components/Notice";
+import { textStyles } from "./typography";
 
 import "./graph.css";
 
@@ -171,7 +172,7 @@ export function Graph({
               <p className="font-semibold mb-1">
                 Couldn&rsquo;t display the graph
               </p>
-              <p className="text-base">
+              <p className={textStyles.body}>
                 Your browser doesn&rsquo;t support WebGL2, which the interactive
                 graph needs to render. You can still search for genres and
                 browse their details from the panels. Try updating your browser

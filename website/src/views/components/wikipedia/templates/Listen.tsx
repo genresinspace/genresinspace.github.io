@@ -4,6 +4,7 @@ import { wikimediaCommmonsAssetUrl } from "../urls";
 import { Wikitext } from "../wikitexts/Wikitext";
 import { templateToObject } from "./util";
 import { colourStyles } from "../../../colours";
+import { textStyles } from "../../../typography";
 import {
   SpeakerIcon,
   MusicIcon,
@@ -139,7 +140,7 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
           />
         </div>
         <div
-          className={`text-sm ${colourStyles.audio.playerTextMuted} w-14 text-right`}
+          className={`${textStyles.small} ${colourStyles.audio.playerTextMuted} w-14 text-right`}
         >
           {formatTime(currentTime)} / {formatTime(duration)}
         </div>
@@ -246,7 +247,7 @@ export function Listen({
               </div>
               {file.description && (
                 <div
-                  className={`text-base ${colourStyles.audio.playerTextMuted}`}
+                  className={`${textStyles.body} ${colourStyles.audio.playerTextMuted}`}
                 >
                   <Wikitext wikitext={file.description} />
                 </div>

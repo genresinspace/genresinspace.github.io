@@ -14,6 +14,7 @@ import type { SetSelectedId } from "../../App";
 import { ArrowUpIcon } from "../components/icons/ArrowUpIcon";
 import { GenreLink } from "../components/links/GenreLink";
 import { colourStyles } from "../colours";
+import { textStyles } from "../typography";
 import { GenreSnippet, ListLabel } from "./SearchResults";
 
 /** Format the visible edge types as a coloured, comma-separated phrase. */
@@ -72,13 +73,17 @@ export function NoPathMessage({
   const throughLabels = getFormattedThroughLabels(visibleTypes);
   if (!throughLabels) {
     return (
-      <div className={`mt-2 p-1 text-base ${colourStyles.text.secondary}`}>
+      <div
+        className={`mt-2 p-1 ${textStyles.body} ${colourStyles.text.secondary}`}
+      >
         No edge types are enabled — turn some on in Settings to find a path.
       </div>
     );
   }
   return (
-    <div className={`mt-2 p-1 text-base ${colourStyles.text.secondary}`}>
+    <div
+      className={`mt-2 p-1 ${textStyles.body} ${colourStyles.text.secondary}`}
+    >
       {reverseExists ? (
         <>
           No path from <strong>{sourceNode.label}</strong> to{" "}

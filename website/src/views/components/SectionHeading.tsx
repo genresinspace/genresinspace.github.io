@@ -1,5 +1,6 @@
 import React from "react";
 import { colourStyles } from "../colours";
+import { textStyles } from "../typography";
 
 /** Reusable component for section headings with optional icon */
 export function SectionHeading({
@@ -22,7 +23,9 @@ export function SectionHeading({
           {icon}
         </span>
       )}
-      <h3 className="font-display font-semibold text-xl leading-tight tracking-[0.14em]">
+      <h3
+        className={`font-display font-semibold ${textStyles.heading} leading-tight tracking-[0.14em]`}
+      >
         {children}
       </h3>
       {/* hairline rule trailing off like a chart cartouche */}
@@ -30,7 +33,10 @@ export function SectionHeading({
         aria-hidden
         className={`flex-1 border-t ${colourStyles.border.light} opacity-60`}
       />
-      <span aria-hidden className={`text-sm ${colourStyles.text.brass}`}>
+      <span
+        aria-hidden
+        className={`${textStyles.small} ${colourStyles.text.brass}`}
+      >
         ✦
       </span>
     </div>

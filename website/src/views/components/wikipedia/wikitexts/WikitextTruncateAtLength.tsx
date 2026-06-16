@@ -10,6 +10,7 @@ import {
 import { WikitextNodes } from "./WikitextNodes";
 import React, { useState, useMemo } from "react";
 import { colourStyles } from "../../../colours";
+import { textStyles } from "../../../typography";
 import { estimateTemplateLength } from "../templates/WikitextTemplate";
 
 /**
@@ -116,7 +117,7 @@ function ToggleButton({
   return (
     <button
       onClick={onClick}
-      className={`inline-block ml-1 text-sm ${colourStyles.text.toggle} px-1 ${colourStyles.bg.interactive} ${colourStyles.hover.medium} transition-colors cursor-pointer`}
+      className={`inline-block ml-1 ${textStyles.small} ${colourStyles.text.toggle} px-1 ${colourStyles.bg.interactive} ${colourStyles.hover.medium} transition-colors cursor-pointer`}
     >
       {children}
     </button>

@@ -15,6 +15,7 @@ import {
 import { Sidebar, SIDEBAR_DEFAULT_WIDTH } from "./views/sidebar/Sidebar";
 import { DataCache, DataCacheContext } from "./services/dataCache";
 import { colourStyles } from "./views/colours";
+import { textStyles } from "./views/typography";
 
 import "./tailwind.css";
 
@@ -107,12 +108,12 @@ function App() {
           />
           <div>
             <div
-              className={`font-display font-semibold text-3xl tracking-[0.3em] ml-[0.3em] ${colourStyles.text.brass}`}
+              className={`font-display font-semibold ${textStyles.display} tracking-[0.3em] ml-[0.3em] ${colourStyles.text.brass}`}
             >
               genres in space
             </div>
             <div
-              className={`font-body italic text-base ${colourStyles.text.meta}`}
+              className={`font-body italic ${textStyles.body} ${colourStyles.text.meta}`}
             >
               charting the heavens&hellip;
             </div>

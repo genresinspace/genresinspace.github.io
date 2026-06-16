@@ -3,6 +3,7 @@ import { Collapsible } from "../components/Collapsible";
 
 import { ExternalLink } from "../components/links/ExternalLink";
 import { dumpUrl } from "../components/wikipedia/urls";
+import { textStyles } from "../typography";
 
 /** The FAQ for the project. */
 export function FAQ({
@@ -219,7 +220,7 @@ export function FAQ({
   ];
 
   return (
-    <div className="flex flex-col text-base">
+    <div className={`flex flex-col ${textStyles.body}`}>
       {faqs.map((faq, index) => (
         <Collapsible
           key={index}

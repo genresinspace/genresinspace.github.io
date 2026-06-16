@@ -1,5 +1,6 @@
 import React from "react";
 import { colourStyles } from "../colours";
+import { textStyles } from "../typography";
 
 /** A single tab definition consumed by {@link Tabs}. */
 export interface TabItem<T extends string> {
@@ -30,7 +31,7 @@ export function Tabs<T extends string>({
       {items.map((tab) => (
         <button
           key={tab.id}
-          className={`flex-1 p-2 cursor-pointer flex items-center justify-center gap-2 overflow-hidden border-b-2 font-display text-lg tracking-[0.08em] transition-colors duration-200 ${
+          className={`flex-1 p-2 cursor-pointer flex items-center justify-center gap-2 overflow-hidden border-b-2 font-display ${textStyles.title} tracking-[0.08em] transition-colors duration-200 ${
             activeId === tab.id
               ? `font-bold ${colourStyles.button.active}`
               : `font-semibold ${colourStyles.button.inactive}`

@@ -1,4 +1,5 @@
 import { colourStyles } from "../colours";
+import { textStyles } from "../typography";
 import { ResetIcon } from "./icons";
 
 /** Wraps an input and shows a description below it */
@@ -14,7 +15,7 @@ export function InputDescription({
   return (
     <div className={`${className || ""}`}>
       {children}
-      <p className={`text-base ${colourStyles.text.secondary} mt-1`}>
+      <p className={`${textStyles.body} ${colourStyles.text.secondary} mt-1`}>
         {description}
       </p>
     </div>
@@ -41,7 +42,7 @@ export function CheckboxInput({
         <label className="block font-bold">{label}</label>
         <button
           type="button"
-          className={`text-base px-2 py-1 ${colourStyles.input.primary}`}
+          className={`${textStyles.body} px-2 py-1 ${colourStyles.input.primary}`}
           onClick={() => onChange(name, defaultValue)}
           aria-label="Reset to default"
         >
@@ -58,7 +59,9 @@ export function CheckboxInput({
           checked={checked}
           onChange={(e) => e.stopPropagation()}
         />
-        <span className="text-base select-none">{checked ? "Yes" : "No"}</span>
+        <span className={`${textStyles.body} select-none`}>
+          {checked ? "Yes" : "No"}
+        </span>
       </div>
     </div>
   );
@@ -90,13 +93,13 @@ export function RangeInput({
         <label className="block font-bold">{label}</label>
         <div className="flex items-center">
           <span
-            className={`text-base font-medium px-2 py-1 ${colourStyles.input.label}`}
+            className={`${textStyles.body} font-medium px-2 py-1 ${colourStyles.input.label}`}
           >
             {value ?? defaultValue}
           </span>
           <button
             type="button"
-            className={`text-base font-medium px-2 py-1 ${colourStyles.input.primary}`}
+            className={`${textStyles.body} font-medium px-2 py-1 ${colourStyles.input.primary}`}
             onClick={() => onChange(name, defaultValue)}
             aria-label="Reset to default"
           >

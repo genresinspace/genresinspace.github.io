@@ -25,6 +25,7 @@ import {
 } from "../components/icons";
 import { useGenre } from "../../services/dataCache";
 import { colourStyles } from "../colours";
+import { textStyles } from "../typography";
 
 /** The sidebar panel for information about the project. */
 export function ProjectInformation({
@@ -142,7 +143,7 @@ function RandomGenre({
         </button>
       </span>
       <span
-        className={`block text-sm p-2 ${colourStyles.project.subtitle}`}
+        className={`block ${textStyles.small} p-2 ${colourStyles.project.subtitle}`}
         style={{
           ["--node-color" as string]: randomNodeDarkerColour,
         }}
@@ -175,7 +176,7 @@ function Legend({
   setVisibleTypes: (visibleTypes: VisibleTypes) => void;
 }) {
   return (
-    <div className="flex flex-col gap-4 p-4 text-base">
+    <div className={`flex flex-col gap-4 p-4 ${textStyles.body}`}>
       {VISIBLE_TYPES.map(({ color, label, type, description }) => (
         <div key={label} className="flex items-start gap-2">
           <div>
@@ -207,7 +208,7 @@ function Legend({
 function CommitFooter() {
   return (
     <footer
-      className={`text-base ${colourStyles.text.secondary} ${colourStyles.bg.card} px-4 py-3 flex flex-col gap-2`}
+      className={`${textStyles.body} ${colourStyles.text.secondary} ${colourStyles.bg.card} px-4 py-3 flex flex-col gap-2`}
     >
       <p>
         Genre and artist descriptions are sourced from{" "}

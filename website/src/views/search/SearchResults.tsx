@@ -13,6 +13,7 @@ import { stripGenreNamePrefixFromDescription } from "../../util/stripGenreNamePr
 import { GenreLink } from "../components/links/GenreLink";
 import { WikitextTruncateAtLength } from "../components/wikipedia/wikitexts/WikitextTruncateAtLength";
 import { colourStyles } from "../colours";
+import { textStyles } from "../typography";
 
 /** The one truncation length used for genre snippets everywhere in search. */
 export const SNIPPET_LENGTH = 100;
@@ -56,7 +57,7 @@ export function GenreSnippet({ node }: { node: NodeData }) {
   }, [node.label, genreData]);
 
   return (
-    <small className="block">
+    <small className={`block ${textStyles.small}`}>
       {genreData ? (
         strippedDescription ? (
           <WikitextTruncateAtLength
@@ -78,7 +79,7 @@ export function GenreSnippet({ node }: { node: NodeData }) {
 export function ListLabel({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`text-base font-plate font-semibold uppercase tracking-[0.2em] ${colourStyles.text.brass} px-1 [text-shadow:0_1px_4px_rgba(4,6,15,0.95)]`}
+      className={`${textStyles.body} font-plate font-semibold uppercase tracking-[0.2em] ${colourStyles.text.brass} px-1 [text-shadow:0_1px_4px_rgba(4,6,15,0.95)]`}
     >
       {children}
     </div>
@@ -125,7 +126,9 @@ function ResultRow({
         )}
       </GenreLink>
       {result.isAlias && (
-        <small className={`block italic ${colourStyles.text.secondary}`}>
+        <small
+          className={`block italic ${textStyles.small} ${colourStyles.text.secondary}`}
+        >
           also known as{" "}
           <HighlightedText text={result.matchedText} spans={result.spans} />
         </small>

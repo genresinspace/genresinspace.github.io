@@ -6,6 +6,7 @@ import {
 } from "frontend_wasm";
 import { WikitextNodes } from "./WikitextNodes";
 import { colourStyles } from "../../../colours";
+import { textStyles } from "../../../typography";
 
 /**
  * Determines whether this node can be used to break a short description.
@@ -47,7 +48,7 @@ export function WikitextTruncateAtNewline(props: {
       {index !== -1 && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className={`w-full p-2 text-base ${colourStyles.text.toggle} ${colourStyles.bg.interactive} ${colourStyles.hover.medium} mx-auto block transition-colors`}
+          className={`w-full p-2 ${textStyles.body} ${colourStyles.text.toggle} ${colourStyles.bg.interactive} ${colourStyles.hover.medium} mx-auto block transition-colors`}
         >
           {expanded ? "Show less" : "Show more"}
         </button>
