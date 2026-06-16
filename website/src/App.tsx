@@ -107,12 +107,12 @@ function App() {
           />
           <div>
             <div
-              className={`font-display font-semibold text-2xl tracking-[0.3em] ml-[0.3em] ${colourStyles.text.brass}`}
+              className={`font-display font-semibold text-3xl tracking-[0.3em] ml-[0.3em] ${colourStyles.text.brass}`}
             >
               genres in space
             </div>
             <div
-              className={`font-body italic text-sm ${colourStyles.text.meta}`}
+              className={`font-body italic text-base ${colourStyles.text.meta}`}
             >
               charting the heavens&hellip;
             </div>

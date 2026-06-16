@@ -29,7 +29,7 @@ export function InterlanguageLink({
       <WikipediaMaybeGenreLink pageTitle={localTitle}>
         {localTitle}
       </WikipediaMaybeGenreLink>
-      <span className="text-sm">
+      <span className="text-base">
         {" "}
         [
         {links.map(({ lang, page }, i) => (

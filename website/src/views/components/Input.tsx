@@ -14,7 +14,7 @@ export function InputDescription({
   return (
     <div className={`${className || ""}`}>
       {children}
-      <p className={`text-sm ${colourStyles.text.secondary} mt-1`}>
+      <p className={`text-base ${colourStyles.text.secondary} mt-1`}>
         {description}
       </p>
     </div>
@@ -41,7 +41,7 @@ export function CheckboxInput({
         <label className="block font-bold">{label}</label>
         <button
           type="button"
-          className={`text-sm px-2 py-1 ${colourStyles.input.primary}`}
+          className={`text-base px-2 py-1 ${colourStyles.input.primary}`}
           onClick={() => onChange(name, defaultValue)}
           aria-label="Reset to default"
         >
@@ -58,7 +58,7 @@ export function CheckboxInput({
           checked={checked}
           onChange={(e) => e.stopPropagation()}
         />
-        <span className="text-sm select-none">{checked ? "Yes" : "No"}</span>
+        <span className="text-base select-none">{checked ? "Yes" : "No"}</span>
       </div>
     </div>
   );
@@ -90,13 +90,13 @@ export function RangeInput({
         <label className="block font-bold">{label}</label>
         <div className="flex items-center">
           <span
-            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.label}`}
+            className={`text-base font-medium px-2 py-1 ${colourStyles.input.label}`}
           >
             {value ?? defaultValue}
           </span>
           <button
             type="button"
-            className={`text-sm font-medium px-2 py-1 ${colourStyles.input.primary}`}
+            className={`text-base font-medium px-2 py-1 ${colourStyles.input.primary}`}
             onClick={() => onChange(name, defaultValue)}
             aria-label="Reset to default"
           >

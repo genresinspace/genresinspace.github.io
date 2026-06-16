@@ -30,7 +30,7 @@ export function Tabs<T extends string>({
       {items.map((tab) => (
         <button
           key={tab.id}
-          className={`flex-1 p-2 cursor-pointer flex items-center justify-center gap-2 overflow-hidden border-b-2 font-display text-[1.0625rem] tracking-[0.08em] transition-colors duration-200 ${
+          className={`flex-1 p-2 cursor-pointer flex items-center justify-center gap-2 overflow-hidden border-b-2 font-display text-lg tracking-[0.08em] transition-colors duration-200 ${
             activeId === tab.id
               ? `font-bold ${colourStyles.button.active}`
               : `font-semibold ${colourStyles.button.inactive}`

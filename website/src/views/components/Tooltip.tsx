@@ -87,7 +87,7 @@ export function WikitextTooltipContent({
   return (
     <DisableTooltips>
       <WikitextTruncateAtLength wikitext={description} length={length} />
-      <small className={`block mt-2 text-xs ${colourStyles.text.meta}`}>
+      <small className={`block mt-2 text-sm ${colourStyles.text.meta}`}>
         Last updated: {new Date(last_revision_date).toLocaleString()}
       </small>
     </DisableTooltips>

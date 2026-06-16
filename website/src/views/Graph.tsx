@@ -171,7 +171,7 @@ export function Graph({
               <p className="font-semibold mb-1">
                 Couldn&rsquo;t display the graph
               </p>
-              <p className="text-sm">
+              <p className="text-base">
                 Your browser doesn&rsquo;t support WebGL2, which the interactive
                 graph needs to render. You can still search for genres and
                 browse their details from the panels. Try updating your browser

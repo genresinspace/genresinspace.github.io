@@ -116,7 +116,7 @@ function ToggleButton({
   return (
     <button
       onClick={onClick}
-      className={`inline-block ml-1 text-xs ${colourStyles.text.toggle} px-1 ${colourStyles.bg.interactive} ${colourStyles.hover.medium} transition-colors cursor-pointer`}
+      className={`inline-block ml-1 text-sm ${colourStyles.text.toggle} px-1 ${colourStyles.bg.interactive} ${colourStyles.hover.medium} transition-colors cursor-pointer`}
     >
       {children}
     </button>

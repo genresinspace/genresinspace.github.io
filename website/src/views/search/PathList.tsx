@@ -72,13 +72,13 @@ export function NoPathMessage({
   const throughLabels = getFormattedThroughLabels(visibleTypes);
   if (!throughLabels) {
     return (
-      <div className={`mt-2 p-1 text-sm ${colourStyles.text.secondary}`}>
+      <div className={`mt-2 p-1 text-base ${colourStyles.text.secondary}`}>
         No edge types are enabled — turn some on in Settings to find a path.
       </div>
     );
   }
   return (
-    <div className={`mt-2 p-1 text-sm ${colourStyles.text.secondary}`}>
+    <div className={`mt-2 p-1 text-base ${colourStyles.text.secondary}`}>
       {reverseExists ? (
         <>
           No path from <strong>{sourceNode.label}</strong> to{" "}

@@ -22,7 +22,7 @@ export function SectionHeading({
           {icon}
         </span>
       )}
-      <h3 className="font-display font-semibold text-lg leading-tight tracking-[0.14em]">
+      <h3 className="font-display font-semibold text-xl leading-tight tracking-[0.14em]">
         {children}
       </h3>
       {/* hairline rule trailing off like a chart cartouche */}
@@ -30,7 +30,7 @@ export function SectionHeading({
         aria-hidden
         className={`flex-1 border-t ${colourStyles.border.light} opacity-60`}
       />
-      <span aria-hidden className={`text-[0.6rem] ${colourStyles.text.brass}`}>
+      <span aria-hidden className={`text-sm ${colourStyles.text.brass}`}>
         ✦
       </span>
     </div>

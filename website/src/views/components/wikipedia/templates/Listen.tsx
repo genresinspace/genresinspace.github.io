@@ -139,7 +139,7 @@ function AudioPlayer({ filename, startTime }: AudioPlayerProps) {
           />
         </div>
         <div
-          className={`text-xs ${colourStyles.audio.playerTextMuted} w-14 text-right`}
+          className={`text-sm ${colourStyles.audio.playerTextMuted} w-14 text-right`}
         >
           {formatTime(currentTime)} / {formatTime(duration)}
         </div>
@@ -238,7 +238,7 @@ export function Listen({
         >
           <div className="flex items-start mb-2">
             {showIcon && !plain && !embed && (
-              <div className="mr-2 text-xl">{icon}</div>
+              <div className="mr-2 text-2xl">{icon}</div>
             )}
             <div>
               <div className={`font-medium ${colourStyles.audio.playerTitle}`}>
@@ -246,7 +246,7 @@ export function Listen({
               </div>
               {file.description && (
                 <div
-                  className={`text-sm ${colourStyles.audio.playerTextMuted}`}
+                  className={`text-base ${colourStyles.audio.playerTextMuted}`}
                 >
                   <Wikitext wikitext={file.description} />
                 </div>

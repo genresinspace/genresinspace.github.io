@@ -78,7 +78,7 @@ export function GenreSnippet({ node }: { node: NodeData }) {
 export function ListLabel({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`text-[0.8125rem] font-plate font-semibold uppercase tracking-[0.2em] ${colourStyles.text.brass} px-1 [text-shadow:0_1px_4px_rgba(4,6,15,0.95)]`}
+      className={`text-base font-plate font-semibold uppercase tracking-[0.2em] ${colourStyles.text.brass} px-1 [text-shadow:0_1px_4px_rgba(4,6,15,0.95)]`}
     >
       {children}
     </div>

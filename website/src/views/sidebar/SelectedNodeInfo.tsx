@@ -173,9 +173,9 @@ function GenreDescription({
   const prefixDetected = stripped !== description;
 
   return (
-    // The primary reading surface: a notch larger and airier than the UI text
+    // The primary reading surface: matches the info-page body size for consistency
     <div
-      className={`px-4 py-3 text-[1.0625rem] leading-[1.7] ${colourStyles.bg.card}`}
+      className={`px-4 py-3 text-base leading-[1.7] ${colourStyles.bg.card}`}
     >
       <WikitextTruncateAtNewline
         wikitext={prefixDetected ? stripped : description}
@@ -493,7 +493,7 @@ function ConnectionItem({
         {node.label || node.id}
       </GenreLink>
       <small
-        className={`block mt-0.5 leading-normal ${colourStyles.text.secondary}`}
+        className={`block mt-0.5 text-base leading-normal ${colourStyles.text.secondary}`}
       >
         {genreData ? (
           shortDescription ? (
@@ -642,7 +642,7 @@ function Artist({
               />
             </a>
           </div>
-          <div className="text-[0.8125rem] mb-2">
+          <div className="text-base mb-2">
             Known for:{" "}
             {artistData.genres
               .map((genreId) => nodes[genreId])
@@ -661,7 +661,7 @@ function Artist({
               ))}
           </div>
           <div
-            className={`text-[0.8125rem] leading-normal ${colourStyles.text.secondary}`}
+            className={`text-base leading-normal ${colourStyles.text.secondary}`}
           >
             {artistData?.description ? (
               <WikitextTruncateAtLength
@@ -671,7 +671,7 @@ function Artist({
             ) : (
               "No description available."
             )}
-            <div className="text-[0.9em] leading-none mt-1">
+            <div className="text-sm leading-none mt-1">
               Last updated:{" "}
               <em>
                 {new Date(artistData.last_revision_date).toLocaleString()}

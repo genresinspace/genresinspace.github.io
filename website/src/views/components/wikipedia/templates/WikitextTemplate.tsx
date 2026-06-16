@@ -589,7 +589,7 @@ const canonicalHandlers = {
         <span>
           <abbr
             title="literal translation"
-            className={`text-sm border-b border-dotted ${colourStyles.border.abbr} cursor-help`}
+            className={`text-base border-b border-dotted ${colourStyles.border.abbr} cursor-help`}
           >
             lit.
           </abbr>{" "}
