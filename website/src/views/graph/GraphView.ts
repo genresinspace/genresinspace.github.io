@@ -5,7 +5,6 @@
  */
 
 import type { Data } from "../../data";
-import { nodeIdToInt } from "../../data";
 import type { SettingsData } from "../../settings";
 import { Camera } from "./Camera";
 import { WebGLRenderer } from "./WebGLRenderer";
@@ -42,36 +41,17 @@ import {
   EDGE_CURVATURE,
   CURSOR_PROXIMITY_RADIUS,
   NODE_LIGHTNESS,
-  FIT_STDDEV_MULT,
-  FIT_RADIUS_MIN,
-  FIT_PADDING_FRAC,
-  FIT_ANIM_DURATION,
-  NO_PATH_LINE_COLOR,
-  NO_PATH_BREAK_COLOR,
 } from "./graphConstants";
+import { fitCameraToPositions, gatherNodePositions } from "./cameraFit";
+import { NoPathOverlay } from "./NoPathOverlay";
+import { resolvePathNodeClick } from "./nodeActivation";
+import { FrameInterpolator } from "./FrameInterpolator";
 
 /** Callbacks from the graph view to the parent React component. */
 export interface GraphViewCallbacks {
   setSelectedId(id: string | null): void;
   onSetAsSource(nodeId: string): void;
   onSetAsDestination(nodeId: string): void;
-}
-
-// ---------------------------------------------------------------------------
-// Interpolation state
-// ---------------------------------------------------------------------------
-
-interface InterpState {
-  nodeColors: Float32Array | null;
-  edgeColors: Float32Array | null;
-  nodeSizes: Float32Array | null;
-  arrowColors: Float32Array | null;
-  arrowTargetSizes: Float32Array | null;
-  edgeSrcNodeColors: Float32Array | null;
-  edgeTgtNodeColors: Float32Array | null;
-  nodeSelected: Float32Array | null;
-  prevSelectedId: string | null;
-  lastTime: number;
 }
 
 // ---------------------------------------------------------------------------
@@ -102,23 +82,6 @@ function allDirty(): DirtyFlags {
     labels: true,
     selection: true,
   };
-}
-
-// ---------------------------------------------------------------------------
-// Convergence check
-// ---------------------------------------------------------------------------
-
-function hasConverged(
-  interp: Float32Array | null,
-  target: Float32Array | null,
-  threshold: number = 0.001
-): boolean {
-  if (!interp || !target) return true;
-  if (interp.length !== target.length) return false;
-  for (let i = 0; i < interp.length; i++) {
-    if (Math.abs(interp[i] - target[i]) > threshold) return false;
-  }
-  return true;
 }
 
 // ---------------------------------------------------------------------------
@@ -184,22 +147,12 @@ export class GraphView {
   private arrowGeom: ArrowGeometry | null = null;
 
   // --- Interpolation ---
-  private interp: InterpState = {
-    nodeColors: null,
-    edgeColors: null,
-    nodeSizes: null,
-    arrowColors: null,
-    arrowTargetSizes: null,
-    edgeSrcNodeColors: null,
-    edgeTgtNodeColors: null,
-    nodeSelected: null,
-    prevSelectedId: null,
-    lastTime: 0,
-  };
+  private frame = new FrameInterpolator();
 
   // --- Render loop ---
   private animFrameId = 0;
   private renderScheduled = false;
+  private lastFrameTime = 0;
   private hoverTimer: ReturnType<typeof setTimeout> | null = null;
 
   // --- Static arrow fade ---
@@ -223,13 +176,7 @@ export class GraphView {
   private cursorWorld = { x: 0, y: 0 };
 
   // --- No-path severed connector overlay (SVG inside the label container) ---
-  // Two dashed stubs from each endpoint with a gap, crossed by an ✕ to read as
-  // a broken connection rather than a real edge.
-  private noPathSvg: SVGSVGElement | null = null;
-  private noPathSeg1: SVGLineElement | null = null;
-  private noPathSeg2: SVGLineElement | null = null;
-  private noPathCross1: SVGLineElement | null = null;
-  private noPathCross2: SVGLineElement | null = null;
+  private noPathOverlay: NoPathOverlay;
 
   // --- Deferred zoom-to-fit request ---
   // Set by requestZoomToSelection/Path; consumed after pathInfo recomputes.
@@ -310,95 +257,18 @@ export class GraphView {
     this.renderer.initNodeSelected(data.nodes.length);
 
     // 4. Interaction handler
-    this.interaction = new InteractionHandler(this.camera, canvas, {
-      onNodeClick: (idx) => {
-        if (this.hoverTimer) {
-          clearTimeout(this.hoverTimer);
-          this.hoverTimer = null;
-        }
-        if (idx !== null) {
-          const nodeId = data.nodes[idx].id;
-          const sid = this.selectedId;
-          const currentPath = this.path;
-
-          if (currentPath) {
-            if (currentPath.includes(nodeId)) {
-              if (sid === nodeId) {
-                const sourceId = currentPath[0];
-                if (sourceId && sourceId !== nodeId) {
-                  this.callbacks.setSelectedId(sourceId);
-                } else {
-                  this.callbacks.setSelectedId(null);
-                }
-              } else {
-                this.callbacks.setSelectedId(nodeId);
-              }
-            }
-          } else {
-            this.callbacks.setSelectedId(sid !== nodeId ? nodeId : null);
-          }
-        } else {
-          this.callbacks.setSelectedId(null);
-        }
-      },
-      onNodeHover: (idx) => {
-        if (this.hoverTimer) {
-          clearTimeout(this.hoverTimer);
-          this.hoverTimer = null;
-        }
-        const nodeId = idx !== null ? data.nodes[idx].id : null;
-        if (nodeId === this.hoveredId) return;
-        this.hoverTimer = setTimeout(() => {
-          this.setHoveredId(nodeId);
-          this.hoverTimer = null;
-        }, HOVER_DEBOUNCE_MS);
-      },
-      onCursorMove: (wx, wy) => {
-        this.cursorWorld.x = wx;
-        this.cursorWorld.y = wy;
-        this.labelManager.setCursorWorld(wx, wy);
-        this.scheduleRender();
-      },
-      onViewChange: () => {
-        this.onCameraChange();
-        this.scheduleRender();
-      },
-      hitTest: (wx, wy) => {
-        return hitTestNode(
-          wx,
-          wy,
-          this.nodePositions,
-          this.interp.nodeSizes || new Float32Array(0),
-          HOVER_HIT_BUFFER
-        );
-      },
-    });
+    this.interaction = this.createInteractionHandler(canvas);
 
     // 5. Label manager
-    const labelCallbacks: LabelCallbacks = {
-      getSelectedId: () => this.selectedId,
-      getHoveredId: () => this.hoveredId,
-      getSearchMode: () => this.searchMode,
-      getPath: () => this.path,
-      setSelectedId: (id) => this.callbacks.setSelectedId(id),
-      setHoveredId: (id) => this.setHoveredId(id),
-      onSetAsSource: (id) => this.callbacks.onSetAsSource(id),
-      onSetAsDestination: (id) => this.callbacks.onSetAsDestination(id),
-      onCameraChange: () => {
-        this.onCameraChange();
-        this.scheduleRender();
-      },
-      scheduleRender: () => this.scheduleRender(),
-    };
     this.labelManager = new LabelManager(
       labelContainer,
       this.camera,
-      labelCallbacks
+      this.createLabelCallbacks()
     );
 
     // 5b. Broken-connector overlay for the no-path state. Lives inside the
     // label container so it rides the same per-frame transform as the labels.
-    this.createNoPathOverlay();
+    this.noPathOverlay = new NoPathOverlay(labelContainer);
 
     // 6. Resize observer
     this.resizeObserver = new ResizeObserver(() => {
@@ -415,6 +285,92 @@ export class GraphView {
 
     // 7. Initial render
     this.scheduleRender();
+  }
+
+  // ==========================================================================
+  // Interaction + label wiring
+  // ==========================================================================
+
+  private createInteractionHandler(
+    canvas: HTMLCanvasElement
+  ): InteractionHandler {
+    return new InteractionHandler(this.camera, canvas, {
+      onNodeClick: (idx) => this.handleNodeClick(idx),
+      onNodeHover: (idx) => this.handleNodeHover(idx),
+      onCursorMove: (wx, wy) => {
+        this.cursorWorld.x = wx;
+        this.cursorWorld.y = wy;
+        this.labelManager.setCursorWorld(wx, wy);
+        this.scheduleRender();
+      },
+      onViewChange: () => {
+        this.onCameraChange();
+        this.scheduleRender();
+      },
+      hitTest: (wx, wy) =>
+        hitTestNode(
+          wx,
+          wy,
+          this.nodePositions,
+          this.frame.nodeSizes || new Float32Array(0),
+          HOVER_HIT_BUFFER
+        ),
+    });
+  }
+
+  private createLabelCallbacks(): LabelCallbacks {
+    return {
+      getSelectedId: () => this.selectedId,
+      getHoveredId: () => this.hoveredId,
+      getSearchMode: () => this.searchMode,
+      getPath: () => this.path,
+      setSelectedId: (id) => this.callbacks.setSelectedId(id),
+      setHoveredId: (id) => this.setHoveredId(id),
+      onSetAsSource: (id) => this.callbacks.onSetAsSource(id),
+      onSetAsDestination: (id) => this.callbacks.onSetAsDestination(id),
+      onCameraChange: () => {
+        this.onCameraChange();
+        this.scheduleRender();
+      },
+      scheduleRender: () => this.scheduleRender(),
+    };
+  }
+
+  /** Resolve a canvas click on node `idx` (or empty space) to a selection. */
+  private handleNodeClick(idx: number | null): void {
+    if (this.hoverTimer) {
+      clearTimeout(this.hoverTimer);
+      this.hoverTimer = null;
+    }
+    if (idx === null) {
+      this.callbacks.setSelectedId(null);
+      return;
+    }
+    const nodeId = this.data.nodes[idx].id;
+    if (this.path) {
+      // Only on-path nodes respond while a path is shown.
+      if (this.path.includes(nodeId)) {
+        this.callbacks.setSelectedId(
+          resolvePathNodeClick(nodeId, this.selectedId, this.path)
+        );
+      }
+    } else {
+      // No path: toggle selection.
+      this.callbacks.setSelectedId(this.selectedId !== nodeId ? nodeId : null);
+    }
+  }
+
+  private handleNodeHover(idx: number | null): void {
+    if (this.hoverTimer) {
+      clearTimeout(this.hoverTimer);
+      this.hoverTimer = null;
+    }
+    const nodeId = idx !== null ? this.data.nodes[idx].id : null;
+    if (nodeId === this.hoveredId) return;
+    this.hoverTimer = setTimeout(() => {
+      this.setHoveredId(nodeId);
+      this.hoverTimer = null;
+    }, HOVER_DEBOUNCE_MS);
   }
 
   // ==========================================================================
@@ -483,8 +439,8 @@ export class GraphView {
       return;
     }
     this.noPathEndpoints = endpoints;
-    // Both endpoints light their own neighbourhood net, so the coverage net,
-    // colours, sizes, edges, and arrows all change.
+    // Entering/leaving the no-path state suppresses or restores the coverage
+    // net, so colours, sizes, edges, arrows, and labels all change.
     this.dirty.pathInfo = true;
     this.dirty.nodeColors = true;
     this.dirty.nodeSizes = true;
@@ -492,7 +448,8 @@ export class GraphView {
     this.dirty.netArrows = true;
     this.dirty.arrows = true;
     this.dirty.labels = true;
-    this.updateNoPathOverlay();
+    this.noPathOverlay.setEndpoints(endpoints);
+    this.refreshNoPathOverlay();
     this.scheduleRender();
   }
 
@@ -566,7 +523,7 @@ export class GraphView {
     this.interaction.destroy();
     this.renderer.destroy();
     this.labelManager.destroy();
-    this.noPathSvg?.remove();
+    this.noPathOverlay.destroy();
   }
 
   private updateStaticArrowFadeTarget(): void {
@@ -719,10 +676,9 @@ export class GraphView {
     // Recompute any dirty derived state
     this.recomputeIfDirty();
 
-    const interp = this.interp;
     const now = performance.now();
-    const dt = interp.lastTime > 0 ? now - interp.lastTime : 0;
-    interp.lastTime = now;
+    const dt = this.lastFrameTime > 0 ? now - this.lastFrameTime : 0;
+    this.lastFrameTime = now;
 
     // Update camera (animation, inertia, smooth zoom)
     if (this.camera.update(dt)) {
@@ -747,165 +703,22 @@ export class GraphView {
       }
     }
 
-    // Lerp node colors
-    if (this.targetNodeColors) {
-      if (
-        !interp.nodeColors ||
-        interp.nodeColors.length !== this.targetNodeColors.length
-      ) {
-        interp.nodeColors = new Float32Array(this.targetNodeColors);
-      } else {
-        const src = this.targetNodeColors;
-        const dst = interp.nodeColors;
-        for (let i = 0; i < dst.length; i++) {
-          dst[i] += (src[i] - dst[i]) * factor;
-        }
-      }
-      this.renderer.setNodeColors(interp.nodeColors);
-    }
-
-    // Lerp edge colors
-    if (this.targetEdgeColors) {
-      if (
-        !interp.edgeColors ||
-        interp.edgeColors.length !== this.targetEdgeColors.length
-      ) {
-        interp.edgeColors = new Float32Array(this.targetEdgeColors);
-      } else {
-        const src = this.targetEdgeColors;
-        const dst = interp.edgeColors;
-        for (let i = 0; i < dst.length; i++) {
-          dst[i] += (src[i] - dst[i]) * factor;
-        }
-      }
-      this.renderer.setEdgeColors(interp.edgeColors);
-    }
-
-    // Upload edge width scales (no interpolation needed)
-    if (this._edgeWidthScales) {
-      this.renderer.setEdgeWidthScales(this._edgeWidthScales);
-    }
-
-    // Lerp node sizes
-    if (this.targetNodeSizes) {
-      if (
-        !interp.nodeSizes ||
-        interp.nodeSizes.length !== this.targetNodeSizes.length
-      ) {
-        interp.nodeSizes = new Float32Array(this.targetNodeSizes);
-      } else {
-        const src = this.targetNodeSizes;
-        const dst = interp.nodeSizes;
-        for (let i = 0; i < dst.length; i++) {
-          dst[i] += (src[i] - dst[i]) * factor;
-        }
-      }
-      this.renderer.setNodeSizes(interp.nodeSizes);
-    }
-
-    // Compute per-edge node colors for endpoint tinting
-    const eni = this.edgeNodeIndices;
-    if (eni && interp.nodeColors) {
-      const n = this.data.edges.length;
-      if (
-        !interp.edgeSrcNodeColors ||
-        interp.edgeSrcNodeColors.length !== n * 4
-      ) {
-        interp.edgeSrcNodeColors = new Float32Array(n * 4);
-        interp.edgeTgtNodeColors = new Float32Array(n * 4);
-      }
-      for (let i = 0; i < n; i++) {
-        const si = eni.src[i];
-        const ti = eni.tgt[i];
-        interp.edgeSrcNodeColors[i * 4] = interp.nodeColors[si * 4];
-        interp.edgeSrcNodeColors[i * 4 + 1] = interp.nodeColors[si * 4 + 1];
-        interp.edgeSrcNodeColors[i * 4 + 2] = interp.nodeColors[si * 4 + 2];
-        interp.edgeSrcNodeColors[i * 4 + 3] = interp.nodeColors[si * 4 + 3];
-        interp.edgeTgtNodeColors![i * 4] = interp.nodeColors[ti * 4];
-        interp.edgeTgtNodeColors![i * 4 + 1] = interp.nodeColors[ti * 4 + 1];
-        interp.edgeTgtNodeColors![i * 4 + 2] = interp.nodeColors[ti * 4 + 2];
-        interp.edgeTgtNodeColors![i * 4 + 3] = interp.nodeColors[ti * 4 + 3];
-      }
-      this.renderer.setEdgeNodeColors(
-        interp.edgeSrcNodeColors,
-        interp.edgeTgtNodeColors!
-      );
-    }
-
-    // Compute arrow colors/sizes from interpolated edge/node data
-    // Layout: [static | net | hover]. Static arrows get fading opacity.
-    const geom = this.arrowGeom;
-    if (geom && interp.edgeColors && interp.nodeSizes) {
-      const n = geom.edgeIndices.length;
-      if (!interp.arrowColors || interp.arrowColors.length !== n * 4) {
-        interp.arrowColors = new Float32Array(n * 4);
-        interp.arrowTargetSizes = new Float32Array(n);
-      }
-      const staticEnd = geom.staticArrowCount;
-      const netEnd = staticEnd + geom.netArrowCount;
-      // Collect edge indices that have animated arrows so we can hide
-      // their static duplicates immediately (no doubling during fade).
-      const animatedEdges = new Set<number>();
-      for (let k = staticEnd; k < n; k++) {
-        animatedEdges.add(geom.edgeIndices[k]);
-      }
-      for (let j = 0; j < n; j++) {
-        const ei = geom.edgeIndices[j];
-        if (j >= netEnd) {
-          // Hover arrows: precomputed type-based colors
-          const hi = j - netEnd;
-          interp.arrowColors[j * 4] = geom.hoverColors[hi * 4];
-          interp.arrowColors[j * 4 + 1] = geom.hoverColors[hi * 4 + 1];
-          interp.arrowColors[j * 4 + 2] = geom.hoverColors[hi * 4 + 2];
-          interp.arrowColors[j * 4 + 3] = geom.hoverColors[hi * 4 + 3];
-        } else if (j < staticEnd) {
-          // Static arrows: color from edge, with fade opacity.
-          // If this edge also has an animated arrow, hide immediately
-          // to avoid doubling.
-          const alpha = animatedEdges.has(ei)
-            ? 0.0
-            : interp.edgeColors[ei * 8 + 3] * this.staticArrowOpacity;
-          interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
-          interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
-          interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
-          interp.arrowColors[j * 4 + 3] = alpha;
-        } else {
-          // Net arrows: color from interpolated edge colors
-          interp.arrowColors[j * 4] = interp.edgeColors[ei * 8];
-          interp.arrowColors[j * 4 + 1] = interp.edgeColors[ei * 8 + 1];
-          interp.arrowColors[j * 4 + 2] = interp.edgeColors[ei * 8 + 2];
-          interp.arrowColors[j * 4 + 3] = interp.edgeColors[ei * 8 + 3];
-        }
-        interp.arrowTargetSizes![j] =
-          interp.nodeSizes[geom.targetNodeIndices[j]];
-      }
-      this.renderer.setArrows(
-        geom.targets,
-        geom.directions,
-        interp.arrowColors,
-        interp.arrowTargetSizes!,
-        geom.phases,
-        geom.speeds
-      );
-    }
-
-    // Update selection indicator
-    if (this.selectedId !== interp.prevSelectedId) {
-      interp.prevSelectedId = this.selectedId;
-      const count = this.data.nodes.length;
-      if (!interp.nodeSelected || interp.nodeSelected.length !== count) {
-        interp.nodeSelected = new Float32Array(count);
-      } else {
-        interp.nodeSelected.fill(0);
-      }
-      if (this.selectedId) {
-        const idx = nodeIdToInt(this.selectedId);
-        if (idx >= 0 && idx < count) {
-          interp.nodeSelected[idx] = 1.0;
-        }
-      }
-      this.renderer.setNodeSelected(interp.nodeSelected);
-    }
+    const interpolating = this.frame.step({
+      renderer: this.renderer,
+      factor,
+      targets: {
+        nodeColors: this.targetNodeColors,
+        edgeColors: this.targetEdgeColors,
+        nodeSizes: this.targetNodeSizes,
+        edgeWidthScales: this._edgeWidthScales,
+      },
+      edgeNodeIndices: this.edgeNodeIndices,
+      edgeCount: this.data.edges.length,
+      nodeCount: this.data.nodes.length,
+      arrowGeom: this.arrowGeom,
+      staticArrowOpacity: this.staticArrowOpacity,
+      selectedId: this.selectedId,
+    });
 
     this.renderer.render(
       this.camera.getViewMatrix(),
@@ -923,10 +736,6 @@ export class GraphView {
 
     // Continue rendering if camera is active, interpolation hasn't converged,
     // or animated arrows are visible (their phase depends on wall-clock time).
-    const interpolating =
-      !hasConverged(interp.nodeColors, this.targetNodeColors) ||
-      !hasConverged(interp.edgeColors, this.targetEdgeColors) ||
-      !hasConverged(interp.nodeSizes, this.targetNodeSizes);
     const hasAnimatedArrows =
       this.selectedId !== null || this.hoveredId !== null;
     const arrowFading =
@@ -993,190 +802,37 @@ export class GraphView {
       this.noPathEndpoints
     );
 
-    this.updateNoPathOverlay();
+    this.refreshNoPathOverlay();
 
     // Snapshot camera state and reset transform (equivalent to the useLayoutEffect)
     this.labelSnap = this.camera.getState();
     this.labelContainer.style.transform = "";
   }
 
-  /** Build the severed-connector SVG used to mark an unreachable destination. */
-  private createNoPathOverlay(): void {
-    const NS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(NS, "svg");
-    svg.setAttribute("width", "100%");
-    svg.setAttribute("height", "100%");
-    svg.style.position = "absolute";
-    svg.style.inset = "0";
-    svg.style.overflow = "visible";
-    svg.style.pointerEvents = "none";
-    svg.style.display = "none";
-
-    const seg = () => {
-      const line = document.createElementNS(NS, "line");
-      line.setAttribute("stroke", NO_PATH_LINE_COLOR);
-      line.setAttribute("stroke-width", "1.5");
-      line.setAttribute("stroke-dasharray", "5 5");
-      line.setAttribute("stroke-linecap", "round");
-      line.setAttribute("stroke-opacity", "0.6");
-      svg.appendChild(line);
-      return line;
-    };
-    const cross = () => {
-      const line = document.createElementNS(NS, "line");
-      line.setAttribute("stroke", NO_PATH_BREAK_COLOR);
-      line.setAttribute("stroke-width", "2");
-      line.setAttribute("stroke-linecap", "round");
-      line.setAttribute("stroke-opacity", "0.95");
-      svg.appendChild(line);
-      return line;
-    };
-
-    this.noPathSeg1 = seg();
-    this.noPathSeg2 = seg();
-    this.noPathCross1 = cross();
-    this.noPathCross2 = cross();
-
-    this.labelContainer.appendChild(svg);
-    this.noPathSvg = svg;
-  }
-
-  /**
-   * Position (or hide) the severed connector: a dashed stub from each endpoint
-   * stopping short of the midpoint, with an ✕ marking the gap. Endpoints are
-   * projected with the current camera, matching the screen space the labels are
-   * committed in, so the overlay tracks the same per-frame container transform.
-   */
-  private updateNoPathOverlay(): void {
-    const svg = this.noPathSvg;
-    const seg1 = this.noPathSeg1;
-    const seg2 = this.noPathSeg2;
-    const cross1 = this.noPathCross1;
-    const cross2 = this.noPathCross2;
-    if (!svg || !seg1 || !seg2 || !cross1 || !cross2) return;
-
-    const ep = this.noPathEndpoints;
-    if (!ep) {
-      svg.style.display = "none";
-      return;
-    }
-
-    const si = nodeIdToInt(ep.source);
-    const di = nodeIdToInt(ep.destination);
-    if (
-      si < 0 ||
-      si >= this.data.nodes.length ||
-      di < 0 ||
-      di >= this.data.nodes.length
-    ) {
-      svg.style.display = "none";
-      return;
-    }
-
-    const [x1, y1] = this.camera.worldToScreen(
-      this.nodePositions[si * 2],
-      this.nodePositions[si * 2 + 1]
+  /** Reposition the no-path connector against the current camera. */
+  private refreshNoPathOverlay(): void {
+    this.noPathOverlay.update(
+      this.camera,
+      this.nodePositions,
+      this.data.nodes.length
     );
-    const [x2, y2] = this.camera.worldToScreen(
-      this.nodePositions[di * 2],
-      this.nodePositions[di * 2 + 1]
-    );
-
-    const mx = (x1 + x2) / 2;
-    const my = (y1 + y2) / 2;
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    const len = Math.hypot(dx, dy);
-
-    const setLine = (
-      line: SVGLineElement,
-      ax: number,
-      ay: number,
-      bx: number,
-      by: number
-    ) => {
-      line.setAttribute("x1", String(ax));
-      line.setAttribute("y1", String(ay));
-      line.setAttribute("x2", String(bx));
-      line.setAttribute("y2", String(by));
-    };
-
-    // Gap left around the midpoint for the break marker, shrinking on short runs
-    const gap = Math.min(14, len / 4);
-    const ux = len > 0 ? dx / len : 0;
-    const uy = len > 0 ? dy / len : 0;
-    setLine(seg1, x1, y1, mx - ux * gap, my - uy * gap);
-    setLine(seg2, mx + ux * gap, my + uy * gap, x2, y2);
-
-    // A fixed-orientation ✕ over the gap reads as "no connection" at any angle
-    const r = Math.min(6, gap * 0.7);
-    setLine(cross1, mx - r, my - r, mx + r, my + r);
-    setLine(cross2, mx - r, my + r, mx + r, my - r);
-
-    svg.style.display = "block";
   }
 
   // ==========================================================================
   // Zoom-to-fit helpers
   // ==========================================================================
 
-  private animateToFitPositions(positions: [number, number][]): void {
-    if (positions.length === 0) return;
-
-    let mx = 0,
-      my = 0;
-    for (const [px, py] of positions) {
-      mx += px;
-      my += py;
-    }
-    mx /= positions.length;
-    my /= positions.length;
-
-    let variance = 0;
-    for (const [px, py] of positions) {
-      const dx = px - mx,
-        dy = py - my;
-      variance += dx * dx + dy * dy;
-    }
-    const stddev = Math.sqrt(variance / positions.length);
-
-    const fitRadius = Math.max(stddev * FIT_STDDEV_MULT, FIT_RADIUS_MIN);
-    const rawW = this.camera.canvasW - Math.abs(this.camera.viewportOffsetX);
-    const rawH = this.camera.canvasH - Math.abs(this.camera.viewportOffsetY);
-    const padding = Math.min(rawW, rawH) * FIT_PADDING_FRAC;
-    const availableSize = Math.min(rawW - padding, rawH - padding);
-    const fitZoom = availableSize / (fitRadius * 2);
-
-    this.camera.animateTo(
-      mx,
-      my,
-      Math.max(fitZoom, this.camera.minZoomLevel),
-      FIT_ANIM_DURATION
-    );
-    this.scheduleRender();
+  private fitTo(positions: [number, number][]): void {
+    if (fitCameraToPositions(this.camera, positions)) this.scheduleRender();
   }
 
   private animateToSelection(): void {
     if (!this.selectedId) return;
     if (this.path && this.path.length > 0) return;
-
-    const idx = nodeIdToInt(this.selectedId);
-    if (idx < 0 || idx >= this.data.nodes.length) return;
-
-    const positions: [number, number][] = [
-      [this.nodePositions[idx * 2], this.nodePositions[idx * 2 + 1]],
-    ];
-    for (const id of this.pathInfo.immediateNeighbours) {
-      const ni = nodeIdToInt(id);
-      if (ni >= 0 && ni < this.data.nodes.length) {
-        positions.push([
-          this.nodePositions[ni * 2],
-          this.nodePositions[ni * 2 + 1],
-        ]);
-      }
-    }
-
-    this.animateToFitPositions(positions);
+    const ids = [this.selectedId, ...this.pathInfo.immediateNeighbours];
+    this.fitTo(
+      gatherNodePositions(ids, this.nodePositions, this.data.nodes.length)
+    );
   }
 
   private animateToPath(): void {
@@ -1189,18 +845,8 @@ export class GraphView {
           ? [this.noPathEndpoints.source, this.noPathEndpoints.destination]
           : null;
     if (!ids) return;
-
-    const positions: [number, number][] = [];
-    for (const id of ids) {
-      const ni = nodeIdToInt(id);
-      if (ni >= 0 && ni < this.data.nodes.length) {
-        positions.push([
-          this.nodePositions[ni * 2],
-          this.nodePositions[ni * 2 + 1],
-        ]);
-      }
-    }
-
-    this.animateToFitPositions(positions);
+    this.fitTo(
+      gatherNodePositions(ids, this.nodePositions, this.data.nodes.length)
+    );
   }
 }

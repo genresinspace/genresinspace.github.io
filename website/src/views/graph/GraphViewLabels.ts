@@ -11,6 +11,7 @@ import {
 } from "../../data";
 import type { Camera } from "./Camera";
 import type { PathInfo } from "./pathInfo";
+import { resolvePathNodeClick } from "./nodeActivation";
 import {
   MAX_VISIBLE_LABELS,
   LABEL_REFERENCE_AREA,
@@ -356,18 +357,7 @@ function handleLabelClick(nodeId: string, callbacks: LabelCallbacks): void {
       // No reachable path: clicking either lit endpoint just views it.
       callbacks.setSelectedId(nodeId);
     } else if (currentPath.includes(nodeId)) {
-      if (sid === nodeId) {
-        // Clicking the currently-viewed on-path node: revert to source or clear
-        const sourceId = currentPath[0];
-        if (sourceId && sourceId !== nodeId) {
-          callbacks.setSelectedId(sourceId);
-        } else {
-          callbacks.setSelectedId(null);
-        }
-      } else {
-        // Select on-path node for viewing
-        callbacks.setSelectedId(nodeId);
-      }
+      callbacks.setSelectedId(resolvePathNodeClick(nodeId, sid, currentPath));
     }
     // Off-path: no-op (use long-press for buttons on mobile, hover on desktop)
   } else {
