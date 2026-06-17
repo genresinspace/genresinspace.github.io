@@ -160,6 +160,13 @@ export class GraphView {
   private staticArrowOpacity = 1.0;
   private staticArrowOpacityTarget = 1.0;
 
+  // --- Arrow phase anchors (seconds) ---
+  // Net and hover arrows are phased to start at their edge midpoint at the
+  // moment they appear. Anchoring them to independent times keeps a hover-only
+  // rebuild from re-phasing (and visibly resetting) the selected net arrows.
+  private netArrowAnchorTime = performance.now() / 1000;
+  private hoverArrowAnchorTime = performance.now() / 1000;
+
   // --- Dirty flags ---
   private dirty: DirtyFlags = allDirty();
 
@@ -403,6 +410,8 @@ export class GraphView {
   private setHoveredId(id: string | null): void {
     if (id === this.hoveredId) return;
     this.hoveredId = id;
+    // New hover edges should emerge from their midpoint; re-anchor hover phase.
+    this.hoverArrowAnchorTime = performance.now() / 1000;
     this.dirty.nodeColors = true;
     this.dirty.nodeSizes = true;
     this.dirty.edgeColors = true;
@@ -631,6 +640,9 @@ export class GraphView {
         maxDistance,
         this.path
       );
+      // The net set changed: re-anchor net phases so the arrows emerge from
+      // their midpoints now (rather than carrying over a stale anchor).
+      this.netArrowAnchorTime = performance.now() / 1000;
       // Net arrow change always requires full arrow recompute
       d.arrows = true;
     }
@@ -644,7 +656,8 @@ export class GraphView {
         this.hoveredId,
         this.netArrowGeom,
         this.targetNodeSizes,
-        performance.now() / 1000
+        this.netArrowAnchorTime,
+        this.hoverArrowAnchorTime
       );
     }
 

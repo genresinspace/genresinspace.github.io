@@ -530,6 +530,10 @@ function midpointPhase(
  * Static arrows are always present for all visible edges (midpoint, phase=-1).
  * When selected/hovered, animated net/hover arrows are appended.
  * The render loop controls static arrow opacity via a fade multiplier.
+ *
+ * Net and hover arrows are anchored to independent times (`netTime` /
+ * `hoverTime`) so that rebuilding the geometry because the hover changed does
+ * not re-phase — and visibly reset — the selected node's net arrows.
  */
 export function computeArrowGeometry(
   edges: EdgeData[],
@@ -538,7 +542,8 @@ export function computeArrowGeometry(
   hoveredId: string | null,
   netArrowGeometry: Map<number, number>,
   nodeSizes: Float32Array | null,
-  currentTime: number
+  netTime: number,
+  hoverTime: number
 ): ArrowGeometry {
   // Collect all visible edges for static arrows
   const visibleEdges: number[] = [];
@@ -608,7 +613,7 @@ export function computeArrowGeometry(
     directions[j * 2 + 1] = dy;
     const speed = dist <= 1 ? 1.0 : Math.pow(ARROW_SPEED_FALLOFF, dist - 1);
     const tgtSize = nodeSizes ? nodeSizes[ti] : 5.0;
-    phases[j] = midpointPhase(edgeLen, tgtSize, speed, currentTime);
+    phases[j] = midpointPhase(edgeLen, tgtSize, speed, netTime);
     speeds[j] = speed;
     targetNodeIndices.push(ti);
     edgeIndices.push(i);
@@ -634,7 +639,7 @@ export function computeArrowGeometry(
     directions[j * 2] = dx;
     directions[j * 2 + 1] = dy;
     const tgtSize = nodeSizes ? nodeSizes[ti] : 5.0;
-    phases[j] = midpointPhase(edgeLen, tgtSize, 1.0, currentTime);
+    phases[j] = midpointPhase(edgeLen, tgtSize, 1.0, hoverTime);
     speeds[j] = 1.0;
     targetNodeIndices.push(ti);
     edgeIndices.push(i);
