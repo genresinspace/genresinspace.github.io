@@ -7,6 +7,7 @@
 """Visualize the force-directed graph layout from data.json."""
 
 import json
+import colorsys
 import matplotlib.pyplot as plt
 import matplotlib.collections as mc
 import numpy as np
@@ -86,16 +87,21 @@ lc = mc.LineCollection(lines, colors=colors, linewidths=0.3)
 ax.add_collection(lc)
 
 sizes = 8 + (degrees / max_degree) * 50
-hues = np.array([hash(str(i)) % 360 for i in range(len(nodes))])
-node_colors = plt.cm.hsv(hues / 360)
-node_colors[:, 3] = 0.8
+# Color nodes by their propagated genre hue (same signal the website uses), so
+# cluster separation is judged the way it actually looks in production rather
+# than by an arbitrary per-index hash.
+hues = np.array([n.get("hue", 0.0) for n in nodes])
+node_colors = np.array([colorsys.hsv_to_rgb((h % 360) / 360, 0.65, 1.0) + (0.85,) for h in hues])
 ax.scatter(xs, ys, s=sizes, c=node_colors, edgecolors="none", zorder=2)
 ax.autoscale_view()
 
 # Middle: zoomed to core (within 2 std devs)
 ax2 = axes[1]
-cx, cy = xs.mean(), ys.mean()
-radius = 2.0 * max(xs.std(), ys.std())
+# Center/zoom on the connected core only; isolated outliers would otherwise
+# blow up the std and zoom the core out of view.
+conn = degrees > 0
+cx, cy = xs[conn].mean(), ys[conn].mean()
+radius = 2.0 * max(xs[conn].std(), ys[conn].std())
 ax2.set_title(f"Core (2σ zoom)")
 ax2.set_facecolor("#111111")
 ax2.set_aspect("equal")

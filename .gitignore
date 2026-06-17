@@ -3,3 +3,4 @@ config.toml
 output
 output.txt
 layout_visualization.png
+eval_core.png
