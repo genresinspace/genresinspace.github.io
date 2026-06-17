@@ -46,6 +46,8 @@ import {
   FIT_RADIUS_MIN,
   FIT_PADDING_FRAC,
   FIT_ANIM_DURATION,
+  NO_PATH_LINE_COLOR,
+  NO_PATH_BREAK_COLOR,
 } from "./graphConstants";
 
 /** Callbacks from the graph view to the parent React component. */
@@ -165,6 +167,10 @@ export class GraphView {
   private focusedId: string | null = null;
   private hoveredId: string | null = null;
   private path: string[] | null = null;
+  // Both route endpoints when set but unreachable: lights both stars and draws
+  // the broken connector. Always null while `path` is non-null.
+  private noPathEndpoints: { source: string; destination: string } | null =
+    null;
   private settings: SettingsData;
   private searchMode: SearchMode = "initial";
 
@@ -216,6 +222,15 @@ export class GraphView {
   };
   private cursorWorld = { x: 0, y: 0 };
 
+  // --- No-path severed connector overlay (SVG inside the label container) ---
+  // Two dashed stubs from each endpoint with a gap, crossed by an ✕ to read as
+  // a broken connection rather than a real edge.
+  private noPathSvg: SVGSVGElement | null = null;
+  private noPathSeg1: SVGLineElement | null = null;
+  private noPathSeg2: SVGLineElement | null = null;
+  private noPathCross1: SVGLineElement | null = null;
+  private noPathCross2: SVGLineElement | null = null;
+
   // --- Deferred zoom-to-fit request ---
   // Set by requestZoomToSelection/Path; consumed after pathInfo recomputes.
   private pendingZoom: "selection" | "path" | null = null;
@@ -230,6 +245,7 @@ export class GraphView {
       selectedId?: string | null;
       focusedId?: string | null;
       path?: string[] | null;
+      noPathEndpoints?: { source: string; destination: string } | null;
       searchMode?: SearchMode;
       viewportOffsetX?: number;
       viewportOffsetY?: number;
@@ -247,6 +263,8 @@ export class GraphView {
       if (initialState.focusedId != null)
         this.focusedId = initialState.focusedId;
       if (initialState.path != null) this.path = initialState.path;
+      if (initialState.noPathEndpoints != null)
+        this.noPathEndpoints = initialState.noPathEndpoints;
       if (initialState.searchMode != null)
         this.searchMode = initialState.searchMode;
     }
@@ -378,6 +396,10 @@ export class GraphView {
       labelCallbacks
     );
 
+    // 5b. Broken-connector overlay for the no-path state. Lives inside the
+    // label container so it rides the same per-frame transform as the labels.
+    this.createNoPathOverlay();
+
     // 6. Resize observer
     this.resizeObserver = new ResizeObserver(() => {
       const rw = canvas.clientWidth;
@@ -444,6 +466,33 @@ export class GraphView {
     this.dirty.netArrows = true;
     this.dirty.arrows = true;
     this.dirty.labels = true;
+    this.scheduleRender();
+  }
+
+  setNoPathEndpoints(
+    endpoints: { source: string; destination: string } | null
+  ): void {
+    const cur = this.noPathEndpoints;
+    if (
+      cur === endpoints ||
+      (cur &&
+        endpoints &&
+        cur.source === endpoints.source &&
+        cur.destination === endpoints.destination)
+    ) {
+      return;
+    }
+    this.noPathEndpoints = endpoints;
+    // Both endpoints light their own neighbourhood net, so the coverage net,
+    // colours, sizes, edges, and arrows all change.
+    this.dirty.pathInfo = true;
+    this.dirty.nodeColors = true;
+    this.dirty.nodeSizes = true;
+    this.dirty.edgeColors = true;
+    this.dirty.netArrows = true;
+    this.dirty.arrows = true;
+    this.dirty.labels = true;
+    this.updateNoPathOverlay();
     this.scheduleRender();
   }
 
@@ -517,6 +566,7 @@ export class GraphView {
     this.interaction.destroy();
     this.renderer.destroy();
     this.labelManager.destroy();
+    this.noPathSvg?.remove();
   }
 
   private updateStaticArrowFadeTarget(): void {
@@ -546,7 +596,10 @@ export class GraphView {
 
     if (d.pathInfo) {
       d.pathInfo = false;
-      if (this.selectedId) {
+      // In the no-path state we deliberately suppress both neighbourhoods so
+      // only the two endpoints and the severed connector remain — it reads as
+      // "these two stars, and no route between them".
+      if (this.selectedId && !this.noPathEndpoints) {
         this.pathInfo = getPathsWithinDistance(
           this.selectedId,
           this.data.nodes,
@@ -569,7 +622,8 @@ export class GraphView {
         graphNodeLightness,
         this.pathInfo,
         maxDistance,
-        this.path
+        this.path,
+        this.noPathEndpoints
       );
     }
 
@@ -583,7 +637,8 @@ export class GraphView {
         this.hoveredId,
         this.pathInfo,
         maxDistance,
-        this.path
+        this.path,
+        this.noPathEndpoints
       );
     }
 
@@ -596,7 +651,8 @@ export class GraphView {
         this.settings.visibleTypes,
         this.pathInfo,
         maxDistance,
-        this.path
+        this.path,
+        this.noPathEndpoints
       );
     }
 
@@ -933,12 +989,131 @@ export class GraphView {
       this.pathInfo,
       maxDistance,
       this.path,
-      this.settings.general.showLabels
+      this.settings.general.showLabels,
+      this.noPathEndpoints
     );
+
+    this.updateNoPathOverlay();
 
     // Snapshot camera state and reset transform (equivalent to the useLayoutEffect)
     this.labelSnap = this.camera.getState();
     this.labelContainer.style.transform = "";
+  }
+
+  /** Build the severed-connector SVG used to mark an unreachable destination. */
+  private createNoPathOverlay(): void {
+    const NS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+    svg.style.position = "absolute";
+    svg.style.inset = "0";
+    svg.style.overflow = "visible";
+    svg.style.pointerEvents = "none";
+    svg.style.display = "none";
+
+    const seg = () => {
+      const line = document.createElementNS(NS, "line");
+      line.setAttribute("stroke", NO_PATH_LINE_COLOR);
+      line.setAttribute("stroke-width", "1.5");
+      line.setAttribute("stroke-dasharray", "5 5");
+      line.setAttribute("stroke-linecap", "round");
+      line.setAttribute("stroke-opacity", "0.6");
+      svg.appendChild(line);
+      return line;
+    };
+    const cross = () => {
+      const line = document.createElementNS(NS, "line");
+      line.setAttribute("stroke", NO_PATH_BREAK_COLOR);
+      line.setAttribute("stroke-width", "2");
+      line.setAttribute("stroke-linecap", "round");
+      line.setAttribute("stroke-opacity", "0.95");
+      svg.appendChild(line);
+      return line;
+    };
+
+    this.noPathSeg1 = seg();
+    this.noPathSeg2 = seg();
+    this.noPathCross1 = cross();
+    this.noPathCross2 = cross();
+
+    this.labelContainer.appendChild(svg);
+    this.noPathSvg = svg;
+  }
+
+  /**
+   * Position (or hide) the severed connector: a dashed stub from each endpoint
+   * stopping short of the midpoint, with an ✕ marking the gap. Endpoints are
+   * projected with the current camera, matching the screen space the labels are
+   * committed in, so the overlay tracks the same per-frame container transform.
+   */
+  private updateNoPathOverlay(): void {
+    const svg = this.noPathSvg;
+    const seg1 = this.noPathSeg1;
+    const seg2 = this.noPathSeg2;
+    const cross1 = this.noPathCross1;
+    const cross2 = this.noPathCross2;
+    if (!svg || !seg1 || !seg2 || !cross1 || !cross2) return;
+
+    const ep = this.noPathEndpoints;
+    if (!ep) {
+      svg.style.display = "none";
+      return;
+    }
+
+    const si = nodeIdToInt(ep.source);
+    const di = nodeIdToInt(ep.destination);
+    if (
+      si < 0 ||
+      si >= this.data.nodes.length ||
+      di < 0 ||
+      di >= this.data.nodes.length
+    ) {
+      svg.style.display = "none";
+      return;
+    }
+
+    const [x1, y1] = this.camera.worldToScreen(
+      this.nodePositions[si * 2],
+      this.nodePositions[si * 2 + 1]
+    );
+    const [x2, y2] = this.camera.worldToScreen(
+      this.nodePositions[di * 2],
+      this.nodePositions[di * 2 + 1]
+    );
+
+    const mx = (x1 + x2) / 2;
+    const my = (y1 + y2) / 2;
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const len = Math.hypot(dx, dy);
+
+    const setLine = (
+      line: SVGLineElement,
+      ax: number,
+      ay: number,
+      bx: number,
+      by: number
+    ) => {
+      line.setAttribute("x1", String(ax));
+      line.setAttribute("y1", String(ay));
+      line.setAttribute("x2", String(bx));
+      line.setAttribute("y2", String(by));
+    };
+
+    // Gap left around the midpoint for the break marker, shrinking on short runs
+    const gap = Math.min(14, len / 4);
+    const ux = len > 0 ? dx / len : 0;
+    const uy = len > 0 ? dy / len : 0;
+    setLine(seg1, x1, y1, mx - ux * gap, my - uy * gap);
+    setLine(seg2, mx + ux * gap, my + uy * gap, x2, y2);
+
+    // A fixed-orientation ✕ over the gap reads as "no connection" at any angle
+    const r = Math.min(6, gap * 0.7);
+    setLine(cross1, mx - r, my - r, mx + r, my + r);
+    setLine(cross2, mx - r, my + r, mx + r, my - r);
+
+    svg.style.display = "block";
   }
 
   // ==========================================================================
@@ -1005,10 +1180,18 @@ export class GraphView {
   }
 
   private animateToPath(): void {
-    if (!this.path || this.path.length === 0) return;
+    // With no reachable path, frame the two endpoints so the broken connector
+    // between them is visible and the user can re-aim from there.
+    const ids =
+      this.path && this.path.length > 0
+        ? this.path
+        : this.noPathEndpoints
+          ? [this.noPathEndpoints.source, this.noPathEndpoints.destination]
+          : null;
+    if (!ids) return;
 
     const positions: [number, number][] = [];
-    for (const id of this.path) {
+    for (const id of ids) {
       const ni = nodeIdToInt(id);
       if (ni >= 0 && ni < this.data.nodes.length) {
         positions.push([

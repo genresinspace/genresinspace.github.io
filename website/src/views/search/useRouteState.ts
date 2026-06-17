@@ -131,6 +131,12 @@ export type RouteSearch = {
   path: string[] | null;
   /** Computed only when `path` is null: does the opposite direction work? */
   reversePath: string[] | null;
+  /**
+   * The two endpoints when both are set but no path connects them. Lets the
+   * graph highlight both stars and draw a broken connector, rather than leaving
+   * only the selected endpoint lit.
+   */
+  noPathEndpoints: { source: string; destination: string } | null;
   /** Search results for the active slot's query. */
   results: SearchResult[];
   searchMode: SearchMode;
@@ -169,6 +175,14 @@ export function useRouteSearch(
     [nodes, edges, visibleTypes, sourceId, destinationId, path]
   );
 
+  const noPathEndpoints = useMemo(
+    () =>
+      sourceId && destinationId && sourceId !== destinationId && path === null
+        ? { source: sourceId, destination: destinationId }
+        : null,
+    [sourceId, destinationId, path]
+  );
+
   const results = useMemo(() => {
     const slot = route.activeSlot ? route[route.activeSlot] : null;
     if (!slot) return [];
@@ -183,5 +197,13 @@ export function useRouteSearch(
       ? "selected"
       : "initial";
 
-  return { route, routeDispatch, path, reversePath, results, searchMode };
+  return {
+    route,
+    routeDispatch,
+    path,
+    reversePath,
+    noPathEndpoints,
+    results,
+    searchMode,
+  };
 }

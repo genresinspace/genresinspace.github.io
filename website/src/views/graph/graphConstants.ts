@@ -103,6 +103,12 @@ export const RETICLE_COLOR: [number, number, number] = [
   115 / 255,
 ];
 
+// ── No-path connector ────────────────────────────────────────────────
+/** Muted stroke for the severed connector drawn between unreachable endpoints. */
+export const NO_PATH_LINE_COLOR = "#7c8aa5";
+/** Soft red for the break (✕) marking the gap in the severed connector. */
+export const NO_PATH_BREAK_COLOR = "#d98a8a";
+
 // ── Zoom-to-fit ──────────────────────────────────────────────────────
 /** Fit neighbourhood to this many standard deviations. */
 export const FIT_STDDEV_MULT = 2;

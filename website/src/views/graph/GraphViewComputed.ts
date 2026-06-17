@@ -154,6 +154,21 @@ export function computeEdgeNodeIndices(edges: EdgeData[]): {
   return { src, tgt };
 }
 
+/** The two route endpoints when set but unreachable, else null. */
+export type NoPathEndpoints = { source: string; destination: string } | null;
+
+/** True if a node is one of the unreachable route endpoints. */
+function isNoPathEndpoint(
+  nodeId: string,
+  noPathEndpoints: NoPathEndpoints
+): boolean {
+  return (
+    !!noPathEndpoints &&
+    (nodeId === noPathEndpoints.source ||
+      nodeId === noPathEndpoints.destination)
+  );
+}
+
 /** Determine if a node is highlighted due to the current selection. */
 export function isHighlightedDueToSelection(
   nodeId: string,
@@ -161,8 +176,12 @@ export function isHighlightedDueToSelection(
   pathInfo: PathInfo,
   maxDistance: number,
   path: string[] | null,
-  directional: boolean
+  directional: boolean,
+  noPathEndpoints: NoPathEndpoints = null
 ): boolean {
+  // Both endpoints stay lit when no path connects them, even though only one
+  // is the selected node.
+  if (isNoPathEndpoint(nodeId, noPathEndpoints)) return true;
   if (!selectedId) return false;
   const isSelected = nodeId === selectedId;
   const isImmediateNeighbour = pathInfo.immediateNeighbours.has(nodeId);
@@ -189,7 +208,8 @@ export function computeNodeColors(
   graphNodeLightness: number,
   pathInfo: PathInfo,
   maxDistance: number,
-  path: string[] | null
+  path: string[] | null,
+  noPathEndpoints: NoPathEndpoints = null
 ): Float32Array {
   const arr = new Float32Array(nodes.length * 4);
   for (let i = 0; i < nodes.length; i++) {
@@ -208,17 +228,19 @@ export function computeNodeColors(
           pathInfo,
           maxDistance,
           path,
-          true
+          true,
+          noPathEndpoints
         )
       ) {
-        const dist = path?.includes(node.id)
-          ? 0
-          : node.id === selectedId
+        const dist =
+          path?.includes(node.id) || isNoPathEndpoint(node.id, noPathEndpoints)
             ? 0
-            : pathInfo.immediateNeighbours.has(node.id) &&
-                !pathInfo.nodeDistances.has(node.id)
-              ? 1
-              : (pathInfo.nodeDistances.get(node.id) ?? maxDistance);
+            : node.id === selectedId
+              ? 0
+              : pathInfo.immediateNeighbours.has(node.id) &&
+                  !pathInfo.nodeDistances.has(node.id)
+                ? 1
+                : (pathInfo.nodeDistances.get(node.id) ?? maxDistance);
         // dist 0-1: full opacity; beyond that: exponential falloff
         const alpha =
           dist <= 1 ? 1.0 : Math.pow(NODE_OPACITY_FALLOFF, dist - 1);
@@ -252,7 +274,8 @@ export function computeNodeSizes(
   hoveredId: string | null,
   pathInfo: PathInfo,
   maxDistance: number,
-  path: string[] | null
+  path: string[] | null,
+  noPathEndpoints: NoPathEndpoints = null
 ): Float32Array {
   const arr = new Float32Array(nodes.length);
   for (let i = 0; i < nodes.length; i++) {
@@ -271,14 +294,16 @@ export function computeNodeSizes(
         pathInfo,
         maxDistance,
         path,
-        true
+        true,
+        noPathEndpoints
       )
     ) {
       size -= NODE_SHRINK_UNSELECTED;
     }
 
-    // Grow the selected star so its astrolabe reticle is legible
-    if (selectedId === node.id) {
+    // Grow the selected star, and the far endpoint of an unreachable route, so
+    // both ends of the broken connector read as the focus.
+    if (selectedId === node.id || isNoPathEndpoint(node.id, noPathEndpoints)) {
       size += NODE_GROW_SELECTED;
     }
 
@@ -305,7 +330,8 @@ export function computeEdgeColors(
   visibleTypes: VisibleTypes,
   pathInfo: PathInfo,
   maxDistance: number,
-  path: string[] | null
+  path: string[] | null,
+  noPathEndpoints: NoPathEndpoints = null
 ): Float32Array {
   const arr = new Float32Array(edges.length * 8); // 4 components * 2 vertices
   // De-emphasised edges fade toward a faint navy just above the background
@@ -334,7 +360,13 @@ export function computeEdgeColors(
         hoveredId && (edge.source === hoveredId || edge.target === hoveredId);
 
       if (selectedId) {
-        if (path) {
+        if (noPathEndpoints) {
+          // No-path state: suppress every neighbourhood edge so only the two
+          // endpoint stars and the severed connector read.
+          color = isHoveredEdge
+            ? edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha * 0.8)
+            : dimmedColor;
+        } else if (path) {
           const sourceIndex = path.indexOf(edge.source);
           const targetIndex = path.indexOf(edge.target);
           if (

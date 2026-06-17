@@ -115,7 +115,8 @@ function buildCandidates(
   selectedId: string | null,
   pathInfo: PathInfo,
   maxDistance: number,
-  path: string[] | null
+  path: string[] | null,
+  noPathEndpoints: { source: string; destination: string } | null = null
 ): LabelCandidate[] {
   const [minX, minY, maxX, maxY] = bounds;
   const candidates: LabelCandidate[] = [];
@@ -172,6 +173,18 @@ function buildCandidates(
           if (selectionDistance > 1) selectionDistance = 1;
         }
       }
+    }
+
+    // Keep both endpoints of an unreachable route labelled, not just the
+    // selected one, so the user can read where the broken connector lands.
+    if (
+      noPathEndpoints &&
+      (node.id === noPathEndpoints.source ||
+        node.id === noPathEndpoints.destination)
+    ) {
+      priority = 200000;
+      inSelectedNet = true;
+      selectionDistance = 0;
     }
 
     candidates.push({
@@ -339,7 +352,10 @@ function handleLabelClick(nodeId: string, callbacks: LabelCallbacks): void {
 
   if (mode === "path") {
     const currentPath = callbacks.getPath();
-    if (currentPath && currentPath.includes(nodeId)) {
+    if (!currentPath) {
+      // No reachable path: clicking either lit endpoint just views it.
+      callbacks.setSelectedId(nodeId);
+    } else if (currentPath.includes(nodeId)) {
       if (sid === nodeId) {
         // Clicking the currently-viewed on-path node: revert to source or clear
         const sourceId = currentPath[0];
@@ -545,7 +561,8 @@ export class LabelManager {
     pathInfo: PathInfo,
     maxDistance: number,
     path: string[] | null,
-    showLabels: boolean
+    showLabels: boolean,
+    noPathEndpoints: { source: string; destination: string } | null = null
   ): void {
     const camera = this.camera;
 
@@ -575,7 +592,8 @@ export class LabelManager {
         selectedId,
         pathInfo,
         maxDistance,
-        path
+        path,
+        noPathEndpoints
       );
 
       // Reuse previous selection with fresh screen positions when possible

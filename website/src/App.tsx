@@ -165,6 +165,7 @@ function LoadedApp({ data }: { data: Data }) {
     routeDispatch,
     path,
     reversePath,
+    noPathEndpoints,
     results,
     searchMode,
     zoomRequest,
@@ -374,6 +375,7 @@ function LoadedApp({ data }: { data: Data }) {
               setSelectedId={setSelectedId}
               focusedId={focusedId}
               path={path}
+              noPathEndpoints={noPathEndpoints}
               viewportOffsetX={viewportOffsetX}
               viewportOffsetY={viewportOffsetY}
               searchMode={searchMode}

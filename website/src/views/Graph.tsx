@@ -19,6 +19,7 @@ export function Graph({
   setSelectedId,
   focusedId,
   path,
+  noPathEndpoints,
   viewportOffsetX,
   viewportOffsetY,
   searchMode,
@@ -31,6 +32,7 @@ export function Graph({
   setSelectedId: (id: string | null) => void;
   focusedId: string | null;
   path: string[] | null;
+  noPathEndpoints: { source: string; destination: string } | null;
   viewportOffsetX: number;
   viewportOffsetY: number;
   searchMode: SearchMode;
@@ -58,6 +60,7 @@ export function Graph({
     selectedId,
     focusedId,
     path,
+    noPathEndpoints,
     settings,
     searchMode,
     viewportOffsetX,
@@ -67,6 +70,7 @@ export function Graph({
     selectedId,
     focusedId,
     path,
+    noPathEndpoints,
     settings,
     searchMode,
     viewportOffsetX,
@@ -97,6 +101,7 @@ export function Graph({
           selectedId: p.selectedId,
           focusedId: p.focusedId,
           path: p.path,
+          noPathEndpoints: p.noPathEndpoints,
           searchMode: p.searchMode,
           viewportOffsetX: p.viewportOffsetX,
           viewportOffsetY: p.viewportOffsetY,
@@ -129,6 +134,9 @@ export function Graph({
   useEffect(() => {
     viewRef.current?.setPath(path);
   }, [path]);
+  useEffect(() => {
+    viewRef.current?.setNoPathEndpoints(noPathEndpoints);
+  }, [noPathEndpoints]);
   useEffect(() => {
     viewRef.current?.setSettings(settings);
   }, [settings]);
