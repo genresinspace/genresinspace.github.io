@@ -142,10 +142,25 @@ export const LABEL_PADDING_V = 8;
 export const LABEL_GAP = 4;
 /** Extra HSL lightness added to labels for the dark graph background. */
 export const LABEL_LIGHTNESS_BOOST = 7;
-/** Screen-pixel grid columns for spatial label bucketing. */
-export const LABEL_GRID_COLS = 8;
-/** Screen-pixel grid rows for spatial label bucketing. */
-export const LABEL_GRID_ROWS = 6;
+/**
+ * Minimum centre-to-centre label separation, as a multiple of the
+ * even-spread radius `sqrt(viewportArea / labelBudget)`. Spreads labels across
+ * the graph instead of clustering in the dense centre; higher = sparser.
+ */
+export const LABEL_SPACING_FACTOR = 0.8;
+/**
+ * Pan bucket size (screen px) for the canonical label-reselection signature.
+ * Label reselection is gated on a canonical viewport signature so the same
+ * camera always yields the same label set, regardless of how it got there; the
+ * set is recomputed once the camera pans ~this many pixels. Between buckets the
+ * cached set is reused and tracked by the container CSS transform (smooth).
+ */
+export const LABEL_RESELECT_PAN_PX = 24;
+/**
+ * Zoom bucket ratio for the canonical label-reselection signature: the set is
+ * recomputed once zoom changes by ~this factor. See {@link LABEL_RESELECT_PAN_PX}.
+ */
+export const LABEL_RESELECT_ZOOM_STEP = 1.08;
 /** Base font size for labels (px). */
 export const LABEL_FONT_SIZE_BASE = 11;
 /** Max font size contribution from edge degree (px). Generous, so the

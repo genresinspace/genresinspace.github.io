@@ -20,8 +20,9 @@ import {
   LABEL_ZOOM_THRESHOLD,
   LABEL_ZOOM_RATE,
   LABEL_LIGHTNESS_BOOST,
-  LABEL_GRID_COLS,
-  LABEL_GRID_ROWS,
+  LABEL_SPACING_FACTOR,
+  LABEL_RESELECT_PAN_PX,
+  LABEL_RESELECT_ZOOM_STEP,
   LABEL_FONT_SIZE_BASE,
   LABEL_FONT_SIZE_DEGREE,
   LABEL_CHAR_WIDTH_RATIO,
@@ -73,12 +74,8 @@ type LabelCandidate = {
 
 type SelectionCache = {
   ids: Set<string>;
-  boundsMinX: number;
-  boundsMinY: number;
-  boundsMaxX: number;
-  boundsMaxY: number;
-  zoom: number;
-  selectedId: string | null;
+  /** Canonical viewport signature this set was selected for. */
+  signature: string;
 };
 
 type LabelEntry = {
@@ -207,66 +204,40 @@ function buildCandidates(
 // Label selection (grid bucketing + overlap culling)
 // ---------------------------------------------------------------------------
 
-/** Select which labels to display using spatial grid bucketing and overlap culling. */
+/**
+ * Deterministic candidate ordering: higher priority first, ties broken by node
+ * id so the result never depends on input/iteration order.
+ */
+function byPriorityThenId(a: LabelCandidate, b: LabelCandidate): number {
+  if (a.priority !== b.priority) return b.priority - a.priority;
+  return a.node.id < b.node.id ? -1 : a.node.id > b.node.id ? 1 : 0;
+}
+
+type PlacedBox = {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  cx: number;
+  cy: number;
+};
+
+/**
+ * Select which labels to display.
+ *
+ * Pure function of `(candidates, viewport)` — no history, no spatial grid, so
+ * the same viewport always yields the same set. Candidates are placed greedily
+ * in priority order; a candidate is dropped if its box overlaps an already
+ * placed label, or (for non-selection labels) if its centre falls within the
+ * spacing radius of one. The spacing radius spreads labels across the graph
+ * the way the old grid did, but continuously: as labels drift apart a
+ * suppressed one reappears one at a time rather than a whole cell reshuffling.
+ */
 function selectLabels(
   candidates: LabelCandidate[],
   screenW: number,
-  screenH: number,
-  prevIds: Set<string>
+  screenH: number
 ): LabelCandidate[] {
-  const selectedCandidates = candidates
-    .filter((c) => c.inSelectedNet)
-    .sort((a, b) => b.priority - a.priority);
-  const otherCandidates = candidates
-    .filter((c) => !c.inSelectedNet)
-    .sort((a, b) => b.priority - a.priority);
-
-  // Spatial bucketing: divide the screen into a grid and interleave
-  // the best candidate from each cell so labels spread across the
-  // full graph instead of clustering in the dense center.
-  const cellW = screenW / LABEL_GRID_COLS;
-  const cellH = screenH / LABEL_GRID_ROWS;
-  const grid: LabelCandidate[][] = Array.from(
-    { length: LABEL_GRID_COLS * LABEL_GRID_ROWS },
-    () => []
-  );
-  for (const c of otherCandidates) {
-    const col = Math.min(Math.floor(c.screenX / cellW), LABEL_GRID_COLS - 1);
-    const row = Math.min(Math.floor(c.screenY / cellH), LABEL_GRID_ROWS - 1);
-    if (col >= 0 && row >= 0) {
-      grid[row * LABEL_GRID_COLS + col].push(c);
-    }
-  }
-
-  // Within each cell: prefer previously-visible labels (stability),
-  // then sort by priority.
-  for (const cell of grid) {
-    cell.sort((a, b) => {
-      const aKeep = prevIds.has(a.node.id) ? 1 : 0;
-      const bKeep = prevIds.has(b.node.id) ? 1 : 0;
-      if (aKeep !== bKeep) return bKeep - aKeep;
-      return b.priority - a.priority;
-    });
-  }
-
-  // Round-robin: take one candidate from each non-empty cell, repeat
-  const spatialOrder: LabelCandidate[] = [];
-  const usedIds = new Set<string>();
-  let remaining = true;
-  for (let round = 0; remaining; round++) {
-    remaining = false;
-    for (const cell of grid) {
-      if (round < cell.length) {
-        remaining = true;
-        const c = cell[round];
-        if (!usedIds.has(c.node.id)) {
-          usedIds.add(c.node.id);
-          spatialOrder.push(c);
-        }
-      }
-    }
-  }
-
   // Scale label budget by viewport area relative to reference resolution
   const maxLabels = Math.max(
     LABEL_COUNT_MIN,
@@ -278,30 +249,64 @@ function selectLabels(
     )
   );
 
-  // Greedy overlap culling
-  const placed: { x: number; y: number; w: number; h: number }[] = [];
+  // Minimum centre-to-centre separation for an even spread of `maxLabels`
+  // labels over the viewport, scaled by the spacing factor.
+  const spacingRadius =
+    Math.sqrt((screenW * screenH) / maxLabels) * LABEL_SPACING_FACTOR;
+  const spacingR2 = spacingRadius * spacingRadius;
+
+  const placed: PlacedBox[] = [];
   const result: LabelCandidate[] = [];
 
-  const tryPlace = (c: LabelCandidate): boolean => {
-    if (result.length >= maxLabels) return false;
+  const boxOf = (c: LabelCandidate): PlacedBox => {
     const charWidth = c.fontSize * LABEL_CHAR_WIDTH_RATIO;
     const w = c.node.label.length * charWidth + LABEL_PADDING_H + LABEL_GAP;
     const h = c.fontSize + LABEL_PADDING_V + LABEL_GAP;
-    const x = c.screenX - w / 2;
-    const y = c.screenY - h;
+    return {
+      x: c.screenX - w / 2,
+      y: c.screenY - h,
+      w,
+      h,
+      cx: c.screenX,
+      cy: c.screenY,
+    };
+  };
 
+  // `exempt` labels (the selection + its neighbourhood) ignore the budget and
+  // the spacing radius, but still can't be stacked directly on top of another
+  // placed label.
+  const tryPlace = (c: LabelCandidate, exempt: boolean): boolean => {
+    if (!exempt && result.length >= maxLabels) return false;
+    const b = boxOf(c);
     for (const p of placed) {
-      if (x < p.x + p.w && x + w > p.x && y < p.y + p.h && y + h > p.y) {
+      if (
+        b.x < p.x + p.w &&
+        b.x + b.w > p.x &&
+        b.y < p.y + p.h &&
+        b.y + b.h > p.y
+      ) {
         return false;
       }
+      if (!exempt) {
+        const ddx = b.cx - p.cx;
+        const ddy = b.cy - p.cy;
+        if (ddx * ddx + ddy * ddy < spacingR2) return false;
+      }
     }
-    placed.push({ x, y, w, h });
+    placed.push(b);
     result.push(c);
     return true;
   };
 
-  for (const c of selectedCandidates) tryPlace(c);
-  for (const c of spatialOrder) tryPlace(c);
+  const selectedCandidates = candidates
+    .filter((c) => c.inSelectedNet)
+    .sort(byPriorityThenId);
+  const otherCandidates = candidates
+    .filter((c) => !c.inSelectedNet)
+    .sort(byPriorityThenId);
+
+  for (const c of selectedCandidates) tryPlace(c, true);
+  for (const c of otherCandidates) tryPlace(c, false);
 
   return result;
 }
@@ -310,36 +315,37 @@ function selectLabels(
 // Throttle cache helpers
 // ---------------------------------------------------------------------------
 
-/** Check whether the camera has moved enough to warrant reselecting labels. */
-function needsReselection(
-  cached: SelectionCache | null,
+/**
+ * Canonical viewport signature for gating label reselection.
+ *
+ * Selection is a pure function of `(viewport, selectedId)`, but recomputing it
+ * every frame churns the label set (and thrashes the DOM) as candidates jitter
+ * across the spacing/budget boundaries. Instead we quantise the camera into
+ * buckets anchored to the world origin and to canonical zoom levels — not to a
+ * path-dependent previous position — and only reselect when the bucket changes.
+ *
+ * Because the buckets are absolute, the same camera state always maps to the
+ * same signature regardless of how it was reached: select a node, zoom out,
+ * zoom back in, and the signature (hence the label set) is identical. Between
+ * buckets the cached set is reused and tracked by the container CSS transform.
+ */
+function viewportSignature(
   bounds: [number, number, number, number],
   zoom: number,
   selectedId: string | null
-): boolean {
-  if (!cached || cached.selectedId !== selectedId) return true;
-
-  const [minX, minY, maxX, maxY] = bounds;
-  const prevW = cached.boundsMaxX - cached.boundsMinX;
-  const prevH = cached.boundsMaxY - cached.boundsMinY;
-  const panFracX =
-    prevW > 0
-      ? Math.abs(
-          (minX + maxX) / 2 - (cached.boundsMinX + cached.boundsMaxX) / 2
-        ) / prevW
-      : 1;
-  const panFracY =
-    prevH > 0
-      ? Math.abs(
-          (minY + maxY) / 2 - (cached.boundsMinY + cached.boundsMaxY) / 2
-        ) / prevH
-      : 1;
-  const zoomRatio = cached.zoom > 0 ? zoom / cached.zoom : 2;
-
-  // Reselect if panned >25% of viewport or zoom changed by >20%
-  return (
-    panFracX > 0.25 || panFracY > 0.25 || zoomRatio > 1.2 || zoomRatio < 1 / 1.2
+): string {
+  const zoomStep = Math.round(
+    Math.log(zoom) / Math.log(LABEL_RESELECT_ZOOM_STEP)
   );
+  // Canonical zoom for this bucket -> canonical world units per pan step, so
+  // the pan grid is reproducible rather than tied to the live zoom.
+  const canonicalZoom = Math.pow(LABEL_RESELECT_ZOOM_STEP, zoomStep);
+  const cellWorld = LABEL_RESELECT_PAN_PX / canonicalZoom;
+  const centerX = (bounds[0] + bounds[2]) / 2;
+  const centerY = (bounds[1] + bounds[3]) / 2;
+  const panX = Math.round(centerX / cellWorld);
+  const panY = Math.round(centerY / cellWorld);
+  return `${selectedId ?? ""}|${zoomStep}|${panX}|${panY}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -523,7 +529,6 @@ export class LabelManager {
     string,
     { el: HTMLDivElement; nodeIndex: number }
   >();
-  private prevLabelIds = new Set<string>();
   private cachedSelection: SelectionCache | null = null;
   private cursorWorld = { x: 0, y: 0 };
 
@@ -566,12 +571,9 @@ export class LabelManager {
     } else {
       const bounds = camera.getVisibleBounds();
       const camZoom = camera.zoom;
-      const reselect = needsReselection(
-        this.cachedSelection,
-        bounds,
-        camZoom,
-        selectedId
-      );
+      const signature = viewportSignature(bounds, camZoom, selectedId);
+      const reselect =
+        !this.cachedSelection || this.cachedSelection.signature !== signature;
 
       const candidates = buildCandidates(
         nodes,
@@ -595,21 +597,11 @@ export class LabelManager {
         stableResult = selectLabels(
           candidates,
           camera.canvasW || 1,
-          camera.canvasH || 1,
-          this.prevLabelIds
+          camera.canvasH || 1
         );
 
         const newIds = new Set(stableResult.map((c) => c.node.id));
-        this.prevLabelIds = newIds;
-        this.cachedSelection = {
-          ids: newIds,
-          boundsMinX: bounds[0],
-          boundsMinY: bounds[1],
-          boundsMaxX: bounds[2],
-          boundsMaxY: bounds[3],
-          zoom: camZoom,
-          selectedId,
-        };
+        this.cachedSelection = { ids: newIds, signature };
       }
 
       allCandidates = candidates;
@@ -752,6 +744,12 @@ export class LabelManager {
         entry.el.classList.add("node-label-exit");
         exiting.set(id, { el: entry.el, nodeIndex });
         const remove = () => {
+          // The label may have re-entered (cancel-exit re-wraps it into
+          // `elements` and clears the `exiting` entry). Only tear it out if
+          // this element is still the one registered as exiting, otherwise a
+          // stale timer would detach a live label.
+          const current = exiting.get(id);
+          if (!current || current.el !== entry.el) return;
           entry.el.remove();
           exiting.delete(id);
         };
@@ -790,7 +788,6 @@ export class LabelManager {
     }
     this.exitingElements.clear();
 
-    this.prevLabelIds.clear();
     this.cachedSelection = null;
   }
 
