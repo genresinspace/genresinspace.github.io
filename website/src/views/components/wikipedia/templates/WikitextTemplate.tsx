@@ -22,6 +22,7 @@ import { KoreanAuto } from "./KoreanAuto";
 import { Fix } from "./Fix";
 import { PostNominals } from "./PostNominals";
 import { BirthBasedOnAgeAsOfDate } from "./BirthBasedOnAgeAsOfDate";
+import { BirthBasedOnAgeAtDeath } from "./BirthBasedOnAgeAtDeath";
 import { BirthDate } from "./BirthDate";
 import { Etymology } from "./Etymology";
 import { StartDate } from "./StartDate";
@@ -249,6 +250,10 @@ const canonicalHandlers = {
     render: (node: TemplateNode) => <BirthBasedOnAgeAsOfDate node={node} />,
     estimateLength: () => 20,
   },
+  birth_based_on_age_at_death: {
+    render: (node: TemplateNode) => <BirthBasedOnAgeAtDeath node={node} />,
+    estimateLength: () => 9,
+  },
   bracket: {
     render: (node: TemplateNode) => {
       if (!node.parameters || node.parameters.length === 0) return <>[</>;
@@ -404,6 +409,26 @@ const canonicalHandlers = {
   height: {
     render: (node: TemplateNode) => <Height node={node} />,
     estimateLength: () => 15,
+  },
+  hlist: {
+    render: (node: TemplateNode) => {
+      const items = node.parameters.filter((p) => /^\d+$/.test(p.name));
+      return (
+        <span>
+          {items.map((p, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && " · "}
+              <Wikitext wikitext={p.value} />
+            </React.Fragment>
+          ))}
+        </span>
+      );
+    },
+    estimateLength: (node: TemplateNode) =>
+      node.parameters
+        .filter((p) => /^\d+$/.test(p.name))
+        .map((p) => p.value.length + 3)
+        .reduce((a, b) => a + b, 0),
   },
   iast: {
     render: (node: TemplateNode) => (
@@ -863,10 +888,36 @@ const canonicalHandlers = {
       (node.parameters.length > 2 ? node.parameters[2] : node.parameters[1])
         ?.value.length ?? 0,
   },
+  url: {
+    render: (node: TemplateNode) => {
+      const args = templateToObject(node);
+      const target = args["1"] ?? "";
+      const display = args["2"] ?? target.replace(/^https?:\/\//, "");
+      if (!target) return null;
+      const href = /^https?:\/\//.test(target) ? target : `https://${target}`;
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={colourStyles.text.linkHover}
+        >
+          {display}
+        </a>
+      );
+    },
+    estimateLength: (node: TemplateNode) =>
+      (node.parameters[1]?.value ?? node.parameters[0]?.value ?? "").length,
+  },
   us$: {
     render: (node: TemplateNode) => <>${node.parameters[0].value}</>,
     estimateLength: (node: TemplateNode) =>
       (node.parameters[0]?.value.length ?? 0) + 1,
+  },
+  usd: {
+    render: (node: TemplateNode) => <>US${node.parameters[0]?.value ?? ""}</>,
+    estimateLength: (node: TemplateNode) =>
+      (node.parameters[0]?.value.length ?? 0) + 3,
   },
   uss: {
     render: (node: TemplateNode) => {

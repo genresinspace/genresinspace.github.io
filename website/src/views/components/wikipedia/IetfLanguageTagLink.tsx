@@ -37,6 +37,7 @@ export function IetfLanguageTagLink({
     br: { pageTitle: "Breton language", name: "Breton" },
     bs: { pageTitle: "Bosnian language", name: "Bosnian" },
     ca: { pageTitle: "Catalan language", name: "Catalan" },
+    ce: { pageTitle: "Chechen language", name: "Chechen" },
     ckb: { pageTitle: "Sorani", name: "Central Kurdish" },
     cnr: { pageTitle: "Montenegrin language", name: "Montenegrin" },
     co: { pageTitle: "Corsican language", name: "Corsican" },
