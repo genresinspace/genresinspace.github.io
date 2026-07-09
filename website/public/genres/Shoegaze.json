@@ -1,6 +1,6 @@
 {
-  "description": "'''Shoegaze''' (originally '''shoegazing''') is a [[subgenre]] of [[indie rock|indie]] and [[alternative rock]] characterised by ethereal soundscapes, obscured vocals, and extensive use of guitar effects and [[distortion (music)|distortion]]. Rooted in [[Phil Spector]]'s [[Wall of Sound]], [[the Velvet Underground]], and [[psychedelic pop]] of the 1960s, the genre originated in the late 1980s and early 1990s mainly among British acts who based their sound on groups such as [[Cocteau Twins]], [[the Jesus and Mary Chain]], and [[My Bloody Valentine (band)|My Bloody Valentine]]. \"Shoegazing\" was coined in 1991 by music executive [[Andy Ross (music executive)|Andy Ross]] and first used by the British music press as a [[pejorative]] for bands with a motionless stage presence and guitarists who directed their look down towards their [[guitar pedals|effects pedals]]. It was sometimes used interchangeably with \"[[dream pop]]\".\n\nThe original scene developed after the introduction of [[Kevin Shields]]' [[glide guitar]] technique on My Bloody Valentine's 1988 records ''[[You Made Me Realise]]'' and ''[[Isn't Anything]]''. Concentrated in [[London]] and the greater [[Thames Valley]] region, its core acts included [[Ride (band)|Ride]], [[Swervedriver]], [[Slowdive]], [[Chapterhouse (band)|Chapterhouse]], [[Lush (band)|Lush]], and [[Moose (band)|Moose]]; they often attended each other's concerts, shared producers and labels ([[Creation Records|Creation]] and [[4AD]]), and adopted similarly abstract approaches to album artwork. Another journalists' term of derision, \"The Scene That Celebrates Itself\", was applied to these musicians and adjacent non-shoegaze acts such as [[Stereolab]].\n\nShoegaze reached its peak in 1991 with the release of My Bloody Valentine's second album, ''[[Loveless (album)|Loveless]]'', but was overshadowed by the rise of the American [[grunge]] scene and the following [[Britpop]] movement. In subsequent years, a gradual critical reassessment was driven by new listeners discovering the genre through the Internet. Numerous revivals have since emerged in the form of [[nu gaze]] (sometimes \"second-wave shoegaze\") and [[blackgaze]] in the 2000s, [[grungegaze]] in the 2010s, and [[zoomergaze]] in the 2020s. Other music styles, such as [[Witch house (genre)|witch house]], have reconfigured aspects of the genre.",
-  "last_revision_date": "2026-05-22T22:03:49Z",
+  "description": "'''Shoegaze''' (originally '''shoegazing''' and also known as '''dream rock''') is a [[subgenre]] of [[indie rock|indie]] and [[alternative rock]] characterised by ethereal soundscapes, obscured vocals, and extensive use of guitar effects and [[distortion (music)|distortion]]. Rooted in [[Phil Spector]]'s [[Wall of Sound]], [[the Velvet Underground]], and [[psychedelic pop]] of the 1960s, the genre originated in the late 1980s and early 1990s mainly among British acts who based their sound on groups such as [[Cocteau Twins]], [[the Jesus and Mary Chain]], and [[My Bloody Valentine (band)|My Bloody Valentine]]. \"Shoegazing\" was coined in 1991 by music executive [[Andy Ross (music executive)|Andy Ross]] when describing [[Moose (band)|Moose]] and first used by the British music press as a [[pejorative]] for bands with a motionless stage presence and guitarists who directed their look down towards their [[guitar pedals|effects pedals]]. It was sometimes used interchangeably with \"[[dream pop]]\".\n\nThe original scene developed after the introduction of [[Kevin Shields]]' [[glide guitar]] technique on My Bloody Valentine's 1988 records ''[[You Made Me Realise]]'' and ''[[Isn't Anything]]''. Concentrated in [[London]] and the greater [[Thames Valley]] region, its core acts included [[Ride (band)|Ride]], [[Swervedriver]], [[Slowdive]], [[Chapterhouse (band)|Chapterhouse]], [[Lush (band)|Lush]], and [[Moose (band)|Moose]]; they often attended each other's concerts, shared producers and labels ([[Creation Records|Creation]] and [[4AD]]), and adopted similarly abstract approaches to album artwork. Another journalists' term of derision, \"The Scene That Celebrates Itself\", was applied to these musicians and adjacent non-shoegaze acts such as [[Stereolab]].\n\nShoegaze reached its peak in 1991 with the release of My Bloody Valentine's second album, ''[[Loveless (album)|Loveless]]'', but was overshadowed by the rise of the American [[grunge]] scene and the following [[Britpop]] movement. In subsequent years, a gradual critical reassessment was driven by new listeners discovering the genre through the Internet. Numerous revivals have since emerged in the form of [[nu gaze]] (sometimes \"second-wave shoegaze\") and [[blackgaze]] in the 2000s, [[grungegaze]] in the 2010s, and [[zoomergaze]] in the 2020s. Other music styles, such as [[Witch house (genre)|witch house]], have reconfigured aspects of the genre.",
+  "last_revision_date": "2026-07-04T02:18:20Z",
   "mixes": [
     {
       "video": "vJWELUAlZZs"
@@ -8,14 +8,14 @@
   ],
   "top_artists": [
     "My Bloody Valentine (band)",
-    "The Verve",
     "Ride (band)",
+    "The Verve",
     "M83 (band)",
     "The Dandy Warhols",
     "Yo La Tengo",
     "Slowdive",
-    "Wolf Alice",
+    "The Brian Jonestown Massacre",
     "Spiritualized",
-    "Lush (band)"
+    "Wolf Alice"
   ]
 }

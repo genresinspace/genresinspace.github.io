@@ -1,6 +1,6 @@
 {
-  "description": "'''Samba-canção''' ({{IPA|pt|ˈsɐ̃bɐ kɐ̃ˈsɐ̃w}}; literally 'song samba') is, in its most common acceptance or interpretation, the denomination for a kind of Brazilian popular song with a slow-paced [[samba]] rhythm.",
-  "last_revision_date": "2026-02-04T19:52:24Z",
+  "description": "'''Samba-canção''' ({{IPA|pt|ˈsɐ̃bɐ kɐ̃ˈsɐ̃w}}; literally 'song samba') is, in its most common interpretation, a kind of Brazilian popular song with a slow-paced [[samba]] rhythm.",
+  "last_revision_date": "2026-06-30T02:22:35Z",
   "mixes": [
     {
       "video": "T-rPhCB3w8s"
@@ -9,9 +9,9 @@
   "top_artists": [
     "Dick Farney",
     "Nora Ney",
-    "Aracy Cortes",
     "Miltinho",
     "Luiz Bonfá",
+    "Aracy Cortes",
     "Nelson Gonçalves"
   ]
 }

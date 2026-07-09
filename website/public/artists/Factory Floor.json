@@ -1,12 +1,12 @@
 {
   "name": "Factory Floor",
-  "description": "'''Factory Floor''' are a London-based band formed in 2005. They have been described as '[[post-industrial music|post-industrial]]', using live drums, synthesizers and [[noise music|noise]].",
-  "last_revision_date": "2025-05-26T02:54:40Z",
+  "description": "'''Factory Floor''' is a British electronic music group formed in London in 2005. Combining elements of techno, post-industrial music, and experimental electronic music, the band acquired a reputation around the turn of the decade as \"one of the loudest, most exhilarating bands around\".",
+  "last_revision_date": "2026-06-20T09:04:47Z",
   "genres": [
     3,
     6,
-    411,
     412,
-    797
+    413,
+    800
   ]
 }
