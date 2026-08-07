@@ -89,25 +89,51 @@ Refreshing the dataset from a new Wikipedia dump takes a few steps. Run everythi
 
 2. Point `wikipedia_dump_dir` in `config.toml` at that `<directory>/<date>/` directory.
 
-3. Regenerate the dataset. This parses the dump and rewrites the graph data and per-genre/artist files under `website/public/`:
+3. Regenerate the dataset. This parses the dump and rewrites the graph data and per-genre/artist files under `website/public/`.
+
+   It takes a few minutes (plus a compile on a cold checkout) and finishes with output like `computed force-directed layout for N nodes` and `saved data.json`. Everything under `website/public/` is deleted and rewritten, so wait for `saved data.json` before inspecting the output. If running it in the background, capture the log (e.g. `cargo run --release > /tmp/regen.log 2>&1`):
 
    ```bash
    cargo run --release
    ```
 
-4. From `website`, run `npm run test`. This renders every genre and artist description and fails on templates or language tags the new dump introduces that aren't handled yet. Add handlers under `website/src/views/components/wikipedia/templates/`, and language tags in `IetfLanguageTagLink.tsx`, until it passes.
+4. From `website`, run `npm run test`. This renders every genre and artist description and fails on templates or language tags the new dump introduces that aren't handled yet.
 
-5. Fill in mixes for any new genres. This reruns the pipeline and populates YouTube mixes (under `mixes/`) for genres that don't have one:
+   Passing output ends with `All entries rendered successfully!`. On failure it prints `=== MISSING TEMPLATES (N) ===` with a Wikipedia link per unhandled template; unhandled templates are usually redirects, so open the linked template to see what it points at before writing a handler.
+
+   Add handlers under `website/src/views/components/wikipedia/templates/`, and language tags in `IetfLanguageTagLink.tsx`, until it passes.
+
+5. Fill in mixes for any new genres. To see which genres are missing, first run the non-interactive check:
+
+   ```bash
+   cargo run --bin check_missing_mixes --release
+   ```
+
+   Then populate the mixes for those genres:
 
    ```bash
    cargo run --release -- --populate-mixes
    ```
+
+   This reruns the pipeline (step 3) and is **interactive**:
+
+   - It prints a genre's Wikipedia link and description, then opens a YouTube search tab in your browser.
+   - It waits on stdin for a playlist or video URL to paste; anything after `&` is ignored.
+   - Type `finish` to stop early.
+
+   Run it in a terminal as a human — it blocks on input and opens browser tabs, so it can't run unattended.
+
+   Mix files are named by sanitized page name, and only genres without an existing `mixes/` file are prompted, so delete stale mix files for genres that no longer exist in the dump. The YouTube API key in `config.toml` is not needed here; it's only used by the optional `--check-mixes` validation.
 
 6. Check for suspicious edges. This flags "derivative" edges where an obscure source genre supposedly influences a far more prominent one - measured by node degree, where a low-degree source points at a much higher-degree target (at least 5x its degree, target degree ≥ 15). These usually come from a mistake in a Wikipedia infobox. Review each and record your decision in `datagen/src/data_patches.rs`, adding it to either `edges_to_accept()` or `edges_to_reject()`:
 
    ```bash
    cargo run --bin check_suspicious_edges --release
    ```
+
+7. Once the batch is complete, green-check it with the commands under "Passing CI".
+
+   Note that the two data checks (`check_missing_mixes` and `check_suspicious_edges`) read the regenerated files under `website/public/`, so run them after step 3, not before.
 
 To redo just the force-directed layout after changing `datagen/src/force_layout.rs`:
 
