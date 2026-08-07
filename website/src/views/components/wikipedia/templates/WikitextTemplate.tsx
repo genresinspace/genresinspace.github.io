@@ -127,6 +127,9 @@ const canonicalHandlers = {
   circa: fixed("c."),
   em_dash: fixed("\u2014"),
   en_dash: fixed("\u2013"),
+  // Template:* redirects to Template:• (bullet): " • " (nbsp, bullet, space),
+  // used as a separator (e.g. between post-nominal honorifics).
+  "*": fixed("\u00A0\u2022 "),
   currentyear: {
     render: () => <>{new Date().getFullYear()}</>,
     estimateLength: () => 4,
@@ -1015,6 +1018,7 @@ const aliases: [string, CanonicalTemplateName][] = [
   ["dn", "disambiguation_needed"],
   ["excessive_citations", "excessive_citations_inline"],
   ["not_in_ref", "failed_verification"],
+  ["notinref", "failed_verification"],
   ["verification_failed", "failed_verification"],
   ["pn", "page_needed"],
   ["pronunciation?", "pronunciation_needed"],

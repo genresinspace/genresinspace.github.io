@@ -217,6 +217,14 @@ pub fn edges_to_accept() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         // British rock and roll directly spawned the beat and blues rock movements
         ("British rock and roll", "Beat", D),
         ("British rock and roll", "Blues rock", D),
+        // Freakbeat (hard-edged 1960s British mod rock) directly bridged British
+        // R&B/beat into psychedelia; Wikipedia lists psychedelic rock and punk
+        // rock as its derivative forms
+        ("Freakbeat", "Psychedelic rock", D),
+        ("Freakbeat", "Punk rock", D),
+        // Western swing's amplified, backbeat-driven sound fed rockabilly and is
+        // listed as a fusion genre of rock and roll
+        ("Western swing", "Rock and roll", D),
         // Ramones and others cited bubblegum pop as an influence on punk
         ("Bubblegum", "Punk rock", D),
         // Cadence rampa directly spawned zouk in the French Antilles
