@@ -1,11 +1,10 @@
 {
-  "description": "'''Alternative pop''' (also known as '''alt-pop''') is [[pop music]] with broad commercial appeal that is made by figures outside the mainstream, or which is considered more original, challenging, or eclectic than traditional pop music. ''[[The Independent]]'' described alt-pop as \"a home-made, personalized imitation of the mainstream that speaks far closer to actual teenage experience\", and which is commonly characterized by a dark or downbeat emotional tone with lyrics about insecurity, regret, drugs, and anxiety.\n\nAccording to [[AllMusic]], the alternative scene's \"left-of-center pop\" failed to experience mainstream success during the 1980s, although the UK alternative pop band [[Siouxsie and the Banshees]] saw success in that decade. Canadian singer [[Avril Lavigne]]'s success in the early 2000s, including her hit single \"[[Sk8er Boi]]\", helped set the stage for a subsequent generation of female alt-pop singers. In the late 2000s, American singer [[Santigold]] established herself as an \"alternative pop hero\" due to her apparent artistic conviction.\n\nIn the early 2010s, American singer [[Lana Del Rey]] developed a \"cult-like following\" with her \"cinematic, beat-heavy alt-pop\", which was characterized by an \"alluring sadness and melodrama\". New Zealand alt-pop singer [[Lorde]] achieved global success in 2013 and 2014, topping charts and winning awards. In 2022, American singer [[Billie Eilish]] was credited with marking the \"ascendence\" of alternative pop in the mainstream with her dark, downbeat pop.",
-  "last_revision_date": "2026-07-29T20:02:01Z",
+  "description": "'''Alternative pop''' (also known as '''alt-pop''') is [[pop music]] with broad commercial appeal that is made by figures outside the mainstream, or which is considered more original, challenging, or eclectic than traditional pop music. The term has been used for a broad range of music and has described an artist's relationship to the musical mainstream as much as a single, fixed sound. The first known use of the term \"alternative pop\" recorded by ''[[Merriam-Webster]]'' dates to 1985, while the shortened term \"alt-pop\" is recorded from 1994.\n\n''[[The Independent]]'' described alt-pop as \"a home-made, personalized imitation of the mainstream that speaks far closer to actual teenage experience\", and characterized one strand of the style as dark or downbeat, with lyrics addressing insecurity, regret, drugs, and anxiety. Historically, alternative pop has overlapped with [[alternative rock]], [[indie pop]], [[art pop]], [[electronic music]], and singer-songwriter traditions. In the 2010s and 2020s, artists associated with the term increasingly achieved mainstream commercial success, further blurring the distinction between alternative and mainstream pop.",
+  "last_revision_date": "2026-08-31T09:10:50Z",
   "mixes": {
     "help_reason": null
   },
   "top_artists": [
-    "Billie Eilish",
     "Lorde",
     "The 1975",
     "Finneas O'Connell",
@@ -14,6 +13,7 @@
     "Goo Goo Dolls",
     "Roxette",
     "Siouxsie and the Banshees",
-    "Melanie Martinez"
+    "Melanie Martinez",
+    "Robyn"
   ]
 }

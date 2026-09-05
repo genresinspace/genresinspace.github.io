@@ -83,8 +83,10 @@ mod common {
                 )
             })? == 0
             {
-                // End of file reached without finding the INSERT statement
-                panic!("End of file reached without finding the INSERT statement");
+                anyhow::bail!(
+                    "End of file reached without finding prefix {:?}",
+                    String::from_utf8_lossy(target_prefix)
+                );
             }
 
             // Add byte to circular buffer
@@ -157,7 +159,7 @@ mod linktargets {
             std::io::BufReader::new(linktargets_file),
         ));
 
-        common::skip_until_prefix(&mut linktargets_file, b"INSERT INTO `linktarget` VALUES ")
+        common::skip_until_prefix(&mut linktargets_file, b"INSERT INTO `linktarget` VALUES")
             .context(
                 "Failed to find INSERT INTO `linktarget` VALUES statement in linktargets file",
             )?;
@@ -402,6 +404,32 @@ mod linktargets {
         });
 
         #[test]
+        fn test_skip_until_prefix_handles_multiline_insert_format() {
+            // The 2026-09-01 dumps put a newline after VALUES and one tuple per line.
+            let data = "-- header\nINSERT INTO `linktarget` VALUES\n(123,0,'Example_Page'),\n(456,0,'Test_Article');\n";
+            let mut stream = Cursor::new(data.as_bytes());
+            common::skip_until_prefix(&mut stream, b"INSERT INTO `linktarget` VALUES").unwrap();
+            let mut output = BTreeMap::new();
+            parse_linktarget_tuple_stream(
+                &mut stream,
+                std::time::Instant::now(),
+                &PAGE_NAMES,
+                &mut output,
+            )
+            .unwrap();
+            assert_eq!(output.get(&123), Some(&pn("Example Page")));
+            assert_eq!(output.get(&456), Some(&pn("Test Article")));
+        }
+
+        #[test]
+        fn test_skip_until_prefix_errors_at_eof() {
+            let mut stream = Cursor::new(b"no insert here");
+            assert!(
+                common::skip_until_prefix(&mut stream, b"INSERT INTO `linktarget` VALUES").is_err()
+            );
+        }
+
+        #[test]
         fn test_parse_simple_linktarget_tuple() {
             let mut output = BTreeMap::new();
             let data = "(123,0,'Example_Page')";
@@ -523,7 +551,7 @@ mod links {
             std::io::BufReader::new(links_file),
         ));
 
-        common::skip_until_prefix(&mut links_file, b"INSERT INTO `pagelinks` VALUES ")
+        common::skip_until_prefix(&mut links_file, b"INSERT INTO `pagelinks` VALUES")
             .context("Failed to find INSERT INTO `pagelinks` VALUES statement in links file")?;
 
         let mut inbound_link_counts: BTreeMap<types::PageName, usize> =
