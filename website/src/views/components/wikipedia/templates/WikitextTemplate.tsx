@@ -28,6 +28,10 @@ import { Etymology } from "./Etymology";
 import { StartDate } from "./StartDate";
 import { WiktLang } from "./WiktLang";
 import { TimeAgo } from "./TimeAgo";
+import {
+  USHouseDistrict,
+  estimateUSHouseDistrictLength,
+} from "./USHouseDistrict";
 
 import { Music } from "./music/Music";
 import { Listen } from "./Listen";
@@ -959,6 +963,10 @@ const canonicalHandlers = {
     render: (node: TemplateNode) => <TimeAgo node={node} />,
     estimateLength: () => 12,
   },
+  "u.s._house_of_representatives_abbreviation": {
+    render: (node: TemplateNode) => <USHouseDistrict node={node} />,
+    estimateLength: estimateUSHouseDistrictLength,
+  },
 } satisfies Record<string, TemplateHandler>;
 
 type CanonicalTemplateName = keyof typeof canonicalHandlers;
@@ -992,6 +1000,7 @@ const aliases: [string, CanonicalTemplateName][] = [
   ["ndash", "en_dash"],
   ["ne", "n\u00E9"],
   ["hairsp", "hair_space"],
+  ["nbs", "nbsp"],
   ["snd", "spaced_en_dash"],
   ["spaced_ndash", "spaced_en_dash"],
   ["spnd", "spaced_en_dash"],
@@ -1020,6 +1029,7 @@ const aliases: [string, CanonicalTemplateName][] = [
   ["dn", "disambiguation_needed"],
   ["excessive_citations", "excessive_citations_inline"],
   ["not_in_ref", "failed_verification"],
+  ["not_in_source", "failed_verification"],
   ["notinref", "failed_verification"],
   ["verification_failed", "failed_verification"],
   ["pn", "page_needed"],
@@ -1072,6 +1082,7 @@ const aliases: [string, CanonicalTemplateName][] = [
   ["transl", "transliteration"],
   ["xlit", "transliteration"],
   ["us_dollar", "us$"],
+  ["ushr", "u.s._house_of_representatives_abbreviation"],
   ["wt", "wikt-lang"],
   ["zh", "lang-zh"],
   ["timeago", "time_ago"],

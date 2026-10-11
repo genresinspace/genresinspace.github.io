@@ -1,8 +1,10 @@
 {
   "name": "Reptilian Club Boyz",
-  "description": "'''Reptilian Club Boyz''', also known as '''RCB''' or '''Blood Rayne Boys''', was an American [[Internet rap]] collective based in [[Tennessee]]. Formed by rappers Hi-C and Diamondsonmydick in 2016, they have been credited as influential in the [[2020s underground rap]] scene and development of the [[hexD]] genre.",
-  "last_revision_date": "2026-08-19T14:24:46Z",
+  "description": "'''Reptilian Club Boyz''', also known as '''RCB''' or '''Blood Rayne Boys''', was an American [[Internet rap|modern hip hop]] collective based in [[Tennessee]]. RCB was founded by rappers Hi-C and Diamondsonmydick in 2016, they have been credited as influential in the [[2020s underground rap]] scene and development of the [[hexD]] genre.",
+  "last_revision_date": "2026-10-06T08:30:07Z",
   "genres": [
-    630
+    274,
+    573,
+    1343
   ]
 }

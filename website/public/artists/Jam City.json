@@ -1,10 +1,11 @@
 {
   "name": "Jam City",
-  "description": "'''Jack Louis Latham''' is a British electronic music producer and DJ who performs under the alias '''Jam City'''. He has been active since 2010 and records on the label [[Night Slugs]]. He has released four full-length albums: 2012's ''[[Classical Curves]]'', 2015's ''[[Dream a Garden]]'', 2020's ''Pillowland'', and 2023's ''EFM''. He has also produced for artists such as [[Kelela]], [[Troye Sivan]], [[Gaika (musician)|Gaika]], and [[Olivia Rodrigo]].",
-  "last_revision_date": "2026-08-25T17:52:16Z",
+  "description": "'''Jack Louis Latham''' is an English electronic music producer and DJ who performs under the alias '''Jam City'''. He has been active since 2010 and affiliated with the labels [[Night Slugs]] and [[Mad Decent]]. He has released five full-length albums beginning with 2012's ''[[Classical Curves]]''. He has also produced for artists such as [[Kelela]], [[Troye Sivan]], [[Gaika (musician)|Gaika]], and [[Olivia Rodrigo]].",
+  "last_revision_date": "2026-10-06T08:31:04Z",
   "genres": [
-    415,
+    349,
+    413,
     972,
-    1299
+    1297
   ]
 }
