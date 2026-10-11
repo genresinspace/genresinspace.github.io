@@ -137,7 +137,7 @@ pub fn edges_to_reject() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         ("Acoustic music", "Honky-tonk", D),
         // Americana is a 1990s genre label; R&B (1940s) and rock and roll (1950s) predate it
         ("Americana", "Rhythm and blues", D),
-        ("Americana", "Rock and roll", D),
+        ("Americana", "Rock and Roll", D),
         // Chillstep (dubstep subgenre) and chillwave (indie/lo-fi synth-pop) share a
         // "chill" aesthetic but are unrelated genre lineages
         ("Chillstep", "Chillwave", D),
@@ -167,7 +167,7 @@ pub fn edges_to_reject() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         ("Narcocorrido", "Country music", D),
         // Trip hop emerged from Bristol (Massive Attack, Portishead); no evidence
         // Scottish hip-hop influenced it
-        ("Scottish hip -hop", "Trip hop", D),
+        ("Scottish hip-hop", "Trip hop", D),
     ]
     .into_iter()
     .map(|(source, target, ty)| {
@@ -190,7 +190,7 @@ pub fn edges_to_accept() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         // --- Foundational/precursor relationships (unambiguous music history) ---
         // African music traditions fed into American popular music through the blues
         ("African blues", "Rhythm and blues", D),
-        ("African blues", "Rock and roll", D),
+        ("African blues", "Rock and Roll", D),
         ("African blues", "Swing", D),
         // Appalachian folk is the main precursor of country music
         ("Appalachian music", "Country music", D),
@@ -211,7 +211,7 @@ pub fn edges_to_accept() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         ("Boogie", "House music", D),
         // Boogie-woogie piano rhythms fed into early R&B and rock and roll
         ("Boogie-woogie", "Rhythm and blues", D),
-        ("Boogie-woogie", "Rock and roll", D),
+        ("Boogie-woogie", "Rock and Roll", D),
         // British R&B bands (Yardbirds, etc.) went psychedelic
         ("British rhythm and blues", "Psychedelic rock", D),
         // British rock and roll directly spawned the beat and blues rock movements
@@ -224,7 +224,7 @@ pub fn edges_to_accept() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         ("Freakbeat", "Punk rock", D),
         // Western swing's amplified, backbeat-driven sound fed rockabilly and is
         // listed as a fusion genre of rock and roll
-        ("Western swing", "Rock and roll", D),
+        ("Western swing", "Rock and Roll", D),
         // Ramones and others cited bubblegum pop as an influence on punk
         ("Bubblegum", "Punk rock", D),
         // Cadence rampa directly spawned zouk in the French Antilles
@@ -253,7 +253,7 @@ pub fn edges_to_accept() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         // Traditional Mexican music influenced Mexican pop
         ("Duranguense", "Mexican pop", D),
         // Electric blues directly spawned rock and roll and rock
-        ("Electric blues", "Rock and roll", D),
+        ("Electric blues", "Rock and Roll", D),
         ("Electric blues", "Rock", D),
         // Eurodisco influenced both house and techno
         ("Eurodisco", "House music", D),
@@ -273,13 +273,13 @@ pub fn edges_to_accept() -> BTreeSet<(GenreName, GenreName, EdgeType)> {
         ("Italo disco", "Techno", D),
         // Jump blues is essentially proto-R&B and fed directly into rock and roll
         ("Jump blues", "Rhythm and blues", D),
-        ("Jump blues", "Rock and roll", D),
+        ("Jump blues", "Rock and Roll", D),
         // Light music / mood music / "furniture music" (Satie) influenced ambient
         ("Light music", "Ambient music", D),
         // Louisiana Creole/Cajun music influenced country, R&B, and rock and roll
         ("Louisiana Creole and Cajun music", "Country music", D),
         ("Louisiana Creole and Cajun music", "Rhythm and blues", D),
-        ("Louisiana Creole and Cajun music", "Rock and roll", D),
+        ("Louisiana Creole and Cajun music", "Rock and Roll", D),
         // Latin rhythms (mambo) influenced funk (James Brown cited mambo)
         ("Mambo", "Funk", D),
         // Stax/Memphis soul artists directly influenced funk
