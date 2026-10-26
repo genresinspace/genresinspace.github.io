@@ -63,11 +63,13 @@ export function ProjectInformation({
           </p>
           <p>Try clicking on a genre, or check out a random genre below.</p>
         </div>
-        <RandomGenre
-          nodes={nodes}
-          maxDegree={maxDegree}
-          setFocusedId={setFocusedId}
-        />
+        <div className={`border-t ${colourStyles.border.divider}`}>
+          <RandomGenre
+            nodes={nodes}
+            maxDegree={maxDegree}
+            setFocusedId={setFocusedId}
+          />
+        </div>
       </Section>
       <Section heading="Legend" icon={<MapIcon />}>
         <Legend visibleTypes={visibleTypes} setVisibleTypes={setVisibleTypes} />
@@ -114,13 +116,28 @@ function RandomGenre({
     maxDegree,
     nodeColourLightness.DarkerBackground
   );
+  const randomNodeControlColour = nodeColour(
+    randomNode,
+    maxDegree,
+    nodeColourLightness.Control
+  );
+  const randomNodeControlHoveredColour = nodeColour(
+    randomNode,
+    maxDegree,
+    nodeColourLightness.HoveredBackground
+  );
 
   return (
     <span className="flex flex-col w-full">
       <span className="flex flex-row">
         <button
           onClick={() => setRandomId(Math.floor(Math.random() * nodes.length))}
-          className={`p-1 ${colourStyles.bg.interactive} ${colourStyles.hover.medium} w-8 flex items-center justify-center ${colourStyles.text.onAccent} transition-colors`}
+          className={`p-1 ${colourStyles.project.control} w-8 flex items-center justify-center`}
+          style={{
+            ["--node-color" as string]: randomNodeControlColour,
+            ["--node-color-hovered-color" as string]:
+              randomNodeControlHoveredColour,
+          }}
           title="Point the telescope somewhere new"
         >
           <ShuffleIcon width={16} height={16} stroke="white" />
@@ -135,7 +152,7 @@ function RandomGenre({
             className={`font-bold block px-2 py-1 ${colourStyles.project.title} transition-all duration-250`}
             style={{
               ["--node-color" as string]: randomNodeColour,
-              ["--node-hovered-color" as string]: randomNodeHoveredColour,
+              ["--node-color-hovered-color" as string]: randomNodeHoveredColour,
             }}
           >
             {randomNode.label}

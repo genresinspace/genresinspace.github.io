@@ -123,6 +123,9 @@ export type LinksToPageIds = Record<string, number>;
 export const NodeColourLightness = {
   /** The lightness of the darker background colour. */
   DarkerBackground: 24,
+  /** The lightness of a control set against the background shade, such as the
+   *  shuffle button: darker than the name, lighter than its subtitle. */
+  Control: 32,
   /** The lightness of the background colour. */
   Background: 42,
   /** The lightness of a hovered background colour. */

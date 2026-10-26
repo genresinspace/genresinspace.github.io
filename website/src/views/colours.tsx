@@ -126,6 +126,7 @@ export const colourStyles = {
   project: {
     title: `bg-[var(--node-color)] hover:bg-[var(--node-color-hovered-color)] ${textOnAccent}`,
     subtitle: `bg-[var(--node-color)] ${textOnAccent}`,
+    control: `bg-[var(--node-color)] hover:bg-[var(--node-color-hovered-color)] ${textOnAccent} transition-colors`,
   },
 
   // Search
