@@ -239,7 +239,7 @@ export function Listen({
         >
           <div className="flex items-start mb-2">
             {showIcon && !plain && !embed && (
-              <div className="mr-2 text-2xl">{icon}</div>
+              <div className={`mr-2 ${textStyles.display}`}>{icon}</div>
             )}
             <div>
               <div className={`font-medium ${colourStyles.audio.playerTitle}`}>

@@ -97,23 +97,19 @@ function App() {
     return (
       <div
         className={`flex w-screen h-screen items-center justify-center ${colourStyles.bg.app} ${colourStyles.text.primary}`}
-        style={{
-          background:
-            "radial-gradient(ellipse 75% 60% at 50% 42%, rgba(28, 42, 76, 0.35), rgba(4, 6, 15, 0) 70%), #04060f",
-        }}
       >
         <div className="flex flex-col items-center gap-5 text-center">
           <div
-            className={`w-14 h-14 border ${colourStyles.loading.spinner} rounded-full animate-spin`}
+            className={`w-12 h-12 border ${colourStyles.loading.spinner} rounded-full animate-spin`}
           />
-          <div>
+          <div className="flex flex-col items-center gap-2">
             <div
-              className={`font-display font-semibold ${textStyles.display} tracking-[0.3em] ml-[0.3em] ${colourStyles.text.brass}`}
+              className={`font-display font-semibold ${textStyles.display} lowercase tracking-[-0.021em] text-white bg-accent-solid px-3`}
             >
               genres in space
             </div>
             <div
-              className={`font-body italic ${textStyles.body} ${colourStyles.text.meta}`}
+              className={`font-ui ${textStyles.small} ${colourStyles.text.meta}`}
             >
               charting the heavens&hellip;
             </div>

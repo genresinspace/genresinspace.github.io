@@ -33,7 +33,7 @@ export function HighlightedText({
       parts.push(text.slice(position, start));
     }
     parts.push(
-      <strong key={index} className="font-semibold text-[#f4eedd]">
+      <strong key={index} className="font-semibold text-ink">
         {text.slice(start, end)}
       </strong>
     );
@@ -75,11 +75,11 @@ export function GenreSnippet({ node }: { node: NodeData }) {
 }
 
 /** Section label above a list of results or the path. Floats over the graph,
- *  so it gets a faint shadow to hold its own against bright star clusters. */
+ *  so a tight dark shadow holds it against bright star clusters. */
 export function ListLabel({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${textStyles.body} font-plate font-semibold uppercase tracking-[0.2em] ${colourStyles.text.brass} px-1 [text-shadow:0_1px_4px_rgba(4,6,15,0.95)]`}
+      className={`${textStyles.label} font-ui font-medium lowercase tracking-[0.06em] ${colourStyles.text.metaInline} px-1 [text-shadow:0_1px_3px_var(--graph)]`}
     >
       {children}
     </div>

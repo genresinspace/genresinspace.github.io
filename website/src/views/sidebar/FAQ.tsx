@@ -220,7 +220,7 @@ export function FAQ({
   ];
 
   return (
-    <div className={`flex flex-col ${textStyles.body}`}>
+    <div className={`flex flex-col reading ${textStyles.body}`}>
       {faqs.map((faq, index) => (
         <Collapsible
           key={index}

@@ -31,10 +31,10 @@ export function Tabs<T extends string>({
       {items.map((tab) => (
         <button
           key={tab.id}
-          className={`flex-1 p-2 cursor-pointer flex items-center justify-center gap-2 overflow-hidden border-b-2 font-display ${textStyles.title} tracking-[0.08em] transition-colors duration-200 ${
+          className={`flex-1 px-3 py-2 cursor-pointer flex items-center justify-center gap-2 overflow-hidden font-ui font-medium ${textStyles.small} tracking-[0.01em] transition-colors duration-150 ${
             activeId === tab.id
-              ? `font-bold ${colourStyles.button.active}`
-              : `font-semibold ${colourStyles.button.inactive}`
+              ? colourStyles.button.active
+              : colourStyles.button.inactive
           }`}
           onClick={() => onChange(tab.id)}
         >

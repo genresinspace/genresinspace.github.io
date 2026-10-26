@@ -11,7 +11,7 @@ export const SwapIcon: React.FC<StrokeIconProps> = ({
   width = 18,
   height = 18,
   className = "",
-  stroke = "#9ba6bc",
+  stroke = "var(--ink-muted)",
   style = {},
 }) => {
   return (

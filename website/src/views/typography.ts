@@ -1,26 +1,33 @@
 /**
- * Centralized text-size scale for the application.
+ * The names of the type scale's steps, for components.
  *
- * Every font size in the UI maps to one of these named roles, so the whole
- * type scale can be retuned from this single file. Change a role's Tailwind
- * size class here and adjust component layouts to match — there should be no
- * bare `text-<size>` classes anywhere else in the app.
+ * The sizes themselves live in `tokens.css` (`--fs-*` / `--lh-*`), which
+ * Tailwind turns into `text-display` … `text-label`. Each step carries its own
+ * leading, so a role is one class rather than a size plus a line-height every
+ * component has to remember.
  *
- * Two intentional exceptions live outside this scale:
- *  - the audio "Listen" template sizes an icon glyph (not text) with text-2xl;
- *  - rendered Wikipedia content keeps its own native <small> markup.
+ * Nothing in a component may name a size directly; it names one of these
+ * roles, and this file is the only place a role maps to a utility.
+ *
+ * Outside the scale, by design:
+ *  - rendered Wikipedia content keeps its own native <small> markup;
+ *  - graph node labels are sized in world units by the canvas renderer
+ *    (`LABEL_FONT_SIZE_BASE` in graphConstants), because they scale with zoom.
+ *
+ * Icons may borrow a step (`display` for the audio player's glyph) — they are
+ * sized to sit beside text, not to be read as it.
  */
 export const textStyles = {
-  /** Large display text — the landing / loading title. */
-  display: "text-3xl",
-  /** Section headings (the cartouche strips on each plate). */
-  heading: "text-xl",
-  /** Tab labels and similarly prominent affordances. */
-  title: "text-lg",
-  /** Default body, reading, and UI text. */
-  body: "text-base",
-  /** Captions, metadata, ornaments, and other small print. */
-  small: "text-sm",
+  /** The wordmark on the loading and error plates; at most one per screen. */
+  display: "text-display",
+  /** A panel's section title. */
+  heading: "text-heading",
+  /** Prose, collapsible titles, and control values. */
+  body: "text-body",
+  /** Tabs, control labels, and metadata. */
+  small: "text-small",
+  /** Micro-labels drawn over the graph. */
+  label: "text-label",
 } as const;
 
 /** Type definitions for better TypeScript support */

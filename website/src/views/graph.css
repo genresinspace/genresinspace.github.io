@@ -5,8 +5,7 @@
   touch-action: manipulation;
 }
 
-/* Star-designation plates: narrow grotesque with a little letterspacing,
-   bordered like the tiny engraved labels on an old celestial chart. */
+/* Node labels: the chrome face, set tight, on a hairline-bordered plate. */
 .node-label {
   position: absolute;
   left: 0;
@@ -14,12 +13,13 @@
   white-space: nowrap;
   pointer-events: auto;
   cursor: pointer;
-  font-weight: 600 !important;
-  letter-spacing: 0.04em;
-  padding: 2px 7px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  padding: 1px 6px !important;
   margin: 0 !important;
   border: 1px solid transparent;
-  font-family: "Archivo Narrow", "Helvetica Neue", Arial, sans-serif;
+  border-radius: 2px;
+  font-family: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;

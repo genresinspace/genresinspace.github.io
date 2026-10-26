@@ -39,7 +39,9 @@ export function CheckboxInput({
   return (
     <div className="flex flex-col space-y-1">
       <div className="flex justify-between items-center">
-        <label className="block font-bold">{label}</label>
+        <label className={`block font-ui font-medium ${textStyles.small}`}>
+          {label}
+        </label>
         <button
           type="button"
           className={`${textStyles.body} px-2 py-1 ${colourStyles.input.primary}`}
@@ -59,7 +61,7 @@ export function CheckboxInput({
           checked={checked}
           onChange={(e) => e.stopPropagation()}
         />
-        <span className={`${textStyles.body} select-none`}>
+        <span className={`${textStyles.body} font-ui select-none`}>
           {checked ? "Yes" : "No"}
         </span>
       </div>
@@ -90,10 +92,12 @@ export function RangeInput({
   return (
     <div className="flex flex-col space-y-1">
       <div className="flex justify-between items-center gap-2">
-        <label className="block font-bold">{label}</label>
+        <label className={`block font-ui font-medium ${textStyles.small}`}>
+          {label}
+        </label>
         <div className="flex items-center">
           <span
-            className={`${textStyles.body} font-medium px-2 py-1 ${colourStyles.input.label}`}
+            className={`${textStyles.body} font-ui font-medium px-2 py-1 ${colourStyles.input.label}`}
           >
             {value ?? defaultValue}
           </span>

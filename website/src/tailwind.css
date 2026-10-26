@@ -1,28 +1,92 @@
 @import "tailwindcss";
+@import "./tokens.css";
+
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/source-serif-4";
+@import "@fontsource-variable/figtree";
 
 /* ---------------------------------------------------------------------------
- * Star-atlas theme: typefaces for the observatory instrument panel.
+ * Tokens Tailwind turns into utilities: `text-ink`, `bg-panel`,
+ * `border-line`, `text-heading`, and so on. `inline` keeps them pointing at
+ * the variables in `tokens.css`, so that file stays the one place a colour or
+ * a size is written.
  * ------------------------------------------------------------------------- */
-@theme {
-  --font-display: "Cormorant SC", "Cormorant", Georgia, serif;
-  --font-body: "Spectral", Georgia, "Times New Roman", serif;
-  --font-plate: "Archivo Narrow", "Helvetica Neue", Arial, sans-serif;
+@theme inline {
+  --color-graph: var(--graph);
+  --color-canvas: var(--canvas);
+  --color-field: var(--field);
+  --color-panel: var(--panel);
+  --color-panel-hover: var(--panel-raised);
+  --color-band: var(--band);
+  --color-band-sub: var(--band-sub);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-accent: var(--accent);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-wash: var(--accent-wash);
+
+  --color-info: var(--info);
+  --color-info-solid: var(--info-solid);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-good: var(--good);
+  --color-bad: var(--bad);
+
+  /* The type scale. Each step carries its own leading, so a role is one class
+     rather than a size plus a line-height that components must remember. */
+  --text-display: var(--fs-display);
+  --text-display--line-height: var(--lh-display);
+  --text-heading: var(--fs-heading);
+  --text-heading--line-height: var(--lh-heading);
+  --text-body: var(--fs-body);
+  --text-body--line-height: var(--lh-body);
+  --text-small: var(--fs-small);
+  --text-small--line-height: var(--lh-small);
+  --text-label: var(--fs-label);
+  --text-label--line-height: var(--lh-label);
 }
 
 /* ---------------------------------------------------------------------------
- * Panel tiers: dark navy instrument plates. Crisp draftsmanship, not frost —
- * near-opaque plates with hairline borders applied via colour tokens.
+ * Faces: Fraunces for display, Source Serif 4 for prose, Figtree for every
+ * piece of chrome. The same three the rest of the site uses.
+ * ------------------------------------------------------------------------- */
+@theme {
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-body: "Source Serif 4 Variable", Georgia, serif;
+  --font-ui: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Nearly square: only enough to soften a corner, never a rounded panel. */
+  --radius-sm: 2px;
+  --radius-md: 5px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Panel tiers: flat surfaces with hairline rules, no blur and no shadow. A
+ * panel is translucent only because the graph is behind it.
  * ------------------------------------------------------------------------- */
 @utility plate-shell {
-  @apply bg-[#080d1c]/92;
+  background: color-mix(in oklab, var(--panel) 96%, transparent);
 }
 
 @utility plate-raised {
-  @apply bg-[#121b32]/85;
+  background: color-mix(in oklab, var(--panel-raised) 94%, transparent);
 }
 
 @utility plate-floating {
-  @apply bg-[#0a1122]/95 border border-[#c9a86a]/35 shadow-[0_4px_24px_rgba(0,0,0,0.55)];
+  background: color-mix(in oklab, var(--panel-raised) 96%, transparent);
+  border: 1px solid var(--line-strong);
+}
+
+/* Long-form text: the reading face. Size and leading come from the type scale
+   (`text-body`), so prose obeys the same rhythm as everything around it. */
+@utility reading {
+  font-family: var(--font-body);
 }
 
 /* ---------------------------------------------------------------------------
@@ -30,7 +94,8 @@
  * ------------------------------------------------------------------------- */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(201, 168, 106, 0.35) rgba(8, 13, 28, 0.6);
+  scrollbar-color: color-mix(in oklab, var(--ink-faint) 30%, transparent)
+    transparent;
 }
 
 *::-webkit-scrollbar {
@@ -38,38 +103,40 @@
   height: 8px;
 }
 *::-webkit-scrollbar-track {
-  background: rgba(8, 13, 28, 0.6);
+  background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 106, 0.3);
-  border: 2px solid rgba(8, 13, 28, 0.8);
+  background: color-mix(in oklab, var(--ink-faint) 30%, transparent);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: rgba(201, 168, 106, 0.55);
+  background: color-mix(in oklab, var(--ink-faint) 50%, transparent);
+  background-clip: padding-box;
 }
 
 ::selection {
-  background: rgba(201, 168, 106, 0.35);
-  color: #f4eedd;
+  background: var(--accent-wash);
+  color: var(--ink);
 }
 
 input[type="checkbox"],
 input[type="range"] {
-  accent-color: #c9a86a;
+  accent-color: var(--accent);
 }
 
-/* Brass focus ring instead of the browser default blue */
+/* A two-pixel accent ring, set off the element. */
 :focus-visible {
-  outline: 1px solid rgba(201, 168, 106, 0.8);
-  outline-offset: 1px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 input[type="text"]:focus {
-  outline: 1px solid rgba(201, 168, 106, 0.6);
+  outline: 2px solid var(--accent);
   outline-offset: -1px;
 }
 
 /* ---------------------------------------------------------------------------
- * Range sliders as instrument dials: a hairline track with a brass knob.
+ * Range sliders: a hairline track with a single accent knob.
  * ------------------------------------------------------------------------- */
 input[type="range"] {
   -webkit-appearance: none;
@@ -80,32 +147,30 @@ input[type="range"] {
 }
 input[type="range"]::-moz-range-track {
   height: 2px;
-  background: #27334f;
+  background: var(--line-strong);
 }
 input[type="range"]::-moz-range-progress {
   height: 2px;
-  background: rgba(201, 168, 106, 0.75);
+  background: var(--accent);
 }
 input[type="range"]::-moz-range-thumb {
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   border-radius: 9999px;
-  background: #c9a86a;
-  border: 2px solid #0a1122;
-  box-shadow: 0 0 0 1px rgba(201, 168, 106, 0.6);
+  background: var(--accent);
+  border: 2px solid var(--canvas);
 }
 input[type="range"]::-webkit-slider-runnable-track {
   height: 2px;
-  background: #27334f;
+  background: var(--line-strong);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  margin-top: -5.5px;
-  width: 13px;
-  height: 13px;
+  margin-top: -5px;
+  width: 12px;
+  height: 12px;
   border-radius: 9999px;
-  background: #c9a86a;
-  border: 2px solid #0a1122;
-  box-shadow: 0 0 0 1px rgba(201, 168, 106, 0.6);
+  background: var(--accent);
+  border: 2px solid var(--canvas);
 }

@@ -1,0 +1,90 @@
+/* ===========================================================================
+   TOKENS — every value the app names, in one place.
+
+   Linked from `index.html` (so the pre-JS loading plate can use it before any
+   JavaScript has run) and imported by `tailwind.css` (so the built sheet is
+   self-contained). Nothing else in the app should restate a colour or a font
+   size: Tailwind turns these into utilities, and `views/typography.ts` maps
+   roles onto them.
+   =========================================================================== */
+
+:root {
+  /* -------------------------------------------------------------------------
+     Colour: desaturated space, hue as data.
+
+     Surfaces are near-neutral violet-black — enough chroma to read as night
+     rather than grey, not enough to compete with a star. Ink is faintly cool
+     white. The accent keeps the arc's purple, but at low chroma: it is a
+     signal (links, active states, focus), not atmosphere.
+
+     Genre hues are data, not decoration: they come from the graph, via
+     `util/colour.ts`, and never enter this sheet.
+     ------------------------------------------------------------------------- */
+
+  /* Surfaces, deepest first. Tiers are spread wide enough that a panel reads
+     as raised without a shadow. */
+  --graph: oklch(13% 0.012 297);
+  --canvas: oklch(17% 0.014 297);
+  --field: oklch(16% 0.012 297);
+  --panel: oklch(23% 0.018 297);
+  --panel-raised: oklch(27.5% 0.02 297);
+  /* Heading bands: a step above the panel. `--band` heads a panel; `--band-sub`
+     heads something nested inside one, so the two stay distinguishable. */
+  --band: oklch(32% 0.026 297);
+  --band-sub: oklch(27% 0.022 297);
+  --band-sub-hover: color-mix(in oklab, var(--band-sub) 86%, white);
+
+  /* Ink. Every step clears 4.5:1 on the panel; muted and faint are for
+     metadata, never for body text. */
+  --ink: oklch(96% 0.006 300);
+  --ink-muted: oklch(84% 0.012 300);
+  --ink-faint: oklch(72% 0.014 300);
+
+  /* Rules. */
+  --line: oklch(32% 0.015 297);
+  --line-strong: oklch(46% 0.019 298);
+
+  /* The accent, and its solid and wash forms: solid carries white text, wash
+     is the same hue at surface weight. */
+  --accent: oklch(74% 0.095 297);
+  --accent-solid: oklch(42% 0.145 297);
+  --accent-wash: oklch(29.5% 0.042 297);
+  /* The accent's two states: brighter for hovered text, lighter for hovered
+     solid boxes. */
+  --accent-bright: color-mix(in oklab, var(--accent) 78%, white);
+  --accent-solid-hover: color-mix(in oklab, var(--accent-solid) 88%, white);
+
+  /* The rest of the arc, for status and for the three edge kinds. */
+  --info: oklch(74% 0.075 196);
+  --info-solid: oklch(42% 0.085 196);
+  --info-wash: oklch(29.5% 0.038 196);
+  --warn: oklch(80% 0.09 55);
+  --warn-wash: oklch(29.5% 0.034 55);
+  --danger: oklch(74% 0.082 5);
+  --danger-wash: oklch(29.5% 0.038 5);
+  /* Status. Muted to sit in the same register as everything else, while still
+     reading as go and stop. */
+  --good: oklch(78% 0.095 160);
+  --bad: oklch(74% 0.1 15);
+
+  /* -------------------------------------------------------------------------
+     Type: five steps, 30 / 20 / 16 / 14 / 12px, each 1.14–1.5× the one below.
+
+     Face and weight carry most of the hierarchy — a panel title and a
+     collapsible title share nothing but a step between them because one is
+     display and the other is body — but no two roles share both a size and a
+     face. `views/typography.ts` names the roles that use these.
+     ------------------------------------------------------------------------- */
+  --fs-display: 1.875rem;
+  --lh-display: 1.1;
+  --fs-heading: 1.25rem;
+  --lh-heading: 1.25;
+  --fs-body: 1rem;
+  --lh-body: 1.6;
+  --fs-small: 0.875rem;
+  --lh-small: 1.45;
+  --fs-label: 0.75rem;
+  --lh-label: 1.4;
+
+  color-scheme: dark;
+}

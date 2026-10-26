@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <title>genres in space</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#04060f" />
+    <!-- Literal because a meta tag cannot read a custom property. -->
+    <meta name="theme-color" content="#08060b" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="genres in space" />
     <meta property="og:url" content="https://genresin.space/" />
@@ -19,27 +20,25 @@
     />
     <meta property="og:image" content="https://genresin.space/icon.png" />
 
-    <!-- Star-atlas faces: Cormorant for engraved display, Spectral for body, Archivo Narrow for designation plates -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Archivo+Narrow:wght@400;500;600&display=swap" rel="stylesheet">
-
+    <!-- The palette and the type scale, so this plate can be styled before any
+         JavaScript has run. `tailwind.css` imports the same file. -->
+    <link rel="stylesheet" href="/src/tokens.css" />
     <style>
-      @import "tailwindcss";
-
       /* Fix iOS viewport height issues and prevent background color issues */
       html {
         height: 100%;
         overflow: hidden;
-        background-color: #04060f;
+        background-color: var(--graph, #08060b);
       }
 
       body {
         height: 100%;
         overflow: hidden;
-        background-color: #04060f;
-        color: #e9e3d3;
-        font-family: 'Spectral', Georgia, 'Times New Roman', serif;
+        background-color: var(--graph, #08060b);
+        color: var(--ink, #f2f1f5);
+        /* The reading face is the document default; chrome opts in to the UI
+           face, so prose can never accidentally end up sans. */
+        font-family: "Source Serif 4 Variable", Georgia, serif;
       }
 
       #root {
@@ -57,33 +56,33 @@
         justify-content: center;
         flex-direction: column;
         gap: 1.25rem;
-        background:
-          radial-gradient(ellipse 75% 60% at 50% 42%, rgba(28, 42, 76, 0.35), rgba(4, 6, 15, 0) 70%),
-          #04060f;
-        color: #e9e3d3;
+        background: var(--graph, #08060b);
+        color: var(--ink, #f2f1f5);
         text-align: center;
       }
       .atlas-boot-ring {
-        width: 56px;
-        height: 56px;
+        width: 40px;
+        height: 40px;
         border-radius: 9999px;
-        border: 1px solid rgba(201, 168, 106, 0.35);
-        border-top-color: #c9a86a;
+        border: 1px solid var(--line-strong, #595662);
+        border-top-color: var(--accent, #b19ee0);
         animation: atlas-spin 1.6s linear infinite;
       }
       .atlas-boot-title {
-        font-family: 'Cormorant SC', 'Cormorant', serif;
+        display: inline-block;
+        padding: 0 0.75rem;
+        font-family: "Fraunces Variable", Georgia, serif;
         font-weight: 600;
-        font-size: 1.5rem;
-        letter-spacing: 0.3em;
-        margin-left: 0.3em; /* optically recentre the letterspaced text */
-        color: #d9c08a;
+        font-size: var(--fs-display, 1.875rem);
+        letter-spacing: -0.021em;
+        text-transform: lowercase;
+        color: white;
+        background: var(--accent-solid, #573591);
       }
       .atlas-boot-sub {
-        font-family: 'Spectral', serif;
-        font-style: italic;
-        font-size: 0.875rem;
-        color: #9ba6bc;
+        margin-top: 0.5rem;
+        font-size: var(--fs-small, 0.875rem);
+        color: var(--ink-muted, #cbc9d1);
       }
       @keyframes atlas-spin {
         to { transform: rotate(360deg); }
@@ -102,12 +101,12 @@
       </div>
     </div>
     <noscript>
-      <div style="position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#04060f;color:#e9e3d3;font-family:'Spectral',Georgia,serif;text-align:center;">
-        <div style="max-width:32rem;border:1px solid rgba(201,168,106,0.35);background:rgba(9,14,28,0.9);padding:2rem 1.75rem;">
-          <h1 style="font-family:'Cormorant SC','Cormorant',serif;font-size:1.5rem;font-weight:600;letter-spacing:0.25em;margin:0 0 0.75rem;color:#d9c08a;">genres in space</h1>
-          <p style="margin:0 0 0.75rem;opacity:0.9;">An interactive star atlas of every music genre on English Wikipedia.</p>
-          <p style="margin:0 0 0.75rem;opacity:0.9;">It needs JavaScript to run. Please enable JavaScript and reload the page.</p>
-          <p style="margin:0;opacity:0.7;font-size:0.875rem;">Source and data: <a href="https://github.com/genresinspace/genresinspace.github.io" style="color:#8fd0e0;">github.com/genresinspace</a></p>
+      <div style="position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:var(--graph,#08060b);color:var(--ink,#f2f1f5);font-family:'Source Serif 4 Variable',Georgia,serif;text-align:center;">
+        <div style="max-width:32rem;border:1px solid var(--line-strong,#595662);background:var(--panel,#1e1b24);padding:2rem 1.75rem;">
+          <h1 style="display:inline-block;padding:0 0.75rem;font-family:'Fraunces Variable',Georgia,serif;font-size:var(--fs-display,1.875rem);font-weight:600;letter-spacing:-0.021em;text-transform:lowercase;margin:0 0 1rem;color:white;background:var(--accent-solid,#573591);">genres in space</h1>
+          <p style="margin:0 0 0.75rem;">An interactive star atlas of every music genre on English Wikipedia.</p>
+          <p style="margin:0 0 0.75rem;">It needs JavaScript to run. Please enable JavaScript and reload the page.</p>
+          <p style="margin:0;color:var(--ink-faint,#a6a3ac);font-size:var(--fs-small,0.875rem);">Source and data: <a href="https://github.com/genresinspace/genresinspace.github.io" style="color:var(--accent,#b19ee0);">github.com/genresinspace</a></p>
         </div>
       </div>
     </noscript>

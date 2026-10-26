@@ -3,7 +3,12 @@ import { colourStyles } from "../colours";
 import { textStyles } from "../typography";
 import { ChevronDownIcon } from "./icons";
 
-/** A collapsible component; the children are not rendered when collapsed. */
+/**
+ * A collapsible component; the children are not rendered when collapsed.
+ *
+ * The header is a display-face row with a chevron and a rule under it, so a
+ * closed section still reads as a heading you can open.
+ */
 export function Collapsible({
   title,
   children,
@@ -19,24 +24,32 @@ export function Collapsible({
 
   return (
     <div
-      className={`${showBorder ? `border ${colourStyles.border.light}` : ""} overflow-hidden`}
+      className={`overflow-hidden ${
+        showBorder ? "border border-line-strong" : "border-b border-line"
+      }`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-start gap-2 text-md font-bold p-2 ${colourStyles.collapsible.background} transition-colors`}
+        className={`w-full flex items-center gap-2 text-left px-3 py-2.5 font-display ${textStyles.body} font-semibold tracking-[-0.008em] ${colourStyles.collapsible.header} transition-colors`}
         aria-expanded={isOpen}
       >
         <span
-          className={`${textStyles.body} w-4 flex-shrink-0 transition-transform duration-200 flex items-center justify-center`}
+          className={`${colourStyles.text.secondary} w-4 flex-shrink-0 transition-transform duration-200 flex items-center justify-center`}
           style={{
             transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)",
           }}
         >
           <ChevronDownIcon width={14} height={14} />
         </span>
-        <span className="text-left">{title}</span>
+        <span className="flex-1">{title}</span>
       </button>
-      {isOpen && <div className="px-4 py-3">{children}</div>}
+      {isOpen && (
+        <div
+          className={`px-4 py-3 ${textStyles.body} ${colourStyles.collapsible.content}`}
+        >
+          {children}
+        </div>
+      )}
     </div>
   );
 }

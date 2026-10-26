@@ -130,16 +130,18 @@ function GenreHeader({
 
   return (
     <SectionHeading
-      icon={<NoteIcon stroke="#f4eedd" />}
+      icon={<NoteIcon stroke="white" />}
       style={{
-        backgroundColor: `color-mix(in srgb, ${selectedNodeColour} 70%, transparent)`,
+        backgroundColor: selectedNodeColour,
+        color: "white",
+        borderBottomColor: "transparent",
       }}
     >
       <GenreLink
         node={node}
         hoverPreview={false}
         noIcon
-        style={{ color: "#f4eedd" }}
+        style={{ color: "white" }}
       >
         {node.label}
       </GenreLink>
@@ -174,9 +176,9 @@ function GenreDescription({
   const prefixDetected = stripped !== description;
 
   return (
-    // The primary reading surface: matches the info-page body size for consistency
+    // The primary reading surface: serif prose at the body step.
     <div
-      className={`px-4 py-3 ${textStyles.body} leading-[1.7] ${colourStyles.bg.card}`}
+      className={`px-4 py-3 reading ${textStyles.body} ${colourStyles.bg.card}`}
     >
       <WikitextTruncateAtNewline
         wikitext={prefixDetected ? stripped : description}

@@ -14,31 +14,32 @@ root.render(
       alignItems: "center",
       justifyContent: "center",
       height: "100vh",
-      color: "#e9e3d3",
-      background:
-        "radial-gradient(ellipse 75% 60% at 50% 42%, rgba(28, 42, 76, 0.35), rgba(4, 6, 15, 0) 70%), #04060f",
-      fontFamily: "'Spectral', Georgia, serif",
+      color: "var(--ink)",
+      background: "var(--graph)",
+      fontFamily: "'Source Serif 4 Variable', Georgia, serif",
     }}
   >
     <div style={{ textAlign: "center" }}>
       <div
         style={{
-          fontFamily: "'Cormorant SC', 'Cormorant', serif",
+          display: "inline-block",
+          padding: "0 0.75rem",
+          fontFamily: "'Fraunces Variable', Georgia, serif",
           fontWeight: 600,
-          fontSize: "1.5rem",
-          letterSpacing: "0.3em",
-          marginLeft: "0.3em",
-          color: "#d9c08a",
+          fontSize: "var(--fs-display)",
+          letterSpacing: "-0.021em",
+          textTransform: "lowercase",
+          color: "white",
+          background: "var(--accent-solid)",
         }}
       >
         genres in space
       </div>
       <div
         style={{
-          fontSize: "0.875rem",
+          fontSize: "var(--fs-small)",
           marginTop: "0.5rem",
-          fontStyle: "italic",
-          color: "#9ba6bc",
+          color: "var(--ink-muted)",
         }}
       >
         polishing the telescope lenses&hellip;
@@ -73,9 +74,9 @@ try {
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
-        color: "#e9e3d3",
-        background: "#04060f",
-        fontFamily: "'Spectral', Georgia, serif",
+        color: "var(--ink)",
+        background: "var(--graph)",
+        fontFamily: "'Source Serif 4 Variable', Georgia, serif",
       }}
     >
       <div
@@ -83,14 +84,23 @@ try {
           textAlign: "center",
           maxWidth: "500px",
           padding: "2rem 1.75rem",
-          border: "1px solid rgba(201, 168, 106, 0.35)",
-          background: "rgba(9, 14, 28, 0.9)",
+          border: "1px solid var(--line-strong)",
+          background: "var(--panel)",
         }}
       >
-        <div style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>⚠️</div>
+        <div
+          style={{ fontSize: "var(--fs-display)", marginBottom: "1rem" }}
+          aria-hidden
+        >
+          ⚠️
+        </div>
         <div style={{ marginBottom: "0.5rem" }}>Failed to load application</div>
         <div
-          style={{ fontSize: "0.875rem", opacity: 0.7, marginBottom: "1rem" }}
+          style={{
+            fontSize: "var(--fs-small)",
+            opacity: 0.7,
+            marginBottom: "1rem",
+          }}
         >
           {error instanceof Error ? error.message : "Unknown error"}
         </div>
@@ -98,9 +108,10 @@ try {
           onClick={() => window.location.reload()}
           style={{
             padding: "0.5rem 1rem",
-            backgroundColor: "rgba(201, 168, 106, 0.15)",
-            color: "#d9c08a",
-            border: "1px solid rgba(201, 168, 106, 0.5)",
+            backgroundColor: "var(--accent-solid)",
+            color: "white",
+            border: "none",
+            borderRadius: "2px",
             cursor: "pointer",
             fontFamily: "inherit",
           }}

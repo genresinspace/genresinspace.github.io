@@ -123,7 +123,7 @@ function RandomGenre({
           className={`p-1 ${colourStyles.bg.interactive} ${colourStyles.hover.medium} w-8 flex items-center justify-center ${colourStyles.text.onAccent} transition-colors`}
           title="Point the telescope somewhere new"
         >
-          <ShuffleIcon width={16} height={16} stroke="#f4eedd" />
+          <ShuffleIcon width={16} height={16} stroke="white" />
         </button>
         <button
           onClick={() => (window.location.hash = `${randomId}`)}

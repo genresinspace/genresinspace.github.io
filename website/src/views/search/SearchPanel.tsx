@@ -174,13 +174,13 @@ export function SearchPanel({
   if (isMobile && !expanded && routeIsEmpty) {
     return (
       <button
-        className={`flex items-center gap-2 h-11 px-4 ${colourStyles.bg.shell} ${colourStyles.text.secondary} border ${colourStyles.border.light} rounded-full`}
+        className={`flex items-center gap-2 h-11 px-4 font-ui ${colourStyles.bg.shell} ${colourStyles.text.secondary} border ${colourStyles.border.light}`}
         onClick={() => {
           setExpanded(true);
           pendingFocus.current = "source";
         }}
       >
-        <SearchIcon width={16} height={16} stroke="#9ba6bc" />
+        <SearchIcon width={16} height={16} stroke="var(--ink-muted)" />
         Search genres...
       </button>
     );
@@ -242,7 +242,7 @@ export function SearchPanel({
               />
               {/* Dashed connector between the two endpoint dots */}
               <div
-                className="absolute left-[11px] top-8 bottom-8 border-l border-dashed border-[#c9a86a]/40 pointer-events-none"
+                className="absolute left-[11px] top-8 bottom-8 border-l border-dashed border-accent/50 pointer-events-none"
                 aria-hidden
               />
             </>
@@ -255,7 +255,7 @@ export function SearchPanel({
             onClick={swap}
             title="Swap source and destination"
           >
-            <SwapIcon width={16} height={16} stroke="#9ba6bc" />
+            <SwapIcon width={16} height={16} stroke="var(--ink-muted)" />
           </button>
         )}
       </div>
@@ -334,7 +334,7 @@ function SlotRow({
         <div className="w-6 flex-none flex items-center justify-center">
           <span
             className={`w-2.5 h-2.5 rounded-full ${
-              node ? "" : "border-2 border-[#9ba6bc]"
+              node ? "" : "border-2 border-ink-faint"
             }`}
             style={
               node
@@ -353,7 +353,7 @@ function SlotRow({
       {showChip ? (
         <>
           <button
-            className={`flex-1 min-w-0 text-left mx-1 px-2 py-1.5 rounded truncate ${colourStyles.text.primary} ${colourStyles.hover.subtle} transition-colors`}
+            className={`flex-1 min-w-0 text-left mx-1 px-2 py-1.5 rounded-sm truncate ${colourStyles.text.primary} ${colourStyles.hover.subtle} transition-colors`}
             onClick={onChipClick}
             title={`Change ${slotName}`}
           >
@@ -364,21 +364,21 @@ function SlotRow({
             onClick={onClear}
             title={`Clear ${slotName}`}
           >
-            <CloseIcon width={16} height={16} stroke="#9ba6bc" />
+            <CloseIcon width={16} height={16} stroke="var(--ink-muted)" />
           </button>
         </>
       ) : (
         <div className="relative flex-1 min-w-0 h-full">
           {!showRail && (
             <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
-              <SearchIcon width={16} height={16} stroke="#9ba6bc" />
+              <SearchIcon width={16} height={16} stroke="var(--ink-muted)" />
             </div>
           )}
           <input
             ref={inputRef}
             type="text"
             placeholder={placeholder}
-            className={`w-full h-full p-2 ${showRail ? "" : "pl-8"} ${slot.query ? "pr-8" : ""} ${colourStyles.search.input}`}
+            className={`w-full h-full p-2 font-ui ${showRail ? "" : "pl-8"} ${slot.query ? "pr-8" : ""} ${colourStyles.search.input}`}
             value={slot.query}
             onChange={(e) =>
               routeDispatch({
@@ -401,7 +401,7 @@ function SlotRow({
               onClick={onClear}
               title={`Clear ${slotName}`}
             >
-              <CloseIcon width={16} height={16} stroke="#9ba6bc" />
+              <CloseIcon width={16} height={16} stroke="var(--ink-muted)" />
             </button>
           )}
         </div>

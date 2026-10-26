@@ -179,7 +179,7 @@ function PathRow({
               onSetAsSource(node.id);
             }}
           >
-            <ArrowUpIcon width={16} height={16} stroke="#9ba6bc" />
+            <ArrowUpIcon width={16} height={16} stroke="var(--ink-muted)" />
           </button>
         )}
         {onSetAsDestination && isEndpoint !== "destination" && (
@@ -194,7 +194,7 @@ function PathRow({
             <ArrowUpIcon
               width={16}
               height={16}
-              stroke="#9ba6bc"
+              stroke="var(--ink-muted)"
               className="rotate-180"
             />
           </button>
@@ -258,7 +258,7 @@ export function PathList({
                     background:
                       connectingType !== null
                         ? VISIBLE_TYPES_BY_TYPE[connectingType].color
-                        : "rgba(255,255,255,0.2)",
+                        : "var(--line)",
                   }}
                 />
               </div>
