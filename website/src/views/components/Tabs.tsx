@@ -26,7 +26,7 @@ export function Tabs<T extends string>({
 }) {
   return (
     <div
-      className={`flex shrink-0 ${colourStyles.bg.shell} border ${colourStyles.border.divider} ${className || ""}`}
+      className={`flex shrink-0 ${colourStyles.bg.panel} ${className || ""}`}
     >
       {items.map((tab) => (
         <button

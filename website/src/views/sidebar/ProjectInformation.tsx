@@ -208,7 +208,7 @@ function Legend({
 function CommitFooter() {
   return (
     <footer
-      className={`${textStyles.body} ${colourStyles.text.secondary} ${colourStyles.bg.card} px-4 py-3 flex flex-col gap-2`}
+      className={`${textStyles.body} ${colourStyles.text.secondary} ${colourStyles.bg.panel} px-4 py-3 flex flex-col gap-2`}
     >
       <p>
         Genre and artist descriptions are sourced from{" "}

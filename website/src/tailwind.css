@@ -78,6 +78,14 @@
   background: color-mix(in oklab, var(--panel-raised) 94%, transparent);
 }
 
+/* A panel: the standard surface plus its hairline edge. Anything that reads as
+   a card at the top level uses this, so no callsite has to remember the
+   border. `plate-shell` alone is for surfaces nested inside a panel. */
+@utility panel {
+  background: color-mix(in oklab, var(--panel) 96%, transparent);
+  border: 1px solid var(--line);
+}
+
 @utility plate-floating {
   background: color-mix(in oklab, var(--panel-raised) 96%, transparent);
   border: 1px solid var(--line-strong);

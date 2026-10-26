@@ -7,7 +7,9 @@ import { ChevronDownIcon } from "./icons";
  * A collapsible component; the children are not rendered when collapsed.
  *
  * The header is a display-face row with a chevron and a rule under it, so a
- * closed section still reads as a heading you can open.
+ * closed section still reads as a heading you can open. With `showBorder` the
+ * component is a panel in its own right; without it the component is a row
+ * inside one, and supplies only the rule between rows.
  */
 export function Collapsible({
   title,
@@ -22,12 +24,12 @@ export function Collapsible({
 }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
+  const surface = showBorder
+    ? colourStyles.bg.panel
+    : `border-b ${colourStyles.border.divider}`;
+
   return (
-    <div
-      className={`overflow-hidden ${
-        showBorder ? "border border-line-strong" : "border-b border-line"
-      }`}
-    >
+    <div className={`overflow-hidden ${surface}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full flex items-center gap-2 text-left px-3 py-2.5 font-display ${textStyles.body} font-semibold tracking-[-0.008em] ${colourStyles.collapsible.header} transition-colors`}

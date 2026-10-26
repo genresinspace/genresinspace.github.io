@@ -70,7 +70,7 @@ export function SelectedNodeInfo({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-col">
+      <div className={`flex flex-col overflow-hidden ${colourStyles.bg.panel}`}>
         <GenreHeader node={node} maxDegree={maxDegree} />
         {genreData && shouldShowMixes && (
           <FeaturedMix
@@ -442,27 +442,26 @@ function Connections({
   return (
     <div className="flex flex-col gap-2">
       {connections.map(({ textParts, type, nodes }, index) => (
-        <div key={index} className={`overflow-hidden ${colourStyles.bg.card}`}>
-          <Collapsible
-            title={<ConnectionHeading textParts={textParts} type={type} />}
-            defaultOpen={true}
-            showBorder={false}
-          >
-            <div className="flex flex-col gap-2">
-              {nodes.map(
-                (otherNode, index) =>
-                  otherNode && (
-                    <ConnectionItem
-                      key={otherNode.id}
-                      node={otherNode}
-                      isLast={index === nodes.length - 1}
-                      setFocusedId={setFocusedId}
-                    />
-                  )
-              )}
-            </div>
-          </Collapsible>
-        </div>
+        <Collapsible
+          key={index}
+          title={<ConnectionHeading textParts={textParts} type={type} />}
+          defaultOpen={true}
+          showBorder
+        >
+          <div className="flex flex-col gap-2">
+            {nodes.map(
+              (otherNode, index) =>
+                otherNode && (
+                  <ConnectionItem
+                    key={otherNode.id}
+                    node={otherNode}
+                    isLast={index === nodes.length - 1}
+                    setFocusedId={setFocusedId}
+                  />
+                )
+            )}
+          </div>
+        </Collapsible>
       ))}
     </div>
   );
@@ -590,7 +589,7 @@ function TopArtists({
   setFocusedId: (id: string | null) => void;
 }) {
   return genreData.top_artists && genreData.top_artists.length > 0 ? (
-    <div className={`flex flex-col gap-3 px-4 py-3 ${colourStyles.bg.card}`}>
+    <div className={`flex flex-col gap-3 px-4 py-3 ${colourStyles.bg.panel}`}>
       {genreData.top_artists.map((artistPage, index) => (
         <Artist
           artistPage={artistPage}

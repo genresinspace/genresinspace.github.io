@@ -28,6 +28,9 @@ const textAccent = "text-accent";
 const bgApp = "bg-graph";
 const bgShell = "plate-shell";
 const bgCard = "plate-shell";
+// The bordered surface. `bgCard` alone is for surfaces nested inside a panel;
+// anything that reads as a card on its own wants this.
+const bgPanel = "panel";
 const bgElevated = "plate-raised";
 const bgInteractive = "bg-panel-hover/70";
 const bgInput = "bg-field/80";
@@ -67,6 +70,7 @@ export const colourStyles = {
     app: bgApp,
     shell: bgShell,
     card: bgCard,
+    panel: bgPanel,
     elevated: bgElevated,
     interactive: bgInteractive,
     input: bgInput,
