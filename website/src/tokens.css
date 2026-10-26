@@ -57,11 +57,14 @@
   /* The rest of the arc, for status and for the three edge kinds. */
   --info: oklch(74% 0.075 196);
   --info-solid: oklch(42% 0.085 196);
-  --info-wash: oklch(29.5% 0.038 196);
+  /* Notice washes: the panel's darkness and a low-chroma hue, so a notice
+     reads as a tinted well rather than as a raised tinted block. Red needs more
+     chroma than cyan or amber to register at this lightness. */
+  --info-wash: oklch(20% 0.026 196);
   --warn: oklch(80% 0.09 55);
-  --warn-wash: oklch(29.5% 0.034 55);
-  --danger: oklch(74% 0.082 5);
-  --danger-wash: oklch(29.5% 0.038 5);
+  --warn-wash: oklch(20% 0.026 55);
+  --danger: oklch(74% 0.115 25);
+  --danger-wash: oklch(20% 0.055 22);
   /* Status. Muted to sit in the same register as everything else, while still
      reading as go and stop. */
   --good: oklch(78% 0.095 160);

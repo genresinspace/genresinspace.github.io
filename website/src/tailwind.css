@@ -33,8 +33,11 @@
 
   --color-info: var(--info);
   --color-info-solid: var(--info-solid);
+  --color-info-wash: var(--info-wash);
   --color-warn: var(--warn);
+  --color-warn-wash: var(--warn-wash);
   --color-danger: var(--danger);
+  --color-danger-wash: var(--danger-wash);
   --color-good: var(--good);
   --color-bad: var(--bad);
 

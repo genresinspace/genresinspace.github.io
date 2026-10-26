@@ -262,7 +262,7 @@ function MixItem({
 
 function HelpNeededForMix({ reason }: { reason: string | null }) {
   return (
-    <Notice colour="blue">
+    <Notice colour="red">
       <p>
         I've been unable to select a good mix or playlist for this genre because
         I don't know enough about the genre, the mixes I could find include
