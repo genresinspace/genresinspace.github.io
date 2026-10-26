@@ -23,11 +23,11 @@
 
   /* Surfaces, deepest first. Tiers are spread wide enough that a panel reads
      as raised without a shadow. */
-  --graph: oklch(13% 0.012 297);
-  --canvas: oklch(17% 0.014 297);
-  --field: oklch(16% 0.012 297);
-  --panel: oklch(23% 0.018 297);
-  --panel-raised: oklch(27.5% 0.02 297);
+  --graph: oklch(12% 0.012 297);
+  --canvas: oklch(15% 0.014 297);
+  --field: oklch(14% 0.012 297);
+  --panel: oklch(21% 0.018 297);
+  --panel-raised: oklch(24% 0.02 297);
   /* Heading bands: a step above the panel. `--band` heads a panel; `--band-sub`
      heads something nested inside one, so the two stay distinguishable. */
   --band: oklch(32% 0.026 297);
