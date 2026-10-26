@@ -47,12 +47,10 @@ import { textStyles } from "../typography";
 /** The sidebar panel for information about the selected node. */
 export function SelectedNodeInfo({
   selectedId,
-  setFocusedId,
   shouldShowMixes,
   shouldAutoplayMixes,
 }: {
   selectedId: string | null;
-  setFocusedId: (id: string | null) => void;
   shouldShowMixes: boolean;
   shouldAutoplayMixes: boolean;
 }) {
@@ -88,7 +86,6 @@ export function SelectedNodeInfo({
           nodes={nodes}
           edges={edges}
           selectedId={selectedId}
-          setFocusedId={setFocusedId}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
@@ -284,7 +281,6 @@ function ConnectionsAndArtists({
   nodes,
   edges,
   selectedId,
-  setFocusedId,
   activeTab,
   setActiveTab,
 }: {
@@ -293,7 +289,6 @@ function ConnectionsAndArtists({
   nodes: NodeData[];
   edges: EdgeData[];
   selectedId: string | null;
-  setFocusedId: (id: string | null) => void;
   activeTab: "connections" | "artists";
   setActiveTab: (tab: "connections" | "artists") => void;
 }) {
@@ -315,10 +310,9 @@ function ConnectionsAndArtists({
           nodes={nodes}
           edges={edges}
           selectedId={selectedId}
-          setFocusedId={setFocusedId}
         />
       ) : (
-        <TopArtists genreData={genreData} setFocusedId={setFocusedId} />
+        <TopArtists genreData={genreData} />
       )}
     </div>
   );
@@ -329,13 +323,11 @@ function Connections({
   nodes,
   edges,
   selectedId,
-  setFocusedId,
 }: {
   node: NodeData;
   nodes: NodeData[];
   edges: EdgeData[];
   selectedId: string | null;
-  setFocusedId: (id: string | null) => void;
 }) {
   const connectionCategories = useMemo(
     () => [
@@ -456,7 +448,6 @@ function Connections({
                     key={otherNode.id}
                     node={otherNode}
                     isLast={index === nodes.length - 1}
-                    setFocusedId={setFocusedId}
                   />
                 )
             )}
@@ -467,15 +458,7 @@ function Connections({
   );
 }
 
-function ConnectionItem({
-  node,
-  isLast,
-  setFocusedId,
-}: {
-  node: NodeData;
-  isLast: boolean;
-  setFocusedId: (id: string | null) => void;
-}) {
+function ConnectionItem({ node, isLast }: { node: NodeData; isLast: boolean }) {
   const genreData = useGenre(nodePageTitle(node));
   const shortDescription = genreData?.description
     ? stripGenreNamePrefixFromDescription(node.label, genreData.description)
@@ -486,12 +469,7 @@ function ConnectionItem({
       key={node.id}
       className={!isLast ? `pb-3 border-b ${colourStyles.border.divider}` : ""}
     >
-      <GenreLink
-        node={node}
-        hoverPreview={false}
-        onMouseEnter={() => setFocusedId(node.id)}
-        onMouseLeave={() => setFocusedId(null)}
-      >
+      <GenreLink node={node} hoverPreview={false}>
         {node.label || node.id}
       </GenreLink>
       <small
@@ -581,13 +559,7 @@ function ConnectionHeading({
   );
 }
 
-function TopArtists({
-  genreData,
-  setFocusedId,
-}: {
-  genreData: GenreFileData;
-  setFocusedId: (id: string | null) => void;
-}) {
+function TopArtists({ genreData }: { genreData: GenreFileData }) {
   return genreData.top_artists && genreData.top_artists.length > 0 ? (
     <div className={`flex flex-col gap-3 px-4 py-3 ${colourStyles.bg.panel}`}>
       {genreData.top_artists.map((artistPage, index) => (
@@ -595,7 +567,6 @@ function TopArtists({
           artistPage={artistPage}
           key={artistPage}
           isLast={index === genreData.top_artists.length - 1}
-          setFocusedId={setFocusedId}
         />
       ))}
     </div>
@@ -612,11 +583,9 @@ function TopArtists({
 function Artist({
   artistPage,
   isLast,
-  setFocusedId,
 }: {
   artistPage: string;
   isLast: boolean;
-  setFocusedId: (id: string | null) => void;
 }) {
   const artistData = useArtist(artistPage);
   const { nodes } = useDataContext();
@@ -651,12 +620,7 @@ function Artist({
               .map((node, index) => (
                 <>
                   {index > 0 && ", "}
-                  <GenreLink
-                    node={node}
-                    hoverPreview={false}
-                    onMouseEnter={() => setFocusedId(node.id)}
-                    onMouseLeave={() => setFocusedId(null)}
-                  >
+                  <GenreLink node={node} hoverPreview={false}>
                     {node.label}
                   </GenreLink>
                 </>

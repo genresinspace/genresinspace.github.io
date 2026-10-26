@@ -227,7 +227,6 @@ function SidebarContent({
               ) : activeTab === "selected" ? (
                 <SelectedNodeInfo
                   selectedId={selectedId}
-                  setFocusedId={setFocusedId}
                   shouldShowMixes={settings.general.showMixes}
                   shouldAutoplayMixes={settings.general.autoplayMixes}
                 />

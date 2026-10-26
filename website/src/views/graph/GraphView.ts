@@ -4,7 +4,7 @@
  * Replaces the former React component tree (Graph → GraphCanvas + Labels).
  */
 
-import type { Data } from "../../data";
+import { nodeIdToInt, type Data } from "../../data";
 import type { SettingsData } from "../../settings";
 import { Camera } from "./Camera";
 import { WebGLRenderer } from "./WebGLRenderer";
@@ -35,6 +35,8 @@ import {
 import {
   TRANSITION_TAU,
   HOVER_DEBOUNCE_MS,
+  FOCUS_PAN_DELAY_MS,
+  FOCUS_PAN_DURATION,
   graphBackground,
   RETICLE_COLOR,
   ARROW_SIZE_MULTIPLIER,
@@ -43,6 +45,7 @@ import {
   NODE_LIGHTNESS,
 } from "./graphConstants";
 import { fitCameraToPositions, gatherNodePositions } from "./cameraFit";
+import { computePath } from "../../util/pathfinding";
 import { NoPathOverlay } from "./NoPathOverlay";
 import { resolvePathNodeClick } from "./nodeActivation";
 import { FrameInterpolator } from "./FrameInterpolator";
@@ -127,9 +130,15 @@ export class GraphView {
 
   // --- Current state ---
   private selectedId: string | null = null;
+  /** The node the pointer is over from outside the canvas, such as a hovered
+   *  genre link. Drawn exactly as a canvas hover is drawn; see `hoveredId`. */
   private focusedId: string | null = null;
-  private hoveredId: string | null = null;
+  /** The node the pointer is over inside the canvas. */
+  private pointerHoveredId: string | null = null;
   private path: string[] | null = null;
+  /** Route between the active node and the hovered one, brightened on the
+   *  canvas. Null when either end is missing or nothing connects them. */
+  private hoverPath: string[] | null = null;
   // Both route endpoints when set but unreachable: lights both stars and draws
   // the broken connector. Always null while `path` is non-null.
   private noPathEndpoints: { source: string; destination: string } | null =
@@ -154,6 +163,8 @@ export class GraphView {
   private renderScheduled = false;
   private lastFrameTime = 0;
   private hoverTimer: ReturnType<typeof setTimeout> | null = null;
+  /** Pending camera move to a focused node; see {@link focusNode}. */
+  private focusPanTimer: ReturnType<typeof setTimeout> | null = null;
 
   // --- Static arrow fade ---
   // 1.0 = fully visible (nothing selected), 0.0 = fully hidden (selection active)
@@ -373,7 +384,7 @@ export class GraphView {
       this.hoverTimer = null;
     }
     const nodeId = idx !== null ? this.data.nodes[idx].id : null;
-    if (nodeId === this.hoveredId) return;
+    if (nodeId === this.pointerHoveredId) return;
     this.hoverTimer = setTimeout(() => {
       this.setHoveredId(nodeId);
       this.hoverTimer = null;
@@ -387,6 +398,7 @@ export class GraphView {
   setSelectedId(id: string | null): void {
     if (id === this.selectedId) return;
     this.selectedId = id;
+    this.updateHoverPath();
     this.dirty.pathInfo = true;
     this.dirty.nodeColors = true;
     this.dirty.nodeSizes = true;
@@ -403,8 +415,88 @@ export class GraphView {
   setFocusedId(id: string | null): void {
     if (id === this.focusedId) return;
     this.focusedId = id;
+    // Indistinguishable from a canvas hover, deliberately: the reader should
+    // not have to learn two kinds of highlight.
+    this.hoverArrowAnchorTime = performance.now() / 1000;
+    this.updateHoverPath();
+    this.dirty.nodeColors = true;
     this.dirty.nodeSizes = true;
+    this.dirty.edgeColors = true;
+    this.dirty.arrows = true;
+    this.dirty.labels = true;
+    this.updateStaticArrowFadeTarget();
+    if (this.focusPanTimer) {
+      clearTimeout(this.focusPanTimer);
+      this.focusPanTimer = null;
+    }
+    if (id !== null) {
+      this.focusPanTimer = setTimeout(() => {
+        this.focusPanTimer = null;
+        this.focusNode(id);
+      }, FOCUS_PAN_DELAY_MS);
+    }
     this.scheduleRender();
+  }
+
+  /** Bring a focused node into view, if it is not already: focus comes from
+   *  hovering a link elsewhere in the page, so the node is often off-screen and
+   *  the size lift alone would go unseen. Zoom is left alone, so hovering a
+   *  link never drops the reader's chosen scale. */
+  private focusNode(id: string): void {
+    const index = nodeIdToInt(id);
+    if (
+      !Number.isInteger(index) ||
+      index < 0 ||
+      index >= this.data.nodes.length
+    )
+      return;
+    const worldX = this.nodePositions[index * 2];
+    const worldY = this.nodePositions[index * 2 + 1];
+    const [minX, minY, maxX, maxY] = this.camera.getVisibleBounds();
+    const visible =
+      worldX >= minX && worldX <= maxX && worldY >= minY && worldY <= maxY;
+    if (visible) return;
+    this.camera.animateTo(worldX, worldY, this.camera.zoom, FOCUS_PAN_DURATION);
+    this.onCameraChange();
+    this.scheduleRender();
+  }
+
+  /** Recompute the route between the active node and the hovered one. Either
+   *  direction counts: the sidebar lists both influences and derivatives. */
+  private updateHoverPath(): void {
+    const hovered = this.hoveredId;
+    let next: string[] | null = null;
+    if (hovered && this.selectedId && hovered !== this.selectedId) {
+      // Directed only: the route means "from the active genre to this one", the
+      // same direction a searched route runs. A reverse route is a different
+      // claim, and quietly showing it would misreport the relationship.
+      next = computePath(
+        this.data.nodes,
+        this.data.edges,
+        this.settings.visibleTypes,
+        this.selectedId,
+        hovered
+      );
+    }
+    const previous = this.hoverPath;
+    const unchanged =
+      next === previous ||
+      (next !== null &&
+        previous !== null &&
+        next.length === previous.length &&
+        next.every((id, i) => id === previous[i]));
+    if (unchanged) return;
+    this.hoverPath = next;
+    this.dirty.nodeColors = true;
+    this.dirty.edgeColors = true;
+    this.dirty.edgeWidthScales = true;
+  }
+
+  /** The node drawn as hovered. What the pointer is on wins: the canvas
+   *  pointer first, then a hovered link. Focus is the weaker signal because the
+   *  app keeps it pinned to the selected node when no link is hovered. */
+  private get hoveredId(): string | null {
+    return this.pointerHoveredId ?? this.focusedId;
   }
 
   private setHoveredId(id: string | null): void {
@@ -417,8 +509,9 @@ export class GraphView {
       clearTimeout(this.hoverTimer);
       this.hoverTimer = null;
     }
-    if (id === this.hoveredId) return;
-    this.hoveredId = id;
+    if (id === this.pointerHoveredId) return;
+    this.pointerHoveredId = id;
+    this.updateHoverPath();
     // New hover edges should emerge from their midpoint; re-anchor hover phase.
     this.hoverArrowAnchorTime = performance.now() / 1000;
     this.dirty.nodeColors = true;
@@ -534,6 +627,7 @@ export class GraphView {
 
   destroy(): void {
     if (this.hoverTimer) clearTimeout(this.hoverTimer);
+    if (this.focusPanTimer) clearTimeout(this.focusPanTimer);
     cancelAnimationFrame(this.animFrameId);
     cancelAnimationFrame(this.pendingLabelCommit);
     this.renderScheduled = false;
@@ -598,7 +692,8 @@ export class GraphView {
         this.pathInfo,
         maxDistance,
         this.path,
-        this.noPathEndpoints
+        this.noPathEndpoints,
+        this.hoverPath
       );
     }
 
@@ -608,7 +703,6 @@ export class GraphView {
         this.data.nodes,
         this.data.max_degree,
         this.selectedId,
-        this.focusedId,
         this.hoveredId,
         this.pathInfo,
         maxDistance,
@@ -627,7 +721,8 @@ export class GraphView {
         this.pathInfo,
         maxDistance,
         this.path,
-        this.noPathEndpoints
+        this.noPathEndpoints,
+        this.hoverPath
       );
     }
 
@@ -635,7 +730,8 @@ export class GraphView {
       d.edgeWidthScales = false;
       this._edgeWidthScales = computeEdgeWidthScales(
         this.data.edges,
-        this.path
+        this.path,
+        this.hoverPath
       );
     }
 

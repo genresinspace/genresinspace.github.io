@@ -53,10 +53,11 @@ export const NODE_SHRINK_UNSELECTED = 1.5;
 /** World units to grow the selected node, so its astrolabe reticle reads
  *  clearly even at neighbourhood zoom. */
 export const NODE_GROW_SELECTED = 16.0;
-/** World units to grow the focused node. */
-export const NODE_GROW_FOCUSED = 1.5;
-/** World units to grow the hovered node. */
-export const NODE_GROW_HOVERED = 2.5;
+/** World units to grow the hovered node. A flat delta does not survive the
+ *  range of node sizes — 2.5 units is 15% of a leaf and 3% of a hub — and the
+ *  star sprite's bright core is only its inner portion, so growth is a fraction
+ *  of the node's own size. */
+export const NODE_GROW_HOVERED_FRAC = 0.25;
 // ── Node colors ──────────────────────────────────────────────────────
 /** RGB multiplier for non-highlighted nodes when a selection is active. */
 export const NODE_DIM_RGB = 0.3;
@@ -64,6 +65,23 @@ export const NODE_DIM_RGB = 0.3;
 export const NODE_DIM_ALPHA = 0.06;
 /** Exponential base for node opacity falloff with distance (0–1). */
 export const NODE_OPACITY_FALLOFF = 0.25;
+/** How far a node on a route is pushed toward white. A route is brightened
+ *  rather than isolated: the neighbourhood stays readable, and the connection
+ *  reads as the brightest thing running through it. Serves both routes, the
+ *  searched one and the one a hover reveals. */
+export const NODE_PATH_BRIGHTEN = 0.5;
+/** Saturation for a route's edges. */
+export const EDGE_PATH_SATURATION = 100;
+/** Alpha for a route's edges, against 0.4 for the rest of a selected
+ *  neighbourhood. */
+export const EDGE_PATH_ALPHA = 1;
+/** How far the route's edge colour is pushed toward white. Edges are coloured
+ *  by relation type, so a route edge shares its hue with every other edge of
+ *  that type; alpha alone is not enough to pick it out. */
+export const EDGE_PATH_BRIGHTEN = 0.45;
+/** Width multiplier for the route's edges. The strongest cue on a dark canvas:
+ *  a wider line reads at a glance where a slightly brighter one does not. */
+export const EDGE_PATH_WIDTH_MULT = 2.6;
 /** HSL lightness for graph nodes — lifted slightly above the canvas so the
  *  glow reads. */
 export const NODE_LIGHTNESS = 66;
@@ -93,6 +111,12 @@ export const CURSOR_PROXIMITY_RADIUS = 120;
 export const TRANSITION_TAU = 120;
 /** Debounce delay for hover events (ms). */
 export const HOVER_DEBOUNCE_MS = 80;
+/** Delay before a focused node is allowed to move the camera, so a pointer
+ *  crossing a list of links does not fire a pan per row. */
+export const FOCUS_PAN_DELAY_MS = 120;
+/** Duration of a pan to a focused node that lies outside the viewport. Short
+ *  enough to read as a nudge rather than the deliberate fit-to-content move. */
+export const FOCUS_PAN_DURATION = 320;
 
 // ── Background ───────────────────────────────────────────────────────
 /** Cached so the renderer's per-frame request does not re-read the cascade. */
@@ -178,8 +202,10 @@ export const LABEL_FONT_SIZE_BASE = 11;
 export const LABEL_FONT_SIZE_DEGREE = 9;
 /** Label opacity falloff base per distance step. */
 export const LABEL_OPACITY_FALLOFF = 0.25;
-/** HSL lightness boost added to each label colour when hovered. */
-export const LABEL_HOVER_LIGHTNESS_BOOST = 5;
+/** HSL lightness boost added to each label colour when hovered. Large enough
+ *  to be the visible answer to a hover: the hovered label is usually already at
+ *  full opacity, so a small lift reads as nothing. */
+export const LABEL_HOVER_LIGHTNESS_BOOST = 12;
 /** HSL lightness boost added to each label colour when selected. */
 export const LABEL_SELECTED_LIGHTNESS_BOOST = 20;
 /** Font-size multiplier for the selected node's label: the chart's primary

@@ -7,6 +7,7 @@ import {
 } from "../../../data";
 import { colourStyles } from "../../colours";
 import { useGenre } from "../../../services/dataCache";
+import { useFocusNode } from "../../../services/focus";
 import { Tooltip, useTooltip } from "../Tooltip";
 import { WikitextTooltipContent } from "../Tooltip";
 import { NoteIcon } from "../icons";
@@ -34,6 +35,7 @@ export function GenreLink({
   const { max_degree: maxDegree } = useDataContext();
   const genreData = useGenre(nodePageTitle(node));
   const nodeColourLightness = useNodeColourLightness();
+  const focusNode = useFocusNode();
 
   const {
     showPreview,
@@ -69,8 +71,18 @@ export function GenreLink({
           ["--node-color-hover" as string]: genreColourHover,
           ...(props.style ?? {}),
         }}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        // Focus on the way in and out directly rather than through the tooltip
+        // hook: its leave is delayed so the pointer can cross into the tooltip,
+        // which would otherwise clear the focus a moment after the next link
+        // set it.
+        onMouseEnter={(e) => {
+          focusNode?.(node.id);
+          handleMouseEnter(e);
+        }}
+        onMouseLeave={() => {
+          focusNode?.(null);
+          handleMouseLeave();
+        }}
       >
         {noIcon ? (
           props.children

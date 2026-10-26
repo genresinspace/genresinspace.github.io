@@ -24,16 +24,20 @@ import {
   EDGE_SELECTED_ALPHA,
   EDGE_UNSELECTED_ALPHA,
   EDGE_OPACITY_FALLOFF,
+  EDGE_PATH_SATURATION,
+  EDGE_PATH_ALPHA,
+  EDGE_PATH_BRIGHTEN,
+  EDGE_PATH_WIDTH_MULT,
   NODE_SIZE_BASE,
   NODE_SIZE_MIN_FRAC,
   NODE_SIZE_DEGREE_FRAC,
   NODE_SHRINK_UNSELECTED,
   NODE_GROW_SELECTED,
-  NODE_GROW_FOCUSED,
-  NODE_GROW_HOVERED,
+  NODE_GROW_HOVERED_FRAC,
   NODE_DIM_RGB,
   NODE_DIM_ALPHA,
   NODE_OPACITY_FALLOFF,
+  NODE_PATH_BRIGHTEN,
   ARROW_SPEED_FALLOFF,
   ARROW_WORLD_SPEED,
   ARROW_MARGIN_TGT_RADIUS,
@@ -210,7 +214,8 @@ export function computeNodeColors(
   pathInfo: PathInfo,
   maxDistance: number,
   path: string[] | null,
-  noPathEndpoints: NoPathEndpoints = null
+  noPathEndpoints: NoPathEndpoints = null,
+  hoverPath: string[] | null = null
 ): Float32Array {
   const arr = new Float32Array(nodes.length * 4);
   const bg = graphBackground();
@@ -263,6 +268,18 @@ export function computeNodeColors(
       arr[i * 4 + 2] = b;
       arr[i * 4 + 3] = 1.0;
     }
+
+    // A route — searched or revealed by a hover — is the brightest thing on
+    // the canvas: hue stays, everything else about it is lifted.
+    if (
+      (hoverPath !== null && hoverPath.includes(node.id)) ||
+      (path !== null && path.includes(node.id))
+    ) {
+      arr[i * 4] = r + (1 - r) * NODE_PATH_BRIGHTEN;
+      arr[i * 4 + 1] = g + (1 - g) * NODE_PATH_BRIGHTEN;
+      arr[i * 4 + 2] = b + (1 - b) * NODE_PATH_BRIGHTEN;
+      arr[i * 4 + 3] = 1.0;
+    }
   }
   return arr;
 }
@@ -272,7 +289,6 @@ export function computeNodeSizes(
   nodes: NodeData[],
   maxDegree: number,
   selectedId: string | null,
-  focusedId: string | null,
   hoveredId: string | null,
   pathInfo: PathInfo,
   maxDistance: number,
@@ -282,10 +298,11 @@ export function computeNodeSizes(
   const arr = new Float32Array(nodes.length);
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
-    let size =
+    const base =
       NODE_SIZE_BASE *
       (NODE_SIZE_MIN_FRAC +
         (node.edges.length / maxDegree) * NODE_SIZE_DEGREE_FRAC);
+    let size = base;
 
     // Shrink if not highlighted when something is selected
     if (
@@ -309,19 +326,24 @@ export function computeNodeSizes(
       size += NODE_GROW_SELECTED;
     }
 
-    // Grow if focused
-    if (focusedId === node.id) {
-      size += NODE_GROW_FOCUSED;
-    }
-
     // Grow if hovered
     if (hoveredId === node.id) {
-      size += NODE_GROW_HOVERED;
+      size += base * NODE_GROW_HOVERED_FRAC;
     }
 
     arr[i] = Math.max(size, 1.0);
   }
   return arr;
+}
+
+/** True if `edge` joins two consecutive nodes of `path`, in either direction. */
+function isEdgeOnPath(path: string[], edge: EdgeData): boolean {
+  const sourceIndex = path.indexOf(edge.source);
+  if (sourceIndex === -1) return false;
+  return (
+    path[sourceIndex + 1] === edge.target ||
+    path[sourceIndex - 1] === edge.target
+  );
 }
 
 /** Compute edge colors (4 RGBA components * 2 vertices per edge). */
@@ -333,7 +355,8 @@ export function computeEdgeColors(
   pathInfo: PathInfo,
   maxDistance: number,
   path: string[] | null,
-  noPathEndpoints: NoPathEndpoints = null
+  noPathEndpoints: NoPathEndpoints = null,
+  hoverPath: string[] | null = null
 ): Float32Array {
   const arr = new Float32Array(edges.length * 8); // 4 components * 2 vertices
   // De-emphasised edges fade toward a faint line tone just above the background
@@ -369,19 +392,11 @@ export function computeEdgeColors(
             ? edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha * 0.8)
             : dimmedColor;
         } else if (path) {
-          const sourceIndex = path.indexOf(edge.source);
-          const targetIndex = path.indexOf(edge.target);
-          if (
-            sourceIndex !== -1 &&
-            targetIndex !== -1 &&
-            Math.abs(sourceIndex - targetIndex) === 1
-          ) {
-            color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha);
-          } else if (isHoveredEdge) {
-            color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha * 0.8);
-          } else {
-            color = dimmedColor;
-          }
+          // Path edges take their colour from the route emphasis below, which
+          // searched and hovered routes share; only the rest is decided here.
+          color = isHoveredEdge
+            ? edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha * 0.8)
+            : dimmedColor;
         } else if (edge.source === selectedId || edge.target === selectedId) {
           // Direct edges from/to selected node: full visibility
           color = edgeColour(EDGE_SELECTED_SATURATION, selectedAlpha);
@@ -405,6 +420,22 @@ export function computeEdgeColors(
       } else {
         color = edgeColour(EDGE_UNSELECTED_SATURATION, unselectedAlpha);
       }
+
+      // Widest, whitest, opaque: a route has to be findable at a glance among
+      // edges of its own hue. Searched and hovered routes are treated
+      // identically, so the same route looks the same however it was found.
+      if (
+        (hoverPath !== null && isEdgeOnPath(hoverPath, edge)) ||
+        (path !== null && isEdgeOnPath(path, edge))
+      ) {
+        const base = edgeColour(EDGE_PATH_SATURATION, EDGE_PATH_ALPHA);
+        color = [
+          base[0] + (1 - base[0]) * EDGE_PATH_BRIGHTEN,
+          base[1] + (1 - base[1]) * EDGE_PATH_BRIGHTEN,
+          base[2] + (1 - base[2]) * EDGE_PATH_BRIGHTEN,
+          base[3],
+        ];
+      }
     }
 
     // Same color for both vertices of the line segment
@@ -420,25 +451,22 @@ export function computeEdgeColors(
   return arr;
 }
 
-/** Compute per-edge width scales (2x for path edges). */
+/** Compute per-edge width scales. Every route edge — searched or hovered — gets
+ *  the same emphasis. */
 export function computeEdgeWidthScales(
   edges: EdgeData[],
-  path: string[] | null
+  path: string[] | null,
+  hoverPath: string[] | null = null
 ): Float32Array {
   const arr = new Float32Array(edges.length);
   arr.fill(1.0);
-  if (path) {
-    for (let i = 0; i < edges.length; i++) {
-      const edge = edges[i];
-      const sourceIndex = path.indexOf(edge.source);
-      const targetIndex = path.indexOf(edge.target);
-      if (
-        sourceIndex !== -1 &&
-        targetIndex !== -1 &&
-        Math.abs(sourceIndex - targetIndex) === 1
-      ) {
-        arr[i] = 2.0;
-      }
+  for (let i = 0; i < edges.length; i++) {
+    const edge = edges[i];
+    if (
+      (path !== null && isEdgeOnPath(path, edge)) ||
+      (hoverPath !== null && isEdgeOnPath(hoverPath, edge))
+    ) {
+      arr[i] = EDGE_PATH_WIDTH_MULT;
     }
   }
   return arr;

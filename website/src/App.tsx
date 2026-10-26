@@ -14,6 +14,7 @@ import {
 
 import { Sidebar, SIDEBAR_DEFAULT_WIDTH } from "./views/sidebar/Sidebar";
 import { DataCache, DataCacheContext } from "./services/dataCache";
+import { FocusContext } from "./services/focus";
 import { colourStyles } from "./views/colours";
 import { textStyles } from "./views/typography";
 
@@ -361,63 +362,65 @@ function LoadedApp({ data }: { data: Data }) {
 
   return (
     <DataContext.Provider value={data}>
-      <div className="relative w-screen h-screen overflow-hidden">
-        {/* Graph container - fills entire viewport */}
-        {(!isFullscreen || isDraggingSidebar) && (
-          <div className="absolute inset-0 touch-none">
-            <Graph
+      <FocusContext.Provider value={setFocusedId}>
+        <div className="relative w-screen h-screen overflow-hidden">
+          {/* Graph container - fills entire viewport */}
+          {(!isFullscreen || isDraggingSidebar) && (
+            <div className="absolute inset-0 touch-none">
+              <Graph
+                settings={settings}
+                selectedId={selectedId}
+                setSelectedId={setSelectedId}
+                focusedId={focusedId}
+                path={path}
+                noPathEndpoints={noPathEndpoints}
+                viewportOffsetX={viewportOffsetX}
+                viewportOffsetY={viewportOffsetY}
+                searchMode={searchMode}
+                onSetAsSource={onSetAsSource}
+                onSetAsDestination={onSetAsDestination}
+                zoomRequest={zoomRequest}
+              />
+            </div>
+          )}
+
+          {/* Search - positioned relative to viewport */}
+          {(!isFullscreen || isDraggingSidebar) && (
+            <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm">
+              {searchComponent}
+            </div>
+          )}
+
+          {/* Sidebar - overlays graph: bottom sheet on mobile, right panel on desktop */}
+          <div
+            ref={sidebarContainerRef}
+            className="absolute bottom-[env(safe-area-inset-bottom)] w-full md:bottom-0 md:right-0 md:top-0 md:w-auto z-10"
+            style={
+              isMobile
+                ? {
+                    height: `${mobileSidebarHeight}%`,
+                    minHeight: "60px",
+                    transition: !isDraggingSidebar
+                      ? "height 0.3s ease-out"
+                      : "none",
+                  }
+                : { height: "100%" }
+            }
+          >
+            <Sidebar
               settings={settings}
+              setSettings={setSettings}
               selectedId={selectedId}
-              setSelectedId={setSelectedId}
-              focusedId={focusedId}
-              path={path}
-              noPathEndpoints={noPathEndpoints}
-              viewportOffsetX={viewportOffsetX}
-              viewportOffsetY={viewportOffsetY}
-              searchMode={searchMode}
-              onSetAsSource={onSetAsSource}
-              onSetAsDestination={onSetAsDestination}
-              zoomRequest={zoomRequest}
+              setFocusedId={setFocusedId}
+              onMobileDragStart={handleTouchStart}
+              isMobile={isMobile}
+              isFullscreen={isFullscreen}
+              isMinimized={isMinimized}
+              searchComponent={isFullscreen ? searchComponent : undefined}
             />
           </div>
-        )}
-
-        {/* Search - positioned relative to viewport */}
-        {(!isFullscreen || isDraggingSidebar) && (
-          <div className="absolute top-2 left-2 md:top-4 md:left-4 z-50 w-[calc(100%-1rem)] md:w-sm">
-            {searchComponent}
-          </div>
-        )}
-
-        {/* Sidebar - overlays graph: bottom sheet on mobile, right panel on desktop */}
-        <div
-          ref={sidebarContainerRef}
-          className="absolute bottom-[env(safe-area-inset-bottom)] w-full md:bottom-0 md:right-0 md:top-0 md:w-auto z-10"
-          style={
-            isMobile
-              ? {
-                  height: `${mobileSidebarHeight}%`,
-                  minHeight: "60px",
-                  transition: !isDraggingSidebar
-                    ? "height 0.3s ease-out"
-                    : "none",
-                }
-              : { height: "100%" }
-          }
-        >
-          <Sidebar
-            settings={settings}
-            setSettings={setSettings}
-            selectedId={selectedId}
-            setFocusedId={setFocusedId}
-            onMobileDragStart={handleTouchStart}
-            isMobile={isMobile}
-            isFullscreen={isFullscreen}
-            isMinimized={isMinimized}
-            searchComponent={isFullscreen ? searchComponent : undefined}
-          />
         </div>
-      </div>
+      </FocusContext.Provider>
     </DataContext.Provider>
   );
 }
