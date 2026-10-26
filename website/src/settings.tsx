@@ -1,4 +1,5 @@
 import { EdgeType } from "./data";
+import { oklchCss } from "./util/colour";
 
 /** The settings for the app. Updated by the `Settings` component. */
 export type SettingsData = {
@@ -28,17 +29,28 @@ export type VisibleTypeDesc = {
   description: string;
 };
 
-/** The colour of a derivative genre — copper-rose, like an old brass engraving */
+/** The OKLCH lightness of every graph edge. */
+const EDGE_LIGHTNESS = 0.68;
+/** The chroma of a fully saturated graph edge. Low enough that edges read as
+ *  tinted light rather than as coloured ribbons. */
+const EDGE_CHROMA = 0.13;
+
+/** An edge colour: one of the arc's hues, at a saturation given as a
+ *  percentage of {@link EDGE_CHROMA}. */
+const edgeColour = (hue: number, saturation: number, alpha: number) =>
+  oklchCss(EDGE_LIGHTNESS, (EDGE_CHROMA * saturation) / 100, hue, alpha);
+
+/** The colour of a derivative genre — the warm end of the arc. */
 export const derivativeColour = (saturation: number = 70, alpha: number = 1) =>
-  `hsla(16, ${saturation}%, 62%, ${alpha})`;
+  edgeColour(5, saturation, alpha);
 
-/** The colour of a subgenre — sea-glass green, the secondary instrument tint */
+/** The colour of a subgenre — the green of the arc. */
 export const subgenreColour = (saturation: number = 70, alpha: number = 1) =>
-  `hsla(160, ${saturation}%, 55%, ${alpha})`;
+  edgeColour(145, saturation, alpha);
 
-/** The colour of a fusion genre — periwinkle violet, between the other two */
+/** The colour of a fusion genre — the blue-violet between the other two. */
 export const fusionGenreColour = (saturation: number = 70, alpha: number = 1) =>
-  `hsla(252, ${saturation}%, 72%, ${alpha})`;
+  edgeColour(250, saturation, alpha);
 
 /** Descriptions of the visible types in the graph */
 export const VISIBLE_TYPES: VisibleTypeDesc[] = [

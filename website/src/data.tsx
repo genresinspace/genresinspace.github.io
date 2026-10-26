@@ -1,5 +1,7 @@
 import { createContext, useContext } from "react";
 
+import { oklchCss, oklchToRgb, relativeLuminance } from "./util/colour";
+
 /** The data that is identical between {@link DataOnDisk} and {@link Data}. */
 export type DataShared = {
   /** The Wikipedia domain. */
@@ -110,26 +112,28 @@ export type GenreFileData = {
 /** A map of links to page IDs. */
 export type LinksToPageIds = Record<string, number>;
 
-/** Values for node colour lightness in different contexts. */
+/** Values for node colour lightness in different contexts, as OKLCH
+ *  lightness percentages. Solid fills sit at `Background`, which is dark
+ *  enough to carry white text for every hue. */
 export const NodeColourLightness = {
   /** The lightness of the darker background colour. */
-  DarkerBackground: 15,
+  DarkerBackground: 24,
   /** The lightness of the background colour. */
-  Background: 30,
+  Background: 42,
   /** The lightness of a hovered background colour. */
-  HoveredBackground: 40,
+  HoveredBackground: 48,
   /** The lightness of the graph node's colour. */
-  GraphNode: 60,
+  GraphNode: 66,
   /** The lightness of the graph label's background colour. */
-  GraphLabelBackground: 25,
+  GraphLabelBackground: 20,
   /** The lightness of the graph label's background border colour. */
-  GraphLabelBackgroundBorder: 35,
+  GraphLabelBackgroundBorder: 38,
   /** The lightness of the graph label's text colour. */
-  GraphLabelText: 85,
+  GraphLabelText: 86,
   /** The lightness of a link's text colour. */
-  LinkText: 70,
+  LinkText: 74,
   /** The lightness of a link's text colour when hovered. */
-  LinkTextHover: 80,
+  LinkTextHover: 82,
 } as const;
 
 /** Hook returning node colour lightness values (kept as a hook for API compatibility). */
@@ -137,41 +141,42 @@ export function useNodeColourLightness() {
   return NodeColourLightness;
 }
 
-/** Given a node, calculate its colour, factoring in degree and lightness */
+/** A node's chroma: mostly degree, with every genre keeping a floor of colour
+ *  so that obscure nodes still read as their own hue. `saturationBoost` is a
+ *  percentage lift on top, for contexts that want a stronger tint. */
+function nodeChroma(
+  node: NodeData,
+  maxDegree: number,
+  saturationBoost: number = 0
+): number {
+  const degreeFraction =
+    maxDegree > 0 ? Math.min(1, node.edges.length / maxDegree) : 0;
+  return (0.04 + degreeFraction * 0.085) * (1 + saturationBoost / 100);
+}
+
+/** Given a node, calculate its colour, factoring in degree and lightness. */
 export function nodeColour(
   node: NodeData,
   maxDegree: number,
   lightness: number,
   saturationBoost: number = 0
 ) {
-  const colour = `hsl(${node.hue}, ${
-    ((node.edges.length / maxDegree) * 0.8 + 0.2) * 100 + saturationBoost
-  }%, ${lightness}%)`;
-  return colour;
+  return oklchCss(
+    lightness / 100,
+    nodeChroma(node, maxDegree, saturationBoost),
+    node.hue
+  );
 }
 
-/** Relative luminance (WCAG) of an HSL colour. */
-function hslLuminance(hue: number, sat: number, lightness: number): number {
-  const s = Math.min(sat, 100) / 100;
-  const l = lightness / 100;
-  const k = (n: number) => (n + hue / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const channel = (n: number) => {
-    const v = l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
-  };
-  return 0.2126 * channel(0) + 0.7152 * channel(8) + 0.0722 * channel(4);
-}
-
-/** Relative luminance of the navy instrument plates that inline genre links
- *  sit on (see `plate-shell` in tailwind.css, #080d1c). */
-const PLATE_LUMINANCE = hslLuminance(222, 56, 7);
+/** Relative luminance of the panel that inline genre links sit on (see
+ *  `--color-panel` in tailwind.css: oklch(23% 0.018 297)). */
+const PANEL_LUMINANCE = relativeLuminance(oklchToRgb(0.23, 0.018, 297));
 
 /**
  * Like {@link nodeColour}, but enforces a minimum WCAG contrast ratio against
- * the sidebar's navy plates by lifting lightness for perceptually-dark hues
- * (blues/violets read far darker than yellows at the same HSL lightness).
- * Use for inline text links, where readability beats hue fidelity.
+ * the sidebar's panel by lifting lightness. Chroma is held constant, so the
+ * genre keeps its hue identity while the text stays legible. Use for inline
+ * text links, where readability beats exact lightness.
  */
 export function nodeColourReadable(
   node: NodeData,
@@ -180,17 +185,19 @@ export function nodeColourReadable(
   saturationBoost: number = 0,
   minContrast: number = 6
 ) {
-  const sat =
-    ((node.edges.length / maxDegree) * 0.8 + 0.2) * 100 + saturationBoost;
+  const chroma = nodeChroma(node, maxDegree, saturationBoost);
+
   let l = lightness;
+  let luminance = relativeLuminance(oklchToRgb(l / 100, chroma, node.hue));
   while (
-    l < 92 &&
-    (hslLuminance(node.hue, sat, l) + 0.05) / (PLATE_LUMINANCE + 0.05) <
-      minContrast
+    l < 94 &&
+    (luminance + 0.05) / (PANEL_LUMINANCE + 0.05) < minContrast
   ) {
     l += 2;
+    luminance = relativeLuminance(oklchToRgb(l / 100, chroma, node.hue));
   }
-  return `hsl(${node.hue}, ${sat}%, ${l}%)`;
+
+  return oklchCss(l / 100, chroma, node.hue);
 }
 
 /** The types of edges in the graph. */

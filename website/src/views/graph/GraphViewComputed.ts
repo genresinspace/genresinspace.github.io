@@ -16,6 +16,7 @@ import {
   subgenreColour,
   type VisibleTypes,
 } from "../../settings";
+import { oklchCss } from "../../util/colour";
 import type { PathInfo } from "./pathInfo";
 import {
   EDGE_SELECTED_SATURATION,
@@ -334,8 +335,8 @@ export function computeEdgeColors(
   noPathEndpoints: NoPathEndpoints = null
 ): Float32Array {
   const arr = new Float32Array(edges.length * 8); // 4 components * 2 vertices
-  // De-emphasised edges fade toward a faint navy just above the background
-  const dimmedColor = parseColor("hsla(222, 45%, 18%, 0.1)");
+  // De-emphasised edges fade toward a faint line tone just above the background
+  const dimmedColor = parseColor(oklchCss(0.26, 0.022, 297, 0.1));
 
   const selectedAlpha = EDGE_SELECTED_ALPHA;
   const unselectedAlpha = EDGE_UNSELECTED_ALPHA;

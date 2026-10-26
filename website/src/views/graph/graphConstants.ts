@@ -3,6 +3,8 @@
  * Collected here so they're easy to find and tweak.
  */
 
+import { oklchCss, oklchToRgb } from "../../util/colour";
+
 // ── Edges ────────────────────────────────────────────────────────────
 /** Number of quad segments per curved edge (more = smoother curve). */
 export const EDGE_SEGMENTS = 8;
@@ -15,10 +17,13 @@ export const EDGE_WIDTH = 0.48;
  *  1 = pure camera-space: geometry is a fixed screen size, so world size shrinks as you zoom in.
  *  Values in between blend the two — at k the screen size scales like zoom^(1-k). */
 export const EDGE_ARROW_SCREEN_SPACE = 0.8;
-/** Edge color saturation (HSL) when selected or in path. */
+/** Edge colour saturation (as a percentage of the edge hue's full chroma) when
+ *  selected or in the path. */
 export const EDGE_SELECTED_SATURATION = 90;
-/** Edge color saturation (HSL) when nothing is selected. */
-export const EDGE_UNSELECTED_SATURATION = 70;
+/** Edge colour saturation (as a percentage of the edge hue's full chroma) when
+ *  nothing is selected. Kept below the selected value so hue reads as a tint
+ *  under the graph rather than as fog. */
+export const EDGE_UNSELECTED_SATURATION = 45;
 /** Edge alpha when connected to the selected node. */
 export const EDGE_SELECTED_ALPHA = 0.4;
 /** Edge alpha when not connected to the selected node. */
@@ -59,8 +64,9 @@ export const NODE_DIM_RGB = 0.3;
 export const NODE_DIM_ALPHA = 0.06;
 /** Exponential base for node opacity falloff with distance (0–1). */
 export const NODE_OPACITY_FALLOFF = 0.25;
-/** HSL lightness for graph nodes — lifted slightly toward starlight. */
-export const NODE_LIGHTNESS = 64;
+/** HSL lightness for graph nodes — lifted slightly above the canvas so the
+ *  glow reads. */
+export const NODE_LIGHTNESS = 66;
 
 // ── Arrows ───────────────────────────────────────────────────────────
 /** World-unit spacing between arrows on animated edges. */
@@ -89,25 +95,25 @@ export const TRANSITION_TAU = 120;
 export const HOVER_DEBOUNCE_MS = 80;
 
 // ── Background ───────────────────────────────────────────────────────
-/** Graph background color (RGBA 0–1) — deep-space blue-black (#04060f). */
+/** Graph background colour (RGBA 0–1) — the sunken tier of the palette,
+ *  oklch(13% 0.012 297). */
 export const BG: [number, number, number, number] = [
-  4 / 255,
-  6 / 255,
-  15 / 255,
+  ...oklchToRgb(0.13, 0.012, 297),
   1,
 ];
-/** Brass reticle colour for the selected star (RGB 0–1, #d9b573). */
-export const RETICLE_COLOR: [number, number, number] = [
-  217 / 255,
-  181 / 255,
-  115 / 255,
-];
+/** Reticle colour for the selected star (RGB 0–1): ink, so it reads against
+ *  every genre hue instead of competing with them. */
+export const RETICLE_COLOR: [number, number, number] = oklchToRgb(
+  0.96,
+  0.006,
+  300
+);
 
 // ── No-path connector ────────────────────────────────────────────────
 /** Muted stroke for the severed connector drawn between unreachable endpoints. */
-export const NO_PATH_LINE_COLOR = "#7c8aa5";
+export const NO_PATH_LINE_COLOR = oklchCss(0.72, 0.014, 300);
 /** Soft red for the break (✕) marking the gap in the severed connector. */
-export const NO_PATH_BREAK_COLOR = "#d98a8a";
+export const NO_PATH_BREAK_COLOR = oklchCss(0.74, 0.082, 5);
 
 // ── Zoom-to-fit ──────────────────────────────────────────────────────
 /** Fit neighbourhood to this many standard deviations. */
