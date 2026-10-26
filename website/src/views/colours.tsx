@@ -137,7 +137,9 @@ export const colourStyles = {
   // Search
   search: {
     button: `${bgInteractive} ${hoverMedium} ${textPrimary}`,
-    input: `${bgInput} ${textPrimary} placeholder:text-ink-faint`,
+    // A search field drawn straight on its panel, with no well of its own, for
+    // rows that pair with a resolved-value row.
+    inputBare: `bg-transparent ${textPrimary} placeholder:text-ink-faint`,
     item: `${bgCard} ${hoverSubtle} ${textPrimary}`,
   },
 

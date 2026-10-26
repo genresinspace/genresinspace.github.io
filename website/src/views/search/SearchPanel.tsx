@@ -353,7 +353,7 @@ function SlotRow({
       {showChip ? (
         <>
           <button
-            className={`flex-1 min-w-0 text-left mx-1 px-2 py-1.5 rounded-sm truncate ${colourStyles.text.primary} ${colourStyles.hover.subtle} transition-colors`}
+            className={`flex-1 min-w-0 text-left px-2 py-1.5 truncate font-ui ${colourStyles.text.primary} ${colourStyles.hover.subtle} transition-colors`}
             onClick={onChipClick}
             title={`Change ${slotName}`}
           >
@@ -378,7 +378,7 @@ function SlotRow({
             ref={inputRef}
             type="text"
             placeholder={placeholder}
-            className={`w-full h-full p-2 font-ui ${showRail ? "" : "pl-8"} ${slot.query ? "pr-8" : ""} ${colourStyles.search.input}`}
+            className={`w-full h-full p-2 font-ui ${showRail ? "" : "pl-8"} ${slot.query ? "pr-8" : ""} ${colourStyles.search.inputBare}`}
             value={slot.query}
             onChange={(e) =>
               routeDispatch({
