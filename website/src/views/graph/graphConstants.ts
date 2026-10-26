@@ -185,6 +185,10 @@ export const LABEL_SELECTED_LIGHTNESS_BOOST = 20;
 /** Font-size multiplier for the selected node's label: the chart's primary
  *  focus should be readable without leaning in, regardless of degree. */
 export const LABEL_SELECTED_SIZE_MULT = 1.35;
+/** Delay before a label's pointerleave releases the hover, so that a label
+ *  shifting under a stationary pointer (zoom, camera inertia) does not drop the
+ *  hover the pointer still means. */
+export const LABEL_HOVER_RELEASE_MS = 80;
 /** CSS brightness for labels outside the selected net. */
 export const LABEL_DIM_BRIGHTNESS = 0.5;
 /** Opacity for labels outside the selected net. */

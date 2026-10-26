@@ -43,6 +43,7 @@ export class InteractionHandler {
   private boundMouseDown: (e: MouseEvent) => void;
   private boundMouseMove: (e: MouseEvent) => void;
   private boundMouseUp: (e: MouseEvent) => void;
+  private boundMouseLeave: (e: MouseEvent) => void;
   private boundWheel: (e: WheelEvent) => void;
   private boundTouchStart: (e: TouchEvent) => void;
   private boundTouchMove: (e: TouchEvent) => void;
@@ -60,6 +61,7 @@ export class InteractionHandler {
     this.boundMouseDown = this.onMouseDown.bind(this);
     this.boundMouseMove = this.onMouseMove.bind(this);
     this.boundMouseUp = this.onMouseUp.bind(this);
+    this.boundMouseLeave = this.onMouseLeave.bind(this);
     this.boundWheel = this.onWheel.bind(this);
     this.boundTouchStart = this.onTouchStart.bind(this);
     this.boundTouchMove = this.onTouchMove.bind(this);
@@ -67,6 +69,7 @@ export class InteractionHandler {
 
     canvas.addEventListener("mousedown", this.boundMouseDown);
     canvas.addEventListener("mousemove", this.boundMouseMove);
+    canvas.addEventListener("mouseleave", this.boundMouseLeave);
     canvas.addEventListener("wheel", this.boundWheel, { passive: false });
     canvas.addEventListener("touchstart", this.boundTouchStart, {
       passive: false,
@@ -80,6 +83,7 @@ export class InteractionHandler {
   destroy(): void {
     this.canvas.removeEventListener("mousedown", this.boundMouseDown);
     this.canvas.removeEventListener("mousemove", this.boundMouseMove);
+    this.canvas.removeEventListener("mouseleave", this.boundMouseLeave);
     this.canvas.removeEventListener("wheel", this.boundWheel);
     this.canvas.removeEventListener("touchstart", this.boundTouchStart);
     this.canvas.removeEventListener("touchmove", this.boundTouchMove);
@@ -100,6 +104,18 @@ export class InteractionHandler {
     // Listen on window so dragging works even when mouse moves over labels
     window.addEventListener("mousemove", this.boundMouseMove);
     window.addEventListener("mouseup", this.boundMouseUp);
+  }
+
+  /** The pointer can leave the canvas straight into the sidebar, with no last
+   *  mousemove to report that nothing is under it. Without this, the hover
+   *  sticks to the last node the pointer crossed. Moving onto a label is not
+   *  leaving: the label owns the hover then, and the two event streams are not
+   *  ordered against each other, so clearing here would race the label's own
+   *  pointerenter. */
+  private onMouseLeave(e: MouseEvent): void {
+    const next = e.relatedTarget as HTMLElement | null;
+    if (next?.closest?.(".node-label, .node-label-container")) return;
+    this.callbacks.onNodeHover(null);
   }
 
   private onMouseMove(e: MouseEvent): void {

@@ -31,6 +31,7 @@ import {
   LABEL_GAP,
   LABEL_OPACITY_FALLOFF,
   LABEL_HOVER_LIGHTNESS_BOOST,
+  LABEL_HOVER_RELEASE_MS,
   LABEL_SELECTED_LIGHTNESS_BOOST,
   LABEL_DIM_BRIGHTNESS,
   LABEL_DIM_OPACITY,
@@ -508,7 +509,7 @@ function updateLabelStyle(
   s.transform = `translate(${label.screenX}px, ${label.screenY + touchOffset}px) translate(-50%, -100%)`;
   s.fontSize = `${label.fontSize}px`;
   s.backgroundColor = `color-mix(in srgb, ${bgColor} 78%, var(--graph))`;
-  s.borderColor = `color-mix(in srgb, ${textColor} 50%, transparent)`;
+  s.borderColor = `color-mix(in srgb, ${textColor} ${isHovered ? 100 : 50}%, transparent)`;
   s.color = textColor;
   s.filter = filterStyle;
   s.opacity = String(opacityStyle);
@@ -739,6 +740,10 @@ export class LabelManager {
     // Start fade-out for removed labels
     for (const [id, entry] of elements) {
       if (!currentIds.has(id)) {
+        // Never retire a label the pointer is on. Retiring it removes the hit
+        // target, which drops the hover, which in turn keeps the label retired:
+        // the pointer would be stranded over nothing.
+        if (entry.el.matches(":hover")) continue;
         elements.delete(id);
         const nodeIndex = nodeIdToInt(id);
         entry.el.classList.add("node-label-exit");
@@ -826,8 +831,21 @@ export class LabelManager {
       callbacks.setHoveredId(nodeId);
       updateActionButtons(el, toBtn, fromBtn, nodeId, callbacks);
     });
+    // Movement inside the label re-asserts the hover: whatever cleared it,
+    // the pointer being here is the current intent.
+    el.addEventListener("pointermove", () => {
+      if (callbacks.getHoveredId() !== nodeId) {
+        callbacks.setHoveredId(nodeId);
+      }
+    });
     el.addEventListener("pointerleave", () => {
-      if (callbacks.getHoveredId() === nodeId) callbacks.setHoveredId(null);
+      // A label can leave the pointer without the pointer moving: zoom changes
+      // its font size, and camera inertia slides it. Trust the browser's hover
+      // state a moment later rather than the event itself.
+      window.setTimeout(() => {
+        if (el.matches(":hover")) return;
+        if (callbacks.getHoveredId() === nodeId) callbacks.setHoveredId(null);
+      }, LABEL_HOVER_RELEASE_MS);
       // Keep buttons visible if this node is currently selected
       if (callbacks.getSelectedId() !== nodeId) {
         toBtn.classList.add("hidden");

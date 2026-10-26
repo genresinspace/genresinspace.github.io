@@ -408,6 +408,15 @@ export class GraphView {
   }
 
   private setHoveredId(id: string | null): void {
+    // An explicit hover supersedes any queued debounce. Without this, a pointer
+    // travelling from the canvas onto a label leaves a "null" hover scheduled
+    // by its last canvas mousemove, which lands 80ms later and clears the
+    // hover the label just claimed. The label then cannot re-claim it, because
+    // pointerenter will not fire again until the pointer leaves it.
+    if (this.hoverTimer) {
+      clearTimeout(this.hoverTimer);
+      this.hoverTimer = null;
+    }
     if (id === this.hoveredId) return;
     this.hoveredId = id;
     // New hover edges should emerge from their midpoint; re-anchor hover phase.
