@@ -456,24 +456,12 @@ function useSelectionAndRoute(
   const routeSearch = useRouteSearch(data, settings.visibleTypes);
   const { route, routeDispatch } = routeSearch;
 
-  // Focus
-  const [focusedId, setFocusedRawId] = useState<string | null>(null);
-  // Read selectedId via ref so setFocusedId stays referentially stable.
-  // Why: the hashchange effect below depends on setFocusedId; if that callback
-  // changed on every selection it would re-fire handleHashChange and trigger
-  // unwanted zooms on graph clicks (URL is updated by pushState before the
-  // effect re-runs).
-  const selectedIdRef = useRef(selectedId);
-  selectedIdRef.current = selectedId;
-  const setFocusedId = useCallback((id: string | null) => {
-    if (id) {
-      setFocusedRawId(id);
-    } else if (selectedIdRef.current) {
-      setFocusedRawId(selectedIdRef.current);
-    } else {
-      setFocusedRawId(null);
-    }
-  }, []);
+  // Focus is transient: it is whatever node a link or label has the pointer on,
+  // and nothing when the pointer is elsewhere. The selected node highlights
+  // itself through its own state, so focus does not fall back to it. The setter
+  // is useState's and therefore stable, which the hashchange effect below
+  // relies on: an unstable one would re-fire it and zoom on every click.
+  const [focusedId, setFocusedId] = useState<string | null>(null);
 
   // Wrapper that updates selectedId, search state, focus, and title. Callers
   // pass `{ zoom: "selection" | "path" }` when the action should also trigger
