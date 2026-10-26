@@ -102,6 +102,43 @@ export function oklchToRgb(l: number, c: number, h: number): Rgb {
   return fitted ?? oklchToSrgbUnclamped(l, 0, h) ?? [l, l, l];
 }
 
+/** A colour in OKLCH, with lightness and chroma in 0..1. */
+export type Oklch = { l: number; c: number; h: number };
+
+/** Parse the `oklch()` syntax the tokens are written in. */
+function parseOklch(value: string): Oklch | null {
+  const match = value.match(
+    /^oklch\(\s*([\d.]+)(%?)\s+([\d.]+)\s+([\d.]+)\s*\)$/i
+  );
+  if (!match) {
+    return null;
+  }
+  const lightness = parseFloat(match[1]) / (match[2] === "%" ? 100 : 1);
+  return { l: lightness, c: parseFloat(match[3]), h: parseFloat(match[4]) };
+}
+
+/**
+ * Read a colour token from the document root as sRGB in 0..1.
+ *
+ * The palette lives in `tokens.css`. Consumers that need numbers, such as the
+ * graph renderer, read the resolved value from the cascade rather than keep a
+ * second copy, so a colour is written in one file. `fallback` covers the case
+ * where the stylesheet has not applied yet.
+ */
+export function readColourToken(name: string, fallback: Oklch): Rgb {
+  if (typeof document !== "undefined") {
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue(name)
+      .trim();
+    const parsed = raw ? parseOklch(raw) : null;
+    if (parsed) {
+      return oklchToRgb(parsed.l, parsed.c, parsed.h);
+    }
+  }
+
+  return oklchToRgb(fallback.l, fallback.c, fallback.h);
+}
+
 /** A channel as an 8-bit integer. */
 const toByte = (v: number) => Math.round(Math.min(1, Math.max(0, v)) * 255);
 

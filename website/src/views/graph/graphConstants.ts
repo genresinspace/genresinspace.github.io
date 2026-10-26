@@ -3,7 +3,7 @@
  * Collected here so they're easy to find and tweak.
  */
 
-import { oklchCss, oklchToRgb } from "../../util/colour";
+import { oklchCss, oklchToRgb, readColourToken } from "../../util/colour";
 
 // ── Edges ────────────────────────────────────────────────────────────
 /** Number of quad segments per curved edge (more = smoother curve). */
@@ -95,12 +95,16 @@ export const TRANSITION_TAU = 120;
 export const HOVER_DEBOUNCE_MS = 80;
 
 // ── Background ───────────────────────────────────────────────────────
-/** Graph background colour (RGBA 0–1) — the sunken tier of the palette,
- *  oklch(13% 0.012 297). */
-export const BG: [number, number, number, number] = [
-  ...oklchToRgb(0.13, 0.012, 297),
-  1,
-];
+/** Cached so the renderer's per-frame request does not re-read the cascade. */
+let cachedBackground: [number, number, number, number] | null = null;
+
+/** The graph's background colour, read from the `--graph` token. */
+export function graphBackground(): [number, number, number, number] {
+  // Black if the stylesheet has not applied; the page is unstyled in that case
+  // anyway, and a neutral fallback keeps this file free of palette values.
+  cachedBackground ??= [...readColourToken("--graph", { l: 0, c: 0, h: 0 }), 1];
+  return cachedBackground;
+}
 /** Reticle colour for the selected star (RGB 0–1): ink, so it reads against
  *  every genre hue instead of competing with them. */
 export const RETICLE_COLOR: [number, number, number] = oklchToRgb(

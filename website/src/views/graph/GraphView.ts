@@ -35,7 +35,7 @@ import {
 import {
   TRANSITION_TAU,
   HOVER_DEBOUNCE_MS,
-  BG,
+  graphBackground,
   RETICLE_COLOR,
   ARROW_SIZE_MULTIPLIER,
   EDGE_CURVATURE,
@@ -735,7 +735,7 @@ export class GraphView {
 
     this.renderer.render(
       this.camera.getViewMatrix(),
-      BG,
+      graphBackground(),
       this.settings.general.arrowSizeScale * ARROW_SIZE_MULTIPLIER,
       this.camera.zoom,
       now / 1000,

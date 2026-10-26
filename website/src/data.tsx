@@ -1,6 +1,11 @@
 import { createContext, useContext } from "react";
 
-import { oklchCss, oklchToRgb, relativeLuminance } from "./util/colour";
+import {
+  oklchCss,
+  oklchToRgb,
+  readColourToken,
+  relativeLuminance,
+} from "./util/colour";
 
 /** The data that is identical between {@link DataOnDisk} and {@link Data}. */
 export type DataShared = {
@@ -168,9 +173,18 @@ export function nodeColour(
   );
 }
 
-/** Relative luminance of the panel that inline genre links sit on (see
- *  `--color-panel` in tailwind.css: oklch(23% 0.018 297)). */
-const PANEL_LUMINANCE = relativeLuminance(oklchToRgb(0.23, 0.018, 297));
+/** Relative luminance of the panel that inline genre links sit on, read from
+ *  `--panel`. Cached, since it changes only with the stylesheet. */
+let panelLuminance: number | null = null;
+
+function panelLuminanceValue(): number {
+  // Black if the stylesheet has not applied, which overstates contrast rather
+  // than understating it. No palette value is repeated here.
+  panelLuminance ??= relativeLuminance(
+    readColourToken("--panel", { l: 0, c: 0, h: 0 })
+  );
+  return panelLuminance;
+}
 
 /**
  * Like {@link nodeColour}, but enforces a minimum WCAG contrast ratio against
@@ -186,13 +200,11 @@ export function nodeColourReadable(
   minContrast: number = 6
 ) {
   const chroma = nodeChroma(node, maxDegree, saturationBoost);
+  const panel = panelLuminanceValue();
 
   let l = lightness;
   let luminance = relativeLuminance(oklchToRgb(l / 100, chroma, node.hue));
-  while (
-    l < 94 &&
-    (luminance + 0.05) / (PANEL_LUMINANCE + 0.05) < minContrast
-  ) {
+  while (l < 94 && (luminance + 0.05) / (panel + 0.05) < minContrast) {
     l += 2;
     luminance = relativeLuminance(oklchToRgb(l / 100, chroma, node.hue));
   }

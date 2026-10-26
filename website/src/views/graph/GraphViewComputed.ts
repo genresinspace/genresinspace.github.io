@@ -37,7 +37,7 @@ import {
   ARROW_SPEED_FALLOFF,
   ARROW_WORLD_SPEED,
   ARROW_MARGIN_TGT_RADIUS,
-  BG,
+  graphBackground,
 } from "./graphConstants";
 
 /** Parse a CSS color string to RGBA floats [0..1]. */
@@ -213,6 +213,7 @@ export function computeNodeColors(
   noPathEndpoints: NoPathEndpoints = null
 ): Float32Array {
   const arr = new Float32Array(nodes.length * 4);
+  const bg = graphBackground();
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
     const isHovered = hoveredId === node.id;
@@ -251,9 +252,9 @@ export function computeNodeColors(
         arr[i * 4 + 3] = alpha;
       } else {
         // Fade toward the deep-space background colour
-        arr[i * 4] = BG[0] + (r - BG[0]) * NODE_DIM_RGB;
-        arr[i * 4 + 1] = BG[1] + (g - BG[1]) * NODE_DIM_RGB;
-        arr[i * 4 + 2] = BG[2] + (b - BG[2]) * NODE_DIM_RGB;
+        arr[i * 4] = bg[0] + (r - bg[0]) * NODE_DIM_RGB;
+        arr[i * 4 + 1] = bg[1] + (g - bg[1]) * NODE_DIM_RGB;
+        arr[i * 4 + 2] = bg[2] + (b - bg[2]) * NODE_DIM_RGB;
         arr[i * 4 + 3] = NODE_DIM_ALPHA;
       }
     } else {
