@@ -103,6 +103,11 @@ export const colourStyles = {
 
   // -- Component-specific compositions --------------------------------------
 
+  // Truncation toggles, inline and full width. The fill is opaque and carries
+  // a hairline: over a genre tile, a translucent fill takes the tile's hue and
+  // leaves the button with no edge to read as a control.
+  toggle: `bg-band-sub border border-line-strong ${textPrimary} hover:bg-[var(--band-sub-hover)] transition-colors cursor-pointer`,
+
   // Loading state
   loading: {
     spinner: "border-line-strong border-t-accent",

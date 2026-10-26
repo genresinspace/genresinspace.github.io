@@ -82,7 +82,7 @@ export function WikitextTruncateAtLength(props: {
           wikitext={props.wikitext}
           expandable={false}
         />
-        <ToggleButton onClick={() => setExpanded(false)}>
+        <ToggleButton onClick={() => setExpanded(false)} label="Show less">
           Show less
         </ToggleButton>
       </>
@@ -95,11 +95,11 @@ export function WikitextTruncateAtLength(props: {
       {isTruncated && (
         <>
           {expandable ? (
-            <ToggleButton onClick={() => setExpanded(true)}>
-              Show more
+            <ToggleButton onClick={() => setExpanded(true)} label="Show more">
+              {"…"}
             </ToggleButton>
           ) : (
-            <span>...</span>
+            <span>…</span>
           )}
         </>
       )}
@@ -109,15 +109,19 @@ export function WikitextTruncateAtLength(props: {
 
 function ToggleButton({
   onClick,
+  label,
   children,
 }: {
   onClick: () => void;
+  label: string;
   children: React.ReactNode;
 }) {
   return (
     <button
       onClick={onClick}
-      className={`inline-block ml-1 ${textStyles.small} ${colourStyles.text.toggle} px-1 ${colourStyles.bg.interactive} ${colourStyles.hover.medium} transition-colors cursor-pointer`}
+      title={label}
+      aria-label={label}
+      className={`inline-block ml-1 px-1.5 ${textStyles.small} ${colourStyles.toggle}`}
     >
       {children}
     </button>
