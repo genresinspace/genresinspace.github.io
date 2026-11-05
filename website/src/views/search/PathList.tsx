@@ -11,7 +11,6 @@ import {
 import { VISIBLE_TYPES_BY_TYPE, VisibleTypes } from "../../settings";
 import type { SetSelectedId } from "../../App";
 
-import { ArrowUpIcon } from "../components/icons/ArrowUpIcon";
 import { GenreLink } from "../components/links/GenreLink";
 import { colourStyles } from "../colours";
 import { textStyles } from "../typography";
@@ -127,19 +126,13 @@ function edgeTypeBetween(
 function PathRow({
   node,
   isSelected,
-  isEndpoint,
   setSelectedId,
   setFocusedId,
-  onSetAsSource,
-  onSetAsDestination,
 }: {
   node: NodeData;
   isSelected: boolean;
-  isEndpoint: "source" | "destination" | null;
   setSelectedId: SetSelectedId;
   setFocusedId: (id: string | null) => void;
-  onSetAsSource: ((nodeId: string) => void) | null;
-  onSetAsDestination: ((nodeId: string) => void) | null;
 }) {
   const { max_degree: maxDegree } = useDataContext();
   const dotColour = nodeColour(node, maxDegree, NodeColourLightness.GraphNode);
@@ -169,44 +162,13 @@ function PathRow({
         </GenreLink>
         <GenreSnippet node={node} />
       </div>
-      <div className="flex-none flex flex-col justify-center gap-1 pr-1">
-        {onSetAsSource && isEndpoint !== "source" && (
-          <button
-            className={`w-11 h-11 flex items-center justify-center ${colourStyles.search.button} transition-colors`}
-            title={`Start the path at ${node.label}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              onSetAsSource(node.id);
-            }}
-          >
-            <ArrowUpIcon width={16} height={16} stroke="var(--ink-muted)" />
-          </button>
-        )}
-        {onSetAsDestination && isEndpoint !== "destination" && (
-          <button
-            className={`w-11 h-11 flex items-center justify-center ${colourStyles.search.button} transition-colors`}
-            title={`End the path at ${node.label}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              onSetAsDestination(node.id);
-            }}
-          >
-            <ArrowUpIcon
-              width={16}
-              height={16}
-              stroke="var(--ink-muted)"
-              className="rotate-180"
-            />
-          </button>
-        )}
-      </div>
     </div>
   );
 }
 
 /**
  * The found path, as a vertical timeline: hue-coloured node dots joined by
- * connectors tinted by the edge type, with per-row retargeting buttons.
+ * connectors tinted by the edge type.
  */
 export function PathList({
   path,
@@ -214,16 +176,12 @@ export function PathList({
   visibleTypes,
   setSelectedId,
   setFocusedId,
-  onSetAsSource,
-  onSetAsDestination,
 }: {
   path: string[];
   selectedId: string | null;
   visibleTypes: VisibleTypes;
   setSelectedId: SetSelectedId;
   setFocusedId: (id: string | null) => void;
-  onSetAsSource: ((nodeId: string) => void) | null;
-  onSetAsDestination: ((nodeId: string) => void) | null;
 }) {
   const { nodes, edges } = useDataContext();
 
@@ -266,17 +224,8 @@ export function PathList({
             <PathRow
               node={nodes[nodeIdToInt(nodeId)]}
               isSelected={nodeId === selectedId}
-              isEndpoint={
-                index === 0
-                  ? "source"
-                  : index === path.length - 1
-                    ? "destination"
-                    : null
-              }
               setSelectedId={setSelectedId}
               setFocusedId={setFocusedId}
-              onSetAsSource={onSetAsSource}
-              onSetAsDestination={onSetAsDestination}
             />
           </Fragment>
         );

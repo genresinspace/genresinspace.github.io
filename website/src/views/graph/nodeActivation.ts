@@ -16,3 +16,16 @@ export function resolvePathNodeClick(
   }
   return nodeId;
 }
+
+/**
+ * The node a graph "from"/"to" retargets the route around: the selected node
+ * when it lies on the current path, else the path's source. With no path, the
+ * selection is the anchor by itself.
+ */
+export function getRouteAnchor(
+  selectedId: string | null,
+  path: string[] | null
+): string | null {
+  if (selectedId && (!path || path.includes(selectedId))) return selectedId;
+  return path && path.length > 0 ? path[0] : null;
+}

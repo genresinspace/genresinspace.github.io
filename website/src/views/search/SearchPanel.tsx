@@ -23,7 +23,8 @@ import { NoPathMessage, PathList } from "./PathList";
 
 /**
  * The search panel: find a genre, optionally pick a destination to pathfind
- * to, and retarget either endpoint from the path itself.
+ * to, and read the resulting path. Retargeting the route happens on the graph
+ * labels, around the node selected in the path.
  */
 export function SearchPanel({
   route,
@@ -36,8 +37,6 @@ export function SearchPanel({
   setFocusedId,
   visibleTypes,
   requestZoom,
-  onSetAsSource,
-  onSetAsDestination,
   isMobile,
 }: {
   route: RouteState;
@@ -50,8 +49,6 @@ export function SearchPanel({
   setFocusedId: (id: string | null) => void;
   visibleTypes: VisibleTypes;
   requestZoom: (kind: ZoomRequest["kind"]) => void;
-  onSetAsSource: ((nodeId: string) => void) | null;
-  onSetAsDestination: ((nodeId: string) => void) | null;
   isMobile: boolean;
 }) {
   const { nodes } = useDataContext();
@@ -277,8 +274,6 @@ export function SearchPanel({
           visibleTypes={visibleTypes}
           setSelectedId={setSelectedId}
           setFocusedId={setFocusedId}
-          onSetAsSource={onSetAsSource}
-          onSetAsDestination={onSetAsDestination}
         />
       )}
       {!path && sourceNode && destinationNode && (

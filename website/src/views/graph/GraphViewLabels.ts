@@ -11,7 +11,7 @@ import {
 } from "../../data";
 import type { Camera } from "./Camera";
 import type { PathInfo } from "./pathInfo";
-import { resolvePathNodeClick } from "./nodeActivation";
+import { getRouteAnchor, resolvePathNodeClick } from "./nodeActivation";
 import {
   MAX_VISIBLE_LABELS,
   LABEL_REFERENCE_AREA,
@@ -410,7 +410,7 @@ function createActionButtons(
   return { toBtn, fromBtn };
 }
 
-/** Update which action buttons are visible based on search mode. */
+/** Update which action buttons are visible for the current mode and anchor. */
 function updateActionButtons(
   _el: HTMLDivElement,
   toBtn: HTMLButtonElement,
@@ -428,20 +428,12 @@ function updateActionButtons(
     btn.classList.remove("flex");
   };
 
-  let showTo = false;
-  let showFrom = false;
-
-  if (mode === "selected") {
-    // Don't show "to" for the source node itself
-    showTo = callbacks.getSelectedId() !== nodeId;
-  } else if (mode === "path") {
-    const currentPath = callbacks.getPath();
-    const isSource = currentPath && currentPath[0] === nodeId;
-    const isDestination =
-      currentPath && currentPath[currentPath.length - 1] === nodeId;
-    showTo = !isSource && !isDestination;
-    showFrom = !isSource;
-  }
+  // Both actions retarget the route around the anchor node: "from" makes the
+  // hovered node the source and the anchor the destination, "to" the reverse.
+  // The anchor has nothing to retarget against, so it gets neither button.
+  const anchor = getRouteAnchor(callbacks.getSelectedId(), callbacks.getPath());
+  const showTo = mode !== "initial" && anchor !== nodeId;
+  const showFrom = mode === "path" && anchor !== nodeId;
 
   if (showTo) show(toBtn);
   else hide(toBtn);
@@ -888,18 +880,13 @@ export class LabelManager {
         let lpTimer: ReturnType<typeof setTimeout> | null = setTimeout(() => {
           lpTimer = null;
           const mode = callbacks.getSearchMode();
-          // Determine available actions
-          if (mode === "selected") {
-            swipeShowTo = callbacks.getSelectedId() !== nodeId;
-            swipeShowFrom = false;
-          } else if (mode === "path") {
-            const currentPath = callbacks.getPath();
-            const isSource = currentPath && currentPath[0] === nodeId;
-            const isDestination =
-              currentPath && currentPath[currentPath.length - 1] === nodeId;
-            swipeShowTo = !isSource && !isDestination;
-            swipeShowFrom = !isSource;
-          }
+          // Same availability rule as the desktop buttons.
+          const anchor = getRouteAnchor(
+            callbacks.getSelectedId(),
+            callbacks.getPath()
+          );
+          swipeShowFrom = mode === "path" && anchor !== nodeId;
+          swipeShowTo = mode !== "initial" && anchor !== nodeId;
           if (!swipeShowTo && !swipeShowFrom) return;
 
           longPressed = true;

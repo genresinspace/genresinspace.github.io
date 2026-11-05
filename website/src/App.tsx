@@ -13,6 +13,7 @@ import {
 } from "./data";
 
 import { Sidebar, SIDEBAR_DEFAULT_WIDTH } from "./views/sidebar/Sidebar";
+import { getRouteAnchor } from "./views/graph/nodeActivation";
 import { DataCache, DataCacheContext } from "./services/dataCache";
 import { FocusContext } from "./services/focus";
 import { colourStyles } from "./views/colours";
@@ -169,21 +170,34 @@ function LoadedApp({ data }: { data: Data }) {
     requestZoom,
   } = useSelectionAndRoute(data, settings);
 
+  // A graph "from"/"to" retargets the route around the anchor node, so a click
+  // on another node reroutes around the node selected in the path instead of
+  // around one of the endpoints. The selection stays on the anchor, which keeps
+  // repeated retargeting relative to the same node.
+  const routeAnchor =
+    getRouteAnchor(selectedId, path) ?? route.source.id ?? route.destination.id;
+
   const onSetAsSource = useMemo(() => {
     if (searchMode !== "path") return null;
     return (nodeId: string) => {
-      routeDispatch({ type: "set-id", slot: "source", id: nodeId });
-      setSelectedId(nodeId);
+      routeDispatch({
+        type: "set-route",
+        sourceId: nodeId,
+        destinationId: routeAnchor,
+      });
     };
-  }, [searchMode, routeDispatch, setSelectedId]);
+  }, [searchMode, routeDispatch, routeAnchor]);
 
   const onSetAsDestination = useMemo(() => {
     if (searchMode === "initial") return null;
     return (nodeId: string) => {
-      routeDispatch({ type: "set-id", slot: "destination", id: nodeId });
-      setSelectedId(nodeId);
+      routeDispatch({
+        type: "set-route",
+        sourceId: routeAnchor,
+        destinationId: nodeId,
+      });
     };
-  }, [searchMode, routeDispatch, setSelectedId]);
+  }, [searchMode, routeDispatch, routeAnchor]);
 
   // Mobile sidebar state
   const [mobileSidebarHeight, setMobileSidebarHeight] = useState(50); // percentage
@@ -354,8 +368,6 @@ function LoadedApp({ data }: { data: Data }) {
       setFocusedId={setFocusedId}
       visibleTypes={settings.visibleTypes}
       requestZoom={requestZoom}
-      onSetAsSource={onSetAsSource}
-      onSetAsDestination={onSetAsDestination}
       isMobile={isMobile}
     />
   );
