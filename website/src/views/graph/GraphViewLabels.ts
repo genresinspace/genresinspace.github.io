@@ -11,7 +11,12 @@ import {
 } from "../../data";
 import type { Camera } from "./Camera";
 import type { PathInfo } from "./pathInfo";
-import { getRouteAnchor, resolvePathNodeClick } from "./nodeActivation";
+import {
+  resolveRetarget,
+  resolvePathNodeClick,
+  Retarget,
+  RetargetRole,
+} from "./nodeActivation";
 import {
   MAX_VISIBLE_LABELS,
   LABEL_REFERENCE_AREA,
@@ -52,6 +57,8 @@ export interface LabelCallbacks {
   getHoveredId(): string | null;
   getSearchMode(): SearchMode;
   getPath(): string[] | null;
+  getSourceId(): string | null;
+  getDestinationId(): string | null;
   setSelectedId(id: string | null): void;
   setHoveredId(id: string | null): void;
   onSetAsSource(nodeId: string): void;
@@ -410,7 +417,22 @@ function createActionButtons(
   return { toBtn, fromBtn };
 }
 
-/** Update which action buttons are visible for the current mode and anchor. */
+/** Resolve a retarget for a label's button, or null when there is nothing to do. */
+function retargetFor(
+  nodeId: string,
+  role: RetargetRole,
+  callbacks: LabelCallbacks
+): Retarget | null {
+  return resolveRetarget(
+    nodeId,
+    role,
+    callbacks.getSelectedId(),
+    callbacks.getSourceId(),
+    callbacks.getDestinationId()
+  );
+}
+
+/** Update which action buttons are visible for the current mode and route. */
 function updateActionButtons(
   _el: HTMLDivElement,
   toBtn: HTMLButtonElement,
@@ -428,12 +450,14 @@ function updateActionButtons(
     btn.classList.remove("flex");
   };
 
-  // Both actions retarget the route around the anchor node: "from" makes the
-  // hovered node the source and the anchor the destination, "to" the reverse.
-  // The anchor has nothing to retarget against, so it gets neither button.
-  const anchor = getRouteAnchor(callbacks.getSelectedId(), callbacks.getPath());
-  const showTo = mode !== "initial" && anchor !== nodeId;
-  const showFrom = mode === "path" && anchor !== nodeId;
+  // Each button appears only where it would change the route: "from" sets the
+  // hovered node as the source, "to" as the destination, and the other end comes
+  // from the node selected in the path.
+  const showFrom =
+    mode === "path" && retargetFor(nodeId, "source", callbacks) !== null;
+  const showTo =
+    mode !== "initial" &&
+    retargetFor(nodeId, "destination", callbacks) !== null;
 
   if (showTo) show(toBtn);
   else hide(toBtn);
@@ -881,12 +905,12 @@ export class LabelManager {
           lpTimer = null;
           const mode = callbacks.getSearchMode();
           // Same availability rule as the desktop buttons.
-          const anchor = getRouteAnchor(
-            callbacks.getSelectedId(),
-            callbacks.getPath()
-          );
-          swipeShowFrom = mode === "path" && anchor !== nodeId;
-          swipeShowTo = mode !== "initial" && anchor !== nodeId;
+          swipeShowFrom =
+            mode === "path" &&
+            retargetFor(nodeId, "source", callbacks) !== null;
+          swipeShowTo =
+            mode !== "initial" &&
+            retargetFor(nodeId, "destination", callbacks) !== null;
           if (!swipeShowTo && !swipeShowFrom) return;
 
           longPressed = true;

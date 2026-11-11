@@ -13,7 +13,7 @@ import {
 } from "./data";
 
 import { Sidebar, SIDEBAR_DEFAULT_WIDTH } from "./views/sidebar/Sidebar";
-import { getRouteAnchor } from "./views/graph/nodeActivation";
+import { resolveRetarget, RetargetRole } from "./views/graph/nodeActivation";
 import { DataCache, DataCacheContext } from "./services/dataCache";
 import { FocusContext } from "./services/focus";
 import { colourStyles } from "./views/colours";
@@ -170,34 +170,44 @@ function LoadedApp({ data }: { data: Data }) {
     requestZoom,
   } = useSelectionAndRoute(data, settings);
 
-  // A graph "from"/"to" retargets the route around the anchor node, so a click
-  // on another node reroutes around the node selected in the path instead of
-  // around one of the endpoints. The selection stays on the anchor, which keeps
-  // repeated retargeting relative to the same node.
-  const routeAnchor =
-    getRouteAnchor(selectedId, path) ?? route.source.id ?? route.destination.id;
+  // A graph "from"/"to" sets one end of the route and keeps the node selected in
+  // the path as the other end, so the selected node is the fixed reference while
+  // the far end moves.
+  const retarget = useCallback(
+    (nodeId: string, role: RetargetRole) => {
+      const next = resolveRetarget(
+        nodeId,
+        role,
+        selectedId,
+        route.source.id,
+        route.destination.id
+      );
+      if (!next) return;
+      routeDispatch({ type: "set-route", ...next });
+      // The reference moved to the route's other end, because the selection held
+      // the role the hovered node just took. Follow it, so the next action
+      // measures from the node that stayed put.
+      const anchor = role === "source" ? next.destinationId : next.sourceId;
+      if (anchor !== selectedId) setSelectedId(anchor);
+    },
+    [
+      routeDispatch,
+      selectedId,
+      route.source.id,
+      route.destination.id,
+      setSelectedId,
+    ]
+  );
 
   const onSetAsSource = useMemo(() => {
     if (searchMode !== "path") return null;
-    return (nodeId: string) => {
-      routeDispatch({
-        type: "set-route",
-        sourceId: nodeId,
-        destinationId: routeAnchor,
-      });
-    };
-  }, [searchMode, routeDispatch, routeAnchor]);
+    return (nodeId: string) => retarget(nodeId, "source");
+  }, [searchMode, retarget]);
 
   const onSetAsDestination = useMemo(() => {
     if (searchMode === "initial") return null;
-    return (nodeId: string) => {
-      routeDispatch({
-        type: "set-route",
-        sourceId: routeAnchor,
-        destinationId: nodeId,
-      });
-    };
-  }, [searchMode, routeDispatch, routeAnchor]);
+    return (nodeId: string) => retarget(nodeId, "destination");
+  }, [searchMode, retarget]);
 
   // Mobile sidebar state
   const [mobileSidebarHeight, setMobileSidebarHeight] = useState(50); // percentage
@@ -386,6 +396,8 @@ function LoadedApp({ data }: { data: Data }) {
                 focusedId={focusedId}
                 path={path}
                 noPathEndpoints={noPathEndpoints}
+                sourceId={route.source.id}
+                destinationId={route.destination.id}
                 viewportOffsetX={viewportOffsetX}
                 viewportOffsetY={viewportOffsetY}
                 searchMode={searchMode}

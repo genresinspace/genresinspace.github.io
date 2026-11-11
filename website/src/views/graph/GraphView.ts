@@ -143,6 +143,10 @@ export class GraphView {
   // the broken connector. Always null while `path` is non-null.
   private noPathEndpoints: { source: string; destination: string } | null =
     null;
+  /** The two route slots, null when unset. Labels use them to work out which
+   *  retarget a node can offer. */
+  private sourceId: string | null = null;
+  private destinationId: string | null = null;
   private settings: SettingsData;
   private searchMode: SearchMode = "initial";
 
@@ -211,6 +215,8 @@ export class GraphView {
       focusedId?: string | null;
       path?: string[] | null;
       noPathEndpoints?: { source: string; destination: string } | null;
+      sourceId?: string | null;
+      destinationId?: string | null;
       searchMode?: SearchMode;
       viewportOffsetX?: number;
       viewportOffsetY?: number;
@@ -230,6 +236,9 @@ export class GraphView {
       if (initialState.path != null) this.path = initialState.path;
       if (initialState.noPathEndpoints != null)
         this.noPathEndpoints = initialState.noPathEndpoints;
+      if (initialState.sourceId != null) this.sourceId = initialState.sourceId;
+      if (initialState.destinationId != null)
+        this.destinationId = initialState.destinationId;
       if (initialState.searchMode != null)
         this.searchMode = initialState.searchMode;
     }
@@ -342,6 +351,8 @@ export class GraphView {
       getHoveredId: () => this.hoveredId,
       getSearchMode: () => this.searchMode,
       getPath: () => this.path,
+      getSourceId: () => this.sourceId,
+      getDestinationId: () => this.destinationId,
       setSelectedId: (id) => this.callbacks.setSelectedId(id),
       setHoveredId: (id) => this.setHoveredId(id),
       onSetAsSource: (id) => this.callbacks.onSetAsSource(id),
@@ -601,6 +612,19 @@ export class GraphView {
   setSearchMode(mode: SearchMode): void {
     if (mode === this.searchMode) return;
     this.searchMode = mode;
+    this.dirty.labels = true;
+    this.scheduleRender();
+  }
+
+  setRouteEndpoints(
+    sourceId: string | null,
+    destinationId: string | null
+  ): void {
+    if (sourceId === this.sourceId && destinationId === this.destinationId) {
+      return;
+    }
+    this.sourceId = sourceId;
+    this.destinationId = destinationId;
     this.dirty.labels = true;
     this.scheduleRender();
   }

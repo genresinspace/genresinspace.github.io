@@ -17,15 +17,49 @@ export function resolvePathNodeClick(
   return nodeId;
 }
 
+/** Which end of the route a graph "from"/"to" action sets. */
+export type RetargetRole = "source" | "destination";
+
+/** A complete route, in the shape the route reducer takes. */
+export type Retarget = { sourceId: string; destinationId: string };
+
 /**
- * The node a graph "from"/"to" retargets the route around: the selected node
- * when it lies on the current path, else the path's source. With no path, the
- * selection is the anchor by itself.
+ * Resolve a graph "from"/"to" action. The hovered node takes `role`; the node
+ * selected in the path takes the other role, which is what makes the selected
+ * node the fixed end while the far end moves.
+ *
+ * The selection keeps that job only while it can hold the other role. When the
+ * selection already holds `role`, the hovered node is about to take that role
+ * over, so the route's opposite end stands in for the selection. Without that
+ * rule a path A to B with B selected answers "to" on C with B to C, which drops
+ * the source the user was aiming from.
+ *
+ * Returns null when the result would pair a node with itself or repeat the
+ * route that is already set. Both are cases where the action cannot do
+ * anything, so a graph label offers no button for them.
  */
-export function getRouteAnchor(
+export function resolveRetarget(
+  hoveredId: string,
+  role: RetargetRole,
   selectedId: string | null,
-  path: string[] | null
-): string | null {
-  if (selectedId && (!path || path.includes(selectedId))) return selectedId;
-  return path && path.length > 0 ? path[0] : null;
+  sourceId: string | null,
+  destinationId: string | null
+): Retarget | null {
+  const replaced = role === "source" ? sourceId : destinationId;
+  const opposite = role === "source" ? destinationId : sourceId;
+  const partner = selectedId && selectedId !== replaced ? selectedId : opposite;
+  if (!partner || partner === hoveredId) return null;
+
+  const retarget =
+    role === "source"
+      ? { sourceId: hoveredId, destinationId: partner }
+      : { sourceId: partner, destinationId: hoveredId };
+
+  if (
+    retarget.sourceId === sourceId &&
+    retarget.destinationId === destinationId
+  ) {
+    return null;
+  }
+  return retarget;
 }
