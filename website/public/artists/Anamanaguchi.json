@@ -1,14 +1,14 @@
 {
   "name": "Anamanaguchi",
   "description": "'''Anamanaguchi''' is an American [[chiptune]]-based pop and rock band from New York City. The band has four members: lead songwriters and guitarists Peter Berkman and Ary Warnaar, bassist James DeVito, and drummer Luke Silas.\n\nAnamanaguchi combines digital electronic sounds such as those seen in [[chiptune]] and [[bitpop]] with traditional band instrumentation. As with other chiptune artists, they have created music using video game hardware from the mid- to late 1980s: namely a [[Nintendo Entertainment System|NES]] and a [[Game Boy]].",
-  "last_revision_date": "2026-09-02T11:39:18Z",
+  "last_revision_date": "2026-10-31T14:36:31Z",
   "genres": [
-    132,
-    247,
+    131,
+    246,
+    412,
     413,
-    414,
-    420,
+    419,
     611,
-    1032
+    1035
   ]
 }

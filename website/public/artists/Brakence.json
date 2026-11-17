@@ -1,14 +1,14 @@
 {
   "name": "Brakence",
-  "description": "'''Randall Todd \"Randy\" Findell''' (born December 17, 2001), known professionally as '''Brakence''' (stylized in [[all lowercase]]), is an American singer-songwriter, rapper, [[Record producer#Digital production|record producer]] and musician from [[Columbus, Ohio]] who is currently signed to [[Columbia Records]] and [[Sony Music]]. He is known for his [[hyperpop]]-influenced style which has been described as a mixture of [[Midwest emo]] and [[emo rap]], and his use of both [[baritone]] and [[falsetto]] vocals.",
-  "last_revision_date": "2026-10-06T15:39:54Z",
+  "description": "'''Randall Todd \"Randy\" Findell''' (born December 17, 2001), known professionally as '''Brakence''' (stylized \"brakence\"), is an American singer-songwriter, rapper, [[Record producer#Digital production|record producer]] and musician from [[Columbus, Ohio]] who is currently signed to [[Columbia Records]] and [[Sony Music]]. He is known for his [[hyperpop]]-influenced style which has been described as a mixture of [[Midwest emo]] and [[emo rap]], and his use of both [[baritone]] and [[falsetto]] vocals.",
+  "last_revision_date": "2026-11-05T20:24:23Z",
   "genres": [
-    361,
-    413,
+    360,
+    412,
+    421,
     422,
-    423,
     595,
-    797,
-    972
+    798,
+    975
   ]
 }

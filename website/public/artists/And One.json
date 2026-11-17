@@ -1,10 +1,11 @@
 {
   "name": "And One",
-  "description": "'''And One''' is a German new wave, synthpop, and EBM band founded by Steve Naghavi and Chris Ruiz in 1989.",
-  "last_revision_date": "2026-09-09T13:35:00Z",
+  "description": "'''And One''' is a German [[synth-pop]], new wave, and EBM band founded by Steve Naghavi and Chris Ruiz in 1989.",
+  "last_revision_date": "2026-10-30T09:29:43Z",
   "genres": [
-    412,
+    411,
     495,
-    875
+    876,
+    1235
   ]
 }

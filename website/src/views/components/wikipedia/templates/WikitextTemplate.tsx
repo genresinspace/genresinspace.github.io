@@ -86,6 +86,7 @@ const canonicalHandlers = {
   cite_web: hidden(),
   clear: hidden(),
   commons: hidden(),
+  commons_category: hidden(),
   disputed: hidden(),
   efn_portuguese_name: hidden(),
   external_media: hidden(),
@@ -184,6 +185,7 @@ const canonicalHandlers = {
   "ai-retrieved_source": fix("AI-retrieved source"),
   according_to_whom: fix("according to whom?"),
   better_source: fix("better source"),
+  better_source_needed: fix("better source needed"),
   broken_anchor: fix("broken anchor"),
   by_whom: fix("by whom?"),
   citation_needed: fix("citation needed"),
@@ -220,6 +222,7 @@ const canonicalHandlers = {
   which: fix("which?"),
   where: fix("where?"),
   who: fix("who?"),
+  with_whom: fix("with whom?"),
 
   // -- Component-based templates --------------------------------------------
   abbr: {
@@ -978,6 +981,7 @@ const aliases: [string, CanonicalTemplateName][] = [
   // hidden
   ["clear_left", "clear"],
   ["clear_right", "clear"],
+  ["commonscat", "commons_category"],
   ["culture_of_peru", "culture_of_colombia"],
   ["music-genre-stub", "music_genre_stub"],
   ["music_of_jamaica", "music_of_cape_verde"],
@@ -1010,6 +1014,7 @@ const aliases: [string, CanonicalTemplateName][] = [
 
   // fix
   ["according_to_whom?", "according_to_whom"],
+  ["better", "better_source_needed"],
   ["better_source_needed", "better_source"],
   ["by_whom?", "by_whom"],
   ["additional_citation_needed", "citation_needed"],
@@ -1031,6 +1036,7 @@ const aliases: [string, CanonicalTemplateName][] = [
   ["not_in_ref", "failed_verification"],
   ["not_in_source", "failed_verification"],
   ["notinref", "failed_verification"],
+  ["overcite", "excessive_citations_inline"],
   ["verification_failed", "failed_verification"],
   ["pn", "page_needed"],
   ["pronunciation?", "pronunciation_needed"],
@@ -1043,6 +1049,7 @@ const aliases: [string, CanonicalTemplateName][] = [
   ["which?", "which"],
   ["where?", "where"],
   ["who?", "who"],
+  ["with_whom?", "with_whom"],
 
   // component
   ["asof", "as_of"],

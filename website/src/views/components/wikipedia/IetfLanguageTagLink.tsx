@@ -137,6 +137,7 @@ export function IetfLanguageTagLink({
     sc: { pageTitle: "Sardinian language", name: "Sardinian" },
     se: { pageTitle: "Northern Sami", name: "Sami (Northern)" },
     sh: { pageTitle: "Serbo-Croatian" },
+    shi: { pageTitle: "Shilha language", name: "Tachelhit" },
     si: { pageTitle: "Sinhala language", name: "Sinhala" },
     sk: { pageTitle: "Slovak language", name: "Slovak" },
     sl: { pageTitle: "Slovene language", name: "Slovenian" },
